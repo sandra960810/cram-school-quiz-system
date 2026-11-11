@@ -39,14 +39,20 @@
 
     <!-- 功能選單 -->
     <div class="menu-grid">
-        <!-- 1. 單字學習與圖鑑（原本的單字學習區＋單字圖鑑合併） -->
-        <a href="/learn/{{ student.id }}" class="menu-card">
-            <div class="menu-icon">📚</div>
-            <div class="menu-title">單字學習與圖鑑</div>
-            <div class="menu-desc">依主題學單字、聽發音，學過的字自動收進圖鑑<br>收集進度：{{ unlocked_count }} / {{ total_count }} 字</div>
+        <!-- 1. 單字學習區 -->
+     <a href="/vocab_themes/{{ student.id }}" class="menu-card">
+            <div class="menu-title">單字學習區</div>
+            <div class="menu-desc">進行例句發音與熟悉度測驗</div>
         </a>
 
-        <!-- 2. 模擬測驗區 (預留給下一階段開發) -->
+        <!-- 2. 個人單字圖鑑 -->
+        <a href="/profile/{{ student.id }}" class="menu-card">
+            <div class="menu-icon">🏆</div>
+            <div class="menu-title">單字圖鑑</div>
+            <div class="menu-desc">查看 1-10000 字收集進度</div>
+        </a>
+
+        <!-- 3. 模擬測驗區 (預留給下一階段開發) -->
         <a href="#" class="menu-card locked-card" onclick="alert('模考系統開發中，敬請期待！')">
             <div class="menu-icon">📝</div>
             <div class="menu-title">模擬測驗區</div>
