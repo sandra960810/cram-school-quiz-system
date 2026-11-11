@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的收藏｜單字學習與圖鑑</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .header h1 { margin: 0; color: #2c3e50; font-size: 24px; }
+        .header p { margin: 5px 0 0 0; color: #7f8c8d; }
+        .nav-btn { background: #ecf0f1; color: #2c3e50; padding: 10px 16px; text-decoration: none; border-radius: 6px; font-weight: bold; white-space: nowrap; }
+        .actions { margin-top: 18px; }
+        .btn { padding: 12px 20px; font-size: 16px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block; background: #f1c40f; color: #2c3e50; }
+        .btn.disabled { background: #d5d8dc; color: #7f8c8d; pointer-events: none; }
+
+        .search-bar { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #bdc3c7; border-radius: 8px; box-sizing: border-box; margin-bottom: 20px; }
+        .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .dex-card { position: relative; display: block; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; background: white; border-top: 4px solid #f1c40f; text-decoration: none; color: inherit; transition: 0.2s; }
+        .dex-card:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .dex-card .theme { font-size: 11px; color: #95a5a6; text-align: left; margin-bottom: 5px; padding-right: 30px; }
+        .dex-card .word { font-size: 20px; font-weight: bold; color: #2c3e50; margin-bottom: 5px; word-break: break-word; }
+        .dex-card .meaning { font-size: 14px; color: #555; }
+        .dex-card .tag { display: inline-block; margin-top: 8px; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: #eaf2fb; color: #2471a3; }
+        .unfav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: none; border-radius: 50%; background: transparent; color: #f1c40f; font-size: 20px; cursor: pointer; padding: 0; line-height: 28px; }
+        .unfav:hover { background: #fef9e7; }
+        .empty-msg { text-align: center; color: #7f8c8d; padding: 50px 20px; background: white; border-radius: 10px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h1>⭐ 我的收藏</h1>
+                <p>{{ student.name }} 收藏了 <span id="fav-total">{{ cards|length }}</span> 個單字</p>
+            </div>
+            <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-btn">🔙 所有主題</a>
+        </div>
+        <div class="actions">
+            <a class="btn {% if not cards %}disabled{% endif %}" id="study-btn"
+               href="{{ url_for('learn_favorites_study', student_id=student.id) }}">
+                🔁 複習收藏的單字（{{ [cards|length, batch]|min }} 個）
+            </a>
+        </div>
+    </div>
+
+    {% if cards %}
+    <input type="text" id="searchInput" class="search-bar" onkeyup="searchFav()" placeholder="🔍 搜尋收藏的單字或意思">
+    <div class="dex-grid">
+        {% for item in cards %}
+            <a class="dex-card" href="{{ item.url }}" data-id="{{ item.id }}">
+                <button class="unfav" title="取消收藏" aria-label="取消收藏 {{ item.word }}"
+                        onclick="unfavorite(event, this, {{ item.id }})">★</button>
+                <div class="theme">{{ item.theme }}</div>
+                <div class="word">{{ item.word }}</div>
+                <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
+                {% if not item.is_unlocked %}<span class="tag">尚未收進圖鑑</span>{% endif %}
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="empty-msg" id="empty-msg" {% if cards %}style="display: none"{% endif %}>
+        還沒有收藏的單字。<br>學習或複習時，按單字卡右上角的 ☆ 就能收藏想加強的字。
+    </div>
+</div>
+
+<script>
+    const studentId = {{ student.id | tojson }};
+
+    async function unfavorite(event, btn, vocabId) {
+        event.preventDefault();
+        event.stopPropagation();
+        btn.disabled = true;
+        try {
+            const res = await fetch('/api/favorite', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: studentId, vocab_id: vocabId, favorite: false })
+            });
+            if (!res.ok) throw new Error(res.status);
+        } catch (e) {
+            btn.disabled = false;
+            alert('取消收藏沒有成功，請再試一次。');
+            return;
+        }
+        btn.closest('.dex-card').remove();
+        const left = document.querySelectorAll('.dex-card').length;
+        document.getElementById('fav-total').innerText = left;
+        const study = document.getElementById('study-btn');
+        study.innerText = `🔁 複習收藏的單字（${Math.min(left, {{ batch }})} 個）`;
+        if (!left) {
+            study.classList.add('disabled');
+            document.getElementById('empty-msg').style.display = '';
+            const search = document.getElementById('searchInput');
+            if (search) search.style.display = 'none';
+        }
+    }
+
+    function searchFav() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        for (const card of document.querySelectorAll('.dex-card')) {
+            const text = (card.querySelector('.word').innerText + ' ' + card.querySelector('.meaning').innerText).toLowerCase();
+            card.style.display = text.includes(input) ? '' : 'none';
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單字學習與圖鑑</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 1000px; }
+
+        .summary { background: linear-gradient(135deg, #6dd5ed, #2193b0); color: white; padding: 25px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .summary h1 { margin: 0 0 6px 0; font-size: 26px; }
+        .summary p { margin: 0 0 14px 0; opacity: 0.9; }
+        .bar { background: rgba(255,255,255,0.3); border-radius: 10px; height: 12px; overflow: hidden; }
+        .bar > div { background: white; height: 100%; }
+
+        .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .theme-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: flex; align-items: flex-start; transition: 0.2s; border-left: 6px solid #3498db; }
+        a.theme-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .theme-card.done { border-left-color: #2ecc71; }
+        .theme-card.empty { background: #ececec; border-left-color: #bdc3c7; cursor: not-allowed; }
+        .theme-card.empty .theme-icon { filter: grayscale(100%); }
+        .theme-icon { font-size: 32px; margin-right: 15px; }
+        .theme-content { flex: 1; }
+        .theme-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: #2c3e50; }
+        .theme-desc { font-size: 13px; color: #7f8c8d; line-height: 1.4; margin-bottom: 10px; }
+        .theme-progress { font-size: 13px; color: #2c3e50; margin-bottom: 5px; }
+        .mini-bar { background: #e8eef0; border-radius: 6px; height: 8px; overflow: hidden; }
+        .mini-bar > div { background: #2ecc71; height: 100%; }
+.fav-card { display: flex; align-items: center; background: #fffdf3; border: 2px solid #f7dc6f; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; text-decoration: none; color: inherit; transition: 0.2s; }
+        .fav-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+        .fav-card .theme-desc { margin-bottom: 0; }
+        .fav-count { font-size: 28px; font-weight: bold; color: #b7950b; margin-left: 15px; }
+                .back-btn { display: inline-block; margin-top: 30px; color: #3498db; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="summary">
+        <h1>📚 {{ student.enrolled_course }} 單字學習與圖鑑</h1>
+        <p>選一個主題開始學習，學過的字會自動收進圖鑑。目前收集：{{ unlocked_count }} / {{ total_count }} 字</p>
+        <div class="bar"><div style="width: {{ (unlocked_count * 100 / total_count) if total_count else 0 }}%"></div></div>
+    </div>
+
+    <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="fav-card">
+        <div class="theme-icon">⭐</div>
+        <div class="theme-content">
+            <div class="theme-title">我的收藏</div>
+            <div class="theme-desc">{% if favorite_count %}收藏了 {{ favorite_count }} 個單字，點進來集中複習{% else %}學習時按單字卡右上角的 ☆，就能把想加強的字收藏在這裡{% endif %}</div>
+        </div>
+        <div class="fav-count">{{ favorite_count }}</div>
+    </a>
+
+    <div class="theme-grid">
+        {% for t in themes %}
+            {% if t.total %}
+            <a href="{{ url_for('learn_theme', student_id=student.id, theme_key=t.key) }}"
+               class="theme-card {% if t.unlocked == t.total %}done{% endif %}">
+            {% else %}
+            <div class="theme-card empty" title="這個主題還沒有單字">
+            {% endif %}
+                <div class="theme-icon">{{ t.icon }}</div>
+                <div class="theme-content">
+                    <div class="theme-title">{{ t.label }}</div>
+                    <div class="theme-desc">{{ t.desc }}</div>
+                    {% if t.total %}
+                        <div class="theme-progress">圖鑑 {{ t.unlocked }} / {{ t.total }} 字{% if t.unlocked == t.total %} ✅ 已集滿{% endif %}</div>
+                        <div class="mini-bar"><div style="width: {{ t.unlocked * 100 / t.total }}%"></div></div>
+                    {% else %}
+                        <div class="theme-progress">字庫建置中</div>
+                    {% endif %}
+                </div>
+            {% if t.total %}</a>{% else %}</div>{% endif %}
+        {% endfor %}
+    </div>
+
+    <a href="/dashboard/{{ student.id }}" class="back-btn">🔙 返回主介面</a>
+</div>
+</body>
+</html>

@@ -1,56 +1,71 @@
-import os
 from app import app, db, Vocabulary, Student
+
+AWL_THEME = "11 雅思學術高頻字彙"
+
+
+def parse_word_list(filepath):
+    """解析「單字: 解釋」格式的字典檔。
+
+    原始檔有些解釋太長會換到下一行（下一行沒有冒號），
+    這些行要接回上一個單字的解釋，不然解釋會被截斷。
+    """
+    entries = []  # [(word, meaning)]
+    with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
+        for raw in f:
+            line = raw.strip()
+            if not line:
+                continue
+            if ':' in line:
+                word, meaning = (p.strip() for p in line.split(':', 1))
+                if word and meaning:
+                    entries.append([word, meaning])
+                continue
+            # 沒有冒號：單一字母標題（A、B…）或檔頭直接略過，其餘是上一行解釋的延續
+            if len(line) > 1 and entries and not line.isupper():
+                entries[-1][1] = f"{entries[-1][1]} {line}"
+    return [(w, m) for w, m in entries]
+
 
 def import_raw_txt_to_db(filepath):
     with app.app_context():
         # 1. 確保資料庫有我們的測試學生
         if not Student.query.filter_by(token="test_token_123").first():
-            student1 = Student(token="test_token_123", name="王小明", enrolled_course="IELTS")
-            db.session.add(student1)
+            db.session.add(Student(token="test_token_123", name="王小明", enrolled_course="IELTS"))
             db.session.commit()
 
         print(f"開始解析並匯入 {filepath} 的單字庫...")
         added_count = 0
-        
-        # 2. 開啟並讀取這個非標準格式的檔案
-        with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
-            for line in f:
-                line = line.strip()
-                
-                # 如果這行是空的，或是沒有包含冒號 ':' (例如標題 "A", "B")，就略過
-                if not line or ':' not in line:
-                    continue
-                
-                # 用冒號把字串切成兩半：前面是單字，後面是意思
-                parts = line.split(':', 1)
-                if len(parts) == 2:
-                    word = parts[0].strip()
-                    meaning = parts[1].strip()
-                    
-                    if word and meaning:
-                        # 檢查單字是否已經在資料庫中
-                        exists = Vocabulary.query.filter_by(word=word, category="IELTS").first()
-                        if not exists:
-                            new_word = Vocabulary(
-                                category="IELTS", 
-                                level="不分級", 
-                                theme="11 雅思學術高頻字彙", # 預設分配一個新主題給這 4000 字
-                                word=word, 
-                                meaning=meaning, 
-                                sentence="無例句 (由公開字典檔匯入)" # 因為來源沒有例句，所以給個預設值
-                            )
-                            db.session.add(new_word)
-                            added_count += 1
-                            
-                            # 每處理 500 個字就寫入資料庫一次，避免記憶體爆炸
-                            if added_count % 500 == 0:
-                                db.session.commit()
-                                print(f"進度報告：已成功匯入 {added_count} 個單字...")
+        fixed_count = 0
+        existing = {v.word: v for v in Vocabulary.query.filter_by(category="IELTS").all()}
 
-        # 3. 把剩下的字也存進去
+        for word, meaning in parse_word_list(filepath):
+            current = existing.get(word)
+            if current:
+                # 之前匯入時被截斷的解釋：用完整版本補上（只更新本字庫匯入的字）
+                if current.theme == AWL_THEME and current.meaning != meaning \
+                        and meaning.startswith(current.meaning):
+                    current.meaning = meaning
+                    fixed_count += 1
+                continue
+
+            new_word = Vocabulary(
+                category="IELTS",
+                level="不分級",
+                theme=AWL_THEME,
+                word=word,
+                meaning=meaning,
+                sentence="無例句 (由公開字典檔匯入)",  # 來源沒有例句，學習頁會自動隱藏例句區
+            )
+            db.session.add(new_word)
+            existing[word] = new_word
+            added_count += 1
+            if added_count % 500 == 0:
+                db.session.commit()
+                print(f"進度報告：已成功匯入 {added_count} 個單字...")
+
         db.session.commit()
-        print(f"🎉 匯入大功告成！總共為資料庫新增了 {added_count} 個全新的雅思單字。")
+        print(f"🎉 匯入完成！新增 {added_count} 個單字，補齊 {fixed_count} 個被截斷的解釋。")
+
 
 if __name__ == '__main__':
-    # 確認檔案名稱與你下載的一致
     import_raw_txt_to_db('ielts.csv')

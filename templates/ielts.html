@@ -3,106 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字閃卡複習</title>
+    <title>{{ {'review': '單字複習', 'view': '單字卡', 'fav': '收藏複習'}.get(mode, '單字學習') }}｜{{ theme.label }}</title>
     <style>
-        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; text-align: center; }
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .card { position: relative; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; max-width: 100%; text-align: center; }
         .theme-badge { display: inline-block; background-color: #e8f4f8; color: #2980b9; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
-        .word { font-size: 36px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
-        .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 20px; }
-        .sentence { font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; border-left: 4px solid #bdc3c7; }
-        
-        .btn { padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin: 5px; font-weight: bold; transition: 0.2s; }
+        .mode-badge { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-left: 5px; }
+        .mode-new { background: #eaf2fb; color: #2471a3; }
+        .mode-review { background: #e9f7ef; color: #1e8449; }
+        .mode-view { background: #fef5e7; color: #b9770e; }
+        .mode-fav { background: #fef9e7; color: #b7950b; }
+        .fav-btn { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: #bdc3c7; cursor: pointer; padding: 0; transition: 0.2s; }
+        .fav-btn:hover { background: #fef9e7; color: #f1c40f; }
+        .fav-btn.on { color: #f1c40f; }
+        .fav-btn:disabled { opacity: 0.5; cursor: wait; }
+        .toast { min-height: 1.2em; font-size: 13px; color: #b7950b; margin-top: -8px; margin-bottom: 8px; }
+        .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .word { font-size: 36px; font-weight: bold; color: #2c3e50; word-break: break-word; }
+        .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: #e8f4f8; color: #2980b9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: 0.2s; }
+        .play-btn:hover { background: #3498db; color: white; }
+        .play-btn.small { width: 30px; height: 30px; }
+        .play-btn.small svg { width: 16px; height: 16px; }
+        .pos { font-size: 14px; color: #95a5a6; font-style: italic; margin-bottom: 6px; min-height: 1em; }
+        .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 6px; }
+        .meaning-en { font-size: 14px; color: #95a5a6; margin-bottom: 20px; line-height: 1.4; }
+        .sentence-zh { display: block; font-style: normal; color: #7f8c8d; font-size: 14px; margin-top: 6px; }
+        .sentence { display: flex; align-items: center; gap: 10px; text-align: left; font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #bdc3c7; }
+        .sentence-body { flex: 1; }
+        #sentence-text { font-style: italic; }
+
+        .btn { padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin: 5px 0; font-weight: bold; transition: 0.2s; }
         .btn:hover { opacity: 0.9; }
-        
-        /* 雙發音按鈕排版 */
-        .audio-controls { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .btn-audio { background: #e0e0e0; color: #2c3e50; width: 48%; }
-        
-        /* 下一個按鈕 */
-        .btn-next { background: #3498db; color: white; width: 100%; font-size: 18px; padding: 15px; margin-top: 10px; }
-        
+        .btn:disabled { opacity: 0.5; cursor: wait; }
+        .btn-next { background: #3498db; color: white; width: 100%; font-size: 18px; padding: 15px; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
+        .btn-secondary { background: #ecf0f1; color: #2c3e50; width: 100%; display: block; text-decoration: none; box-sizing: border-box; }
         .progress { margin-top: 20px; font-size: 14px; color: #95a5a6; }
+        .error { color: #c0392b; font-size: 14px; margin-top: 10px; min-height: 1em; }
+        .back-link { display: block; margin-top: 15px; color: #95a5a6; text-decoration: none; font-size: 14px; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div id="theme-display" class="theme-badge">主題載入中...</div>
-    <div id="word-display" class="word">單字載入中...</div>
-    <div id="meaning-display" class="meaning"></div>
-    
-    <!-- 拆分為兩個獨立發音按鈕 -->
-    <div class="audio-controls">
-        <button class="btn btn-audio" onclick="playWord()">🔊 播放單字</button>
-        <button class="btn btn-audio" onclick="playSentence()">🔊 播放例句</button>
+    <button class="fav-btn" id="fav-btn" onclick="toggleFavorite()" title="加入收藏" aria-label="加入收藏" aria-pressed="false">☆</button>
+    <div>
+        <span id="theme-display" class="theme-badge">🏷️ {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
+        <span class="mode-badge mode-{{ mode }}">{{ {'review': '🔁 複習', 'view': '📖 圖鑑', 'fav': '⭐ 收藏複習'}.get(mode, '✨ 新單字') }}</span>
     </div>
-    
-    <div id="sentence-display" class="sentence"></div>
-    
-    <!-- 取代熟/不熟的單一按鈕 -->
-    <button class="btn btn-next" onclick="nextWord()">➔ 下一個</button>
-    
+    <div class="word-row">
+        <span id="word-display" class="word">單字載入中...</span>
+        <button class="play-btn" onclick="playWord()" title="播放單字" aria-label="播放單字"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
+    </div>
+    <div id="pos-display" class="pos"></div>
+    <div id="meaning-display" class="meaning"></div>
+    <div id="meaning-en-display" class="meaning-en"></div>
+    <div id="fav-toast" class="toast"></div>
+
+    <div id="sentence-display" class="sentence">
+        <div class="sentence-body"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
+        <button class="play-btn small" onclick="playSentence()" title="播放例句" aria-label="播放例句"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
+    </div>
+
+    {% if mode != 'view' %}
+    <button class="btn btn-next" id="next-btn" onclick="nextWord()">
+        {{ '✅ 記住了，收進圖鑑' if mode == 'new' else '➔ 下一個' }}
+    </button>
+    <div id="error-display" class="error"></div>
+
     <div id="progress-display" class="progress">進度：0 / 0</div>
-    <a href="/profile/{{ student_id }}" style="display: block; margin-top: 15px; color: #95a5a6; text-decoration: none; font-size: 14px;">返回圖鑑</a>
+    {% endif %}
+    <a href="{{ back_url }}" class="back-link">{{ back_label or '返回主題圖鑑' }}</a>
 </div>
 
 <script>
-    let wordsQueue = {{ words | tojson }};
-    let studentId = {{ student_id }}; 
+    const wordsQueue = {{ words | tojson }};
+    const studentId = {{ student_id | tojson }};
+    const mode = {{ mode | tojson }};
+    const backUrl = {{ back_url | tojson }};
+    const againUrl = {{ again_url | tojson }};
+    const homeUrl = {{ home_url | tojson }};
+    const backLabel = {{ (back_label or '回到主題圖鑑') | tojson }};
+    const totalWords = wordsQueue.length;
     let currentWord = null;
     let completedCount = 0;
-    const totalWords = wordsQueue.length;
+
+    function finish(title) {
+        const again = totalWords
+            ? `<a href="${againUrl}" class="btn btn-next">${mode === 'new' ? '▶ 再學下一批' : '🔁 再複習一輪'}</a>`
+            : '';
+        document.querySelector('.card').innerHTML = `
+            <h2 style="color: #2c3e50; margin-bottom: 30px;">${title}</h2>
+            ${again}
+            <a href="${backUrl}" class="btn btn-secondary">📖 ${backLabel.replace('返回', '回到')}</a>
+            <a href="${homeUrl}" class="btn btn-secondary">🔙 選擇其他主題</a>
+        `;
+    }
 
     function loadWord() {
         if (wordsQueue.length === 0) {
-            document.querySelector('.card').innerHTML = `
-                <h2 style="color: #2c3e50; margin-bottom: 30px;">🎉 複習完成！<br>本主題單字已結束。</h2>
-                <a href="/vocab_themes/${studentId}" class="btn btn-next" style="display: block; text-decoration: none; box-sizing: border-box;">
-                    🔙 選擇其他主題
-                </a>
-            `;
+            if (totalWords === 0) {
+                finish({review: '這裡還沒有已解鎖的單字，<br>先去學幾個新單字吧！',
+                        fav: '還沒有收藏的單字，<br>學習時按右上角的 ☆ 就能收藏。'}[mode] || '🎉 這裡的單字都收進圖鑑了！');
+            } else {
+                finish(mode === 'new' ? `🎉 學習完成！<br>${totalWords} 個單字已收進圖鑑。` : `🎉 複習完成！<br>本輪複習了 ${totalWords} 個單字。`);
+            }
             return;
         }
-        
+
         currentWord = wordsQueue.shift();
-        
-        document.getElementById('theme-display').innerText = `🏷️ ${currentWord.theme}`;
         document.getElementById('word-display').innerText = currentWord.word;
+        document.getElementById('pos-display').innerText = currentWord.pos || '';
         document.getElementById('meaning-display').innerText = currentWord.meaning;
-        document.getElementById('sentence-display').innerText = currentWord.sentence;
-        document.getElementById('progress-display').innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
+        document.getElementById('meaning-en-display').innerText = currentWord.meaning_en || '';
+        const sentenceBox = document.getElementById('sentence-display');
+        if (currentWord.sentence) {
+            document.getElementById('sentence-text').innerText = currentWord.sentence;
+            document.getElementById('sentence-zh').innerText = currentWord.sentence_zh || '';
+            sentenceBox.style.display = '';
+        } else {
+            sentenceBox.style.display = 'none';
+        }
+        renderFavorite();
+        document.getElementById('fav-toast').innerText = '';
+        // 收藏複習的字來自不同主題：標籤顯示這個字自己的主題
+        if (mode === 'fav') document.getElementById('theme-display').innerText = `🏷️ ${currentWord.theme}`;
+        const progress = document.getElementById('progress-display');
+        if (progress) progress.innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
     }
 
-    // 點擊下一個 (會在背景發送 API 解鎖圖鑑，然後切換畫面)
+    // 學習模式：按下去才把這個字解鎖進圖鑑；複習模式：字已經在圖鑑裡，只更新複習時間
     async function nextWord() {
         if (!currentWord) return;
-        
-        await fetch('/api/update_progress', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, status: 'familiar' })
-        });
-
+        const btn = document.getElementById('next-btn');
+        const err = document.getElementById('error-display');
+        btn.disabled = true;
+        err.innerText = '';
+        try {
+            const res = await fetch('/api/update_progress', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, status: 'familiar' })
+            });
+            if (!res.ok) throw new Error(res.status);
+        } catch (e) {
+            err.innerText = '進度沒有存到，請檢查網路後再按一次。';
+            btn.disabled = false;
+            return;
+        }
+        btn.disabled = false;
         completedCount++;
         loadWord();
     }
 
-    // 獨立播放單字
-    function playWord() {
-        if (!currentWord) return;
-        let utterance = new SpeechSynthesisUtterance(currentWord.word);
-        utterance.lang = 'en-US';
-        window.speechSynthesis.speak(utterance);
+    function renderFavorite() {
+        const btn = document.getElementById('fav-btn');
+        const on = !!(currentWord && currentWord.is_favorite);
+        btn.classList.toggle('on', on);
+        btn.innerText = on ? '★' : '☆';
+        btn.title = on ? '取消收藏' : '加入收藏';
+        btn.setAttribute('aria-label', btn.title);
+        btn.setAttribute('aria-pressed', on);
     }
 
-    // 獨立播放例句
-    function playSentence() {
+    async function toggleFavorite() {
         if (!currentWord) return;
-        let utterance = new SpeechSynthesisUtterance(currentWord.sentence);
+        const btn = document.getElementById('fav-btn');
+        const toast = document.getElementById('fav-toast');
+        const want = !currentWord.is_favorite;
+        btn.disabled = true;
+        try {
+            const res = await fetch('/api/favorite', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, favorite: want })
+            });
+            if (!res.ok) throw new Error(res.status);
+            currentWord.is_favorite = want;
+            toast.innerText = want ? '⭐ 已加入我的收藏' : '已取消收藏';
+        } catch (e) {
+            toast.innerText = '收藏沒有存到，請再按一次。';
+        }
+        btn.disabled = false;
+        renderFavorite();
+    }
+
+    function speak(text) {
+        if (!text || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
         window.speechSynthesis.speak(utterance);
     }
+    function playWord() { if (currentWord) speak(currentWord.word); }
+    function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
     window.onload = loadWord;
 </script>
