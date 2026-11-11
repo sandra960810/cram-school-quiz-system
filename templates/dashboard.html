@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測驗系統主介面</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        .dashboard-container { max-width: 800px; width: 100%; }
+        
+        /* 歡迎看板 */
+        .welcome-banner { background: linear-gradient(135deg, #6dd5ed, #2193b0); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .welcome-banner h1 { margin: 0 0 10px 0; font-size: 28px; }
+        .welcome-banner p { margin: 0; font-size: 16px; opacity: 0.9; }
+
+        /* 選單網格 */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
+        /* 選單卡片 */
+        .menu-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; text-decoration: none; color: #2c3e50; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
+        .menu-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .menu-icon { font-size: 40px; margin-bottom: 15px; }
+        .menu-title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+        .menu-desc { font-size: 14px; color: #7f8c8d; }
+        
+        /* 未開放卡片樣式 */
+        .locked-card { background: #e0e0e0; cursor: not-allowed; }
+        .locked-card .menu-icon { filter: grayscale(100%); }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <!-- 歡迎看板 -->
+    <div class="welcome-banner">
+        <h1>👋 歡迎回來，{{ student.name }}</h1>
+        <p>目前選修課程：{{ student.enrolled_course }} ｜ 已熟悉單字：{{ unlocked_count }} 字</p>
+    </div>
+
+    <!-- 功能選單 -->
+    <div class="menu-grid">
+        <!-- 1. 單字學習區 -->
+     <a href="/vocab_themes/{{ student.id }}" class="menu-card">
+            <div class="menu-title">單字學習區</div>
+            <div class="menu-desc">進行例句發音與熟悉度測驗</div>
+        </a>
+
+        <!-- 2. 個人單字圖鑑 -->
+        <a href="/profile/{{ student.id }}" class="menu-card">
+            <div class="menu-icon">🏆</div>
+            <div class="menu-title">單字圖鑑</div>
+            <div class="menu-desc">查看 1-10000 字收集進度</div>
+        </a>
+
+        <!-- 3. 模擬測驗區 (預留給下一階段開發) -->
+        <a href="#" class="menu-card locked-card" onclick="alert('模考系統開發中，敬請期待！')">
+            <div class="menu-icon">📝</div>
+            <div class="menu-title">模擬測驗區</div>
+            <div class="menu-desc">聽力/閱讀/寫作/口說模考</div>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

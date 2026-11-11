@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單字閃卡複習</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; text-align: center; }
+        .theme-badge { display: inline-block; background-color: #e8f4f8; color: #2980b9; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+        .word { font-size: 36px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
+        .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 20px; }
+        .sentence { font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; border-left: 4px solid #bdc3c7; }
+        
+        .btn { padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin: 5px; font-weight: bold; transition: 0.2s; }
+        .btn:hover { opacity: 0.9; }
+        
+        /* 雙發音按鈕排版 */
+        .audio-controls { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .btn-audio { background: #e0e0e0; color: #2c3e50; width: 48%; }
+        
+        /* 下一個按鈕 */
+        .btn-next { background: #3498db; color: white; width: 100%; font-size: 18px; padding: 15px; margin-top: 10px; }
+        
+        .progress { margin-top: 20px; font-size: 14px; color: #95a5a6; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="theme-display" class="theme-badge">主題載入中...</div>
+    <div id="word-display" class="word">單字載入中...</div>
+    <div id="meaning-display" class="meaning"></div>
+    
+    <!-- 拆分為兩個獨立發音按鈕 -->
+    <div class="audio-controls">
+        <button class="btn btn-audio" onclick="playWord()">🔊 播放單字</button>
+        <button class="btn btn-audio" onclick="playSentence()">🔊 播放例句</button>
+    </div>
+    
+    <div id="sentence-display" class="sentence"></div>
+    
+    <!-- 取代熟/不熟的單一按鈕 -->
+    <button class="btn btn-next" onclick="nextWord()">➔ 下一個</button>
+    
+    <div id="progress-display" class="progress">進度：0 / 0</div>
+    <a href="/profile/{{ student_id }}" style="display: block; margin-top: 15px; color: #95a5a6; text-decoration: none; font-size: 14px;">返回圖鑑</a>
+</div>
+
+<script>
+    let wordsQueue = {{ words | tojson }};
+    let studentId = {{ student_id }}; 
+    let currentWord = null;
+    let completedCount = 0;
+    const totalWords = wordsQueue.length;
+
+    function loadWord() {
+        if (wordsQueue.length === 0) {
+            document.querySelector('.card').innerHTML = `
+                <h2 style="color: #2c3e50; margin-bottom: 30px;">🎉 複習完成！<br>本主題單字已結束。</h2>
+                <a href="/vocab_themes/${studentId}" class="btn btn-next" style="display: block; text-decoration: none; box-sizing: border-box;">
+                    🔙 選擇其他主題
+                </a>
+            `;
+            return;
+        }
+        
+        currentWord = wordsQueue.shift();
+        
+        document.getElementById('theme-display').innerText = `🏷️ ${currentWord.theme}`;
+        document.getElementById('word-display').innerText = currentWord.word;
+        document.getElementById('meaning-display').innerText = currentWord.meaning;
+        document.getElementById('sentence-display').innerText = currentWord.sentence;
+        document.getElementById('progress-display').innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
+    }
+
+    // 點擊下一個 (會在背景發送 API 解鎖圖鑑，然後切換畫面)
+    async function nextWord() {
+        if (!currentWord) return;
+        
+        await fetch('/api/update_progress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, status: 'familiar' })
+        });
+
+        completedCount++;
+        loadWord();
+    }
+
+    // 獨立播放單字
+    function playWord() {
+        if (!currentWord) return;
+        let utterance = new SpeechSynthesisUtterance(currentWord.word);
+        utterance.lang = 'en-US';
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // 獨立播放例句
+    function playSentence() {
+        if (!currentWord) return;
+        let utterance = new SpeechSynthesisUtterance(currentWord.sentence);
+        utterance.lang = 'en-US';
+        window.speechSynthesis.speak(utterance);
+    }
+
+    window.onload = loadWord;
+</script>
+
+</body>
+</html>

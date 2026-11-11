@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ student.name }} 的學習檔案</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header-info h1 { margin: 0; color: #2c3e50; }
+        .header-info p { margin: 5px 0 0 0; color: #7f8c8d; }
+        .nav-btn { background: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        
+        /* 搜尋列設計 */
+        .search-bar { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #bdc3c7; border-radius: 8px; box-sizing: border-box; margin-bottom: 20px; }
+        
+        /* 圖鑑網格排版 (自適應寬度) */
+        .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        
+        /* 單字卡片共通樣式 */
+        .dex-card { padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
+        .dex-card .number { font-size: 12px; font-weight: bold; color: #95a5a6; margin-bottom: 5px; text-align: left; }
+        .dex-card .word { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+        .dex-card .meaning { font-size: 14px; color: #555; }
+
+        /* 解鎖狀態 (彩色) */
+        .unlocked { background: white; border-top: 4px solid #2ecc71; }
+        .unlocked .word { color: #2c3e50; }
+
+        /* 未解鎖狀態 (反灰/隱藏中文) */
+        .locked { background: #e0e0e0; border-top: 4px solid #95a5a6; color: #7f8c8d; }
+        .locked .word { color: #7f8c8d; }
+        .locked .meaning { filter: blur(4px); user-select: none; } /* 將中文模糊處理，增加神祕感 */
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-info">
+            <h1>🎓 {{ student.name }} 的個人檔案</h1>
+            <p>課程：{{ student.enrolled_course }} | 圖鑑收集進度：{{ unlocked_count }} / {{ total_count }}</p>
+        </div>
+        <a href="/vocab/{{ student.id }}" class="nav-btn">🔙 返回單字學習區</a>
+    </div>
+
+    <!-- 搜尋列 -->
+    <input type="text" id="searchInput" class="search-bar" onkeyup="searchDex()" placeholder="🔍 搜尋單字或中文意思...">
+
+    <!-- 圖鑑網格 -->
+    <div class="dex-grid" id="dexGrid">
+        {% for item in collection %}
+            {% if item.is_unlocked %}
+                <!-- 已解鎖的卡片 -->
+                <div class="dex-card unlocked">
+                    <div class="number"># {{ item.number }}</div>
+                    <div class="word">{{ item.word }}</div>
+                    <div class="meaning">{{ item.meaning }}</div>
+                </div>
+            {% else %}
+                <!-- 未解鎖的卡片 -->
+                <div class="dex-card locked">
+                    <div class="number"># {{ item.number }}</div>
+                    <div class="word">??? (未解鎖)</div>
+                    <div class="meaning">未知單字</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <script>
+        // 搜尋功能邏輯
+        function searchDex() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('dex-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                // 取得卡片內的英文與中文
+                let wordText = cards[i].querySelector('.word').innerText.toLowerCase();
+                let meaningText = cards[i].querySelector('.meaning').innerText.toLowerCase();
+                
+                // 檢查是否包含搜尋字串 (未解鎖的卡片因為文字是 '???'，自然搜不到真實單字，防止作弊)
+                if (wordText.includes(input) || meaningText.includes(input)) {
+                    cards[i].style.display = ""; // 顯示
+                } else {
+                    cards[i].style.display = "none"; // 隱藏
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
