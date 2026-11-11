@@ -11,18 +11,23 @@
         .mode-badge { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-left: 5px; }
         .mode-new { background: #eaf2fb; color: #2471a3; }
         .mode-review { background: #e9f7ef; color: #1e8449; }
-        .word { font-size: 36px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; word-break: break-word; }
+        .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .word { font-size: 36px; font-weight: bold; color: #2c3e50; word-break: break-word; }
+        .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: #e8f4f8; color: #2980b9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: 0.2s; }
+        .play-btn:hover { background: #3498db; color: white; }
+        .play-btn.small { width: 30px; height: 30px; }
+        .play-btn.small svg { width: 16px; height: 16px; }
         .pos { font-size: 14px; color: #95a5a6; font-style: italic; margin-bottom: 6px; min-height: 1em; }
         .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 6px; }
         .meaning-en { font-size: 14px; color: #95a5a6; margin-bottom: 20px; line-height: 1.4; }
         .sentence-zh { display: block; font-style: normal; color: #7f8c8d; font-size: 14px; margin-top: 6px; }
-        .sentence { font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; border-left: 4px solid #bdc3c7; }
+        .sentence { display: flex; align-items: center; gap: 10px; text-align: left; font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #bdc3c7; }
+        .sentence-body { flex: 1; }
+        #sentence-text { font-style: italic; }
 
         .btn { padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin: 5px 0; font-weight: bold; transition: 0.2s; }
         .btn:hover { opacity: 0.9; }
         .btn:disabled { opacity: 0.5; cursor: wait; }
-        .audio-controls { display: flex; justify-content: space-between; gap: 4%; margin-bottom: 20px; }
-        .btn-audio { background: #e0e0e0; color: #2c3e50; flex: 1; }
         .btn-next { background: #3498db; color: white; width: 100%; font-size: 18px; padding: 15px; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
         .btn-secondary { background: #ecf0f1; color: #2c3e50; width: 100%; display: block; text-decoration: none; box-sizing: border-box; }
         .progress { margin-top: 20px; font-size: 14px; color: #95a5a6; }
@@ -37,17 +42,18 @@
         <span id="theme-display" class="theme-badge">🏷️ {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
         <span class="mode-badge {{ 'mode-review' if mode == 'review' else 'mode-new' }}">{{ '🔁 複習' if mode == 'review' else '✨ 新單字' }}</span>
     </div>
-    <div id="word-display" class="word">單字載入中...</div>
+    <div class="word-row">
+        <span id="word-display" class="word">單字載入中...</span>
+        <button class="play-btn" onclick="playWord()" title="播放單字" aria-label="播放單字"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
+    </div>
     <div id="pos-display" class="pos"></div>
     <div id="meaning-display" class="meaning"></div>
     <div id="meaning-en-display" class="meaning-en"></div>
 
-    <div class="audio-controls">
-        <button class="btn btn-audio" onclick="playWord()">🔊 播放單字</button>
-        <button class="btn btn-audio" id="sentence-audio-btn" onclick="playSentence()">🔊 播放例句</button>
+    <div id="sentence-display" class="sentence">
+        <div class="sentence-body"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
+        <button class="play-btn small" onclick="playSentence()" title="播放例句" aria-label="播放例句"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
     </div>
-
-    <div id="sentence-display" class="sentence"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
 
     <button class="btn btn-next" id="next-btn" onclick="nextWord()">
         {{ '➔ 下一個' if mode == 'review' else '✅ 記住了，收進圖鑑' }}
@@ -97,15 +103,12 @@
         document.getElementById('meaning-display').innerText = currentWord.meaning;
         document.getElementById('meaning-en-display').innerText = currentWord.meaning_en || '';
         const sentenceBox = document.getElementById('sentence-display');
-        const sentenceBtn = document.getElementById('sentence-audio-btn');
         if (currentWord.sentence) {
             document.getElementById('sentence-text').innerText = currentWord.sentence;
             document.getElementById('sentence-zh').innerText = currentWord.sentence_zh || '';
             sentenceBox.style.display = '';
-            sentenceBtn.style.display = '';
         } else {
             sentenceBox.style.display = 'none';
-            sentenceBtn.style.display = 'none';
         }
         document.getElementById('progress-display').innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
     }
