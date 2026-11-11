@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ '單字複習' if mode == 'review' else '單字學習' }}｜{{ theme.label }}</title>
+    <title>{{ {'review': '單字複習', 'view': '單字卡'}.get(mode, '單字學習') }}｜{{ theme.label }}</title>
     <style>
         body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
         .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; max-width: 100%; text-align: center; }
@@ -11,6 +11,7 @@
         .mode-badge { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-left: 5px; }
         .mode-new { background: #eaf2fb; color: #2471a3; }
         .mode-review { background: #e9f7ef; color: #1e8449; }
+        .mode-view { background: #fef5e7; color: #b9770e; }
         .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; }
         .word { font-size: 36px; font-weight: bold; color: #2c3e50; word-break: break-word; }
         .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: #e8f4f8; color: #2980b9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: 0.2s; }
@@ -40,7 +41,7 @@
 <div class="card">
     <div>
         <span id="theme-display" class="theme-badge">🏷️ {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
-        <span class="mode-badge {{ 'mode-review' if mode == 'review' else 'mode-new' }}">{{ '🔁 複習' if mode == 'review' else '✨ 新單字' }}</span>
+        <span class="mode-badge mode-{{ mode }}">{{ {'review': '🔁 複習', 'view': '📖 圖鑑'}.get(mode, '✨ 新單字') }}</span>
     </div>
     <div class="word-row">
         <span id="word-display" class="word">單字載入中...</span>
@@ -55,12 +56,14 @@
         <button class="play-btn small" onclick="playSentence()" title="播放例句" aria-label="播放例句"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
     </div>
 
+    {% if mode != 'view' %}
     <button class="btn btn-next" id="next-btn" onclick="nextWord()">
         {{ '➔ 下一個' if mode == 'review' else '✅ 記住了，收進圖鑑' }}
     </button>
     <div id="error-display" class="error"></div>
 
     <div id="progress-display" class="progress">進度：0 / 0</div>
+    {% endif %}
     <a href="{{ back_url }}" class="back-link">返回主題圖鑑</a>
 </div>
 
@@ -110,7 +113,8 @@
         } else {
             sentenceBox.style.display = 'none';
         }
-        document.getElementById('progress-display').innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
+        const progress = document.getElementById('progress-display');
+        if (progress) progress.innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
     }
 
     // 學習模式：按下去才把這個字解鎖進圖鑑；複習模式：字已經在圖鑑裡，只更新複習時間

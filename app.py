@@ -255,11 +255,7 @@ def learn_study(student_id, theme_key):
         pool = [w for w in words if w.id in familiar]
         picked = random.sample(pool, min(STUDY_BATCH_SIZE, len(pool)))
 
-    words_data = [{"id": w.id, "theme": theme["label"], "word": w.word, "pos": w.pos or '',
-                   "meaning": w.meaning,
-                   "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
-                   "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or ''}
-                  for w in picked]
+    words_data = [word_payload(w, theme) for w in picked]
     back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                        letter=letter) if letter else url_for('learn_theme', student_id=student_id,
                                                              theme_key=theme_key)
@@ -269,6 +265,31 @@ def learn_study(student_id, theme_key):
     return render_template('ielts.html', words=words_data, student_id=student_id,
                            theme=theme, mode=mode, letter=letter,
                            back_url=back_url, again_url=again_url,
+                           home_url=url_for('learn_home', student_id=student_id))
+
+
+def word_payload(w, theme):
+    return {"id": w.id, "theme": theme["label"], "word": w.word, "pos": w.pos or '',
+            "meaning": w.meaning,
+            "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
+            "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or ''}
+
+
+@app.route('/learn/<int:student_id>/theme/<path:theme_key>/word/<int:vocab_id>')
+def learn_word(student_id, theme_key, vocab_id):
+    """圖鑑裡已解鎖的單字卡：跟學習畫面一樣，但不需要再收進圖鑑。"""
+    student = get_student(student_id)
+    theme = theme_info(student, theme_key)
+    word = next((w for w in theme_words(student, theme_key) if w.id == vocab_id), None)
+    letter = first_letter(word.word) if word else None
+    back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
+                       letter=letter if letter and theme["total"] > LETTER_PAGING_MIN else None)
+    # 不在這個主題、或還沒解鎖的字不給看，維持圖鑑的收集感
+    if not word or word.id not in familiar_ids_of(student_id):
+        return redirect(back_url)
+    return render_template('ielts.html', words=[word_payload(word, theme)], student_id=student_id,
+                           theme=theme, mode='view', letter=None,
+                           back_url=back_url, again_url=back_url,
                            home_url=url_for('learn_home', student_id=student_id))
 
 
