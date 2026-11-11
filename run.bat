@@ -35,10 +35,9 @@ if not exist backups mkdir backups
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmmss"') do set TS=%%i
 copy /y instance\quiz.db backups\quiz_%TS%.db >nul && echo     已備份到 backups\quiz_%TS%.db
 
-echo [2/5] 從 GitHub 取得最新程式 (main)...
-git fetch origin main
-git checkout main
-git pull --ff-only origin main
+for /f %%b in ('git rev-parse --abbrev-ref HEAD') do set BR=%%b
+echo [2/5] 從 GitHub 取得最新程式 (%BR%)...
+git pull --ff-only origin %BR%
 
 echo [3/5] 安裝套件 (flask, flask_sqlalchemy, openpyxl)...
 %PY% -m pip install --disable-pip-version-check flask flask_sqlalchemy openpyxl
