@@ -109,7 +109,7 @@
                 <div class="dex-card unlocked" data-word="{{ item.word }}" onclick="speak(this.dataset.word)" title="點一下聽發音">
                     <div class="number"># {{ item.number }}</div>
                     <div class="word">{{ item.word }}</div>
-                    <div class="meaning">{{ item.meaning }}</div>
+                    <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
                 </div>
             {% else %}
                 <div class="dex-card locked">

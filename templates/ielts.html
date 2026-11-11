@@ -12,7 +12,10 @@
         .mode-new { background: #eaf2fb; color: #2471a3; }
         .mode-review { background: #e9f7ef; color: #1e8449; }
         .word { font-size: 36px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; word-break: break-word; }
-        .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 20px; }
+        .pos { font-size: 14px; color: #95a5a6; font-style: italic; margin-bottom: 6px; min-height: 1em; }
+        .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 6px; }
+        .meaning-en { font-size: 14px; color: #95a5a6; margin-bottom: 20px; line-height: 1.4; }
+        .sentence-zh { display: block; font-style: normal; color: #7f8c8d; font-size: 14px; margin-top: 6px; }
         .sentence { font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; border-left: 4px solid #bdc3c7; }
 
         .btn { padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin: 5px 0; font-weight: bold; transition: 0.2s; }
@@ -35,14 +38,16 @@
         <span class="mode-badge {{ 'mode-review' if mode == 'review' else 'mode-new' }}">{{ '🔁 複習' if mode == 'review' else '✨ 新單字' }}</span>
     </div>
     <div id="word-display" class="word">單字載入中...</div>
+    <div id="pos-display" class="pos"></div>
     <div id="meaning-display" class="meaning"></div>
+    <div id="meaning-en-display" class="meaning-en"></div>
 
     <div class="audio-controls">
         <button class="btn btn-audio" onclick="playWord()">🔊 播放單字</button>
         <button class="btn btn-audio" id="sentence-audio-btn" onclick="playSentence()">🔊 播放例句</button>
     </div>
 
-    <div id="sentence-display" class="sentence"></div>
+    <div id="sentence-display" class="sentence"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
 
     <button class="btn btn-next" id="next-btn" onclick="nextWord()">
         {{ '➔ 下一個' if mode == 'review' else '✅ 記住了，收進圖鑑' }}
@@ -88,11 +93,14 @@
 
         currentWord = wordsQueue.shift();
         document.getElementById('word-display').innerText = currentWord.word;
+        document.getElementById('pos-display').innerText = currentWord.pos || '';
         document.getElementById('meaning-display').innerText = currentWord.meaning;
+        document.getElementById('meaning-en-display').innerText = currentWord.meaning_en || '';
         const sentenceBox = document.getElementById('sentence-display');
         const sentenceBtn = document.getElementById('sentence-audio-btn');
         if (currentWord.sentence) {
-            sentenceBox.innerText = currentWord.sentence;
+            document.getElementById('sentence-text').innerText = currentWord.sentence;
+            document.getElementById('sentence-zh').innerText = currentWord.sentence_zh || '';
             sentenceBox.style.display = '';
             sentenceBtn.style.display = '';
         } else {

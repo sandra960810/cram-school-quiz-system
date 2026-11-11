@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Flask, request, render_template, redirect, jsonify, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_, func
+from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
@@ -24,8 +24,11 @@ class Vocabulary(db.Model):
     level = db.Column(db.String(20), nullable=False)  # 基礎級/中級/中高級/進階級
     theme = db.Column(db.String(50), nullable=False)  # 主題，例如 "01 教育與學習"
     word = db.Column(db.String(100), nullable=False)
-    meaning = db.Column(db.String(200), nullable=False)
+    pos = db.Column(db.String(20))           # 詞性，例如 n. / v. / adj.
+    meaning = db.Column(db.String(200), nullable=False)  # 顯示用的意思（有中文用中文，沒有就用英文解釋）
+    meaning_en = db.Column(db.String(500))   # 英文解釋
     sentence = db.Column(db.String(500))
+    sentence_zh = db.Column(db.String(500))  # 例句中譯
 
 
 class LearningProgress(db.Model):
@@ -36,8 +39,16 @@ class LearningProgress(db.Model):
     last_reviewed = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+# 舊版資料庫沒有的欄位：啟動時自動補上（SQLite 的 create_all 不會幫既有的表加欄位）
+NEW_VOCAB_COLUMNS = [("pos", "VARCHAR(20)"), ("meaning_en", "VARCHAR(500)"), ("sentence_zh", "VARCHAR(500)")]
+
 with app.app_context():
     db.create_all()
+    existing_cols = {row[1] for row in db.session.execute(text("PRAGMA table_info(vocabulary)"))}
+    for col, ddl in NEW_VOCAB_COLUMNS:
+        if col not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE vocabulary ADD COLUMN {col} {ddl}"))
+    db.session.commit()
 
 
 # ---------------------------------------------------------------------------
@@ -58,6 +69,7 @@ OFFICIAL_THEMES = [
     {"id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "🎨"},
     {"id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "✈️"},
     {"id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "📖"},
+    {"id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "✍️"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -187,7 +199,7 @@ def learn_theme(student_id, theme_key):
     words = theme_words(student, theme_key)
     familiar = familiar_ids_of(student_id)
 
-    cards = [{"number": i, "id": w.id, "word": w.word, "meaning": w.meaning,
+    cards = [{"number": i, "id": w.id, "word": w.word, "pos": w.pos or '', "meaning": w.meaning,
               "sentence": clean_sentence(w.sentence), "letter": first_letter(w.word),
               "is_unlocked": w.id in familiar}
              for i, w in enumerate(words, start=1)]
@@ -243,8 +255,10 @@ def learn_study(student_id, theme_key):
         pool = [w for w in words if w.id in familiar]
         picked = random.sample(pool, min(STUDY_BATCH_SIZE, len(pool)))
 
-    words_data = [{"id": w.id, "theme": theme["label"], "word": w.word,
-                   "meaning": w.meaning, "sentence": clean_sentence(w.sentence)}
+    words_data = [{"id": w.id, "theme": theme["label"], "word": w.word, "pos": w.pos or '',
+                   "meaning": w.meaning,
+                   "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
+                   "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or ''}
                   for w in picked]
     back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                        letter=letter) if letter else url_for('learn_theme', student_id=student_id,
@@ -282,14 +296,27 @@ def update_progress():
             or not db.session.get(Vocabulary, vocab_id):
         return jsonify({"success": False, "error": "資料不正確"}), 400
 
-    record = LearningProgress.query.filter_by(student_id=student_id, vocab_id=vocab_id).first()
-    if record:
-        record.status = status
-        record.last_reviewed = datetime.utcnow()
-    else:
-        db.session.add(LearningProgress(student_id=student_id, vocab_id=vocab_id, status=status))
+    set_progress(student_id, db.session.get(Vocabulary, vocab_id), status)
     db.session.commit()
     return jsonify({"success": True})
+
+
+def same_word_rows(vocab):
+    """同一個字可能同時出現在主題字庫和 A–Z 大字庫，學過一次兩邊都算。"""
+    return Vocabulary.query.filter(Vocabulary.category == vocab.category,
+                                   func.lower(Vocabulary.word) == vocab.word.lower()).all()
+
+
+def set_progress(student_id, vocab, status):
+    now = datetime.utcnow()
+    for row in same_word_rows(vocab):
+        record = LearningProgress.query.filter_by(student_id=student_id, vocab_id=row.id).first()
+        if record:
+            record.status = status
+            record.last_reviewed = now
+        else:
+            db.session.add(LearningProgress(student_id=student_id, vocab_id=row.id,
+                                            status=status, last_reviewed=now))
 
 
 if __name__ == '__main__':
