@@ -41,6 +41,7 @@
         .unlocked { background: white; border-top: 4px solid #2ecc71; cursor: pointer; display: block; text-decoration: none; color: inherit; }
         .unlocked:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .unlocked .word { color: #2c3e50; }
+        .fav-mark { float: right; color: #f1c40f; font-size: 16px; line-height: 1; }
         .locked { background: #e0e0e0; border-top: 4px solid #95a5a6; color: #7f8c8d; }
         .locked .word { color: #7f8c8d; }
         .locked .meaning { filter: blur(4px); user-select: none; }
@@ -55,7 +56,10 @@
                 <h1>{{ theme.icon }} {{ theme.label }}</h1>
                 <p>{{ student.name }} 的圖鑑收集進度：{{ theme.unlocked }} / {{ theme.total }} 字</p>
             </div>
-            <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-btn">🔙 所有主題</a>
+            <div style="display: flex; gap: 8px;">
+                <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-btn">⭐ 我的收藏</a>
+                <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-btn">🔙 所有主題</a>
+            </div>
         </div>
         <div class="bar"><div style="width: {{ theme.unlocked * 100 / theme.total if theme.total else 0 }}%"></div></div>
 
@@ -107,7 +111,7 @@
         {% for item in cards %}
             {% if item.is_unlocked %}
                 <a class="dex-card unlocked" href="{{ url_for('learn_word', student_id=student.id, theme_key=theme.key, vocab_id=item.id) }}" title="打開單字卡">
-                    <div class="number"># {{ item.number }}</div>
+                    <div class="number"># {{ item.number }}{% if item.is_favorite %}<span class="fav-mark" title="已收藏">★</span>{% endif %}</div>
                     <div class="word">{{ item.word }}</div>
                     <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
                 </a>

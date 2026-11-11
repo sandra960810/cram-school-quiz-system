@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ {'review': '單字複習', 'view': '單字卡'}.get(mode, '單字學習') }}｜{{ theme.label }}</title>
+    <title>{{ {'review': '單字複習', 'view': '單字卡', 'fav': '收藏複習'}.get(mode, '單字學習') }}｜{{ theme.label }}</title>
     <style>
         body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; max-width: 100%; text-align: center; }
+        .card { position: relative; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; max-width: 100%; text-align: center; }
         .theme-badge { display: inline-block; background-color: #e8f4f8; color: #2980b9; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
         .mode-badge { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-left: 5px; }
         .mode-new { background: #eaf2fb; color: #2471a3; }
         .mode-review { background: #e9f7ef; color: #1e8449; }
         .mode-view { background: #fef5e7; color: #b9770e; }
+        .mode-fav { background: #fef9e7; color: #b7950b; }
+        .fav-btn { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: #bdc3c7; cursor: pointer; padding: 0; transition: 0.2s; }
+        .fav-btn:hover { background: #fef9e7; color: #f1c40f; }
+        .fav-btn.on { color: #f1c40f; }
+        .fav-btn:disabled { opacity: 0.5; cursor: wait; }
+        .toast { min-height: 1.2em; font-size: 13px; color: #b7950b; margin-top: -8px; margin-bottom: 8px; }
         .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; }
         .word { font-size: 36px; font-weight: bold; color: #2c3e50; word-break: break-word; }
         .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: #e8f4f8; color: #2980b9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: 0.2s; }
@@ -39,9 +45,10 @@
 <body>
 
 <div class="card">
+    <button class="fav-btn" id="fav-btn" onclick="toggleFavorite()" title="加入收藏" aria-label="加入收藏" aria-pressed="false">☆</button>
     <div>
         <span id="theme-display" class="theme-badge">🏷️ {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
-        <span class="mode-badge mode-{{ mode }}">{{ {'review': '🔁 複習', 'view': '📖 圖鑑'}.get(mode, '✨ 新單字') }}</span>
+        <span class="mode-badge mode-{{ mode }}">{{ {'review': '🔁 複習', 'view': '📖 圖鑑', 'fav': '⭐ 收藏複習'}.get(mode, '✨ 新單字') }}</span>
     </div>
     <div class="word-row">
         <span id="word-display" class="word">單字載入中...</span>
@@ -50,6 +57,7 @@
     <div id="pos-display" class="pos"></div>
     <div id="meaning-display" class="meaning"></div>
     <div id="meaning-en-display" class="meaning-en"></div>
+    <div id="fav-toast" class="toast"></div>
 
     <div id="sentence-display" class="sentence">
         <div class="sentence-body"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
@@ -58,13 +66,13 @@
 
     {% if mode != 'view' %}
     <button class="btn btn-next" id="next-btn" onclick="nextWord()">
-        {{ '➔ 下一個' if mode == 'review' else '✅ 記住了，收進圖鑑' }}
+        {{ '✅ 記住了，收進圖鑑' if mode == 'new' else '➔ 下一個' }}
     </button>
     <div id="error-display" class="error"></div>
 
     <div id="progress-display" class="progress">進度：0 / 0</div>
     {% endif %}
-    <a href="{{ back_url }}" class="back-link">返回主題圖鑑</a>
+    <a href="{{ back_url }}" class="back-link">{{ back_label or '返回主題圖鑑' }}</a>
 </div>
 
 <script>
@@ -74,18 +82,19 @@
     const backUrl = {{ back_url | tojson }};
     const againUrl = {{ again_url | tojson }};
     const homeUrl = {{ home_url | tojson }};
+    const backLabel = {{ (back_label or '回到主題圖鑑') | tojson }};
     const totalWords = wordsQueue.length;
     let currentWord = null;
     let completedCount = 0;
 
     function finish(title) {
         const again = totalWords
-            ? `<a href="${againUrl}" class="btn btn-next">${mode === 'review' ? '🔁 再複習一輪' : '▶ 再學下一批'}</a>`
+            ? `<a href="${againUrl}" class="btn btn-next">${mode === 'new' ? '▶ 再學下一批' : '🔁 再複習一輪'}</a>`
             : '';
         document.querySelector('.card').innerHTML = `
             <h2 style="color: #2c3e50; margin-bottom: 30px;">${title}</h2>
             ${again}
-            <a href="${backUrl}" class="btn btn-secondary">📖 回到主題圖鑑</a>
+            <a href="${backUrl}" class="btn btn-secondary">📖 ${backLabel.replace('返回', '回到')}</a>
             <a href="${homeUrl}" class="btn btn-secondary">🔙 選擇其他主題</a>
         `;
     }
@@ -93,9 +102,10 @@
     function loadWord() {
         if (wordsQueue.length === 0) {
             if (totalWords === 0) {
-                finish(mode === 'review' ? '這裡還沒有已解鎖的單字，<br>先去學幾個新單字吧！' : '🎉 這裡的單字都收進圖鑑了！');
+                finish({review: '這裡還沒有已解鎖的單字，<br>先去學幾個新單字吧！',
+                        fav: '還沒有收藏的單字，<br>學習時按右上角的 ☆ 就能收藏。'}[mode] || '🎉 這裡的單字都收進圖鑑了！');
             } else {
-                finish(mode === 'review' ? `🎉 複習完成！<br>本輪複習了 ${totalWords} 個單字。` : `🎉 學習完成！<br>${totalWords} 個單字已收進圖鑑。`);
+                finish(mode === 'new' ? `🎉 學習完成！<br>${totalWords} 個單字已收進圖鑑。` : `🎉 複習完成！<br>本輪複習了 ${totalWords} 個單字。`);
             }
             return;
         }
@@ -113,6 +123,10 @@
         } else {
             sentenceBox.style.display = 'none';
         }
+        renderFavorite();
+        document.getElementById('fav-toast').innerText = '';
+        // 收藏複習的字來自不同主題：標籤顯示這個字自己的主題
+        if (mode === 'fav') document.getElementById('theme-display').innerText = `🏷️ ${currentWord.theme}`;
         const progress = document.getElementById('progress-display');
         if (progress) progress.innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
     }
@@ -139,6 +153,38 @@
         btn.disabled = false;
         completedCount++;
         loadWord();
+    }
+
+    function renderFavorite() {
+        const btn = document.getElementById('fav-btn');
+        const on = !!(currentWord && currentWord.is_favorite);
+        btn.classList.toggle('on', on);
+        btn.innerText = on ? '★' : '☆';
+        btn.title = on ? '取消收藏' : '加入收藏';
+        btn.setAttribute('aria-label', btn.title);
+        btn.setAttribute('aria-pressed', on);
+    }
+
+    async function toggleFavorite() {
+        if (!currentWord) return;
+        const btn = document.getElementById('fav-btn');
+        const toast = document.getElementById('fav-toast');
+        const want = !currentWord.is_favorite;
+        btn.disabled = true;
+        try {
+            const res = await fetch('/api/favorite', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, favorite: want })
+            });
+            if (!res.ok) throw new Error(res.status);
+            currentWord.is_favorite = want;
+            toast.innerText = want ? '⭐ 已加入我的收藏' : '已取消收藏';
+        } catch (e) {
+            toast.innerText = '收藏沒有存到，請再按一次。';
+        }
+        btn.disabled = false;
+        renderFavorite();
     }
 
     function speak(text) {
