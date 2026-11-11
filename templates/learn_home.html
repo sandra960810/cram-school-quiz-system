@@ -27,7 +27,11 @@
         .theme-progress { font-size: 13px; color: #2c3e50; margin-bottom: 5px; }
         .mini-bar { background: #e8eef0; border-radius: 6px; height: 8px; overflow: hidden; }
         .mini-bar > div { background: #2ecc71; height: 100%; }
-        .back-btn { display: inline-block; margin-top: 30px; color: #3498db; text-decoration: none; font-weight: bold; }
+.fav-card { display: flex; align-items: center; background: #fffdf3; border: 2px solid #f7dc6f; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; text-decoration: none; color: inherit; transition: 0.2s; }
+        .fav-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+        .fav-card .theme-desc { margin-bottom: 0; }
+        .fav-count { font-size: 28px; font-weight: bold; color: #b7950b; margin-left: 15px; }
+                .back-btn { display: inline-block; margin-top: 30px; color: #3498db; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -37,6 +41,15 @@
         <p>選一個主題開始學習，學過的字會自動收進圖鑑。目前收集：{{ unlocked_count }} / {{ total_count }} 字</p>
         <div class="bar"><div style="width: {{ (unlocked_count * 100 / total_count) if total_count else 0 }}%"></div></div>
     </div>
+
+    <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="fav-card">
+        <div class="theme-icon">⭐</div>
+        <div class="theme-content">
+            <div class="theme-title">我的收藏</div>
+            <div class="theme-desc">{% if favorite_count %}收藏了 {{ favorite_count }} 個單字，點進來集中複習{% else %}學習時按單字卡右上角的 ☆，就能把想加強的字收藏在這裡{% endif %}</div>
+        </div>
+        <div class="fav-count">{{ favorite_count }}</div>
+    </a>
 
     <div class="theme-grid">
         {% for t in themes %}

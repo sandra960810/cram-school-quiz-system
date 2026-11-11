@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Flask, request, render_template, redirect, jsonify, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_, func
+from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
@@ -24,8 +24,11 @@ class Vocabulary(db.Model):
     level = db.Column(db.String(20), nullable=False)  # 基礎級/中級/中高級/進階級
     theme = db.Column(db.String(50), nullable=False)  # 主題，例如 "01 教育與學習"
     word = db.Column(db.String(100), nullable=False)
-    meaning = db.Column(db.String(200), nullable=False)
+    pos = db.Column(db.String(20))           # 詞性，例如 n. / v. / adj.
+    meaning = db.Column(db.String(200), nullable=False)  # 顯示用的意思（有中文用中文，沒有就用英文解釋）
+    meaning_en = db.Column(db.String(500))   # 英文解釋
     sentence = db.Column(db.String(500))
+    sentence_zh = db.Column(db.String(500))  # 例句中譯
 
 
 class LearningProgress(db.Model):
@@ -36,8 +39,25 @@ class LearningProgress(db.Model):
     last_reviewed = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+class Favorite(db.Model):
+    """學生收藏的單字。同一個字在不同主題算同一個收藏（以拼字判斷）。"""
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    vocab_id = db.Column(db.Integer, db.ForeignKey('vocabulary.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    __table_args__ = (db.UniqueConstraint('student_id', 'vocab_id'),)
+
+
+# 舊版資料庫沒有的欄位：啟動時自動補上（SQLite 的 create_all 不會幫既有的表加欄位）
+NEW_VOCAB_COLUMNS = [("pos", "VARCHAR(20)"), ("meaning_en", "VARCHAR(500)"), ("sentence_zh", "VARCHAR(500)")]
+
 with app.app_context():
     db.create_all()
+    existing_cols = {row[1] for row in db.session.execute(text("PRAGMA table_info(vocabulary)"))}
+    for col, ddl in NEW_VOCAB_COLUMNS:
+        if col not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE vocabulary ADD COLUMN {col} {ddl}"))
+    db.session.commit()
 
 
 # ---------------------------------------------------------------------------
@@ -58,6 +78,7 @@ OFFICIAL_THEMES = [
     {"id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "🎨"},
     {"id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "✈️"},
     {"id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "📖"},
+    {"id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "✍️"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -176,7 +197,8 @@ def learn_home(student_id):
     unlocked_count = sum(t["unlocked"] for t in themes)
     total_count = sum(t["total"] for t in themes)
     return render_template('learn_home.html', student=student, themes=themes,
-                           unlocked_count=unlocked_count, total_count=total_count)
+                           unlocked_count=unlocked_count, total_count=total_count,
+                           favorite_count=len(favorite_rows(student)))
 
 
 @app.route('/learn/<int:student_id>/theme/<path:theme_key>')
@@ -186,10 +208,11 @@ def learn_theme(student_id, theme_key):
     theme = theme_info(student, theme_key)
     words = theme_words(student, theme_key)
     familiar = familiar_ids_of(student_id)
+    fav = favorite_words(student)
 
-    cards = [{"number": i, "id": w.id, "word": w.word, "meaning": w.meaning,
+    cards = [{"number": i, "id": w.id, "word": w.word, "pos": w.pos or '', "meaning": w.meaning,
               "sentence": clean_sentence(w.sentence), "letter": first_letter(w.word),
-              "is_unlocked": w.id in familiar}
+              "is_unlocked": w.id in familiar, "is_favorite": w.word.lower() in fav}
              for i, w in enumerate(words, start=1)]
 
     # 字太多的主題依字首分頁，避免一次塞幾千張卡片
@@ -243,9 +266,8 @@ def learn_study(student_id, theme_key):
         pool = [w for w in words if w.id in familiar]
         picked = random.sample(pool, min(STUDY_BATCH_SIZE, len(pool)))
 
-    words_data = [{"id": w.id, "theme": theme["label"], "word": w.word,
-                   "meaning": w.meaning, "sentence": clean_sentence(w.sentence)}
-                  for w in picked]
+    fav = favorite_words(student)
+    words_data = [word_payload(w, theme["label"], fav) for w in picked]
     back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                        letter=letter) if letter else url_for('learn_theme', student_id=student_id,
                                                              theme_key=theme_key)
@@ -255,6 +277,116 @@ def learn_study(student_id, theme_key):
     return render_template('ielts.html', words=words_data, student_id=student_id,
                            theme=theme, mode=mode, letter=letter,
                            back_url=back_url, again_url=again_url,
+                           home_url=url_for('learn_home', student_id=student_id))
+
+
+def word_payload(w, theme_label, fav_words=()):
+    return {"id": w.id, "theme": theme_label, "word": w.word, "pos": w.pos or '',
+            "meaning": w.meaning,
+            "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
+            "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or '',
+            "is_favorite": w.word.lower() in fav_words}
+
+
+# ---------------------------------------------------------------------------
+# 收藏
+# ---------------------------------------------------------------------------
+
+def favorite_rows(student):
+    """學生收藏的字（同拼字只留一筆，新收藏的在前）。"""
+    rows = (db.session.query(Vocabulary, Favorite.created_at)
+            .join(Favorite, Favorite.vocab_id == Vocabulary.id)
+            .filter(Favorite.student_id == student.id,
+                    Vocabulary.category == student.enrolled_course)
+            .order_by(Favorite.created_at.desc(), Favorite.id.desc())
+            .all())
+    seen, result = set(), []
+    for v, _ in rows:
+        if v.word.lower() not in seen:
+            seen.add(v.word.lower())
+            result.append(v)
+    return result
+
+
+def favorite_words(student):
+    return {v.word.lower() for v in favorite_rows(student)}
+
+
+def theme_key_of(vocab):
+    return official_id_of(vocab.theme) or vocab.theme
+
+
+def theme_label_of(vocab):
+    oid = official_id_of(vocab.theme)
+    return f'{oid} {OFFICIAL_BY_ID[oid]["name"]}' if oid else vocab.theme
+
+
+@app.route('/learn/<int:student_id>/favorites')
+def learn_favorites(student_id):
+    student = get_student(student_id)
+    familiar = familiar_ids_of(student_id)
+    cards = [{"id": v.id, "word": v.word, "pos": v.pos or '', "meaning": v.meaning,
+              "theme": theme_label_of(v), "is_unlocked": v.id in familiar,
+              "url": url_for('learn_word', student_id=student_id, theme_key=theme_key_of(v),
+                             vocab_id=v.id, **{"from": "favorites"})}
+             for v in favorite_rows(student)]
+    return render_template('favorites.html', student=student, cards=cards, batch=STUDY_BATCH_SIZE)
+
+
+@app.route('/learn/<int:student_id>/favorites/study')
+def learn_favorites_study(student_id):
+    student = get_student(student_id)
+    pool = favorite_rows(student)
+    picked = random.sample(pool, min(STUDY_BATCH_SIZE, len(pool)))
+    fav = {v.word.lower() for v in pool}
+    back_url = url_for('learn_favorites', student_id=student_id)
+    return render_template('ielts.html', words=[word_payload(v, theme_label_of(v), fav) for v in picked],
+                           student_id=student_id, theme={"label": "⭐ 我的收藏"}, mode='fav', letter=None,
+                           back_url=back_url, again_url=url_for('learn_favorites_study', student_id=student_id),
+                           home_url=url_for('learn_home', student_id=student_id), back_label='返回我的收藏')
+
+
+@app.route('/api/favorite', methods=['POST'])
+def toggle_favorite():
+    data = request.get_json(silent=True) or {}
+    student = db.session.get(Student, data.get('student_id'))
+    vocab = db.session.get(Vocabulary, data.get('vocab_id'))
+    want = data.get('favorite')
+    if not student or not vocab or not isinstance(want, bool):
+        return jsonify({"success": False, "error": "資料不正確"}), 400
+    same_ids = [v.id for v in same_word_rows(vocab)]
+    existing = Favorite.query.filter(Favorite.student_id == student.id,
+                                     Favorite.vocab_id.in_(same_ids)).all()
+    if want and not existing:
+        db.session.add(Favorite(student_id=student.id, vocab_id=vocab.id))
+    elif not want:
+        for f in existing:
+            db.session.delete(f)
+    db.session.commit()
+    return jsonify({"success": True, "favorite": want})
+
+
+@app.route('/learn/<int:student_id>/theme/<path:theme_key>/word/<int:vocab_id>')
+def learn_word(student_id, theme_key, vocab_id):
+    """圖鑑裡已解鎖的單字卡：跟學習畫面一樣，但不需要再收進圖鑑。"""
+    student = get_student(student_id)
+    theme = theme_info(student, theme_key)
+    word = next((w for w in theme_words(student, theme_key) if w.id == vocab_id), None)
+    letter = first_letter(word.word) if word else None
+    back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
+                       letter=letter if letter and theme["total"] > LETTER_PAGING_MIN else None)
+    fav = favorite_words(student)
+    from_fav = request.args.get('from') == 'favorites'
+    if from_fav:
+        back_url = url_for('learn_favorites', student_id=student_id)
+    # 不在這個主題、或還沒解鎖（也沒收藏）的字不給看，維持圖鑑的收集感
+    if not word or (word.id not in familiar_ids_of(student_id) and word.word.lower() not in fav):
+        return redirect(back_url)
+    return render_template('ielts.html', words=[word_payload(word, theme["label"], fav)],
+                           back_label='返回我的收藏' if from_fav else '返回主題圖鑑',
+                           student_id=student_id,
+                           theme=theme, mode='view', letter=None,
+                           back_url=back_url, again_url=back_url,
                            home_url=url_for('learn_home', student_id=student_id))
 
 
@@ -282,14 +414,27 @@ def update_progress():
             or not db.session.get(Vocabulary, vocab_id):
         return jsonify({"success": False, "error": "資料不正確"}), 400
 
-    record = LearningProgress.query.filter_by(student_id=student_id, vocab_id=vocab_id).first()
-    if record:
-        record.status = status
-        record.last_reviewed = datetime.utcnow()
-    else:
-        db.session.add(LearningProgress(student_id=student_id, vocab_id=vocab_id, status=status))
+    set_progress(student_id, db.session.get(Vocabulary, vocab_id), status)
     db.session.commit()
     return jsonify({"success": True})
+
+
+def same_word_rows(vocab):
+    """同一個字可能同時出現在主題字庫和 A–Z 大字庫，學過一次兩邊都算。"""
+    return Vocabulary.query.filter(Vocabulary.category == vocab.category,
+                                   func.lower(Vocabulary.word) == vocab.word.lower()).all()
+
+
+def set_progress(student_id, vocab, status):
+    now = datetime.utcnow()
+    for row in same_word_rows(vocab):
+        record = LearningProgress.query.filter_by(student_id=student_id, vocab_id=row.id).first()
+        if record:
+            record.status = status
+            record.last_reviewed = now
+        else:
+            db.session.add(LearningProgress(student_id=student_id, vocab_id=row.id,
+                                            status=status, last_reviewed=now))
 
 
 if __name__ == '__main__':

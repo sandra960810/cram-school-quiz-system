@@ -1,2 +1,9 @@
 venv/
 __pycache__/
+# 本機產生的檔案
+cloudflared.exe
+backups/
+run_log.txt
+share_log.txt
+share_link.txt
+_sync_once.bat
