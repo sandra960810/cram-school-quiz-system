@@ -374,13 +374,7 @@
     }
 
     // ---------- 發音 ----------
-    function speak(text) {
-        if (!text || !window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        window.speechSynthesis.speak(utterance);
-    }
+    const speak = (text) => UI.speak(text);   // 自動挑最像真人的英文語音（見 static/ui.js）
     function playWord() { if (currentWord) speak(currentWord.word); }
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
