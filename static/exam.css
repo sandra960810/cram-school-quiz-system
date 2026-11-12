@@ -69,9 +69,18 @@ select.pick:focus { outline: none; border-color: #3498db; }
 /* 閱讀文章圖片 */
 .passage-img { width: 100%; border: 1px solid #ddd; border-radius: 6px; display: block; margin-bottom: 10px; background: white; }
 .passage-note { font-size: 13px; color: #7f8c8d; margin: 0 0 16px; }
-.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
-@media (max-width: 950px) { .layout { grid-template-columns: 1fr; } }
-.sticky { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }
+.exam-wrap.reading { max-width: 1500px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+/* 文章固定在左邊、可以自己捲動；題目在右邊跟著頁面捲 */
+.sticky { position: sticky; top: 12px; max-height: calc(100vh - 110px); overflow: auto; background: white;
+          border: 1px solid #d5d8dc; border-radius: 8px; padding: 10px; box-sizing: border-box; z-index: 2; }
+.sticky .passage-img { border: none; border-radius: 0; margin-bottom: 0; }
+.sticky .passage-note { margin: 8px 4px 2px; }
+/* 窄螢幕：改成上下排，文章固定在上半部（不透明，題目不會跟它疊在一起） */
+@media (max-width: 1100px) {
+    .layout { grid-template-columns: 1fr; gap: 14px; }
+    .sticky { top: 0; max-height: 42vh; box-shadow: 0 6px 12px rgba(0,0,0,0.12); border-color: #5b48a2; }
+}
 
 /* 送出列 */
 .submit-bar { position: sticky; bottom: 0; background: rgba(255,255,255,0.97); border-top: 2px solid #e5e8e8;
@@ -93,3 +102,8 @@ select.pick:focus { outline: none; border-color: #3498db; }
 .audio-bar-label { font-weight: bold; color: #5b48a2; margin-bottom: 10px; font-size: 15px; }
 .audio-player { width: 100%; }
 .audio-hint { font-size: 13px; color: #7f8c8d; margin: 10px 0 0; line-height: 1.6; }
+
+/* 寫作輸出按鈕 */
+.btn-export { border: 2px solid #5b48a2; background: white; color: #5b48a2; font-size: 15px; font-weight: bold;
+              padding: 11px 18px; border-radius: 10px; cursor: pointer; font-family: inherit; }
+.btn-export:hover { background: #f3f0fa; }

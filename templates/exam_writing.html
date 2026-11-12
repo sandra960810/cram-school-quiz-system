@@ -35,7 +35,7 @@
     <form method="post" id="writingForm">
     <div class="sheet">
         <p class="qtitle">Writing Task 1</p>
-        <div class="task-box">
+        <div class="task-box" id="prompt1">
             <div>You should spend 20 minutes on this task.</div>
             <b>The chart below shows the percentage of people accessing news via different media in one country
                in 2013, 2015 and 2017.</b>
@@ -53,7 +53,7 @@
 
     <div class="sheet">
         <p class="qtitle">Writing Task 2</p>
-        <div class="task-box">
+        <div class="task-box" id="prompt2">
             <div>You should spend 40 minutes on this task.</div>
             <div>Write on the following topic:</div>
             <b>Many people feel it is a waste of money to try to save endangered animal species,
@@ -70,12 +70,18 @@
     <div class="submit-bar">
         <span class="count">寫作沒有自動批改，請存檔後交給老師看。
             {% if drafts %}上次儲存：{{ (drafts.values()|list|sort(attribute='updated_at')|last).updated_at.strftime('%m/%d %H:%M') }}{% endif %}</span>
+        <button type="button" class="btn-export" id="exportPdf">📄 下載 PDF</button>
+        <button type="button" class="btn-export" id="exportPng">🖼️ 下載圖片</button>
         <button type="submit" class="btn-submit" data-sound="nav">💾 儲存作文</button>
     </div>
     </form>
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='writing_export.js') }}"></script>
+<script>
+    WritingExport.init({ student: {{ student.name|tojson }}, title: {{ title|tojson }} });
+</script>
 <script>
     // 字數統計（以空白分隔計算，跟雅思的算法接近）
     function countWords(text) {

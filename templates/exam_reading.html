@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
 </head>
 <body>
-<div class="exam-wrap wide">
+<div class="exam-wrap wide reading">
     <div class="nav-row">
         <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
         <span class="timer" id="timer" data-limit="60">00:00</span>
