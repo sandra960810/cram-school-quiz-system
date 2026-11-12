@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>錯題本｜模擬測驗區</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .head { background: white; border-radius: 12px; padding: 20px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); margin-bottom: 16px; }
+        .head h1 { margin: 0 0 4px; font-size: 22px; color: #2c3e50; }
+        .head p { margin: 0; color: #7f8c8d; font-size: 14px; line-height: 1.6; }
+        .fix-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; border: none; cursor: pointer; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 10px; background: #f39c12; color: white; font-family: inherit; }
+        .fix-btn:disabled { background: #d5d8dc; color: #7f8c8d; cursor: default; }
+
+        .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+        .tab { border: none; border-radius: 999px; padding: 8px 16px; font-size: 15px; font-weight: bold; cursor: pointer; background: white; color: #2c3e50; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-family: inherit; }
+        .tab .cnt { display: inline-block; margin-left: 4px; padding: 0 7px; border-radius: 10px; background: #ecf0f1; font-size: 12px; }
+        .tab.active { color: white; }
+        .tab.active[data-tab="pending"] { background: #e67e22; }
+        .tab.active[data-tab="fixed"] { background: #27ae60; }
+        .tab.active[data-tab="starred"] { background: #d4ac0d; }
+        .tab.active .cnt { background: rgba(255,255,255,0.3); }
+
+        .item { display: flex; align-items: center; gap: 12px; background: white; border-radius: 10px; padding: 13px 15px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-left: 5px solid #e67e22; }
+        .item.fixed { border-left-color: #2ecc71; }
+        .item .body { flex: 1; min-width: 0; }
+        .item .w { font-size: 17px; font-weight: bold; color: #2c3e50; text-decoration: none; }
+        .item .w:hover { color: #2471a3; }
+        .item .m { color: #7f8c8d; font-size: 14px; }
+        .item .meta { font-size: 12px; color: #95a5a6; margin-top: 3px; }
+        .item .meta .bad { color: #c0392b; }
+        .badge { font-size: 11px; font-weight: bold; padding: 2px 9px; border-radius: 10px; flex: none; }
+        .badge.pending { background: #fdebd0; color: #ba4a00; }
+        .badge.fixed { background: #d5f5e3; color: #1e8449; }
+        .star { border: none; background: transparent; font-size: 22px; color: #d5d8dc; cursor: pointer; flex: none; padding: 4px; }
+        .star.on { color: #f1c40f; }
+        .empty { text-align: center; color: #95a5a6; padding: 40px 20px; background: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <a href="{{ url_for('exam_setup', student_id=student.id) }}" class="nav-next">🔤 單字測驗<span class="arrow">→</span></a>
+    </div>
+
+    <div class="head">
+        <h1>📒 錯題本</h1>
+        <p>測驗答錯的題目會自動收進來，單字也會移回不熟區。<br>做「訂正練習」再答對一次，就會移到「已訂正」；之後再錯會重新回到待訂正。</p>
+        <form method="post" action="{{ url_for('exam_start', student_id=student.id) }}" style="margin:0">
+            <input type="hidden" name="scope" value="mistakes">
+            <input type="hidden" name="count" value="20">
+            <button class="fix-btn" data-sound="nav" {% if not pending %}disabled{% endif %}>
+                ✏️ 訂正練習（{{ [pending, 20]|min }} 題）<span class="go-arrow">→</span>
+            </button>
+        </form>
+    </div>
+
+    {% set n_fixed = items | selectattr('corrected') | selectattr('wrong_count') | list | length %}
+    {% set n_star = items | selectattr('starred') | list | length %}
+    <div class="tabs">
+        <button class="tab active" data-tab="pending" data-sound="tap">待訂正<span class="cnt">{{ pending }}</span></button>
+        <button class="tab" data-tab="fixed" data-sound="tap">已訂正<span class="cnt">{{ n_fixed }}</span></button>
+        <button class="tab" data-tab="starred" data-sound="tap">⭐ 收藏題<span class="cnt">{{ n_star }}</span></button>
+    </div>
+
+    <div id="list" class="ui-stagger">
+        {% for i in items %}
+        <div class="item {{ 'fixed' if i.corrected }}" data-fixed="{{ 1 if i.corrected else 0 }}" data-wrong="{{ 1 if i.wrong_count else 0 }}" data-starred="{{ 1 if i.starred else 0 }}">
+            <div class="body">
+                <a class="w" href="{{ url_for('learn_word', student_id=student.id, theme_key=i.theme_key, vocab_id=i.vocab_id) }}">{{ i.word }}</a>
+                <span class="m">{% if i.pos %}<i>{{ i.pos }}</i> {% endif %}{{ i.meaning }}</span>
+                <div class="meta">{{ i.qtype_name }}
+                    {% if i.wrong_count %}・答錯 {{ i.wrong_count }} 次{% if i.last_given %}・上次寫成 <span class="bad">{{ i.last_given }}</span>{% endif %}{% endif %}</div>
+            </div>
+            {% if i.wrong_count %}<span class="badge {{ 'fixed' if i.corrected else 'pending' }}">{{ '已訂正' if i.corrected else '待訂正' }}</span>{% endif %}
+            <button class="star {{ 'on' if i.starred }}" data-sound="none" title="收藏這一題"
+                    onclick="toggleStar(this, {{ i.id }})">{{ '★' if i.starred else '☆' }}</button>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="empty" id="empty" style="display:none"></div>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+    let tab = 'pending';
+    const EMPTY = {
+        pending: '🎉 沒有待訂正的題目！去考一回單字測驗吧。',
+        fixed: '還沒有訂正完成的題目。',
+        starred: '還沒有收藏的題目。在成績頁或這裡按 ☆ 就能收藏。'
+    };
+    function apply() {
+        let shown = 0;
+        document.querySelectorAll('.item').forEach(el => {
+            const ok = tab === 'starred' ? el.dataset.starred === '1'
+                     : tab === 'fixed' ? (el.dataset.fixed === '1' && el.dataset.wrong === '1')
+                     : el.dataset.fixed === '0';
+            el.style.display = ok ? '' : 'none';
+            if (ok) shown++;
+        });
+        const empty = document.getElementById('empty');
+        empty.innerText = EMPTY[tab];
+        empty.style.display = shown ? 'none' : '';
+    }
+    document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+        tab = b.dataset.tab;
+        document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === b));
+        apply();
+    }));
+
+    async function toggleStar(btn, id) {
+        const want = !btn.classList.contains('on');
+        try {
+            const res = await fetch('/api/exam/star', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mistake_id: id, starred: want })
+            });
+            if (!res.ok) throw new Error(res.status);
+        } catch (e) { UI.play('error'); return; }
+        UI.play(want ? 'star' : 'unstar');
+        btn.classList.toggle('on', want);
+        btn.innerText = want ? '★' : '☆';
+        btn.closest('.item').dataset.starred = want ? '1' : '0';
+        btn.classList.remove('ui-pop'); void btn.offsetWidth; btn.classList.add('ui-pop');
+        const cnt = document.querySelector('.tab[data-tab="starred"] .cnt');
+        cnt.innerText = document.querySelectorAll('.item[data-starred="1"]').length;
+        if (tab === 'starred') apply();
+    }
+    apply();
+</script>
+</body>
+</html>

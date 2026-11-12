@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測驗成績｜{{ attempt.scope_label }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 700px; margin: 0 auto; }
+        .score-card { background: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 26px; text-align: center; margin-bottom: 18px; }
+        .score-card h1 { margin: 0 0 4px; font-size: 21px; color: #2c3e50; }
+        .score-card .sub { color: #95a5a6; font-size: 13px; margin-bottom: 14px; }
+        .ring { font-size: 46px; font-weight: bold; }
+        .ring.good { color: #27ae60; } .ring.mid { color: #e67e22; } .ring.bad { color: #c0392b; }
+        .verdict { color: #7f8c8d; font-size: 15px; margin-top: 4px; }
+        .cta-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; justify-content: center; }
+        .cta { display: inline-flex; align-items: center; gap: 6px; padding: 12px 18px; border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 15px; }
+        .cta.primary { background: #5b48a2; color: white; }
+        .cta.weak { background: #f39c12; color: white; }
+        .cta.plain { background: #ecf0f1; color: #2c3e50; }
+
+        .list { background: white; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); overflow: hidden; }
+        .row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid #f0f2f5; }
+        .row:last-child { border-bottom: none; }
+        .row.wrong { background: #fff9f8; }
+        .mark { font-size: 18px; flex: none; }
+        .body { flex: 1; min-width: 0; }
+        .body .w { font-weight: bold; color: #2c3e50; }
+        .body .m { color: #7f8c8d; font-size: 13px; }
+        .body .giv { font-size: 13px; color: #c0392b; }
+        .body .giv b { color: #1e8449; }
+        .qt { font-size: 11px; color: #95a5a6; flex: none; }
+        .star { border: none; background: transparent; font-size: 22px; color: #d5d8dc; cursor: pointer; flex: none; padding: 4px; }
+        .star.on { color: #f1c40f; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <a href="{{ url_for('exam_mistakes', student_id=student.id) }}" class="nav-next">📒 錯題本<span class="arrow">→</span></a>
+    </div>
+
+    <div class="score-card">
+        <h1>{{ '📒 訂正練習' if attempt.source == 'mistakes' else attempt.scope_label }} 成績</h1>
+        <div class="sub">{{ attempt.finished_at.strftime('%Y/%m/%d %H:%M') if attempt.finished_at }}</div>
+        {% set cls = 'good' if pct >= 80 else ('mid' if pct >= 60 else 'bad') %}
+        <div class="ring {{ cls }}">{{ attempt.correct }} / {{ attempt.total }}</div>
+        <div class="verdict">答對率 {{ pct }}%・{{ '太強了，繼續保持！🎉' if pct >= 80 else ('不錯，把錯的訂正一下更穩！💪' if pct >= 60 else '沒關係，錯題本幫你把這些字練回來 📒') }}</div>
+        <div class="cta-row">
+            {% if pending %}<a class="cta weak" href="{{ url_for('exam_setup', student_id=student.id) }}">📒 做訂正練習（{{ pending }} 題待訂正）</a>{% endif %}
+            <a class="cta primary" href="{{ url_for('exam_setup', student_id=student.id) }}">再考一回 <span class="go-arrow">→</span></a>
+            <a class="cta plain" href="{{ url_for('learn_home', student_id=student.id) }}">回單字學習</a>
+        </div>
+    </div>
+
+    <div class="list ui-stagger">
+        {% for r in rows %}
+        <div class="row {{ 'wrong' if not r.is_correct }}">
+            <span class="mark">{{ '✅' if r.is_correct else '❌' }}</span>
+            <div class="body">
+                <div class="w">{{ r.word }} <span class="m">{{ r.meaning }}</span></div>
+                {% if not r.is_correct %}<div class="giv">你的答案：{{ r.given }}　正確：<b>{{ r.answer }}</b></div>{% endif %}
+            </div>
+            <span class="qt">{{ r.qtype_name }}</span>
+            <button class="star {{ 'on' if r.starred }}" data-sound="none" title="收藏這一題"
+                    onclick="toggleStar(this, {{ r.vocab_id }}, '{{ r.qtype }}')">{{ '★' if r.starred else '☆' }}</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+    async function toggleStar(btn, vocabId, qtype) {
+        const want = !btn.classList.contains('on');
+        try {
+            const res = await fetch('/api/exam/star', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: {{ student.id }}, vocab_id: vocabId, qtype: qtype, starred: want })
+            });
+            if (!res.ok) throw new Error(res.status);
+        } catch (e) { UI.play('error'); return; }
+        UI.play(want ? 'star' : 'unstar');
+        btn.classList.toggle('on', want);
+        btn.innerText = want ? '★' : '☆';
+        btn.classList.remove('ui-pop'); void btn.offsetWidth; btn.classList.add('ui-pop');
+    }
+</script>
+</body>
+</html>
