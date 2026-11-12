@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寫作測驗｜IELTS Exam Practice Test 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .task-box { border: 1px solid #555; border-radius: 3px; padding: 18px 22px; margin: 12px 0 18px; line-height: 1.9; }
+        .task-box b { display: block; margin: 6px 0; }
+        .essay { width: 100%; box-sizing: border-box; min-height: 300px; padding: 14px; font-family: inherit;
+                 font-size: 16px; line-height: 1.8; border: 2px solid #bdc3c7; border-radius: 8px; resize: vertical; }
+        .essay:focus { outline: none; border-color: #5b48a2; }
+        .wc { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 14px; color: #7f8c8d; }
+        .wc b { font-size: 17px; color: #2c3e50; }
+        .wc .ok { color: #27ae60; } .wc .low { color: #e67e22; }
+        .saved { background: #d5f5e3; color: #1e8449; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <span class="timer" id="timer" data-limit="60">00:00</span>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">Exam Practice Test 3</span>
+        <span class="exam-part">Writing Tasks 1–2</span>
+    </div>
+
+    {% if saved %}<div class="saved">✅ 已儲存，隨時可以回來繼續寫。</div>{% endif %}
+
+    <form method="post" id="writingForm">
+    <div class="sheet">
+        <p class="qtitle">Writing Task 1</p>
+        <div class="task-box">
+            <div>You should spend 20 minutes on this task.</div>
+            <b>The chart below shows the percentage of people accessing news via different media in one country
+               in 2013, 2015 and 2017.</b>
+            <b>Summarise the information by selecting and reporting the main features, and make comparisons
+               where relevant.</b>
+            <div>Write at least 150 words.</div>
+        </div>
+
+        <img class="passage-img" src="{{ url_for('static', filename='images/writing_task1_chart.png') }}"
+             alt="長條圖：People accessing news via different media, 2013, 2015 and 2017">
+
+        <textarea class="essay" name="task1" id="task1" placeholder="在這裡寫 Task 1（至少 150 字）">{{ drafts[1].content if 1 in drafts }}</textarea>
+        <div class="wc"><span>建議 20 分鐘</span><span>字數 <b id="wc1">0</b> <span id="hint1"></span>／至少 150 字</span></div>
+    </div>
+
+    <div class="sheet">
+        <p class="qtitle">Writing Task 2</p>
+        <div class="task-box">
+            <div>You should spend 40 minutes on this task.</div>
+            <div>Write on the following topic:</div>
+            <b>Many people feel it is a waste of money to try to save endangered animal species,
+               for example the tiger or the blue whale.</b>
+            <b>To what extent do you agree or disagree with this statement?</b>
+            <div>Give reasons for your answer and include any relevant examples from your own knowledge and experience.</div>
+            <div>Write at least 250 words.</div>
+        </div>
+
+        <textarea class="essay" name="task2" id="task2" placeholder="在這裡寫 Task 2（至少 250 字）">{{ drafts[2].content if 2 in drafts }}</textarea>
+        <div class="wc"><span>建議 40 分鐘</span><span>字數 <b id="wc2">0</b> <span id="hint2"></span>／至少 250 字</span></div>
+    </div>
+
+    <div class="submit-bar">
+        <span class="count">寫作沒有自動批改，請存檔後交給老師看。
+            {% if drafts %}上次儲存：{{ (drafts.values()|list|sort(attribute='updated_at')|last).updated_at.strftime('%m/%d %H:%M') }}{% endif %}</span>
+        <button type="submit" class="btn-submit" data-sound="nav">💾 儲存作文</button>
+    </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+    // 字數統計（以空白分隔計算，跟雅思的算法接近）
+    function countWords(text) {
+        return (text.trim().match(/[^\s]+/g) || []).length;
+    }
+    [[1, 150], [2, 250]].forEach(([n, min]) => {
+        const area = document.getElementById('task' + n);
+        const out = document.getElementById('wc' + n);
+        const hint = document.getElementById('hint' + n);
+        const update = () => {
+            const w = countWords(area.value);
+            out.innerText = w;
+            out.className = w >= min ? 'ok' : (w ? 'low' : '');
+            hint.innerText = w >= min ? '✅' : (w ? `（還差 ${min - w} 字）` : '');
+        };
+        area.addEventListener('input', update);
+        update();
+    });
+
+    // 計時
+    const timerEl = document.getElementById('timer');
+    const start = Date.now();
+    setInterval(() => {
+        const s = Math.floor((Date.now() - start) / 1000);
+        timerEl.innerText = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+        if (s > 3600) timerEl.classList.add('over');
+    }, 1000);
+
+    // 離開前提醒（已儲存就不提醒）
+    let dirty = false, saving = false;
+    document.querySelectorAll('.essay').forEach(a => a.addEventListener('input', () => { dirty = true; }));
+    document.getElementById('writingForm').addEventListener('submit', () => { saving = true; });
+    window.addEventListener('beforeunload', (e) => {
+        if (dirty && !saving) { e.preventDefault(); e.returnValue = ''; }
+    });
+</script>
+</body>
+</html>

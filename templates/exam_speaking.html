@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口說測驗｜IELTS Exam Practice Test 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .say { font-style: italic; color: #34495e; line-height: 1.9; margin: 8px 0; }
+        .qlist { list-style: none; padding: 0; margin: 6px 0 14px; }
+        .qlist li { font-style: italic; padding: 7px 0 7px 26px; position: relative; line-height: 1.6; border-bottom: 1px dashed #eceff1; }
+        .qlist li::before { content: '🎤'; position: absolute; left: 0; font-style: normal; }
+        .qlist li:last-child { border-bottom: none; }
+        .sub-head { font-weight: bold; margin: 12px 0 2px; }
+        .cue { border: 2px solid #555; border-radius: 4px; padding: 16px 22px; margin: 14px 0; background: #fcfcfc; }
+        .cue .topic { font-weight: bold; font-style: italic; font-size: 17px; margin-bottom: 8px; }
+        .cue .lead { font-weight: bold; font-style: italic; margin-left: 18px; }
+        .cue ul { margin: 6px 0 6px 40px; padding: 0; list-style: none; }
+        .cue li { font-weight: bold; font-style: italic; line-height: 2; }
+        .tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+        .tbtn { border: none; border-radius: 8px; padding: 11px 18px; font-size: 15px; font-weight: bold;
+                cursor: pointer; font-family: inherit; background: #ecf0f1; color: #2c3e50; }
+        .tbtn.go { background: #5b48a2; color: white; }
+        .tbtn:disabled { opacity: 0.5; cursor: default; }
+        .big-timer { font-size: 30px; font-weight: bold; font-variant-numeric: tabular-nums; color: #2c3e50;
+                     background: #f4f6f7; border-radius: 10px; padding: 8px 18px; }
+        .big-timer.prep { color: #b9770e; background: #fef5e7; }
+        .big-timer.talk { color: #1e8449; background: #eafaf1; }
+        .big-timer.done { color: #c0392b; background: #fadbd8; }
+        .notes { width: 100%; box-sizing: border-box; min-height: 110px; margin-top: 12px; padding: 12px;
+                 font-family: inherit; font-size: 15px; line-height: 1.7; border: 2px solid #bdc3c7; border-radius: 8px; }
+        .notes:focus { outline: none; border-color: #5b48a2; }
+    </style>
+</head>
+<body>
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">Exam Practice Test 3</span>
+        <span class="exam-part">Speaking Parts 1–3</span>
+    </div>
+
+    <div class="sheet">
+        <p class="qtitle">Speaking Part 1</p>
+        <p>The examiner will start by introducing him/herself and checking your identity.
+           He or she will then ask you some questions about yourself.</p>
+        <p class="say">Let's talk about what you do. Do you work or are you a student?</p>
+        <div class="sub-head">Work</div>
+        <ul class="qlist">
+            <li>What job are you doing at the moment?</li>
+            <li>What kind of job would you like to do in the future?</li>
+        </ul>
+        <div class="sub-head">Study</div>
+        <ul class="qlist">
+            <li>What subjects are you studying at the moment?</li>
+            <li>What do you hope to do after you finish your studies?</li>
+        </ul>
+        <p>The examiner will then ask you some questions about one or two other topics, for example:</p>
+        <p class="say">Let's talk about giving and receiving gifts.</p>
+        <ul class="qlist">
+            <li>Do you like choosing gifts for your friends?</li>
+            <li>What was the best gift you ever received?</li>
+        </ul>
+    </div>
+
+    <div class="sheet">
+        <p class="qtitle">Speaking Part 2</p>
+        <p>The examiner will give you a topic like the one below and some paper and a pencil.</p>
+        <p class="say">I'm going to give you a topic and I'd like you to talk about it for one to two minutes.
+           Before you talk, you'll have one minute to think about what you're going to say.
+           You can make some notes if you wish. <b>[1 minute]</b></p>
+
+        <div class="cue">
+            <div class="topic">Describe a place in your country that you would really like to visit</div>
+            <div class="lead">You should say:</div>
+            <ul>
+                <li>where this place is</li>
+                <li>how long you would like to spend there</li>
+                <li>who you would like to go with</li>
+            </ul>
+            <div class="lead">and explain why you would really like to visit this place in your country.</div>
+        </div>
+
+        <div class="tools">
+            <span class="big-timer" id="bigTimer">1:00</span>
+            <button class="tbtn go" id="startPrep" data-sound="none">▶ 開始 1 分鐘準備</button>
+            <button class="tbtn" id="startTalk" data-sound="none">🎤 直接開始 2 分鐘回答</button>
+            <button class="tbtn" id="resetT" data-sound="none">重設</button>
+        </div>
+        <textarea class="notes" id="spNotes" placeholder="準備時間可以在這裡做筆記（只存在這台電腦的瀏覽器裡）"></textarea>
+
+        <p style="margin-top:16px">The examiner may ask one or two rounding-off questions when you have finished your talk, for example:</p>
+        <ul class="qlist">
+            <li>Do you think you will visit this place soon?</li>
+            <li>Do you enjoy visiting different places?</li>
+        </ul>
+    </div>
+
+    <div class="sheet">
+        <p class="qtitle">Speaking Part 3</p>
+        <p>The examiner will ask some general questions which are connected to the topic in Part 2.
+           You will usually have to answer up to six questions.</p>
+        <p class="say">We've been talking about a place in your country that you would really like to visit.
+           I'd like to discuss with you one or two more general questions relating to this.
+           First, let's consider popular places to visit.</p>
+        <ul class="qlist">
+            <li>What are the most popular places to visit in your country?</li>
+            <li>Why do many people like to visit historic buildings?</li>
+            <li>Why is it hard sometimes to choose a place for a family group to visit?</li>
+        </ul>
+        <p class="say">Let's talk about visiting other countries now.</p>
+        <ul class="qlist">
+            <li>What are the main benefits of visiting other countries?</li>
+            <li>What preparations do people need to make before they visit another country?</li>
+        </ul>
+        <p class="say">Finally, let's talk about the impact of tourism.</p>
+        <ul class="qlist">
+            <li>How can large numbers of tourists affect the environment in some places?</li>
+            <li>What could be done to reduce the impact of mass tourism?</li>
+        </ul>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+    // Part 2 計時：1 分鐘準備 → 2 分鐘回答
+    const el = document.getElementById('bigTimer');
+    let tick = null;
+
+    function run(seconds, cls, label, onEnd) {
+        clearInterval(tick);
+        let left = seconds;
+        el.className = 'big-timer ' + cls;
+        const show = () => {
+            el.innerText = Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0');
+        };
+        show();
+        tick = setInterval(() => {
+            left--;
+            show();
+            if (left <= 0) {
+                clearInterval(tick);
+                el.className = 'big-timer done';
+                UI.play('done');
+                if (onEnd) onEnd();
+            }
+        }, 1000);
+        UI.play('tap');
+    }
+
+    document.getElementById('startPrep').addEventListener('click', () =>
+        run(60, 'prep', '準備', () => run(120, 'talk', '回答')));
+    document.getElementById('startTalk').addEventListener('click', () => run(120, 'talk', '回答'));
+    document.getElementById('resetT').addEventListener('click', () => {
+        clearInterval(tick); el.className = 'big-timer'; el.innerText = '1:00'; UI.play('tap');
+    });
+
+    // 筆記存在瀏覽器裡
+    const notes = document.getElementById('spNotes');
+    try {
+        notes.value = localStorage.getItem('speaking-notes-test3') || '';
+        notes.addEventListener('input', () => localStorage.setItem('speaking-notes-test3', notes.value));
+    } catch (e) { /* 無痕模式等情況 */ }
+</script>
+</body>
+</html>

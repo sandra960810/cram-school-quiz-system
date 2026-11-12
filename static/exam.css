@@ -1,0 +1,88 @@
+/* IELTS 模擬測驗區共用樣式：盡量貼近書本排版，但在螢幕上好讀 */
+body { font-family: "Microsoft JhengHei", Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #2c3e50; }
+.exam-wrap { max-width: 900px; margin: 0 auto; }
+.exam-wrap.wide { max-width: 1080px; }
+
+/* 標題列：模仿書上的深色標籤 */
+.exam-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+.exam-tag { background: #3d3d3d; color: white; font-size: 19px; font-weight: bold; padding: 7px 16px; letter-spacing: 0.5px; }
+.exam-part { font-size: 22px; border-bottom: 2px solid #3d3d3d; padding: 0 6px 4px; }
+
+.sheet { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 26px 30px; margin-bottom: 18px; }
+.qgroup { margin-bottom: 34px; }
+.qgroup:last-child { margin-bottom: 8px; }
+.qtitle { font-weight: bold; font-size: 17px; margin: 0 0 10px; }
+.instr { font-style: italic; color: #34495e; margin: 0 0 8px; line-height: 1.6; }
+.instr b { font-style: normal; }
+.center-title { text-align: center; font-weight: bold; font-size: 18px; margin: 18px 0 14px; }
+.track { display: inline-flex; align-items: center; gap: 6px; background: #ede7f6; color: #5b48a2; font-size: 13px; font-weight: bold; padding: 4px 12px; border-radius: 12px; }
+
+/* 題目列 */
+.qrow { display: flex; gap: 10px; margin-bottom: 14px; line-height: 1.9; }
+.qno { flex: none; font-weight: bold; min-width: 26px; }
+.qbody { flex: 1; }
+.opts { margin: 4px 0 0; }
+.opt { display: block; padding: 3px 0 3px 2px; cursor: pointer; line-height: 1.6; }
+.opt input { margin-right: 8px; }
+.opt .letter { font-weight: bold; display: inline-block; min-width: 18px; }
+.opt:hover { color: #2471a3; }
+
+/* 填空輸入框：做成底線的樣子 */
+input.fill { border: none; border-bottom: 2px dotted #7f8c8d; background: #fdfdfd; font-family: inherit;
+             font-size: 16px; width: 140px; padding: 2px 6px; color: #2471a3; font-weight: bold; }
+input.fill:focus { outline: none; border-bottom-color: #3498db; background: #eaf4fc; }
+input.fill.wide { width: 190px; }
+select.pick { font-family: inherit; font-size: 15px; padding: 4px 8px; border: 2px solid #bdc3c7; border-radius: 6px;
+              background: white; color: #2471a3; font-weight: bold; min-width: 76px; }
+select.pick:focus { outline: none; border-color: #3498db; }
+
+/* 書上的方框：筆記、選項清單 */
+.box { border: 1px solid #555; border-radius: 3px; padding: 18px 22px; margin: 14px 0; background: #fff; }
+.box-title { text-align: center; font-weight: bold; font-size: 18px; margin: -4px 0 14px; }
+.box-head { border-bottom: 1px solid #555; margin: -18px -22px 16px; padding: 14px; text-align: center; font-weight: bold; font-size: 18px; }
+.box h4 { font-size: 16px; margin: 16px 0 8px; }
+.box h4:first-child { margin-top: 0; }
+.box ul { margin: 0 0 6px; padding-left: 20px; }
+.box li { line-height: 2.1; margin-bottom: 2px; }
+.box .sub { list-style: none; padding-left: 14px; }
+.box .sub li::before { content: '– '; color: #7f8c8d; }
+.example { font-style: italic; color: #7f8c8d; }
+.example-ans { text-decoration: underline; color: #7f8c8d; }
+
+.optbox { border: 1px solid #555; border-radius: 3px; padding: 14px 20px; margin: 14px auto; max-width: 560px; background: #fcfcfc; }
+.optbox.wide { max-width: 680px; }
+.optbox .ob-title { text-align: center; font-weight: bold; margin-bottom: 8px; }
+.optbox ol { list-style: none; margin: 0; padding: 0; }
+.optbox li { line-height: 1.9; }
+.optbox .letter { font-weight: bold; display: inline-block; min-width: 20px; }
+
+/* 流程圖 */
+.flow { max-width: 480px; margin: 18px auto; }
+.flow .fbox { border: 1px solid #666; border-radius: 3px; padding: 14px 16px; text-align: center; line-height: 2.1; background: #fff; }
+.flow .arrow { text-align: center; color: #555; font-size: 24px; line-height: 1.2; margin: 4px 0; }
+
+/* 配對清單 */
+.match-list { margin-top: 10px; }
+.match-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.match-row .mi { font-style: italic; flex: 1; max-width: 330px; }
+
+/* 閱讀文章圖片 */
+.passage-img { width: 100%; border: 1px solid #ddd; border-radius: 6px; display: block; margin-bottom: 10px; background: white; }
+.passage-note { font-size: 13px; color: #7f8c8d; margin: 0 0 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 950px) { .layout { grid-template-columns: 1fr; } }
+.sticky { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }
+
+/* 送出列 */
+.submit-bar { position: sticky; bottom: 0; background: rgba(255,255,255,0.97); border-top: 2px solid #e5e8e8;
+              padding: 14px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+              border-radius: 10px 10px 0 0; box-shadow: 0 -3px 12px rgba(0,0,0,0.07); margin-top: 10px; }
+.submit-bar .count { color: #7f8c8d; font-size: 15px; flex: 1; }
+.submit-bar .count b { color: #2c3e50; font-size: 17px; }
+.btn-submit { border: none; background: #5b48a2; color: white; font-size: 17px; font-weight: bold;
+              padding: 13px 28px; border-radius: 10px; cursor: pointer; font-family: inherit;
+              display: inline-flex; align-items: center; gap: 8px; }
+.btn-submit:hover { filter: brightness(1.1); }
+.timer { font-variant-numeric: tabular-nums; font-weight: bold; color: #2c3e50; background: #ecf0f1;
+         padding: 8px 14px; border-radius: 8px; }
+.timer.over { background: #fadbd8; color: #c0392b; }

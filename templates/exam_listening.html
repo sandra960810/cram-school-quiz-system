@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聽力測驗｜IELTS Exam Practice Test 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+</head>
+<body>
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <span class="timer" id="timer">00:00</span>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">Exam Practice Test 3</span>
+        <span class="exam-part">Listening</span>
+    </div>
+
+    <form method="post" action="{{ url_for('exam_submit', student_id=student.id, section='listening') }}" id="examForm">
+
+    <!-- ============ PART 1 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Listening Part 1</span>
+            <span class="track">🎧 Track 18</span></div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 1–10</p>
+            <p class="instr">Complete the notes below.</p>
+            <p class="instr">Write <b>ONE WORD AND / OR A NUMBER</b> for each answer.</p>
+
+            <div class="box">
+                <div class="box-head">Short Film Competition</div>
+                <h4>Rules</h4>
+                <ul>
+                    <li>The film must be
+                        <div class="example">Example answer</div>
+                        <div>no more than <span class="example-ans">20</span> minutes long.</div>
+                        <div>submitted before Wednesday,
+                            <b>1</b> <input type="text" class="fill" name="q_1" data-q="1" placeholder="1" autocomplete="off"> .
+                        </div>
+                    </li>
+                    <li>Don't use any <b>2</b>
+                        <input type="text" class="fill" name="q_2" data-q="2" placeholder="2" autocomplete="off"> with experience.</li>
+                    <li>For the film, it's necessary to
+                        <div>include a child or <b>3</b>
+                            <input type="text" class="fill" name="q_3" data-q="3" placeholder="3" autocomplete="off"> this year.</div>
+                        <div>get permission for any <b>4</b>
+                            <input type="text" class="fill" name="q_4" data-q="4" placeholder="4" autocomplete="off"> used.</div>
+                        <div>check that English <b>5</b>
+                            <input type="text" class="fill" name="q_5" data-q="5" placeholder="5" autocomplete="off"> contain no mistakes</div>
+                    </li>
+                </ul>
+                <h4>Advice</h4>
+                <ul>
+                    <li>Focus on the <b>6</b>
+                        <input type="text" class="fill" name="q_6" data-q="6" placeholder="6" autocomplete="off"> before doing anything else.</li>
+                    <li>Stick to a few characters and locations.</li>
+                    <li>Avoid making a <b>7</b>
+                        <input type="text" class="fill" name="q_7" data-q="7" placeholder="7" autocomplete="off"> because not all the judges will like it.</li>
+                </ul>
+                <h4>Last year's competition</h4>
+                <ul>
+                    <li>The winner was Greg <b>8</b>
+                        <input type="text" class="fill" name="q_8" data-q="8" placeholder="8" autocomplete="off"> .</li>
+                    <li>The title of Greg's film was <b>9</b>
+                        <input type="text" class="fill" name="q_9" data-q="9" placeholder="9" autocomplete="off"> .</li>
+                </ul>
+                <h4>Prizes</h4>
+                <ul>
+                    <li>Winners receive between $500 and $2000.</li>
+                    <li>The best films are shown in the <b>10</b>
+                        <input type="text" class="fill" name="q_10" data-q="10" placeholder="10" autocomplete="off"> Theatre.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PART 2 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Listening Part 2</span>
+            <span class="track">🎧 Track 19</span></div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 11–12</p>
+            <p class="instr">Choose <b>TWO</b> letters <b>A–E</b>.</p>
+            <p class="instr">Which <b>TWO</b> tasks will volunteers be required to do at Eskdale Wood?</p>
+            <div class="optbox">
+                <ol>
+                    <li><span class="letter">A</span> fix fences</li>
+                    <li><span class="letter">B</span> remove branches</li>
+                    <li><span class="letter">C</span> collect litter</li>
+                    <li><span class="letter">D</span> build bird boxes</li>
+                    <li><span class="letter">E</span> cut down trees</li>
+                </ol>
+            </div>
+            <div class="match-list">
+                {% for n in [11, 12] %}
+                <div class="match-row">
+                    <span class="qno">{{ n }}</span>
+                    <select class="pick" name="q_{{ n }}" data-q="{{ n }}">
+                        <option value="">選擇</option>
+                        {% for L in ['A','B','C','D','E'] %}<option value="{{ L }}">{{ L }}</option>{% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 13–14</p>
+            <p class="instr">Choose <b>TWO</b> letters <b>A–E</b>.</p>
+            <p class="instr">Which <b>TWO</b> things must volunteers bring with them?</p>
+            <div class="optbox">
+                <ol>
+                    <li><span class="letter">A</span> gloves</li>
+                    <li><span class="letter">B</span> tools</li>
+                    <li><span class="letter">C</span> snacks</li>
+                    <li><span class="letter">D</span> sunscreen</li>
+                    <li><span class="letter">E</span> boots</li>
+                </ol>
+            </div>
+            <div class="match-list">
+                {% for n in [13, 14] %}
+                <div class="match-row">
+                    <span class="qno">{{ n }}</span>
+                    <select class="pick" name="q_{{ n }}" data-q="{{ n }}">
+                        <option value="">選擇</option>
+                        {% for L in ['A','B','C','D','E'] %}<option value="{{ L }}">{{ L }}</option>{% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 15–20</p>
+            <p class="instr">Complete the flow-chart below.</p>
+            <p class="instr">Choose <b>SIX</b> answers from the box and write the correct letter, <b>A–H</b>, next to <b>Questions 15–20</b>.</p>
+            <div class="optbox">
+                <ol>
+                    <li><span class="letter">A</span> clear photograph</li>
+                    <li><span class="letter">B</span> rough estimate</li>
+                    <li><span class="letter">C</span> new account</li>
+                    <li><span class="letter">D</span> suitable location</li>
+                    <li><span class="letter">E</span> council permit</li>
+                    <li><span class="letter">F</span> basic competition</li>
+                    <li><span class="letter">G</span> good team</li>
+                    <li><span class="letter">H</span> visual guide</li>
+                </ol>
+            </div>
+
+            <div class="center-title">To Take Part in the Bird Count</div>
+            {% set flow = [
+                (15, 'set up a', 'for a mobile app'),
+                (16, 'decide on a', 'for the day of the bird count'),
+                (17, 'organise a', 'for support'),
+                (18, 'ensure everyone has access to a', ''),
+                (19, 'agree on a', 'for observed birds'),
+                (20, 'submit a', 'with your collected data') ] %}
+            <div class="flow">
+                {% for n, before, after in flow %}
+                    {% if not loop.first %}<div class="arrow">⬇</div>{% endif %}
+                    <div class="fbox">
+                        {{ before }} <b>{{ n }}</b>
+                        <select class="pick" name="q_{{ n }}" data-q="{{ n }}">
+                            <option value="">選擇</option>
+                            {% for L in ['A','B','C','D','E','F','G','H'] %}<option value="{{ L }}">{{ L }}</option>{% endfor %}
+                        </select>
+                        {{ after }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PART 3 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Listening Part 3</span>
+            <span class="track">🎧 Track 20</span></div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 21–25</p>
+            <p class="instr">Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.</p>
+            <div class="center-title"><i>Presentation on restoring and reproducing paintings</i></div>
+
+            {% set mcq = [
+              (21, 'The students agree that the introduction to their presentation should include',
+                   ['reasons why paintings need to be restored.',
+                    'examples of poor restoration work.',
+                    'a general description of what restoration involves.']),
+              (22, 'When the students visited the museum, they were surprised by',
+                   ['the time it took to restore a single painting.',
+                    'the academic backgrounds of the restorers.',
+                    'the materials used in restoration work.']),
+              (23, 'What does Oliver say would put him off a career in art restoration?',
+                   ['the reaction of the owners of a painting',
+                    'the possibility of working in dangerous conditions',
+                    'the requirement to be able to draw very well']),
+              (24, 'What do the students agree about the restored Dutch landscape painting?',
+                   ['It shows how taste in art varies amongst different people.',
+                    'It is an example of a work that was once undervalued.',
+                    'It demonstrates how cleaning techniques have greatly improved.']),
+              (25, "What is Oliver's attitude to the digital reproduction of famous paintings?",
+                   ['It requires a great deal of skill.',
+                    'There is something dishonest about it.',
+                    'It makes art accessible to more people.']) ] %}
+            {% for n, stem, options in mcq %}
+            <div class="qrow">
+                <span class="qno">{{ n }}</span>
+                <div class="qbody">{{ stem }}
+                    <div class="opts">
+                        {% for text in options %}
+                        <label class="opt">
+                            <input type="radio" name="q_{{ n }}" data-q="{{ n }}" value="{{ 'ABC'[loop.index0] }}">
+                            <span class="letter">{{ 'ABC'[loop.index0] }}</span>{{ text }}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 26–30</p>
+            <p class="instr">What challenge did the Factum Arte team face with reproducing the following paintings?</p>
+            <p class="instr">Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–G</b>, next to <b>Questions 26–30</b>.</p>
+            <div class="optbox wide">
+                <div class="ob-title">Challenges the Factum Arte team faced</div>
+                <ol>
+                    <li><span class="letter">A</span> they only had a photo of a badly restored version of the painting</li>
+                    <li><span class="letter">B</span> they needed to see under the damaged surface of the painting</li>
+                    <li><span class="letter">C</span> they had to get permission to analyse a very similar painting</li>
+                    <li><span class="letter">D</span> they had to rely on similar drawings of the same subject</li>
+                    <li><span class="letter">E</span> they had to negotiate with relations of the original artist</li>
+                    <li><span class="letter">F</span> they were unable to view other examples of the artist's work</li>
+                    <li><span class="letter">G</span> they had only limited time to reproduce the painting</li>
+                </ol>
+            </div>
+
+            <p class="qtitle" style="margin-top:18px">Paintings the team wanted to reproduce</p>
+            <div class="match-list">
+                {% for n, name in [(26,'Six Sunflowers'), (27,'The Concert'),
+                                   (28,'Portrait of Sir Winston Churchill'),
+                                   (29,'The Water Lilies'), (30,'Myrto')] %}
+                <div class="match-row">
+                    <span class="qno">{{ n }}</span>
+                    <span class="mi">{{ name }}</span>
+                    <select class="pick" name="q_{{ n }}" data-q="{{ n }}">
+                        <option value="">選擇</option>
+                        {% for L in ['A','B','C','D','E','F','G'] %}<option value="{{ L }}">{{ L }}</option>{% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PART 4 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Listening Part 4</span>
+            <span class="track">🎧 Track 21</span></div>
+
+        <div class="qgroup">
+            <p class="qtitle">Questions 31–40</p>
+            <p class="instr">Complete the notes below.</p>
+            <p class="instr">Write <b>ONE WORD ONLY</b> for each answer.</p>
+
+            <div class="box">
+                <div class="box-head">The Challenges of Living in Space</div>
+                <h4>Living on the International Space Station (ISS)</h4>
+                <ul>
+                    <li>Astronauts spend months in microgravity, so
+                        <ul class="sub">
+                            <li>their blood moves to their head and <b>31</b>
+                                <input type="text" class="fill" name="q_31" data-q="31" placeholder="31" autocomplete="off"> .</li>
+                            <li>they lose minerals such as <b>32</b>
+                                <input type="text" class="fill" name="q_32" data-q="32" placeholder="32" autocomplete="off">.</li>
+                            <li>they have to exercise 2.5 hours to avoid <b>33</b>
+                                <input type="text" class="fill" name="q_33" data-q="33" placeholder="33" autocomplete="off"> loss.</li>
+                            <li>they may suffer from poor <b>34</b>
+                                <input type="text" class="fill" name="q_34" data-q="34" placeholder="34" autocomplete="off"> back on Earth.</li>
+                        </ul>
+                    </li>
+                    <li>NASA continues to improve ways to recycle water, including <b>35</b>
+                        <input type="text" class="fill" name="q_35" data-q="35" placeholder="35" autocomplete="off"> .</li>
+                </ul>
+                <h4>Building on the moon or Mars</h4>
+                <ul>
+                    <li>Engineers and architects must either use materials which
+                        <ul class="sub">
+                            <li>are <b>36</b>
+                                <input type="text" class="fill" name="q_36" data-q="36" placeholder="36" autocomplete="off"> enough for transport.</li>
+                            <li>can already be found on the moon or Mars.</li>
+                        </ul>
+                    </li>
+                    <li>Rocks and minerals could be used to make metal, brick and possibly <b>37</b>
+                        <input type="text" class="fill" name="q_37" data-q="37" placeholder="37" autocomplete="off"> for buildings.</li>
+                    <li>NASA still needs to find a way to make large <b>38</b>
+                        <input type="text" class="fill" name="q_38" data-q="38" placeholder="38" autocomplete="off"> .</li>
+                    <li>People could use virtual reality
+                        <ul class="sub">
+                            <li>to visit places like a <b>39</b>
+                                <input type="text" class="fill" name="q_39" data-q="39" placeholder="39" autocomplete="off"> .</li>
+                            <li>to get a new <b>40</b>
+                                <input type="text" class="fill" name="q_40" data-q="40" placeholder="40" autocomplete="off"> .</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-bar">
+        <span class="count">已作答 <b id="done">0</b> / 40 題</span>
+        <button type="submit" class="btn-submit" data-sound="nav">交卷看成績 <span class="go-arrow">→</span></button>
+    </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='exam.js') }}"></script>
+</body>
+</html>

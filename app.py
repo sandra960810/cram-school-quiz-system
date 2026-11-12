@@ -1,9 +1,12 @@
 import json
+import os
 import random
 from datetime import datetime
 
 from flask import Flask, request, render_template, redirect, jsonify, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
+
+import exam_data
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
@@ -40,45 +43,51 @@ class LearningProgress(db.Model):
     last_reviewed = db.Column(db.DateTime, default=datetime.utcnow)
 
 
-class ExamAttempt(db.Model):
-    """一次模擬測驗。section 目前是 vocab（單字與句子），之後擴充聽說讀寫。"""
+class TestAttempt(db.Model):
+    """一次 IELTS 模擬測驗（listening / reading）。"""
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
-    section = db.Column(db.String(20), default='vocab')
-    scope_label = db.Column(db.String(80))          # 顯示用：範圍名稱
-    source = db.Column(db.String(20), default='normal')  # normal / mistakes（訂正練習）
-    total = db.Column(db.Integer, default=0)
+    test_key = db.Column(db.String(20), default='test3')
+    section = db.Column(db.String(20), nullable=False)   # listening / reading
+    total = db.Column(db.Integer, default=40)
     correct = db.Column(db.Integer, default=0)
     started_at = db.Column(db.DateTime, default=datetime.utcnow)
     finished_at = db.Column(db.DateTime)
 
 
-class ExamQuestion(db.Model):
-    """測驗裡的一題。payload 是 JSON：題目文字、選項等。"""
+class TestAnswer(db.Model):
+    """學生在某次測驗裡某一題的作答與批改結果。"""
     id = db.Column(db.Integer, primary_key=True)
-    attempt_id = db.Column(db.Integer, db.ForeignKey('exam_attempt.id'), nullable=False)
-    vocab_id = db.Column(db.Integer, db.ForeignKey('vocabulary.id'), nullable=False)
-    order_no = db.Column(db.Integer, default=0)
-    qtype = db.Column(db.String(20), nullable=False)
-    payload = db.Column(db.Text, nullable=False)
-    answer = db.Column(db.String(300), nullable=False)   # 正確答案
-    given = db.Column(db.String(300))                    # 學生的作答
-    is_correct = db.Column(db.Boolean)
+    attempt_id = db.Column(db.Integer, db.ForeignKey('test_attempt.id'), nullable=False)
+    qno = db.Column(db.Integer, nullable=False)
+    given = db.Column(db.String(300))
+    is_correct = db.Column(db.Boolean, default=False)
 
 
-class ExamMistake(db.Model):
-    """錯題本：同一個字＋題型一筆。訂正練習答對後標成已訂正；之後又答錯會重新打開。"""
+class TestMistake(db.Model):
+    """錯題本：同一份測驗的同一題一筆。訂正後標成已訂正，之後再錯會重新打開。"""
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
-    vocab_id = db.Column(db.Integer, db.ForeignKey('vocabulary.id'), nullable=False)
-    qtype = db.Column(db.String(20), nullable=False)
+    test_key = db.Column(db.String(20), default='test3')
+    section = db.Column(db.String(20), nullable=False)
+    qno = db.Column(db.Integer, nullable=False)
     wrong_count = db.Column(db.Integer, default=0)
     last_given = db.Column(db.String(300))
     starred = db.Column(db.Boolean, default=False)
     corrected = db.Column(db.Boolean, default=False)
     last_wrong_at = db.Column(db.DateTime, default=datetime.utcnow)
-    corrected_at = db.Column(db.DateTime)
-    __table_args__ = (db.UniqueConstraint('student_id', 'vocab_id', 'qtype'),)
+    __table_args__ = (db.UniqueConstraint('student_id', 'test_key', 'section', 'qno'),)
+
+
+class WritingDraft(db.Model):
+    """寫作草稿：每位學生每個 Task 一份，隨時可以回來改。"""
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    test_key = db.Column(db.String(20), default='test3')
+    task_no = db.Column(db.Integer, nullable=False)
+    content = db.Column(db.Text, default='')
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    __table_args__ = (db.UniqueConstraint('student_id', 'test_key', 'task_no'),)
 
 
 class Favorite(db.Model):
@@ -460,273 +469,231 @@ def learn_word(student_id, theme_key, vocab_id):
 
 
 # ---------------------------------------------------------------------------
-# 模擬測驗區：單字與句子
+# 模擬測驗區：IELTS Exam Practice Test 3（聽說讀寫）
 # ---------------------------------------------------------------------------
 
-EXAM_COUNTS = (10, 20)
-QTYPE_NAMES = {
-    'listen_spell': '🎧 聽音拼字',
-    'en_to_zh': '📖 選出意思',
-    'zh_to_en': '🔤 選出單字',
-    'def_match': '🧩 英英釋義',
-    'cloze': '✍️ 例句填空',
-}
+ANSWER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'exam')
 
 
-def learned_words(student, theme_key=None):
-    """學過（熟或不熟）而且有意思可考的字。"""
-    q = Vocabulary.query.filter(Vocabulary.category == student.enrolled_course)
-    if theme_key:
-        q = q.filter(theme_condition(theme_key))
-    status = status_of(student.id)
-    return [w for w in q.all() if w.id in status and (w.meaning or '').strip()]
+def load_answers(section):
+    path = os.path.join(ANSWER_DIR, f'answers_{exam_data.TEST_KEY}_{section}.json')
+    with open(path, encoding='utf-8') as f:
+        return json.load(f)
 
 
-def qtypes_for(word):
-    """這個字的資料能出哪些題型。"""
-    types = ['listen_spell', 'en_to_zh', 'zh_to_en']
-    if (word.meaning_en or '').strip() and word.meaning_en != word.meaning:
-        types.append('def_match')
-    if clean_sentence(word.sentence) and word.word.lower() in (word.sentence or '').lower():
-        types.append('cloze')
-    return types
+def load_pairs(section):
+    """成對作答的題目（例如 11/12 兩題任意順序）。"""
+    path = os.path.join(ANSWER_DIR, f'answer_pairs_{exam_data.TEST_KEY}.json')
+    try:
+        with open(path, encoding='utf-8') as f:
+            return [[int(q) for q in g] for g in json.load(f).get(section, [])]
+    except FileNotFoundError:
+        return []
 
 
-def make_options(word, pool, field):
-    """四個選項：正確答案＋3 個同課程的干擾項。"""
-    correct = getattr(word, field) if field != 'word' else word.word
-    seen = {str(correct).strip().lower()}
-    distractors = []
-    for w in random.sample(pool, len(pool)):
-        v = getattr(w, field) if field != 'word' else w.word
-        v = (v or '').strip()
-        if v and v.lower() not in seen:
-            seen.add(v.lower())
-            distractors.append(v)
-        if len(distractors) == 3:
-            break
-    options = distractors + [str(correct).strip()]
-    random.shuffle(options)
-    return options
+def normalize(text):
+    """比對用：去頭尾空白、多個空白合併成一個、不分大小寫。"""
+    return ' '.join(str(text or '').split()).casefold()
 
 
-def build_question(word, qtype, pool):
-    """產生一題。回傳 (payload dict, 正確答案)。payload 不含答案（拼字題除外，答案就是單字本身）。"""
-    zh = word.meaning
-    if qtype == 'listen_spell':
-        return {"prompt": "聽發音，拼出這個單字", "speak": word.word, "input": True,
-                "hint": f"{word.pos or ''} {zh}".strip()}, word.word
-    if qtype == 'en_to_zh':
-        return {"prompt": f"「{word.word}」的意思是？", "speak": word.word,
-                "options": make_options(word, pool, 'meaning')}, zh
-    if qtype == 'zh_to_en':
-        return {"prompt": f"「{zh}」的英文是？",
-                "options": make_options(word, pool, 'word')}, word.word
-    if qtype == 'def_match':
-        return {"prompt": f"Which word means: “{word.meaning_en.strip()}”",
-                "options": make_options(word, pool, 'word')}, word.word
-    # cloze：把例句裡的單字挖空
-    sentence = word.sentence
-    import re as _re
-    # 整個字（含變化形，例如 contaminated）一起挖空
-    blanked = _re.sub(r'\b' + _re.escape(word.word) + r'\w*', '＿＿＿＿＿', sentence, count=1, flags=_re.I)
-    payload = {"prompt": "例句填空：選出正確的單字", "sentence": blanked,
-               "sentence_zh": word.sentence_zh or '', "options": make_options(word, pool, 'word')}
-    return payload, word.word
+def grade_section(section, given):
+    """批改一個 section。given 是 {題號(int): 學生作答}。回傳每題的結果清單。"""
+    answers = load_answers(section)
+    pairs = load_pairs(section)
+    paired = {q for group in pairs for q in group}
+    results = {}
+
+    # 成對題：兩題合起來看，答對幾個不同的選項就得幾分（同一個選項寫兩次只算一次）
+    for group in pairs:
+        accepted = {normalize(a) for a in answers[str(group[0])]}
+        used = set()
+        for qno in group:
+            value = normalize(given.get(qno, ''))
+            ok = bool(value) and value in accepted and value not in used
+            if ok:
+                used.add(value)
+            results[qno] = ok
+
+    for qno_str, accepted in answers.items():
+        qno = int(qno_str)
+        if qno in paired:
+            continue
+        results[qno] = normalize(given.get(qno, '')) in {normalize(a) for a in accepted}
+
+    return [{"qno": qno,
+             "given": (given.get(qno) or '').strip(),
+             "is_correct": results[qno],
+             "answer": ' / '.join(answers[str(qno)]),
+             "label": exam_data.LABELS[section].get(qno, ''),
+             "qtype": exam_data.QTYPES[section].get(qno, ''),
+             "part": exam_data.part_of(section, qno)}
+            for qno in sorted(results)]
 
 
-def exam_scopes(student):
-    """測驗範圍選單：全部已學＋每個有已學單字的主題。"""
-    status = status_of(student.id)
-    themes = [t for t in build_theme_list(student) if t["total"]]
-    scopes = [{"key": "all", "label": "全部已學單字", "count": len(learned_words(student))}]
-    for t in themes:
-        learned = t["unlocked"] + t["weak"]
-        if learned:
-            scopes.append({"key": t["key"], "label": t["label"], "count": None, "learned": learned})
-    return scopes
+def mistake_rows(student_id, section=None):
+    q = TestMistake.query.filter_by(student_id=student_id, test_key=exam_data.TEST_KEY)
+    if section:
+        q = q.filter_by(section=section)
+    return q.order_by(TestMistake.corrected, TestMistake.last_wrong_at.desc()).all()
 
 
-def open_mistakes(student_id):
-    return (ExamMistake.query.filter_by(student_id=student_id, corrected=False)
-            .order_by(ExamMistake.last_wrong_at.desc()).all())
+def open_mistake_count(student_id):
+    return TestMistake.query.filter_by(student_id=student_id, test_key=exam_data.TEST_KEY,
+                                       corrected=False).count()
 
 
 @app.route('/exam/<int:student_id>')
 def exam_home(student_id):
     student = get_student(student_id)
-    attempts = (ExamAttempt.query.filter_by(student_id=student_id)
-                .filter(ExamAttempt.finished_at.isnot(None))
-                .order_by(ExamAttempt.finished_at.desc()).limit(8).all())
-    pending = len(open_mistakes(student_id))
-    starred = ExamMistake.query.filter_by(student_id=student_id, starred=True).count()
-    learned_count = len(learned_words(student))
-    return render_template('exam_home.html', student=student, attempts=attempts,
-                           pending=pending, starred=starred, learned_count=learned_count)
+    attempts = (TestAttempt.query.filter_by(student_id=student_id)
+                .filter(TestAttempt.finished_at.isnot(None))
+                .order_by(TestAttempt.finished_at.desc()).limit(8).all())
+    best = {}
+    for a in attempts:
+        if a.section not in best or a.correct > best[a.section].correct:
+            best[a.section] = a
+    drafts = {d.task_no: d for d in WritingDraft.query.filter_by(
+        student_id=student_id, test_key=exam_data.TEST_KEY).all()}
+    return render_template('exam_home.html', student=student, sections=exam_data.SECTIONS,
+                           title=exam_data.TEST_TITLE, attempts=attempts, best=best,
+                           drafts=drafts, pending=open_mistake_count(student_id))
 
 
-@app.route('/exam/<int:student_id>/vocab')
-def exam_setup(student_id):
+@app.route('/exam/<int:student_id>/listening')
+def exam_listening(student_id):
+    return render_template('exam_listening.html', student=get_student(student_id))
+
+
+@app.route('/exam/<int:student_id>/reading')
+def exam_reading(student_id):
+    return render_template('exam_reading.html', student=get_student(student_id))
+
+
+@app.route('/exam/<int:student_id>/speaking')
+def exam_speaking(student_id):
+    return render_template('exam_speaking.html', student=get_student(student_id))
+
+
+@app.route('/exam/<int:student_id>/writing', methods=['GET', 'POST'])
+def exam_writing(student_id):
     student = get_student(student_id)
-    return render_template('exam_setup.html', student=student, scopes=exam_scopes(student),
-                           counts=EXAM_COUNTS, pending=len(open_mistakes(student_id)))
+    if request.method == 'POST':
+        for task_no in (1, 2):
+            content = request.form.get(f'task{task_no}')
+            if content is None:
+                continue
+            draft = WritingDraft.query.filter_by(student_id=student_id,
+                                                 test_key=exam_data.TEST_KEY,
+                                                 task_no=task_no).first()
+            if not draft:
+                draft = WritingDraft(student_id=student_id, test_key=exam_data.TEST_KEY,
+                                     task_no=task_no)
+                db.session.add(draft)
+            draft.content = content
+            draft.updated_at = datetime.utcnow()
+        db.session.commit()
+        return redirect(url_for('exam_writing', student_id=student_id, saved=1))
+    drafts = {d.task_no: d for d in WritingDraft.query.filter_by(
+        student_id=student_id, test_key=exam_data.TEST_KEY).all()}
+    return render_template('exam_writing.html', student=student, drafts=drafts,
+                           saved=request.args.get('saved'))
 
 
-@app.route('/exam/<int:student_id>/vocab/start', methods=['POST'])
-def exam_start(student_id):
+@app.route('/exam/<int:student_id>/<section>/submit', methods=['POST'])
+def exam_submit(student_id, section):
     student = get_student(student_id)
-    scope = request.form.get('scope', 'all')
-    try:
-        count = int(request.form.get('count', 10))
-    except ValueError:
-        count = 10
-    count = min(max(count, 5), 50)
-    source = 'mistakes' if scope == 'mistakes' else 'normal'
+    if section not in exam_data.GRADED_SECTIONS:
+        abort(404, description="這個部分沒有自動批改")
 
-    pool = learned_words(student)   # 干擾項的來源
-    if source == 'mistakes':
-        rows = open_mistakes(student_id)
-        chosen = [(db.session.get(Vocabulary, m.vocab_id), m.qtype) for m in rows]
-        chosen = [(w, qt) for w, qt in chosen if w][:count]
-        random.shuffle(chosen)
-        scope_label = '錯題訂正練習'
-    else:
-        words = pool if scope == 'all' else learned_words(student, scope)
-        scope_label = '全部已學單字' if scope == 'all' else next(
-            (t["label"] for t in build_theme_list(student) if t["key"] == scope), scope)
-        random.shuffle(words)
-        chosen = [(w, random.choice(qtypes_for(w))) for w in words[:count]]
+    given = {}
+    for key, value in request.form.items():
+        # 題目欄位命名是 q_1、q_2 …（單選題用同一個 name 讓選項互斥）
+        if key.startswith('q_'):
+            try:
+                given[int(key[2:])] = value
+            except ValueError:
+                pass
 
-    if not chosen:
-        return render_template('exam_setup.html', student=student, scopes=exam_scopes(student),
-                               counts=EXAM_COUNTS, pending=len(open_mistakes(student_id)),
-                               error='這個範圍還沒有可以考的單字，先去滑卡學幾個吧！')
-
-    if len(pool) < 8:
-        pool = Vocabulary.query.filter(Vocabulary.category == student.enrolled_course).limit(300).all()
-
-    attempt = ExamAttempt(student_id=student_id, section='vocab', scope_label=scope_label,
-                          source=source, total=len(chosen))
+    results = grade_section(section, given)
+    correct = sum(1 for r in results if r["is_correct"])
+    attempt = TestAttempt(student_id=student_id, test_key=exam_data.TEST_KEY, section=section,
+                          total=len(results), correct=correct, finished_at=datetime.utcnow())
     db.session.add(attempt)
     db.session.flush()
-    for i, (w, qtype) in enumerate(chosen, start=1):
-        payload, answer = build_question(w, qtype, [p for p in pool if p.id != w.id])
-        db.session.add(ExamQuestion(attempt_id=attempt.id, vocab_id=w.id, order_no=i,
-                                    qtype=qtype, payload=json.dumps(payload, ensure_ascii=False),
-                                    answer=answer))
-    db.session.commit()
-    return redirect(url_for('exam_attempt', student_id=student_id, attempt_id=attempt.id))
 
-
-def get_attempt(student_id, attempt_id):
-    attempt = db.session.get(ExamAttempt, attempt_id)
-    if not attempt or attempt.student_id != student_id:
-        abort(404, description="找不到這次測驗")
-    return attempt
-
-
-@app.route('/exam/<int:student_id>/attempt/<int:attempt_id>')
-def exam_attempt(student_id, attempt_id):
-    student = get_student(student_id)
-    attempt = get_attempt(student_id, attempt_id)
-    if attempt.finished_at:
-        return redirect(url_for('exam_result', student_id=student_id, attempt_id=attempt_id))
-    questions = (ExamQuestion.query.filter_by(attempt_id=attempt_id)
-                 .order_by(ExamQuestion.order_no).all())
-    qdata = [{"qid": q.id, "qtype": q.qtype, "qtype_name": QTYPE_NAMES[q.qtype],
-              "done": q.is_correct is not None, **json.loads(q.payload)} for q in questions]
-    return render_template('exam_attempt.html', student=student, attempt=attempt, questions=qdata)
-
-
-@app.route('/api/exam/answer', methods=['POST'])
-def exam_answer():
-    data = request.get_json(silent=True) or {}
-    q = db.session.get(ExamQuestion, data.get('qid'))
-    if not q:
-        return jsonify({"success": False, "error": "找不到題目"}), 400
-    attempt = db.session.get(ExamAttempt, q.attempt_id)
-    if attempt.finished_at:
-        return jsonify({"success": False, "error": "這次測驗已經結束"}), 400
-    given = str(data.get('answer') or '').strip()
-    first_try = q.is_correct is None
-    correct = given.lower() == q.answer.strip().lower()
-    if first_try:
-        q.given = given[:300]
-        q.is_correct = correct
-        if correct:
-            attempt.correct += 1
-
-        word = db.session.get(Vocabulary, q.vocab_id)
-        mistake = ExamMistake.query.filter_by(student_id=attempt.student_id,
-                                              vocab_id=q.vocab_id, qtype=q.qtype).first()
-        if not correct:
-            # 記進錯題本（已訂正的會重新打開），單字同時移到不熟區
+    for r in results:
+        db.session.add(TestAnswer(attempt_id=attempt.id, qno=r["qno"],
+                                  given=r["given"][:300], is_correct=r["is_correct"]))
+        mistake = TestMistake.query.filter_by(student_id=student_id, test_key=exam_data.TEST_KEY,
+                                              section=section, qno=r["qno"]).first()
+        if not r["is_correct"]:
+            # 答錯就進錯題本；已訂正的會重新打開
             if not mistake:
-                mistake = ExamMistake(student_id=attempt.student_id, vocab_id=q.vocab_id,
-                                      qtype=q.qtype, wrong_count=0)
+                mistake = TestMistake(student_id=student_id, test_key=exam_data.TEST_KEY,
+                                      section=section, qno=r["qno"], wrong_count=0)
                 db.session.add(mistake)
             mistake.wrong_count += 1
-            mistake.last_given = given[:300]
+            mistake.last_given = r["given"][:300]
             mistake.corrected = False
             mistake.last_wrong_at = datetime.utcnow()
-            if word:
-                set_progress(attempt.student_id, word, 'unfamiliar')
-        elif attempt.source == 'mistakes' and mistake and not mistake.corrected:
-            # 訂正練習答對：標成已訂正
-            mistake.corrected = True
-            mistake.corrected_at = datetime.utcnow()
-
-        done = ExamQuestion.query.filter(ExamQuestion.attempt_id == attempt.id,
-                                         ExamQuestion.is_correct.isnot(None)).count()
-        if done >= attempt.total:
-            attempt.finished_at = datetime.utcnow()
-        db.session.commit()
-
-    word = db.session.get(Vocabulary, q.vocab_id)
-    return jsonify({"success": True, "correct": correct, "answer": q.answer,
-                    "word": word.word, "meaning": word.meaning,
-                    "sentence": clean_sentence(word.sentence), "sentence_zh": word.sentence_zh or '',
-                    "finished": attempt.finished_at is not None})
+        elif mistake and not mistake.corrected:
+            mistake.corrected = True   # 這次答對了，算訂正完成
+    db.session.commit()
+    return redirect(url_for('exam_result', student_id=student_id, attempt_id=attempt.id))
 
 
-@app.route('/exam/<int:student_id>/attempt/<int:attempt_id>/result')
+@app.route('/exam/<int:student_id>/result/<int:attempt_id>')
 def exam_result(student_id, attempt_id):
     student = get_student(student_id)
-    attempt = get_attempt(student_id, attempt_id)
-    questions = (ExamQuestion.query.filter_by(attempt_id=attempt_id)
-                 .order_by(ExamQuestion.order_no).all())
-    starred_keys = {(m.vocab_id, m.qtype) for m in ExamMistake.query.filter_by(
-        student_id=student_id, starred=True).all()}
+    attempt = db.session.get(TestAttempt, attempt_id)
+    if not attempt or attempt.student_id != student_id:
+        abort(404, description="找不到這次測驗")
+
+    answers = load_answers(attempt.section)
+    starred = {m.qno for m in mistake_rows(student_id, attempt.section) if m.starred}
     rows = []
-    for q in questions:
-        w = db.session.get(Vocabulary, q.vocab_id)
-        rows.append({"qtype_name": QTYPE_NAMES[q.qtype], "word": w.word, "meaning": w.meaning,
-                     "given": q.given or '（沒作答）', "answer": q.answer,
-                     "is_correct": bool(q.is_correct),
-                     "vocab_id": q.vocab_id, "qtype": q.qtype,
-                     "starred": (q.vocab_id, q.qtype) in starred_keys})
+    for a in TestAnswer.query.filter_by(attempt_id=attempt.id).order_by(TestAnswer.qno).all():
+        rows.append({"qno": a.qno, "given": a.given or '', "is_correct": a.is_correct,
+                     "answer": ' / '.join(answers[str(a.qno)]),
+                     "label": exam_data.LABELS[attempt.section].get(a.qno, ''),
+                     "qtype": exam_data.QTYPES[attempt.section].get(a.qno, ''),
+                     "part": exam_data.part_of(attempt.section, a.qno),
+                     "starred": a.qno in starred})
     pct = round(attempt.correct * 100 / attempt.total) if attempt.total else 0
-    return render_template('exam_result.html', student=student, attempt=attempt,
-                           rows=rows, pct=pct, pending=len(open_mistakes(student_id)))
+    band = ielts_band(attempt.correct)
+    return render_template('exam_result.html', student=student, attempt=attempt, rows=rows,
+                           pct=pct, band=band, section=exam_data.SECTIONS[attempt.section],
+                           section_key=attempt.section, pending=open_mistake_count(student_id))
+
+
+def ielts_band(correct):
+    """雅思聽力／閱讀（學術組）答對題數對應的大約分數帶。"""
+    table = [(39, '8.5–9.0'), (37, '8.0'), (35, '7.5'), (33, '7.0'), (30, '6.5'),
+             (27, '6.0'), (23, '5.5'), (16, '5.0'), (13, '4.5'), (10, '4.0')]
+    for need, band in table:
+        if correct >= need:
+            return band
+    return '4.0 以下'
 
 
 @app.route('/exam/<int:student_id>/mistakes')
 def exam_mistakes(student_id):
     student = get_student(student_id)
-    rows = (ExamMistake.query.filter_by(student_id=student_id)
-            .order_by(ExamMistake.corrected, ExamMistake.last_wrong_at.desc()).all())
     items = []
-    for m in rows:
-        w = db.session.get(Vocabulary, m.vocab_id)
-        if not w:
-            continue
-        items.append({"id": m.id, "word": w.word, "pos": w.pos or '', "meaning": w.meaning,
-                      "qtype_name": QTYPE_NAMES.get(m.qtype, m.qtype), "qtype": m.qtype,
-                      "wrong_count": m.wrong_count, "last_given": m.last_given or '',
-                      "starred": m.starred, "corrected": m.corrected,
-                      "theme_key": theme_key_of(w), "vocab_id": w.id})
-    pending = sum(1 for i in items if not i["corrected"])
-    return render_template('exam_mistakes.html', student=student, items=items, pending=pending)
+    for m in mistake_rows(student_id):
+        answers = load_answers(m.section)
+        items.append({"id": m.id, "section": m.section,
+                      "section_name": exam_data.SECTIONS[m.section]['name'],
+                      "icon": exam_data.SECTIONS[m.section]['icon'],
+                      "qno": m.qno, "part": exam_data.part_of(m.section, m.qno),
+                      "label": exam_data.LABELS[m.section].get(m.qno, ''),
+                      "qtype": exam_data.QTYPES[m.section].get(m.qno, ''),
+                      "answer": ' / '.join(answers[str(m.qno)]),
+                      "last_given": m.last_given or '（沒作答）',
+                      "wrong_count": m.wrong_count, "starred": m.starred,
+                      "corrected": m.corrected})
+    return render_template('exam_mistakes.html', student=student, items=items,
+                           pending=sum(1 for i in items if not i["corrected"]))
 
 
 @app.route('/api/exam/star', methods=['POST'])
@@ -734,16 +701,23 @@ def exam_star():
     data = request.get_json(silent=True) or {}
     want = data.get('starred')
     if not isinstance(want, bool):
-        return jsonify({"success": False}), 400
-    m = db.session.get(ExamMistake, data.get('mistake_id')) if data.get('mistake_id') else         ExamMistake.query.filter_by(student_id=data.get('student_id'),
-                                    vocab_id=data.get('vocab_id'), qtype=data.get('qtype')).first()
+        return jsonify({"success": False, "error": "資料不正確"}), 400
+    if data.get('mistake_id'):
+        m = db.session.get(TestMistake, data['mistake_id'])
+    else:
+        section, qno = data.get('section'), data.get('qno')
+        if section not in exam_data.SECTIONS or not isinstance(qno, int):
+            return jsonify({"success": False, "error": "資料不正確"}), 400
+        m = TestMistake.query.filter_by(student_id=data.get('student_id'),
+                                        test_key=exam_data.TEST_KEY,
+                                        section=section, qno=qno).first()
+        if not m:
+            # 答對的題目也可以收藏，補一筆（答錯次數 0、視為已訂正）
+            m = TestMistake(student_id=data.get('student_id'), test_key=exam_data.TEST_KEY,
+                            section=section, qno=qno, wrong_count=0, corrected=True)
+            db.session.add(m)
     if not m:
-        # 答對的題目也可以收藏：補一筆（wrong_count 0、視為已訂正）
-        if not (data.get('student_id') and data.get('vocab_id') and data.get('qtype')):
-            return jsonify({"success": False}), 400
-        m = ExamMistake(student_id=data['student_id'], vocab_id=data['vocab_id'],
-                        qtype=data['qtype'], wrong_count=0, corrected=True)
-        db.session.add(m)
+        return jsonify({"success": False, "error": "找不到題目"}), 400
     m.starred = want
     db.session.commit()
     return jsonify({"success": True, "starred": m.starred, "mistake_id": m.id})
