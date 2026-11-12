@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的收藏｜單字學習與圖鑑</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
         body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
@@ -23,6 +24,8 @@
         .dex-card .theme { font-size: 11px; color: #95a5a6; text-align: left; margin-bottom: 5px; padding-right: 30px; }
         .dex-card .word { font-size: 20px; font-weight: bold; color: #2c3e50; margin-bottom: 5px; word-break: break-word; }
         .dex-card .meaning { font-size: 14px; color: #555; }
+        .dex-card.familiar { background: #f0fbf4; } .dex-card.familiar .word { color: #1e8449; } .dex-card.familiar .tag { background: #d5f5e3; color: #1e8449; }
+        .dex-card.unfamiliar { background: #fff6eb; } .dex-card.unfamiliar .word { color: #ba4a00; } .dex-card.unfamiliar .tag { background: #fdebd0; color: #ba4a00; }
         .dex-card .tag { display: inline-block; margin-top: 8px; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: #eaf2fb; color: #2471a3; }
         .unfav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: none; border-radius: 50%; background: transparent; color: #f1c40f; font-size: 20px; cursor: pointer; padding: 0; line-height: 28px; }
         .unfav:hover { background: #fef9e7; }
@@ -31,33 +34,35 @@
 </head>
 <body>
 <div class="container">
+    <div class="nav-row">
+        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>所有主題</a>
+    </div>
     <div class="header">
         <div class="header-top">
             <div>
                 <h1>⭐ 我的收藏</h1>
                 <p>{{ student.name }} 收藏了 <span id="fav-total">{{ cards|length }}</span> 個單字</p>
             </div>
-            <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-btn">🔙 所有主題</a>
         </div>
         <div class="actions">
-            <a class="btn {% if not cards %}disabled{% endif %}" id="study-btn"
+            <a class="btn {% if not swipe_count %}disabled{% endif %}" id="study-btn"
                href="{{ url_for('learn_favorites_study', student_id=student.id) }}">
-                🔁 複習收藏的單字（{{ [cards|length, batch]|min }} 個）
+                👆 滑卡練習收藏的字（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
         </div>
     </div>
 
     {% if cards %}
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchFav()" placeholder="🔍 搜尋收藏的單字或意思">
-    <div class="dex-grid">
+    <div class="dex-grid ui-stagger">
         {% for item in cards %}
-            <a class="dex-card" href="{{ item.url }}" data-id="{{ item.id }}">
-                <button class="unfav" title="取消收藏" aria-label="取消收藏 {{ item.word }}"
+            <a class="dex-card {{ item.status }}" href="{{ item.url }}" data-id="{{ item.id }}">
+                <button class="unfav" data-sound="none" title="取消收藏" aria-label="取消收藏 {{ item.word }}"
                         onclick="unfavorite(event, this, {{ item.id }})">★</button>
                 <div class="theme">{{ item.theme }}</div>
                 <div class="word">{{ item.word }}</div>
                 <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
-                {% if not item.is_unlocked %}<span class="tag">尚未收進圖鑑</span>{% endif %}
+                <span class="tag">{{ {'familiar': '✓ 熟', 'unfamiliar': '✗ 不熟'}.get(item.status, '還沒學過') }}</span>
             </a>
         {% endfor %}
     </div>
@@ -83,14 +88,21 @@
             if (!res.ok) throw new Error(res.status);
         } catch (e) {
             btn.disabled = false;
-            alert('取消收藏沒有成功，請再試一次。');
+            UI.play('error');
+            btn.closest('.dex-card').classList.add('ui-shake');
+            setTimeout(() => btn.closest('.dex-card').classList.remove('ui-shake'), 400);
             return;
         }
-        btn.closest('.dex-card').remove();
+        UI.play('unstar');
+        const cardEl = btn.closest('.dex-card');
+        cardEl.style.transition = 'transform 0.25s, opacity 0.25s';
+        cardEl.style.transform = 'scale(0.8)'; cardEl.style.opacity = '0';
+        await new Promise(r => setTimeout(r, 250));
+        cardEl.remove();
         const left = document.querySelectorAll('.dex-card').length;
         document.getElementById('fav-total').innerText = left;
         const study = document.getElementById('study-btn');
-        study.innerText = `🔁 複習收藏的單字（${Math.min(left, {{ batch }})} 個）`;
+        
         if (!left) {
             study.classList.add('disabled');
             document.getElementById('empty-msg').style.display = '';
@@ -107,5 +119,6 @@
         }
     }
 </script>
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
 </body>
 </html>
