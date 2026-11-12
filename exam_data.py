@@ -8,6 +8,11 @@
 TEST_KEY = 'test3'
 TEST_TITLE = 'IELTS Exam Practice Test 3'
 
+# 可以選擇的試卷清單。之後新增試卷時在這裡加一筆，測驗區首頁就會出現可以切換的選項。
+TESTS = [
+    {'key': 'test3', 'title': 'Exam Practice Test 3'},
+]
+
 SECTIONS = {
     'listening': {'name': '聽力', 'icon': '🎧', 'total': 40,
                   'desc': 'Parts 1–4，共 40 題（內建音檔，點進去直接播放）'},

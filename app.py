@@ -556,6 +556,7 @@ def exam_home(student_id):
         student_id=student_id, test_key=exam_data.TEST_KEY).all()}
     return render_template('exam_home.html', student=student, sections=exam_data.SECTIONS,
                            title=exam_data.TEST_TITLE, attempts=attempts, best=best,
+                           tests=exam_data.TESTS, test_key=exam_data.TEST_KEY,
                            drafts=drafts, pending=open_mistake_count(student_id))
 
 
@@ -596,6 +597,7 @@ def exam_writing(student_id):
     drafts = {d.task_no: d for d in WritingDraft.query.filter_by(
         student_id=student_id, test_key=exam_data.TEST_KEY).all()}
     return render_template('exam_writing.html', student=student, drafts=drafts,
+                           title=exam_data.TEST_TITLE,
                            saved=request.args.get('saved'))
 
 
