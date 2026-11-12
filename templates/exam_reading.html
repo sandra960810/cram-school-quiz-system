@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>閱讀測驗｜IELTS Exam Practice Test 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+</head>
+<body>
+<div class="exam-wrap wide">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <span class="timer" id="timer" data-limit="60">00:00</span>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">Exam Practice Test 3</span>
+        <span class="exam-part">Reading</span>
+    </div>
+
+    <form method="post" action="{{ url_for('exam_submit', student_id=student.id, section='reading') }}" id="examForm">
+
+    <!-- ============ PASSAGE 1 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Reading Passage 1</span></div>
+        <p class="instr">You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.</p>
+
+        <div class="layout">
+            <div class="sticky">
+                <img class="passage-img" src="{{ url_for('static', filename='images/reading1_a.png') }}" alt="Reading Passage 1：The History of Modern American Dance（第 1 頁）">
+                <img class="passage-img" src="{{ url_for('static', filename='images/reading1_b.png') }}" alt="Reading Passage 1：The History of Modern American Dance（第 2 頁）">
+                <p class="passage-note">文章來源：Exam Practice Test 3，第 111–112 頁</p>
+            </div>
+
+            <div>
+                <div class="qgroup">
+                    <p class="qtitle">Questions 1–6</p>
+                    <p class="instr">Do the following statements agree with the information given in Reading Passage 1?</p>
+                    <p class="instr">Choose <b>TRUE</b>, <b>FALSE</b> or <b>NOT GIVEN</b> for each statement.</p>
+                    <div class="optbox">
+                        <ol>
+                            <li><span class="letter">TRUE</span>　if the statement agrees with the information</li>
+                            <li><span class="letter">FALSE</span>　if the statement contradicts the information</li>
+                            <li><span class="letter">NOT GIVEN</span>　if there is no information on this</li>
+                        </ol>
+                    </div>
+                    {% set tfng = [
+                      (1, 'Dance historians agree about the development of modern American dance.'),
+                      (2, 'Dancers in the early 1900s tended to copy the styles of earlier dancers.'),
+                      (3, 'Loie Fuller preferred to dance alone on stage.'),
+                      (4, 'Isadora Duncan wore complicated clothing when dancing.'),
+                      (5, 'Some dancers criticised Isadora Duncan for her choice of music.'),
+                      (6, 'Ruth St Denis wished to educate others in her style of dancing.') ] %}
+                    {% for n, text in tfng %}
+                    <div class="qrow">
+                        <span class="qno">{{ n }}</span>
+                        <div class="qbody">{{ text }}
+                            <div class="opts">
+                                {% for v in ['TRUE', 'FALSE', 'NOT GIVEN'] %}
+                                <label class="opt" style="display:inline-block;margin-right:14px">
+                                    <input type="radio" name="q_{{ n }}" data-q="{{ n }}" value="{{ v }}">{{ v }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="qgroup">
+                    <p class="qtitle">Questions 7–10</p>
+                    <p class="instr">Complete the notes below.</p>
+                    <p class="instr">Choose <b>ONE WORD ONLY</b> from the passage for each answer.</p>
+                    <div class="box">
+                        <div class="box-head">Developments in Modern American Dance</div>
+                        <h4>1920s–1940s</h4>
+                        <ul>
+                            <li>Martha Graham based her dance on human actions such as breathing and <b>7</b>
+                                <input type="text" class="fill" name="q_7" data-q="7" placeholder="7" autocomplete="off">.</li>
+                            <li>Doris Humphrey wrote an important <b>8</b>
+                                <input type="text" class="fill" name="q_8" data-q="8" placeholder="8" autocomplete="off"> about her ideas.</li>
+                            <li>Dance became a respectable subject to study at university.</li>
+                            <li>Hanya Holm introduced <b>9</b>
+                                <input type="text" class="fill" name="q_9" data-q="9" placeholder="9" autocomplete="off"> into dance and musicals.</li>
+                        </ul>
+                        <h4>1950s–1970s</h4>
+                        <ul>
+                            <li>Erick Hawkins and Merce Cunningham reintroduced some ballet techniques.</li>
+                            <li>An influential <b>10</b>
+                                <input type="text" class="fill" name="q_10" data-q="10" placeholder="10" autocomplete="off"> outlined the working life of Paul Taylor.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qgroup">
+                    <p class="qtitle">Questions 11–13</p>
+                    <p class="instr">Answer the questions below.</p>
+                    <p class="instr">Choose <b>ONE WORD ONLY</b> from the passage for each answer.</p>
+                    {% set short_q = [
+                      (11, 'When Pearl Primus gave up dancing, what did she focus on doing?'),
+                      (12, "What was an important influence for Mark Morris's <i>The Hard Nut</i>?"),
+                      (13, 'Dancers working with Ohad Naharin practise without using what?') ] %}
+                    {% for n, text in short_q %}
+                    <div class="qrow">
+                        <span class="qno">{{ n }}</span>
+                        <div class="qbody">{{ text|safe }}
+                            <div><input type="text" class="fill wide" name="q_{{ n }}" data-q="{{ n }}" placeholder="{{ n }}" autocomplete="off"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PASSAGE 2 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Reading Passage 2</span></div>
+        <p class="instr">You should spend about 20 minutes on <b>Questions 14–26</b>, which are based on Reading Passage 2 below.</p>
+
+        <div class="layout">
+            <div class="sticky">
+                <img class="passage-img" src="{{ url_for('static', filename='images/reading2_a.png') }}" alt="Reading Passage 2：The Science of Human Laughter（第 1 頁）">
+                <img class="passage-img" src="{{ url_for('static', filename='images/reading2_b.png') }}" alt="Reading Passage 2：The Science of Human Laughter（第 2 頁）">
+                <p class="passage-note">文章來源：Exam Practice Test 3，第 114–115 頁</p>
+            </div>
+
+            <div>
+                <div class="qgroup">
+                    <p class="qtitle">Questions 14–18</p>
+                    <p class="instr">Reading Passage 2 has five paragraphs, <b>A–E</b>.</p>
+                    <p class="instr">Which paragraph contains the following information?</p>
+                    <p class="instr"><b>NB</b> You may use any letter more than once.</p>
+                    {% set para = [
+                      (14, 'the claim that it is very hard for people to pretend to laugh'),
+                      (15, 'a reference to research showing that people do not know how often they laugh'),
+                      (16, 'the reason why people can sometimes stop themselves laughing'),
+                      (17, 'an outline of the health benefits experienced by people when laughing'),
+                      (18, 'a reference to a medical condition that stops some people making a noise when laughing') ] %}
+                    {% for n, text in para %}
+                    <div class="qrow">
+                        <span class="qno">{{ n }}</span>
+                        <div class="qbody">{{ text }}
+                            <div><select class="pick" name="q_{{ n }}" data-q="{{ n }}">
+                                <option value="">選擇</option>
+                                {% for L in ['A','B','C','D','E'] %}<option value="{{ L }}">{{ L }}</option>{% endfor %}
+                            </select></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="qgroup">
+                    <p class="qtitle">Questions 19–22</p>
+                    <p class="instr">Look at the following statements (<b>Questions 19–22</b>) and the list of people (<b>A–E</b>).</p>
+                    <p class="instr">Match each statement with the correct person, <b>A–E</b>.</p>
+                    <div class="optbox">
+                        <div class="ob-title">List of people</div>
+                        <ol>
+                            <li><span class="letter">A</span> Dr Peter Shrimpton</li>
+                            <li><span class="letter">B</span> Jocelyn Barnes</li>
+                            <li><span class="letter">C</span> Heinrich Ahrends</li>
+                            <li><span class="letter">D</span> David Mackenzie</li>
+                            <li><span class="letter">E</span> Jake Gottlieb</li>
+                        </ol>
+                    </div>
+                    {% set people = [
+                      (19, 'Research has confirmed personal experience by identifying the wide range of subjects and situations that people find funny.'),
+                      (20, 'Ideas about what is amusing have changed considerably over time.'),
+                      (21, 'To intentionally make other people laugh requires an unusual combination of skills and characteristics.'),
+                      (22, 'The reasons why we laugh are sometimes misunderstood by ordinary people.') ] %}
+                    {% for n, text in people %}
+                    <div class="qrow">
+                        <span class="qno">{{ n }}</span>
+                        <div class="qbody">{{ text }}
+                            <div><select class="pick" name="q_{{ n }}" data-q="{{ n }}">
+                                <option value="">選擇</option>
+                                {% for L in ['A','B','C','D','E'] %}<option value="{{ L }}">{{ L }}</option>{% endfor %}
+                            </select></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="qgroup">
+                    <p class="qtitle">Questions 23–26</p>
+                    <p class="instr">Complete the sentences below.</p>
+                    <p class="instr">Choose <b>ONE WORD ONLY</b> from the passage for each answer.</p>
+                    <div class="qrow"><span class="qno">23</span><div class="qbody">
+                        The French neurologist Guillaume Duchenne showed that if a smile is fake, the skin around a person's
+                        <input type="text" class="fill" name="q_23" data-q="23" placeholder="23" autocomplete="off"> does not change shape.</div></div>
+                    <div class="qrow"><span class="qno">24</span><div class="qbody">
+                        A <input type="text" class="fill" name="q_24" data-q="24" placeholder="24" autocomplete="off">
+                        that was produced in ancient Rome contains early examples of attempts to be funny.</div></div>
+                    <div class="qrow"><span class="qno">25</span><div class="qbody">
+                        In January 1962, an outbreak of mass laughter caused problems in a
+                        <input type="text" class="fill" name="q_25" data-q="25" placeholder="25" autocomplete="off"> in Tanzania.</div></div>
+                    <div class="qrow"><span class="qno">26</span><div class="qbody">
+                        Neurologist Nikki Sokolov is investigating why
+                        <input type="text" class="fill" name="q_26" data-q="26" placeholder="26" autocomplete="off">
+                        is possible even when a person finds something funny.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PASSAGE 3 ============ -->
+    <div class="sheet">
+        <div class="exam-head"><span class="exam-part">Reading Passage 3</span></div>
+        <p class="instr">You should spend about 20 minutes on <b>Questions 27–40</b>, which are based on Reading Passage 3 below.</p>
+
+        <div class="layout">
+            <div class="sticky">
+                <img class="passage-img" src="{{ url_for('static', filename='images/reading3_a.png') }}" alt="Reading Passage 3：Socially Responsible Businesses（第 1 頁）">
+                <img class="passage-img" src="{{ url_for('static', filename='images/reading3_b.png') }}" alt="Reading Passage 3：Socially Responsible Businesses（第 2 頁）">
+                <p class="passage-note">文章來源：Exam Practice Test 3，第 118–119 頁</p>
+            </div>
+
+            <div>
+                <div class="qgroup">
+                    <p class="qtitle">Questions 27–31</p>
+                    <p class="instr">Do the following statements agree with the claims of the writer in Reading Passage 3?</p>
+                    <p class="instr">Choose <b>YES</b>, <b>NO</b> or <b>NOT GIVEN</b> for each statement.</p>
+                    <div class="optbox">
+                        <ol>
+                            <li><span class="letter">YES</span>　if the statement agrees with the claims of the writer</li>
+                            <li><span class="letter">NO</span>　if the statement contradicts the claims of the writer</li>
+                            <li><span class="letter">NOT GIVEN</span>　if it is impossible to say what the writer thinks about this</li>
+                        </ol>
+                    </div>
+                    {% set ynng = [
+                      (27, 'Many business commentators forget the example of Muhammad Yunus.'),
+                      (28, 'Dan Rathbourne provides an accurate assessment of Socially Responsible Businesses (SRBs).'),
+                      (29, 'The Quorate Group is a good example of an influential SRB.'),
+                      (30, 'Few other businesses will wish to follow the example of the Concern Consultancy.'),
+                      (31, 'Professor Drew has correctly identified one reason for the emergence of SRBs.') ] %}
+                    {% for n, text in ynng %}
+                    <div class="qrow">
+                        <span class="qno">{{ n }}</span>
+                        <div class="qbody">{{ text }}
+                            <div class="opts">
+                                {% for v in ['YES', 'NO', 'NOT GIVEN'] %}
+                                <label class="opt" style="display:inline-block;margin-right:14px">
+                                    <input type="radio" name="q_{{ n }}" data-q="{{ n }}" value="{{ v }}">{{ v }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="qgroup">
+                    <p class="qtitle">Questions 32–36</p>
+                    <p class="instr">Complete the summary using the list of words, <b>A–H</b>, below.</p>
+                    {% set sel = '<select class="pick" name="q_%d" data-q="%d"><option value="">選擇</option>' %}
+                    <div class="box">
+                        <div class="box-title">Examples of SRBs</div>
+                        <p style="line-height:2.4">Renew has made a successful business out of designing <b>32</b>
+                            <select class="pick" name="q_32" data-q="32"><option value="">選擇</option>{% for L in 'ABCDEFGH' %}<option value="{{ L }}">{{ L }}</option>{% endfor %}</select>
+                            On the other hand, Indulge wishes to promote <b>33</b>
+                            <select class="pick" name="q_33" data-q="33"><option value="">選擇</option>{% for L in 'ABCDEFGH' %}<option value="{{ L }}">{{ L }}</option>{% endfor %}</select>
+                            and is expanding to new sites. Large corporations cannot always make quick changes but many make provision for <b>34</b>
+                            <select class="pick" name="q_34" data-q="34"><option value="">選擇</option>{% for L in 'ABCDEFGH' %}<option value="{{ L }}">{{ L }}</option>{% endfor %}</select>, such as the Green Scheme.</p>
+                        <p style="line-height:2.4">On a smaller scale, Johann Jensen is experimenting with types of <b>35</b>
+                            <select class="pick" name="q_35" data-q="35"><option value="">選擇</option>{% for L in 'ABCDEFGH' %}<option value="{{ L }}">{{ L }}</option>{% endfor %}</select>
+                            and is planning other ventures. In contrast, an example of a well-established business is Greater Good, which provides <b>36</b>
+                            <select class="pick" name="q_36" data-q="36"><option value="">選擇</option>{% for L in 'ABCDEFGH' %}<option value="{{ L }}">{{ L }}</option>{% endfor %}</select>
+                            to a growing market.</p>
+                    </div>
+                    <div class="optbox">
+                        <ol>
+                            <li><span class="letter">A</span> biodegradable materials</li>
+                            <li><span class="letter">B</span> recycled clothing</li>
+                            <li><span class="letter">C</span> fresh produce</li>
+                            <li><span class="letter">D</span> closer neighbourhoods</li>
+                            <li><span class="letter">E</span> secure accommodation</li>
+                            <li><span class="letter">F</span> affordable furniture</li>
+                            <li><span class="letter">G</span> permanent employment</li>
+                            <li><span class="letter">H</span> volunteer work</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qgroup">
+                    <p class="qtitle">Questions 37–40</p>
+                    <p class="instr">Choose the correct answer, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.</p>
+                    {% set mcq4 = [
+                      (37, "When discussing 'conscious consumers' the writer concludes that",
+                           ['businesses are slow to respond to consumer demand.',
+                            'consumers and businesses have different interests.',
+                            'businesses and consumers are influencing each other.',
+                            'consumers should put more pressure on businesses.']),
+                      (38, 'The writer refers to Lucinda Mitchell in order to',
+                           ['explain why SRBs lose out to other businesses.',
+                            'exemplify the way governments often support SRBs.',
+                            'contrast the approach of different governments to SRBs.',
+                            'compare the role of SRBs in different regions.']),
+                      (39, 'What does the writer suggest about the goals of SRBs?',
+                           ['SRBs should have a wider range of goals.',
+                            'It is a mistake for an SRB to change goal.',
+                            'Some goals may make an SRB unprofitable.',
+                            'An SRB should not have more than one goal.']),
+                      (40, "Which of the following best summarises the writer's argument in the final paragraph?",
+                           ['A minority of businesses will inevitably fail.',
+                            'SRBs are more successful than other businesses.',
+                            'Universities should do more research into SRBs.',
+                            'The problems faced by SRBs can be overcome.']) ] %}
+                    {% for n, stem, options in mcq4 %}
+                    <div class="qrow">
+                        <span class="qno">{{ n }}</span>
+                        <div class="qbody">{{ stem }}
+                            <div class="opts">
+                                {% for text in options %}
+                                <label class="opt">
+                                    <input type="radio" name="q_{{ n }}" data-q="{{ n }}" value="{{ 'ABCD'[loop.index0] }}">
+                                    <span class="letter">{{ 'ABCD'[loop.index0] }}</span>{{ text }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-bar">
+        <span class="count">已作答 <b id="done">0</b> / 40 題</span>
+        <button type="submit" class="btn-submit" data-sound="nav">交卷看成績 <span class="go-arrow">→</span></button>
+    </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='exam.js') }}"></script>
+</body>
+</html>

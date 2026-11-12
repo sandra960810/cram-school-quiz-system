@@ -10,18 +10,19 @@
         .container { max-width: 900px; margin: 0 auto; }
         .banner { background: linear-gradient(135deg, #a18cd1, #5b48a2); color: white; padding: 25px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 25px; }
         .banner h1 { margin: 0 0 6px 0; font-size: 26px; }
-        .banner p { margin: 0; opacity: 0.9; }
+        .banner p { margin: 0; opacity: 0.9; line-height: 1.6; }
 
-        .section-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .section-card { background: white; border-radius: 12px; padding: 20px; text-align: center; text-decoration: none; color: #2c3e50; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: block; }
+        .section-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .section-card { background: white; border-radius: 12px; padding: 20px; text-align: center; text-decoration: none; color: #2c3e50; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: block; border-top: 4px solid #5b48a2; }
         a.section-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.12); }
         .section-card .icon { font-size: 36px; margin-bottom: 8px; }
-        .section-card .name { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
-        .section-card .desc { font-size: 13px; color: #7f8c8d; }
-        .section-card.soon { background: #ececec; color: #95a5a6; }
-        .section-card.soon .icon { filter: grayscale(100%); }
-        .pill { display: inline-block; margin-top: 8px; font-size: 11px; padding: 2px 10px; border-radius: 10px; background: #eaf2fb; color: #2471a3; font-weight: bold; }
-        .section-card.soon .pill { background: #e0e0e0; color: #95a5a6; }
+        .section-card .name { font-size: 19px; font-weight: bold; margin-bottom: 5px; }
+        .section-card .desc { font-size: 13px; color: #7f8c8d; line-height: 1.5; min-height: 38px; }
+        .best { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: bold; padding: 3px 12px; border-radius: 12px; }
+        .best.good { background: #d5f5e3; color: #1e8449; }
+        .best.mid { background: #fdebd0; color: #ba4a00; }
+        .best.bad { background: #fadbd8; color: #c0392b; }
+        .best.none { background: #eaf2fb; color: #2471a3; }
 
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
@@ -29,7 +30,7 @@
         .panel h2 { margin: 0 0 12px; font-size: 17px; color: #2c3e50; }
         .mistake-cta { display: flex; align-items: center; gap: 14px; background: #fff6eb; border: 2px solid #f5cba7; border-radius: 10px; padding: 12px 15px; text-decoration: none; color: inherit; }
         .mistake-cta .n { font-size: 30px; font-weight: bold; color: #ba4a00; }
-        .mistake-cta .t { flex: 1; font-size: 14px; color: #7f8c8d; }
+        .mistake-cta .t { flex: 1; font-size: 13px; color: #7f8c8d; line-height: 1.5; }
         .mistake-cta .t b { display: block; font-size: 15px; color: #2c3e50; }
         .attempt { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px; border-bottom: 1px solid #f0f2f5; font-size: 14px; color: #2c3e50; text-decoration: none; }
         .attempt:last-child { border-bottom: none; }
@@ -38,7 +39,8 @@
         .score.good { background: #d5f5e3; color: #1e8449; }
         .score.mid { background: #fdebd0; color: #ba4a00; }
         .score.bad { background: #fadbd8; color: #c0392b; }
-        .empty { color: #95a5a6; font-size: 14px; padding: 10px 0; }
+        .empty { color: #95a5a6; font-size: 14px; padding: 10px 0; line-height: 1.6; }
+        .tip { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.7; margin-bottom: 18px; }
     </style>
 </head>
 <body>
@@ -49,21 +51,32 @@
     </div>
 
     <div class="banner">
-        <h1>📝 IELTS 模擬測驗區</h1>
-        <p>{{ student.name }}，已學 {{ learned_count }} 個單字可以拿來考。先從單字與句子開始，聽說讀寫陸續開放。</p>
+        <h1>📝 {{ title }}</h1>
+        <p>{{ student.name }}，這是完整的一回雅思模擬考。聽力與閱讀交卷後自動批改，寫作存檔後交給老師，口說可以照題目計時練習。</p>
     </div>
 
+    <div class="tip">💡 聽力請搭配書本附的音檔 Track 18–21；閱讀建議 60 分鐘內完成三篇。</div>
+
     <div class="section-grid ui-stagger">
-        <a href="{{ url_for('exam_setup', student_id=student.id) }}" class="section-card">
-            <div class="icon">🔤</div>
-            <div class="name">單字與句子</div>
-            <div class="desc">聽音拼字、字義配對、例句填空</div>
-            <span class="pill">開放中 →</span>
+        {% for key, s in sections.items() %}
+        <a href="{{ url_for('exam_' ~ key, student_id=student.id) }}" class="section-card">
+            <div class="icon">{{ s.icon }}</div>
+            <div class="name">{{ s.name }}<span class="go-arrow">→</span></div>
+            <div class="desc">{{ s.desc }}</div>
+            {% if key in best %}
+                {% set a = best[key] %}
+                {% set pct = (a.correct * 100 / a.total) | round | int %}
+                <span class="best {{ 'good' if pct >= 80 else ('mid' if pct >= 60 else 'bad') }}">
+                    最佳 {{ a.correct }}/{{ a.total }}</span>
+            {% elif key == 'writing' %}
+                <span class="best none">{{ '已寫 ' ~ drafts|length ~ ' / 2 篇' if drafts else '還沒開始' }}</span>
+            {% elif key == 'speaking' %}
+                <span class="best none">計時練習</span>
+            {% else %}
+                <span class="best none">還沒考過</span>
+            {% endif %}
         </a>
-        <div class="section-card soon" data-sound="error"><div class="icon">🎧</div><div class="name">聽力</div><div class="desc">對話與獨白題組</div><span class="pill">開發中</span></div>
-        <div class="section-card soon" data-sound="error"><div class="icon">📖</div><div class="name">閱讀</div><div class="desc">文章理解與判斷題</div><span class="pill">開發中</span></div>
-        <div class="section-card soon" data-sound="error"><div class="icon">✍️</div><div class="name">寫作</div><div class="desc">Task 1 / Task 2 練習</div><span class="pill">開發中</span></div>
-        <div class="section-card soon" data-sound="error"><div class="icon">🗣️</div><div class="name">口說</div><div class="desc">Part 1–3 口說題</div><span class="pill">開發中</span></div>
+        {% endfor %}
     </div>
 
     <div class="two-col">
@@ -71,20 +84,21 @@
             <h2>📒 錯題本</h2>
             <a class="mistake-cta" href="{{ url_for('exam_mistakes', student_id=student.id) }}">
                 <span class="n">{{ pending }}</span>
-                <span class="t"><b>題待訂正</b>{% if starred %}另有 {{ starred }} 題收藏{% endif %} — 進錯題本複習、做訂正練習</span>
+                <span class="t"><b>題待訂正</b>答錯的題目會自動收進來，可以看正解、標記收藏，重考後答對就會變成已訂正。</span>
                 <span class="go-arrow">→</span>
             </a>
         </div>
         <div class="panel">
-            <h2>🕑 最近的測驗</h2>
+            <h2>🕑 最近的成績</h2>
             {% for a in attempts %}
                 <a class="attempt" href="{{ url_for('exam_result', student_id=student.id, attempt_id=a.id) }}">
-                    <span>{{ '📒 訂正練習' if a.source == 'mistakes' else a.scope_label }}<br><span class="when">{{ a.finished_at.strftime('%m/%d %H:%M') }}</span></span>
+                    <span>{{ sections[a.section].icon }} {{ sections[a.section].name }}<br>
+                        <span class="when">{{ a.finished_at.strftime('%m/%d %H:%M') }}</span></span>
                     {% set pct = (a.correct * 100 / a.total) | round | int if a.total else 0 %}
                     <span class="score {{ 'good' if pct >= 80 else ('mid' if pct >= 60 else 'bad') }}">{{ a.correct }}/{{ a.total }}</span>
                 </a>
             {% else %}
-                <div class="empty">還沒有測驗紀錄，從「單字與句子」開始吧！</div>
+                <div class="empty">還沒有成績紀錄。<br>從聽力或閱讀開始考一回吧！</div>
             {% endfor %}
         </div>
     </div>
