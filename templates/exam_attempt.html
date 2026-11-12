@@ -76,13 +76,7 @@
 
     function esc(t) { const d = document.createElement('div'); d.innerText = t ?? ''; return d.innerHTML; }
 
-    function speak(text) {
-        if (!text || !window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-US'; u.rate = 0.9;
-        window.speechSynthesis.speak(u);
-    }
+    const speak = (text) => UI.speak(text);   // 自動挑最像真人的英文語音（見 static/ui.js）
 
     function updateBar() {
         const done = answeredBefore + okn + non;

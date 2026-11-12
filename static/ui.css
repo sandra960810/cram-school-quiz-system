@@ -34,6 +34,28 @@ a:hover .go-arrow { transform: translateX(4px); }
     background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.15); font-size: 20px; cursor: pointer; z-index: 1000;
 }
 
+/* 發音設定 */
+.ui-voice-toggle {
+    position: fixed; right: 68px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; border: none;
+    background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.15); font-size: 20px; cursor: pointer; z-index: 1000;
+}
+.ui-voice-panel {
+    position: fixed; right: 16px; bottom: 70px; width: 290px; max-width: calc(100vw - 32px); background: white; border-radius: 14px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2); padding: 16px; z-index: 1001; font-size: 14px; color: #2c3e50;
+    animation: ui-card-in 0.2s ease-out;
+}
+.ui-voice-panel .vp-title { font-weight: bold; font-size: 16px; margin-bottom: 10px; }
+.ui-voice-panel label { display: block; margin-bottom: 10px; font-weight: bold; }
+.ui-voice-panel select { display: block; width: 100%; margin-top: 4px; padding: 7px; border-radius: 8px; border: 1px solid #ccd1d1; font-size: 13px; font-family: inherit; }
+.ui-voice-panel .vp-note { font-size: 12px; color: #7f8c8d; line-height: 1.5; margin-bottom: 10px; }
+.ui-voice-panel .vp-bad { color: #c0392b; font-weight: normal; }
+.ui-voice-panel .vp-test { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #3498db; color: white; font-weight: bold; cursor: pointer; font-family: inherit; }
+.ui-toast {
+    position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); background: #2c3e50; color: white; padding: 12px 18px;
+    border-radius: 10px; font-size: 14px; line-height: 1.6; z-index: 1002; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-width: 90vw; text-align: center;
+    animation: ui-card-in 0.25s ease-out;
+}
+
 /* 小動畫 */
 @keyframes ui-pop { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
 .ui-pop { animation: ui-pop 0.35s ease-out; }
