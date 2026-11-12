@@ -19,6 +19,15 @@
         <span class="exam-part">Listening</span>
     </div>
 
+    <div class="audio-bar">
+        <div class="audio-bar-label">🎧 聽力音檔（Test 3，Part 1–4 全程約 36 分鐘）</div>
+        <audio controls preload="none" class="audio-player">
+            <source src="{{ url_for('static', filename='audio/test3_listening.mp3') }}" type="audio/mpeg">
+            您的瀏覽器不支援音訊播放，請直接開啟：{{ url_for('static', filename='audio/test3_listening.mp3') }}
+        </audio>
+        <p class="audio-hint">💡 正式考試音檔只會播放一次、中途不會暫停。建議從頭播到尾、邊聽邊作答，最後再檢查，盡量比照真實考試情境。</p>
+    </div>
+
     <form method="post" action="{{ url_for('exam_submit', student_id=student.id, section='listening') }}" id="examForm">
 
     <!-- ============ PART 1 ============ -->

@@ -10,7 +10,7 @@ TEST_TITLE = 'IELTS Exam Practice Test 3'
 
 SECTIONS = {
     'listening': {'name': '聽力', 'icon': '🎧', 'total': 40,
-                  'desc': 'Parts 1–4，共 40 題（需搭配書本音檔 Track 18–21）'},
+                  'desc': 'Parts 1–4，共 40 題（內建音檔，點進去直接播放）'},
     'reading':   {'name': '閱讀', 'icon': '📖', 'total': 40,
                   'desc': 'Passages 1–3，共 40 題，建議 60 分鐘'},
     'writing':   {'name': '寫作', 'icon': '✍️', 'total': 2,
