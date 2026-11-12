@@ -320,6 +320,7 @@
         const end = (e) => {
             if (!dragging || e.pointerId !== pid) return;
             dragging = false;
+            if (e.type === 'pointerup') dx = e.clientX - startX;   // 以放開的位置為準
             card.classList.remove('dragging');
             if (dx > THRESHOLD) return decide('familiar');
             if (dx < -THRESHOLD) return decide('unfamiliar');
