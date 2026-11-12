@@ -1,0 +1,50 @@
+/* 共用互動樣式：換頁淡入淡出、按壓回饋、漣漪、返回／前往箭頭、靜音按鈕 */
+
+@keyframes ui-page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+body { animation: ui-page-in 0.28s ease-out; }
+body.ui-leaving { opacity: 0; transform: translateY(-6px); transition: opacity 0.16s ease-in, transform 0.16s ease-in; }
+
+a[href], button { -webkit-tap-highlight-color: transparent; }
+a[href]:not(.dex-card):not(.theme-card):not(.menu-card):not(.fav-card):active,
+button:not(:disabled):active { transform: scale(0.95); }
+a[href], button { transition: transform 0.12s ease, box-shadow 0.2s, background 0.2s, color 0.2s, opacity 0.2s; }
+.dex-card:active, .theme-card:active, .menu-card:active, .fav-card:active { transform: scale(0.97) !important; }
+
+.ui-ripple-host { overflow: hidden; }
+.ui-ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: 0.18; transform: scale(0); pointer-events: none; animation: ui-ripple 0.55s ease-out forwards; }
+@keyframes ui-ripple { to { transform: scale(2.4); opacity: 0; } }
+
+/* 返回（←）與前往（→）按鈕 */
+.nav-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.nav-back, .nav-next {
+    display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px;
+    background: white; color: #2c3e50; text-decoration: none; font-weight: bold; font-size: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08); border: none; cursor: pointer; font-family: inherit;
+}
+.nav-back:hover, .nav-next:hover { background: #eaf2fb; color: #2471a3; }
+.nav-back .arrow, .nav-next .arrow { font-size: 18px; line-height: 1; transition: transform 0.2s; }
+.nav-back:hover .arrow { transform: translateX(-3px); }
+.nav-next:hover .arrow { transform: translateX(3px); }
+.go-arrow { display: inline-block; margin-left: 6px; transition: transform 0.2s; }
+a:hover .go-arrow { transform: translateX(4px); }
+
+/* 右下角音效開關 */
+.ui-sound-toggle {
+    position: fixed; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; border: none;
+    background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.15); font-size: 20px; cursor: pointer; z-index: 1000;
+}
+
+/* 小動畫 */
+@keyframes ui-pop { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
+.ui-pop { animation: ui-pop 0.35s ease-out; }
+@keyframes ui-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.ui-shake { animation: ui-shake 0.3s; }
+@keyframes ui-card-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+.ui-stagger > * { animation: ui-card-in 0.35s ease-out backwards; }
+.ui-stagger > *:nth-child(2) { animation-delay: 0.03s; } .ui-stagger > *:nth-child(3) { animation-delay: 0.06s; }
+.ui-stagger > *:nth-child(4) { animation-delay: 0.09s; } .ui-stagger > *:nth-child(5) { animation-delay: 0.12s; }
+.ui-stagger > *:nth-child(6) { animation-delay: 0.15s; } .ui-stagger > *:nth-child(n+7) { animation-delay: 0.18s; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}

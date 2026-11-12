@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ theme.label }}｜單字學習與圖鑑</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
         body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
         .header { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .header-top { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; }
         .header h1 { margin: 0; color: #2c3e50; font-size: 24px; }
-        .header p { margin: 5px 0 0 0; color: #7f8c8d; }
-        .nav-btn { background: #ecf0f1; color: #2c3e50; padding: 10px 16px; text-decoration: none; border-radius: 6px; font-weight: bold; white-space: nowrap; }
-        .bar { background: #e8eef0; border-radius: 6px; height: 10px; overflow: hidden; margin-top: 12px; }
-        .bar > div { background: #2ecc71; height: 100%; }
+        .stats { display: flex; gap: 14px; flex-wrap: wrap; margin: 8px 0 0; color: #7f8c8d; font-size: 15px; }
+        .stats b { font-size: 17px; }
+        .stats .k b { color: #27ae60; } .stats .u b { color: #e67e22; } .stats .n b { color: #7f8c8d; }
+        .bar { background: #e8eef0; border-radius: 6px; height: 10px; overflow: hidden; margin-top: 12px; display: flex; }
+        .bar .k { background: #2ecc71; } .bar .u { background: #f39c12; }
 
         .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
-        .btn { padding: 12px 20px; font-size: 16px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block; }
+        .btn { padding: 12px 20px; font-size: 16px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; }
         .btn-learn { background: #3498db; color: white; }
-        .btn-review { background: #2ecc71; color: white; }
+        .btn-weak { background: #f39c12; color: white; }
         .btn.disabled { background: #d5d8dc; color: #7f8c8d; pointer-events: none; }
 
         .letters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
@@ -28,58 +29,83 @@
         .letter.active small { color: #d6eaf8; }
         .letter.full { border-bottom: 3px solid #2ecc71; }
 
+        /* 熟區／不熟區分頁 */
+        .zones { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+        .zone { border: none; border-radius: 999px; padding: 8px 16px; font-size: 15px; font-weight: bold; cursor: pointer; background: white; color: #2c3e50; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-family: inherit; }
+        .zone .cnt { display: inline-block; min-width: 18px; margin-left: 4px; padding: 0 6px; border-radius: 10px; background: #ecf0f1; font-size: 12px; }
+        .zone.active { color: white; }
+        .zone.active[data-zone="all"] { background: #34495e; }
+        .zone.active[data-zone="familiar"] { background: #27ae60; }
+        .zone.active[data-zone="unfamiliar"] { background: #e67e22; }
+        .zone.active[data-zone="new"] { background: #95a5a6; }
+        .zone.active .cnt { background: rgba(255,255,255,0.3); }
+
         .search-form { display: flex; gap: 8px; margin-bottom: 20px; }
         .search-bar { flex: 1; padding: 12px; font-size: 16px; border: 2px solid #bdc3c7; border-radius: 8px; box-sizing: border-box; }
         .search-btn { padding: 0 18px; border: none; border-radius: 8px; background: #34495e; color: white; font-size: 15px; cursor: pointer; }
         .hint { color: #7f8c8d; font-size: 14px; margin: -10px 0 15px 0; }
 
         .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .dex-card { padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
-        .dex-card .number { font-size: 12px; font-weight: bold; color: #95a5a6; margin-bottom: 5px; text-align: left; }
+        .dex-card { display: block; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.2s; }
+        .dex-card .number { font-size: 12px; font-weight: bold; color: #95a5a6; margin-bottom: 5px; text-align: left; display: flex; justify-content: space-between; align-items: center; }
         .dex-card .word { font-size: 20px; font-weight: bold; margin-bottom: 5px; word-break: break-word; }
         .dex-card .meaning { font-size: 14px; color: #555; }
-        .unlocked { background: white; border-top: 4px solid #2ecc71; cursor: pointer; display: block; text-decoration: none; color: inherit; }
-        .unlocked:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .unlocked .word { color: #2c3e50; }
-        .fav-mark { float: right; color: #f1c40f; font-size: 16px; line-height: 1; }
-        .locked { background: #e0e0e0; border-top: 4px solid #95a5a6; color: #7f8c8d; }
-        .locked .word { color: #7f8c8d; }
-        .locked .meaning { filter: blur(4px); user-select: none; }
+        a.dex-card:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+        .tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
+        /* 熟：綠色 */
+        .dex-card.familiar { background: #f0fbf4; border-top: 4px solid #2ecc71; }
+        .dex-card.familiar .word { color: #1e8449; }
+        .dex-card.familiar .tag { background: #d5f5e3; color: #1e8449; }
+        /* 不熟：橘色 */
+        .dex-card.unfamiliar { background: #fff6eb; border-top: 4px solid #f39c12; }
+        .dex-card.unfamiliar .word { color: #ba4a00; }
+        .dex-card.unfamiliar .tag { background: #fdebd0; color: #ba4a00; }
+        /* 還沒學：灰色 */
+        .dex-card.new { background: #e0e0e0; border-top: 4px solid #95a5a6; color: #7f8c8d; }
+        .dex-card.new .word { color: #7f8c8d; }
+        .dex-card.new .meaning { filter: blur(4px); user-select: none; }
+        .fav-mark { color: #f1c40f; font-size: 16px; line-height: 1; margin-left: 4px; }
         .empty-msg { text-align: center; color: #7f8c8d; padding: 40px; }
     </style>
 </head>
 <body>
 <div class="container">
+    <div class="nav-row">
+        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>所有主題</a>
+        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">⭐ 我的收藏<span class="arrow">→</span></a>
+    </div>
+
     <div class="header">
-        <div class="header-top">
-            <div>
-                <h1>{{ theme.icon }} {{ theme.label }}</h1>
-                <p>{{ student.name }} 的圖鑑收集進度：{{ theme.unlocked }} / {{ theme.total }} 字</p>
-            </div>
-            <div style="display: flex; gap: 8px;">
-                <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-btn">⭐ 我的收藏</a>
-                <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-btn">🔙 所有主題</a>
-            </div>
+        <h1>{{ theme.icon }} {{ theme.label }}</h1>
+        {% set t_new = theme.total - theme.unlocked - theme.weak %}
+        <div class="stats">
+            <span class="k">✓ 熟 <b>{{ theme.unlocked }}</b></span>
+            <span class="u">✗ 不熟 <b>{{ theme.weak }}</b></span>
+            <span class="n">○ 還沒學 <b>{{ t_new }}</b></span>
+            <span>／ 共 {{ theme.total }} 字</span>
         </div>
-        <div class="bar"><div style="width: {{ theme.unlocked * 100 / theme.total if theme.total else 0 }}%"></div></div>
+        <div class="bar">
+            <div class="k" style="width: {{ theme.unlocked * 100 / theme.total if theme.total else 0 }}%"></div>
+            <div class="u" style="width: {{ theme.weak * 100 / theme.total if theme.total else 0 }}%"></div>
+        </div>
 
         {% if q %}
-            {% set new_count = theme.total - theme.unlocked %}
-            {% set review_count = theme.unlocked %}
+            {% set swipe_count = theme.weak + t_new %}
+            {% set weak_count = theme.weak %}
             {% set scope = '' %}
         {% else %}
-            {% set new_count = scope_new %}
-            {% set review_count = scope_review %}
-            {% set scope = (' ' ~ letter ~ ' 開頭的') if letter else '' %}
+            {% set swipe_count = zone_counts.unfamiliar + zone_counts.new %}
+            {% set weak_count = zone_counts.unfamiliar %}
+            {% set scope = (' ' ~ letter ~ ' 開頭') if letter else '' %}
         {% endif %}
         <div class="actions">
-            <a class="btn btn-learn {% if not new_count %}disabled{% endif %}"
-               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='new', letter=(letter if not q else None)) }}">
-                ▶ 學習{{ scope }}新單字（{{ [new_count, batch]|min }} 個）
+            <a class="btn btn-learn {% if not swipe_count %}disabled{% endif %}"
+               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=(letter if not q else None)) }}">
+                👆 開始滑卡{{ scope }}（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
-            <a class="btn btn-review {% if not review_count %}disabled{% endif %}"
-               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='review', letter=(letter if not q else None)) }}">
-                🔁 複習{{ scope }}已解鎖（{{ [review_count, batch]|min }} 個）
+            <a class="btn btn-weak {% if not weak_count %}disabled{% endif %}"
+               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='weak', letter=(letter if not q else None)) }}">
+                🟠 只練不熟區{{ scope }}（{{ [weak_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
         </div>
     </div>
@@ -89,63 +115,80 @@
         {% for l in letters %}
             <a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key, letter=l.letter) }}"
                class="letter {% if l.letter == letter %}active{% endif %} {% if l.unlocked == l.total %}full{% endif %}"
-               title="已解鎖 {{ l.unlocked }} / {{ l.total }}">
+               title="熟 {{ l.unlocked }} / {{ l.total }}" data-sound="tap">
                 {{ l.letter }}<small>{{ l.unlocked }}/{{ l.total }}</small>
             </a>
         {% endfor %}
     </div>
     {% endif %}
 
+    <div class="zones" role="tablist">
+        <button class="zone active" data-zone="all" data-sound="tap" role="tab">全部<span class="cnt">{{ cards|length }}</span></button>
+        <button class="zone" data-zone="familiar" data-sound="tap" role="tab">✓ 熟區<span class="cnt">{{ zone_counts.familiar }}</span></button>
+        <button class="zone" data-zone="unfamiliar" data-sound="tap" role="tab">✗ 不熟區<span class="cnt">{{ zone_counts.unfamiliar }}</span></button>
+        <button class="zone" data-zone="new" data-sound="tap" role="tab">○ 還沒學<span class="cnt">{{ zone_counts.new }}</span></button>
+    </div>
+
     <form class="search-form" method="get"
           action="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}"
           {% if not paged %}onsubmit="return false;"{% endif %}>
         <input type="text" name="q" id="searchInput" class="search-bar" value="{{ q }}"
-               placeholder="🔍 搜尋已解鎖的單字或意思{% if paged %}（按 Enter 搜尋整個主題）{% endif %}"
-               {% if not paged %}onkeyup="searchDex()"{% endif %}>
+               placeholder="🔍 搜尋學過的單字或意思{% if paged %}（按 Enter 搜尋整個主題）{% endif %}"
+               {% if not paged %}oninput="applyFilter()"{% endif %}>
         {% if paged %}<button type="submit" class="search-btn">搜尋</button>{% endif %}
     </form>
-    {% if q %}<p class="hint">搜尋「{{ q }}」：找到 {{ cards|length }} 個已解鎖的單字。<a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}">清除搜尋</a></p>{% endif %}
+    {% if q %}<p class="hint">搜尋「{{ q }}」：找到 {{ cards|length }} 個學過的單字。<a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}">清除搜尋 ×</a></p>{% endif %}
 
     {% if cards %}
-    <div class="dex-grid" id="dexGrid">
+    <div class="dex-grid ui-stagger" id="dexGrid">
         {% for item in cards %}
             {% if item.is_unlocked %}
-                <a class="dex-card unlocked" href="{{ url_for('learn_word', student_id=student.id, theme_key=theme.key, vocab_id=item.id) }}" title="打開單字卡">
-                    <div class="number"># {{ item.number }}{% if item.is_favorite %}<span class="fav-mark" title="已收藏">★</span>{% endif %}</div>
+                <a class="dex-card {{ item.status }}" data-status="{{ item.status }}"
+                   href="{{ url_for('learn_word', student_id=student.id, theme_key=theme.key, vocab_id=item.id) }}" title="打開單字卡">
+                    <div class="number"><span># {{ item.number }}{% if item.is_favorite %}<span class="fav-mark" title="已收藏">★</span>{% endif %}</span>
+                        <span class="tag">{{ '熟' if item.status == 'familiar' else '不熟' }}</span></div>
                     <div class="word">{{ item.word }}</div>
                     <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
                 </a>
             {% else %}
-                <div class="dex-card locked">
+                <div class="dex-card new" data-status="new" data-sound="error" title="還沒學過，先用滑卡學">
                     <div class="number"># {{ item.number }}</div>
-                    <div class="word">??? (未解鎖)</div>
-                    <div class="meaning">未知單字</div>
+                    <div class="word">???</div>
+                    <div class="meaning">還沒學過</div>
                 </div>
             {% endif %}
         {% endfor %}
     </div>
-    {% else %}
-        <div class="empty-msg">{% if q %}沒有符合的已解鎖單字。{% else %}這裡還沒有單字。{% endif %}</div>
     {% endif %}
+    <div class="empty-msg" id="emptyMsg" {% if cards %}style="display:none"{% endif %}>
+        {% if q %}沒有符合的單字。{% else %}這一區還沒有單字。{% endif %}
+    </div>
 </div>
 
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
 <script>
-    function speak(text) {
-        if (!text || !window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-US';
-        window.speechSynthesis.speak(u);
-    }
+    let zone = 'all';
+    document.querySelectorAll('.zone').forEach(btn => btn.addEventListener('click', () => {
+        zone = btn.dataset.zone;
+        document.querySelectorAll('.zone').forEach(b => b.classList.toggle('active', b === btn));
+        applyFilter();
+    }));
 
-    // 字數少的主題：直接在頁面上即時篩選（未解鎖的卡片顯示 ???，搜不到真實單字）
-    function searchDex() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
-        for (const card of document.getElementsByClassName('dex-card')) {
-            const word = card.querySelector('.word').innerText.toLowerCase();
-            const meaning = card.querySelector('.meaning').innerText.toLowerCase();
-            card.style.display = (word.includes(input) || meaning.includes(input)) ? '' : 'none';
+    // 依分頁（熟區／不熟區／還沒學）與搜尋文字篩選卡片
+    function applyFilter() {
+        const input = (document.getElementById('searchInput').value || '').toLowerCase();
+        const live = !{{ paged | tojson }};   // 小主題才即時搜尋；大主題用伺服器搜尋
+        let shown = 0;
+        for (const card of document.querySelectorAll('.dex-card')) {
+            let ok = zone === 'all' || card.dataset.status === zone;
+            if (ok && live && input) {
+                ok = card.dataset.status !== 'new' &&
+                     (card.querySelector('.word').innerText + ' ' + card.querySelector('.meaning').innerText).toLowerCase().includes(input);
+            }
+            card.style.display = ok ? '' : 'none';
+            if (ok) shown++;
         }
+        document.getElementById('emptyMsg').style.display = shown ? 'none' : '';
     }
 </script>
 </body>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>測驗系統主介面</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
         body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         .dashboard-container { max-width: 800px; width: 100%; }
@@ -38,16 +39,16 @@
     </div>
 
     <!-- 功能選單 -->
-    <div class="menu-grid">
+    <div class="menu-grid ui-stagger">
         <!-- 1. 單字學習與圖鑑（原本的單字學習區＋單字圖鑑合併） -->
         <a href="/learn/{{ student.id }}" class="menu-card">
             <div class="menu-icon">📚</div>
-            <div class="menu-title">單字學習與圖鑑</div>
-            <div class="menu-desc">依主題學單字、聽發音，學過的字自動收進圖鑑<br>收集進度：{{ unlocked_count }} / {{ total_count }} 字</div>
+            <div class="menu-title">單字學習與圖鑑<span class="go-arrow">→</span></div>
+            <div class="menu-desc">依主題滑卡學單字：右滑熟、左滑不熟<br>✓ 熟 {{ unlocked_count }} / {{ total_count }} 字</div>
         </a>
 
         <!-- 2. 模擬測驗區 (預留給下一階段開發) -->
-        <a href="#" class="menu-card locked-card" onclick="alert('模考系統開發中，敬請期待！')">
+        <a href="#" class="menu-card locked-card" data-sound="error" onclick="event.preventDefault(); this.classList.remove('ui-shake'); void this.offsetWidth; this.classList.add('ui-shake'); this.querySelector('.menu-desc').innerText = '🚧 模考系統開發中，敬請期待！';">
             <div class="menu-icon">📝</div>
             <div class="menu-title">模擬測驗區</div>
             <div class="menu-desc">聽力/閱讀/寫作/口說模考</div>
@@ -55,5 +56,6 @@
     </div>
 </div>
 
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
 </body>
 </html>

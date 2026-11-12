@@ -3,78 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ {'review': '單字複習', 'view': '單字卡', 'fav': '收藏複習'}.get(mode, '單字學習') }}｜{{ theme.label }}</title>
+    <title>{{ {'view': '單字卡', 'fav': '收藏滑卡', 'weak': '不熟區練習'}.get(mode, '滑卡學習') }}｜{{ theme.label }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
-        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        .card { position: relative; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; max-width: 100%; text-align: center; }
-        .theme-badge { display: inline-block; background-color: #e8f4f8; color: #2980b9; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
-        .mode-badge { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px; margin-left: 5px; }
-        .mode-new { background: #eaf2fb; color: #2471a3; }
-        .mode-review { background: #e9f7ef; color: #1e8449; }
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; box-sizing: border-box; min-height: 100vh; overflow-x: hidden; }
+        .page { max-width: 460px; margin: 0 auto; }
+        .badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; padding: 0 40px; }
+        .theme-badge, .mode-badge { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+        .theme-badge { background-color: #e8f4f8; color: #2980b9; }
+        .mode-swipe { background: #eaf2fb; color: #2471a3; }
+        .mode-weak { background: #fdebd0; color: #ba4a00; }
         .mode-view { background: #fef5e7; color: #b9770e; }
         .mode-fav { background: #fef9e7; color: #b7950b; }
-        .fav-btn { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: #bdc3c7; cursor: pointer; padding: 0; transition: 0.2s; }
-        .fav-btn:hover { background: #fef9e7; color: #f1c40f; }
-        .fav-btn.on { color: #f1c40f; }
-        .fav-btn:disabled { opacity: 0.5; cursor: wait; }
-        .toast { min-height: 1.2em; font-size: 13px; color: #b7950b; margin-top: -8px; margin-bottom: 8px; }
-        .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; }
+
+        /* 進度 */
+        .progress-wrap { margin-bottom: 14px; }
+        .progress-text { display: flex; justify-content: space-between; font-size: 13px; color: #7f8c8d; margin-bottom: 6px; }
+        .progress-text b.k { color: #27ae60; } .progress-text b.u { color: #e67e22; }
+        .progress-bar { height: 8px; background: #e5e8e8; border-radius: 6px; overflow: hidden; display: flex; }
+        .progress-bar .k { background: #2ecc71; transition: width 0.3s; } .progress-bar .u { background: #f39c12; transition: width 0.3s; }
+
+        /* 卡片堆 */
+        .deck { position: relative; min-height: 360px; }
+        .card-ghost { position: absolute; inset: 10px 14px -10px 14px; background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); opacity: 0.7; }
+        .card { position: relative; background: white; padding: 28px 26px 24px; border-radius: 15px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); text-align: center; touch-action: pan-y; user-select: none; will-change: transform; }
+        .swipeable .card { cursor: grab; }
+        .swipeable .card.dragging { cursor: grabbing; }
+        .card.fly { transition: transform 0.32s ease-in, opacity 0.32s ease-in; }
+        .card.back { transition: transform 0.25s cubic-bezier(.3,1.6,.5,1); }
+        @keyframes card-enter { from { opacity: 0; transform: translateY(18px) scale(0.96); } to { opacity: 1; transform: none; } }
+        .card.enter { animation: card-enter 0.3s ease-out; }
+
+        .stamp { position: absolute; top: 22px; padding: 6px 14px; border: 3px solid; border-radius: 10px; font-size: 22px; font-weight: bold; opacity: 0; pointer-events: none; transform: rotate(-12deg); }
+        .stamp.know { left: 20px; color: #27ae60; border-color: #27ae60; }
+        .stamp.dont { right: 20px; color: #e67e22; border-color: #e67e22; transform: rotate(12deg); }
+
+        .status-chip { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 10px; margin-bottom: 8px; }
+        .status-chip.unfamiliar { background: #fdebd0; color: #ba4a00; }
+        .status-chip.familiar { background: #d5f5e3; color: #1e8449; }
+        .status-chip.new { background: #eaf2fb; color: #2471a3; }
+
+        .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 8px; }
         .word { font-size: 36px; font-weight: bold; color: #2c3e50; word-break: break-word; }
-        .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: #e8f4f8; color: #2980b9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: 0.2s; }
+        .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: #e8f4f8; color: #2980b9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
         .play-btn:hover { background: #3498db; color: white; }
         .play-btn.small { width: 30px; height: 30px; }
         .play-btn.small svg { width: 16px; height: 16px; }
         .pos { font-size: 14px; color: #95a5a6; font-style: italic; margin-bottom: 6px; min-height: 1em; }
         .meaning { font-size: 20px; color: #7f8c8d; margin-bottom: 6px; }
-        .meaning-en { font-size: 14px; color: #95a5a6; margin-bottom: 20px; line-height: 1.4; }
-        .sentence-zh { display: block; font-style: normal; color: #7f8c8d; font-size: 14px; margin-top: 6px; }
-        .sentence { display: flex; align-items: center; gap: 10px; text-align: left; font-size: 16px; color: #34495e; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #bdc3c7; }
+        .meaning-en { font-size: 14px; color: #95a5a6; margin-bottom: 16px; line-height: 1.4; }
+        .sentence { display: flex; align-items: center; gap: 10px; text-align: left; font-size: 16px; color: #34495e; background: #f9f9f9; padding: 14px; border-radius: 8px; border-left: 4px solid #bdc3c7; }
         .sentence-body { flex: 1; }
         #sentence-text { font-style: italic; }
+        .sentence-zh { display: block; font-style: normal; color: #7f8c8d; font-size: 14px; margin-top: 6px; }
 
-        .btn { padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin: 5px 0; font-weight: bold; transition: 0.2s; }
-        .btn:hover { opacity: 0.9; }
-        .btn:disabled { opacity: 0.5; cursor: wait; }
-        .btn-next { background: #3498db; color: white; width: 100%; font-size: 18px; padding: 15px; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
-        .btn-secondary { background: #ecf0f1; color: #2c3e50; width: 100%; display: block; text-decoration: none; box-sizing: border-box; }
-        .progress { margin-top: 20px; font-size: 14px; color: #95a5a6; }
-        .error { color: #c0392b; font-size: 14px; margin-top: 10px; min-height: 1em; }
-        .back-link { display: block; margin-top: 15px; color: #95a5a6; text-decoration: none; font-size: 14px; }
+        .fav-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: #bdc3c7; cursor: pointer; padding: 0; z-index: 2; }
+        .fav-btn:hover { background: #fef9e7; color: #f1c40f; }
+        .fav-btn.on { color: #f1c40f; }
+        .toast { min-height: 1.2em; font-size: 13px; color: #b7950b; margin-top: 10px; }
+
+        /* 滑卡按鈕 */
+        .swipe-actions { display: flex; gap: 12px; margin-top: 22px; }
+        .swipe-btn { flex: 1; padding: 14px 10px; font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .swipe-btn.dont { background: #f39c12; } .swipe-btn.know { background: #2ecc71; }
+        .swipe-btn:hover { filter: brightness(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .swipe-btn:disabled { opacity: 0.5; cursor: wait; }
+        .swipe-btn.current { outline: 3px solid rgba(0,0,0,0.15); }
+        .hint { text-align: center; color: #95a5a6; font-size: 13px; margin-top: 10px; }
+        .error { color: #c0392b; font-size: 14px; text-align: center; min-height: 1em; margin-top: 8px; }
+
+        /* 結算 */
+        .summary { background: white; border-radius: 15px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); padding: 30px; text-align: center; }
+        .summary h2 { color: #2c3e50; margin: 0 0 18px; line-height: 1.5; }
+        .summary .stats { display: flex; gap: 12px; justify-content: center; margin-bottom: 22px; }
+        .summary .stat { flex: 1; border-radius: 12px; padding: 14px 8px; font-weight: bold; }
+        .summary .stat .n { font-size: 30px; display: block; }
+        .summary .stat.k { background: #d5f5e3; color: #1e8449; } .summary .stat.u { background: #fdebd0; color: #ba4a00; }
+        .big-btn { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; box-sizing: border-box; padding: 14px; margin-top: 10px; font-size: 17px; font-weight: bold; border-radius: 10px; text-decoration: none; }
+        .big-btn.primary { background: #3498db; color: white; } .big-btn.secondary { background: #ecf0f1; color: #2c3e50; }
     </style>
 </head>
 <body>
+{% set PLAY_ICON %}<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>{% endset %}
+<div class="page">
+    <div class="nav-row">
+        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>{{ (back_label or '返回主題圖鑑').replace('返回', '') }}</a>
+        <a href="{{ home_url }}" class="nav-back" title="所有主題">📚 所有主題</a>
+    </div>
 
-<div class="card">
-    <button class="fav-btn" id="fav-btn" onclick="toggleFavorite()" title="加入收藏" aria-label="加入收藏" aria-pressed="false">☆</button>
-    <div>
+    <div class="badges">
         <span id="theme-display" class="theme-badge">🏷️ {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
-        <span class="mode-badge mode-{{ mode }}">{{ {'review': '🔁 複習', 'view': '📖 圖鑑', 'fav': '⭐ 收藏複習'}.get(mode, '✨ 新單字') }}</span>
-    </div>
-    <div class="word-row">
-        <span id="word-display" class="word">單字載入中...</span>
-        <button class="play-btn" onclick="playWord()" title="播放單字" aria-label="播放單字"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
-    </div>
-    <div id="pos-display" class="pos"></div>
-    <div id="meaning-display" class="meaning"></div>
-    <div id="meaning-en-display" class="meaning-en"></div>
-    <div id="fav-toast" class="toast"></div>
-
-    <div id="sentence-display" class="sentence">
-        <div class="sentence-body"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
-        <button class="play-btn small" onclick="playSentence()" title="播放例句" aria-label="播放例句"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg></button>
+        <span class="mode-badge mode-{{ mode }}">{{ {'view': '📖 圖鑑', 'fav': '⭐ 收藏滑卡', 'weak': '🟠 不熟區練習'}.get(mode, '👆 滑卡學習') }}</span>
     </div>
 
     {% if mode != 'view' %}
-    <button class="btn btn-next" id="next-btn" onclick="nextWord()">
-        {{ '✅ 記住了，收進圖鑑' if mode == 'new' else '➔ 下一個' }}
-    </button>
-    <div id="error-display" class="error"></div>
-
-    <div id="progress-display" class="progress">進度：0 / 0</div>
+    <div class="progress-wrap" id="progress-wrap">
+        <div class="progress-text"><span id="progress-count">0 / 0</span><span>熟 <b class="k" id="k-count">0</b>・不熟 <b class="u" id="u-count">0</b></span></div>
+        <div class="progress-bar"><div class="k" id="k-bar" style="width:0"></div><div class="u" id="u-bar" style="width:0"></div></div>
+    </div>
     {% endif %}
-    <a href="{{ back_url }}" class="back-link">{{ back_label or '返回主題圖鑑' }}</a>
+
+    <div id="stage">
+        <div class="deck {% if mode != 'view' %}swipeable{% endif %}">
+            {% if mode != 'view' %}<div class="card-ghost" id="ghost"></div>{% endif %}
+            <div class="card" id="card">
+                <div class="stamp know">熟 ✓</div>
+                <div class="stamp dont">不熟 ✗</div>
+                <button class="fav-btn" id="fav-btn" data-sound="none" onclick="toggleFavorite()" title="加入收藏" aria-label="加入收藏" aria-pressed="false">☆</button>
+                <div id="status-chip" class="status-chip"></div>
+                <div class="word-row">
+                    <span id="word-display" class="word">載入中...</span>
+                    <button class="play-btn" data-sound="none" onclick="playWord()" title="播放單字" aria-label="播放單字">{{ PLAY_ICON }}</button>
+                </div>
+                <div id="pos-display" class="pos"></div>
+                <div id="meaning-display" class="meaning"></div>
+                <div id="meaning-en-display" class="meaning-en"></div>
+                <div id="sentence-display" class="sentence">
+                    <div class="sentence-body"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
+                    <button class="play-btn small" data-sound="none" onclick="playSentence()" title="播放例句" aria-label="播放例句">{{ PLAY_ICON }}</button>
+                </div>
+                <div id="fav-toast" class="toast"></div>
+            </div>
+        </div>
+
+        <div class="swipe-actions">
+            <button class="swipe-btn dont" id="btn-dont" data-sound="none" onclick="decide('unfamiliar')">
+                <span>←</span> {{ '移到不熟區' if mode == 'view' else '不熟' }}
+            </button>
+            <button class="swipe-btn know" id="btn-know" data-sound="none" onclick="decide('familiar')">
+                {{ '移到熟區' if mode == 'view' else '熟' }} <span>→</span>
+            </button>
+        </div>
+        <div class="error" id="error-display"></div>
+        {% if mode != 'view' %}
+        <div class="hint">往右滑＝熟、往左滑＝不熟（電腦可用鍵盤 ← →）<br>熟的字之後不會再出現在滑卡裡</div>
+        {% endif %}
+    </div>
 </div>
 
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
 <script>
     const wordsQueue = {{ words | tojson }};
     const studentId = {{ student_id | tojson }};
@@ -82,79 +149,194 @@
     const backUrl = {{ back_url | tojson }};
     const againUrl = {{ again_url | tojson }};
     const homeUrl = {{ home_url | tojson }};
-    const backLabel = {{ (back_label or '回到主題圖鑑') | tojson }};
+    const backLabel = {{ (back_label or '返回主題圖鑑') | tojson }};
+    const isView = mode === 'view';
     const totalWords = wordsQueue.length;
+    const STATUS_TEXT = { familiar: '✓ 熟區', unfamiliar: '上次標記：不熟', new: '新單字' };
     let currentWord = null;
-    let completedCount = 0;
+    let doneCount = 0, knowCount = 0, dontCount = 0;
+    let busy = false;
 
-    function finish(title) {
-        const again = totalWords
-            ? `<a href="${againUrl}" class="btn btn-next">${mode === 'new' ? '▶ 再學下一批' : '🔁 再複習一輪'}</a>`
-            : '';
-        document.querySelector('.card').innerHTML = `
-            <h2 style="color: #2c3e50; margin-bottom: 30px;">${title}</h2>
-            ${again}
-            <a href="${backUrl}" class="btn btn-secondary">📖 ${backLabel.replace('返回', '回到')}</a>
-            <a href="${homeUrl}" class="btn btn-secondary">🔙 選擇其他主題</a>
-        `;
+    const card = document.getElementById('card');
+    const stampKnow = card.querySelector('.stamp.know');
+    const stampDont = card.querySelector('.stamp.dont');
+
+    // ---------- 顯示 ----------
+    function updateProgress() {
+        if (isView) return;
+        document.getElementById('progress-count').innerText = `${Math.min(doneCount + 1, totalWords)} / ${totalWords}`;
+        document.getElementById('k-count').innerText = knowCount;
+        document.getElementById('u-count').innerText = dontCount;
+        document.getElementById('k-bar').style.width = (totalWords ? knowCount / totalWords * 100 : 0) + '%';
+        document.getElementById('u-bar').style.width = (totalWords ? dontCount / totalWords * 100 : 0) + '%';
     }
 
-    function loadWord() {
-        if (wordsQueue.length === 0) {
-            if (totalWords === 0) {
-                finish({review: '這裡還沒有已解鎖的單字，<br>先去學幾個新單字吧！',
-                        fav: '還沒有收藏的單字，<br>學習時按右上角的 ☆ 就能收藏。'}[mode] || '🎉 這裡的單字都收進圖鑑了！');
-            } else {
-                finish(mode === 'new' ? `🎉 學習完成！<br>${totalWords} 個單字已收進圖鑑。` : `🎉 複習完成！<br>本輪複習了 ${totalWords} 個單字。`);
-            }
-            return;
+    function renderStatus() {
+        const chip = document.getElementById('status-chip');
+        const st = currentWord.status || 'new';
+        // 滑卡時只提示「上次不熟」，新字不顯示；單字卡頁顯示目前在哪一區
+        const show = isView || st === 'unfamiliar';
+        chip.style.display = show ? '' : 'none';
+        chip.className = 'status-chip ' + st;
+        chip.innerText = isView ? { familiar: '目前在：熟區', unfamiliar: '目前在：不熟區', new: '還沒學過' }[st] : STATUS_TEXT[st];
+        if (isView) {
+            document.getElementById('btn-know').classList.toggle('current', st === 'familiar');
+            document.getElementById('btn-dont').classList.toggle('current', st === 'unfamiliar');
         }
+    }
 
-        currentWord = wordsQueue.shift();
-        document.getElementById('word-display').innerText = currentWord.word;
-        document.getElementById('pos-display').innerText = currentWord.pos || '';
-        document.getElementById('meaning-display').innerText = currentWord.meaning;
-        document.getElementById('meaning-en-display').innerText = currentWord.meaning_en || '';
-        const sentenceBox = document.getElementById('sentence-display');
-        if (currentWord.sentence) {
-            document.getElementById('sentence-text').innerText = currentWord.sentence;
-            document.getElementById('sentence-zh').innerText = currentWord.sentence_zh || '';
-            sentenceBox.style.display = '';
+    function showWord(w) {
+        currentWord = w;
+        document.getElementById('word-display').innerText = w.word;
+        document.getElementById('pos-display').innerText = w.pos || '';
+        document.getElementById('meaning-display').innerText = w.meaning;
+        document.getElementById('meaning-en-display').innerText = w.meaning_en || '';
+        const box = document.getElementById('sentence-display');
+        if (w.sentence) {
+            document.getElementById('sentence-text').innerText = w.sentence;
+            document.getElementById('sentence-zh').innerText = w.sentence_zh || '';
+            box.style.display = '';
         } else {
-            sentenceBox.style.display = 'none';
+            box.style.display = 'none';
         }
-        renderFavorite();
+        if (mode === 'fav') document.getElementById('theme-display').innerText = `🏷️ ${w.theme}`;
         document.getElementById('fav-toast').innerText = '';
-        // 收藏複習的字來自不同主題：標籤顯示這個字自己的主題
-        if (mode === 'fav') document.getElementById('theme-display').innerText = `🏷️ ${currentWord.theme}`;
-        const progress = document.getElementById('progress-display');
-        if (progress) progress.innerText = `目前進度：${completedCount + 1} / ${totalWords}`;
+        renderFavorite();
+        renderStatus();
+        updateProgress();
+        const ghost = document.getElementById('ghost');
+        if (ghost) ghost.style.display = wordsQueue.length ? '' : 'none';
     }
 
-    // 學習模式：按下去才把這個字解鎖進圖鑑；複習模式：字已經在圖鑑裡，只更新複習時間
-    async function nextWord() {
-        if (!currentWord) return;
-        const btn = document.getElementById('next-btn');
+    function nextWord() {
+        if (!wordsQueue.length) return finish();
+        card.classList.remove('fly', 'back');
+        card.style.transform = ''; card.style.opacity = '';
+        stampKnow.style.opacity = 0; stampDont.style.opacity = 0;
+        card.classList.remove('enter'); void card.offsetWidth; card.classList.add('enter');
+        showWord(wordsQueue.shift());
+    }
+
+    function finish() {
+        const stage = document.getElementById('stage');
+        let title;
+        if (totalWords === 0) {
+            title = { weak: '🎉 不熟區已經清空了！', fav: '收藏裡沒有需要練習的字<br>（熟的字不會出現在滑卡）' }[mode]
+                || '🎉 這裡的單字都熟了！';
+            UI.play('done');
+        } else {
+            title = `🎉 這一輪完成！`;
+            UI.play('done');
+        }
+        const again = totalWords
+            ? `<a href="${againUrl}" class="big-btn primary">再滑一輪 <span class="go-arrow">→</span></a>` : '';
+        stage.innerHTML = `
+            <div class="summary">
+                <h2>${title}</h2>
+                ${totalWords ? `<div class="stats"><div class="stat k"><span class="n">${knowCount}</span>熟</div><div class="stat u"><span class="n">${dontCount}</span>不熟</div></div>` : ''}
+                ${again}
+                <a href="${backUrl}" class="big-btn secondary"><span>←</span> ${backLabel.replace('返回', '回到')}</a>
+                <a href="${homeUrl}" class="big-btn secondary"><span>←</span> 選擇其他主題</a>
+            </div>`;
+        const wrap = document.getElementById('progress-wrap');
+        if (wrap) { document.getElementById('progress-count').innerText = `${totalWords} / ${totalWords}`; }
+    }
+
+    // ---------- 熟／不熟 ----------
+    async function saveStatus(status) {
+        const res = await fetch('/api/update_progress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, status })
+        });
+        if (!res.ok) throw new Error(res.status);
+    }
+
+    async function decide(status) {
+        if (!currentWord || busy) return;
+        busy = true;
         const err = document.getElementById('error-display');
-        btn.disabled = true;
         err.innerText = '';
-        try {
-            const res = await fetch('/api/update_progress', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ student_id: studentId, vocab_id: currentWord.id, status: 'familiar' })
-            });
-            if (!res.ok) throw new Error(res.status);
-        } catch (e) {
-            err.innerText = '進度沒有存到，請檢查網路後再按一次。';
-            btn.disabled = false;
+        const know = status === 'familiar';
+        UI.play(know ? 'right' : 'left');
+
+        if (isView) {
+            try {
+                await saveStatus(status);
+                currentWord.status = status;
+                renderStatus();
+                card.classList.remove('ui-pop'); void card.offsetWidth; card.classList.add('ui-pop');
+                document.getElementById('fav-toast').innerText = know ? '已移到熟區（之後不會出現在滑卡）' : '已移到不熟區（滑卡時會優先出現）';
+            } catch (e) {
+                UI.play('error'); err.innerText = '沒有存到，請再按一次。';
+            }
+            busy = false;
             return;
         }
-        btn.disabled = false;
-        completedCount++;
-        loadWord();
+
+        // 飛出動畫和存檔同時進行
+        (know ? stampKnow : stampDont).style.opacity = 1;
+        card.classList.remove('back', 'enter');
+        card.classList.add('fly');
+        card.style.transform = `translateX(${know ? 140 : -140}%) rotate(${know ? 22 : -22}deg)`;
+        card.style.opacity = 0;
+        try {
+            await Promise.all([saveStatus(status), new Promise(r => setTimeout(r, 320))]);
+        } catch (e) {
+            UI.play('error');
+            card.classList.remove('fly'); card.classList.add('back');
+            card.style.transform = ''; card.style.opacity = '';
+            stampKnow.style.opacity = 0; stampDont.style.opacity = 0;
+            err.innerText = '進度沒有存到，請檢查網路後再滑一次。';
+            busy = false;
+            return;
+        }
+        if (know) knowCount++; else dontCount++;
+        doneCount++;
+        busy = false;
+        nextWord();
     }
 
+    // ---------- 拖曳滑動 ----------
+    if (!isView) {
+        let startX = 0, startY = 0, dx = 0, dragging = false, pid = null;
+        const THRESHOLD = 100;
+
+        card.addEventListener('pointerdown', (e) => {
+            if (busy || e.target.closest('button')) return;
+            dragging = true; pid = e.pointerId; startX = e.clientX; startY = e.clientY; dx = 0;
+            card.setPointerCapture(pid);
+            card.classList.remove('back', 'enter');
+            card.classList.add('dragging');
+        });
+        card.addEventListener('pointermove', (e) => {
+            if (!dragging || e.pointerId !== pid) return;
+            dx = e.clientX - startX;
+            const dy = (e.clientY - startY) * 0.15;
+            card.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx / 18}deg)`;
+            stampKnow.style.opacity = Math.max(0, Math.min(1, dx / THRESHOLD));
+            stampDont.style.opacity = Math.max(0, Math.min(1, -dx / THRESHOLD));
+        });
+        const end = (e) => {
+            if (!dragging || e.pointerId !== pid) return;
+            dragging = false;
+            card.classList.remove('dragging');
+            if (dx > THRESHOLD) return decide('familiar');
+            if (dx < -THRESHOLD) return decide('unfamiliar');
+            card.classList.add('back');
+            card.style.transform = '';
+            stampKnow.style.opacity = 0; stampDont.style.opacity = 0;
+        };
+        card.addEventListener('pointerup', end);
+        card.addEventListener('pointercancel', end);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') { e.preventDefault(); decide('familiar'); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); decide('unfamiliar'); }
+        });
+    }
+
+    // ---------- 收藏 ----------
     function renderFavorite() {
         const btn = document.getElementById('fav-btn');
         const on = !!(currentWord && currentWord.is_favorite);
@@ -179,14 +361,18 @@
             });
             if (!res.ok) throw new Error(res.status);
             currentWord.is_favorite = want;
+            UI.play(want ? 'star' : 'unstar');
+            btn.classList.remove('ui-pop'); void btn.offsetWidth; btn.classList.add('ui-pop');
             toast.innerText = want ? '⭐ 已加入我的收藏' : '已取消收藏';
         } catch (e) {
+            UI.play('error');
             toast.innerText = '收藏沒有存到，請再按一次。';
         }
         btn.disabled = false;
         renderFavorite();
     }
 
+    // ---------- 發音 ----------
     function speak(text) {
         if (!text || !window.speechSynthesis) return;
         window.speechSynthesis.cancel();
@@ -197,8 +383,7 @@
     function playWord() { if (currentWord) speak(currentWord.word); }
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
-    window.onload = loadWord;
+    window.addEventListener('load', () => totalWords ? nextWord() : finish());
 </script>
-
 </body>
 </html>

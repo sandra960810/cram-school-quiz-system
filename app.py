@@ -114,19 +114,35 @@ def familiar_ids_of(student_id):
     return {r[0] for r in rows}
 
 
+def unfamiliar_ids_of(student_id):
+    rows = db.session.query(LearningProgress.vocab_id).filter_by(
+        student_id=student_id, status='unfamiliar').all()
+    return {r[0] for r in rows}
+
+
+def status_of(student_id):
+    """{vocab_id: 'familiar' | 'unfamiliar'}；沒出現的字就是還沒學過（new）。"""
+    status = {i: 'unfamiliar' for i in unfamiliar_ids_of(student_id)}
+    status.update({i: 'familiar' for i in familiar_ids_of(student_id)})
+    return status
+
+
 def build_theme_list(student):
     """依資料庫實際內容產生主題清單（含每個主題的字數與已解鎖數）。"""
     totals = dict(db.session.query(Vocabulary.theme, func.count(Vocabulary.id))
                   .filter(Vocabulary.category == student.enrolled_course)
                   .group_by(Vocabulary.theme).all())
-    unlocked = dict(db.session.query(Vocabulary.theme, func.count(func.distinct(Vocabulary.id)))
+    def count_status(status):
+        return dict(db.session.query(Vocabulary.theme, func.count(func.distinct(Vocabulary.id)))
                     .join(LearningProgress, LearningProgress.vocab_id == Vocabulary.id)
                     .filter(Vocabulary.category == student.enrolled_course,
                             LearningProgress.student_id == student.id,
-                            LearningProgress.status == 'familiar')
+                            LearningProgress.status == status)
                     .group_by(Vocabulary.theme).all())
+    unlocked = count_status('familiar')   # 熟
+    weak = count_status('unfamiliar')     # 不熟
 
-    themes = [dict(t, key=t["id"], label=f'{t["id"]} {t["name"]}', total=0, unlocked=0)
+    themes = [dict(t, key=t["id"], label=f'{t["id"]} {t["name"]}', total=0, unlocked=0, weak=0)
               for t in OFFICIAL_THEMES]
     by_key = {t["key"]: t for t in themes}
     extras = []
@@ -135,9 +151,11 @@ def build_theme_list(student):
         if oid:
             by_key[oid]["total"] += total
             by_key[oid]["unlocked"] += unlocked.get(theme_name, 0)
+            by_key[oid]["weak"] += weak.get(theme_name, 0)
         else:
             extras.append({"key": theme_name, "label": theme_name, "desc": "其他字庫",
-                           "icon": "🗂️", "total": total, "unlocked": unlocked.get(theme_name, 0)})
+                           "icon": "🗂️", "total": total, "unlocked": unlocked.get(theme_name, 0),
+                           "weak": weak.get(theme_name, 0)})
     return themes + extras
 
 
@@ -198,6 +216,7 @@ def learn_home(student_id):
     total_count = sum(t["total"] for t in themes)
     return render_template('learn_home.html', student=student, themes=themes,
                            unlocked_count=unlocked_count, total_count=total_count,
+                           weak_count=sum(t["weak"] for t in themes),
                            favorite_count=len(favorite_rows(student)))
 
 
@@ -207,12 +226,14 @@ def learn_theme(student_id, theme_key):
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
     words = theme_words(student, theme_key)
-    familiar = familiar_ids_of(student_id)
+    status = status_of(student_id)
     fav = favorite_words(student)
 
+    # status：familiar 熟／unfamiliar 不熟／new 還沒學。學過（熟或不熟）的字才看得到內容
     cards = [{"number": i, "id": w.id, "word": w.word, "pos": w.pos or '', "meaning": w.meaning,
               "sentence": clean_sentence(w.sentence), "letter": first_letter(w.word),
-              "is_unlocked": w.id in familiar, "is_favorite": w.word.lower() in fav}
+              "status": status.get(w.id, 'new'), "is_unlocked": w.id in status,
+              "is_favorite": w.word.lower() in fav}
              for i, w in enumerate(words, start=1)]
 
     # 字太多的主題依字首分頁，避免一次塞幾千張卡片
@@ -225,7 +246,7 @@ def learn_theme(student_id, theme_key):
         for c in cards:
             stat = counts.setdefault(c["letter"], {"letter": c["letter"], "total": 0, "unlocked": 0})
             stat["total"] += 1
-            stat["unlocked"] += c["is_unlocked"]
+            stat["unlocked"] += c["status"] == 'familiar'
         letters = [counts[k] for k in sorted(counts)]
         if not q:
             letter = (request.args.get('letter') or '').upper()
@@ -233,41 +254,35 @@ def learn_theme(student_id, theme_key):
                 letter = letters[0]["letter"] if letters else None
             cards = [c for c in cards if c["letter"] == letter]
     if q:
-        # 跟原本的圖鑑一樣，只搜得到已解鎖的字，未解鎖的不會洩漏答案
+        # 只搜得到學過的字，還沒學的不會洩漏答案
         ql = q.lower()
         cards = [c for c in cards if c["is_unlocked"]
                  and (ql in c["word"].lower() or ql in c["meaning"].lower())]
 
-    scope_new = sum(1 for c in cards if not c["is_unlocked"])
-    scope_review = sum(1 for c in cards if c["is_unlocked"])
+    zone_counts = {z: sum(1 for c in cards if c["status"] == z) for z in ('familiar', 'unfamiliar', 'new')}
     return render_template('learn_theme.html', student=student, theme=theme, cards=cards,
                            paged=paged, letters=letters, letter=letter, q=q,
-                           scope_new=scope_new, scope_review=scope_review,
+                           zone_counts=zone_counts,
                            batch=STUDY_BATCH_SIZE)
 
 
 @app.route('/learn/<int:student_id>/study/<path:theme_key>')
 def learn_study(student_id, theme_key):
-    """閃卡學習。mode=new 學還沒解鎖的字，mode=review 複習已解鎖的字。"""
+    """滑卡學習：右滑＝熟、左滑＝不熟。已經熟的字不會再出現。
+    mode=swipe：先出不熟的字，再出還沒學過的字；mode=weak：只練不熟區。"""
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
-    mode = request.args.get('mode', 'new')
-    if mode not in ('new', 'review'):
-        mode = 'new'
+    mode = 'weak' if request.args.get('mode') == 'weak' else 'swipe'
     letter = (request.args.get('letter') or '').upper() or None
 
     words = theme_words(student, theme_key)
     if letter:
         words = [w for w in words if first_letter(w.word) == letter]
-    familiar = familiar_ids_of(student_id)
-    if mode == 'new':
-        picked = [w for w in words if w.id not in familiar][:STUDY_BATCH_SIZE]
-    else:
-        pool = [w for w in words if w.id in familiar]
-        picked = random.sample(pool, min(STUDY_BATCH_SIZE, len(pool)))
+    picked = pick_swipe_words(words, status_of(student_id), weak_only=(mode == 'weak'))
 
     fav = favorite_words(student)
-    words_data = [word_payload(w, theme["label"], fav) for w in picked]
+    status = status_of(student_id)
+    words_data = [word_payload(w, theme["label"], fav, status) for w in picked]
     back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                        letter=letter) if letter else url_for('learn_theme', student_id=student_id,
                                                              theme_key=theme_key)
@@ -280,12 +295,20 @@ def learn_study(student_id, theme_key):
                            home_url=url_for('learn_home', student_id=student_id))
 
 
-def word_payload(w, theme_label, fav_words=()):
+def pick_swipe_words(words, status, weak_only=False):
+    """滑卡要出的字：不熟的優先，再來是還沒學過的；熟的字不出。"""
+    weak = [w for w in words if status.get(w.id) == 'unfamiliar']
+    new = [] if weak_only else [w for w in words if w.id not in status]
+    return (weak + new)[:STUDY_BATCH_SIZE]
+
+
+def word_payload(w, theme_label, fav_words=(), status=None):
     return {"id": w.id, "theme": theme_label, "word": w.word, "pos": w.pos or '',
             "meaning": w.meaning,
             "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
             "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or '',
-            "is_favorite": w.word.lower() in fav_words}
+            "is_favorite": w.word.lower() in fav_words,
+            "status": (status or {}).get(w.id, 'new')}
 
 
 # ---------------------------------------------------------------------------
@@ -324,23 +347,26 @@ def theme_label_of(vocab):
 @app.route('/learn/<int:student_id>/favorites')
 def learn_favorites(student_id):
     student = get_student(student_id)
-    familiar = familiar_ids_of(student_id)
+    status = status_of(student_id)
     cards = [{"id": v.id, "word": v.word, "pos": v.pos or '', "meaning": v.meaning,
-              "theme": theme_label_of(v), "is_unlocked": v.id in familiar,
+              "theme": theme_label_of(v), "status": status.get(v.id, 'new'),
               "url": url_for('learn_word', student_id=student_id, theme_key=theme_key_of(v),
                              vocab_id=v.id, **{"from": "favorites"})}
              for v in favorite_rows(student)]
-    return render_template('favorites.html', student=student, cards=cards, batch=STUDY_BATCH_SIZE)
+    swipe_count = len(pick_swipe_words(favorite_rows(student), status))
+    return render_template('favorites.html', student=student, cards=cards, batch=STUDY_BATCH_SIZE,
+                           swipe_count=swipe_count)
 
 
 @app.route('/learn/<int:student_id>/favorites/study')
 def learn_favorites_study(student_id):
     student = get_student(student_id)
     pool = favorite_rows(student)
-    picked = random.sample(pool, min(STUDY_BATCH_SIZE, len(pool)))
+    status = status_of(student_id)
+    picked = pick_swipe_words(pool, status)   # 收藏裡熟的字一樣不出
     fav = {v.word.lower() for v in pool}
     back_url = url_for('learn_favorites', student_id=student_id)
-    return render_template('ielts.html', words=[word_payload(v, theme_label_of(v), fav) for v in picked],
+    return render_template('ielts.html', words=[word_payload(v, theme_label_of(v), fav, status) for v in picked],
                            student_id=student_id, theme={"label": "⭐ 我的收藏"}, mode='fav', letter=None,
                            back_url=back_url, again_url=url_for('learn_favorites_study', student_id=student_id),
                            home_url=url_for('learn_home', student_id=student_id), back_label='返回我的收藏')
@@ -368,7 +394,7 @@ def toggle_favorite():
 
 @app.route('/learn/<int:student_id>/theme/<path:theme_key>/word/<int:vocab_id>')
 def learn_word(student_id, theme_key, vocab_id):
-    """圖鑑裡已解鎖的單字卡：跟學習畫面一樣，但不需要再收進圖鑑。"""
+    """圖鑑裡學過的單字卡：跟滑卡畫面一樣，但不用滑；可以手動移到熟區／不熟區。"""
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
     word = next((w for w in theme_words(student, theme_key) if w.id == vocab_id), None)
@@ -379,10 +405,11 @@ def learn_word(student_id, theme_key, vocab_id):
     from_fav = request.args.get('from') == 'favorites'
     if from_fav:
         back_url = url_for('learn_favorites', student_id=student_id)
-    # 不在這個主題、或還沒解鎖（也沒收藏）的字不給看，維持圖鑑的收集感
-    if not word or (word.id not in familiar_ids_of(student_id) and word.word.lower() not in fav):
+    status = status_of(student_id)
+    # 不在這個主題、或還沒學過（也沒收藏）的字不給看，維持圖鑑的收集感
+    if not word or (word.id not in status and word.word.lower() not in fav):
         return redirect(back_url)
-    return render_template('ielts.html', words=[word_payload(word, theme["label"], fav)],
+    return render_template('ielts.html', words=[word_payload(word, theme["label"], fav, status)],
                            back_label='返回我的收藏' if from_fav else '返回主題圖鑑',
                            student_id=student_id,
                            theme=theme, mode='view', letter=None,
