@@ -33,15 +33,20 @@ OUT = ROOT / 'static' / 'audio' / 'listening'
 CACHE = ROOT / 'tools' / '.tts_cache'
 SILENCE = (ROOT / 'tools' / 'assets' / 'silence_1s.mp3').read_bytes()
 
-# 說話者代號對應的語音，全部英式，符合雅思聽力的主要口音。
+# 說話者代號對應的語音。
+# 雅思聽力本來就會混用英、澳、紐、愛爾蘭口音，所以不同說話者刻意用不同口音，
+# 一方面貼近真實考試，一方面也讓對話中的兩個人更容易分辨。
+# 注意：微軟的英式語音只有 Ryan、Thomas 兩個男聲，其餘男聲要用其他英語系口音。
 VOICES = {
-    'narrator': ('en-GB-RyanNeural', '-8%'),    # 考試指令旁白，唸慢一點
-    'f1': ('en-GB-SoniaNeural', '+0%'),
-    'f2': ('en-GB-LibbyNeural', '+0%'),
-    'f3': ('en-GB-MaisieNeural', '+0%'),
-    'm1': ('en-GB-ThomasNeural', '+0%'),
-    'm2': ('en-GB-NoahNeural', '+0%'),
-    'm3': ('en-GB-OliverNeural', '+0%'),
+    'narrator': ('en-GB-RyanNeural', '-8%'),      # 考試指令旁白，唸慢一點
+    'f1': ('en-GB-SoniaNeural', '+0%'),           # 英國女聲
+    'f2': ('en-GB-LibbyNeural', '+0%'),           # 英國女聲（較年輕）
+    'f3': ('en-AU-NatashaNeural', '+0%'),         # 澳洲女聲
+    'f4': ('en-NZ-MollyNeural', '+0%'),           # 紐西蘭女聲
+    'm1': ('en-GB-ThomasNeural', '+0%'),          # 英國男聲
+    'm2': ('en-IE-ConnorNeural', '+0%'),          # 愛爾蘭男聲
+    'm3': ('en-NZ-MitchellNeural', '+0%'),        # 紐西蘭男聲
+    'm4': ('en-AU-WilliamMultilingualNeural', '+0%'),   # 澳洲男聲
 }
 RETRIES = 3
 
@@ -49,8 +54,22 @@ RETRIES = 3
 async def list_voices():
     voices = await edge_tts.list_voices()
     for v in sorted(voices, key=lambda x: x['ShortName']):
-        if v['Locale'].startswith('en-GB'):
-            print(f"  {v['ShortName']:<28} {v['Gender']}")
+        if v['Locale'].startswith('en-'):
+            print(f"  {v['ShortName']:<36} {v['Gender']}")
+
+
+async def verify_voices(used):
+    """開始合成前先確認要用的語音都存在，避免跑到一半才失敗。"""
+    try:
+        available = {v['ShortName'] for v in await edge_tts.list_voices()}
+    except Exception as e:
+        print(f'  （無法取得語音清單，略過檢查：{e}）')
+        return
+    missing = sorted({VOICES[u][0] for u in used} - available)
+    if missing:
+        sys.exit('以下語音不存在，請修改 tools/make_listening_audio.py 的 VOICES：\n  '
+                 + '\n  '.join(missing)
+                 + '\n可用語音請執行：python tools/make_listening_audio.py --voices')
 
 
 async def say(text, voice, rate):
@@ -76,7 +95,9 @@ async def say(text, voice, rate):
             last = e
             if attempt < RETRIES:
                 await asyncio.sleep(2 * attempt)
-    raise RuntimeError(f'合成失敗（已重試 {RETRIES} 次）：{last}')
+    raise RuntimeError(f'合成失敗（語音 {voice}，已重試 {RETRIES} 次）：{last}\n'
+                       f'  問題句子：{text[:60]}…\n'
+                       f'  可用語音請執行：python tools/make_listening_audio.py --voices')
 
 
 async def build_part(part):
@@ -118,6 +139,12 @@ async def main():
     files = collect(args[0] if args else None, int(args[1]) if len(args) > 1 else None)
     if not files:
         sys.exit('沒有找到符合條件的題庫檔案。')
+
+    used = {c['v'] for _, part in files for c in part['cues'] if c['v'] != 'pause'}
+    unknown = sorted(used - set(VOICES))
+    if unknown:
+        sys.exit(f'逐字稿裡出現未定義的說話者代號：{", ".join(unknown)}')
+    await verify_voices(used)
 
     OUT.mkdir(parents=True, exist_ok=True)
     made = 0
