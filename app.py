@@ -1328,7 +1328,7 @@ app.register_blueprint(word_audio.bp)
 
 # 英文零基礎的 ABC 與自然發音教學頁（程式在 phonics.py）
 import phonics  # noqa: E402
-phonics.register(app, get_student)
+phonics.register(app, get_student, Vocabulary, theme_condition, OFFICIAL_THEMES)
 
 
 if __name__ == '__main__':
