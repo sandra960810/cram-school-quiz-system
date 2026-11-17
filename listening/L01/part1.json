@@ -50,22 +50,38 @@
     {
       "type": "gapfill",
       "range": "Questions 1–10",
-      "instruction": "Complete the form below.",
+      "instruction": "Complete the notes below.",
       "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
-      "title": "RENTAL ENQUIRY FORM",
-      "layout": "form",
-      "rows": [
-        { "label": "Name:", "text": "Helen {ex:Fraser}" },
-        { "label": "Occupation:", "text": "{1}" },
-        { "label": "Preferred area:", "text": "close to the {2}" },
-        { "label": "Maximum rent:", "text": "£{3} per month" },
-        { "label": "Bedrooms required:", "text": "{4}" },
-        { "label": "Preferred moving date:", "text": "{5} September" },
-        { "label": "Property must have:", "text": "{6}" },
-        { "label": "Property must not be above a:", "text": "{7}" },
-        { "label": "Furnishing:", "text": "{8}" },
-        { "label": "Deposit:", "text": "{9} weeks' rent" },
-        { "label": "Viewing arranged for:", "text": "{10} at 10.30 a.m." }
+      "title": "Flat Rental Enquiry",
+      "sections": [
+        {
+          "heading": "About the client",
+          "lines": [
+            "The client's name is",
+            { "text": "Helen {ex:Fraser} .", "sub": true },
+            "She currently works as a {1} .",
+            "She wants to live close to the {2} ."
+          ]
+        },
+        {
+          "heading": "The flat",
+          "lines": [
+            "The rent must be no more than £{3} per month.",
+            "She would prefer a flat with {4} bedrooms.",
+            "She would like to move in on {5} September.",
+            "The flat must",
+            { "text": "have {6} .", "sub": true },
+            { "text": "not be above a {7} .", "sub": true },
+            "She wants the flat to be {8} ."
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "The deposit for flats near her work is {9} weeks' rent.",
+            "The viewing will be on {10} morning at 10.30 a.m."
+          ]
+        }
       ]
     }
   ],

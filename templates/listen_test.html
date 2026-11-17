@@ -17,6 +17,12 @@
         .note-sec { margin-bottom: 14px; }
         .note-sec h4 { margin: 14px 0 6px; font-size: 16px; }
         .note-sec li { line-height: 2.2; margin-bottom: 2px; }
+        /* 筆記填空（Part 1）：正式考卷的筆記樣式 */
+        .note-sec h4 { font-size: 17px; }
+        .note-sec ul.notes { padding-left: 22px; font-size: 16px; }
+        .note-sec li.note-cont { list-style: none; }
+        .note-sec li.note-exlabel { font-style: italic; color: #555; line-height: 1.6; margin-top: 4px; }
+        .note-sec li.is-ex { color: #555; }
         /* 表格填空（Part 1）：正式考卷的表單樣式 */
         .box.form-box { max-width: 640px; margin-left: auto; margin-right: auto; padding: 20px 28px 22px; }
         .ielts-form { display: grid; grid-template-columns: max-content 1fr; column-gap: 28px; row-gap: 4px;
@@ -87,7 +93,7 @@
             {# ---------- 表格／筆記填空 ---------- #}
             {% if g.type == 'gapfill' %}
                 <div class="box{% if g.rows %} form-box{% endif %}">
-                    {% if g.title %}<div class="box-title">{{ g.title }}</div>{% endif %}
+                    {% if g.title %}<div class="{% if g.rows %}box-title{% else %}box-head{% endif %}">{{ g.title }}</div>{% endif %}
                     {% if g.rows %}
                         {# 表格填空：比照正式雅思的表單版面，左欄項目、右欄內容 #}
                         <div class="ielts-form">
@@ -103,10 +109,18 @@
                             {% endfor %}
                         </div>
                     {% endif %}
+                    {# 筆記填空：比照正式雅思，小標題＋項目符號句子，空格就在句子中間 #}
                     {% for s in g.sections %}
                     <div class="note-sec">
-                        <h4>{{ s.heading }}</h4>
-                        <ul>{% for ln in s.lines %}<li>{{ ln }}</li>{% endfor %}</ul>
+                        {% if s.heading %}<h4>{{ s.heading }}</h4>{% endif %}
+                        <ul class="notes">
+                        {% for ln in s.lines %}
+                            {% if ln.example and (loop.first or not s.lines[loop.index0 - 1].example) %}
+                            <li class="note-cont note-exlabel">Example</li>
+                            {% endif %}
+                            <li class="{% if ln.sub or ln.example %}note-cont{% endif %}{% if ln.example %} is-ex{% endif %}">{{ ln.html }}</li>
+                        {% endfor %}
+                        </ul>
                     </div>
                     {% endfor %}
                 </div>

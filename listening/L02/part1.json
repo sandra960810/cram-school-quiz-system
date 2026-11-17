@@ -56,22 +56,42 @@
     {
       "type": "gapfill",
       "range": "Questions 1–10",
-      "instruction": "Complete the form below.",
+      "instruction": "Complete the notes below.",
       "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
-      "title": "LAKESIDE TENNIS CLUB – NEW MEMBER ENQUIRY",
-      "layout": "form",
-      "rows": [
-        { "label": "Name:", "text": "Tom {ex:Ellison}" },
-        { "label": "Address:", "text": "14 {1} Road" },
-        { "label": "Heard about the club from:", "text": "a {2}" },
-        { "label": "Type of membership:", "text": "{3}" },
-        { "label": "Annual fee:", "text": "£{4}" },
-        { "label": "Coaching day:", "text": "{5} evening" },
-        { "label": "Coaching group:", "text": "{6}" },
-        { "label": "Must bring own:", "text": "{7}" },
-        { "label": "Parking:", "text": "at the {8} next door" },
-        { "label": "Free trial session:", "text": "Saturday {9} June, 10 a.m." },
-        { "label": "On arrival, ask for:", "text": "{10}" }
+      "title": "Lakeside Tennis Club – New Member",
+      "sections": [
+        {
+          "heading": "Personal details",
+          "lines": [
+            "The caller's name is",
+            { "text": "Tom {ex:Ellison} .", "sub": true },
+            "He lives at 14 {1} Road.",
+            "He heard about the club from a {2} ."
+          ]
+        },
+        {
+          "heading": "Membership",
+          "lines": [
+            "He has decided to take {3} membership.",
+            "This now costs £{4} a year."
+          ]
+        },
+        {
+          "heading": "Coaching",
+          "lines": [
+            "Coaching sessions are on {5} evenings.",
+            "He will join the {6} group.",
+            "He must bring his own {7} ."
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "Members should park at the {8} next door.",
+            "The free trial session is on Saturday {9} June at 10 a.m.",
+            "On arrival, he should ask for {10} ."
+          ]
+        }
       ]
     }
   ],

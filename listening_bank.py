@@ -121,6 +121,18 @@ def _gap_html(text):
     return Markup(GAP_RE.sub(sub, escape(text)))
 
 
+def note_text(ln):
+    """筆記行可以是字串（項目符號行）或 {"text": ..., "sub": true}（接續上一行的縮排句子）。"""
+    return ln['text'] if isinstance(ln, dict) else ln
+
+
+def _note_line(ln):
+    text = note_text(ln)
+    return {'html': _gap_html(text),
+            'sub': isinstance(ln, dict) and bool(ln.get('sub')),
+            'example': '{ex:' in text}
+
+
 def _render_group(g):
     """把題組轉成樣板直接可用的結構（HTML 片段已處理成 Markup）。"""
     out = dict(g)
@@ -129,8 +141,8 @@ def _render_group(g):
         out['rows'] = [{'label': r.get('label', ''), 'html': _gap_html(r['text']),
                         'example': '{ex:' in r['text']}
                        for r in g.get('rows', [])]
-        out['sections'] = [{'heading': s['heading'],
-                            'lines': [_gap_html(ln) for ln in s['lines']]}
+        out['sections'] = [{'heading': s.get('heading', ''),
+                            'lines': [_note_line(ln) for ln in s['lines']]}
                            for s in g.get('sections', [])]
     elif g['type'] == 'matching':
         out['option_list'] = [(k, g['options'][k]) for k in sorted(g['options'])]

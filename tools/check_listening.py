@@ -56,7 +56,8 @@ def check_part(test_key, part, problems):
         if g['type'] == 'gapfill':
             blocks = g.get('rows', [])
             for sec in g.get('sections', []):
-                blocks += [{'text': ln} for ln in sec['lines']]
+                # 筆記行可以是字串，或 {"text": ..., "sub": true}
+                blocks += [ln if isinstance(ln, dict) else {'text': ln} for ln in sec['lines']]
             for row in blocks:
                 declared += [int(n) for n in GAP_RE.findall(row.get('text', ''))]
         elif g['type'] in ('mcq', 'matching', 'map'):
