@@ -42,6 +42,14 @@
 
     <!-- 功能選單：依考試開放的功能顯示（exams.py 的 features） -->
     <div class="menu-grid ui-stagger">
+        {% if 'phonics' in features %}
+        <a href="/phonics/{{ student.id }}" class="menu-card">
+            <div class="menu-icon">{{ icon('letter') }}</div>
+            <div class="menu-title">ABC 與發音教學<span class="go-arrow">→</span></div>
+            <div class="menu-desc">字母、自然發音、拼讀練習<br>先學會看字就會唸</div>
+        </a>
+        {% endif %}
+
         {% if 'learn' in features %}
         <a href="/learn/{{ student.id }}" class="menu-card">
             <div class="menu-icon">{{ icon('library') }}</div>

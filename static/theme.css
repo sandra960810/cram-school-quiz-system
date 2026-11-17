@@ -52,9 +52,43 @@
     --bg: #f3f6fb;
     --surface-2: #eef2f8;
 }
+/* 英文零基礎（BASIC）：暖橘色，給剛起步的學生活潑一點 */
+:root[data-exam="basic"] {
+    --primary: #c2410c;
+    --primary-600: #9a3412;
+    --primary-300: #f4b48a;
+    --primary-50: #fff1e8;
+    --primary-100: #fde0cc;
+    --ink: #2a211c;
+    --ink-2: #54473f;
+    --muted: #7a6b62;
+    --muted-2: #a8998f;
+    --line: #eee3da;
+    --line-strong: #d8c6b8;
+    --bg: #fbf6f2;
+    --surface-2: #f7efe8;
+}
+/* 一般英文（GENERAL）：青綠色 */
+:root[data-exam="general"] {
+    --primary: #0f766e;
+    --primary-600: #115e59;
+    --primary-300: #8fd0c7;
+    --primary-50: #e7f6f4;
+    --primary-100: #cdeee9;
+    --ink: #18272a;
+    --ink-2: #3f5254;
+    --muted: #627476;
+    --muted-2: #95a5a6;
+    --line: #dde9e8;
+    --line-strong: #bfd3d1;
+    --bg: #f2f8f7;
+    --surface-2: #eaf3f2;
+}
 /* 考試選擇頁的卡片：各自顯示自己考試的主色（不受整頁色系影響） */
 .exam-tone-ielts { --tone: #4a2d7f; --tone-50: #f1ecf8; --tone-300: #b7a3db; --tone-100: #e3d9f2; }
 .exam-tone-toeic { --tone: #1d4ed8; --tone-50: #eaf1fd; --tone-300: #9db8ec; --tone-100: #d4e2fa; }
+.exam-tone-basic { --tone: #c2410c; --tone-50: #fff1e8; --tone-300: #f4b48a; --tone-100: #fde0cc; }
+.exam-tone-general { --tone: #0f766e; --tone-50: #e7f6f4; --tone-300: #8fd0c7; --tone-100: #cdeee9; }
 
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }

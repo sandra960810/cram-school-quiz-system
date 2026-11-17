@@ -52,4 +52,10 @@ if errorlevel 1 ( echo     合併重複字失敗，資料庫備份在 backups �
 echo     匯入多益單字 toeic\toeic_vocab.csv...
 %PY% import_sheet.py toeic\toeic_vocab.csv
 if errorlevel 1 ( echo     多益單字匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
+echo     匯入英文零基礎單字 basic\basic_vocab.csv...
+%PY% import_sheet.py basic\basic_vocab.csv
+if errorlevel 1 ( echo     零基礎單字匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
+echo     匯入一般英文單字 general\general_vocab.csv...
+%PY% import_sheet.py general\general_vocab.csv
+if errorlevel 1 ( echo     一般英文單字匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
 exit /b 0

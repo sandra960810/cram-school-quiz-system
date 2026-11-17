@@ -2,7 +2,8 @@
 
 網站會涵蓋多種考試，每種考試是 EXAMS 裡的一筆：
 - course   對應單字資料的「課程」（Vocabulary.category），單字學習與單字測驗只看這個課程的字
-- features 這個考試開放哪些功能：learn（單字學習與圖鑑）、vocab_quiz（單字測驗區）、exam（模擬測驗區）
+- features 這個考試開放哪些功能：learn（單字學習與圖鑑）、vocab_quiz（單字測驗區）、exam（模擬測驗區）、
+            phonics（ABC 與自然發音教學，零基礎用）
 - ready    False 代表還在準備，選擇頁顯示「即將開放」
 - 色系在 static/theme.css 用 :root[data-exam="…"] 覆寫，每個樣板的 <html> 都帶 data-exam
 
@@ -26,13 +27,17 @@ EXAMS = [
     {"key": "jlpt", "name": "日檢", "en": "JLPT", "course": "JLPT", "icon": "letter", "ready": False,
      "desc": "日本語能力試驗", "features": []},
     {"key": "basic", "name": "英文零基礎", "en": "Basic English", "course": "BASIC", "icon": "smile",
-     "ready": False, "desc": "從字母、發音與生活單字開始", "features": []},
+     "ready": True, "desc": "ABC 字母、自然發音，加上國中小程度 2,000 個生活單字",
+     "features": ["phonics", "learn", "vocab_quiz"]},
+    {"key": "general", "name": "一般英文", "en": "General English", "course": "GENERAL", "icon": "home",
+     "ready": True, "desc": "零基礎之後的下一步：4,000 個日常生活單字",
+     "features": ["learn", "vocab_quiz"]},
 ]
 EXAM_BY_KEY = {e["key"]: e for e in EXAMS}
 DEFAULT_EXAM = "ielts"
 
 # 這些網址只屬於某個考試：進到這裡一律算那個考試（例如模擬測驗區是雅思的）
-PATH_EXAM = [("/exam/", "ielts")]
+PATH_EXAM = [("/exam/", "ielts"), ("/phonics/", "basic")]
 
 
 def exams_for(student):
