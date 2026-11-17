@@ -54,6 +54,29 @@
         .pattern-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
         .pat { font-size: 26px; font-weight: bold; color: var(--primary); }
         .pat-hint { color: var(--ink-2); }
+        .kk { font-family: "Lucida Sans Unicode", "Segoe UI", Arial, sans-serif; }
+        .kk-tag { font-family: "Lucida Sans Unicode", "Segoe UI", Arial, sans-serif; background: var(--primary-50); color: var(--primary-600); border-radius: 8px; padding: 2px 8px; font-size: 18px; }
+
+        /* 跟讀評分 */
+        .sh-pick { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+        .sh-pick select { max-width: 100%; min-width: 0;  font-family: inherit; font-size: 15px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: #fff; color: var(--ink); }
+        .sh-word { font-size: 52px; font-weight: bold; color: var(--ink); margin: 6px 0 2px; letter-spacing: 1px; }
+        .sh-zh { color: var(--muted); font-size: 17px; }
+        .sh-sent { color: var(--ink-2); margin-top: 8px; font-size: 15px; }
+        .sh-btns { display: flex; gap: 16px; justify-content: center; margin: 20px 0 10px; flex-wrap: wrap; }
+        .round-btn { border: none; width: 84px; height: 84px; border-radius: 50%; font-size: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-direction: column; font-family: inherit; }
+        .round-btn small { font-size: 12px; margin-top: 2px; }
+        .round-btn.play { background: var(--primary-50); color: var(--primary); box-shadow: 0 0 0 1px var(--primary-300); }
+        .round-btn.rec { background: var(--primary); color: #fff; }
+        .round-btn.rec.on { background: var(--bad); animation: pulse 1s infinite; }
+        .round-btn.mine { background: #fff; color: var(--ink-2); box-shadow: 0 0 0 1px var(--line-strong); }
+        .round-btn:disabled { opacity: .4; cursor: default; }
+        @keyframes pulse { 50% { transform: scale(1.06); } }
+        .stars { font-size: 40px; letter-spacing: 6px; color: var(--line-strong); min-height: 52px; }
+        .stars .lit { color: var(--star); }
+        .sh-heard { color: var(--ink-2); min-height: 24px; }
+        .sh-total { color: var(--muted); margin-top: 6px; }
+        .sh-note { color: var(--muted); font-size: 13px; margin-top: 16px; line-height: 1.6; }
         .words { display: flex; gap: 10px; flex-wrap: wrap; }
         .word { border: none; background: var(--surface-2); border-radius: 12px; padding: 10px 14px; cursor: pointer; font-family: inherit; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; color: var(--ink); }
         .word:hover { box-shadow: 0 0 0 1px var(--primary-300); }
@@ -96,27 +119,31 @@
     </div>
     <div class="summary">
         <h1>{{ icon('letter') }} ABC 與發音教學</h1>
-        <p>先認識 26 個字母和它們的聲音，再學「自然發音」：看到字就會唸、聽到字就會拼。<br>
-           每個字都可以點，會唸給你聽；跟著大聲唸出來效果最好。</p>
+        <p>比照國外小學的 phonics：字母的音看 KK 音標和嘴型，學會「看到字就會唸、聽到字就會拼」。<br>
+           每個字都可以點來聽；到「跟讀評分」對著麥克風唸，電腦會幫你打星星。</p>
     </div>
 
     <div class="tabs" role="tablist">
         <button class="tab on" data-tab="abc">{{ icon('type') }} ABC 字母</button>
         <button class="tab" data-tab="phonics">{{ icon('volume') }} 自然發音</button>
         <button class="tab" data-tab="listen">{{ icon('headphones') }} 聽音選字</button>
+        <button class="tab" data-tab="shadow">{{ icon('mic') }} 跟讀評分</button>
     </div>
 
     <!-- 1. ABC 字母 -->
     <section class="panel on" id="panel-abc">
         <div class="tools">
             <button class="btn" id="play-abc">{{ icon('volume') }} 從 A 唸到 Z</button>
+            <button class="btn ghost" id="chant-abc">{{ icon('sparkle') }} 唸唸歌：A is for apple</button>
             <button class="btn ghost" id="stop-abc" hidden>停止</button>
             <span class="hint">點字母卡：聽字母名稱和代表單字。已練習：<b id="practiced-count">0</b> / 26</span>
         </div>
         <div class="detail" id="letter-detail">
             <h3 id="d-title"></h3>
             <p><b>字母名稱</b>：<span id="d-name"></span></p>
-            <p><b>常見的音</b>：<span id="d-sound"></span>，例如 <b id="d-word"></b></p>
+            <p><b>常見的音</b>：KK 音標 <b id="d-sound" class="kk"></b>，例如 <b id="d-word"></b></p>
+            <p><b>嘴型</b>：<span id="d-mouth"></span></p>
+            <p><b>中文近似</b>：<span id="d-zy"></span>（只是幫助記憶，跟著標準發音唸最準）</p>
             <p><b>怎麼唸</b>：<span id="d-tip"></span></p>
             <div class="row">
                 <button class="btn" id="d-say-name">{{ icon('volume') }} 字母名稱</button>
@@ -124,12 +151,12 @@
             </div>
         </div>
         <div class="abc-grid">
-            {% for L, word, zy, tip in letters %}
+            {% for L, word, kk, mouth, zy, tip in letters %}
             <button class="letter" data-i="{{ loop.index0 }}">
                 <span class="done">✓</span>
                 <div class="big">{{ L }}{{ L|lower }}</div>
                 <div class="kw"><b>{{ word[0] }}</b>{{ word[1:] }}</div>
-                <div class="zy">像「{{ zy }}」</div>
+                <div class="zy kk">/{{ kk }}/</div>
             </button>
             {% endfor %}
         </div>
@@ -146,7 +173,7 @@
             <div class="lesson-intro">{{ l.intro }}</div>
             {% for p in l.patterns %}
             <div class="pattern">
-                <div class="pattern-head"><span class="pat">{{ p.pat }}</span><span class="pat-hint">{{ p.hint }}</span></div>
+                <div class="pattern-head"><span class="pat">{{ p.pat }}</span><span class="kk-tag">/{{ p.kk }}/</span><span class="pat-hint">{{ p.hint }}</span></div>
                 <div class="words">
                     {% for w in p.words %}
                     <button class="word" data-word="{{ w.word }}">
@@ -185,11 +212,52 @@
             <button class="btn" id="q-again">{{ icon('refresh') }} 再玩一輪</button>
         </div>
     </section>
+
+    <!-- 4. 跟讀評分 -->
+    <section class="panel" id="panel-shadow">
+        <div class="sh-pick">
+            <label for="sh-src"><b>練習哪些字：</b></label>
+            <select id="sh-src">
+                <optgroup label="ABC 與自然發音">
+                    <option value="letters">ABC 代表單字（apple、ball…）</option>
+                    {% for l in lessons %}<option value="lesson:{{ loop.index0 }}">發音課 {{ loop.index }}：{{ l.title }}</option>{% endfor %}
+                </optgroup>
+                <optgroup label="零基礎單字主題">
+                    {% for t in basic_themes %}<option value="theme:{{ t.id }}">{{ t.id }} {{ t.name }}</option>{% endfor %}
+                </optgroup>
+            </select>
+            <button class="btn ghost" id="sh-shuffle">{{ icon('refresh') }} 換一批</button>
+        </div>
+        <div class="quiz-box">
+            <div class="quiz-progress" id="sh-progress"></div>
+            <div class="sh-word" id="sh-word"></div>
+            <div class="sh-zh" id="sh-zh"></div>
+            <div class="sh-sent" id="sh-sent"></div>
+            <div class="sh-btns">
+                <button class="round-btn play" id="sh-play">{{ icon('volume') }}<small>聽標準音</small></button>
+                <button class="round-btn rec" id="sh-rec">{{ icon('mic') }}<small id="sh-rec-label">按我跟讀</small></button>
+                <button class="round-btn mine" id="sh-mine" disabled>{{ icon('headphones') }}<small>聽我的</small></button>
+            </div>
+            <div class="stars" id="sh-stars"></div>
+            <div class="sh-heard" id="sh-heard">先聽一次標準發音，再按麥克風跟著唸</div>
+            <div class="tools" style="justify-content:center;margin-top:14px">
+                <button class="btn ghost" id="sh-prev">← 上一個</button>
+                <button class="btn" id="sh-next">下一個 →</button>
+            </div>
+            <div class="sh-total" id="sh-total"></div>
+            <div class="sh-note" id="sh-note">
+                評分用瀏覽器的語音辨識：電腦聽得懂你唸的字就給星星（Edge 送微軟、Chrome 送 Google 辨識）。
+                錄音只留在這台電腦的瀏覽器，不會上傳到網站。電腦評分只是參考，最準的還是跟著老師唸。
+            </div>
+        </div>
+    </section>
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 <script>
 const LETTERS = {{ letters|tojson }};
+const MOUTHS = {{ mouths|tojson }};
+const LESSONS = {{ lessons|tojson }};
 const LISTEN_SETS = {{ listen_sets|tojson }};
 const STORE_KEY = 'phonics-practiced-{{ student.id }}';
 
@@ -216,6 +284,7 @@ function sayOne(text) { token++; UI.speak(text); }
 // 分頁
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     token++;
+    if (typeof stopRec === 'function' && t.dataset.tab !== 'shadow') stopRec();
     document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'panel-' + t.dataset.tab));
     if (t.dataset.tab === 'listen' && !quiz.started) startQuiz();
@@ -231,12 +300,14 @@ refreshPracticed();
 let current = 0;
 function showLetter(i) {
     current = i;
-    const [L, word, zy, tip] = LETTERS[i];
+    const [L, word, kk, mouth, zy, tip] = LETTERS[i];
     cards.forEach((c, k) => c.classList.toggle('on', k === i));
     document.getElementById('letter-detail').classList.add('on');
     document.getElementById('d-title').textContent = L + ' ' + L.toLowerCase();
     document.getElementById('d-name').textContent = L + '（大寫）／' + L.toLowerCase() + '（小寫）';
-    document.getElementById('d-sound').textContent = '像「' + zy + '」';
+    document.getElementById('d-sound').textContent = '/' + kk + '/';
+    document.getElementById('d-mouth').textContent = MOUTHS[mouth] || '';
+    document.getElementById('d-zy').textContent = '像「' + zy + '」';
     document.getElementById('d-word').textContent = word;
     document.getElementById('d-tip').textContent = tip;
 }
@@ -258,6 +329,15 @@ playBtn.addEventListener('click', () => {
     sayAll(groups, g => {
         cards.forEach((c, k) => c.classList.toggle('playing', k >= g * 3 && k < g * 3 + 3));
         cards[g * 3].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }, () => { cards.forEach(c => c.classList.remove('playing')); playBtn.hidden = false; stopBtn.hidden = true; });
+});
+// 唸唸歌：A is for apple, B is for ball…，一個字母一句，卡片跟著亮
+document.getElementById('chant-abc').addEventListener('click', () => {
+    playBtn.hidden = true; stopBtn.hidden = false;
+    sayAll(LETTERS.map(x => `${x[0]} is for ${x[1]}.`), i => {
+        cards.forEach((c, k) => c.classList.toggle('playing', k === i));
+        cards[i].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        practiced.add(LETTERS[i][0]); savePracticed(practiced); refreshPracticed();
     }, () => { cards.forEach(c => c.classList.remove('playing')); playBtn.hidden = false; stopBtn.hidden = true; });
 });
 stopBtn.addEventListener('click', () => {
@@ -341,6 +421,182 @@ function endQuiz() {
 document.getElementById('q-listen').addEventListener('click', () => sayOne(quiz.answer));
 document.getElementById('q-next').addEventListener('click', nextQuestion);
 document.getElementById('q-again').addEventListener('click', startQuiz);
+
+// ---- 跟讀評分 ----
+// 單字來源：ABC 代表單字、發音課的字、零基礎各主題（從 /phonics/<id>/words 取）
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const BATCH = 20;
+const sh = { all: [], list: [], idx: 0, stars: {}, rec: null, recog: null, myUrl: null, busy: false };
+const $ = id => document.getElementById(id);
+const NUM = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'];
+// 辨識常把同音字寫成另一個字（two → to），這些都算唸對
+const SAME = { two: ['to', 'too'], four: ['for'], one: ['won'], eight: ['ate'], see: ['sea'], sea: ['see'], eye: ['i'],
+    right: ['write'], write: ['right'], know: ['no'], no: ['know'], hear: ['here'], here: ['hear'], buy: ['by', 'bye'],
+    by: ['buy', 'bye'], son: ['sun'], sun: ['son'], meet: ['meat'], meat: ['meet'], flower: ['flour'], pear: ['pair', 'pare'],
+    pair: ['pear'], night: ['knight'], read: ['red'], red: ['read'], blue: ['blew'], new: ['knew'], wait: ['weight'],
+    tail: ['tale'], week: ['weak'], weak: ['week'], peace: ['piece'], piece: ['peace'], whole: ['hole'], hole: ['whole'] };
+
+function words(text) {
+    return (text || '').toLowerCase().replace(/\b(\d+)\b/g, m => NUM[+m] || m).replace(/[^a-z' ]/g, ' ').split(/\s+/).filter(Boolean);
+}
+function lev(a, b) {
+    const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    return d[a.length][b.length];
+}
+// 3 顆：電腦第一個就聽成這個字；2 顆：備選答案裡有；1 顆：很接近；0 顆：聽成別的字
+function scoreOf(target, alts) {
+    const t = target.toLowerCase().replace(/[^a-z' ]/g, '').trim();
+    const ok = w => w === t || (SAME[t] || []).includes(w);
+    const hit = alt => { const ws = words(alt); return ws.some(ok) || ws.join(' ') === t; };
+    if (alts.length && hit(alts[0])) return 3;
+    if (alts.some(hit)) return 2;
+    // 很接近：只差一個字母（5 個字母以上的字）或兩個字母（8 個以上）。短字差一個字母就是別的字（ship／chip），不給星
+    let best = 99;
+    alts.forEach(a => words(a).forEach(w => { best = Math.min(best, lev(w, t)); }));
+    return (t.length >= 5 && best <= 1) || (t.length >= 8 && best <= 2) ? 1 : 0;
+}
+
+function srcKey() { return 'phonics-shadow-{{ student.id }}-' + $('sh-src').value; }
+function loadStars() { try { sh.stars = JSON.parse(localStorage.getItem(srcKey()) || '{}'); } catch (e) { sh.stars = {}; } }
+function saveStars() { try { localStorage.setItem(srcKey(), JSON.stringify(sh.stars)); } catch (e) {} }
+
+async function loadSource() {
+    const v = $('sh-src').value;
+    let list = [];
+    if (v === 'letters') list = LETTERS.map(x => ({ word: x[1], zh: `${x[0]} 的代表單字　/${x[2]}/` }));
+    else if (v.startsWith('lesson:')) {
+        const l = LESSONS[+v.slice(7)];
+        l.patterns.forEach(p => p.words.forEach(w => list.push({ word: w.word, zh: `${p.pat}　/${p.kk}/` })));
+    } else if (v.startsWith('theme:')) {
+        $('sh-heard').textContent = '載入單字中…';
+        try {
+            const r = await fetch(`/phonics/{{ student.id }}/words?theme=${encodeURIComponent(v.slice(6))}`);
+            list = await r.json();
+        } catch (e) { list = []; }
+    }
+    sh.all = list;
+    loadStars();
+    pickBatch(false);
+}
+function pickBatch(random) {
+    const pool = sh.all.slice();
+    if (random) shuffle(pool);
+    else pool.sort((a, b) => (sh.stars[a.word] || 0) - (sh.stars[b.word] || 0));   // 沒練過、分數低的先出
+    sh.list = pool.slice(0, BATCH);
+    sh.idx = 0;
+    showShadow();
+}
+function showShadow() {
+    stopRec();
+    const w = sh.list[sh.idx];
+    if (!w) { $('sh-word').textContent = '這裡還沒有單字'; return; }
+    $('sh-progress').textContent = `第 ${sh.idx + 1} / ${sh.list.length} 個`;
+    $('sh-word').textContent = w.word;
+    $('sh-zh').textContent = w.zh || '';
+    $('sh-sent').textContent = w.sentence || '';
+    drawStars(sh.stars[w.word]);
+    $('sh-heard').textContent = sh.stars[w.word] != null ? '之前練過了，可以再挑戰一次' : '先聽一次標準發音，再按麥克風跟著唸';
+    if (sh.myUrl) { URL.revokeObjectURL(sh.myUrl); sh.myUrl = null; }
+    $('sh-mine').disabled = true;
+    $('sh-prev').disabled = sh.idx === 0;
+    updateTotal();
+    setTimeout(() => { if ($('panel-shadow').classList.contains('on')) sayOne(w.word); }, 250);
+}
+function drawStars(n) {
+    $('sh-stars').innerHTML = n == null ? '' : [0, 1, 2].map(i => `<span class="${i < n ? 'lit' : ''}">★</span>`).join('');
+}
+function updateTotal() {
+    const done = sh.list.filter(w => sh.stars[w.word] != null);
+    const sum = done.reduce((a, w) => a + sh.stars[w.word], 0);
+    $('sh-total').textContent = done.length ? `這一批練了 ${done.length} 個字，共 ★ ${sum} / ${done.length * 3}` : '';
+}
+
+function stopRec() {
+    if (sh.recog) { try { sh.recog.abort(); } catch (e) {} sh.recog = null; }
+    if (sh.rec && sh.rec.state === 'recording') sh.rec.stop();
+    $('sh-rec').classList.remove('on');
+    $('sh-rec-label').textContent = '按我跟讀';
+}
+async function startRec() {
+    const w = sh.list[sh.idx];
+    if (!w) return;
+    token++;   // 停掉正在唸的標準音，免得被錄進去
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch (e) {
+        $('sh-heard').textContent = '沒辦法用麥克風：請允許瀏覽器使用麥克風（手機要用 https 的分享網址）';
+        return;
+    }
+    $('sh-rec').classList.add('on');
+    $('sh-rec-label').textContent = '唸完按停';
+    $('sh-heard').textContent = '請唸：' + w.word;
+    // 1. 錄音：讓學生重聽自己的聲音
+    const chunks = [];
+    try {
+        sh.rec = new MediaRecorder(stream);
+        sh.rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+        sh.rec.onstop = () => {
+            stream.getTracks().forEach(t => t.stop());
+            if (chunks.length) {
+                if (sh.myUrl) URL.revokeObjectURL(sh.myUrl);
+                sh.myUrl = URL.createObjectURL(new Blob(chunks, { type: sh.rec.mimeType || 'audio/webm' }));
+                $('sh-mine').disabled = false;
+            }
+        };
+        sh.rec.start();
+    } catch (e) { sh.rec = null; }
+    const stopAll = () => { if (sh.rec && sh.rec.state === 'recording') sh.rec.stop(); else stream.getTracks().forEach(t => t.stop());
+                            $('sh-rec').classList.remove('on'); $('sh-rec-label').textContent = '按我跟讀'; };
+    // 2. 語音辨識：電腦聽懂就給星星
+    if (!SR) {
+        $('sh-heard').textContent = '這個瀏覽器不能自動評分（請用 Edge），先錄 3 秒，和標準音比比看';
+        setTimeout(stopAll, 3000);
+        return;
+    }
+    const r = new SR();
+    sh.recog = r;
+    r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 5; r.continuous = false;
+    let got = false;
+    r.onresult = e => {
+        got = true;
+        const alts = [...e.results[0]].map(a => a.transcript);
+        const n = scoreOf(w.word, alts);
+        sh.stars[w.word] = Math.max(n, sh.stars[w.word] || 0);
+        saveStars();
+        drawStars(n);
+        const msg = ['電腦聽成「' + alts[0] + '」，再聽一次標準音試試看', '很接近了！電腦聽成「' + alts[0] + '」',
+                     '唸對了！再唸清楚一點會更好', '太棒了，非常標準！'][n];
+        $('sh-heard').textContent = msg;
+        UI.play(n >= 2 ? 'right' : n === 1 ? 'tap' : 'error');
+        updateTotal();
+    };
+    r.onerror = e => {
+        if (e.error === 'no-speech') $('sh-heard').textContent = '沒聽到聲音，靠近麥克風再唸一次';
+        else if (e.error === 'not-allowed' || e.error === 'service-not-allowed') $('sh-heard').textContent = '瀏覽器不允許語音辨識：請允許麥克風，或改用 Edge';
+        else if (e.error === 'network') $('sh-heard').textContent = '語音辨識要連上網路，請檢查網路後再試';
+        else if (e.error !== 'aborted') $('sh-heard').textContent = '辨識失敗，再試一次';
+    };
+    r.onend = () => {
+        sh.recog = null;
+        if (!got && $('sh-heard').textContent.startsWith('請唸')) $('sh-heard').textContent = '沒聽清楚，再唸一次';
+        setTimeout(stopAll, 300);   // 多錄一點尾音
+    };
+    try { r.start(); } catch (e) { stopAll(); }
+}
+$('sh-rec').addEventListener('click', () => { $('sh-rec').classList.contains('on') ? (sh.recog ? sh.recog.stop() : stopRec()) : startRec(); });
+$('sh-play').addEventListener('click', () => { const w = sh.list[sh.idx]; if (w) sayOne(w.word); });
+$('sh-mine').addEventListener('click', () => { if (sh.myUrl) { token++; new Audio(sh.myUrl).play(); } });
+$('sh-next').addEventListener('click', () => { if (sh.idx < sh.list.length - 1) { sh.idx++; showShadow(); } else pickBatch(false); });
+$('sh-prev').addEventListener('click', () => { if (sh.idx > 0) { sh.idx--; showShadow(); } });
+$('sh-shuffle').addEventListener('click', () => pickBatch(true));
+$('sh-src').addEventListener('change', loadSource);
+let shadowStarted = false;
+document.querySelector('.tab[data-tab="shadow"]').addEventListener('click', () => {
+    if (!shadowStarted) { shadowStarted = true; loadSource(); } else showShadow();
+});
 </script>
 </body>
 </html>
