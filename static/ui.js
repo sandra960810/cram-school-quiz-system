@@ -159,22 +159,30 @@
         speechSynthesis.speak(u);
     }
 
-    // 判斷一個語音是不是「神經語音」（Edge 的 Natural / Google 等，聽起來接近真人）
-    const NATURAL_RE = /natural|neural|premium|enhanced|google|siri/i;
-    function isNatural(v) { return !!v && NATURAL_RE.test(v.name); }
+    // 語音分三級：
+    //   neural 神經語音（Edge 的 Natural、iOS 的 Siri）— 最接近真人
+    //   good   品質不錯（Chrome 的 Google 網路語音、Premium/Enhanced）— 堪用，但不如神經語音
+    //   poor   機械式（Zira Desktop、eSpeak 這類舊語音）
+    function voiceTier(v) {
+        if (!v) return 'poor';
+        const n = v.name.toLowerCase();
+        if (/natural|neural|siri/.test(n)) return 'neural';
+        if (/google|premium|enhanced/.test(n)) return 'good';
+        return 'poor';
+    }
+    function isNatural(v) { return voiceTier(v) === 'neural'; }
 
-    // 目前這個瀏覽器最好能做到什麼程度：natural / plain / none
+    // 目前這個瀏覽器最好能做到什麼程度
     function voiceQuality() {
         const v = pickVoice();
-        if (!v) return 'none';
-        return isNatural(v) ? 'natural' : 'plain';
+        return v ? voiceTier(v) : 'none';
     }
 
     // 只在這個分頁提醒一次，不要一直跳
     const WARN_KEY = 'quiz-voice-warned';
     function voiceQualityWarning() {
         const q = voiceQuality();
-        if (q === 'natural') return;
+        if (q === 'neural' || q === 'good') return;
         try { if (sessionStorage.getItem(WARN_KEY)) return; sessionStorage.setItem(WARN_KEY, '1'); } catch (e) { /* ignore */ }
         const t = document.createElement('div');
         t.className = 'ui-toast';
@@ -201,7 +209,8 @@
         function render() {
             const voices = englishVoices().sort((a, b) => voiceScore(b, voiceSettings.accent) - voiceScore(a, voiceSettings.accent));
             const current = pickVoice();
-            const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${isNatural(v) ? '★ ' : ''}${v.name.replace(/</g, '&lt;')}</option>`;
+            const mark = { neural: '★ ', good: '☆ ', poor: '' };
+            const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${mark[voiceTier(v)]}${v.name.replace(/</g, '&lt;')}</option>`;
             panel.innerHTML = `
                 <div class="vp-title">🗣️ 發音設定</div>
                 <label>口音
@@ -218,11 +227,13 @@
                     <select data-k="voiceName" ${voices.length ? '' : 'disabled'}>
                         <option value="">自動挑最像真人的</option>${voices.map(opt).join('')}
                     </select></label>
-                <div class="vp-note">${voices.length
-                    ? (isNatural(current)
-                        ? '✅ 真人級語音：' + current.name.replace(/</g, '&lt;')
-                        : '⚠️ 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
-                          + '<br>改用 <b>Microsoft Edge</b> 開啟本網站，就會自動換成接近真人的發音。')
+                <div class="vp-note">${voices.length ? ({
+                        neural: '✅ 真人級語音：' + (current ? current.name.replace(/</g, '&lt;') : ''),
+                        good: '🙂 品質不錯：' + (current ? current.name.replace(/</g, '&lt;') : '')
+                              + '<br>想要更接近真人，可以改用 <b>Microsoft Edge</b> 開啟本網站。',
+                        poor: '⚠️ 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
+                              + '<br>改用 <b>Microsoft Edge</b> 開啟本網站，發音會接近真人。'
+                    }[voiceTier(current)])
                     : '這個瀏覽器沒有英文語音。請改用 <b>Microsoft Edge</b> 開啟本網站。'}</div>
                 <button class="vp-test" data-sound="none">🔊 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
@@ -264,5 +275,5 @@
         buildVoicePanel();
     });
 
-    window.UI = { play, ripple, speak, voiceScore, voiceQuality };
+    window.UI = { play, ripple, speak, voiceScore, voiceQuality, voiceTier };
 })();
