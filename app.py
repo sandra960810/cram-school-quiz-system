@@ -468,6 +468,52 @@ def learn_word(student_id, theme_key, vocab_id):
                            home_url=url_for('learn_home', student_id=student_id))
 
 
+@app.route('/vocab_themes/<int:student_id>')
+@app.route('/profile/<int:student_id>')
+@app.route('/vocab/<int:student_id>')
+def legacy_learn_home(student_id):
+    return redirect(url_for('learn_home', student_id=student_id))
+
+
+@app.route('/vocab/<int:student_id>/<theme_id>')
+def legacy_vocab_area(student_id, theme_id):
+    return redirect(url_for('learn_theme', student_id=student_id, theme_key=theme_id))
+
+
+@app.route('/api/update_progress', methods=['POST'])
+def update_progress():
+    data = request.get_json(silent=True) or {}
+    student_id = data.get('student_id')
+    vocab_id = data.get('vocab_id')
+    status = data.get('status')
+    if status not in ('familiar', 'unfamiliar') \
+            or not db.session.get(Student, student_id) \
+            or not db.session.get(Vocabulary, vocab_id):
+        return jsonify({"success": False, "error": "資料不正確"}), 400
+
+    set_progress(student_id, db.session.get(Vocabulary, vocab_id), status)
+    db.session.commit()
+    return jsonify({"success": True})
+
+
+def same_word_rows(vocab):
+    """同一個字可能同時出現在主題字庫和 A–Z 大字庫，學過一次兩邊都算。"""
+    return Vocabulary.query.filter(Vocabulary.category == vocab.category,
+                                   func.lower(Vocabulary.word) == vocab.word.lower()).all()
+
+
+def set_progress(student_id, vocab, status):
+    now = datetime.utcnow()
+    for row in same_word_rows(vocab):
+        record = LearningProgress.query.filter_by(student_id=student_id, vocab_id=row.id).first()
+        if record:
+            record.status = status
+            record.last_reviewed = now
+        else:
+            db.session.add(LearningProgress(student_id=student_id, vocab_id=row.id,
+                                            status=status, last_reviewed=now))
+
+
 # ---------------------------------------------------------------------------
 # 測驗區：四個技能各自一套原創題庫
 # ---------------------------------------------------------------------------
