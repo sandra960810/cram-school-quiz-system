@@ -107,3 +107,45 @@ select.pick:focus { outline: none; border-color: #3498db; }
 .btn-export { border: 2px solid #5b48a2; background: white; color: #5b48a2; font-size: 15px; font-weight: bold;
               padding: 11px 18px; border-radius: 10px; cursor: pointer; font-family: inherit; }
 .btn-export:hover { background: #f3f0fa; }
+
+/* ===== 手機版面（寬度 640px 以下）：縮小留白、加大點擊範圍，電腦版不受影響 ===== */
+@media (max-width: 640px) {
+    body { padding: 10px 10px 0; }
+    .nav-row { margin-bottom: 10px; }
+    .nav-back, .nav-next { padding: 7px 12px; font-size: 14px; }
+    .exam-head { gap: 10px; margin-bottom: 12px; }
+    .exam-tag { font-size: 16px; padding: 5px 12px; }
+    .exam-part { font-size: 18px; }
+    .sheet { padding: 16px 14px; border-radius: 8px; margin-bottom: 12px; }
+    .qgroup { margin-bottom: 26px; }
+    .qtitle { font-size: 16px; }
+    .qrow { gap: 8px; line-height: 1.75; }
+    .opt { padding: 7px 0 7px 2px; }              /* 手指比較好點 */
+    .opt input { transform: scale(1.15); }
+    select.pick { font-size: 16px; padding: 6px 8px; }   /* 16px 以上 iPhone 才不會自動放大畫面 */
+    input.fill { max-width: 100%; }
+    .box { padding: 14px; }
+    .box-head { margin: -14px -14px 14px; }
+    .box li { line-height: 2; }
+    .optbox { padding: 12px 14px; }
+    .match-row { flex-wrap: wrap; gap: 6px 10px; }
+    .submit-bar { padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); gap: 10px; margin: 10px -10px 0; border-radius: 0; }
+    .submit-bar .count { font-size: 14px; }
+    .btn-submit { font-size: 15px; padding: 11px 16px; }
+    .timer { padding: 6px 10px; }
+    /* 聽力：音檔播放列在該 Part 範圍內固定在畫面上方，捲到題目時也能暫停／倒帶 */
+    .audio-bar { position: sticky; top: 0; z-index: 5; padding: 10px 12px; margin: 0 -4px 14px;
+                 box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .audio-bar-label { font-size: 13px; margin-bottom: 6px; }
+    .audio-hint { display: none; }
+}
+/* 測驗頁下方有交卷列：把右下角的音效／發音按鈕往上移，避免蓋住「交卷」 */
+body:has(.submit-bar) .ui-sound-toggle,
+body:has(.submit-bar) .ui-voice-toggle { bottom: 90px; }
+body:has(.submit-bar) .ui-voice-panel { bottom: 144px; }
+@media (max-width: 640px) {
+    body:has(.submit-bar) .ui-sound-toggle,
+    body:has(.submit-bar) .ui-voice-toggle { bottom: 76px; width: 38px; height: 38px; font-size: 17px; opacity: .9; }
+    body:has(.submit-bar) .ui-voice-toggle { right: 60px; }
+    body:has(.submit-bar) .ui-voice-panel { bottom: 124px; }
+}
