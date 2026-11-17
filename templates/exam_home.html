@@ -6,53 +6,44 @@
     <title>模擬測驗區</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
-        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        .banner { background: linear-gradient(135deg, #a18cd1, #5b48a2); color: white; padding: 25px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        .banner h1 { margin: 0 0 6px 0; font-size: 26px; }
-        .banner p { margin: 0; opacity: 0.9; line-height: 1.6; }
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 980px; margin: 0 auto; }
+        .banner { background: linear-gradient(135deg, #a18cd1, #5b48a2); color: #fff; padding: 25px 30px;
+                  border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,.1); margin-bottom: 22px; }
+        .banner h1 { margin: 0 0 6px; font-size: 26px; }
+        .banner p { margin: 0; opacity: .92; line-height: 1.7; }
 
-        .section-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .section-card { background: white; border-radius: 12px; padding: 20px; text-align: center; text-decoration: none; color: #2c3e50; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: block; border-top: 4px solid #5b48a2; }
-        a.section-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.12); }
-        .section-card .icon { font-size: 36px; margin-bottom: 8px; }
-        .section-card .name { font-size: 19px; font-weight: bold; margin-bottom: 5px; }
-        .section-card .desc { font-size: 13px; color: #7f8c8d; line-height: 1.5; min-height: 38px; }
-        .best { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: bold; padding: 3px 12px; border-radius: 12px; }
-        .best.good { background: #d5f5e3; color: #1e8449; }
-        .best.mid { background: #fdebd0; color: #ba4a00; }
-        .best.bad { background: #fadbd8; color: #c0392b; }
-        .best.none { background: #eaf2fb; color: #2471a3; }
+        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 22px; }
+        .skill { background: #fff; border-radius: 12px; padding: 20px; text-align: center; text-decoration: none;
+                 color: #2c3e50; box-shadow: 0 2px 6px rgba(0,0,0,.06); display: block; border-top: 4px solid #5b48a2; }
+        a.skill:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,.12); }
+        .skill .icon { font-size: 36px; margin-bottom: 8px; }
+        .skill .name { font-size: 19px; font-weight: bold; margin-bottom: 5px; }
+        .skill .desc { font-size: 13px; color: #7f8c8d; line-height: 1.6; min-height: 54px; }
+        .skill .state { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: bold;
+                        padding: 3px 12px; border-radius: 12px; }
+        .skill .state.on { background: #d5f5e3; color: #1e8449; }
+        .skill.soon { border-top-color: #bdc3c7; opacity: .6; }
+        .skill.soon .state { background: #ecf0f1; color: #7f8c8d; }
 
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-        .panel { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-        .panel h2 { margin: 0 0 12px; font-size: 17px; color: #2c3e50; }
-        .mistake-cta { display: flex; align-items: center; gap: 14px; background: #fff6eb; border: 2px solid #f5cba7; border-radius: 10px; padding: 12px 15px; text-decoration: none; color: inherit; }
+        @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
+        .panel { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+        .panel h2 { margin: 0 0 12px; font-size: 17px; }
+        .mistake-cta { display: flex; align-items: center; gap: 14px; background: #fff6eb; border: 2px solid #f5cba7;
+                       border-radius: 10px; padding: 12px 15px; text-decoration: none; color: inherit; }
         .mistake-cta .n { font-size: 30px; font-weight: bold; color: #ba4a00; }
         .mistake-cta .t { flex: 1; font-size: 13px; color: #7f8c8d; line-height: 1.5; }
         .mistake-cta .t b { display: block; font-size: 15px; color: #2c3e50; }
-        .attempt { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px; border-bottom: 1px solid #f0f2f5; font-size: 14px; color: #2c3e50; text-decoration: none; }
+        .attempt { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px;
+                   border-bottom: 1px solid #f0f2f5; font-size: 14px; color: #2c3e50; text-decoration: none; }
         .attempt:last-child { border-bottom: none; }
         .attempt .when { color: #95a5a6; font-size: 12px; }
         .score { font-weight: bold; padding: 3px 10px; border-radius: 10px; }
         .score.good { background: #d5f5e3; color: #1e8449; }
         .score.mid { background: #fdebd0; color: #ba4a00; }
         .score.bad { background: #fadbd8; color: #c0392b; }
-        .empty { color: #95a5a6; font-size: 14px; padding: 10px 0; line-height: 1.6; }
-        .test-picker { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
-        .test-picker .lbl { font-size: 14px; color: #7f8c8d; font-weight: bold; }
-        .test-chip { padding: 8px 16px; border-radius: 20px; background: white; border: 2px solid #d5d8dc; color: #2c3e50; font-size: 14px; font-weight: bold; text-decoration: none; }
-        .test-chip.active { background: #5b48a2; border-color: #5b48a2; color: white; }
-        .test-chip.soon { border-style: dashed; color: #95a5a6; font-weight: normal; }
-        .bank-cta { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #2471a3;
-                    border-radius: 12px; padding: 14px 18px; text-decoration: none; color: #2c3e50; margin-bottom: 18px; }
-        .bank-cta:hover { background: #f4f9fd; }
-        .bank-cta .ic { font-size: 28px; }
-        .bank-cta .tx { flex: 1; font-size: 13px; color: #7f8c8d; line-height: 1.6; }
-        .bank-cta .tx b { display: block; font-size: 16px; color: #2c3e50; margin-bottom: 2px; }
-        .bank-cta .go { font-size: 20px; color: #2471a3; font-weight: bold; }
-        .tip { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.7; margin-bottom: 18px; }
+        .empty { color: #95a5a6; font-size: 14px; padding: 10px 0; line-height: 1.7; }
     </style>
 </head>
 <body>
@@ -63,45 +54,28 @@
     </div>
 
     <div class="banner">
-        <h1>📝 {{ title }}</h1>
-        <p>{{ student.name }}，這是完整的一回雅思模擬考。聽力與閱讀交卷後自動批改，寫作存檔後交給老師，口說可以照題目計時練習。</p>
+        <h1>📝 模擬測驗區</h1>
+        <p>{{ student.name }}，四個技能各有一套自製題庫，題型、長度與難度比照正式考試。<br>
+           交卷後自動批改，每一題都有解析，答錯的會自動收進錯題本。</p>
     </div>
 
-    <div class="test-picker">
-        <span class="lbl">選擇試卷</span>
-        {% for t in tests %}
-        <a class="test-chip {{ 'active' if t.key == test_key }}" href="{{ url_for('exam_home', student_id=student.id) }}">{{ t.title }}</a>
-        {% endfor %}
-        <span class="test-chip soon">更多試卷陸續加入</span>
-    </div>
-
-    <div class="tip">💡 聽力音檔已內建在測驗頁面裡，點進聽力就能直接播放；閱讀建議 60 分鐘內完成三篇。</div>
-
-    <a class="bank-cta" href="{{ url_for('listen_home', student_id=student.id) }}">
-        <span class="ic">🎧</span>
-        <span class="tx"><b>雅思聽力題庫</b>原創完整模考，每回 Parts 1–4 共 40 題，逐題附解析</span>
-        <span class="go">→</span>
-    </a>
-
-    <div class="section-grid ui-stagger">
-        {% for key, s in sections.items() %}
-        <a href="{{ url_for('exam_' ~ key, student_id=student.id) }}" class="section-card">
-            <div class="icon">{{ s.icon }}</div>
-            <div class="name">{{ s.name }}<span class="go-arrow">→</span></div>
-            <div class="desc">{{ s.desc }}</div>
-            {% if key in best %}
-                {% set a = best[key] %}
-                {% set pct = (a.correct * 100 / a.total) | round | int %}
-                <span class="best {{ 'good' if pct >= 80 else ('mid' if pct >= 60 else 'bad') }}">
-                    最佳 {{ a.correct }}/{{ a.total }}</span>
-            {% elif key == 'writing' %}
-                <span class="best none">{{ '已寫 ' ~ drafts|length ~ ' / 2 篇' if drafts else '還沒開始' }}</span>
-            {% elif key == 'speaking' %}
-                <span class="best none">計時練習</span>
+    <div class="skill-grid ui-stagger">
+        {% for s in skills %}
+            {% if s.available %}
+            <a class="skill" href="{{ url_for(s.endpoint, student_id=student.id) }}">
+                <div class="icon">{{ s.icon }}</div>
+                <div class="name">{{ s.name }}題庫 <span class="go-arrow">→</span></div>
+                <div class="desc">{{ s.desc }}</div>
+                <span class="state on">已完成 {{ s.ready_count }} / {{ s.total_count }} 回</span>
+            </a>
             {% else %}
-                <span class="best none">還沒考過</span>
+            <div class="skill soon">
+                <div class="icon">{{ s.icon }}</div>
+                <div class="name">{{ s.name }}題庫</div>
+                <div class="desc">{{ s.desc }}</div>
+                <span class="state">題目製作中</span>
+            </div>
             {% endif %}
-        </a>
         {% endfor %}
     </div>
 
@@ -110,22 +84,24 @@
             <h2>📒 錯題本</h2>
             <a class="mistake-cta" href="{{ url_for('exam_mistakes', student_id=student.id) }}">
                 <span class="n">{{ pending }}</span>
-                <span class="t"><b>題待訂正</b>答錯的題目會自動收進來，可以看正解、標記收藏，重考後答對就會變成已訂正。</span>
-                <span class="go-arrow">→</span>
+                <span class="t"><b>題待訂正</b>答錯的題目會自動收進來，可以看解析、標記收藏，重考後答對就會變成已訂正。</span>
+                <span style="font-size:20px;color:#ba4a00">→</span>
             </a>
         </div>
+
         <div class="panel">
             <h2>🕑 最近的成績</h2>
-            {% for a in attempts %}
-                <a class="attempt" href="{{ url_for('exam_result', student_id=student.id, attempt_id=a.id) }}">
-                    <span>{{ sections[a.section].icon }} {{ sections[a.section].name }}<br>
-                        <span class="when">{{ a.finished_at.strftime('%m/%d %H:%M') }}</span></span>
-                    {% set pct = (a.correct * 100 / a.total) | round | int if a.total else 0 %}
-                    <span class="score {{ 'good' if pct >= 80 else ('mid' if pct >= 60 else 'bad') }}">{{ a.correct }}/{{ a.total }}</span>
+            {% if attempts %}
+                {% for a in attempts %}
+                <a class="attempt" href="{{ url_for('listen_result', student_id=student.id, attempt_id=a.id) if a.section == 'listening' else '#' }}">
+                    <span>{{ a.icon }} {{ a.name }}　<span class="when">{{ a.test_key }}　{{ a.when|twtime }}</span></span>
+                    {% set pct = (a.correct * 100 // a.total) if a.total else 0 %}
+                    <span class="score {{ 'good' if pct >= 75 else ('mid' if pct >= 50 else 'bad') }}">{{ a.correct }} / {{ a.total }}</span>
                 </a>
+                {% endfor %}
             {% else %}
-                <div class="empty">還沒有成績紀錄。<br>從聽力或閱讀開始考一回吧！</div>
-            {% endfor %}
+                <div class="empty">還沒有成績紀錄。<br>從聽力題庫開始考一回吧！</div>
+            {% endif %}
         </div>
     </div>
 </div>

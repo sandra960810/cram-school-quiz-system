@@ -55,7 +55,7 @@
     <div class="score-card">
         <div class="big">{{ attempt.correct }}<small> / {{ attempt.total }}</small></div>
         <div class="band">預估 Band {{ band }}</div>
-        <div class="side">答對率 {{ pct }}%<br>作答時間：{{ attempt.finished_at.strftime('%m/%d %H:%M') }}</div>
+        <div class="side">答對率 {{ pct }}%<br>作答時間：{{ attempt.finished_at|twtime }}</div>
     </div>
 
     <div class="partbar">
