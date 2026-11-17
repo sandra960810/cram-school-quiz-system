@@ -77,7 +77,7 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 - 主題清單 `OFFICIAL_THEMES` 每筆有 `course`；多益主題編號是 T01–T12，避免和雅思 01–12 混在一起
 - 色系：每個樣板的 `<html data-exam="{{ exam.key }}">`，`theme.css` 用 `:root[data-exam="toeic"]` 覆寫成藍色
 - 之後做登入與後台開通權限：改 `exams.exams_for(student)` 依學生權限回傳可用考試即可
-- 多益單字在 `toeic/toeic_vocab.csv`（TOEIC Service List，CC BY-SA 4.0，來源與改動見 `toeic/README.md`），
+- 多益單字在 `toeic/toeic_vocab.csv`（TSL＋BSL＋NGSL 三份開放字表共 4,002 字，CC BY-SA 4.0，來源與改動見 `toeic/README.md`），
   `run.bat` 會匯入
 
 ## 單字測驗區怎麼運作
@@ -216,7 +216,7 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
   15 通用核心字彙（放不進特定主題的常用字）。改的是 `vocab_master.xlsx` 的「主題」欄，靠「編號」原地更新，學習紀錄不動；
   和主題原本重複的約 240 字放進同一主題，`theme_words` 同拼字只顯示一張卡、字數也只算一次
 - ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
-- ✅ 考試類型選擇頁；多益區（藍色）：1,259 字單字學習＋單字測驗
+- ✅ 考試類型選擇頁；多益區（藍色）：4,002 字單字學習＋單字測驗（TSL＋BSL＋NGSL）
 - ⬜ 韓檢、日檢、英文零基礎；學生登入與後台開通權限
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10
