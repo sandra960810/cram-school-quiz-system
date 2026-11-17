@@ -4,88 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ test.title }}｜口說測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
         /* 比照正式口說考試：考官逐題發問（語音），考生用麥克風作答；
            Part 2 有題卡、1 分鐘準備（可寫筆記）、最多說 2 分鐘 */
         * { box-sizing: border-box; }
         html, body { height: 100%; }
-        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: #1a1a1a; background: #f1f2f4;
+        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: var(--ink); background: var(--bg);
                display: flex; flex-direction: column; }
         @supports (height: 100dvh) { html, body { height: 100dvh; } }
-        .topbar { display: flex; align-items: center; gap: 14px; background: #222; color: #fff; padding: 0 18px;
+        .topbar { display: flex; align-items: center; gap: 14px; background: var(--ink); color: #fff; padding: 0 18px;
                   height: 52px; flex: none; }
         .topbar .brand { font-weight: bold; font-size: 18px; }
         .topbar .who { font-size: 14px; opacity: .85; }
         .topbar .clock { margin-left: auto; font-size: 15px; font-weight: bold; font-variant-numeric: tabular-nums; }
-        .topbar a.leave { color: #ccc; font-size: 13px; text-decoration: none; }
-        .notice { background: #fff8e1; color: #6d4c00; font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid #f0e2b6; flex: none; line-height: 1.6; }
-        .parts { display: flex; gap: 6px; padding: 10px 18px; background: #fff; border-bottom: 1px solid #d0d4d9; flex: none; }
-        .parts span { flex: 1; text-align: center; font-size: 14px; padding: 7px 4px; border-radius: 4px; background: #eceef1; color: #777; }
-        .parts span.on { background: #222; color: #fff; font-weight: bold; }
-        .parts span.done { background: #d5f5e3; color: #1e8449; }
+        .topbar a.leave { color: var(--line-strong); font-size: 13px; text-decoration: none; }
+        .notice { background: var(--star-50); color: var(--warn-ink); font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid var(--star-50); flex: none; line-height: 1.6; }
+        .parts { display: flex; gap: 6px; padding: 10px 18px; background: #fff; border-bottom: 1px solid var(--line-strong); flex: none; }
+        .parts span { flex: 1; text-align: center; font-size: 14px; padding: 7px 4px; border-radius: 4px; background: var(--line); color: var(--muted); }
+        .parts span.on { background: var(--ink); color: #fff; font-weight: bold; }
+        .parts span.done { background: var(--ok-50); color: var(--ok); }
         main { flex: 1; overflow-y: auto; padding: 22px 18px 120px; }
         .stage { max-width: 760px; margin: 0 auto; }
         .screen { display: none; } .screen.on { display: block; }
         .box { background: #fff; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 16px; line-height: 1.75; }
         .box h2 { margin: 0 0 10px; font-size: 19px; }
         .box ul { margin: 6px 0; padding-left: 22px; }
-        .privacy { background: #fdf2e9; border: 2px solid #f5cba7; color: #873600; }
-        .privacy.red { background: #fadbd8; border-color: #f1948a; color: #922b21; }
-        .check { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f2f5; }
+        .privacy { background: var(--warn-50); border: 2px solid var(--warn-300); color: var(--warn-ink); }
+        .privacy.red { background: var(--bad-50); border-color: var(--bad-300); color: var(--bad-ink); }
+        .check { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--bg); }
         .check:last-child { border-bottom: none; }
         .check .st { width: 26px; text-align: center; font-size: 18px; }
         .check .txt { flex: 1; font-size: 15px; }
-        .check button { font-family: inherit; font-size: 14px; padding: 7px 14px; border-radius: 6px; border: 1px solid #b9bfc6; background: #fff; cursor: pointer; }
-        .meter { height: 12px; background: #eceef1; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-        .meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #58d68d, #f4d03f, #e74c3c); transition: width .08s; }
+        .check button { font-family: inherit; font-size: 14px; padding: 7px 14px; border-radius: 6px; border: 1px solid var(--line-strong); background: #fff; cursor: pointer; }
+        .meter { height: 12px; background: var(--line); border-radius: 6px; overflow: hidden; margin-top: 6px; }
+        .meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #58d68d, var(--star), var(--bad)); transition: width .08s; }
         label.agree { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; margin: 6px 0 0; cursor: pointer; }
         label.agree input { width: 20px; height: 20px; margin-top: 3px; flex: none; }
         .big { font-family: inherit; font-size: 17px; font-weight: bold; padding: 13px 28px; border-radius: 8px; border: none;
-               background: #1f6f3f; color: #fff; cursor: pointer; }
-        .big:disabled { background: #aab7b8; cursor: not-allowed; }
+               background: var(--ok-ink); color: #fff; cursor: pointer; }
+        .big:disabled { background: var(--line-strong); cursor: not-allowed; }
 
         .examiner { display: flex; gap: 16px; align-items: flex-start; }
-        .avatar { width: 64px; height: 64px; border-radius: 50%; background: #34495e; color: #fff; font-size: 34px;
+        .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 34px;
                   display: flex; align-items: center; justify-content: center; flex: none; position: relative; }
-        .avatar.talking::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid #5dade2;
+        .avatar.talking::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--primary-300);
                                  animation: pulse 1.2s ease-out infinite; }
         @keyframes pulse { from { opacity: 1; transform: scale(.92); } to { opacity: 0; transform: scale(1.18); } }
         .bubble { flex: 1; background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06); min-height: 64px; }
-        .bubble .who { font-size: 12px; color: #7f8c8d; margin-bottom: 4px; }
+        .bubble .who { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
         .bubble .q { font-size: 18px; line-height: 1.6; }
         .bubble .q.masked { color: transparent; text-shadow: 0 0 9px rgba(0,0,0,.45); user-select: none; }
         .tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 0 80px; }
-        .tools button { font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 16px; border: 1px solid #c4c9cf; background: #fff; cursor: pointer; }
+        .tools button { font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 16px; border: 1px solid var(--line-strong); background: #fff; cursor: pointer; }
 
         .status { text-align: center; margin: 26px 0 10px; }
-        .mic { width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 10px; background: #d5d8dc; color: #fff; font-size: 40px;
+        .mic { width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 10px; background: var(--line); color: #fff; font-size: 40px;
                display: flex; align-items: center; justify-content: center; transition: background .2s; }
-        .mic.rec { background: #e74c3c; box-shadow: 0 0 0 0 rgba(231,76,60,.5); animation: rec 1.4s infinite; }
+        .mic.rec { background: var(--bad); box-shadow: 0 0 0 0 rgba(231,76,60,.5); animation: rec 1.4s infinite; }
         @keyframes rec { 70% { box-shadow: 0 0 0 18px rgba(231,76,60,0); } 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); } }
         .status .label { font-size: 17px; font-weight: bold; }
-        .status .sub { font-size: 14px; color: #7f8c8d; margin-top: 4px; min-height: 20px; }
+        .status .sub { font-size: 14px; color: var(--muted); margin-top: 4px; min-height: 20px; }
         .status .meter { max-width: 260px; margin: 10px auto 0; }
-        .live { max-width: 560px; margin: 10px auto 0; font-size: 13px; color: #95a5a6; font-style: italic; min-height: 18px; }
+        .live { max-width: 560px; margin: 10px auto 0; font-size: 13px; color: var(--muted-2); font-style: italic; min-height: 18px; }
 
-        .card { border: 2px solid #333; background: #fffdf5; padding: 18px 22px; margin: 4px 0 14px; }
+        .card { border: 2px solid var(--ink); background: var(--star-50); padding: 18px 22px; margin: 4px 0 14px; }
         .card .cue { font-weight: bold; font-size: 17px; margin-bottom: 8px; }
         .card ul { margin: 4px 0 6px; padding-left: 22px; line-height: 1.8; }
-        textarea.notes { width: 100%; min-height: 120px; font-family: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid #b9bfc6; border-radius: 6px; resize: vertical; }
-        .countdown { font-size: 30px; font-weight: bold; text-align: center; color: #b9770e; font-variant-numeric: tabular-nums; }
+        textarea.notes { width: 100%; min-height: 120px; font-family: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 6px; resize: vertical; }
+        .countdown { font-size: 30px; font-weight: bold; text-align: center; color: var(--warn); font-variant-numeric: tabular-nums; }
 
-        .actionbar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #c4c9cf;
+        .actionbar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--line-strong);
                      padding: 10px 18px calc(10px + env(safe-area-inset-bottom)); display: flex; gap: 10px; justify-content: center; z-index: 5; }
         .actionbar button { font-family: inherit; font-size: 16px; font-weight: bold; border-radius: 8px; padding: 12px 22px; cursor: pointer; border: none; }
-        .actionbar .next { background: #1f6f3f; color: #fff; min-width: 220px; }
-        .actionbar .next:disabled { background: #aab7b8; cursor: not-allowed; }
+        .actionbar .next { background: var(--ok-ink); color: #fff; min-width: 220px; }
+        .actionbar .next:disabled { background: var(--line-strong); cursor: not-allowed; }
         .actionbar[hidden] { display: none; }
         /* 下方有固定的「下一題」列：把右下角的音效／發音按鈕往上移，避免蓋住 */
         body:has(.actionbar:not([hidden])) .ui-sound-toggle,
         body:has(.actionbar:not([hidden])) .ui-voice-toggle { bottom: 84px; }
         body:has(.actionbar:not([hidden])) .ui-voice-panel { bottom: 138px; }
-        .errbox { background: #fadbd8; color: #922b21; border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
-        .spinner { width: 46px; height: 46px; border: 5px solid #e8e3f5; border-top-color: #5b48a2; border-radius: 50%;
+        .errbox { background: var(--bad-50); color: var(--bad-ink); border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
+        .spinner { width: 46px; height: 46px; border: 5px solid var(--primary-50); border-top-color: var(--primary); border-radius: 50%;
                    animation: spin 1s linear infinite; margin: 0 auto 14px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -136,10 +137,10 @@
         <div class="box">
             <div class="check"><span class="st" id="stMic">⬜</span>
                 <div class="txt">麥克風<div class="meter"><i id="checkMeter"></i></div>
-                    <div style="font-size:13px;color:#7f8c8d" id="micHint">按「測試」後說幾句英文，綠色條會跟著跳動就沒問題。</div></div>
+                    <div style="font-size:13px;color:var(--muted)" id="micHint">按「測試」後說幾句英文，綠色條會跟著跳動就沒問題。</div></div>
                 <button type="button" id="micTest">🎙️ 測試</button></div>
             <div class="check"><span class="st" id="stVoice">⬜</span>
-                <div class="txt">考官的聲音<div style="font-size:13px;color:#7f8c8d">用 Edge 會是最自然的真人語音。</div></div>
+                <div class="txt">考官的聲音<div style="font-size:13px;color:var(--muted)">用 Edge 會是最自然的真人語音。</div></div>
                 <button type="button" id="voiceTest">🔊 試聽</button></div>
         </div>
         {% if provider == 'gemini' %}
@@ -186,7 +187,7 @@
                 </div>
                 <div id="prepBox">
                     <div class="countdown" id="prepClock">1:00</div>
-                    <div style="text-align:center;font-size:14px;color:#7f8c8d;margin-bottom:8px">準備時間：可以在下面寫筆記（考場給紙筆，這裡用打字）</div>
+                    <div style="text-align:center;font-size:14px;color:var(--muted);margin-bottom:8px">準備時間：可以在下面寫筆記（考場給紙筆，這裡用打字）</div>
                     <textarea class="notes" id="notes" placeholder="Notes…" spellcheck="false"></textarea>
                 </div>
             </div>

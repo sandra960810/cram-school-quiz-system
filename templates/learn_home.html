@@ -4,39 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>單字學習與圖鑑</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
-        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         .container { width: 100%; max-width: 1000px; }
 
-        .summary { background: linear-gradient(135deg, #6dd5ed, #2193b0); color: white; padding: 25px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .summary { background: var(--hero); color: white; padding: 25px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
         .summary h1 { margin: 0 0 6px 0; font-size: 26px; }
         .summary p { margin: 0 0 14px 0; opacity: 0.9; }
         .bar { background: rgba(255,255,255,0.3); border-radius: 10px; height: 12px; overflow: hidden; display: flex; }
-        .bar > .weak { background: #fad7a0; }
+        .bar > .weak { background: var(--warn-300); }
         .bar > div { background: white; height: 100%; }
 
         .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .theme-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: flex; align-items: flex-start; transition: 0.2s; border-left: 6px solid #3498db; }
+        .theme-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: flex; align-items: flex-start; transition: 0.2s; border-left: 6px solid var(--primary); }
         a.theme-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
-        .theme-card.done { border-left-color: #2ecc71; }
-        .theme-card.empty { background: #ececec; border-left-color: #bdc3c7; cursor: not-allowed; }
+        .theme-card.done { border-left-color: var(--ok); }
+        .theme-card.empty { background: var(--line); border-left-color: var(--line-strong); cursor: not-allowed; }
         .theme-card.empty .theme-icon { filter: grayscale(100%); }
         .theme-icon { font-size: 32px; margin-right: 15px; }
         .theme-content { flex: 1; }
-        .theme-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: #2c3e50; }
-        .theme-desc { font-size: 13px; color: #7f8c8d; line-height: 1.4; margin-bottom: 10px; }
-        .theme-progress { font-size: 13px; color: #2c3e50; margin-bottom: 5px; }
-        .mini-bar { background: #e8eef0; border-radius: 6px; height: 8px; overflow: hidden; display: flex; }
-        .mini-bar > .weak { background: #f39c12 !important; }
-        .mini-bar > div { background: #2ecc71; height: 100%; }
-.fav-card { display: flex; align-items: center; background: #fffdf3; border: 2px solid #f7dc6f; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; text-decoration: none; color: inherit; transition: 0.2s; }
+        .theme-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: var(--ink); }
+        .theme-desc { font-size: 13px; color: var(--muted); line-height: 1.4; margin-bottom: 10px; }
+        .theme-progress { font-size: 13px; color: var(--ink); margin-bottom: 5px; }
+        .mini-bar { background: var(--line); border-radius: 6px; height: 8px; overflow: hidden; display: flex; }
+        .mini-bar > .weak { background: var(--warn) !important; }
+        .mini-bar > div { background: var(--ok); height: 100%; }
+.fav-card { display: flex; align-items: center; background: var(--star-50); border: 2px solid var(--star); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; text-decoration: none; color: inherit; transition: 0.2s; }
         .fav-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
         .fav-card .theme-desc { margin-bottom: 0; }
-        .fav-count { font-size: 28px; font-weight: bold; color: #b7950b; margin-left: 15px; }
-        .quiz-card { background: #f7f5ff; border-color: #c8bfff; }
-        .quiz-count { color: #6c5ce7; }
-                .back-btn { display: inline-block; margin-top: 30px; color: #3498db; text-decoration: none; font-weight: bold; }
+        .fav-count { font-size: 28px; font-weight: bold; color: var(--star-ink); margin-left: 15px; }
+        .quiz-card { background: var(--primary-50); border-color: var(--primary-300); }
+        .quiz-count { color: var(--primary); }
+                .back-btn { display: inline-block; margin-top: 30px; color: var(--primary); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>

@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>閱讀題庫</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .banner { background: linear-gradient(135deg, #82c9a5, #1e8449); color: #fff; padding: 22px 26px;
+        .banner { background: var(--hero); color: #fff; padding: 22px 26px;
                   border-radius: 14px; margin-bottom: 20px; }
         .banner h1 { margin: 0 0 6px; font-size: 24px; }
         .banner p { margin: 0; opacity: .92; line-height: 1.7; font-size: 14px; }
         .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
         .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06);
-                 border-top: 4px solid #1e8449; text-decoration: none; color: #2c3e50; display: block; }
+                 border-top: 4px solid var(--ok); text-decoration: none; color: var(--ink); display: block; }
         a.tcard:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,.12); }
         .tcard .tt { font-size: 18px; font-weight: bold; margin-bottom: 6px; }
-        .tcard .topics { font-size: 13px; color: #7f8c8d; line-height: 1.7; min-height: 44px; }
+        .tcard .topics { font-size: 13px; color: var(--muted); line-height: 1.7; min-height: 44px; }
         .tcard .state { margin-top: 10px; font-size: 13px; font-weight: bold; display: inline-block;
                         padding: 3px 12px; border-radius: 12px; }
-        .state.ok { background: #d5f5e3; color: #1e8449; }
-        .state.noaudio { background: #fdebd0; color: #ba4a00; }
-        .state.best { background: #eaf2fb; color: #2471a3; margin-left: 6px; }
-        .soon { opacity: .55; border-top-color: #bdc3c7; }
-        .soon .state { background: #ecf0f1; color: #7f8c8d; }
-        .hint { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 12px 16px;
+        .state.ok { background: var(--ok-50); color: var(--ok); }
+        .state.noaudio { background: var(--warn-50); color: var(--warn); }
+        .state.best { background: var(--primary-50); color: var(--primary); margin-left: 6px; }
+        .soon { opacity: .55; border-top-color: var(--line-strong); }
+        .soon .state { background: var(--surface-2); color: var(--muted); }
+        .hint { background: var(--primary-50); color: var(--primary); border-radius: 10px; padding: 12px 16px;
                 font-size: 13px; line-height: 1.8; margin-bottom: 18px; }
     </style>
 </head>

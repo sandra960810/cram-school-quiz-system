@@ -1,21 +1,21 @@
 /* IELTS 模擬測驗區共用樣式：盡量貼近書本排版，但在螢幕上好讀 */
-body { font-family: "Microsoft JhengHei", Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #2c3e50; }
+body { font-family: var(--font); background: var(--bg); margin: 0; padding: 20px; color: var(--ink); }
 .exam-wrap { max-width: 900px; margin: 0 auto; }
 .exam-wrap.wide { max-width: 1080px; }
 
 /* 標題列：模仿書上的深色標籤 */
 .exam-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-.exam-tag { background: #3d3d3d; color: white; font-size: 19px; font-weight: bold; padding: 7px 16px; letter-spacing: 0.5px; }
-.exam-part { font-size: 22px; border-bottom: 2px solid #3d3d3d; padding: 0 6px 4px; }
+.exam-tag { background: var(--ink); color: white; font-size: 19px; font-weight: bold; padding: 7px 16px; letter-spacing: 0.5px; }
+.exam-part { font-size: 22px; border-bottom: 2px solid var(--ink); padding: 0 6px 4px; }
 
 .sheet { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 26px 30px; margin-bottom: 18px; }
 .qgroup { margin-bottom: 34px; }
 .qgroup:last-child { margin-bottom: 8px; }
 .qtitle { font-weight: bold; font-size: 17px; margin: 0 0 10px; }
-.instr { font-style: italic; color: #34495e; margin: 0 0 8px; line-height: 1.6; }
+.instr { font-style: italic; color: var(--ink); margin: 0 0 8px; line-height: 1.6; }
 .instr b { font-style: normal; }
 .center-title { text-align: center; font-weight: bold; font-size: 18px; margin: 18px 0 14px; }
-.track { display: inline-flex; align-items: center; gap: 6px; background: #ede7f6; color: #5b48a2; font-size: 13px; font-weight: bold; padding: 4px 12px; border-radius: 12px; }
+.track { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-50); color: var(--primary); font-size: 13px; font-weight: bold; padding: 4px 12px; border-radius: 12px; }
 
 /* 題目列 */
 .qrow { display: flex; gap: 10px; margin-bottom: 14px; line-height: 1.9; }
@@ -25,31 +25,31 @@ body { font-family: "Microsoft JhengHei", Arial, sans-serif; background: #f0f2f5
 .opt { display: block; padding: 3px 0 3px 2px; cursor: pointer; line-height: 1.6; }
 .opt input { margin-right: 8px; }
 .opt .letter { font-weight: bold; display: inline-block; min-width: 18px; }
-.opt:hover { color: #2471a3; }
+.opt:hover { color: var(--primary); }
 
 /* 填空輸入框：做成底線的樣子 */
-input.fill { border: none; border-bottom: 2px dotted #7f8c8d; background: #fdfdfd; font-family: inherit;
-             font-size: 16px; width: 140px; padding: 2px 6px; color: #2471a3; font-weight: bold; }
-input.fill:focus { outline: none; border-bottom-color: #3498db; background: #eaf4fc; }
+input.fill { border: none; border-bottom: 2px dotted var(--muted); background: var(--surface-2); font-family: inherit;
+             font-size: 16px; width: 140px; padding: 2px 6px; color: var(--primary); font-weight: bold; }
+input.fill:focus { outline: none; border-bottom-color: var(--primary); background: var(--primary-50); }
 input.fill.wide { width: 190px; }
-select.pick { font-family: inherit; font-size: 15px; padding: 4px 8px; border: 2px solid #bdc3c7; border-radius: 6px;
-              background: white; color: #2471a3; font-weight: bold; min-width: 76px; }
-select.pick:focus { outline: none; border-color: #3498db; }
+select.pick { font-family: inherit; font-size: 15px; padding: 4px 8px; border: 2px solid var(--line-strong); border-radius: 6px;
+              background: white; color: var(--primary); font-weight: bold; min-width: 76px; }
+select.pick:focus { outline: none; border-color: var(--primary); }
 
 /* 書上的方框：筆記、選項清單 */
-.box { border: 1px solid #555; border-radius: 3px; padding: 18px 22px; margin: 14px 0; background: #fff; }
+.box { border: 1px solid var(--ink-2); border-radius: 3px; padding: 18px 22px; margin: 14px 0; background: #fff; }
 .box-title { text-align: center; font-weight: bold; font-size: 18px; margin: -4px 0 14px; }
-.box-head { border-bottom: 1px solid #555; margin: -18px -22px 16px; padding: 14px; text-align: center; font-weight: bold; font-size: 18px; }
+.box-head { border-bottom: 1px solid var(--ink-2); margin: -18px -22px 16px; padding: 14px; text-align: center; font-weight: bold; font-size: 18px; }
 .box h4 { font-size: 16px; margin: 16px 0 8px; }
 .box h4:first-child { margin-top: 0; }
 .box ul { margin: 0 0 6px; padding-left: 20px; }
 .box li { line-height: 2.1; margin-bottom: 2px; }
 .box .sub { list-style: none; padding-left: 14px; }
-.box .sub li::before { content: '– '; color: #7f8c8d; }
-.example { font-style: italic; color: #7f8c8d; }
-.example-ans { text-decoration: underline; color: #7f8c8d; }
+.box .sub li::before { content: '– '; color: var(--muted); }
+.example { font-style: italic; color: var(--muted); }
+.example-ans { text-decoration: underline; color: var(--muted); }
 
-.optbox { border: 1px solid #555; border-radius: 3px; padding: 14px 20px; margin: 14px auto; max-width: 560px; background: #fcfcfc; }
+.optbox { border: 1px solid var(--ink-2); border-radius: 3px; padding: 14px 20px; margin: 14px auto; max-width: 560px; background: var(--surface-2); }
 .optbox.wide { max-width: 680px; }
 .optbox .ob-title { text-align: center; font-weight: bold; margin-bottom: 8px; }
 .optbox ol { list-style: none; margin: 0; padding: 0; }
@@ -58,8 +58,8 @@ select.pick:focus { outline: none; border-color: #3498db; }
 
 /* 流程圖 */
 .flow { max-width: 480px; margin: 18px auto; }
-.flow .fbox { border: 1px solid #666; border-radius: 3px; padding: 14px 16px; text-align: center; line-height: 2.1; background: #fff; }
-.flow .arrow { text-align: center; color: #555; font-size: 24px; line-height: 1.2; margin: 4px 0; }
+.flow .fbox { border: 1px solid var(--ink-2); border-radius: 3px; padding: 14px 16px; text-align: center; line-height: 2.1; background: #fff; }
+.flow .arrow { text-align: center; color: var(--ink-2); font-size: 24px; line-height: 1.2; margin: 4px 0; }
 
 /* 配對清單 */
 .match-list { margin-top: 10px; }
@@ -67,46 +67,46 @@ select.pick:focus { outline: none; border-color: #3498db; }
 .match-row .mi { font-style: italic; flex: 1; max-width: 330px; }
 
 /* 閱讀文章圖片 */
-.passage-img { width: 100%; border: 1px solid #ddd; border-radius: 6px; display: block; margin-bottom: 10px; background: white; }
-.passage-note { font-size: 13px; color: #7f8c8d; margin: 0 0 16px; }
+.passage-img { width: 100%; border: 1px solid var(--line); border-radius: 6px; display: block; margin-bottom: 10px; background: white; }
+.passage-note { font-size: 13px; color: var(--muted); margin: 0 0 16px; }
 .exam-wrap.reading { max-width: 1500px; }
 .layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
 /* 文章固定在左邊、可以自己捲動；題目在右邊跟著頁面捲 */
 .sticky { position: sticky; top: 12px; max-height: calc(100vh - 110px); overflow: auto; background: white;
-          border: 1px solid #d5d8dc; border-radius: 8px; padding: 10px; box-sizing: border-box; z-index: 2; }
+          border: 1px solid var(--line); border-radius: 8px; padding: 10px; box-sizing: border-box; z-index: 2; }
 .sticky .passage-img { border: none; border-radius: 0; margin-bottom: 0; }
 .sticky .passage-note { margin: 8px 4px 2px; }
 /* 窄螢幕：改成上下排，文章固定在上半部（不透明，題目不會跟它疊在一起） */
 @media (max-width: 1100px) {
     .layout { grid-template-columns: 1fr; gap: 14px; }
-    .sticky { top: 0; max-height: 42vh; box-shadow: 0 6px 12px rgba(0,0,0,0.12); border-color: #5b48a2; }
+    .sticky { top: 0; max-height: 42vh; box-shadow: 0 6px 12px rgba(0,0,0,0.12); border-color: var(--primary); }
 }
 
 /* 送出列 */
-.submit-bar { position: sticky; bottom: 0; background: rgba(255,255,255,0.97); border-top: 2px solid #e5e8e8;
+.submit-bar { position: sticky; bottom: 0; background: rgba(255,255,255,0.97); border-top: 2px solid var(--line);
               padding: 14px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
               border-radius: 10px 10px 0 0; box-shadow: 0 -3px 12px rgba(0,0,0,0.07); margin-top: 10px; }
-.submit-bar .count { color: #7f8c8d; font-size: 15px; flex: 1; }
-.submit-bar .count b { color: #2c3e50; font-size: 17px; }
-.btn-submit { border: none; background: #5b48a2; color: white; font-size: 17px; font-weight: bold;
+.submit-bar .count { color: var(--muted); font-size: 15px; flex: 1; }
+.submit-bar .count b { color: var(--ink); font-size: 17px; }
+.btn-submit { border: none; background: var(--primary); color: white; font-size: 17px; font-weight: bold;
               padding: 13px 28px; border-radius: 10px; cursor: pointer; font-family: inherit;
               display: inline-flex; align-items: center; gap: 8px; }
 .btn-submit:hover { filter: brightness(1.1); }
-.timer { font-variant-numeric: tabular-nums; font-weight: bold; color: #2c3e50; background: #ecf0f1;
+.timer { font-variant-numeric: tabular-nums; font-weight: bold; color: var(--ink); background: var(--surface-2);
          padding: 8px 14px; border-radius: 8px; }
-.timer.over { background: #fadbd8; color: #c0392b; }
+.timer.over { background: var(--bad-50); color: var(--bad); }
 
 /* 聽力音檔播放列 */
 .audio-bar { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
              padding: 18px 22px; margin-bottom: 18px; }
-.audio-bar-label { font-weight: bold; color: #5b48a2; margin-bottom: 10px; font-size: 15px; }
+.audio-bar-label { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 15px; }
 .audio-player { width: 100%; }
-.audio-hint { font-size: 13px; color: #7f8c8d; margin: 10px 0 0; line-height: 1.6; }
+.audio-hint { font-size: 13px; color: var(--muted); margin: 10px 0 0; line-height: 1.6; }
 
 /* 寫作輸出按鈕 */
-.btn-export { border: 2px solid #5b48a2; background: white; color: #5b48a2; font-size: 15px; font-weight: bold;
+.btn-export { border: 2px solid var(--primary); background: white; color: var(--primary); font-size: 15px; font-weight: bold;
               padding: 11px 18px; border-radius: 10px; cursor: pointer; font-family: inherit; }
-.btn-export:hover { background: #f3f0fa; }
+.btn-export:hover { background: var(--primary-50); }
 
 /* ===== 手機版面（寬度 640px 以下）：縮小留白、加大點擊範圍，電腦版不受影響 ===== */
 @media (max-width: 640px) {

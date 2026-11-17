@@ -1,0 +1,32 @@
+/* 全站色系：所有頁面的顏色都從這裡的變數來，要換色只改這一份。
+   各頁 <style> 裡只寫 var(--primary) 這類變數，不要再寫死色碼。 */
+:root {
+    /* 主色：按鈕、連結、標題橫幅、選取狀態 */
+    --primary: #1f5a8c;
+    --primary-600: #17466e;
+    --primary-300: #8db4d8;
+    --primary-50: #eaf1f8;
+    --hero: linear-gradient(135deg, #2b6aa0, #173f63);
+
+    /* 文字與底色 */
+    --ink: #1f2d3d;
+    --ink-2: #4a5868;
+    --muted: #6b7785;
+    --muted-2: #98a2ad;
+    --line: #e1e6ec;
+    --line-strong: #c3ccd6;
+    --bg: #f3f5f8;
+    --surface-2: #f1f4f7;
+
+    /* 狀態色：對／錯／提醒／收藏 */
+    --ok: #1f8a4c;     --ok-ink: #176b3a;   --ok-300: #9fd5b4;  --ok-50: #e3f4ea;
+    --bad: #c23b2e;    --bad-ink: #93281e;  --bad-300: #f0a49b; --bad-50: #fbe6e3;
+    --warn: #c46a12;   --warn-ink: #8a4a0c; --warn-300: #f2c48f; --warn-50: #fdf1e2;
+    --star: #f2b705;   --star-ink: #a87d00; --star-50: #fff8e0;
+
+    --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+}
+body { font-family: var(--font); color: var(--ink); background: var(--bg); }
+a { color: var(--primary); }
+::selection { background: var(--primary-50); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }

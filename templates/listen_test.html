@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ test.title }}｜聽力測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
         .part-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
-        .part-head .pt { background: #3d3d3d; color: #fff; font-weight: bold; padding: 5px 14px; font-size: 16px; }
-        .part-head .ctx { color: #7f8c8d; font-size: 14px; }
+        .part-head .pt { background: var(--ink); color: #fff; font-weight: bold; padding: 5px 14px; font-size: 16px; }
+        .part-head .ctx { color: var(--muted); font-size: 14px; }
         .map-wrap { text-align: center; margin: 16px 0; }
-        .map-wrap img { max-width: 100%; border: 1px solid #ddd; border-radius: 6px; }
+        .map-wrap img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
         .match-grid { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; max-width: 560px; }
         .match-grid .mno { font-weight: bold; }
         .note-sec { margin-bottom: 14px; }
         .note-sec h4 { margin: 14px 0 6px; font-size: 16px; }
         .note-sec li { line-height: 2.2; margin-bottom: 2px; }
         .note-sec li.cont { list-style: none; }
-        .note-sec .ex-tag { display: block; font-style: italic; color: #7f8c8d; font-size: 14px; line-height: 1.6; margin-top: 4px; }
+        .note-sec .ex-tag { display: block; font-style: italic; color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 4px; }
         /* 表格填空（Part 1）：正式考卷的表單樣式 */
         .box.form-box { max-width: 640px; margin-left: auto; margin-right: auto; padding: 20px 28px 22px; }
         .ielts-form { display: grid; grid-template-columns: max-content 1fr; column-gap: 28px; row-gap: 4px;
@@ -26,9 +27,9 @@
         .ielts-form .form-label { font-weight: normal; }
         .ielts-form .form-val { line-height: 2.1; }
         .ielts-form .form-ex { grid-column: 1 / -1; font-style: italic; font-weight: bold; font-size: 15px; margin-bottom: -2px; }
-        .ielts-form .is-ex { color: #555; }
+        .ielts-form .is-ex { color: var(--ink-2); }
         .ielts-form .form-sep { grid-column: 1 / -1; height: 8px; }
-        .example-ans { text-decoration: none; font-style: italic; color: #555; }
+        .example-ans { text-decoration: none; font-style: italic; color: var(--ink-2); }
         .gap { white-space: nowrap; }
         .gapno { display: inline-block; font-weight: bold; margin: 0 6px 0 2px; }
         .ielts-form .form-val { min-width: 0; }
@@ -36,11 +37,11 @@
             /* 手機：項目名稱在上、作答在下，避免擠出畫面 */
             .box.form-box { padding: 16px; }
             .ielts-form { grid-template-columns: 1fr; font-size: 15px; row-gap: 0; }
-            .ielts-form .form-label { color: #7f8c8d; font-size: 13px; margin-top: 8px; }
+            .ielts-form .form-label { color: var(--muted); font-size: 13px; margin-top: 8px; }
             .ielts-form .form-val { line-height: 1.9; }
             .ielts-form input.fill { width: 120px; }
         }
-        .no-audio { background: #fdebd0; color: #7e5109; border-radius: 8px; padding: 12px 16px;
+        .no-audio { background: var(--warn-50); color: var(--warn-ink); border-radius: 8px; padding: 12px 16px;
                     font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
     </style>
 </head>

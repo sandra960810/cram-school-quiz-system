@@ -4,69 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ test.title }}｜寫作測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <style>
         /* 比照雅思電腦考（computer-delivered IELTS）的寫作畫面：
            上方考生列與倒數計時、題目說明列、左題目右作答、下方 Part 切換列 */
         * { box-sizing: border-box; }
         html, body { height: 100%; }
-        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: #1a1a1a; background: #fff;
+        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: var(--ink); background: #fff;
                display: flex; flex-direction: column; overflow: hidden; }
-        .topbar { display: flex; align-items: center; gap: 16px; background: #222; color: #fff;
+        .topbar { display: flex; align-items: center; gap: 16px; background: var(--ink); color: #fff;
                   padding: 0 18px; height: 52px; flex: none; }
         .topbar .brand { font-weight: bold; font-size: 18px; letter-spacing: .5px; }
         .topbar .who { font-size: 14px; opacity: .85; }
         .topbar .clock { margin: 0 auto; font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .topbar .clock.warn { color: #ffb3a7; }
+        .topbar .clock.warn { color: var(--bad-300); }
         .topbar .clock.hidden-time #timeText { visibility: hidden; }
-        .topbar button { font-family: inherit; font-size: 13px; background: #444; color: #fff; border: 1px solid #666;
+        .topbar button { font-family: inherit; font-size: 13px; background: var(--ink-2); color: #fff; border: 1px solid var(--ink-2);
                          border-radius: 4px; padding: 6px 12px; cursor: pointer; }
-        .topbar button:hover { background: #555; }
-        .topbar a.leave { color: #ccc; font-size: 13px; text-decoration: none; }
+        .topbar button:hover { background: var(--ink-2); }
+        .topbar a.leave { color: var(--line-strong); font-size: 13px; text-decoration: none; }
         .topbar a.leave:hover { color: #fff; }
 
-        .notice { background: #fff8e1; color: #6d4c00; font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid #f0e2b6; flex: none; }
+        .notice { background: var(--star-50); color: var(--warn-ink); font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid var(--star-50); flex: none; }
 
-        .partinfo { background: #f1f2f4; border-bottom: 1px solid #d0d4d9; padding: 12px 22px; flex: none; }
+        .partinfo { background: var(--bg); border-bottom: 1px solid var(--line-strong); padding: 12px 22px; flex: none; }
         .partinfo b { font-size: 17px; display: block; margin-bottom: 3px; }
-        .partinfo span { font-size: 14px; color: #333; }
+        .partinfo span { font-size: 14px; color: var(--ink); }
 
         .panes { flex: 1; display: flex; min-height: 0; }
         .pane { overflow-y: auto; padding: 22px 26px; min-width: 240px; }
         .pane.q { flex: 0 0 50%; }
         .pane.a { flex: 1; display: flex; flex-direction: column; padding-bottom: 12px; }
-        .divider { flex: none; width: 10px; cursor: col-resize; background: #e3e6ea; position: relative; }
+        .divider { flex: none; width: 10px; cursor: col-resize; background: var(--line); position: relative; }
         .divider::after { content: '⋮'; position: absolute; top: 50%; left: 1px; transform: translateY(-50%);
-                          color: #777; font-size: 18px; }
-        .divider:hover, .divider.drag { background: #c9d3de; }
+                          color: var(--muted); font-size: 18px; }
+        .divider:hover, .divider.drag { background: var(--line-strong); }
 
         .q p { font-size: 15.5px; line-height: 1.75; margin: 0 0 14px; }
-        .q .prompt-box { border: 1px solid #999; padding: 16px 20px; margin: 4px 0 16px; }
+        .q .prompt-box { border: 1px solid var(--muted-2); padding: 16px 20px; margin: 4px 0 16px; }
         .q .prompt-box p { font-weight: bold; }
         .q .prompt-box p.inst { font-weight: normal; }
-        .q .task-chart { width: 100%; max-width: 640px; display: block; margin: 6px auto 0; border: 1px solid #ddd; }
-        .q .tail { color: #333; }
+        .q .task-chart { width: 100%; max-width: 640px; display: block; margin: 6px auto 0; border: 1px solid var(--line); }
+        .q .tail { color: var(--ink); }
 
-        textarea.essay { flex: 1; width: 100%; min-height: 260px; resize: none; border: 1px solid #8a8f96;
-                         padding: 14px 16px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.7; color: #111; }
-        textarea.essay:focus { outline: 2px solid #3a6ea5; outline-offset: -1px; }
-        textarea.essay[readonly] { background: #f4f4f4; }
-        .wc { text-align: right; font-size: 14px; color: #333; margin-top: 8px; }
+        textarea.essay { flex: 1; width: 100%; min-height: 260px; resize: none; border: 1px solid var(--muted);
+                         padding: 14px 16px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.7; color: var(--ink); }
+        textarea.essay:focus { outline: 2px solid var(--primary); outline-offset: -1px; }
+        textarea.essay[readonly] { background: var(--surface-2); }
+        .wc { text-align: right; font-size: 14px; color: var(--ink); margin-top: 8px; }
         .wc b { font-variant-numeric: tabular-nums; }
-        .saved { float: left; color: #888; font-size: 12px; }
+        .saved { float: left; color: var(--muted); font-size: 12px; }
 
         .part { display: none; }
         .part.on { display: flex; flex: 1; min-height: 0; flex-direction: column; }
 
-        .navbar { flex: none; display: flex; align-items: center; gap: 10px; border-top: 1px solid #c4c9cf;
-                  background: #f7f8f9; padding: 8px 14px; }
-        .navbar .ptab { font-family: inherit; font-size: 14px; border: 1px solid #b9bfc6; background: #fff;
-                        border-radius: 4px; padding: 7px 14px; cursor: pointer; color: #222; }
-        .navbar .ptab.on { background: #222; color: #fff; border-color: #222; font-weight: bold; }
+        .navbar { flex: none; display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--line-strong);
+                  background: var(--surface-2); padding: 8px 14px; }
+        .navbar .ptab { font-family: inherit; font-size: 14px; border: 1px solid var(--line-strong); background: #fff;
+                        border-radius: 4px; padding: 7px 14px; cursor: pointer; color: var(--ink); }
+        .navbar .ptab.on { background: var(--ink); color: #fff; border-color: var(--ink); font-weight: bold; }
         .navbar .ptab .n { font-size: 12px; opacity: .8; margin-left: 6px; }
-        .navbar .arrow { font-family: inherit; font-size: 18px; width: 40px; height: 36px; border: 1px solid #b9bfc6;
+        .navbar .arrow { font-family: inherit; font-size: 18px; width: 40px; height: 36px; border: 1px solid var(--line-strong);
                          background: #fff; border-radius: 4px; cursor: pointer; }
         .navbar .spacer { flex: 1; }
-        .navbar .submit { font-family: inherit; font-size: 15px; font-weight: bold; background: #1f6f3f; color: #fff;
+        .navbar .submit { font-family: inherit; font-size: 15px; font-weight: bold; background: var(--ok-ink); color: #fff;
                           border: none; border-radius: 4px; padding: 9px 20px; cursor: pointer; }
         .navbar .submit:hover { filter: brightness(1.1); }
 
@@ -74,12 +75,12 @@
                  justify-content: center; z-index: 50; }
         .modal.on { display: flex; }
         .modal .box { background: #fff; border-radius: 8px; padding: 22px 26px; max-width: 440px; width: 92%;
-                      font-family: "Microsoft JhengHei", Arial, sans-serif; line-height: 1.7; }
+                      font-family: var(--font); line-height: 1.7; }
         .modal h3 { margin: 0 0 8px; }
         .modal .row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
         .modal button { font-family: inherit; font-size: 15px; border-radius: 6px; padding: 8px 18px; cursor: pointer;
-                        border: 1px solid #b9bfc6; background: #fff; }
-        .modal button.go { background: #1f6f3f; color: #fff; border-color: #1f6f3f; font-weight: bold; }
+                        border: 1px solid var(--line-strong); background: #fff; }
+        .modal button.go { background: var(--ok-ink); color: #fff; border-color: var(--ok-ink); font-weight: bold; }
 
         /* 手機／窄螢幕：維持「整頁一個畫面」的考場版面，但左右兩欄改成用「題目／作答」切換，
            作答框可以佔滿整個畫面，不用在小螢幕上擠成兩半 */
@@ -96,11 +97,11 @@
             .partinfo { padding: 7px 12px; }
             .partinfo b { font-size: 15px; display: inline; margin-right: 6px; }
             .partinfo span { font-size: 12.5px; }
-            .vswitch { display: flex; flex: none; gap: 0; background: #e3e6ea; padding: 4px; }
+            .vswitch { display: flex; flex: none; gap: 0; background: var(--line); padding: 4px; }
             .vswitch button { flex: 1; font-family: inherit; font-size: 15px; font-weight: bold; border: none; background: none;
-                              border-radius: 6px; padding: 8px 6px; color: #555; cursor: pointer; }
-            .vswitch button.on { background: #fff; color: #222; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
-            .vswitch .n { font-weight: normal; font-size: 12px; margin-left: 4px; color: #777; }
+                              border-radius: 6px; padding: 8px 6px; color: var(--ink-2); cursor: pointer; }
+            .vswitch button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+            .vswitch .n { font-weight: normal; font-size: 12px; margin-left: 4px; color: var(--muted); }
             .divider { display: none; }
             .pane { min-width: 0; padding: 14px; }
             .pane.q { flex: 1 1 auto !important; }
@@ -111,7 +112,7 @@
             textarea.essay { min-height: 0; padding: 10px 12px; }
             .wc { margin-top: 4px; font-size: 13px; }
             .to-a { display: block; width: 100%; margin-top: 6px; font-family: inherit; font-size: 15px; font-weight: bold;
-                    background: #222; color: #fff; border: none; border-radius: 6px; padding: 11px; cursor: pointer; }
+                    background: var(--ink); color: #fff; border: none; border-radius: 6px; padding: 11px; cursor: pointer; }
             .navbar { gap: 6px; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); }
             .navbar .ptab { padding: 6px 9px; font-size: 13px; line-height: 1.2; }
             .navbar .ptab .n { display: block; margin: 0; font-size: 11px; }
@@ -314,7 +315,7 @@
     document.getElementById('submitBtn').addEventListener('click', () => {
         const lines = areas.map(a => {
             const t = a.dataset.task, n = countWords(a.value);
-            return `Part ${t}：${n} 字` + (n < MIN[t] ? `　<b style="color:#c0392b">（未達 ${MIN[t]} 字，會被扣分）</b>` : '　✓');
+            return `Part ${t}：${n} 字` + (n < MIN[t] ? `　<b style="color:var(--bad)">（未達 ${MIN[t]} 字，會被扣分）</b>` : '　✓');
         });
         const left = Math.max(0, LIMIT - elapsed());
         document.getElementById('confirmText').innerHTML = lines.join('<br>') +

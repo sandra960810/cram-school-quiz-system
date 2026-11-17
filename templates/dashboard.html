@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>測驗系統主介面</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
-        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         .dashboard-container { max-width: 800px; width: 100%; }
         
         /* 歡迎看板 */
-        .welcome-banner { background: linear-gradient(135deg, #6dd5ed, #2193b0); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .welcome-banner { background: var(--hero); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
         .welcome-banner h1 { margin: 0 0 10px 0; font-size: 28px; }
         .welcome-banner p { margin: 0; font-size: 16px; opacity: 0.9; }
 
@@ -18,14 +19,14 @@
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         
         /* 選單卡片 */
-        .menu-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; text-decoration: none; color: #2c3e50; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
+        .menu-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
         .menu-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
         .menu-icon { font-size: 40px; margin-bottom: 15px; }
         .menu-title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
-        .menu-desc { font-size: 14px; color: #7f8c8d; }
+        .menu-desc { font-size: 14px; color: var(--muted); }
         
         /* 未開放卡片樣式 */
-        .locked-card { background: #e0e0e0; cursor: not-allowed; }
+        .locked-card { background: var(--line); cursor: not-allowed; }
         .locked-card .menu-icon { filter: grayscale(100%); }
     </style>
 </head>
