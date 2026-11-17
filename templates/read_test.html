@@ -36,10 +36,29 @@
         .pnav { display: flex; justify-content: space-between; margin-top: 18px; }
         .pnav button { font-family: inherit; font-size: 14px; border: 2px solid #d5d8dc; background: #fff;
                        border-radius: 8px; padding: 6px 14px; cursor: pointer; }
+        /* 手機／窄螢幕：一次只顯示「文章」或「題目」，用上方切換鈕對照，不必上下捲一大段 */
+        .vswitch { display: none; }
         @media (max-width: 860px) {
             .split { grid-template-columns: 1fr; }
             .split .sheet { height: auto; min-height: 0; }
+            .rtop { position: sticky; top: 0; z-index: 6; background: #f0f2f5; margin: 0 -10px; padding: 8px 10px 8px; }
+            .ptabs { margin-bottom: 8px; gap: 6px; flex-wrap: nowrap; }
+            .ptabs button { flex: 1; padding: 6px 4px; font-size: 14px; line-height: 1.25; }
+            .ptabs .cnt { display: block; margin: 0; font-size: 11px; }
+            .vswitch { display: flex; background: #dfe3e8; border-radius: 10px; padding: 3px; }
+            .vswitch button { flex: 1; font-family: inherit; font-size: 15px; border: none; background: none;
+                              border-radius: 8px; padding: 8px 6px; color: #566573; cursor: pointer; font-weight: bold; }
+            .vswitch button.on { background: #fff; color: #1e8449; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+            .vswitch .cnt { font-size: 12px; font-weight: normal; margin-left: 4px; }
+            body.view-passage .split > section.sheet { display: none; }
+            body.view-questions .split > article.sheet { display: none; }
+            .passage h2 { font-size: 19px; }
+            .passage .para { text-align: left; font-size: 16px; gap: 8px; }
+            .judge select { margin-left: 0; }
+            .to-q { display: block; width: 100%; margin-top: 8px; font-family: inherit; font-size: 15px; font-weight: bold;
+                    border: 2px solid #1e8449; color: #1e8449; background: #fff; border-radius: 10px; padding: 10px; cursor: pointer; }
         }
+        @media (min-width: 861px) { .to-q { display: none; } }
     </style>
 </head>
 <body>
@@ -54,11 +73,17 @@
         <span class="exam-part">Academic Reading</span>
     </div>
 
+    <div class="rtop">
     <div class="ptabs" id="ptabs">
         {% for p in test.passages %}
         <button type="button" data-p="{{ p.no }}" class="{{ 'on' if loop.first }}" data-sound="tap">
             Passage {{ p.no }}<span class="cnt">Q{{ p.first }}–{{ p.last }}</span></button>
         {% endfor %}
+    </div>
+    <div class="vswitch" id="vswitch" role="tablist" aria-label="切換文章與題目">
+        <button type="button" data-v="passage" class="on">📄 文章</button>
+        <button type="button" data-v="questions">✏️ 題目<span class="cnt" id="vcnt"></span></button>
+    </div>
     </div>
 
     <form method="post" action="{{ url_for('read_submit', student_id=student.id, test_key=test.key) }}" id="examForm">
@@ -72,6 +97,7 @@
                 {% for para in p.paragraphs %}
                 <p class="para">{% if para.label %}<span class="lab">{{ para.label }}</span>{% endif %}<span>{{ para.text }}</span></p>
                 {% endfor %}
+                <button type="button" class="to-q">讀完了，去作答 Q{{ p.first }}–{{ p.last }} →</button>
             </article>
 
             <section class="sheet">
@@ -184,13 +210,36 @@
 <script src="{{ url_for('static', filename='exam.js') }}"></script>
 <script>
     // 切換文章：同一份表單，只是顯示不同的 Passage
+    // 手機上另外有「文章／題目」切換，各自記住捲到哪裡，來回對照不會跑掉
+    let curP = '1', curV = 'passage';
+    const scrollMem = {};
+    const narrow = window.matchMedia('(max-width: 860px)');
+    const ranges = {};
+    document.querySelectorAll('#ptabs button').forEach(b => { ranges[b.dataset.p] = b.querySelector('.cnt').textContent; });
+    function remember() { scrollMem[curP + curV] = window.scrollY; }
+    function restore() { window.scrollTo({ top: scrollMem[curP + curV] || 0 }); }
+    function showView(v) {
+        remember();
+        curV = v;
+        document.body.classList.toggle('view-passage', v === 'passage');
+        document.body.classList.toggle('view-questions', v === 'questions');
+        document.querySelectorAll('#vswitch button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+        restore();
+    }
     function showPassage(no) {
-        document.querySelectorAll('.passage-panel').forEach(el => el.classList.toggle('on', el.dataset.panel === String(no)));
-        document.querySelectorAll('#ptabs button').forEach(b => b.classList.toggle('on', b.dataset.p === String(no)));
-        window.scrollTo({ top: 0 });
+        remember();
+        curP = String(no);
+        document.querySelectorAll('.passage-panel').forEach(el => el.classList.toggle('on', el.dataset.panel === curP));
+        document.querySelectorAll('#ptabs button').forEach(b => b.classList.toggle('on', b.dataset.p === curP));
+        document.getElementById('vcnt').textContent = ranges[curP];
+        if (narrow.matches) showView('passage'); else window.scrollTo({ top: 0 });
     }
     document.querySelectorAll('#ptabs button').forEach(b => b.addEventListener('click', () => showPassage(b.dataset.p)));
     document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => showPassage(b.dataset.go)));
+    document.querySelectorAll('#vswitch button').forEach(b => b.addEventListener('click', () => showView(b.dataset.v)));
+    document.querySelectorAll('.to-q').forEach(b => b.addEventListener('click', () => showView('questions')));
+    document.body.classList.add('view-passage');
+    document.getElementById('vcnt').textContent = ranges[curP];
 </script>
 </body>
 </html>

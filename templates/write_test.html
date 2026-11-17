@@ -81,12 +81,42 @@
                         border: 1px solid #b9bfc6; background: #fff; }
         .modal button.go { background: #1f6f3f; color: #fff; border-color: #1f6f3f; font-weight: bold; }
 
+        /* 手機／窄螢幕：維持「整頁一個畫面」的考場版面，但左右兩欄改成用「題目／作答」切換，
+           作答框可以佔滿整個畫面，不用在小螢幕上擠成兩半 */
+        .vswitch, .to-a { display: none; }
         @media (max-width: 820px) {
-            body { overflow: auto; height: auto; }
-            .panes { flex-direction: column; }
-            .pane.q { flex: none; }
-            .divider { display: none; }
+            html, body { height: 100%; }
+            @supports (height: 100dvh) { html, body { height: 100dvh; } }   /* 扣掉手機網址列與鍵盤 */
+            .topbar { gap: 8px; padding: 0 10px; height: 46px; }
+            .topbar .brand { font-size: 14px; line-height: 1.15; }
             .topbar .who { display: none; }
+            .topbar .clock { font-size: 14px; gap: 4px; white-space: nowrap; }
+            .topbar button { font-size: 12px; padding: 5px 8px; }
+            .notice { font-size: 11.5px; padding: 5px 10px; line-height: 1.5; }
+            .partinfo { padding: 7px 12px; }
+            .partinfo b { font-size: 15px; display: inline; margin-right: 6px; }
+            .partinfo span { font-size: 12.5px; }
+            .vswitch { display: flex; flex: none; gap: 0; background: #e3e6ea; padding: 4px; }
+            .vswitch button { flex: 1; font-family: inherit; font-size: 15px; font-weight: bold; border: none; background: none;
+                              border-radius: 6px; padding: 8px 6px; color: #555; cursor: pointer; }
+            .vswitch button.on { background: #fff; color: #222; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+            .vswitch .n { font-weight: normal; font-size: 12px; margin-left: 4px; color: #777; }
+            .divider { display: none; }
+            .pane { min-width: 0; padding: 14px; }
+            .pane.q { flex: 1 1 auto !important; }
+            body.view-q .pane.a, body.view-a .pane.q { display: none; }
+            .q p { font-size: 15px; }
+            .q .prompt-box { padding: 12px 14px; }
+            .pane.a { padding: 8px 8px 6px; }
+            textarea.essay { min-height: 0; padding: 10px 12px; }
+            .wc { margin-top: 4px; font-size: 13px; }
+            .to-a { display: block; width: 100%; margin-top: 6px; font-family: inherit; font-size: 15px; font-weight: bold;
+                    background: #222; color: #fff; border: none; border-radius: 6px; padding: 11px; cursor: pointer; }
+            .navbar { gap: 6px; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); }
+            .navbar .ptab { padding: 6px 9px; font-size: 13px; line-height: 1.2; }
+            .navbar .ptab .n { display: block; margin: 0; font-size: 11px; }
+            .navbar .arrow { display: none; }
+            .navbar .submit { font-size: 14px; padding: 10px 12px; }
         }
     </style>
 </head>
@@ -104,6 +134,11 @@
       style="display:contents" autocomplete="off">
 <input type="hidden" name="seconds_used" id="secondsUsed" value="0">
 
+<div class="vswitch" id="vswitch">
+    <button type="button" data-v="q" class="on">📄 題目</button>
+    <button type="button" data-v="a">✍️ 作答<span class="n" id="vwc">0 words</span></button>
+</div>
+
 {% for t in test.tasks %}
 <div class="part {{ 'on' if loop.first }}" data-part="{{ t.no }}">
     <div class="partinfo">
@@ -118,6 +153,7 @@
             </div>
             {% if t.chart_svg %}{{ t.chart_svg }}{% endif %}
             <p class="tail" style="margin-top:14px">Write at least {{ t.min_words }} words.</p>
+            <button type="button" class="to-a">看完題目，開始作答 →</button>
         </section>
         <div class="divider" title="拖曳調整左右寬度"></div>
         <section class="pane a">
@@ -178,6 +214,7 @@
         const n = countWords(a.value), t = a.dataset.task;
         document.getElementById('wc' + t).innerText = n;
         document.getElementById('tabwc' + t).innerText = n + ' words';
+        if (+t === current) document.getElementById('vwc').innerText = n + ' words';
     }
     areas.forEach(a => {
         refresh(a);
@@ -199,12 +236,26 @@
     }
     setInterval(pushDrafts, 15000);
 
+    // ---- 手機：題目／作答切換（電腦版兩欄並排，這組按鈕不會出現）
+    const narrow = window.matchMedia('(max-width: 820px)');
+    function view(v) {
+        document.body.classList.toggle('view-q', v === 'q');
+        document.body.classList.toggle('view-a', v === 'a');
+        document.querySelectorAll('#vswitch button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+        if (v === 'a' && narrow.matches) document.getElementById('task' + current).focus();
+    }
+    document.querySelectorAll('#vswitch button').forEach(b => b.addEventListener('click', () => view(b.dataset.v)));
+    document.querySelectorAll('.to-a').forEach(b => b.addEventListener('click', () => view('a')));
+    view('q');
+
     // ---- Part 切換
     function show(n) {
         current = n;
         document.querySelectorAll('.part').forEach(p => p.classList.toggle('on', +p.dataset.part === n));
         document.querySelectorAll('.ptab').forEach(b => b.classList.toggle('on', +b.dataset.go === n));
-        document.getElementById('task' + n).focus();
+        refresh(document.getElementById('task' + n));
+        if (narrow.matches) view('q');            // 手機換 Part 時先看新題目，不要直接跳出鍵盤
+        else document.getElementById('task' + n).focus();
     }
     document.querySelectorAll('.ptab').forEach(b => b.addEventListener('click', () => show(+b.dataset.go)));
     document.getElementById('prev').addEventListener('click', () => show(Math.max(1, current - 1)));
