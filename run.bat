@@ -48,6 +48,9 @@ if errorlevel 1 ( echo     套件安裝失敗 & exit /b 1 )
 echo [4/5] 匯入單字總表 vocab_master.xlsx...
 %PY% import_sheet.py
 if errorlevel 1 ( echo     匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
+echo     合併重複的雅思單字（學習紀錄轉到留下的那筆）...
+%PY% tools\dedupe_vocab.py
+if errorlevel 1 ( echo     合併重複字失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
 echo     匯入多益單字 toeic\toeic_vocab.csv...
 %PY% import_sheet.py toeic\toeic_vocab.csv
 if errorlevel 1 ( echo     多益單字匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
