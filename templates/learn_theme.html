@@ -139,11 +139,11 @@
           action="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}"
           {% if not paged %}onsubmit="return false;"{% endif %}>
         <input type="text" name="q" id="searchInput" class="search-bar" value="{{ q }}"
-               placeholder="搜尋學過的單字或意思{% if paged %}（按 Enter 搜尋整個主題）{% endif %}"
+               placeholder="搜尋單字或意思{% if paged %}（按 Enter）{% endif %}"
                {% if not paged %}oninput="applyFilter()"{% endif %}>
         {% if paged %}<button type="submit" class="search-btn">搜尋</button>{% endif %}
     </form>
-    {% if q %}<p class="hint">搜尋「{{ q }}」：找到 {{ cards|length }} 個學過的單字。<a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}">清除搜尋 ×</a></p>{% endif %}
+    {% if q %}<p class="hint">「{{ q }}」：{{ cards|length }} 個結果。<a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}">清除搜尋 ×</a></p>{% endif %}
 
     {% if cards %}
     <div class="dex-grid ui-stagger" id="dexGrid">

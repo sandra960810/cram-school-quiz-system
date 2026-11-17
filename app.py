@@ -577,13 +577,13 @@ def twtime(dt, fmt='%m/%d %H:%M'):
 
 SKILLS = [
     {'key': 'listening', 'name': '聽力', 'icon': 'headphones', 'endpoint': 'listen_home',
-     'desc': '完整 Parts 1–4，共 40 題，交卷自動批改並附逐題解析'},
+     'desc': 'Parts 1–4，共 40 題'},
     {'key': 'reading', 'name': '閱讀', 'icon': 'book-open', 'endpoint': 'read_home',
-     'desc': '三篇文章共 40 題，題型比照正式考試'},
+     'desc': '3 篇文章，共 40 題'},
     {'key': 'writing', 'name': '寫作', 'icon': 'pen', 'endpoint': 'writing_home',
-     'desc': '比照電腦考作答介面，Task 1＋Task 2 共 60 分鐘，AI 老師依四項標準批改'},
+     'desc': 'Task 1＋2，60 分鐘，AI 批改'},
     {'key': 'speaking', 'name': '口說', 'icon': 'speech', 'endpoint': 'speaking_home',
-     'desc': '比照正式考試 Part 1–3，麥克風錄音作答，AI 老師辨識語音並依四項標準評分'},
+     'desc': 'Part 1–3，錄音作答，AI 評分'},
 ]
 SKILL_BY_KEY = {s['key']: s for s in SKILLS}
 

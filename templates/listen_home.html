@@ -38,11 +38,10 @@
 
     <div class="banner">
         <h1>{{ icon('headphones') }} 雅思聽力題庫</h1>
-        <p>{{ student.name }}，每一回都是完整的 Parts 1–4、共 40 題，長度與難度比照正式考試。<br>
-           交卷後自動批改，每一題都有答案解析，答錯的會進錯題本。</p>
+        <p>每回 Parts 1–4、共 40 題，交卷自動批改附解析。</p>
     </div>
 
-    <div class="hint">{{ icon('bulb') }} 作答建議：音檔從頭播到尾不要暫停，邊聽邊寫，最後再檢查。正式考試只播一次。</div>
+    <div class="hint">{{ icon('bulb') }} 音檔只播一次，中途不要暫停。</div>
 
     <div class="tgrid">
         {% for t in tests %}

@@ -98,7 +98,7 @@
                 {% for para in p.paragraphs %}
                 <p class="para">{% if para.label %}<span class="lab">{{ para.label }}</span>{% endif %}<span>{{ para.text }}</span></p>
                 {% endfor %}
-                <button type="button" class="to-q">讀完了，去作答 Q{{ p.first }}–{{ p.last }} →</button>
+                <button type="button" class="to-q">作答 Q{{ p.first }}–{{ p.last }} →</button>
             </article>
 
             <section class="sheet">
@@ -202,7 +202,7 @@
 
     <div class="submit-bar">
         <span class="count">已作答 <b id="done">0</b> / {{ test.total }} 題</span>
-        <button type="submit" class="btn-submit" data-sound="done">交卷看成績與解析 →</button>
+        <button type="submit" class="btn-submit" data-sound="done">交卷 →</button>
     </div>
     </form>
 </div>

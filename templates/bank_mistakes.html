@@ -44,7 +44,7 @@
 
     <div class="banner">
         <h1>{{ icon('notebook') }} 錯題本</h1>
-        <p>目前有 <b>{{ pending }}</b> 題待訂正。重考同一份試卷並答對後，該題就會自動標記為已訂正。</p>
+        <p><b>{{ pending }}</b> 題待訂正，重考答對即訂正。</p>
     </div>
 
     {% if rows or only or show_starred %}
@@ -72,15 +72,15 @@
                     {{ '已訂正' if r.corrected else '答錯 %d 次' % r.wrong_count }}</span>
             </div>
             {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
-            {% if r.quote %}<div class="quote">{{ '{{ icon('book-open') }}' if r.section == 'reading' else '{{ icon('headphones') }}' }} 原文：{{ r.quote }}</div>{% endif %}
+            {% if r.quote %}<div class="quote">{{ icon('book-open') if r.section == 'reading' else icon('headphones') }} 原文：{{ r.quote }}</div>{% endif %}
         </div>
         {% endfor %}
     {% else %}
         <div class="empty">
             {% if only or show_starred %}
-                這個篩選條件下沒有題目。
+                沒有符合的題目。
             {% else %}
-                還沒有錯題。<br>去題庫考一回，答錯的題目會自動收進這裡。
+                還沒有錯題。
             {% endif %}
         </div>
     {% endif %}

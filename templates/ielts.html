@@ -95,7 +95,7 @@
 
     <div class="badges">
         <span id="theme-display" class="theme-badge">{{ icon('tag') }} {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
-        <span class="mode-badge mode-{{ mode }}">{{ {'view': '{{ icon('book-open') }} 圖鑑', 'fav': '{{ icon('star') }} 收藏滑卡', 'weak': '{{ icon('dot') }} 不熟區練習'}.get(mode, '{{ icon('swipe') }} 滑卡學習') }}</span>
+        <span class="mode-badge mode-{{ mode }}">{% set badge = {'view': ('book-open', '圖鑑'), 'fav': ('star', '收藏滑卡'), 'weak': ('dot', '不熟區練習')}.get(mode, ('swipe', '滑卡學習')) %}{{ icon(badge[0]) }} {{ badge[1] }}</span>
     </div>
 
     {% if mode != 'view' %}
@@ -138,7 +138,7 @@
         </div>
         <div class="error" id="error-display"></div>
         {% if mode != 'view' %}
-        <div class="hint">往右滑＝熟、往左滑＝不熟（電腦可用鍵盤 ← →）<br>熟的字之後不會再出現在滑卡裡</div>
+        <div class="hint">右滑＝熟、左滑＝不熟（鍵盤 ← →）</div>
         {% endif %}
     </div>
 </div>
@@ -226,7 +226,7 @@
         const stage = document.getElementById('stage');
         let title;
         if (totalWords === 0) {
-            title = { weak: '{{ icon('sparkle') }} 不熟區已經清空了！', fav: '收藏裡沒有需要練習的字<br>（熟的字不會出現在滑卡）' }[mode]
+            title = { weak: '{{ icon('sparkle') }} 不熟區已經清空了！', fav: '收藏的字都熟了' }[mode]
                 || '{{ icon('sparkle') }} 這裡的單字都熟了！';
             UI.play('done');
         } else {
@@ -240,7 +240,7 @@
                 <h2>${title}</h2>
                 ${totalWords ? `<div class="stats"><div class="stat k"><span class="n">${knowCount}</span>熟</div><div class="stat u"><span class="n">${dontCount}</span>不熟</div></div>` : ''}
                 ${again}
-                ${!isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">{{ icon('quiz') }} 馬上考考剛學的字 <span class="go-arrow">→</span></a>` : ''}
+                ${!isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">{{ icon('quiz') }} 考考剛學的字 <span class="go-arrow">→</span></a>` : ''}
                 <a href="${backUrl}" class="big-btn secondary"><span>←</span> ${backLabel.replace('返回', '回到')}</a>
                 <a href="${homeUrl}" class="big-btn secondary"><span>←</span> 選擇其他主題</a>
             </div>`;
@@ -272,7 +272,7 @@
                 currentWord.status = status;
                 renderStatus();
                 card.classList.remove('ui-pop'); void card.offsetWidth; card.classList.add('ui-pop');
-                document.getElementById('fav-toast').innerText = know ? '已移到熟區（之後不會出現在滑卡）' : '已移到不熟區（滑卡時會優先出現）';
+                document.getElementById('fav-toast').innerText = know ? '已移到熟區' : '已移到不熟區';
             } catch (e) {
                 UI.play('error'); err.innerText = '沒有存到，請再按一次。';
             }
@@ -293,7 +293,7 @@
             card.classList.remove('fly'); card.classList.add('back');
             card.style.transform = ''; card.style.opacity = '';
             stampKnow.style.opacity = 0; stampDont.style.opacity = 0;
-            err.innerText = '進度沒有存到，請檢查網路後再滑一次。';
+            err.innerText = '進度未儲存，請檢查網路。';
             busy = false;
             return;
         }

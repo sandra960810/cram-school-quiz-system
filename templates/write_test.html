@@ -129,7 +129,7 @@
     <button type="button" id="hideTime" title="考場也可以把時間隱藏起來">Hide time</button>
     <a class="leave" href="{{ url_for('writing_home', student_id=student.id) }}" id="leave">離開</a>
 </header>
-<div class="notice">{{ icon('flask') }} 這是比照正式電腦考的<b>模擬作答介面</b>：與考場相同關閉了拼字檢查，時間到會自動交卷。交卷後由 AI 老師批改，AI 評分只是模擬參考，不等於真實考試成績。</div>
+<div class="notice">{{ icon('flask') }} 無拼字檢查，時間到自動交卷。<b>AI 評分只是模擬</b>，不等於真實考試。</div>
 
 <form method="post" action="{{ url_for('writing_submit', student_id=student.id, test_key=test.key) }}" id="examForm"
       style="display:contents" autocomplete="off">
@@ -154,7 +154,7 @@
             </div>
             {% if t.chart_svg %}{{ t.chart_svg }}{% endif %}
             <p class="tail" style="margin-top:14px">Write at least {{ t.min_words }} words.</p>
-            <button type="button" class="to-a">看完題目，開始作答 →</button>
+            <button type="button" class="to-a">開始作答 →</button>
         </section>
         <div class="divider" title="拖曳調整左右寬度"></div>
         <section class="pane a">
@@ -315,11 +315,11 @@
     document.getElementById('submitBtn').addEventListener('click', () => {
         const lines = areas.map(a => {
             const t = a.dataset.task, n = countWords(a.value);
-            return `Part ${t}：${n} 字` + (n < MIN[t] ? `　<b style="color:var(--bad)">（未達 ${MIN[t]} 字，會被扣分）</b>` : '　✓');
+            return `Part ${t}：${n} 字` + (n < MIN[t] ? `　<b style="color:var(--bad)">（未達 ${MIN[t]} 字會扣分）</b>` : '　✓');
         });
         const left = Math.max(0, LIMIT - elapsed());
         document.getElementById('confirmText').innerHTML = lines.join('<br>') +
-            `<br><br>還剩 ${Math.ceil(left / 60)} 分鐘。交卷後就不能再修改。`;
+            `<br><br>還剩 ${Math.ceil(left / 60)} 分鐘，交卷後不能修改。`;
         modal.classList.add('on');
     });
     document.getElementById('cancelSubmit').addEventListener('click', () => modal.classList.remove('on'));

@@ -20,7 +20,7 @@
         a.skill:hover { transform: translateY(-4px); box-shadow: var(--edge-raised); }
         .skill .icon { font-size: 36px; margin-bottom: 8px; }
         .skill .name { font-size: 19px; font-weight: bold; margin-bottom: 5px; }
-        .skill .desc { font-size: 13px; color: var(--muted); line-height: 1.6; min-height: 54px; }
+        .skill .desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
         .skill .state { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: bold;
                         padding: 3px 12px; border-radius: 12px; }
         .skill .state.on { background: var(--ok-50); color: var(--ok); }
@@ -56,8 +56,7 @@
 
     <div class="banner">
         <h1>{{ icon('exam') }} 模擬測驗區</h1>
-        <p>{{ student.name }}，四個技能各有一套自製題庫，題型、長度與難度比照正式考試。<br>
-           交卷後自動批改，每一題都有解析，答錯的會自動收進錯題本。</p>
+        <p>比照正式考試，交卷自動批改，答錯收進錯題本。</p>
     </div>
 
     <div class="skill-grid ui-stagger">
@@ -85,7 +84,7 @@
             <h2>{{ icon('notebook') }} 錯題本</h2>
             <a class="mistake-cta" href="{{ url_for('exam_mistakes', student_id=student.id) }}">
                 <span class="n">{{ pending }}</span>
-                <span class="t"><b>題待訂正</b>答錯的題目會自動收進來，可以看解析、標記收藏，重考後答對就會變成已訂正。</span>
+                <span class="t"><b>題待訂正</b>重考答對即訂正</span>
                 <span style="font-size:20px;color:var(--warn)">→</span>
             </a>
         </div>
@@ -101,7 +100,7 @@
                 </a>
                 {% endfor %}
             {% else %}
-                <div class="empty">還沒有成績紀錄。<br>從聽力題庫開始考一回吧！</div>
+                <div class="empty">還沒有成績紀錄。</div>
             {% endif %}
         </div>
     </div>

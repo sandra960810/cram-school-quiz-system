@@ -117,7 +117,7 @@
     <span class="clock" id="clock">00:00</span>
     <a class="leave" href="{{ url_for('speaking_home', student_id=student.id) }}" id="leave">離開</a>
 </header>
-<div class="notice">{{ icon('flask') }} 這是比照正式考試流程的<b>模擬口說測驗</b>。交卷後由 AI 老師辨識語音並評分，<b>AI 評分不等於真實考試成績，只是模擬</b>。</div>
+<div class="notice">{{ icon('flask') }} <b>AI 評分不等於真實考試，只是模擬。</b></div>
 <div class="parts" id="parts"><span data-p="1">Part 1 訪談</span><span data-p="2">Part 2 題卡</span><span data-p="3">Part 3 討論</span></div>
 
 <main><div class="stage">
@@ -126,43 +126,38 @@
     <section class="screen on" id="scrCheck">
         <div class="box">
             <h2>開始前的準備</h2>
-            <div>整場約 11–14 分鐘，流程比照正式考試：</div>
+            <div>全程約 11–14 分鐘：</div>
             <ul>
-                <li><b>Part 1</b>（4–5 分鐘）考官問你關於自己的日常問題，每題回答 2–3 句。</li>
-                <li><b>Part 2</b>（3–4 分鐘）拿到題卡，<b>1 分鐘準備</b>可以寫筆記，接著說 <b>1–2 分鐘</b>，2 分鐘一到考官會請你停。</li>
-                <li><b>Part 3</b>（4–5 分鐘）延伸 Part 2 主題的深入討論，要說出理由與例子。</li>
+                <li><b>Part 1</b>（4–5 分鐘）日常問題，每題答 2–3 句。</li>
+                <li><b>Part 2</b>（3–4 分鐘）題卡，<b>準備 1 分鐘</b>，說 <b>1–2 分鐘</b>。</li>
+                <li><b>Part 3</b>（4–5 分鐘）深入討論，給理由與例子。</li>
             </ul>
-            <div>考官會用語音發問，請戴耳機或開喇叭。正式考試考官不會給你看題目，這裡預設也把題目文字模糊起來，聽不清楚可以按「請考官再說一次」或「顯示題目文字」。</div>
+            <div>考官用語音發問，題目文字預設模糊；聽不清楚可按「請考官再說一次」。</div>
         </div>
         <div class="box">
             <div class="check"><span class="st" id="stMic">{{ icon('circle') }}</span>
                 <div class="txt">麥克風<div class="meter"><i id="checkMeter"></i></div>
-                    <div style="font-size:13px;color:var(--muted)" id="micHint">按「測試」後說幾句英文，綠色條會跟著跳動就沒問題。</div></div>
+                    <div style="font-size:13px;color:var(--muted)" id="micHint">按「測試」說幾句，綠條會跳動即可。</div></div>
                 <button type="button" id="micTest">{{ icon('mic') }} 測試</button></div>
             <div class="check"><span class="st" id="stVoice">{{ icon('circle') }}</span>
-                <div class="txt">考官的聲音<div style="font-size:13px;color:var(--muted)">用 Edge 會是最自然的真人語音。</div></div>
+                <div class="txt">考官的聲音<div style="font-size:13px;color:var(--muted)">Edge 語音最自然</div></div>
                 <button type="button" id="voiceTest">{{ icon('volume') }} 試聽</button></div>
         </div>
         {% if provider == 'gemini' %}
         <div class="box privacy red">
             <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
-            目前的 AI 老師是 <b>Google Gemini 免費方案</b>。交卷後你的<b>錄音會傳給 Google</b> 做語音辨識與評分，
-            而免費方案送出的內容<b>可能會被 Google 用來改善他們的服務，也可能有人工審閱</b>。
-            請不要在錄音裡說出身分證字號、住址、電話或其他私人資料；第一題問姓名時，用英文名或化名回答即可。
+            錄音會傳給 <b>Google Gemini</b>，<b>免費方案的內容可能被 Google 使用</b>。請勿說出個資，姓名用英文名或化名。
         </div>
         {% elif provider == 'claude' %}
         <div class="box privacy">
             <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
-            目前的 AI 老師是 <b>Anthropic Claude</b>。Claude 聽不到錄音，所以作答時會用<b>瀏覽器內建的語音辨識</b>把你說的話轉成文字
-            （Edge 會把聲音送到微軟、Chrome 送到 Google 的伺服器辨識），再把文字交給 Claude 評分。錄音檔本身只存在補習班這台電腦。
-            請不要說出身分證字號、住址、電話等私人資料；第一題問姓名時用英文名或化名即可。
-            <br><b>注意：</b>這種方式的「發音」分數只能從辨識結果推估，準確度較低。
+            語音會由<b>瀏覽器辨識</b>成文字（Edge 送微軟、Chrome 送 Google）再交給 Claude 評分，錄音只存在本機；發音分數為推估。請勿說出個資，姓名用英文名或化名。
         </div>
         {% else %}
-        <div class="box privacy red">{{ icon('key') }} AI 老師還沒設定，這次只會存下錄音、不會批改。設定好金鑰（雙擊 set_ai_key.bat）後，打開交卷紀錄就能補批改。</div>
+        <div class="box privacy red">{{ icon('key') }} AI 老師未設定，交卷只存不批改。雙擊 <b>set_ai_key.bat</b> 後可補批改。</div>
         {% endif %}
         <div class="errbox" id="checkErr" hidden></div>
-        <label class="agree"><input type="checkbox" id="agree"> 我了解：AI 評分只是模擬，不等於真實考試成績{% if provider %}；也已讀過上面的錄音隱私提醒{% endif %}。</label>
+        <label class="agree"><input type="checkbox" id="agree"> 我了解 AI 評分只是模擬{% if provider %}，並已讀過隱私提醒{% endif %}。</label>
         <div style="text-align:center;margin-top:18px"><button type="button" class="big" id="startBtn" disabled>開始測驗 ▶</button></div>
     </section>
 
@@ -187,7 +182,7 @@
                 </div>
                 <div id="prepBox">
                     <div class="countdown" id="prepClock">1:00</div>
-                    <div style="text-align:center;font-size:14px;color:var(--muted);margin-bottom:8px">準備時間：可以在下面寫筆記（考場給紙筆，這裡用打字）</div>
+                    <div style="text-align:center;font-size:14px;color:var(--muted);margin-bottom:8px">準備時間：可在下面寫筆記</div>
                     <textarea class="notes" id="notes" placeholder="Notes…" spellcheck="false"></textarea>
                 </div>
             </div>
@@ -244,7 +239,7 @@
         if (stream) return stream;
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
             throw new Error(location.protocol === 'http:' && !/^(localhost|127\.)/.test(location.hostname)
-                ? '這個網址不能使用麥克風（瀏覽器規定要 https 或本機網址）。請用 share.bat 產生的 https 網址開啟。'
+                ? '此網址不能用麥克風，請改用 share.bat 的 https 網址。'
                 : '這個瀏覽器不支援錄音，請改用 Edge 或 Chrome。');
         }
         stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
@@ -275,12 +270,12 @@
             meterEl = $('checkMeter');
             micOk = true;
             $('stMic').innerHTML = '{{ icon('check-circle') }}';
-            $('micHint').innerText = '麥克風已開啟。說話時綠色條有跳動就可以開始了。';
+            $('micHint').innerText = '麥克風已開啟，綠條有跳動即可。';
         } catch (e) {
             $('stMic').innerHTML = '{{ icon('x-circle') }}';
             $('checkErr').hidden = false;
             $('checkErr').innerText = e.name === 'NotAllowedError'
-                ? '麥克風被拒絕了。請按網址列左邊的鎖頭圖示，把「麥克風」改成允許，再重新整理這一頁。'
+                ? '麥克風被拒絕。請按網址列左邊的鎖頭改成允許，再重新整理。'
                 : (e.message || '打不開麥克風，請確認有接上麥克風。');
         }
         refreshStart();
@@ -401,9 +396,9 @@
         startRecording(step);
         setStatus('rec');
         const limit = step.limit;
-        const hint = step.kind === 'p2' ? '說到 2 分鐘考官會喊停；至少說滿 1 分鐘'
-                   : step.kind === 'p3' ? '要說出理由和例子，不要只回答一句'
-                   : step.kind === 'id' ? '用英文名或化名回答即可' : '回答 2–3 句就好';
+        const hint = step.kind === 'p2' ? '至少說滿 1 分鐘'
+                   : step.kind === 'p3' ? '給理由和例子'
+                   : step.kind === 'id' ? '用英文名或化名' : '答 2–3 句';
         const t0 = Date.now();
         const draw = () => {
             const s = Math.floor((Date.now() - t0) / 1000);
@@ -515,9 +510,9 @@
             .catch(e => {
                 uploading = false;
                 $('upSpin').hidden = true;
-                $('upText').innerText = '交卷沒有成功，錄音還在這個頁面裡，請不要關閉。';
+                $('upText').innerText = '交卷失敗，錄音還在，請勿關閉此頁。';
                 $('upErr').hidden = false;
-                $('upErr').innerText = (e && e.message && e.message !== 'Failed to fetch') ? e.message : '連不上網站伺服器，請確認 run.bat 的視窗還開著。';
+                $('upErr').innerText = (e && e.message && e.message !== 'Failed to fetch') ? e.message : '連不上伺服器，請確認 run.bat 視窗還開著。';
                 $('retryUpload').hidden = false;
             });
     }
