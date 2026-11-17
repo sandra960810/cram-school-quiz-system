@@ -50,22 +50,38 @@
     {
       "type": "gapfill",
       "range": "Questions 1–10",
-      "instruction": "Complete the form below.",
+      "instruction": "Complete the notes below.",
       "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
-      "title": "RENTAL ENQUIRY FORM",
-      "layout": "form",
-      "rows": [
-        { "label": "Name:", "text": "Helen {ex:Fraser}" },
-        { "label": "Occupation:", "text": "{1}" },
-        { "label": "Preferred area:", "text": "close to the {2}" },
-        { "label": "Maximum rent:", "text": "£{3} per month" },
-        { "label": "Bedrooms required:", "text": "{4}" },
-        { "label": "Preferred moving date:", "text": "{5} September" },
-        { "label": "Property must have:", "text": "{6}" },
-        { "label": "Property must not be above a:", "text": "{7}" },
-        { "label": "Furnishing:", "text": "{8}" },
-        { "label": "Deposit:", "text": "{9} weeks' rent" },
-        { "label": "Viewing arranged for:", "text": "{10} at 10.30 a.m." }
+      "title": "Flat Rental Enquiry",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Caller",
+          "lines": [
+            "The caller's surname is",
+            "- {ex:Fraser}",
+            "She works as a {1} at St Anne's"
+          ]
+        },
+        {
+          "heading": "Requirements",
+          "lines": [
+            "Wants to live close to the {2}",
+            "Can pay a maximum of £{3} per month",
+            "Would prefer a flat with {4} bedrooms",
+            "Hopes to move in on {5} September",
+            "The flat must have {6}",
+            "- it must not be above a {7}",
+            "- it should be {8}"
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "lines": [
+            "The deposit will be {9} weeks' rent",
+            "Viewing arranged for {10} morning at 10.30 a.m."
+          ]
+        }
       ]
     }
   ],
