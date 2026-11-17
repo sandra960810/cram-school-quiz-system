@@ -1,6 +1,7 @@
 """展示模式：給主管或外部人員看的線上展示版用。
 
-只有在環境變數 DEMO_MODE=1 時才會啟動（櫃台電腦平常執行 run.bat 不受影響）。
+只有在環境變數 DEMO_MODE=1 時才會啟動：雙擊 share_demo.bat 會在櫃台電腦另開一份展示版
+（埠 5001、資料庫 instance/demo.db），平常的 run.bat 與學生資料 quiz.db 完全不受影響。
 展示模式會：
 
 - 每一頁最上方加一條「展示版」提示
@@ -8,8 +9,7 @@
 - 準備一位假學生「展示學生」，並先學過一些單字，主介面和單字測驗區才有內容可看
 - 不接任何 AI 金鑰：寫作與口說的「AI 老師批改」改成回傳一份預先寫好的範例批改，
   並清楚標示這不是針對該次作答的真實評分
-
-線上主機（Render）的設定寫在 render.yaml。
+- 口說錄音存到 instance/demo_speaking_audio/，不會和學生的錄音混在一起
 """
 import os
 import random
@@ -149,6 +149,9 @@ def setup(app, db, models):
     import writing_bank
     import speaking_bank
     from flask import redirect
+
+    # 口說錄音另存一個資料夾，避免和正式系統同編號的錄音互相覆蓋
+    speaking_bank.AUDIO_DIR = os.path.join(speaking_bank.BASE, 'instance', 'demo_speaking_audio')
 
     # AI 老師：不接金鑰，改成範例批改
     for mod in (writing_bank, speaking_bank):

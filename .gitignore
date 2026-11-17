@@ -32,3 +32,10 @@ ai_key_log.txt
 
 # 口說測驗的錄音檔（學生的聲音，只存在本機）
 instance/speaking_audio/
+
+# 展示版（share_demo.bat）：假資料庫、錄音與連結
+instance/demo.db
+instance/demo_speaking_audio/
+share_demo_log.txt
+share_demo_link.txt
+share_demo_tunnel.txt

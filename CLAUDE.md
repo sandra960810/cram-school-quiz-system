@@ -5,8 +5,8 @@
 ## 這是什麼
 
 一套給補習班學生用的雅思練習網站，用 Flask + SQLite 寫成，跑在補習班櫃台那台
-Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），需要給主管或遠端學生看時，
-用 `share.bat` 開 Cloudflare 臨時通道產生公開網址。
+Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），遠端學生要用時，
+用 `share.bat` 開 Cloudflare 臨時通道產生公開網址；給主管看則用 `share_demo.bat` 開假資料的展示版（見「展示版」一節）。
 
 兩大功能：
 
@@ -152,13 +152,15 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
   並請學生不要在錄音裡說個資（問姓名時用英文名或化名）
 - 麥克風只能在 https 或本機網址（127.0.0.1）使用：手機要用 `share.bat` 的 https 網址
 
-## 線上展示版（給主管看）
+## 展示版（給主管看）
 
-- 部署在 Render 免費方案，設定在 `render.yaml`；環境變數 `DEMO_MODE=1` 才會打開展示模式（`demo_mode.py`），櫃台電腦不受影響
+- 雙擊 `share_demo.bat`：在櫃台電腦另開一份**展示版**（埠 5001），再用 Cloudflare 臨時通道產生公開網址，
+  連結寫進 `share_demo_link.txt` 並複製到剪貼簿。電腦和兩個視窗要開著，連結才有效；每次執行網址都不同
+- 展示版由環境變數 `DEMO_MODE=1` 打開（`demo_mode.py`），用另一個資料庫 `instance/demo.db`（只有單字與假學生），
+  **碰不到學生的 `quiz.db`**；口說錄音另存 `instance/demo_speaking_audio/`
 - 展示模式：每頁頂端加「展示版」提示、`/` 導向 `/dashboard/1`、假學生「展示學生」先學過一些單字、
-  **不放任何 AI 金鑰**，寫作／口說的 AI 批改改回傳預先寫好的範例（標明不是真實評分）
-- build 時跑 `import_sheet.py` 與 `make_listening_audio.py`，聽力音檔在主機上產生
-- 免費方案閒置 15 分鐘會休眠，第一次打開要等約 1 分鐘；重新啟動後作答紀錄會回到初始狀態
+  **不用 AI 金鑰**，寫作／口說的 AI 批改改回傳預先寫好的範例（標明不是真實評分）；關閉 Flask 除錯模式
+- 原本的 `share.bat` 會公開**真實**網站（含學生資料、AI 金鑰額度），給外部看請用 `share_demo.bat`
 
 ## 出題要求
 

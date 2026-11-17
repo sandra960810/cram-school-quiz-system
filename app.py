@@ -13,7 +13,9 @@ import speaking_bank
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
+# 展示模式（DEMO_MODE=1，share_demo.bat 會設定）用另一個資料庫 demo.db，完全碰不到學生的 quiz.db
+DEMO_MODE = os.environ.get('DEMO_MODE') == '1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///demo.db' if DEMO_MODE else 'sqlite:///quiz.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # 口說測驗交卷時一次上傳整場錄音（約 3–8MB），上限放寬到 60MB
 app.config['MAX_CONTENT_LENGTH'] = 60 * 1024 * 1024
@@ -1228,4 +1230,5 @@ demo_mode.setup(app, db, dict(Student=Student, Vocabulary=Vocabulary, LearningPr
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # 展示版會透過公開網址給外部看，關掉除錯模式（除錯頁可以在網頁上執行程式）
+    app.run(debug=not DEMO_MODE, port=int(os.environ.get('PORT', 5000)))

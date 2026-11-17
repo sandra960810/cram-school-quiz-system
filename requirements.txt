@@ -1,7 +1,0 @@
-flask
-flask_sqlalchemy
-openpyxl
-anthropic
-google-genai
-edge-tts
-gunicorn
