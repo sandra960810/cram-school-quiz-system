@@ -1,0 +1,140 @@
+{
+  "no": 1,
+  "context": "Telephone enquiry about joining a tennis club",
+  "audio": "L02_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a man telephoning a tennis club to ask about membership. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "f2", "t": "Good afternoon, Lakeside Tennis Club. Rachel speaking." },
+    { "v": "m3", "t": "Oh, hi there. I'm ringing to find out about joining the club. I've just moved into the area." },
+    { "v": "f2", "t": "Lovely, we're always glad to have new members. Can I take your name first?" },
+    { "v": "m3", "t": "Sure. It's Tom Ellison. That's E-L-L-I-S-O-N." },
+    { "v": "narrator", "t": "The man's surname is Ellison, so Ellison has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Good afternoon, Lakeside Tennis Club. Rachel speaking." },
+    { "v": "m3", "t": "Oh, hi there. I'm ringing to find out about joining the club. I've just moved into the area." },
+    { "v": "f2", "t": "Lovely, we're always glad to have new members. Can I take your name first?" },
+    { "v": "m3", "t": "Sure. It's Tom Ellison. That's E-L-L-I-S-O-N." },
+    { "v": "f2", "t": "Thanks, Tom. And your address?" },
+    { "v": "m3", "t": "It's number fourteen, Carlton Road." },
+    { "v": "f2", "t": "Charlton Road, is that?" },
+    { "v": "m3", "t": "No, everyone gets that wrong. It's Carlton, without the H. C-A-R-L-T-O-N." },
+    { "v": "f2", "t": "Got it, fourteen Carlton Road. And can I ask how you heard about us? We like to know which kind of advertising works." },
+    { "v": "m3", "t": "Well, I did have a look at your website a while ago, but to be honest it was a leaflet that came through the door last week that actually made me pick up the phone." },
+    { "v": "f2", "t": "Good to know the leaflets are worth it. Now, what kind of membership were you thinking of?" },
+    { "v": "m3", "t": "I'd been planning on just an individual membership. But my wife and my son both said they'd like to play as well, so I think we'd better go for the family one." },
+    { "v": "f2", "t": "Family membership, then. That covers two adults and up to three children under eighteen." },
+    { "v": "m3", "t": "And how much is that for the year? Your leaflet said two hundred and eighty pounds." },
+    { "v": "f2", "t": "I'm afraid that leaflet is from last season. The family rate went up in April, and it's now 320 pounds a year. You can pay it monthly if that's easier." },
+    { "v": "m3", "t": "320. Okay, that's still reasonable. Now, I'm quite keen to get some coaching. When are the adult sessions?" },
+    { "v": "f2", "t": "We run them on Monday and Wednesday evenings, from seven until half past eight." },
+    { "v": "m3", "t": "Monday would suit me best, actually." },
+    { "v": "f2", "t": "Unfortunately the Monday group is completely full until Christmas. There's still room on Wednesday, though." },
+    { "v": "m3", "t": "Oh well. Wednesday it is, then. I can make that work." },
+    { "v": "f2", "t": "And what level would you say you're at? We have beginner, intermediate and advanced groups." },
+    { "v": "m3", "t": "Hmm. I haven't played for about ten years, so you could probably put me down as a beginner." },
+    { "v": "f2", "t": "Did you play regularly before that?" },
+    { "v": "m3", "t": "Yes, I was in the university team for three years." },
+    { "v": "f2", "t": "Then honestly, the beginners would bore you. Our coach always says people come back much faster than they expect. I'll put you in the intermediate group, and if it's too much, you can move down." },
+    { "v": "m3", "t": "Intermediate. Fair enough. Is there anything I need to bring?" },
+    { "v": "f2", "t": "We provide the balls for all coaching sessions, and you don't need special clothing, though proper trainers help. But you will need your own racket. We used to lend them out, but too many went missing." },
+    { "v": "m3", "t": "No problem, I've still got my old one somewhere. What about parking? Is there a car park at the club?" },
+    { "v": "f2", "t": "There is, but it's tiny, and it's kept for staff and coaches. Members park at the school next door. The caretaker leaves the gate open in the evenings and at weekends." },
+    { "v": "m3", "t": "At the school. Great. And would it be possible to try it out before I pay?" },
+    { "v": "f2", "t": "Yes, everyone gets one free trial session. The next one is on Saturday the 14th of June, but that one's fully booked. So the earliest I can offer you is Saturday the 21st." },
+    { "v": "m3", "t": "The 21st is fine. What time?" },
+    { "v": "f2", "t": "Ten o'clock. When you arrive, don't ask for me, because I only work here during the week. Ask for Megan. She's our membership secretary, and she'll show you round." },
+    { "v": "m3", "t": "Megan. Is that M-E-G-A-N?" },
+    { "v": "f2", "t": "That's right. She'll have all your details ready." },
+    { "v": "m3", "t": "Brilliant. Thanks so much for your help, Rachel." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the form below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "LAKESIDE TENNIS CLUB – NEW MEMBER ENQUIRY",
+      "layout": "form",
+      "rows": [
+        { "label": "Name:", "text": "Tom {ex:Ellison}" },
+        { "label": "Address:", "text": "14 {1} Road" },
+        { "label": "Heard about the club from:", "text": "a {2}" },
+        { "label": "Type of membership:", "text": "{3}" },
+        { "label": "Annual fee:", "text": "£{4}" },
+        { "label": "Coaching day:", "text": "{5} evening" },
+        { "label": "Coaching group:", "text": "{6}" },
+        { "label": "Must bring own:", "text": "{7}" },
+        { "label": "Parking:", "text": "at the {8} next door" },
+        { "label": "Free trial session:", "text": "Saturday {9} June, 10 a.m." },
+        { "label": "On arrival, ask for:", "text": "{10}" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": ["Carlton"],
+      "explain": "答案是 <b>Carlton</b>。Tom 說 It's Carlton, without the H，並逐字拼出 C-A-R-L-T-O-N。<br><b>陷阱</b>：接待員先聽成 Charlton，被 Tom 直接否定（No, everyone gets that wrong）。拼字題一定要等對方「拼出來」再寫，被更正前的版本就是干擾項。",
+      "quote": "No, everyone gets that wrong. It's Carlton, without the H. C-A-R-L-T-O-N."
+    },
+    {
+      "no": 2,
+      "answers": ["leaflet"],
+      "explain": "答案是 <b>leaflet</b>。Tom 說 it was a leaflet that came through the door last week that actually made me pick up the phone。<br><b>陷阱</b>：website 先出現，但後面接 but to be honest，表示真正的原因在後面。I did...but 是典型的「先讓步再轉折」。",
+      "quote": "I did have a look at your website a while ago, but to be honest it was a leaflet that came through the door last week."
+    },
+    {
+      "no": 3,
+      "answers": ["family"],
+      "explain": "答案是 <b>family</b>。Tom 說 I think we'd better go for the family one，接待員也確認 Family membership。<br><b>陷阱</b>：individual 是他「原本的打算」（I'd been planning on），過去完成式表示已改變主意。",
+      "quote": "I'd been planning on just an individual membership. But my wife and my son both said they'd like to play as well, so I think we'd better go for the family one."
+    },
+    {
+      "no": 4,
+      "answers": ["320"],
+      "explain": "答案是 <b>320</b>。接待員說 The family rate went up in April, and it's now 320 pounds a year。<br><b>陷阱</b>：280 是舊傳單上的價格（that leaflet is from last season），已經漲價。數字題常出現「舊價格 vs. 新價格」，要抓 now 後面的數字。",
+      "quote": "I'm afraid that leaflet is from last season. The family rate went up in April, and it's now 320 pounds a year."
+    },
+    {
+      "no": 5,
+      "answers": ["Wednesday"],
+      "explain": "答案是 <b>Wednesday</b>。Tom 想選星期一，但接待員說 the Monday group is completely full，最後 Tom 說 Wednesday it is。<br><b>陷阱</b>：Monday 是他的「第一志願」，但已額滿。要聽到最後確認的那一句。",
+      "quote": "Unfortunately the Monday group is completely full until Christmas. There's still room on Wednesday, though."
+    },
+    {
+      "no": 6,
+      "answers": ["intermediate"],
+      "explain": "答案是 <b>intermediate</b>。接待員說 I'll put you in the intermediate group。<br><b>陷阱</b>：Tom 自己先說 put me down as a beginner，但對方得知他以前是大學校隊後改了決定。說話者自我評估的答案，常被另一方推翻。",
+      "quote": "Then honestly, the beginners would bore you... I'll put you in the intermediate group."
+    },
+    {
+      "no": 7,
+      "answers": ["racket", "racquet"],
+      "explain": "答案是 <b>racket</b>（拼成 racquet 也可以）。接待員說 But you will need your own racket。<br><b>陷阱</b>：balls 由俱樂部提供（We provide the balls）；trainers 只是「有幫助」（help），不是必備。注意 must bring own 對應 you will need your own。",
+      "quote": "We provide the balls for all coaching sessions... But you will need your own racket."
+    },
+    {
+      "no": 8,
+      "answers": ["school"],
+      "explain": "答案是 <b>school</b>。接待員說 Members park at the school next door，與題目 at the ___ next door 完全對應。<br><b>陷阱</b>：俱樂部自己的 car park 確實存在，但 it's kept for staff and coaches（只給員工和教練），會員不能停。",
+      "quote": "There is, but it's tiny, and it's kept for staff and coaches. Members park at the school next door."
+    },
+    {
+      "no": 9,
+      "answers": ["21", "21st", "twenty-first"],
+      "explain": "答案是 <b>21</b>。接待員說 the earliest I can offer you is Saturday the 21st，Tom 回答 The 21st is fine。<br><b>陷阱</b>：14 號先出現，但 that one's fully booked（已額滿）。日期題常給兩個日期，被否定的那個就是陷阱。",
+      "quote": "The next one is on Saturday the 14th of June, but that one's fully booked. So the earliest I can offer you is Saturday the 21st."
+    },
+    {
+      "no": 10,
+      "answers": ["Megan"],
+      "explain": "答案是 <b>Megan</b>。接待員說 don't ask for me... Ask for Megan，Tom 還拼出 M-E-G-A-N 確認。<br><b>陷阱</b>：Rachel 是電話中的接待員，但她明說 don't ask for me（她只有平日上班）。人名題要注意「誰」被否定了。",
+      "quote": "When you arrive, don't ask for me, because I only work here during the week. Ask for Megan."
+    }
+  ]
+}

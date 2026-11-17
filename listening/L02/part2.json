@@ -1,0 +1,142 @@
+{
+  "no": 2,
+  "context": "A talk for new volunteers at Millbrook City Farm",
+  "audio": "L02_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear the manager of a city farm giving a talk to new volunteers. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "m2", "t": "Good morning, everyone, and welcome to Millbrook City Farm. My name's Sean, and I manage the farm. Thank you all for giving up your Saturday morning to be here." },
+    { "v": "m2", "t": "Let me start with a little background. People often assume that the farm was set up to protect rare breeds of animal, because we do keep several of them now. But that only began in the nineteen nineties. When the farm opened in nineteen seventy-eight, the idea was much simpler. A group of local parents had realised that most children in this part of the city had never seen a cow or a sheep, and they wanted to give city children the chance to get close to farm animals. That is still the heart of what we do." },
+    { "v": "m2", "t": "Now, some practical points about volunteering. We're very flexible about time. Some of you will come every day, and some of you will come once a month, and both are absolutely fine. You won't need to buy any special clothing either, because we provide overalls and boots for everyone. There is, however, one thing that isn't optional. Before you work with any of the animals, you must attend the half-day safety course. They run every other Tuesday, and there are dates on the board in the office." },
+    { "v": "m2", "t": "People always ask me which job is the most popular. Everyone expects it to be feeding the animals, and that is popular, of course. The farm shop gets plenty of offers too. But in fact, the role that most volunteers ask for is showing school groups around the farm. If you'd like to do that, put your name down early, because there's a waiting list." },
+    { "v": "m2", "t": "There have been a few changes this year that you should know about. Entry to the farm is still free, and I promise you that will never change. The café is still serving the same menu, much to the relief of our regular visitors. What is different is our opening hours. From November to February we now close at three o'clock instead of four, because it's simply too dark to work safely after that." },
+    { "v": "m2", "t": "And finally, one request. If you notice that an animal seems unwell, please don't phone the vet yourself. Tell a member of staff and we'll deal with it. Visitors are allowed to feed the animals, by the way, as long as they use the bags of feed from the shop. But the one thing I really need you to do is to record your volunteer hours online, on our website, every time you come. Our funding depends on showing how many hours volunteers give us, so it really does matter." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "m2", "t": "Right, let's look at the map so you can find your way around. You'll notice that the entrance is on the west side of the farm, on the left of the map, so as you come in you're facing east, along the main track." },
+    { "v": "m2", "t": "The farm shop is the very first building you come to. As you walk in through the gate, it's immediately on your right. On your left, opposite the shop, there's a small block with the toilets." },
+    { "v": "m2", "t": "Carry on along the track and you'll arrive in the farmyard. The big building on the north side of the farmyard is the barn. The goat shed is right next to the barn, on its western side, so the goats are the first animals most visitors see." },
+    { "v": "m2", "t": "If you go north from the farmyard you'll come to the pond. A lot of people expect the picnic area to be in the orchard, but we don't allow picnics there, because of the wasps in late summer. Instead, the picnic area is on the southern bank of the pond, where there's plenty of shade." },
+    { "v": "m2", "t": "The vegetable garden takes a bit more finding. Go straight through the farmyard and out the other side, keep going east, then turn south. It's right down in the south-east corner of the farm, and that's where a lot of our weekday volunteers work." },
+    { "v": "m2", "t": "And last of all, the beehives. We keep them as far away from visitors as we possibly can, so they're in the north-east corner, beyond the pond. Please don't take school groups up there." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "Millbrook City Farm was originally set up to",
+          "options": { "A": "protect rare breeds of animal.", "B": "give city children contact with farm animals.", "C": "supply food to local schools." }
+        },
+        {
+          "no": 12,
+          "stem": "All new volunteers must",
+          "options": { "A": "attend a safety course before working with animals.", "B": "work at the farm at least once a week.", "C": "provide their own protective clothing." }
+        },
+        {
+          "no": 13,
+          "stem": "Which volunteer role is the most requested?",
+          "options": { "A": "feeding the animals", "B": "working in the farm shop", "C": "guiding school groups" }
+        },
+        {
+          "no": 14,
+          "stem": "What has changed at the farm this year?",
+          "options": { "A": "the winter opening hours", "B": "the entrance charge", "C": "the café menu" }
+        },
+        {
+          "no": 15,
+          "stem": "Sean asks volunteers to",
+          "options": { "A": "contact the vet if an animal is ill.", "B": "stop visitors from feeding the animals.", "C": "record their hours on the website." }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L02_part2_map.svg",
+      "imageAlt": "Millbrook City Farm 地圖，入口在西側，標示 A 到 H 八個位置",
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "items": [
+        { "no": 16, "text": "Farm shop" },
+        { "no": 17, "text": "Goat shed" },
+        { "no": 18, "text": "Picnic area" },
+        { "no": 19, "text": "Vegetable garden" },
+        { "no": 20, "text": "Beehives" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Sean 說家長們 wanted to give city children the chance to get close to farm animals，對應 give city children contact with farm animals。<br><b>陷阱</b>：A 的 rare breeds 是「現在」有，但 that only began in the nineteen nineties，不是成立時的目的；C 完全沒提到。題目問 originally 時，要找「最一開始」的時間點。",
+      "quote": "People often assume that the farm was set up to protect rare breeds of animal... But that only began in the nineteen nineties."
+    },
+    {
+      "no": 12,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Sean 說 There is, however, one thing that isn't optional. Before you work with any of the animals, you must attend the half-day safety course。<br><b>陷阱</b>：B 被否定——once a month 也可以；C 也被否定——we provide overalls and boots。題目的 must 對應錄音的 isn't optional / you must。",
+      "quote": "There is, however, one thing that isn't optional. Before you work with any of the animals, you must attend the half-day safety course."
+    },
+    {
+      "no": 13,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Sean 說 the role that most volunteers ask for is showing school groups around the farm。<br><b>陷阱</b>：Everyone expects it to be feeding the animals 是「大家以為」，接著用 But in fact 推翻。Everyone expects / People assume 後面通常接的是錯誤答案。",
+      "quote": "Everyone expects it to be feeding the animals... But in fact, the role that most volunteers ask for is showing school groups around the farm."
+    },
+    {
+      "no": 14,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Sean 說 What is different is our opening hours，冬天改為三點關門。<br><b>陷阱</b>：B 被否定——Entry to the farm is still free；C 也被否定——The café is still serving the same menu。三個選項都有提到，只有一個用了 different。",
+      "quote": "What is different is our opening hours. From November to February we now close at three o'clock instead of four."
+    },
+    {
+      "no": 15,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Sean 說 the one thing I really need you to do is to record your volunteer hours online, on our website。<br><b>陷阱</b>：A 剛好相反——please don't phone the vet yourself；B 也錯——Visitors are allowed to feed the animals（用商店的飼料就可以）。",
+      "quote": "But the one thing I really need you to do is to record your volunteer hours online, on our website, every time you come."
+    },
+    {
+      "no": 16,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Sean 說入口在西側，進門後面向東方，商店 immediately on your right。面向東時右手邊是南方，也就是步道下方的 B。<br><b>陷阱</b>：這回入口不在地圖下方！面向東時 left＝北、right＝南，和一般「上北下南、左西右東」的直覺不同。A 是對面的廁所。",
+      "quote": "The farm shop is the very first building you come to. As you walk in through the gate, it's immediately on your right."
+    },
+    {
+      "no": 17,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Sean 說 The goat shed is right next to the barn, on its western side。地圖上 BARN 的左側（西側）就是 C。<br><b>提醒</b>：先在地圖上找到已標示的 BARN 作為參考點，再判斷 western side。",
+      "quote": "The goat shed is right next to the barn, on its western side."
+    },
+    {
+      "no": 18,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>。Sean 說 the picnic area is on the southern bank of the pond，池塘南岸是 E。<br><b>陷阱</b>：A lot of people expect the picnic area to be in the orchard（H 在果園），但 we don't allow picnics there。被否定的地點就是陷阱。",
+      "quote": "A lot of people expect the picnic area to be in the orchard, but we don't allow picnics there... Instead, the picnic area is on the southern bank of the pond."
+    },
+    {
+      "no": 19,
+      "answers": ["G"],
+      "explain": "答案是 <b>G</b>。Sean 說穿過農場院子繼續往東、再往南，It's right down in the south-east corner，地圖右下角是 G。<br><b>提醒</b>：路線題要跟著說話者「一步一步走」，把 east、south 每個轉向都在圖上畫出來。",
+      "quote": "Go straight through the farmyard and out the other side, keep going east, then turn south. It's right down in the south-east corner of the farm."
+    },
+    {
+      "no": 20,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>。Sean 說 they're in the north-east corner, beyond the pond，地圖右上角、池塘再過去的位置是 F。<br><b>陷阱</b>：E 也在池塘旁邊，但那是池塘南岸（野餐區）。beyond 表示「越過、在更遠處」。",
+      "quote": "We keep them as far away from visitors as we possibly can, so they're in the north-east corner, beyond the pond."
+    }
+  ]
+}

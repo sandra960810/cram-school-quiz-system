@@ -1,0 +1,129 @@
+{
+  "no": 4,
+  "context": "A history lecture on the nineteenth-century ice trade",
+  "audio": "L02_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a history lecture about the international trade in natural ice. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Good afternoon. Today's lecture is about a business that sounds almost impossible: shipping ice, cut from frozen water in New England, to customers thousands of miles away in hot countries, more than a century before the electric refrigerator." },
+    { "v": "f1", "t": "The trade began in eighteen oh six, when a young Boston merchant called Frederic Tudor sent a shipload of ice south. Students often assume that his first market was Europe, but it wasn't. The ship sailed to the Caribbean, to the island of Martinique. Most of the cargo melted, and Tudor lost a great deal of money. But he persisted, and within thirty years ice from Massachusetts was being sold as far away as India." },
+    { "v": "f1", "t": "Where did the ice come from? The harvesters avoided rivers, because the water was often dirty and the moving current made the ice uneven. Instead, the ice was cut from frozen lakes, where it formed thick and clear. A lake near Boston called Walden Pond became one of the best-known sources." },
+    { "v": "f1", "t": "The real challenge, of course, was keeping it frozen. Tudor experimented with several kinds of insulation. He tried straw at first, but it held moisture and began to rot during long voyages. The solution turned out to be sawdust, which the timber mills of Maine were producing in huge quantities and were happy to give away. Packed in sawdust, ice could survive for months." },
+    { "v": "f1", "t": "Another important development was the horse-drawn ice plough, introduced in the eighteen twenties. Before that, ice had been cut by hand with axes and saws into irregular lumps that were difficult to stack. The plough cut a grid into the surface, so the ice could be removed in regular blocks. These packed tightly together in the ship's hold, which reduced the surface area exposed to warm air." },
+    { "v": "f1", "t": "As a result of these improvements, losses fell dramatically. On the early voyages, more than half the cargo often melted before it arrived. By the eighteen forties, a well-packed ship would typically lose only about twenty per cent of its ice, even on a voyage of four months to India." },
+    { "v": "f1", "t": "So what was all this ice used for? In ordinary homes, the arrival of the ice box changed how families stored food. Before this, meat and fish had to be preserved with salt or eaten almost immediately. With a block of ice delivered every few days, there was far less need for salt, and people's diets began to change." },
+    { "v": "f1", "t": "Ice also became important in medicine. Doctors in hot climates used it to bring down a fever, which in places like Calcutta could save lives. It wasn't generally used to relieve pain at this stage; that came later." },
+    { "v": "f1", "t": "And ice transformed brewing. Certain types of beer need to ferment at low temperatures, so brewers had always had to stop production in the warmer months. With a reliable supply of ice, they could brew all year round, including in summer, and the industry expanded rapidly." },
+    { "v": "f1", "t": "So why did the trade disappear? The first problem was that the lakes themselves became less clean. As cities and factories grew up around them, pollution got into the water, and by the eighteen nineties doctors were warning that natural ice could carry disease." },
+    { "v": "f1", "t": "You might expect that ice-making factories finished the trade off. In fact, natural and factory ice were sold side by side for several decades. What finally ended it was the electric refrigerator, which arrived in ordinary homes in the nineteen twenties and thirties. Once a family could make its own ice, there was no reason to buy it." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE NINETEENTH-CENTURY ICE TRADE",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Beginnings",
+          "lines": [
+            "1806: Frederic Tudor's first shipment went to the {31}",
+            "Ice was cut from frozen {32}, where it was thick and clear"
+          ]
+        },
+        {
+          "heading": "Improvements",
+          "lines": [
+            "Insulation: ice was packed in {33} from timber mills",
+            "Horse-drawn plough: ice removed in regular {34}",
+            "By the 1840s, ships lost only about {35} per cent of their cargo"
+          ]
+        },
+        {
+          "heading": "Uses",
+          "lines": [
+            "Homes: ice boxes reduced the need for {36} to preserve food",
+            "Medicine: used to bring down a {37}",
+            "Brewing: beer could be produced in {38} as well"
+          ]
+        },
+        {
+          "heading": "Decline",
+          "lines": [
+            "{39} made natural ice unsafe by the 1890s",
+            "Trade finally ended by the electric {40} in homes"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": ["Caribbean"],
+      "explain": "答案是 <b>Caribbean</b>。講者說 The ship sailed to the Caribbean, to the island of Martinique。<br><b>陷阱</b>：Students often assume that his first market was Europe, but it wasn't——Europe 是被否定的答案。India 則是三十年後才出現的市場。注意專有名詞首字母大寫。",
+      "quote": "Students often assume that his first market was Europe, but it wasn't. The ship sailed to the Caribbean, to the island of Martinique."
+    },
+    {
+      "no": 32,
+      "answers": ["lakes"],
+      "explain": "答案是 <b>lakes</b>。講者說 the ice was cut from frozen lakes, where it formed thick and clear，與題目 where it was thick and clear 對應。<br><b>陷阱</b>：rivers 先出現，但 The harvesters avoided rivers（刻意避開）。複數 lakes 不可漏 s。",
+      "quote": "The harvesters avoided rivers... Instead, the ice was cut from frozen lakes, where it formed thick and clear."
+    },
+    {
+      "no": 33,
+      "answers": ["sawdust"],
+      "explain": "答案是 <b>sawdust</b>（木屑）。講者說 The solution turned out to be sawdust, which the timber mills of Maine were producing，題目的 from timber mills 是定位關鍵。<br><b>陷阱</b>：straw（稻草）是最初的嘗試，但 it held moisture and began to rot，被淘汰了。He tried... at first 後面通常是失敗的方法。",
+      "quote": "He tried straw at first, but it held moisture and began to rot during long voyages. The solution turned out to be sawdust."
+    },
+    {
+      "no": 34,
+      "answers": ["blocks"],
+      "explain": "答案是 <b>blocks</b>。講者說 the ice could be removed in regular blocks，與題目 removed in regular ___ 完全對應。<br><b>陷阱</b>：lumps 也有出現，但那是犁發明「之前」手工切出的 irregular lumps，與題目的 regular 正好相反。",
+      "quote": "The plough cut a grid into the surface, so the ice could be removed in regular blocks."
+    },
+    {
+      "no": 35,
+      "answers": ["20", "twenty"],
+      "explain": "答案是 <b>20</b>。講者說 By the eighteen forties, a well-packed ship would typically lose only about twenty per cent of its ice。<br><b>陷阱</b>：more than half 是「早期航程」的損失。題目已印出 By the 1840s，要對準這個時間點的數字。",
+      "quote": "By the eighteen forties, a well-packed ship would typically lose only about twenty per cent of its ice."
+    },
+    {
+      "no": 36,
+      "answers": ["salt"],
+      "explain": "答案是 <b>salt</b>。講者說 meat and fish had to be preserved with salt... there was far less need for salt。<br><b>同義轉換</b>：題目的 reduced the need for ＝ 錄音的 far less need for。",
+      "quote": "Before this, meat and fish had to be preserved with salt... there was far less need for salt."
+    },
+    {
+      "no": 37,
+      "answers": ["fever"],
+      "explain": "答案是 <b>fever</b>。講者說 Doctors in hot climates used it to bring down a fever，與題目的 bring down a ___ 完全對應。<br><b>陷阱</b>：pain 也出現，但 It wasn't generally used to relieve pain at this stage（當時還沒用來止痛）。",
+      "quote": "Doctors in hot climates used it to bring down a fever... It wasn't generally used to relieve pain at this stage."
+    },
+    {
+      "no": 38,
+      "answers": ["summer"],
+      "explain": "答案是 <b>summer</b>。講者說 they could brew all year round, including in summer。<br><b>同義轉換</b>：題目的 as well ＝ 錄音的 including；warmer months 是前面的鋪陳，但題目只能填 ONE WORD，所以寫 summer。",
+      "quote": "With a reliable supply of ice, they could brew all year round, including in summer."
+    },
+    {
+      "no": 39,
+      "answers": ["Pollution", "pollution"],
+      "explain": "答案是 <b>Pollution</b>。講者說 pollution got into the water, and by the eighteen nineties doctors were warning that natural ice could carry disease。<br><b>同義轉換</b>：題目的 unsafe ＝ 錄音的 could carry disease。空格在句首，要填名詞當主詞。",
+      "quote": "As cities and factories grew up around them, pollution got into the water, and by the eighteen nineties doctors were warning that natural ice could carry disease."
+    },
+    {
+      "no": 40,
+      "answers": ["refrigerator", "refrigerators", "fridge"],
+      "explain": "答案是 <b>refrigerator</b>。講者說 What finally ended it was the electric refrigerator。<br><b>陷阱</b>：You might expect that ice-making factories finished the trade off——用 You might expect 引出錯誤推測，接著 In fact 推翻：工廠冰塊和天然冰其實並存了幾十年。",
+      "quote": "You might expect that ice-making factories finished the trade off. In fact, natural and factory ice were sold side by side for several decades. What finally ended it was the electric refrigerator."
+    }
+  ]
+}

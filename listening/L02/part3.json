@@ -1,0 +1,161 @@
+{
+  "no": 3,
+  "context": "Two business students discussing their presentation on supermarket packaging",
+  "audio": "L02_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two business students, Grace and Oliver, discussing a presentation they are preparing on supermarket packaging. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Hi Grace. Shall we go over the packaging presentation? We've only got a week left." },
+    { "v": "f3", "t": "Yes, let's. You know, Dr Patel asked me yesterday why we picked this topic, and I realised I'd never really explained it properly." },
+    { "v": "m1", "t": "Well, it certainly wasn't her idea. She was trying to steer us towards bottled water, if I remember rightly." },
+    { "v": "f3", "t": "She was. And it wasn't because there was lots of data, either. There's surprisingly little published on supermarkets in particular. No, it really came from my part-time job. Working on the tills every weekend, I could see how much packaging people were throwing straight into the bin at the exit." },
+    { "v": "m1", "t": "That's a good story to open with, actually. Right, the shopper survey. I was worried we wouldn't get enough people to fill it in." },
+    { "v": "f3", "t": "So was I, but we got a hundred and twenty responses, which is more than enough. The real problem was the question about recyclable packaging. Looking at the answers, about half the people clearly thought recyclable meant made from recycled material. So they hadn't understood what we were asking." },
+    { "v": "m1", "t": "We'll have to admit that in the presentation. Now, the findings. I was sure older shoppers would care more about packaging than younger ones." },
+    { "v": "f3", "t": "I think we both were. But age made no difference at all. What really surprised me was that seventy per cent of people said they'd be willing to pay slightly more for a product if it came with less packaging." },
+    { "v": "m1", "t": "That's the headline, I think. Now, about how we present it. Last time you suggested putting a video clip in." },
+    { "v": "f3", "t": "I know, but after the disaster with the projector in our last seminar, I'm not keen. And I don't think we've got too many slides, either. Twelve is fine." },
+    { "v": "m1", "t": "Agreed. What I'd like to do is start by putting a question to the audience. Ask them to guess what proportion of a typical shopping basket is packaging. It gets people involved straight away." },
+    { "v": "f3", "t": "I like that. So what's the next step? Should we rehearse it?" },
+    { "v": "m1", "t": "We've run through it twice already, and the analysis is solid. But we still haven't got permission to name the store. We need to contact the manager before we do anything else, or we'll have to take its name out of every slide." },
+    { "v": "f3", "t": "I'll email her tonight." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Let's go through the materials section next. We're talking about five types of packaging. Glass first." },
+    { "v": "f3", "t": "Glass is interesting because people think of it as old-fashioned and harmless, and it does recycle well. But the big issue is that it's so heavy. Moving it around the country by lorry costs much more than moving plastic." },
+    { "v": "m1", "t": "Right. Then paper bags." },
+    { "v": "f3", "t": "Shoppers assume they're the green choice. In our survey, almost everyone said paper bags were better for the environment. But making a paper bag uses far more energy and water than a plastic one, so that belief is really mistaken." },
+    { "v": "m1", "t": "And cling film?" },
+    { "v": "f3", "t": "That's a simple one. Our local council won't collect it at all, and neither will most others. Almost every recycling service in the country rejects it, so it ends up in landfill." },
+    { "v": "m1", "t": "Vacuum packs, for meat and fish. I thought we were going to criticise those." },
+    { "v": "f3", "t": "I thought so too. But the store manager made a fair point. Because no air can get in, the meat stays fresh for days longer, so far less of it gets thrown away. That's a benefit we have to mention." },
+    { "v": "m1", "t": "Fair enough. And finally, the takeaway coffee cups from the store café." },
+    { "v": "f3", "t": "People often say those cups are made from waste paper, but actually they're not. Anyway, the key point is that there's no need for them at all. A reusable cup would do the job perfectly well, and the café already sells them." },
+    { "v": "m1", "t": "Good. I think that section's in good shape." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose supermarket packaging as their topic?",
+          "options": { "A": "Their tutor suggested it.", "B": "A lot of data was available.", "C": "Grace had noticed the problem at work." }
+        },
+        {
+          "no": 22,
+          "stem": "What was the main problem with the shopper survey?",
+          "options": { "A": "Too few people completed it.", "B": "One question was misunderstood.", "C": "It took too long to analyse." }
+        },
+        {
+          "no": 23,
+          "stem": "What did the students find surprising?",
+          "options": { "A": "Older shoppers cared more about packaging.", "B": "Most shoppers would pay more for less packaging.", "C": "Shoppers rarely noticed the packaging." }
+        },
+        {
+          "no": 24,
+          "stem": "How does Oliver want to begin the presentation?",
+          "options": { "A": "by showing a short video", "B": "by asking the audience a question", "C": "by reducing the number of slides" }
+        },
+        {
+          "no": 25,
+          "stem": "What will the students do next?",
+          "options": { "A": "contact the store manager", "B": "rehearse the presentation", "C": "check their data analysis" }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students say about each type of packaging?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "Shoppers wrongly believe it is environmentally friendly.",
+        "B": "It is expensive to transport.",
+        "C": "It is not accepted by most recycling services.",
+        "D": "It could easily be replaced by a reusable item.",
+        "E": "It reduces the amount of food that is wasted.",
+        "F": "It is made from waste materials."
+      },
+      "items": [
+        { "no": 26, "text": "Glass" },
+        { "no": 27, "text": "Paper bags" },
+        { "no": 28, "text": "Cling film" },
+        { "no": 29, "text": "Vacuum packs" },
+        { "no": 30, "text": "Takeaway coffee cups" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Grace 說 it really came from my part-time job，她在收銀台看到大家把包裝直接丟掉。<br><b>陷阱</b>：A 被 Oliver 否定（it certainly wasn't her idea，導師其實建議瓶裝水）；B 被 Grace 否定（it wasn't because there was lots of data）。連續兩個 It wasn't... 都是在排除選項。",
+      "quote": "No, it really came from my part-time job. Working on the tills every weekend, I could see how much packaging people were throwing straight into the bin."
+    },
+    {
+      "no": 22,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Grace 說 The real problem was the question about recyclable packaging，一半的人把 recyclable 誤解為「用回收材料做的」，they hadn't understood what we were asking。<br><b>陷阱</b>：A 是兩人「原本擔心」的事，但實際上有 120 份回覆，more than enough。The real problem was 之後才是答案。",
+      "quote": "The real problem was the question about recyclable packaging... So they hadn't understood what we were asking."
+    },
+    {
+      "no": 23,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Grace 說 What really surprised me was that seventy per cent of people said they'd be willing to pay slightly more... with less packaging。<br><b>陷阱</b>：A 是 Oliver 原本的預期（I was sure older shoppers would care more），但結果 age made no difference at all。題目問 surprising，要找 surprised 這個字出現的地方。",
+      "quote": "But age made no difference at all. What really surprised me was that seventy per cent of people said they'd be willing to pay slightly more."
+    },
+    {
+      "no": 24,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Oliver 說 What I'd like to do is start by putting a question to the audience。<br><b>陷阱</b>：A 的影片被 Grace 否決（I'm not keen，因為上次投影機出問題）；C 也被否定（I don't think we've got too many slides）。題目問 begin，對應錄音的 start by。",
+      "quote": "What I'd like to do is start by putting a question to the audience."
+    },
+    {
+      "no": 25,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Oliver 說 We need to contact the manager before we do anything else。<br><b>陷阱</b>：B 被否定——We've run through it twice already；C 也被否定——the analysis is solid。before we do anything else 就是題目的 next。",
+      "quote": "We've run through it twice already, and the analysis is solid. But we still haven't got permission to name the store. We need to contact the manager before we do anything else."
+    },
+    {
+      "no": 26,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（運輸成本高）。Grace 說 it's so heavy. Moving it around the country by lorry costs much more than moving plastic。<br><b>陷阱</b>：她先說 it does recycle well（優點），但 But the big issue is 之後才是重點。<b>同義轉換</b>：moving it around... costs much more ＝ expensive to transport。",
+      "quote": "But the big issue is that it's so heavy. Moving it around the country by lorry costs much more than moving plastic."
+    },
+    {
+      "no": 27,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（購物者誤以為環保）。Grace 說 Shoppers assume they're the green choice... so that belief is really mistaken。<br><b>同義轉換</b>：assume＋mistaken ＝ wrongly believe；the green choice ＝ environmentally friendly。",
+      "quote": "Shoppers assume they're the green choice... so that belief is really mistaken."
+    },
+    {
+      "no": 28,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（多數回收單位不收）。Grace 說 Almost every recycling service in the country rejects it。<br><b>同義轉換</b>：almost every... rejects it ＝ not accepted by most recycling services。",
+      "quote": "Our local council won't collect it at all, and neither will most others. Almost every recycling service in the country rejects it."
+    },
+    {
+      "no": 29,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>（減少食物浪費）。Grace 說 the meat stays fresh for days longer, so far less of it gets thrown away。<br><b>陷阱</b>：Oliver 一開始說 I thought we were going to criticise those，容易以為要選負面的選項。But 之後店經理提出的才是結論。",
+      "quote": "Because no air can get in, the meat stays fresh for days longer, so far less of it gets thrown away."
+    },
+    {
+      "no": 30,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>（可輕易用可重複使用的物品取代）。Grace 說 A reusable cup would do the job perfectly well。<br><b>陷阱</b>：F 的 made from waste materials 有被提到，但 actually they're not，是被否定的說法，所以 F 是本題組沒用到的選項。",
+      "quote": "People often say those cups are made from waste paper, but actually they're not. Anyway, the key point is that there's no need for them at all. A reusable cup would do the job perfectly well."
+    }
+  ]
+}
