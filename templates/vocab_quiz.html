@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單字測驗｜{{ scope_label }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <style>
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px 16px 90px; box-sizing: border-box; min-height: 100vh; color: #2c3e50; }
+        .page { max-width: 560px; margin: 0 auto; }
+        .scope { text-align: center; margin-bottom: 12px; }
+        .scope span { display: inline-block; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; background: #f3f0ff; color: #6c5ce7; }
+
+        .progress-text { display: flex; justify-content: space-between; font-size: 13px; color: #7f8c8d; margin-bottom: 6px; }
+        .progress-text b.r { color: #27ae60; } .progress-text b.w { color: #c0392b; }
+        .progress-bar { height: 8px; background: #e5e8e8; border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
+        .progress-bar div { height: 100%; background: #6c5ce7; width: 0; transition: width 0.3s; }
+
+        .card { background: white; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); padding: 24px 22px; text-align: center; }
+        @keyframes card-enter { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+        .card.enter { animation: card-enter 0.28s ease-out; }
+        .qtype { display: inline-block; font-size: 13px; font-weight: bold; padding: 4px 12px; border-radius: 12px; margin-bottom: 14px; }
+        .qtype.spell { background: #eaf2fb; color: #2471a3; }
+        .qtype.dictate { background: #e8f8f5; color: #138d75; }
+        .qtype.cloze { background: #fef5e7; color: #b9770e; }
+        .qtype.meaning, .qtype.word { background: #f3f0ff; color: #6c5ce7; }
+        .prompt-meaning { font-size: 22px; font-weight: bold; line-height: 1.45; margin-bottom: 6px; word-break: break-word; }
+        .prompt-meaning.long { font-size: 17px; font-weight: normal; text-align: left; }
+        .prompt-word { font-size: 34px; font-weight: bold; margin-bottom: 4px; word-break: break-word; }
+        .pos { color: #95a5a6; font-style: italic; font-size: 14px; min-height: 1em; margin-bottom: 8px; }
+        .hint { color: #95a5a6; font-size: 13px; margin: 6px 0 14px; letter-spacing: 0.5px; }
+        .sentence { text-align: left; font-size: 18px; line-height: 1.7; background: #f9f9f9; border-left: 4px solid #f5b041; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+        .sentence .blank { display: inline-block; min-width: 90px; border-bottom: 2px solid #e67e22; color: #e67e22; font-weight: bold; text-align: center; padding: 0 4px; }
+        .sentence-zh { text-align: left; color: #7f8c8d; font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
+
+        .listen-row { display: flex; justify-content: center; gap: 14px; margin: 6px 0 10px; }
+        .listen-btn { width: 84px; height: 84px; border-radius: 50%; border: none; background: #1abc9c; color: white; font-size: 34px; cursor: pointer; box-shadow: 0 4px 12px rgba(26,188,156,0.35); }
+        .listen-btn.slow { width: 64px; height: 64px; font-size: 24px; align-self: center; background: #48c9b0; }
+        .play-sm { border: none; background: #e8f4f8; color: #2980b9; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; vertical-align: middle; margin-left: 6px; }
+
+        .answer-row { display: flex; gap: 8px; margin-top: 6px; }
+        .answer-row input { flex: 1; min-width: 0; font-size: 22px; padding: 12px 14px; border: 2px solid #d5d8dc; border-radius: 12px; font-family: Arial, sans-serif; text-align: center; outline: none; }
+        .answer-row input:focus { border-color: #6c5ce7; }
+        .answer-row input.right { border-color: #2ecc71; background: #eafaf1; }
+        .answer-row input.wrong { border-color: #e74c3c; background: #fdedec; }
+        .btn { padding: 12px 18px; font-size: 17px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; color: white; background: #6c5ce7; }
+        .btn:disabled { opacity: 0.5; cursor: default; }
+
+        .choices { display: grid; gap: 10px; margin-top: 8px; }
+        .choice { text-align: left; padding: 14px 16px; font-size: 16px; line-height: 1.45; border: 2px solid #e5e8e8; background: #fbfcfc; border-radius: 12px; cursor: pointer; font-family: inherit; color: #2c3e50; min-height: 52px; word-break: break-word; }
+        .choice.en { font-family: Arial, sans-serif; font-size: 19px; text-align: center; font-weight: bold; }
+        .choice:hover:not(:disabled) { border-color: #6c5ce7; background: #f3f0ff; }
+        .choice:disabled { cursor: default; }
+        .choice.right { border-color: #2ecc71; background: #eafaf1; }
+        .choice.wrong { border-color: #e74c3c; background: #fdedec; }
+        .choice .k { display: inline-block; width: 22px; color: #95a5a6; font-weight: bold; font-family: Arial, sans-serif; }
+
+        .feedback { margin-top: 16px; border-radius: 12px; padding: 14px 16px; text-align: left; line-height: 1.6; }
+        .feedback.right { background: #eafaf1; color: #1e8449; }
+        .feedback.wrong { background: #fdedec; color: #922b21; }
+        .feedback .big { font-size: 18px; font-weight: bold; }
+        .feedback .ans { font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; color: #2c3e50; }
+        .feedback .yours { text-decoration: line-through; opacity: 0.8; font-family: Arial, sans-serif; }
+        .feedback .meta { color: #566573; font-size: 14px; }
+        .next { display: block; width: 100%; margin-top: 14px; padding: 15px; font-size: 18px; }
+        .keys { text-align: center; color: #b2babb; font-size: 12px; margin-top: 10px; }
+
+        .result h2 { margin: 0 0 6px; }
+        .score { font-size: 54px; font-weight: bold; color: #6c5ce7; line-height: 1.1; }
+        .score small { font-size: 22px; color: #95a5a6; }
+        .moved { background: #fef5e7; color: #9c640c; border-radius: 10px; padding: 10px 12px; font-size: 14px; margin: 14px 0; line-height: 1.6; }
+        .review { text-align: left; margin: 16px 0; }
+        .review h3 { font-size: 16px; margin: 0 0 8px; }
+        .review-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f3f4; }
+        .review-item .w { font-family: Arial, sans-serif; font-weight: bold; font-size: 17px; }
+        .review-item .m { color: #7f8c8d; font-size: 13px; line-height: 1.4; }
+        .review-item .g { color: #c0392b; font-size: 13px; }
+        .review-item .body { flex: 1; min-width: 0; word-break: break-word; }
+        .big-btn { display: block; padding: 14px; border-radius: 12px; font-weight: bold; font-size: 16px; text-decoration: none; margin-top: 10px; text-align: center; }
+        .big-btn.primary { background: #6c5ce7; color: white; }
+        .big-btn.orange { background: #f39c12; color: white; }
+        .big-btn.secondary { background: #ecf0f1; color: #2c3e50; }
+        .intro-types { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 14px 0 18px; }
+        .error { color: #c0392b; font-size: 14px; min-height: 1em; margin-top: 8px; }
+        @media (max-width: 480px) {
+            body { padding: 14px 12px 90px; }
+            .card { padding: 20px 16px; }
+            .prompt-word { font-size: 30px; }
+            .sentence { font-size: 16px; padding: 12px; }
+            .answer-row input { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="nav-row">
+        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <a href="{{ learn_url }}" class="nav-next">📚 回去滑卡<span class="arrow">→</span></a>
+    </div>
+    <div class="scope"><span>🧠 {{ scope_label }}</span></div>
+
+    {% if empty %}
+    <div class="card">
+        <h2 style="margin-top:0">這個範圍還沒有學過的字</h2>
+        <p style="color:#7f8c8d; line-height:1.7">單字測驗只考你在單字學習區滑過的字。<br>先去滑卡，再回來考試吧！</p>
+        <a href="{{ learn_url }}" class="big-btn primary">📚 去單字學習區</a>
+        <a href="{{ back_url }}" class="big-btn secondary">← 換一個範圍</a>
+    </div>
+    {% else %}
+    <div id="progress" hidden>
+        <div class="progress-text"><span id="progress-count"></span><span>✓ <b class="r" id="n-right">0</b>　✗ <b class="w" id="n-wrong">0</b></span></div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+    <div id="stage"></div>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+{% if not empty %}
+<script>
+    const QUESTIONS = {{ questions | tojson }};
+    const ATTEMPT_ID = {{ attempt_id | tojson }};
+    const STUDENT_ID = {{ student.id | tojson }};
+    const TYPE_NAMES = {{ type_names | tojson }};
+    const TYPE_ICON = { spell: '✏️', dictate: '🎧', cloze: '🧩', meaning: '🔤', word: '🅰️' };
+    const RETRY_URL = {{ retry_url | tojson }};
+    const BACK_URL = {{ back_url | tojson }};
+    const LEARN_URL = {{ learn_url | tojson }};
+    const WEAK_URL = {{ url_for('vocab_quiz.quiz_home', student_id=student.id, scope='weak') | tojson }};
+
+    const stage = document.getElementById('stage');
+    const answers = new Array(QUESTIONS.length).fill('');
+    const results = new Array(QUESTIONS.length).fill(null);
+    let idx = -1, answered = false, nRight = 0, nWrong = 0;
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    // 和 vocab_quiz.normalize() 一樣的規則：不分大小寫、彎引號當直引號、多個空白算一個
+    const norm = (s) => String(s || '').trim().toLowerCase().replace(/[‘’]/g, "'").replace(/[‐‑]/g, '-').replace(/\s+/g, ' ');
+    const hasZh = (s) => /[一-鿿]/.test(s || '');
+    const say = (text, slow) => UI.speak(text, slow ? { rate: 0.6 } : undefined);
+
+    // ---------- 開始畫面：按一下才開始，瀏覽器才肯播放發音 ----------
+    function intro() {
+        const counts = {};
+        QUESTIONS.forEach(q => { counts[q.type] = (counts[q.type] || 0) + 1; });
+        stage.innerHTML = `
+            <div class="card enter">
+                <h2 style="margin:0 0 6px">準備好了嗎？</h2>
+                <div style="color:#7f8c8d">共 ${QUESTIONS.length} 題</div>
+                <div class="intro-types">${Object.keys(counts).map(t => `<span class="qtype ${t}">${TYPE_ICON[t]} ${TYPE_NAMES[t]} ${counts[t]}</span>`).join('')}</div>
+                ${counts.dictate ? '<p style="color:#7f8c8d;font-size:14px;margin:0 0 14px">🎧 有聽寫題，請打開聲音或戴上耳機</p>' : ''}
+                <button class="btn next" id="go">開始 →</button>
+            </div>`;
+        document.getElementById('go').addEventListener('click', () => {
+            document.getElementById('progress').hidden = false;
+            next();
+        });
+    }
+
+    function updateProgress() {
+        document.getElementById('progress-count').innerText = `第 ${Math.min(idx + 1, QUESTIONS.length)} / ${QUESTIONS.length} 題`;
+        document.getElementById('progress-fill').style.width = `${(results.filter(r => r !== null).length) * 100 / QUESTIONS.length}%`;
+        document.getElementById('n-right').innerText = nRight;
+        document.getElementById('n-wrong').innerText = nWrong;
+    }
+
+    // ---------- 出題 ----------
+    function next() {
+        idx += 1;
+        answered = false;
+        if (idx >= QUESTIONS.length) return finish();
+        const q = QUESTIONS[idx];
+        updateProgress();
+        const tag = `<span class="qtype ${q.type}">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}</span>`;
+        const meaningCls = q.meaning.length > 40 && !hasZh(q.meaning) ? 'prompt-meaning long' : 'prompt-meaning';
+        const input = `<div class="answer-row">
+                <input id="ans" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+                       enterkeyhint="done" placeholder="輸入英文" aria-label="輸入答案">
+                <button class="btn" id="ok-btn" data-sound="none">確定</button></div>`;
+        let body = '';
+        if (q.type === 'spell') {
+            body = `<div class="${meaningCls}">${esc(q.meaning)}</div>
+                <div class="pos">${esc(q.pos)}</div>
+                <div class="hint">開頭是 <b>${esc(q.first)}</b>・${esc(q.hint)}</div>${input}`;
+        } else if (q.type === 'dictate') {
+            body = `<div class="listen-row">
+                    <button class="listen-btn" id="play" data-sound="none" aria-label="播放發音">🔊</button>
+                    <button class="listen-btn slow" id="play-slow" data-sound="none" aria-label="慢速播放">🐢</button></div>
+                <div class="hint">聽發音，拼出這個字・${esc(q.hint)}</div>${input}`;
+        } else if (q.type === 'cloze') {
+            body = `<div class="sentence">${esc(q.before)}<span class="blank">${esc(q.hint)}</span>${esc(q.after)}</div>
+                ${q.sentence_zh ? `<div class="sentence-zh">${esc(q.sentence_zh)}</div>` : ''}
+                <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? '・<b>注意詞形變化</b>' : ''}</div>${input}`;
+        } else if (q.type === 'meaning') {
+            body = `<div class="prompt-word">${esc(q.word)} <button class="play-sm" id="play" data-sound="none" aria-label="播放發音">🔊</button></div>
+                <div class="pos">${esc(q.pos)}</div>
+                <div class="choices">${q.choices.map((c, i) => `<button class="choice" data-sound="none" data-i="${i}"><span class="k">${'ABCD'[i]}</span>${esc(c)}</button>`).join('')}</div>`;
+        } else {
+            body = `<div class="${meaningCls}">${esc(q.meaning)}</div><div class="pos">${esc(q.pos)}</div>
+                <div class="choices">${q.choices.map((c, i) => `<button class="choice en" data-sound="none" data-i="${i}">${esc(c)}</button>`).join('')}</div>`;
+        }
+        stage.innerHTML = `<div class="card enter">${tag}${body}<div id="fb"></div></div>
+            <div class="keys">${q.choices ? '電腦可以按 1–4 或 A–D 作答' : '按 Enter 送出'}，答完按 Enter 下一題</div>`;
+
+        const play = document.getElementById('play');
+        if (play) play.addEventListener('click', () => say(q.word));
+        const slow = document.getElementById('play-slow');
+        if (slow) slow.addEventListener('click', () => say(q.word, true));
+        if (q.type === 'dictate') setTimeout(() => say(q.word), 250);
+
+        const ans = document.getElementById('ans');
+        if (ans) {
+            // 手機上自動跳出鍵盤會擋住題目，只有電腦才自動聚焦
+            if (window.matchMedia('(pointer: fine)').matches) ans.focus();
+            document.getElementById('ok-btn').addEventListener('click', () => submitTyped());
+        }
+        stage.querySelectorAll('.choice').forEach(b => b.addEventListener('click', () => submitChoice(+b.dataset.i)));
+    }
+
+    function submitTyped() {
+        if (answered) return;
+        const ans = document.getElementById('ans');
+        const q = QUESTIONS[idx];
+        if (!ans.value.trim()) { ans.classList.add('ui-shake'); setTimeout(() => ans.classList.remove('ui-shake'), 300); ans.focus(); return; }
+        const ok = norm(ans.value) === norm(q.answer);
+        ans.readOnly = true;
+        ans.blur();
+        ans.classList.add(ok ? 'right' : 'wrong');
+        document.getElementById('ok-btn').disabled = true;
+        record(ok, ans.value);
+    }
+
+    function submitChoice(i) {
+        if (answered) return;
+        const q = QUESTIONS[idx];
+        const ok = q.choices[i] === q.answer;
+        stage.querySelectorAll('.choice').forEach(b => {
+            b.disabled = true;
+            const c = q.choices[+b.dataset.i];
+            if (c === q.answer) b.classList.add('right');
+            else if (+b.dataset.i === i) b.classList.add('wrong');
+        });
+        record(ok, q.choices[i]);
+    }
+
+    function record(ok, given) {
+        answered = true;
+        const q = QUESTIONS[idx];
+        answers[idx] = given;
+        results[idx] = ok;
+        ok ? nRight++ : nWrong++;
+        updateProgress();
+        UI.play(ok ? 'right' : 'error');
+        const yours = (!ok && q.type !== 'meaning' && q.type !== 'word') ? `<div>你寫的：<span class="yours">${esc(given)}</span></div>` : '';
+        const shownAnswer = q.type === 'cloze' ? q.answer : q.word;
+        document.getElementById('fb').innerHTML = `
+            <div class="feedback ${ok ? 'right' : 'wrong'}">
+                <div class="big">${ok ? '✓ 答對了！' : '✗ 答錯了'}</div>
+                ${yours}
+                <div><span class="ans">${esc(shownAnswer)}</span>
+                    <button class="play-sm" id="fb-play" data-sound="none" aria-label="播放發音">🔊</button></div>
+                <div class="meta">${q.type === 'cloze' && q.form_differs ? '原形 ' + esc(q.word) + '・' : ''}${esc(q.pos)} ${esc(q.meaning)}</div>
+            </div>
+            <button class="btn next" id="next-btn">${idx + 1 < QUESTIONS.length ? '下一題 →' : '看成績 →'}</button>`;
+        document.getElementById('fb-play').addEventListener('click', () => say(shownAnswer));
+        document.getElementById('next-btn').addEventListener('click', next);
+        // 答錯時自動唸一次正確答案，加深印象
+        if (!ok) setTimeout(() => say(shownAnswer), 350);
+        // 打字題：手機鍵盤收起後，把「下一題」捲進畫面
+        document.getElementById('next-btn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (idx < 0 || idx >= QUESTIONS.length) return;
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (answered) next();
+            else if (document.getElementById('ans')) submitTyped();
+            return;
+        }
+        const q = QUESTIONS[idx];
+        if (!answered && q.choices && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            const k = e.key.toLowerCase();
+            const i = '1234'.indexOf(k) >= 0 ? '1234'.indexOf(k) : 'abcd'.indexOf(k);
+            if (i >= 0 && i < q.choices.length) submitChoice(i);
+        }
+    });
+
+    // ---------- 交卷 ----------
+    async function finish() {
+        updateProgress();
+        document.getElementById('progress-count').innerText = `${QUESTIONS.length} / ${QUESTIONS.length} 題`;
+        const pct = Math.round(nRight * 100 / QUESTIONS.length);
+        const wrong = QUESTIONS.map((q, i) => ({ q, i })).filter(x => !results[x.i]);
+        const title = pct === 100 ? '🎉 全對！太厲害了' : pct >= 80 ? '👍 很不錯！' : pct >= 60 ? '💪 再加把勁' : '📚 多複習幾次就會了';
+        UI.play('done');
+        stage.innerHTML = `
+            <div class="card enter result">
+                <h2>${title}</h2>
+                <div class="score">${nRight}<small> / ${QUESTIONS.length}</small></div>
+                <div style="color:#7f8c8d">答對率 ${pct}%</div>
+                <div id="save-msg" class="moved" ${wrong.length ? '' : 'hidden'}>儲存中…</div>
+                ${wrong.length ? `<div class="review"><h3>答錯的字（點 🔊 聽發音）</h3>${wrong.map(({ q, i }) => `
+                    <div class="review-item">
+                        <button class="play-sm" data-say="${esc(q.word)}" data-sound="none" aria-label="播放發音">🔊</button>
+                        <div class="body"><div class="w">${esc(q.word)} <span class="m">${esc(q.pos)}</span></div>
+                            <div class="m">${esc(q.meaning)}</div>
+                            <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（空白）'}</div></div>
+                    </div>`).join('')}</div>` : ''}
+                <div class="error" id="err"></div>
+                <a href="${RETRY_URL}" class="big-btn primary">再考一次（換一批題目）</a>
+                ${wrong.length ? `<a href="${WEAK_URL}" class="big-btn orange">🟠 只考不熟區</a>` : ''}
+                <a href="${LEARN_URL}" class="big-btn secondary">📚 回單字學習區滑卡</a>
+                <a href="${BACK_URL}" class="big-btn secondary">← 回測驗區</a>
+            </div>`;
+        stage.querySelectorAll('[data-say]').forEach(b => b.addEventListener('click', () => say(b.dataset.say)));
+        try {
+            const res = await fetch('/api/vocab-quiz/submit', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ attempt_id: ATTEMPT_ID, student_id: STUDENT_ID, answers })
+            });
+            const data = await res.json();
+            if (!res.ok || !data.ok) throw new Error(data.error || res.status);
+            const msg = document.getElementById('save-msg');
+            if (wrong.length) msg.innerHTML = `答錯的 ${wrong.length} 個字已放進<b>不熟區</b>${data.moved ? `（其中 ${data.moved} 個原本在熟區）` : ''}，回單字學習區滑卡時會優先出現。`;
+        } catch (e) {
+            document.getElementById('save-msg').hidden = true;
+            document.getElementById('err').innerText = '成績沒有存到，請檢查網路後重新整理再考一次。';
+        }
+    }
+
+    intro();
+</script>
+{% endif %}
+</body>
+</html>

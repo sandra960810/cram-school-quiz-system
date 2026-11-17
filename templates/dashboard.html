@@ -47,6 +47,13 @@
             <div class="menu-desc">依主題滑卡學單字：右滑熟、左滑不熟<br>✓ 熟 {{ unlocked_count }} / {{ total_count }} 字</div>
         </a>
 
+        <!-- 單字測驗區：考單字學習區學過的字 -->
+        <a href="/vocab-quiz/{{ student.id }}" class="menu-card">
+            <div class="menu-icon">🧠</div>
+            <div class="menu-title">單字測驗區<span class="go-arrow">→</span></div>
+            <div class="menu-desc">拼寫・聽寫・例句填空・選擇題<br>考你滑卡學過的字，答錯自動回到不熟區</div>
+        </a>
+
         <!-- 2. 模擬測驗區：四技能自製題庫 -->
         <a href="/exam/{{ student.id }}" class="menu-card">
             <div class="menu-icon">📝</div>

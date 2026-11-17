@@ -81,6 +81,7 @@
         .summary .stat.k { background: #d5f5e3; color: #1e8449; } .summary .stat.u { background: #fdebd0; color: #ba4a00; }
         .big-btn { display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; box-sizing: border-box; padding: 14px; margin-top: 10px; font-size: 17px; font-weight: bold; border-radius: 10px; text-decoration: none; }
         .big-btn.primary { background: #3498db; color: white; } .big-btn.secondary { background: #ecf0f1; color: #2c3e50; }
+        .big-btn.quiz { background: #6c5ce7; color: white; }
     </style>
 </head>
 <body>
@@ -149,6 +150,9 @@
     const backUrl = {{ back_url | tojson }};
     const againUrl = {{ again_url | tojson }};
     const homeUrl = {{ home_url | tojson }};
+    // 滑完一輪可以直接到單字測驗區考同一個範圍
+    const quizUrl = {{ url_for('vocab_quiz.quiz_home', student_id=student_id,
+                               scope=('fav' if mode == 'fav' else ('theme:' ~ theme.key if theme.key else 'all'))) | tojson }};
     const backLabel = {{ (back_label or '返回主題圖鑑') | tojson }};
     const isView = mode === 'view';
     const totalWords = wordsQueue.length;
@@ -235,6 +239,7 @@
                 <h2>${title}</h2>
                 ${totalWords ? `<div class="stats"><div class="stat k"><span class="n">${knowCount}</span>熟</div><div class="stat u"><span class="n">${dontCount}</span>不熟</div></div>` : ''}
                 ${again}
+                ${!isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">🧠 馬上考考剛學的字 <span class="go-arrow">→</span></a>` : ''}
                 <a href="${backUrl}" class="big-btn secondary"><span>←</span> ${backLabel.replace('返回', '回到')}</a>
                 <a href="${homeUrl}" class="big-btn secondary"><span>←</span> 選擇其他主題</a>
             </div>`;

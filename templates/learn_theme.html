@@ -20,6 +20,7 @@
         .btn { padding: 12px 20px; font-size: 16px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; }
         .btn-learn { background: #3498db; color: white; }
         .btn-weak { background: #f39c12; color: white; }
+        .btn-quiz { background: #6c5ce7; color: white; }
         .btn.disabled { background: #d5d8dc; color: #7f8c8d; pointer-events: none; }
 
         .letters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
@@ -106,6 +107,10 @@
             <a class="btn btn-weak {% if not weak_count %}disabled{% endif %}"
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='weak', letter=(letter if not q else None)) }}">
                 🟠 只練不熟區{{ scope }}（{{ [weak_count, batch]|min }} 個）<span class="go-arrow">→</span>
+            </a>
+            <a class="btn btn-quiz {% if not (theme.unlocked + theme.weak) %}disabled{% endif %}"
+               href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id, scope='theme:' ~ theme.key) }}">
+                🧠 測驗這個主題（學過 {{ theme.unlocked + theme.weak }} 個）<span class="go-arrow">→</span>
             </a>
         </div>
     </div>

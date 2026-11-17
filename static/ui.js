@@ -153,7 +153,7 @@
         voiceQualityWarning();
         // 神經語音本來就唸得自然，用正常速度；機械語音放慢一點比較聽得懂
         let rate = (opts && opts.rate) || RATES[voiceSettings.rate] || 0.95;
-        if (isNatural(voice) && voiceSettings.rate !== 'slow') rate = 1;
+        if (isNatural(voice) && voiceSettings.rate !== 'slow' && !(opts && opts.rate)) rate = 1;   // 呼叫端指定速度（例如聽寫的慢速）時照指定
         u.rate = rate;
         u.pitch = 1;
         speechSynthesis.speak(u);

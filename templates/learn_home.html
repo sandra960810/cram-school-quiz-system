@@ -34,6 +34,8 @@
         .fav-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
         .fav-card .theme-desc { margin-bottom: 0; }
         .fav-count { font-size: 28px; font-weight: bold; color: #b7950b; margin-left: 15px; }
+        .quiz-card { background: #f7f5ff; border-color: #c8bfff; }
+        .quiz-count { color: #6c5ce7; }
                 .back-btn { display: inline-block; margin-top: 30px; color: #3498db; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -56,6 +58,15 @@
             <div class="theme-desc">{% if favorite_count %}收藏了 {{ favorite_count }} 個單字，點進來集中複習{% else %}學習時按單字卡右上角的 ☆，就能把想加強的字收藏在這裡{% endif %}</div>
         </div>
         <div class="fav-count">{{ favorite_count }}<span class="go-arrow">→</span></div>
+    </a>
+
+    <a href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id) }}" class="fav-card quiz-card">
+        <div class="theme-icon">🧠</div>
+        <div class="theme-content">
+            <div class="theme-title">單字測驗區</div>
+            <div class="theme-desc">{% if unlocked_count + weak_count %}考考滑過的 {{ unlocked_count + weak_count }} 個字：拼寫、聽寫、例句填空、選擇題{% else %}先滑卡學幾個字，就能在這裡考拼寫、聽寫、例句填空{% endif %}</div>
+        </div>
+        <div class="fav-count quiz-count"><span class="go-arrow">→</span></div>
     </a>
 
     <div class="theme-grid ui-stagger">
