@@ -27,7 +27,9 @@
         .qtype.meaning, .qtype.word { background: var(--primary-50); color: var(--primary); }
         .prompt-meaning { font-size: 22px; font-weight: bold; line-height: 1.45; margin-bottom: 6px; word-break: break-word; }
         .prompt-meaning.long { font-size: 17px; font-weight: normal; text-align: left; }
-        .prompt-word { font-size: 34px; font-weight: bold; margin-bottom: 4px; word-break: break-word; }
+        .prompt-word { font-size: 34px; font-weight: bold; margin-bottom: 4px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .prompt-word .w-text { white-space: nowrap; }
+        .prompt-word .play-sm { flex: none; margin-left: 0; }   /* 長單字由 UI.fitText 縮小字級 */
         .pos { color: var(--muted-2); font-style: italic; font-size: 14px; min-height: 1em; margin-bottom: 8px; }
         .hint { color: var(--muted-2); font-size: 13px; margin: 6px 0 14px; letter-spacing: 0.5px; }
         .sentence { text-align: left; font-size: 18px; line-height: 1.7; background: var(--surface-2); border-left: 4px solid var(--warn-300); border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
@@ -194,7 +196,7 @@
                 ${q.sentence_zh ? `<div class="sentence-zh">${esc(q.sentence_zh)}</div>` : ''}
                 <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? '・<b>注意詞形變化</b>' : ''}</div>${input}`;
         } else if (q.type === 'meaning') {
-            body = `<div class="prompt-word">${esc(q.word)} <button class="play-sm" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
+            body = `<div class="prompt-word"><span class="w-text">${esc(q.word)}</span><button class="play-sm" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="pos">${esc(q.pos)}</div>
                 <div class="choices">${q.choices.map((c, i) => `<button class="choice" data-sound="none" data-i="${i}"><span class="k">${'ABCD'[i]}</span>${esc(c)}</button>`).join('')}</div>`;
         } else {
@@ -204,6 +206,8 @@
         stage.innerHTML = `<div class="card enter">${tag}${body}<div id="fb"></div></div>
             <div class="keys">${q.choices ? '可按 1–4 或 A–D' : 'Enter 送出'}，Enter 下一題</div>`;
 
+        const wText = stage.querySelector('.prompt-word .w-text');
+        if (wText) UI.fitText(wText);
         const play = document.getElementById('play');
         if (play) play.addEventListener('click', () => say(q.word));
         const slow = document.getElementById('play-slow');
