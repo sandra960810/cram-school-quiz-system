@@ -941,7 +941,8 @@ def writing_home(student_id):
         if w.overall is not None and w.overall > best.get(w.test_key, -1):
             best[w.test_key] = w.overall
     return render_template('write_home.html', student=student, tests=writing_bank.list_tests(),
-                           best=best, history=history[:10], ai_ready=writing_bank.ai_ready())
+                           best=best, history=history[:10], ai_ready=writing_bank.ai_ready(),
+                           ai_label=writing_bank.ai_label())
 
 
 @app.route('/exam/<int:student_id>/writing/<test_key>')

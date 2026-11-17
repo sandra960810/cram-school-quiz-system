@@ -53,6 +53,9 @@
     <div class="disclaimer">⚠️ <b>AI 老師的評分不等於真實考試成績。</b>這只是依照公開評分標準所做的模擬估分，
         正式考試由受過訓練的考官評分，結果可能不同。請把分數當作練習參考，重點放在評語指出的問題。</div>
 
+    {% if ai_ready %}
+    <div class="hint" style="background:#e9f7ef;color:#1e8449">🤖 目前的 AI 老師：<b>{{ ai_label }}</b></div>
+    {% endif %}
     {% if not ai_ready %}
     <div class="warn">🔑 AI 老師還沒設定，現在交卷只會存下作文、不會批改。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，
         之後打開交卷紀錄就能補批改。</div>

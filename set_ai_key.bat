@@ -10,11 +10,14 @@ where python >nul 2>nul || set PY=py
 if exist venv\Scripts\python.exe set PY=venv\Scripts\python.exe
 
 echo ============================================
-echo   設定寫作 AI 老師的 Anthropic API 金鑰
+echo   設定寫作 AI 老師的 API 金鑰
 echo ============================================
 echo.
 echo 金鑰只會存在這台電腦的 ai_key.txt，不會上傳到 GitHub。
-echo 請把金鑰（sk-ant- 開頭）貼上後按 Enter。
+echo 可以用 Google Gemini 免費金鑰（AIza 開頭），
+echo 或 Anthropic Claude 付費金鑰（sk-ant- 開頭），程式會自動判斷。
+echo 換金鑰時再執行一次這個檔案就會覆蓋舊的。
+echo 請把金鑰貼上後按 Enter。
 echo （在這個黑色視窗按滑鼠右鍵就是貼上）
 echo.
 set "AIKEY="
@@ -24,7 +27,7 @@ if "%AIKEY%"=="" ( echo 沒有輸入金鑰，已取消。 & pause & exit /b 1 )
 set "AIKEY="
 echo.
 echo 已存檔，正在測試金鑰能不能用...（紀錄寫在 ai_key_log.txt）
-%PY% -m pip install --disable-pip-version-check -q anthropic > ai_key_log.txt 2>&1
+%PY% -m pip install --disable-pip-version-check -q anthropic google-genai > ai_key_log.txt 2>&1
 %PY% tools\check_ai_key.py >> ai_key_log.txt 2>&1
 type ai_key_log.txt
 echo.

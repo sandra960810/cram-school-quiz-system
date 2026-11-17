@@ -3,9 +3,12 @@
 題庫放在 writing/<測驗代號>/，task1.json 是圖表題（圖表資料直接寫在 JSON 裡，
 由這裡畫成 SVG，所以圖表與給 AI 老師看的數據必定一致），task2.json 是論說文。
 
-AI 老師用 Anthropic 的 Claude 依雅思寫作四項評分標準批改。金鑰從環境變數
-ANTHROPIC_API_KEY 或專案資料夾裡的 ai_key.txt 讀取（ai_key.txt 不進 git，
-在櫃台電腦雙擊 set_ai_key.bat 設定）。沒有金鑰時作文照樣存檔，只是不批改。
+AI 老師依雅思寫作四項評分標準批改，支援兩家 AI：
+- Google Gemini（有免費額度，金鑰 AIza 開頭）
+- Anthropic Claude（付費，金鑰 sk-ant- 開頭）
+金鑰從環境變數 GEMINI_API_KEY／ANTHROPIC_API_KEY 或專案資料夾裡的 ai_key.txt 讀取，
+依金鑰開頭自動判斷是哪一家（ai_key.txt 不進 git，在櫃台電腦雙擊 set_ai_key.bat 設定）。
+兩家用同一套評分規則與輸出格式；沒有金鑰時作文照樣存檔，只是不批改。
 """
 import json
 import math
@@ -20,7 +23,10 @@ BANK_DIR = os.path.join(BASE, 'writing')
 KEY_FILE = os.path.join(BASE, 'ai_key.txt')
 
 SECTION = 'writing'
-AI_MODEL = 'claude-opus-5-5'
+CLAUDE_MODEL = 'claude-opus-5-5'
+# Gemini 免費額度可用的模型，依序嘗試（Google 會汰換舊模型，前一個找不到就換下一個）。
+# 想指定模型可以設環境變數 GEMINI_MODEL。
+GEMINI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash']
 
 CRITERIA = {
     1: [('ta', 'Task Achievement', '任務達成'),
@@ -195,24 +201,56 @@ def overall_band(t1, t2):
 
 # ---------------------------------------------------------------- AI 老師
 
-def api_key():
-    key = os.environ.get('ANTHROPIC_API_KEY', '').strip()
-    if key:
-        return key
+def _key_file():
     if os.path.exists(KEY_FILE):
         with open(KEY_FILE, encoding='utf-8-sig') as f:
             return f.read().strip()
     return ''
 
 
+def key_provider(key):
+    """依金鑰開頭判斷是哪一家的金鑰。"""
+    if key.startswith('sk-ant-'):
+        return 'claude'
+    if key.startswith('AIza'):
+        return 'gemini'
+    return None
+
+
+def ai_config():
+    """回傳 (哪一家, 金鑰)。ai_key.txt 優先，其次是環境變數；都沒有時回傳 (None, '')。"""
+    key = _key_file()
+    if key and key_provider(key):
+        return key_provider(key), key
+    for env, provider in (('GEMINI_API_KEY', 'gemini'), ('ANTHROPIC_API_KEY', 'claude')):
+        key = os.environ.get(env, '').strip()
+        if key:
+            return provider, key
+    return None, ''
+
+
+def api_key():
+    return ai_config()[1]
+
+
 def ai_ready():
-    if not api_key():
+    provider, key = ai_config()
+    if not key:
         return False
     try:
-        import anthropic  # noqa: F401
+        if provider == 'gemini':
+            from google import genai  # noqa: F401
+        else:
+            import anthropic  # noqa: F401
     except ImportError:
         return False
     return True
+
+
+def ai_label():
+    """顯示用：目前是哪一位 AI 老師。"""
+    provider = ai_config()[0]
+    return {'gemini': 'Google Gemini（免費額度）', 'claude': 'Anthropic Claude'}.get(provider, '尚未設定')
 
 
 SYSTEM_PROMPT = """You are a senior, certified IELTS Writing examiner acting as a strict teacher at a Taiwanese cram school. You mark one Academic Writing task at a time against the four official public band descriptors.
@@ -294,18 +332,20 @@ def _user_message(task, essay):
     return '\n'.join(parts)
 
 
-def grade_task(task, essay):
-    """批改一個 Task，回傳 dict（criteria、summary、errors…，再加上 band）。失敗時丟出 RuntimeError。"""
-    if count_words(essay) == 0:
-        keys = [k for k, _, _ in CRITERIA[task['no']]]
-        return {'criteria': {k: {'band': 0, 'reason': '沒有作答。', 'strengths': [], 'weaknesses': []} for k in keys},
-                'summary': '這個 Task 沒有作答，正式考試會是 0 分。', 'errors': [], 'next_steps': [],
-                'model_paragraph': '', 'band': 0.0}
+def _blank_result(task):
+    keys = [k for k, _, _ in CRITERIA[task['no']]]
+    return {'criteria': {k: {'band': 0, 'reason': '沒有作答。', 'strengths': [], 'weaknesses': []} for k in keys},
+            'summary': '這個 Task 沒有作答，正式考試會是 0 分。', 'errors': [], 'next_steps': [],
+            'model_paragraph': '', 'band': 0.0}
+
+
+def _ask_claude(key, task, essay):
+    """用 Claude 批改，回傳 (JSON 文字, 模型名稱)。"""
     import anthropic
-    client = anthropic.Anthropic(api_key=api_key(), timeout=300)
+    client = anthropic.Anthropic(api_key=key, timeout=300)
     try:
         resp = client.beta.messages.create(
-            model=AI_MODEL,
+            model=CLAUDE_MODEL,
             max_tokens=16000,
             betas=['server-side-fallback-2026-07-01'],
             fallbacks='default',
@@ -328,14 +368,84 @@ def grade_task(task, essay):
         raise RuntimeError('AI 老師無法批改這篇內容。')
     if resp.stop_reason == 'max_tokens':
         raise RuntimeError('AI 回覆太長被截斷，請再按一次批改。')
-    text = next((b.text for b in resp.content if b.type == 'text'), '')
+    return next((b.text for b in resp.content if b.type == 'text'), ''), CLAUDE_MODEL
+
+
+def gemini_models():
+    forced = os.environ.get('GEMINI_MODEL', '').strip()
+    return [forced] if forced else list(GEMINI_MODELS)
+
+
+def _gemini_error(e):
+    """把 Gemini 的錯誤換成看得懂的中文。"""
+    code = getattr(e, 'code', None)
+    msg = str(e)
+    if code == 429:
+        return 'Gemini 免費額度暫時用完了（每分鐘或每天有次數上限），請過一下再按一次批改。'
+    if code in (400, 401, 403) and ('API key' in msg or 'API_KEY' in msg or code in (401, 403)):
+        return 'Gemini 金鑰無效或沒有權限，請重新雙擊 set_ai_key.bat 設定正確的金鑰。'
+    if code and code >= 500:
+        return 'Gemini 伺服器暫時有問題，請稍後再按一次批改。'
+    return f'Gemini 回報錯誤（{code}）：{msg[:120]}'
+
+
+def _ask_gemini(key, task, essay):
+    """用 Gemini 批改，回傳 (JSON 文字, 模型名稱)。"""
+    from google import genai
+    from google.genai import errors, types
+    client = genai.Client(api_key=key)
+    config = types.GenerateContentConfig(
+        system_instruction=SYSTEM_PROMPT,
+        response_mime_type='application/json',
+        response_json_schema=_schema(task['no']),
+        max_output_tokens=16000,
+    )
+    last = None
+    for model in gemini_models():
+        try:
+            resp = client.models.generate_content(model=model, contents=_user_message(task, essay), config=config)
+        except errors.APIError as e:
+            if e.code == 404:          # 這個模型已經下架或不存在，換下一個
+                last = e
+                continue
+            raise RuntimeError(_gemini_error(e))
+        except Exception as e:      # 網路斷線等
+            raise RuntimeError(f'連不上 Gemini，請確認這台電腦有網路。（{type(e).__name__}）')
+        text = resp.text or ''
+        if not text:
+            reason = ''
+            if resp.candidates:
+                reason = str(resp.candidates[0].finish_reason or '')
+            if 'MAX_TOKENS' in reason:
+                raise RuntimeError('AI 回覆太長被截斷，請再按一次批改。')
+            raise RuntimeError('Gemini 沒有回覆批改內容（可能被安全機制擋下），請再按一次批改。')
+        return text, model
+    raise RuntimeError('找不到可用的 Gemini 模型，請通知維護人員更新 GEMINI_MODELS。'
+                       + (f'（{last}）' if last else ''))
+
+
+def grade_task(task, essay):
+    """批改一個 Task，回傳 dict（criteria、summary、errors…，再加上 band 與 model）。失敗時丟出 RuntimeError。"""
+    if count_words(essay) == 0:
+        return _blank_result(task)
+    provider, key = ai_config()
+    if not key:
+        raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
+    ask = _ask_gemini if provider == 'gemini' else _ask_claude
+    text, model = ask(key, task, essay)
     try:
         data = json.loads(text)
-    except ValueError:
+        crit = data['criteria']
+        for k, _, _ in CRITERIA[task['no']]:      # 保險：四項都要有、分數一定是 0–9 的整數
+            crit[k]['band'] = max(0, min(9, int(crit[k]['band'])))
+    except (ValueError, KeyError, TypeError):
         raise RuntimeError('AI 回覆的格式不正確，請再按一次批改。')
-    for c in data['criteria'].values():          # 保險：分數一定是 0–9 的整數
-        c['band'] = max(0, min(9, int(c['band'])))
+    for k in ('summary', 'model_paragraph'):
+        data.setdefault(k, '')
+    for k in ('errors', 'next_steps'):
+        data.setdefault(k, [])
     data['band'] = task_band(data)
+    data['model'] = model
     return data
 
 
@@ -347,4 +457,4 @@ def grade_all(test, essays):
         results = {n: f.result() for n, f in futures.items()}
     return {'tasks': {str(n): r for n, r in results.items()},
             'overall': overall_band(results[1]['band'], results[2]['band']),
-            'model': AI_MODEL}
+            'model': results[2].get('model') or results[1].get('model', '')}
