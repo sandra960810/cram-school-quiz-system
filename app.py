@@ -1222,6 +1222,10 @@ vocab_quiz.register(app, db, dict(
     theme_condition=theme_condition, build_theme_list=build_theme_list,
     favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of))
 
+# 單字與例句的發音音檔（程式在 word_audio.py）：手機的瀏覽器語音不可靠，改由伺服器產生
+import word_audio  # noqa: E402
+app.register_blueprint(word_audio.bp)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

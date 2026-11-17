@@ -32,3 +32,4 @@ ai_key_log.txt
 
 # 口說測驗的錄音檔（學生的聲音，只存在本機）
 instance/speaking_audio/
+instance/tts_cache/
