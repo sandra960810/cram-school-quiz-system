@@ -4,7 +4,7 @@
 由這裡畫成 SVG，所以圖表與給 AI 老師看的數據必定一致），task2.json 是論說文。
 
 AI 老師依雅思寫作四項評分標準批改，支援兩家 AI：
-- Google Gemini（有免費額度，金鑰 AIza 開頭）
+- Google Gemini（有免費額度，金鑰 AIza 開頭；Google 新版金鑰是 AQ. 開頭，也算 Gemini）
 - Anthropic Claude（付費，金鑰 sk-ant- 開頭）
 金鑰從環境變數 GEMINI_API_KEY／ANTHROPIC_API_KEY 或專案資料夾裡的 ai_key.txt 讀取，
 依金鑰開頭自動判斷是哪一家（ai_key.txt 不進 git，在櫃台電腦雙擊 set_ai_key.bat 設定）。
@@ -212,7 +212,8 @@ def key_provider(key):
     """依金鑰開頭判斷是哪一家的金鑰。"""
     if key.startswith('sk-ant-'):
         return 'claude'
-    if key.startswith('AIza'):
+    # Google AI Studio 從 2026 年起有些帳號產生的是新格式 AQ. 開頭的金鑰，一樣是 Gemini
+    if key.startswith('AIza') or key.startswith('AQ.'):
         return 'gemini'
     return None
 
@@ -380,6 +381,9 @@ def _gemini_error(e):
     """把 Gemini 的錯誤換成看得懂的中文。"""
     code = getattr(e, 'code', None)
     msg = str(e)
+    if code == 401 and 'ACCESS_TOKEN_TYPE_UNSUPPORTED' in msg:
+        return ('Google 不接受這把 AQ. 開頭的新格式金鑰（ACCESS_TOKEN_TYPE_UNSUPPORTED）。'
+                '請到 Google AI Studio 重新建立一把 AIza 開頭的金鑰，再雙擊 set_ai_key.bat 設定。')
     if code == 429:
         return 'Gemini 免費額度暫時用完了（每分鐘或每天有次數上限），請過一下再按一次批改。'
     if code in (400, 401, 403) and ('API key' in msg or 'API_KEY' in msg or code in (401, 403)):

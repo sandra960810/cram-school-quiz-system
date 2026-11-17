@@ -114,7 +114,7 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
   同一份資料也以文字表格交給 AI 老師，所以 AI 看到的數據與學生看到的圖必定一致
 - 交卷存成 `WritingSubmission`，結果頁再呼叫 `/grade` 請 AI 批改（兩個 Task 同時送），
   結果存進資料庫，重開不會重複扣費
-- AI 老師支援兩家，依金鑰開頭自動判斷：Google Gemini（`AIza`，免費額度，模型依序試
+- AI 老師支援兩家，依金鑰開頭自動判斷：Google Gemini（`AIza` 或新格式 `AQ.`，免費額度，模型依序試
   `GEMINI_MODELS`，可用環境變數 `GEMINI_MODEL` 指定）與 Anthropic Claude（`sk-ant-`，
   模型 `claude-opus-5-5`）。金鑰讀 `ai_key.txt`，其次是環境變數 `GEMINI_API_KEY`／
   `ANTHROPIC_API_KEY`。兩家共用同一份評分規則 `writing_bank.SYSTEM_PROMPT`（刻意從嚴）與

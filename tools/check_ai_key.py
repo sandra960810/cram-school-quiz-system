@@ -1,5 +1,5 @@
 """檢查 AI 老師的 API 金鑰能不能用（set_ai_key.bat 會呼叫）。
-金鑰開頭 AIza 是 Google Gemini（免費額度），sk-ant- 是 Anthropic Claude。"""
+金鑰開頭 AIza 或 AQ. 是 Google Gemini（免費額度），sk-ant- 是 Anthropic Claude。"""
 import os
 import sys
 
@@ -8,7 +8,7 @@ import writing_bank  # noqa: E402
 
 provider, key = writing_bank.ai_config()
 if not key:
-    print('找不到金鑰：ai_key.txt 是空的，或金鑰開頭不是 AIza（Gemini）或 sk-ant-（Claude）。')
+    print('找不到金鑰：ai_key.txt 是空的，或金鑰開頭不是 AIza／AQ.（Gemini）或 sk-ant-（Claude）。')
     sys.exit(1)
 print('偵測到的 AI 老師：' + writing_bank.ai_label())
 
