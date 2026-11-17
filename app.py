@@ -7,6 +7,7 @@ from flask import Flask, request, render_template, redirect, jsonify, url_for, a
 from flask_sqlalchemy import SQLAlchemy
 
 import exam_data
+import listening_bank
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
@@ -770,6 +771,138 @@ def set_progress(student_id, vocab, status):
         else:
             db.session.add(LearningProgress(student_id=student_id, vocab_id=row.id,
                                             status=status, last_reviewed=now))
+
+
+# ---------------------------------------------------------------------------
+# 聽力題庫：原創的完整模擬測驗，每回 Parts 1-4 共 40 題
+# ---------------------------------------------------------------------------
+
+def _listen_best(student_id):
+    """每份聽力試卷的最佳成績 {test_key: 答對題數}。"""
+    rows = (TestAttempt.query
+            .filter_by(student_id=student_id, section=listening_bank.SECTION)
+            .filter(TestAttempt.finished_at.isnot(None)).all())
+    best = {}
+    for a in rows:
+        if a.test_key not in best or a.correct > best[a.test_key]:
+            best[a.test_key] = a.correct
+    return best
+
+
+@app.route('/exam/<int:student_id>/listening-bank')
+def listen_home(student_id):
+    student = get_student(student_id)
+    return render_template('listen_home.html', student=student,
+                           tests=listening_bank.list_tests(),
+                           best=_listen_best(student_id))
+
+
+@app.route('/exam/<int:student_id>/listening-bank/<test_key>')
+def listen_test(student_id, test_key):
+    student = get_student(student_id)
+    test = listening_bank.load_test(test_key)
+    if not test:
+        abort(404, description="找不到這份聽力試卷")
+    return render_template('listen_test.html', student=student, test=test)
+
+
+@app.route('/exam/<int:student_id>/listening-bank/<test_key>/submit', methods=['POST'])
+def listen_submit(student_id, test_key):
+    get_student(student_id)
+    test = listening_bank.load_test(test_key)
+    if not test:
+        abort(404, description="找不到這份聽力試卷")
+
+    given = {}
+    for field, value in request.form.items():
+        if field.startswith('q_'):
+            try:
+                given[int(field[2:])] = value
+            except ValueError:
+                pass
+
+    results = listening_bank.grade(test_key, given)
+    correct = sum(1 for r in results if r['is_correct'])
+    attempt = TestAttempt(student_id=student_id, test_key=test_key,
+                          section=listening_bank.SECTION, total=len(results),
+                          correct=correct, finished_at=datetime.utcnow())
+    db.session.add(attempt)
+    db.session.flush()
+
+    for r in results:
+        db.session.add(TestAnswer(attempt_id=attempt.id, qno=r['qno'],
+                                  given=r['given'][:300], is_correct=r['is_correct']))
+        mistake = TestMistake.query.filter_by(student_id=student_id, test_key=test_key,
+                                              section=listening_bank.SECTION,
+                                              qno=r['qno']).first()
+        if not r['is_correct']:
+            if not mistake:
+                mistake = TestMistake(student_id=student_id, test_key=test_key,
+                                      section=listening_bank.SECTION, qno=r['qno'],
+                                      wrong_count=0)
+                db.session.add(mistake)
+            mistake.wrong_count += 1
+            mistake.last_given = r['given'][:300]
+            mistake.corrected = False
+            mistake.last_wrong_at = datetime.utcnow()
+        elif mistake and not mistake.corrected:
+            mistake.corrected = True
+    db.session.commit()
+    return redirect(url_for('listen_result', student_id=student_id, attempt_id=attempt.id))
+
+
+@app.route('/exam/<int:student_id>/listening-bank/result/<int:attempt_id>')
+def listen_result(student_id, attempt_id):
+    student = get_student(student_id)
+    attempt = db.session.get(TestAttempt, attempt_id)
+    if not attempt or attempt.student_id != student_id:
+        abort(404, description="找不到這次測驗")
+    test = listening_bank.load_test(attempt.test_key)
+    if not test:
+        abort(404, description="找不到這份聽力試卷")
+
+    info = listening_bank.explanations(attempt.test_key)
+    starred = {m.qno for m in TestMistake.query.filter_by(
+        student_id=student_id, test_key=attempt.test_key,
+        section=listening_bank.SECTION, starred=True).all()}
+
+    rows, part_scores = [], {}
+    for a in TestAnswer.query.filter_by(attempt_id=attempt.id).order_by(TestAnswer.qno).all():
+        meta = info.get(a.qno, {})
+        rows.append({'qno': a.qno, 'given': a.given or '', 'is_correct': a.is_correct,
+                     'answer': ' / '.join(meta.get('answers', [])),
+                     'explain': meta.get('explain', ''), 'quote': meta.get('quote', ''),
+                     'starred': a.qno in starred})
+        pno = meta.get('part')
+        if pno:
+            bucket = part_scores.setdefault(pno, {'no': pno, 'total': 0, 'correct': 0})
+            bucket['total'] += 1
+            bucket['correct'] += 1 if a.is_correct else 0
+
+    pct = round(attempt.correct * 100 / attempt.total) if attempt.total else 0
+    return render_template('listen_result.html', student=student, attempt=attempt, test=test,
+                           rows=rows, pct=pct, band=ielts_band(attempt.correct),
+                           part_scores=[part_scores[k] for k in sorted(part_scores)])
+
+
+@app.route('/api/listen/star', methods=['POST'])
+def listen_star():
+    data = request.get_json(silent=True) or {}
+    student_id = data.get('student_id')
+    test_key = data.get('test_key')
+    qno = data.get('qno')
+    if not (student_id and test_key and qno):
+        return jsonify({'ok': False}), 400
+    m = TestMistake.query.filter_by(student_id=student_id, test_key=test_key,
+                                    section=listening_bank.SECTION, qno=qno).first()
+    if not m:
+        m = TestMistake(student_id=student_id, test_key=test_key,
+                        section=listening_bank.SECTION, qno=qno, wrong_count=0,
+                        corrected=True)
+        db.session.add(m)
+    m.starred = bool(data.get('starred'))
+    db.session.commit()
+    return jsonify({'ok': True, 'starred': m.starred})
 
 
 if __name__ == '__main__':

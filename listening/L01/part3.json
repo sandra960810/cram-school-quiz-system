@@ -1,0 +1,162 @@
+{
+  "no": 3,
+  "context": "Two psychology students discussing their project on sleep and memory",
+  "audio": "L01_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two psychology students, Lisa and Mark, discussing a project they have carried out on sleep and memory. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Mark, have you got a minute? I'd like to go through the sleep project before we see Dr Okafor on Friday." },
+    { "v": "m2", "t": "Yes, good idea. I still can't quite believe we ended up doing sleep, you know. I was pushing for the memory-and-music topic." },
+    { "v": "f1", "t": "So was I, to be honest. But the equipment we'd have needed for that was all booked out until March. Sleep was the only one where we could actually get started straight away." },
+    { "v": "m2", "t": "True. It wasn't that the reading was easier — there's actually far more published on sleep, which made the literature review harder, if anything." },
+    { "v": "f1", "t": "Right. Now, the participants. We said we'd recruit forty and we ended up with thirty-two, which I think we need to explain." },
+    { "v": "m2", "t": "We should be straight about why. It wasn't that people refused — almost everyone we approached said yes. The issue was that eight of them didn't complete the second week, because they simply stopped filling in the sleep diary." },
+    { "v": "f1", "t": "Yes. Dropping out rather than declining. I'll make that clear in the method section." },
+    { "v": "m2", "t": "And then the results themselves. I was expecting the group who slept longest to do best on the recall test." },
+    { "v": "f1", "t": "So was everybody. But it turned out that total hours made very little difference. What did matter was how consistent people were — going to bed at roughly the same time every night. The regular sleepers outperformed the long sleepers quite clearly." },
+    { "v": "m2", "t": "Which is a much more interesting finding, really. Now, can I say something about the graphs? I know you spent ages on them." },
+    { "v": "f1", "t": "Go on." },
+    { "v": "m2", "t": "They're accurate, and they look lovely. But we've got six of them, and three show essentially the same relationship. I'd cut it down to three and let them breathe." },
+    { "v": "f1", "t": "Fewer but bigger. All right, I can live with that. And what about before Friday — do you think we need to do any more reading?" },
+    { "v": "m2", "t": "I don't think so. What we haven't done is calculate the significance properly. Dr Okafor will ask, and if we haven't run the statistics we'll look careless. That's the one thing I'd prioritise." },
+    { "v": "f1", "t": "Agreed. Statistics first, then." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Let's go through the report section by section and decide what still needs doing. The introduction first." },
+    { "v": "m2", "t": "I read it again last night. I wouldn't change a word — it does exactly what it needs to. Let's call that one done and not touch it again." },
+    { "v": "f1", "t": "Good. Next, the method section." },
+    { "v": "m2", "t": "That's the one I worry about. The way the procedure is described, nobody else could repeat the study from it. I think we have to start again and write it properly from scratch." },
+    { "v": "f1", "t": "That's a big job, but you're right, patching it won't work. Completely rewritten, then. Now, the results." },
+    { "v": "m2", "t": "The writing's fine. But all those numbers in a paragraph are impossible to follow. What it really needs is a diagram — a simple figure showing the three groups side by side." },
+    { "v": "f1", "t": "I'll draw one up. And the discussion?" },
+    { "v": "m2", "t": "Honestly, it goes on and on. Four and a half pages, and the last two say the same thing twice. We should cut it down considerably." },
+    { "v": "f1", "t": "I'll take a knife to it. That leaves the conclusion." },
+    { "v": "m2", "t": "It reads well, but at the moment it's just our opinion. We're claiming things that other researchers have shown, and we're not citing any of them. It needs more references before anyone reads it." },
+    { "v": "f1", "t": "I'll dig the sources out this evening. Right, I think that's everything." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose the topic of sleep?",
+          "options": { "A": "The equipment for their first choice was unavailable.", "B": "There was less reading to do on this topic.", "C": "Their tutor recommended it to them." }
+        },
+        {
+          "no": 22,
+          "stem": "What does Mark say about the participants?",
+          "options": { "A": "Many of them refused to take part.", "B": "Some of them failed to finish the study.", "C": "They were recruited too late in the term." }
+        },
+        {
+          "no": 23,
+          "stem": "What did the students find surprising about their results?",
+          "options": { "A": "Sleeping longer had little effect on recall.", "B": "The youngest participants performed best.", "C": "The results differed from published research." }
+        },
+        {
+          "no": 24,
+          "stem": "What does Mark suggest about the graphs?",
+          "options": { "A": "They contain errors that must be corrected.", "B": "There should be fewer of them.", "C": "They should be moved to an appendix." }
+        },
+        {
+          "no": 25,
+          "stem": "What do the students agree to do first?",
+          "options": { "A": "carry out further reading", "B": "interview more participants", "C": "complete the statistical analysis" }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students decide about each section of their report?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Decisions",
+      "options": {
+        "A": "It is finished and needs no changes.",
+        "B": "It must be made considerably shorter.",
+        "C": "It has to be completely rewritten.",
+        "D": "It needs a diagram adding to it.",
+        "E": "It needs more references.",
+        "F": "It should be checked by their tutor."
+      },
+      "items": [
+        { "no": 26, "text": "Introduction" },
+        { "no": 27, "text": "Method" },
+        { "no": 28, "text": "Results" },
+        { "no": 29, "text": "Discussion" },
+        { "no": 30, "text": "Conclusion" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Lisa 說 the equipment we'd have needed for that was all booked out until March，所以第一志願（memory-and-music）做不成。<br><b>陷阱</b>：B 剛好相反——Mark 明說 It wasn't that the reading was easier，而且睡眠主題的文獻「更多」。選項若與錄音相反，常用這種 It wasn't that... 句型直接否定。",
+      "quote": "The equipment we'd have needed for that was all booked out until March. Sleep was the only one where we could actually get started straight away."
+    },
+    {
+      "no": 22,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Mark 說 eight of them didn't complete the second week，Lisa 總結 Dropping out rather than declining（是中途退出而非拒絕）。<br><b>陷阱</b>：A 被明確否定——almost everyone we approached said yes。這題考 refuse（拒絕參加）與 drop out（中途退出）的差別。",
+      "quote": "It wasn't that people refused — almost everyone we approached said yes. The issue was that eight of them didn't complete the second week."
+    },
+    {
+      "no": 23,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Lisa 說 total hours made very little difference，真正有影響的是作息規律（how consistent people were）。<br><b>解題關鍵</b>：題目問 surprising，錄音用 I was expecting... But it turned out that... 來表達意外，But it turned out 之後就是答案。",
+      "quote": "I was expecting the group who slept longest to do best... But it turned out that total hours made very little difference."
+    },
+    {
+      "no": 24,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Mark 說 we've got six of them, and three show essentially the same relationship. I'd cut it down to three，也就是數量要減少。<br><b>陷阱</b>：A 錯在他明說 They're accurate（沒有錯誤）。先稱讚再提出建議是雅思 Part 3 的典型結構，重點在 But 之後。",
+      "quote": "They're accurate, and they look lovely. But we've got six of them... I'd cut it down to three."
+    },
+    {
+      "no": 25,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Mark 說 What we haven't done is calculate the significance properly... That's the one thing I'd prioritise，Lisa 回 Statistics first。<br><b>陷阱</b>：A 被否定——問到是否要再讀文獻時，Mark 說 I don't think so。注意 prioritise、first 這類表達優先順序的詞。",
+      "quote": "What we haven't done is calculate the significance properly... That's the one thing I'd prioritise."
+    },
+    {
+      "no": 26,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（已完成，不需修改）。Mark 說 I wouldn't change a word... Let's call that one done and not touch it again。<br><b>同義轉換</b>：wouldn't change a word ＝ needs no changes。",
+      "quote": "I wouldn't change a word — it does exactly what it needs to. Let's call that one done."
+    },
+    {
+      "no": 27,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（必須完全重寫）。Mark 說 I think we have to start again and write it properly from scratch，Lisa 確認 Completely rewritten。<br><b>同義轉換</b>：from scratch ＝ completely rewritten。",
+      "quote": "Nobody else could repeat the study from it. I think we have to start again and write it properly from scratch."
+    },
+    {
+      "no": 28,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>（需要加上圖表）。Mark 說 What it really needs is a diagram — a simple figure showing the three groups。<br><b>陷阱</b>：他先說 The writing's fine，容易誤以為是 A。要聽到 But 之後的實際需求。",
+      "quote": "What it really needs is a diagram — a simple figure showing the three groups side by side."
+    },
+    {
+      "no": 29,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（必須大幅縮短）。Mark 說 it goes on and on. Four and a half pages... We should cut it down considerably。<br><b>同義轉換</b>：cut it down considerably ＝ made considerably shorter。",
+      "quote": "Four and a half pages, and the last two say the same thing twice. We should cut it down considerably."
+    },
+    {
+      "no": 30,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>（需要更多引用文獻）。Mark 說 we're not citing any of them. It needs more references。<br><b>陷阱</b>：F（請導師檢查）整段都沒提到，是未使用的選項。配對題一定會有沒用到的選項，不要硬湊。",
+      "quote": "We're claiming things that other researchers have shown, and we're not citing any of them. It needs more references."
+    }
+  ]
+}

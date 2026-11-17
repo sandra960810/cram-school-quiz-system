@@ -1,0 +1,134 @@
+{
+  "no": 1,
+  "context": "Telephone enquiry to a letting agency about renting a flat",
+  "audio": "L01_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a woman telephoning a letting agency about renting a flat. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "m1", "t": "Good morning, Brookfield Lettings, Daniel speaking. How can I help?" },
+    { "v": "f1", "t": "Oh, hello. I'm looking for a flat to rent, and a colleague at work suggested I give you a call." },
+    { "v": "m1", "t": "Of course. Let me take a few details first. Could I start with your name?" },
+    { "v": "f1", "t": "Yes, it's Helen Fraser. That's F-R-A-S-E-R." },
+    { "v": "narrator", "t": "The woman's name is Helen Fraser, so Fraser has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Good morning, Brookfield Lettings, Daniel speaking. How can I help?" },
+    { "v": "f1", "t": "Oh, hello. I'm looking for a flat to rent, and a colleague at work suggested I give you a call." },
+    { "v": "m1", "t": "Of course. Let me take a few details first. Could I start with your name?" },
+    { "v": "f1", "t": "Yes, it's Helen Fraser. That's F-R-A-S-E-R." },
+    { "v": "m1", "t": "Thank you, Mrs Fraser." },
+    { "v": "f1", "t": "It's Miss, actually." },
+    { "v": "m1", "t": "My apologies, Miss Fraser. And may I ask what you do for a living? Landlords nearly always want to know." },
+    { "v": "f1", "t": "I'm a nurse. I used to be a teacher, years ago, but I retrained in my thirties and I've been nursing ever since." },
+    { "v": "m1", "t": "A nurse, lovely. That's never a problem with landlords. And whereabouts are you hoping to live?" },
+    { "v": "f1", "t": "Well, I've just been transferred to St Anne's, so somewhere close to the hospital would be ideal. I did look at two or three places over in Riverside, but it's a long way out and the buses are hopeless in the evening." },
+    { "v": "m1", "t": "Understood, so we'll concentrate on the area around the hospital. Now, what sort of budget did you have in mind?" },
+    { "v": "f1", "t": "I was thinking around seven hundred and fifty pounds a month, but my sister says that's unrealistic for this city." },
+    { "v": "m1", "t": "She's right, I'm afraid. For a decent flat near St Anne's you'd be looking at eight hundred and fifty as a realistic maximum." },
+    { "v": "f1", "t": "Eight fifty. All right, let's say that's my ceiling, then. I can just about manage that." },
+    { "v": "m1", "t": "I'll put eight hundred and fifty pounds down as the maximum. And how many bedrooms do you need?" },
+    { "v": "f1", "t": "Just one would do for me, but my mother stays most weekends, so I'd really prefer two." },
+    { "v": "m1", "t": "Two bedrooms, noted. When are you hoping to move in?" },
+    { "v": "f1", "t": "My current tenancy ends on the thirtieth of August, but I can stay with my sister for a fortnight, so the fourteenth of September would suit me best." },
+    { "v": "m1", "t": "The fourteenth of September. Right. Now, is there anything the property absolutely must have?" },
+    { "v": "f1", "t": "Parking, definitely. I work night shifts and I'm not walking home from a car park at four in the morning. A garden would be nice, but it's not essential." },
+    { "v": "m1", "t": "Parking it is. And is there anything you'd rather avoid?" },
+    { "v": "f1", "t": "Yes — please, nothing above a restaurant. The flat I'm in now is over a takeaway and the smell gets into everything. I don't mind being on a main road, that doesn't bother me at all." },
+    { "v": "m1", "t": "I'll make a note of that. Now, would you want it furnished or unfurnished?" },
+    { "v": "f1", "t": "Furnished, please. I sold most of my things when I moved, so I've got nothing but a bed and a bookcase." },
+    { "v": "m1", "t": "Furnished. That does narrow things down a little, but we've got several. Now, I should mention the deposit before you come in. Most of our landlords ask for five weeks' rent, but the two near the hospital both want six weeks." },
+    { "v": "f1", "t": "Six weeks' rent. Goodness. Well, I'd better start saving." },
+    { "v": "m1", "t": "It is refundable, of course. Now, shall we arrange a viewing? I could do Tuesday afternoon, or Thursday morning." },
+    { "v": "f1", "t": "I'm on days until Wednesday, so Tuesday's no good at all. Thursday morning would be perfect." },
+    { "v": "m1", "t": "Thursday it is. Shall we say half past ten, here at the office?" },
+    { "v": "f1", "t": "Half past ten on Thursday. Thank you very much." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the form below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "RENTAL ENQUIRY FORM",
+      "layout": "form",
+      "rows": [
+        { "label": "Name:", "text": "Helen {ex:Fraser}" },
+        { "label": "Occupation:", "text": "{1}" },
+        { "label": "Preferred area:", "text": "close to the {2}" },
+        { "label": "Maximum rent:", "text": "£{3} per month" },
+        { "label": "Bedrooms required:", "text": "{4}" },
+        { "label": "Preferred moving date:", "text": "{5} September" },
+        { "label": "Property must have:", "text": "{6}" },
+        { "label": "Property must not be above a:", "text": "{7}" },
+        { "label": "Furnishing:", "text": "{8}" },
+        { "label": "Deposit:", "text": "{9} weeks' rent" },
+        { "label": "Viewing arranged for:", "text": "{10} at 10.30 a.m." }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": ["nurse", "a nurse"],
+      "explain": "答案是 <b>nurse</b>。對方問「what you do for a living」，Helen 回答 I'm a nurse。<br><b>陷阱</b>：她接著說 I used to be a teacher（以前是老師），used to be 表示過去而非現在，teacher 是干擾項。聽到過去式要特別小心。",
+      "quote": "I'm a nurse. I used to be a teacher, years ago, but I retrained in my thirties."
+    },
+    {
+      "no": 2,
+      "answers": ["hospital"],
+      "explain": "答案是 <b>hospital</b>。她說 somewhere close to the hospital would be ideal，與題目的 close to the 完全對應。<br><b>陷阱</b>：她提到 Riverside，但緊接著說 it's a long way out（太遠），是被否定的選項。",
+      "quote": "I've just been transferred to St Anne's, so somewhere close to the hospital would be ideal."
+    },
+    {
+      "no": 3,
+      "answers": ["850"],
+      "explain": "答案是 <b>850</b>。題目問 Maximum rent（最高租金），仲介說 you'd be looking at eight hundred and fifty as a realistic maximum，Helen 回應 let's say that's my ceiling（上限）。<br><b>陷阱</b>：她先說的 750 是她原本的想法，隨即被否定（that's unrealistic）。數字題常用「先說一個再更正」的手法。",
+      "quote": "For a decent flat near St Anne's you'd be looking at eight hundred and fifty as a realistic maximum."
+    },
+    {
+      "no": 4,
+      "answers": ["two", "2"],
+      "explain": "答案是 <b>two</b>（寫 2 也可以）。她說 Just one would do for me, but... I'd really prefer two。<br><b>陷阱</b>：one 出現在前面，但後面用 but 轉折並說 prefer two。but 之後通常才是答案。",
+      "quote": "Just one would do for me, but my mother stays most weekends, so I'd really prefer two."
+    },
+    {
+      "no": 5,
+      "answers": ["14", "14th", "fourteenth"],
+      "explain": "答案是 <b>14</b>。她說 the fourteenth of September would suit me best，題目已印出 September，只需填日期。<br><b>陷阱</b>：30 August 是現租約到期日，不是搬入日。日期題要看清楚題目印好的部分是月份還是日期。",
+      "quote": "The thirtieth of August, but I can stay with my sister for a fortnight, so the fourteenth of September would suit me best."
+    },
+    {
+      "no": 6,
+      "answers": ["parking"],
+      "explain": "答案是 <b>parking</b>。問 must have（必須有），她說 Parking, definitely，並解釋因為上夜班。<br><b>陷阱</b>：garden 後面接 but it's not essential（非必要），直接排除。",
+      "quote": "Parking, definitely. I work night shifts... A garden would be nice, but it's not essential."
+    },
+    {
+      "no": 7,
+      "answers": ["restaurant"],
+      "explain": "答案是 <b>restaurant</b>。她說 nothing above a restaurant，與題目 must not be above a 對應。<br><b>陷阱</b>：takeaway 是她「現在」住的地方（the flat I'm in now），不是要避免的類型；main road 則被她說 doesn't bother me。",
+      "quote": "Please, nothing above a restaurant. The flat I'm in now is over a takeaway and the smell gets into everything."
+    },
+    {
+      "no": 8,
+      "answers": ["furnished"],
+      "explain": "答案是 <b>furnished</b>。問句 furnished or unfurnished，她直接回答 Furnished, please，並說明因為家具都賣掉了。<br><b>提醒</b>：二選一的問句，答案就在回答的第一個字，不要被後面的解釋分心。",
+      "quote": "Furnished, please. I sold most of my things when I moved."
+    },
+    {
+      "no": 9,
+      "answers": ["six", "6"],
+      "explain": "答案是 <b>six</b>（寫 6 也可以）。仲介說 Most of our landlords ask for five weeks' rent, but the two near the hospital both want six weeks。Helen 要找的正是醫院附近的房子。<br><b>陷阱</b>：five 是「大多數房東」的一般情況，but 之後才是適用於她的條件。",
+      "quote": "Most of our landlords ask for five weeks' rent, but the two near the hospital both want six weeks."
+    },
+    {
+      "no": 10,
+      "answers": ["Thursday"],
+      "explain": "答案是 <b>Thursday</b>。她說 Tuesday's no good at all. Thursday morning would be perfect。<br><b>陷阱</b>：Tuesday 先被提出但立刻被否決。星期題常見兩個選項，要聽完整句再決定。",
+      "quote": "I'm on days until Wednesday, so Tuesday's no good at all. Thursday morning would be perfect."
+    }
+  ]
+}

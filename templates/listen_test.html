@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ test.title }}｜聽力測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .part-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+        .part-head .pt { background: #3d3d3d; color: #fff; font-weight: bold; padding: 5px 14px; font-size: 16px; }
+        .part-head .ctx { color: #7f8c8d; font-size: 14px; }
+        .map-wrap { text-align: center; margin: 16px 0; }
+        .map-wrap img { max-width: 100%; border: 1px solid #ddd; border-radius: 6px; }
+        .match-grid { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; max-width: 560px; }
+        .match-grid .mno { font-weight: bold; }
+        .note-sec { margin-bottom: 14px; }
+        .note-sec h4 { margin: 14px 0 6px; font-size: 16px; }
+        .note-sec li { line-height: 2.2; margin-bottom: 2px; }
+        .no-audio { background: #fdebd0; color: #7e5109; border-radius: 8px; padding: 12px 16px;
+                    font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ url_for('listen_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>選擇試卷</a>
+        <span class="timer" id="timer" data-limit="30">00:00</span>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">{{ test.title }}</span>
+        <span class="exam-part">Listening</span>
+    </div>
+
+    {% if not test.audio_ready %}
+    <div class="no-audio">
+        ⚠️ 這份試卷的音檔還沒有產生，題目可以先看、先作答，但沒有聲音。<br>
+        在專案資料夾執行 <b>python tools/make_listening_audio.py {{ test.key }}</b> 即可產生。
+    </div>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('listen_submit', student_id=student.id, test_key=test.key) }}" id="examForm">
+
+    {% for part in test.parts %}
+    <div class="sheet">
+        <div class="part-head">
+            <span class="pt">PART {{ part.no }}</span>
+            <span class="ctx">{{ part.context }}</span>
+        </div>
+
+        {% if part.audio_exists %}
+        <div class="audio-bar">
+            <div class="audio-bar-label">🎧 Part {{ part.no }} 音檔</div>
+            <audio controls preload="none" class="audio-player"
+                   src="{{ url_for('static', filename='audio/listening/' + part.audio) }}"></audio>
+        </div>
+        {% endif %}
+
+        {% for g in part.rendered %}
+        <div class="qgroup">
+            <p class="qtitle">{{ g.range }}</p>
+            <p class="instr">{{ g.instruction|safe }}</p>
+            {% if g.limit %}<p class="instr">{{ g.limit|safe }}</p>{% endif %}
+
+            {# ---------- 表格／筆記填空 ---------- #}
+            {% if g.type == 'gapfill' %}
+                <div class="box">
+                    {% if g.title %}<div class="box-title">{{ g.title }}</div>{% endif %}
+                    {% if g.rows %}
+                        <table style="width:100%;border-collapse:collapse">
+                            {% for r in g.rows %}
+                            <tr>
+                                <td style="padding:7px 12px 7px 0;white-space:nowrap;vertical-align:top">{{ r.label }}</td>
+                                <td style="padding:7px 0;line-height:2.2">{{ r.html }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                    {% for s in g.sections %}
+                    <div class="note-sec">
+                        <h4>{{ s.heading }}</h4>
+                        <ul>{% for ln in s.lines %}<li>{{ ln }}</li>{% endfor %}</ul>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            {# ---------- 單選題 ---------- #}
+            {% elif g.type == 'mcq' %}
+                {% for it in g['items'] %}
+                <div class="qrow">
+                    <span class="qno">{{ it.no }}</span>
+                    <div class="qbody">
+                        {{ it.stem }}
+                        <div class="opts">
+                            {% for letter in ['A', 'B', 'C', 'D'] %}{% if letter in it.options %}
+                            <label class="opt">
+                                <input type="radio" name="q_{{ it.no }}" data-q="{{ it.no }}" value="{{ letter }}">
+                                <span class="letter">{{ letter }}</span>{{ it.options[letter] }}
+                            </label>
+                            {% endif %}{% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            {# ---------- 配對題 ---------- #}
+            {% elif g.type == 'matching' %}
+                <div class="optbox wide">
+                    {% if g.optionsTitle %}<div class="ob-title">{{ g.optionsTitle }}</div>{% endif %}
+                    <ol>
+                    {% for letter, label in g.option_list %}
+                        <li><span class="letter">{{ letter }}</span>{{ label }}</li>
+                    {% endfor %}
+                    </ol>
+                </div>
+                <div class="match-grid">
+                    {% for it in g['items'] %}
+                    <span class="mno">{{ it.no }}</span>
+                    <span>
+                        {{ it.text }}
+                        <select class="pick" name="q_{{ it.no }}" data-q="{{ it.no }}">
+                            <option value="">選擇</option>
+                            {% for letter, label in g.option_list %}<option value="{{ letter }}">{{ letter }}</option>{% endfor %}
+                        </select>
+                    </span>
+                    {% endfor %}
+                </div>
+
+            {# ---------- 地圖題 ---------- #}
+            {% elif g.type == 'map' %}
+                <div class="map-wrap">
+                    <img src="{{ url_for('static', filename='images/' + g.image) }}" alt="{{ g.imageAlt }}">
+                </div>
+                <div class="match-grid">
+                    {% for it in g['items'] %}
+                    <span class="mno">{{ it.no }}</span>
+                    <span>
+                        {{ it.text }}
+                        <select class="pick" name="q_{{ it.no }}" data-q="{{ it.no }}">
+                            <option value="">選擇</option>
+                            {% for letter in g.options %}<option value="{{ letter }}">{{ letter }}</option>{% endfor %}
+                        </select>
+                    </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="submit-bar">
+        <span class="count">已作答 <b id="done">0</b> / 40 題</span>
+        <button type="submit" class="btn-submit" data-sound="done">交卷看成績 →</button>
+    </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='exam.js') }}"></script>
+</body>
+</html>

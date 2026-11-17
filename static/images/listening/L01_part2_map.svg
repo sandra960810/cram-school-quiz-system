@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 580" width="100%" style="max-width:700px;font-family:Arial,Helvetica,sans-serif">
+  <rect width="700" height="580" fill="#ffffff"/>
+
+  <!-- 公園外框 -->
+  <rect x="40" y="40" width="620" height="480" fill="#f4f9f1" stroke="#555" stroke-width="2"/>
+
+  <!-- 西側林地 -->
+  <rect x="42" y="42" width="160" height="476" fill="#dcebd5"/>
+  <text x="122" y="285" text-anchor="middle" font-size="15" fill="#5a7a4e" font-style="italic">woodland</text>
+
+  <!-- 湖 -->
+  <ellipse cx="350" cy="230" rx="125" ry="88" fill="#cfe4f5" stroke="#6ba3d0" stroke-width="2"/>
+  <text x="350" y="236" text-anchor="middle" font-size="17" fill="#2f6a9c" font-style="italic">LAKE</text>
+
+  <!-- 主要步道：由大門往北到湖 -->
+  <line x1="350" y1="520" x2="350" y2="318" stroke="#b08a52" stroke-width="9" stroke-linecap="round"/>
+  <!-- 繞湖步道 -->
+  <ellipse cx="350" cy="230" rx="152" ry="112" fill="none" stroke="#b08a52" stroke-width="7" stroke-dasharray="1 0"/>
+  <!-- 往西北的林間小徑 -->
+  <path d="M250 430 L170 330 L115 150" fill="none" stroke="#b08a52" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- 大門 -->
+  <rect x="320" y="508" width="60" height="24" fill="#ffffff" stroke="#333" stroke-width="2"/>
+  <text x="350" y="552" text-anchor="middle" font-size="16" font-weight="bold" fill="#222">MAIN GATE</text>
+
+  <!-- 停車場（東側外） -->
+  <rect x="662" y="300" width="36" height="90" fill="#eeeeee" stroke="#888" stroke-width="1.5"/>
+  <text x="680" y="350" text-anchor="middle" font-size="11" fill="#555" transform="rotate(90 680 350)">car park</text>
+
+  <!-- 指北針 -->
+  <g transform="translate(612,80)">
+    <line x1="0" y1="28" x2="0" y2="-18" stroke="#333" stroke-width="2.5"/>
+    <polygon points="0,-28 -7,-12 7,-12" fill="#333"/>
+    <text x="0" y="46" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">N</text>
+  </g>
+
+  <!-- 位置標記 A–H -->
+  <g font-size="19" font-weight="bold" text-anchor="middle">
+    <g><circle cx="250" cy="462" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="250" y="469" fill="#c0392b">A</text></g>
+    <g><circle cx="450" cy="462" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="450" y="469" fill="#c0392b">B</text></g>
+    <g><circle cx="118" cy="352" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="118" y="359" fill="#c0392b">C</text></g>
+    <g><circle cx="100" cy="98" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="100" y="105" fill="#c0392b">D</text></g>
+    <g><circle cx="350" cy="352" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="350" y="359" fill="#c0392b">E</text></g>
+    <g><circle cx="350" cy="100" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="350" y="107" fill="#c0392b">F</text></g>
+    <g><circle cx="572" cy="98" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="572" y="105" fill="#c0392b">G</text></g>
+    <g><circle cx="596" cy="352" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="596" y="359" fill="#c0392b">H</text></g>
+  </g>
+
+  <text x="350" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">HARTWELL COUNTRY PARK</text>
+</svg>

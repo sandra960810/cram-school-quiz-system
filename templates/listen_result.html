@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績與解析｜{{ test.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .score-card { background: #fff; border-radius: 14px; padding: 22px 26px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+                      display: flex; align-items: center; gap: 26px; flex-wrap: wrap; margin-bottom: 18px; }
+        .score-card .big { font-size: 44px; font-weight: bold; color: #2471a3; line-height: 1; }
+        .score-card .big small { font-size: 18px; color: #7f8c8d; font-weight: normal; }
+        .score-card .band { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 10px 18px;
+                            font-size: 15px; font-weight: bold; }
+        .score-card .side { flex: 1; min-width: 180px; color: #7f8c8d; font-size: 14px; line-height: 1.8; }
+        .partbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+        .partbar .pb { background: #fff; border-radius: 10px; padding: 10px 16px; font-size: 14px;
+                       box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+        .partbar .pb b { font-size: 17px; color: #2c3e50; }
+        .qa { background: #fff; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
+              box-shadow: 0 2px 6px rgba(0,0,0,.05); border-left: 5px solid #d5f5e3; }
+        .qa.wrong { border-left-color: #f5b7b1; }
+        .qa .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+        .qa .n { font-weight: bold; font-size: 16px; min-width: 30px; }
+        .qa .mark { font-weight: bold; }
+        .qa.right .mark { color: #1e8449; }
+        .qa.wrong .mark { color: #c0392b; }
+        .qa .given { color: #7f8c8d; font-size: 14px; }
+        .qa .given b { color: #2c3e50; }
+        .qa .ans { color: #1e8449; font-weight: bold; }
+        .qa .explain { margin-top: 9px; font-size: 14px; line-height: 1.9; color: #34495e;
+                       border-top: 1px dashed #e5e8e8; padding-top: 9px; }
+        .qa .quote { margin-top: 7px; font-size: 13px; color: #7f8c8d; font-style: italic;
+                     background: #fafbfc; border-left: 3px solid #d5d8dc; padding: 7px 12px; line-height: 1.7; }
+        .star { background: none; border: none; cursor: pointer; font-size: 19px; margin-left: auto; }
+        .filters { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+        .filters button { border: 2px solid #d5d8dc; background: #fff; border-radius: 18px; padding: 6px 16px;
+                          font-size: 14px; font-family: inherit; cursor: pointer; color: #2c3e50; }
+        .filters button.on { background: #2471a3; border-color: #2471a3; color: #fff; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ url_for('listen_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>聽力題庫</a>
+        <a href="{{ url_for('listen_test', student_id=student.id, test_key=test.key) }}" class="nav-next">重考這份<span class="arrow">→</span></a>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">{{ test.title }}</span>
+        <span class="exam-part">成績與解析</span>
+    </div>
+
+    <div class="score-card">
+        <div class="big">{{ attempt.correct }}<small> / {{ attempt.total }}</small></div>
+        <div class="band">預估 Band {{ band }}</div>
+        <div class="side">答對率 {{ pct }}%<br>作答時間：{{ attempt.finished_at.strftime('%m/%d %H:%M') }}</div>
+    </div>
+
+    <div class="partbar">
+        {% for p in part_scores %}
+        <div class="pb">Part {{ p.no }}　<b>{{ p.correct }}</b> / {{ p.total }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="filters">
+        <button class="on" data-f="all" data-sound="tap">全部 40 題</button>
+        <button data-f="wrong" data-sound="tap">只看答錯（{{ attempt.total - attempt.correct }}）</button>
+    </div>
+
+    {% for r in rows %}
+    <div class="qa {{ 'right' if r.is_correct else 'wrong' }}" data-wrong="{{ 1 if not r.is_correct else 0 }}">
+        <div class="top">
+            <span class="n">{{ r.qno }}</span>
+            <span class="mark">{{ '✓' if r.is_correct else '✗' }}</span>
+            <span class="given">你的答案：<b>{{ r.given or '（空白）' }}</b></span>
+            {% if not r.is_correct %}<span class="ans">正解：{{ r.answer }}</span>{% endif %}
+            <button class="star" data-qno="{{ r.qno }}" data-on="{{ 1 if r.starred else 0 }}"
+                    title="收藏這一題">{{ '★' if r.starred else '☆' }}</button>
+        </div>
+        {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
+        {% if r.quote %}<div class="quote">🎧 原文：{{ r.quote }}</div>{% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+    // 篩選：全部 / 只看答錯
+    document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener('click', () => {
+        document.querySelectorAll('.filters button').forEach(b => b.classList.toggle('on', b === btn));
+        const wrongOnly = btn.dataset.f === 'wrong';
+        document.querySelectorAll('.qa').forEach(el => {
+            el.style.display = (!wrongOnly || el.dataset.wrong === '1') ? '' : 'none';
+        });
+    }));
+
+    // 收藏／取消收藏
+    document.querySelectorAll('.star').forEach(btn => btn.addEventListener('click', async () => {
+        const on = btn.dataset.on === '1';
+        btn.dataset.on = on ? '0' : '1';
+        btn.textContent = on ? '☆' : '★';
+        if (window.UI) UI.play(on ? 'unstar' : 'star');
+        try {
+            await fetch('/api/listen/star', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    student_id: {{ student.id }}, test_key: {{ test.key|tojson }},
+                    qno: parseInt(btn.dataset.qno, 10), starred: !on
+                })
+            });
+        } catch (e) { /* 離線也不影響看解析 */ }
+    }));
+</script>
+</body>
+</html>
