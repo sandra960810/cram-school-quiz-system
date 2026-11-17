@@ -169,7 +169,7 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 
 ## 全站視覺與色系
 
-- 顏色全部來自 `static/theme.css` 的變數：主色 `--primary`（深藍）、標題橫幅 `--hero`、文字 `--ink`／`--muted`、
+- 顏色全部來自 `static/theme.css` 的變數：主色 `--primary`（紫色學院風）、標題橫幅 `--hero`、文字 `--ink`／`--muted`、
   框線 `--line`、底色 `--bg`，以及狀態色 `--ok`（對）、`--bad`（錯）、`--warn`（提醒）、`--star`（收藏），各有 `-50` 淺底與 `-ink` 深字
 - 新頁面或新樣式**不要寫死色碼**，一律用 `var(--…)`；白色 `#fff` 可以直接寫
 - 新樣板的 `<head>` 第一個樣式表要是 `theme.css`，再接 `ui.css`／`exam.css`

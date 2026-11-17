@@ -1,22 +1,22 @@
 /* 全站色系：所有頁面的顏色都從這裡的變數來，要換色只改這一份。
    各頁 <style> 裡只寫 var(--primary) 這類變數，不要再寫死色碼。 */
 :root {
-    /* 主色：按鈕、連結、標題橫幅、選取狀態 */
-    --primary: #1f5a8c;
-    --primary-600: #17466e;
-    --primary-300: #8db4d8;
-    --primary-50: #eaf1f8;
-    --hero: linear-gradient(135deg, #2b6aa0, #173f63);
+    /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
+    --primary: #4a2d7f;
+    --primary-600: #38205f;
+    --primary-300: #b7a3db;
+    --primary-50: #f1ecf8;
+    --hero: linear-gradient(135deg, #5b3a96, #2e1a52);
 
     /* 文字與底色 */
-    --ink: #1f2d3d;
-    --ink-2: #4a5868;
-    --muted: #6b7785;
-    --muted-2: #98a2ad;
-    --line: #e1e6ec;
-    --line-strong: #c3ccd6;
-    --bg: #f3f5f8;
-    --surface-2: #f1f4f7;
+    --ink: #231f2e;
+    --ink-2: #4c4757;
+    --muted: #6e6879;
+    --muted-2: #9c96a6;
+    --line: #e5e1ec;
+    --line-strong: #c9c2d4;
+    --bg: #f5f3f8;
+    --surface-2: #f3f0f6;
 
     /* 狀態色：對／錯／提醒／收藏 */
     --ok: #1f8a4c;     --ok-ink: #176b3a;   --ok-300: #9fd5b4;  --ok-50: #e3f4ea;

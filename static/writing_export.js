@@ -60,7 +60,7 @@ window.WritingExport = (function () {
             const prompt = promptEl ? promptEl.innerText.replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim() : '';
             const words = countWords(essay);
             add('', { lh: 26 });
-            add(`Writing Task ${n}`, { size: 30, lh: 50, weight: 'bold', color: themeColor('--primary', '#1f5a8c'), keep: 4 });
+            add(`Writing Task ${n}`, { size: 30, lh: 50, weight: 'bold', color: themeColor('--primary', '#4a2d7f'), keep: 4 });
             addWrapped(prompt, { size: 20, lh: 32, color: '#555', style: 'italic', indent: 18, bar: true });
             add('', { lh: 18 });
             add(`學生作答（${words} 字／至少 ${min} 字）`, { size: 21, lh: 38, weight: 'bold', color: words >= min ? themeColor('--ok', '#1f8a4c') : themeColor('--warn', '#c46a12'), keep: 2 });
@@ -90,7 +90,7 @@ window.WritingExport = (function () {
             if (pg.y + need > bottom && pg.y > MARGIN) { pg = newPage(); pages.push(pg); }
             const { ctx } = pg;
             if (r.rule) { ctx.fillStyle = '#333'; ctx.fillRect(MARGIN, pg.y + 4, PAGE_W - MARGIN * 2, 2); }
-            if (r.bar) { ctx.fillStyle = themeColor('--primary-300', '#8db4d8'); ctx.fillRect(MARGIN, pg.y, 5, r.lh); }
+            if (r.bar) { ctx.fillStyle = themeColor('--primary-300', '#b7a3db'); ctx.fillRect(MARGIN, pg.y, 5, r.lh); }
             if (r.text) {
                 ctx.font = `${r.style || ''} ${r.weight} ${r.size}px ${FONT}`;
                 ctx.fillStyle = r.color;
