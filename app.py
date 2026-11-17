@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 import listening_bank
 import reading_bank
+import writing_bank
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
@@ -89,6 +90,22 @@ class WritingDraft(db.Model):
     content = db.Column(db.Text, default='')
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     __table_args__ = (db.UniqueConstraint('student_id', 'test_key', 'task_no'),)
+
+
+class WritingSubmission(db.Model):
+    """一次寫作模擬考的交卷紀錄：兩篇作文與 AI 老師的批改結果。"""
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    test_key = db.Column(db.String(20), nullable=False)
+    task1 = db.Column(db.Text, default='')
+    task2 = db.Column(db.Text, default='')
+    seconds_used = db.Column(db.Integer, default=0)
+    submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
+    ai_status = db.Column(db.String(20), default='pending')   # pending / done / error
+    ai_error = db.Column(db.String(300))
+    ai_result = db.Column(db.Text)          # JSON：各 Task 的四項分數與評語
+    overall = db.Column(db.Float)           # AI 估計的寫作總分
+    graded_at = db.Column(db.DateTime)
 
 
 class Favorite(db.Model):
@@ -539,8 +556,8 @@ SKILLS = [
      'desc': '完整 Parts 1–4，共 40 題，交卷自動批改並附逐題解析'},
     {'key': 'reading', 'name': '閱讀', 'icon': '📖', 'endpoint': 'read_home',
      'desc': '三篇文章共 40 題，題型比照正式考試'},
-    {'key': 'writing', 'name': '寫作', 'icon': '✍️', 'endpoint': None,
-     'desc': 'Task 1 圖表描述與 Task 2 論說文，可輸出 PDF 交給老師'},
+    {'key': 'writing', 'name': '寫作', 'icon': '✍️', 'endpoint': 'writing_home',
+     'desc': '比照電腦考作答介面，Task 1＋Task 2 共 60 分鐘，AI 老師依四項標準批改'},
     {'key': 'speaking', 'name': '口說', 'icon': '🗣️', 'endpoint': None,
      'desc': 'Parts 1–3 題目與計時練習'},
 ]
@@ -588,6 +605,11 @@ def bank_summary():
             info['ready_count'] = len(reading_tests)
             info['total_count'] = 10
             info['available'] = bool(reading_tests)
+        elif s['key'] == 'writing':
+            writing_tests = writing_bank.list_tests()
+            info['ready_count'] = len(writing_tests)
+            info['total_count'] = 10
+            info['available'] = bool(writing_tests)
         else:
             info['ready_count'] = 0
             info['total_count'] = 10
@@ -896,6 +918,133 @@ def read_result(student_id, attempt_id):
     return render_template('read_result.html', student=student, attempt=attempt, test=test,
                            rows=rows, pct=pct, band=ielts_band(attempt.correct),
                            part_scores=[part_scores[k] for k in sorted(part_scores)])
+
+
+
+# ---------------------------------------------------------------------------
+# 寫作題庫：比照電腦考的作答介面，交卷後由 AI 老師依四項標準批改
+# ---------------------------------------------------------------------------
+
+def _writing_rows(student_id, test_key=None):
+    q = WritingSubmission.query.filter_by(student_id=student_id)
+    if test_key:
+        q = q.filter_by(test_key=test_key)
+    return q.order_by(WritingSubmission.submitted_at.desc()).all()
+
+
+@app.route('/exam/<int:student_id>/writing')
+def writing_home(student_id):
+    student = get_student(student_id)
+    history = _writing_rows(student_id)
+    best = {}
+    for w in history:
+        if w.overall is not None and w.overall > best.get(w.test_key, -1):
+            best[w.test_key] = w.overall
+    return render_template('write_home.html', student=student, tests=writing_bank.list_tests(),
+                           best=best, history=history[:10], ai_ready=writing_bank.ai_ready())
+
+
+@app.route('/exam/<int:student_id>/writing/<test_key>')
+def writing_test(student_id, test_key):
+    student = get_student(student_id)
+    test = writing_bank.load_test(test_key)
+    if not test:
+        abort(404, description="找不到這份寫作試卷")
+    drafts = {d.task_no: d.content for d in
+              WritingDraft.query.filter_by(student_id=student_id, test_key=test_key).all()}
+    return render_template('write_test.html', student=student, test=test, drafts=drafts)
+
+
+@app.route('/api/writing/draft', methods=['POST'])
+def writing_draft():
+    """作答中每隔幾秒自動存草稿，當機或關錯視窗都找得回來。"""
+    data = request.get_json(silent=True) or {}
+    try:
+        student_id = int(data.get('student_id'))
+        task_no = int(data.get('task_no'))
+    except (TypeError, ValueError):
+        return jsonify({'ok': False}), 400
+    test_key = str(data.get('test_key', ''))
+    if task_no not in (1, 2) or not writing_bank.load_test(test_key) or not db.session.get(Student, student_id):
+        return jsonify({'ok': False}), 400
+    draft = WritingDraft.query.filter_by(student_id=student_id, test_key=test_key, task_no=task_no).first()
+    if not draft:
+        draft = WritingDraft(student_id=student_id, test_key=test_key, task_no=task_no)
+        db.session.add(draft)
+    draft.content = str(data.get('content', ''))[:20000]
+    draft.updated_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify({'ok': True})
+
+
+@app.route('/exam/<int:student_id>/writing/<test_key>/submit', methods=['POST'])
+def writing_submit(student_id, test_key):
+    get_student(student_id)
+    if not writing_bank.load_test(test_key):
+        abort(404, description="找不到這份寫作試卷")
+    try:
+        used = max(0, int(request.form.get('seconds_used', 0)))
+    except ValueError:
+        used = 0
+    sub = WritingSubmission(student_id=student_id, test_key=test_key,
+                            task1=request.form.get('task1', '')[:20000],
+                            task2=request.form.get('task2', '')[:20000],
+                            seconds_used=used)
+    db.session.add(sub)
+    # 交卷後草稿清空，下次重考從空白開始
+    WritingDraft.query.filter_by(student_id=student_id, test_key=test_key).delete()
+    db.session.commit()
+    return redirect(url_for('writing_result', student_id=student_id, sub_id=sub.id))
+
+
+def _writing_sub(student_id, sub_id):
+    sub = db.session.get(WritingSubmission, sub_id)
+    if not sub or sub.student_id != student_id:
+        abort(404, description="找不到這次寫作紀錄")
+    return sub
+
+
+@app.route('/exam/<int:student_id>/writing/result/<int:sub_id>')
+def writing_result(student_id, sub_id):
+    student = get_student(student_id)
+    sub = _writing_sub(student_id, sub_id)
+    test = writing_bank.load_test(sub.test_key)
+    if not test:
+        abort(404, description="找不到這份寫作試卷")
+    result = json.loads(sub.ai_result) if sub.ai_result else None
+    essays = {1: sub.task1 or '', 2: sub.task2 or ''}
+    return render_template('write_result.html', student=student, sub=sub, test=test, result=result,
+                           essays=essays, words={n: writing_bank.count_words(e) for n, e in essays.items()},
+                           criteria=writing_bank.CRITERIA, ai_ready=writing_bank.ai_ready())
+
+
+@app.route('/exam/<int:student_id>/writing/result/<int:sub_id>/grade', methods=['POST'])
+def writing_grade(student_id, sub_id):
+    """請 AI 老師批改（約需 1–2 分鐘）。結果存進資料庫，之後打開不用再花錢重批。"""
+    get_student(student_id)
+    sub = _writing_sub(student_id, sub_id)
+    if sub.ai_status == 'done' and request.args.get('again') != '1':
+        return jsonify({'ok': True})
+    if not writing_bank.ai_ready():
+        return jsonify({'ok': False, 'error': 'AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。'}), 400
+    test = writing_bank.load_test(sub.test_key)
+    try:
+        result = writing_bank.grade_all(test, {1: sub.task1 or '', 2: sub.task2 or ''})
+    except RuntimeError as e:
+        sub.ai_status, sub.ai_error = 'error', str(e)[:300]
+        db.session.commit()
+        return jsonify({'ok': False, 'error': str(e)}), 502
+    except Exception as e:  # 其他意外：記下來，不讓整頁壞掉
+        app.logger.exception('寫作批改失敗')
+        sub.ai_status, sub.ai_error = 'error', f'批改時發生錯誤：{e}'[:300]
+        db.session.commit()
+        return jsonify({'ok': False, 'error': sub.ai_error}), 500
+    sub.ai_result = json.dumps(result, ensure_ascii=False)
+    sub.overall = result['overall']
+    sub.ai_status, sub.ai_error = 'done', None
+    sub.graded_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify({'ok': True, 'overall': sub.overall})
 
 
 if __name__ == '__main__':

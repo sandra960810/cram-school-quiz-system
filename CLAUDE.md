@@ -42,6 +42,9 @@ listening/          聽力題庫資料（每回一個資料夾）
   L01/meta.json     該回的標題與說明
   L01/part1~4.json  逐字稿、題組、答案、解析
 reading/            閱讀題庫資料：tests.json、R01/meta.json、R01/passage1~3.json
+writing_bank.py     寫作題庫的載入、圖表繪製（SVG）與 AI 老師批改
+writing/            寫作題庫資料：tests.json、W01/meta.json、W01/task1~2.json
+set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
 static/exam.css     測驗頁共用樣式
@@ -100,6 +103,20 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 `python tools/check_reading.py`，**必過**。正式考試比照：3 篇共 40 題（13／13／14），
 每篇約 700–900 字，題型混搭，NOT GIVEN 與干擾項的陷阱要在解析裡點明。
 
+## 寫作題庫與 AI 老師
+
+- 作答頁 `write_test.html` 比照雅思電腦考：上方考生列與倒數 60 分鐘、左題目右作答、
+  下方 Part 1／Part 2 切換、字數即時統計、關閉拼字檢查、時間到自動交卷。
+  草稿每 15 秒存到 `WritingDraft`，本機另有 localStorage 暫存
+- `task1.json` 的 `chart` 是圖表資料（`line` 或 `bar`），由 `writing_bank.chart_svg` 畫圖，
+  同一份資料也以文字表格交給 AI 老師，所以 AI 看到的數據與學生看到的圖必定一致
+- 交卷存成 `WritingSubmission`，結果頁再呼叫 `/grade` 請 AI 批改（兩個 Task 同時送），
+  結果存進資料庫，重開不會重複扣費
+- AI 用 Anthropic API（模型 `claude-opus-5-5`），金鑰讀環境變數 `ANTHROPIC_API_KEY`
+  或 `ai_key.txt`。評分規則寫在 `writing_bank.SYSTEM_PROMPT`，刻意從嚴；
+  Task 分數與總分（Task 2 兩倍權重）在 Python 端計算，不讓 AI 自己算
+- 頁面一定要保留「AI 老師的評分不等於真實考試，只是模擬」的提示
+
 ## 出題要求
 
 題目全部原創，**不要**從任何市售教材或考古題轉錄內容。
@@ -132,7 +149,8 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 - ⬜ 聽力 L03–L10
 - ✅ 閱讀題庫 **1 / 10 回**（R01 完成，3 篇 40 題含解析）
 - ⬜ 閱讀 R02–R10
-- ⬜ 寫作題庫（作答可輸出 PDF／圖片的功能已完成，缺題目）
+- ✅ 寫作題庫 **1 / 10 回**（W01 完成；電腦考作答介面＋AI 老師批改，作答可輸出 PDF／圖片）
+- ⬜ 寫作 W02–W10
 - ⬜ 口說題庫
 
 ## 常用指令
