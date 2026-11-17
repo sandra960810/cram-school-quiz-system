@@ -1,0 +1,208 @@
+{
+ "no": 1,
+ "title": "Bees on the Rooftops",
+ "context": "城市養蜂的熱潮與爭議",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "In the summer of 2011, a hotel in central London installed three beehives on its roof. At the time, the move was seen largely as a publicity exercise, and the honey was given away to guests in small jars. Within a decade, however, the number of registered hives in Greater London had more than doubled, and rooftop colonies had appeared on offices, schools, railway stations and even a cathedral. Similar trends were reported in Paris, New York and Melbourne. Urban beekeeping, once regarded as an eccentric hobby, had become fashionable."
+  },
+  {
+   "label": "",
+   "text": "Part of the appeal lies in a widespread concern about the decline of pollinating insects. Since the early 2000s, scientists have documented falling numbers of many bee species across Europe and North America, a trend usually attributed to a combination of habitat loss, pesticides and disease. Many people who take up beekeeping in cities say they want to 'do something' for nature. Yet, as a growing number of ecologists point out, the honeybee is only one of more than 250 bee species found in Britain alone, and it is not the one in most danger. Honeybees are, in effect, domesticated livestock, managed by humans for thousands of years. Of the remaining species, most are solitary bees, which do not live in colonies and do not produce honey at all."
+  },
+  {
+   "label": "",
+   "text": "Cities can, surprisingly, be good places for bees. Urban gardens, parks and roadside verges often contain a greater variety of flowering plants than intensively farmed countryside, where large fields may be planted with a single crop. Temperatures in city centres are also typically one or two degrees higher than in surrounding areas, which allows flowers to bloom earlier and for longer. A study carried out in the English city of Bristol in 2016 found that urban areas supported a similar number of pollinator species to farmland, and that private gardens were the most important habitat of all."
+  },
+  {
+   "label": "",
+   "text": "The problem, critics argue, is not the presence of honeybees but their density. A single hive can contain up to 50,000 bees during the summer months, and each colony needs a large quantity of nectar and pollen to survive. Where hives are concentrated, honeybees may simply outcompete wild bees for a limited supply of flowers. Research in Paris, published in 2019, found that the number of wild bees visiting flowers fell significantly in areas with high numbers of hives. There are also concerns that diseases carried by managed honeybees can spread to wild populations when different species feed on the same flowers."
+  },
+  {
+   "label": "",
+   "text": "Beekeepers' associations have responded in a number of ways. In London, the main association has advised its members against setting up new hives in the centre of the city, and has suggested that anyone wishing to help bees should consider planting flowers instead. Some companies that once kept hives purely for their image have removed them, replacing them with 'bee hotels' – simple wooden structures containing hollow tubes in which solitary bees can lay their eggs. These cost a fraction of the price of a hive and need almost no maintenance, although some researchers warn that, unless they are cleaned regularly, they can attract parasites."
+  },
+  {
+   "label": "",
+   "text": "For those who do keep honeybees, the work is more demanding than many beginners expect. Colonies must be inspected roughly once a week during the warmer months, partly to check for disease and partly to prevent swarming, in which a large part of the colony leaves the hive with the old queen to look for a new home. In a crowded city, a swarm landing on a bus shelter or a café table can cause considerable alarm, even though swarming bees are rarely aggressive. Most associations therefore recommend that newcomers attend a training course and spend at least a season assisting an experienced keeper before buying their own bees."
+  },
+  {
+   "label": "",
+   "text": "None of this means that urban beekeeping has no value. Hives on school roofs have proved an effective way of teaching children about food production and ecology, and city honey, which often has a distinctive flavour because of the wide range of plants the bees visit, can be sold to raise money. But ecologists are increasingly clear that the best help for pollinators is the least glamorous: more flowers, fewer pesticides, and patches of uncut grass and bare earth where wild bees can nest."
+  }
+ ],
+ "groups": [
+  {
+   "type": "tfng",
+   "range": "Questions 1–6",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {
+     "no": 1,
+     "text": "The London hotel originally sold the honey from its roof to guests."
+    },
+    {
+     "no": 2,
+     "text": "The number of registered hives in Greater London increased by more than 100 per cent in under ten years."
+    },
+    {
+     "no": 3,
+     "text": "The trend for urban beekeeping began in Paris before it reached London."
+    },
+    {
+     "no": 4,
+     "text": "Most bee species found in Britain produce honey."
+    },
+    {
+     "no": 5,
+     "text": "Flowers in city centres tend to bloom over a longer period than those in surrounding areas."
+    },
+    {
+     "no": 6,
+     "text": "The Bristol study found that farmland supported more pollinator species than urban areas."
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 7–13",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Urban beekeeping: problems and responses",
+   "sections": [
+    {
+     "heading": "Problems when hives are concentrated",
+     "lines": [
+      "honeybees may {7} wild bees for a limited number of flowers",
+      "{8} carried by honeybees can pass to wild species"
+     ]
+    },
+    {
+     "heading": "Responses",
+     "lines": [
+      "London association: people should plant {9} rather than set up new hives in the centre",
+      "bee hotels: wooden structures with hollow {10} for solitary bees",
+      "bee hotels need regular cleaning or they may attract {11}"
+     ]
+    },
+    {
+     "heading": "Keeping honeybees",
+     "lines": [
+      "weekly inspections check for disease and prevent {12}",
+      "beginners should attend a training {13} and help an experienced keeper"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 1,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。文章說蜂蜜是 given away（免費送給）房客，題目卻說 sold（賣）。<br><b>解題關鍵</b>：題目與原文的動作直接矛盾（送 vs. 賣），就是 FALSE，不是 NOT GIVEN。",
+   "quote": "the honey was given away to guests in small jars"
+  },
+  {
+   "no": 2,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。more than doubled（增加超過一倍）＝ increased by more than 100 per cent；Within a decade（十年內）＝ in under ten years。<br><b>同義轉換</b>：這題整句都是改寫，要能把 doubled 換算成 100%。",
+   "quote": "Within a decade, however, the number of registered hives in Greater London had more than doubled"
+  },
+  {
+   "no": 3,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說巴黎等城市也有 Similar trends（類似趨勢），完全沒提哪個城市先開始。<br><b>陷阱</b>：看到 Paris 和 London 同時出現，容易自己推論先後順序。文章沒寫的時間先後，一律是 NOT GIVEN。",
+   "quote": "Similar trends were reported in Paris, New York and Melbourne."
+  },
+  {
+   "no": 4,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。文章說其餘的物種大多是 solitary bees（獨居蜂），do not produce honey at all（根本不產蜜）。所以英國大多數蜂種並不產蜜。<br><b>解題關鍵</b>：英國有 250 多種蜂，蜜蜂只是其中一種，其餘大多是不產蜜的獨居蜂。",
+   "quote": "Of the remaining species, most are solitary bees, which do not live in colonies and do not produce honey at all."
+  },
+  {
+   "no": 5,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。市中心氣溫比周邊地區高一到兩度，which allows flowers to bloom earlier and for longer（讓花開得更早、開得更久）。<br><b>同義轉換</b>：for longer ＝ over a longer period；surrounding areas 原文照用。",
+   "quote": "Temperatures in city centres are also typically one or two degrees higher than in surrounding areas, which allows flowers to bloom earlier and for longer."
+  },
+  {
+   "no": 6,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。Bristol 的研究發現都市地區支持的授粉物種數量 similar（相近），不是農地比較多。<br><b>陷阱</b>：比較級題目要看清楚原文是「相等」還是「較多／較少」。",
+   "quote": "urban areas supported a similar number of pollinator species to farmland"
+  },
+  {
+   "no": 7,
+   "answers": [
+    "outcompete"
+   ],
+   "explain": "答案是 <b>outcompete</b>（在競爭中勝過）。題目的 a limited number of flowers 對應原文 a limited supply of flowers。<br><b>解題關鍵</b>：空格前是 may、後面接受詞 wild bees，所以要填及物動詞原形。",
+   "quote": "honeybees may simply outcompete wild bees for a limited supply of flowers"
+  },
+  {
+   "no": 8,
+   "answers": [
+    "diseases",
+    "disease"
+   ],
+   "explain": "答案是 <b>diseases</b>（疾病）。原文 diseases carried by managed honeybees can spread to wild populations，題目把 spread to 改寫成 pass to。<br><b>注意</b>：寫單數 disease 也可接受，但照原文抄寫最保險。",
+   "quote": "diseases carried by managed honeybees can spread to wild populations"
+  },
+  {
+   "no": 9,
+   "answers": [
+    "flowers"
+   ],
+   "explain": "答案是 <b>flowers</b>。倫敦養蜂協會建議想幫助蜜蜂的人 consider planting flowers instead（改種花）。<br><b>同義轉換</b>：instead ＝ rather than set up new hives。",
+   "quote": "anyone wishing to help bees should consider planting flowers instead"
+  },
+  {
+   "no": 10,
+   "answers": [
+    "tubes"
+   ],
+   "explain": "答案是 <b>tubes</b>（管子）。蜂旅館是 simple wooden structures containing hollow tubes，獨居蜂在裡面產卵。<br><b>解題關鍵</b>：題目已經寫出 wooden structures 和 hollow，空格要填名詞，且必須用複數。",
+   "quote": "simple wooden structures containing hollow tubes in which solitary bees can lay their eggs"
+  },
+  {
+   "no": 11,
+   "answers": [
+    "parasites"
+   ],
+   "explain": "答案是 <b>parasites</b>（寄生蟲）。unless they are cleaned regularly（除非定期清理），就可能 attract parasites。<br><b>同義轉換</b>：unless... cleaned regularly ＝ need regular cleaning or...。",
+   "quote": "unless they are cleaned regularly, they can attract parasites"
+  },
+  {
+   "no": 12,
+   "answers": [
+    "swarming"
+   ],
+   "explain": "答案是 <b>swarming</b>（分蜂，指一大群蜜蜂跟著老蜂后離巢）。每週檢查的兩個目的是 check for disease 和 prevent swarming。<br><b>解題關鍵</b>：題目已經寫出 disease，另一個目的就是答案。",
+   "quote": "partly to check for disease and partly to prevent swarming"
+  },
+  {
+   "no": 13,
+   "answers": [
+    "course"
+   ],
+   "explain": "答案是 <b>course</b>。協會建議新手 attend a training course，並至少協助有經驗的養蜂人一季。<br><b>注意</b>：題目已經有 training，只能填一個字，所以只填 course。",
+   "quote": "Most associations therefore recommend that newcomers attend a training course"
+  }
+ ]
+}

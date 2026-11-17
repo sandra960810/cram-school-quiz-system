@@ -7,6 +7,7 @@ from flask import Flask, request, render_template, redirect, jsonify, url_for, a
 from flask_sqlalchemy import SQLAlchemy
 
 import listening_bank
+import reading_bank
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
@@ -536,7 +537,7 @@ def twtime(dt, fmt='%m/%d %H:%M'):
 SKILLS = [
     {'key': 'listening', 'name': '聽力', 'icon': '🎧', 'endpoint': 'listen_home',
      'desc': '完整 Parts 1–4，共 40 題，交卷自動批改並附逐題解析'},
-    {'key': 'reading', 'name': '閱讀', 'icon': '📖', 'endpoint': None,
+    {'key': 'reading', 'name': '閱讀', 'icon': '📖', 'endpoint': 'read_home',
      'desc': '三篇文章共 40 題，題型比照正式考試'},
     {'key': 'writing', 'name': '寫作', 'icon': '✍️', 'endpoint': None,
      'desc': 'Task 1 圖表描述與 Task 2 論說文，可輸出 PDF 交給老師'},
@@ -582,6 +583,11 @@ def bank_summary():
             info['ready_count'] = ready
             info['total_count'] = 10
             info['available'] = bool(listening_tests)
+        elif s['key'] == 'reading':
+            reading_tests = reading_bank.list_tests()
+            info['ready_count'] = len(reading_tests)
+            info['total_count'] = 10
+            info['available'] = bool(reading_tests)
         else:
             info['ready_count'] = 0
             info['total_count'] = 10
@@ -621,10 +627,12 @@ def exam_mistakes(student_id):
             continue
         skill = SKILL_BY_KEY.get(m.section, {})
         info = {}
-        if m.section == 'listening':
-            if m.test_key not in explain_cache:
-                explain_cache[m.test_key] = listening_bank.explanations(m.test_key)
-            info = explain_cache[m.test_key].get(m.qno, {})
+        bank = {'listening': listening_bank, 'reading': reading_bank}.get(m.section)
+        if bank:
+            cache_key = (m.section, m.test_key)
+            if cache_key not in explain_cache:
+                explain_cache[cache_key] = bank.explanations(m.test_key)
+            info = explain_cache[cache_key].get(m.qno, {})
         rows.append({
             'section': m.section, 'name': skill.get('name', m.section),
             'icon': skill.get('icon', ''), 'test_key': m.test_key, 'qno': m.qno,
@@ -762,16 +770,132 @@ def listen_star():
     qno = data.get('qno')
     if not (student_id and test_key and qno):
         return jsonify({'ok': False}), 400
+    # 閱讀的成績頁也共用這支 API，用 section 區分；沒帶就是聽力（舊頁面相容）
+    section = data.get('section') or listening_bank.SECTION
+    if section not in (listening_bank.SECTION, reading_bank.SECTION):
+        return jsonify({'ok': False}), 400
     m = TestMistake.query.filter_by(student_id=student_id, test_key=test_key,
-                                    section=listening_bank.SECTION, qno=qno).first()
+                                    section=section, qno=qno).first()
     if not m:
         m = TestMistake(student_id=student_id, test_key=test_key,
-                        section=listening_bank.SECTION, qno=qno, wrong_count=0,
+                        section=section, qno=qno, wrong_count=0,
                         corrected=True)
         db.session.add(m)
     m.starred = bool(data.get('starred'))
     db.session.commit()
     return jsonify({'ok': True, 'starred': m.starred})
+
+
+# ---------------------------------------------------------------------------
+# 閱讀題庫：原創的學術組模擬測驗，每回 3 篇文章共 40 題
+# ---------------------------------------------------------------------------
+
+def _read_best(student_id):
+    """每份閱讀試卷的最佳成績 {test_key: 答對題數}。"""
+    rows = (TestAttempt.query
+            .filter_by(student_id=student_id, section=reading_bank.SECTION)
+            .filter(TestAttempt.finished_at.isnot(None)).all())
+    best = {}
+    for a in rows:
+        if a.test_key not in best or a.correct > best[a.test_key]:
+            best[a.test_key] = a.correct
+    return best
+
+
+@app.route('/exam/<int:student_id>/reading')
+def read_home(student_id):
+    student = get_student(student_id)
+    return render_template('read_home.html', student=student,
+                           tests=reading_bank.list_tests(),
+                           best=_read_best(student_id))
+
+
+@app.route('/exam/<int:student_id>/reading/<test_key>')
+def read_test(student_id, test_key):
+    student = get_student(student_id)
+    test = reading_bank.load_test(test_key)
+    if not test:
+        abort(404, description="找不到這份閱讀試卷")
+    return render_template('read_test.html', student=student, test=test)
+
+
+@app.route('/exam/<int:student_id>/reading/<test_key>/submit', methods=['POST'])
+def read_submit(student_id, test_key):
+    get_student(student_id)
+    test = reading_bank.load_test(test_key)
+    if not test:
+        abort(404, description="找不到這份閱讀試卷")
+
+    given = {}
+    for field, value in request.form.items():
+        if field.startswith('q_'):
+            try:
+                given[int(field[2:])] = value
+            except ValueError:
+                pass
+
+    results = reading_bank.grade(test_key, given)
+    correct = sum(1 for r in results if r['is_correct'])
+    attempt = TestAttempt(student_id=student_id, test_key=test_key,
+                          section=reading_bank.SECTION, total=len(results),
+                          correct=correct, finished_at=datetime.utcnow())
+    db.session.add(attempt)
+    db.session.flush()
+
+    for r in results:
+        db.session.add(TestAnswer(attempt_id=attempt.id, qno=r['qno'],
+                                  given=r['given'][:300], is_correct=r['is_correct']))
+        mistake = TestMistake.query.filter_by(student_id=student_id, test_key=test_key,
+                                              section=reading_bank.SECTION,
+                                              qno=r['qno']).first()
+        if not r['is_correct']:
+            if not mistake:
+                mistake = TestMistake(student_id=student_id, test_key=test_key,
+                                      section=reading_bank.SECTION, qno=r['qno'],
+                                      wrong_count=0)
+                db.session.add(mistake)
+            mistake.wrong_count += 1
+            mistake.last_given = r['given'][:300]
+            mistake.corrected = False
+            mistake.last_wrong_at = datetime.utcnow()
+        elif mistake and not mistake.corrected:
+            mistake.corrected = True
+    db.session.commit()
+    return redirect(url_for('read_result', student_id=student_id, attempt_id=attempt.id))
+
+
+@app.route('/exam/<int:student_id>/reading/result/<int:attempt_id>')
+def read_result(student_id, attempt_id):
+    student = get_student(student_id)
+    attempt = db.session.get(TestAttempt, attempt_id)
+    if not attempt or attempt.student_id != student_id or attempt.section != reading_bank.SECTION:
+        abort(404, description="找不到這次測驗")
+    test = reading_bank.load_test(attempt.test_key)
+    if not test:
+        abort(404, description="找不到這份閱讀試卷")
+
+    info = reading_bank.explanations(attempt.test_key)
+    starred = {m.qno for m in TestMistake.query.filter_by(
+        student_id=student_id, test_key=attempt.test_key,
+        section=reading_bank.SECTION, starred=True).all()}
+
+    rows, part_scores = [], {}
+    for a in TestAnswer.query.filter_by(attempt_id=attempt.id).order_by(TestAnswer.qno).all():
+        meta = info.get(a.qno, {})
+        rows.append({'qno': a.qno, 'given': a.given or '', 'is_correct': a.is_correct,
+                     'answer': ' / '.join(meta.get('answers', [])),
+                     'explain': meta.get('explain', ''), 'quote': meta.get('quote', ''),
+                     'passage': meta.get('part'), 'starred': a.qno in starred})
+        pno = meta.get('part')
+        if pno:
+            bucket = part_scores.setdefault(pno, {'no': pno, 'total': 0, 'correct': 0})
+            bucket['total'] += 1
+            bucket['correct'] += 1 if a.is_correct else 0
+
+    pct = round(attempt.correct * 100 / attempt.total) if attempt.total else 0
+    return render_template('read_result.html', student=student, attempt=attempt, test=test,
+                           rows=rows, pct=pct, band=ielts_band(attempt.correct),
+                           part_scores=[part_scores[k] for k in sorted(part_scores)])
 
 
 if __name__ == '__main__':

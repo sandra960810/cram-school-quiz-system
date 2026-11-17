@@ -1,0 +1,237 @@
+{
+ "no": 2,
+ "title": "Why Boredom Matters",
+ "context": "無聊的心理學研究",
+ "instructions": "You should spend about 20 minutes on <b>Questions 14–26</b>, which are based on Reading Passage 2 below.",
+ "paragraphs": [
+  {
+   "label": "A",
+   "text": "For most of the twentieth century, boredom attracted little scientific interest. It was considered a trivial state, an absence of something rather than a phenomenon in its own right, and psychologists preferred to study emotions with more obvious consequences, such as fear or anger. One early exception was a 1937 article by the British psychologist Joseph Barmack, who examined boredom among factory workers performing repetitive tasks. Barmack was mainly concerned with productivity, and his proposed remedy – giving workers stimulants – would today be regarded as unacceptable."
+  },
+  {
+   "label": "B",
+   "text": "One reason the subject was neglected is that boredom is surprisingly hard to define. Is it the same as apathy, or as frustration? Does it require a dull situation, or can a person be bored in the middle of exciting events? In 2012, the Canadian researcher John Eastwood and his colleagues proposed what has become an influential definition: boredom is 'the aversive experience of wanting, but being unable, to engage in satisfying activity'. Crucially, this definition places the cause of boredom in a failure of attention rather than in the environment itself. A lecture may be dull, but it is the listener's inability to connect with it that produces the feeling."
+  },
+  {
+   "label": "C",
+   "text": "Defining boredom is one challenge; measuring it is another. Early studies relied on questionnaires such as the Boredom Proneness Scale, developed in 1986, which asked people how often they felt bored in daily life. Such scales measure a personality trait – the tendency to be bored – rather than the experience of boredom at a particular moment. More recent work has attempted to capture boredom as it happens. In some experiments, participants are asked to watch deliberately tedious videos, such as two men hanging laundry, while researchers record their heart rate and the levels of stress hormones in their saliva. The results suggest that boredom, far from being a calm state, is accompanied by signs of physical stress."
+  },
+  {
+   "label": "D",
+   "text": "This finding helps explain why boredom has been linked to a range of harmful behaviours. People who frequently feel bored are more likely to overeat, to gamble and to drive dangerously, and boredom is commonly cited by drug users as a reason for relapse. A much-reported study conducted at the University of Virginia in 2014 found that many participants, when left alone in a room for fifteen minutes with nothing to do, chose to give themselves a mild electric shock rather than simply sit and think. Two thirds of the men and a quarter of the women did so at least once."
+  },
+  {
+   "label": "E",
+   "text": "Yet not all researchers see boredom as purely negative. The psychologist Sandi Mann, of the University of Central Lancashire, has argued that boredom can stimulate creativity. In one of her experiments, participants who first spent fifteen minutes copying numbers from a telephone directory went on to produce more ideas in a creative task – thinking of uses for a pair of plastic cups – than a group who had not done the dull activity. Mann suggests that when the mind is under-stimulated, it begins to wander, and that this daydreaming allows unexpected connections to be made. She warns, however, that the benefit disappears if the bored person reaches for a smartphone."
+  },
+  {
+   "label": "F",
+   "text": "Others take a functional view. According to Erin Westgate of the University of Florida, boredom acts as a signal, much as pain warns us of physical damage. It tells us that what we are doing is either not meaningful to us or does not demand enough of our attention – or both. In this view, boredom is useful precisely because it is unpleasant: it pushes us to change our goals or our situation. Westgate's research has found that tasks can be boring for two quite different reasons, and that the remedy depends on which one applies. A task that is meaningful but too easy calls for more challenge; a task that is engaging but pointless calls for a clearer sense of purpose."
+  },
+  {
+   "label": "G",
+   "text": "These ideas have practical implications. In schools, boredom is one of the most frequently reported emotions among teenagers, and it is associated with lower achievement. Some educational researchers argue that teachers should not try to eliminate boredom entirely, since learning to tolerate it is itself a valuable skill, but should explain more clearly why a given activity matters. In workplaces, too, employers are beginning to recognise that boredom is not simply a sign of laziness. As Eastwood has observed, a bored employee is not someone who wants to do nothing; it is someone who wants to do something and cannot find it."
+  }
+ ],
+ "groups": [
+  {
+   "type": "headings",
+   "range": "Questions 14–20",
+   "instruction": "Reading Passage 2 has seven paragraphs, <b>A–G</b>.<br>Choose the correct heading for each paragraph from the list of headings below.",
+   "limit": "Write the correct number, <b>i–x</b>, next to Questions 14–20.",
+   "optionsTitle": "List of Headings",
+   "options": {
+    "i": "A state that affects the body as well as the mind",
+    "ii": "An unusual early investigation",
+    "iii": "The difficulty of saying exactly what boredom is",
+    "iv": "How boredom may lead to new ideas",
+    "v": "Applying research findings in classrooms and offices",
+    "vi": "A warning that tells us to change direction",
+    "vii": "Risky choices made to escape dullness",
+    "viii": "Why some people are never bored",
+    "ix": "The role of technology in reducing boredom",
+    "x": "A comparison of boredom in different cultures"
+   },
+   "items": [
+    {
+     "no": 14,
+     "text": "Paragraph A"
+    },
+    {
+     "no": 15,
+     "text": "Paragraph B"
+    },
+    {
+     "no": 16,
+     "text": "Paragraph C"
+    },
+    {
+     "no": 17,
+     "text": "Paragraph D"
+    },
+    {
+     "no": 18,
+     "text": "Paragraph E"
+    },
+    {
+     "no": 19,
+     "text": "Paragraph F"
+    },
+    {
+     "no": 20,
+     "text": "Paragraph G"
+    }
+   ]
+  },
+  {
+   "type": "matching",
+   "range": "Questions 21–23",
+   "instruction": "Look at the following statements (Questions 21–23) and the list of researchers below.<br>Match each statement with the correct researcher, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "limit": "<b>NB</b> You may use any letter more than once.",
+   "optionsTitle": "List of Researchers",
+   "options": {
+    "A": "Joseph Barmack",
+    "B": "John Eastwood",
+    "C": "Sandi Mann",
+    "D": "Erin Westgate"
+   },
+   "items": [
+    {
+     "no": 21,
+     "text": "identified two separate causes of boredom, each needing a different solution"
+    },
+    {
+     "no": 22,
+     "text": "suggested a treatment for boredom that would not be accepted today"
+    },
+    {
+     "no": 23,
+     "text": "claimed that bored people actually want to be active"
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 24–26",
+   "instruction": "Complete the sentences below.",
+   "limit": "Choose <b>NO MORE THAN TWO WORDS</b> from the passage for each answer.",
+   "rows": [
+    {
+     "text": "The Boredom Proneness Scale measures a {24} rather than boredom at a particular moment."
+    },
+    {
+     "text": "In the Virginia study, a quarter of the women chose to give themselves an {25} at least once."
+    },
+    {
+     "text": "According to Mann, the creative benefit of boredom is lost if people use a {26}."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 14,
+   "answers": [
+    "ii"
+   ],
+   "explain": "答案是 <b>ii</b>。A 段先說二十世紀科學界很少研究無聊，接著寫 One early exception（一個早期的例外）：1937 年 Barmack 對工廠工人的研究。<br><b>解題關鍵</b>：exception ＝ unusual，1937 ＝ early。",
+   "quote": "One early exception was a 1937 article by the British psychologist Joseph Barmack"
+  },
+  {
+   "no": 15,
+   "answers": [
+    "iii"
+   ],
+   "explain": "答案是 <b>iii</b>。B 段開頭就是主旨句：boredom is surprisingly hard to define（無聊出乎意料地難以定義），後面接著一連串問句和 Eastwood 的定義。<br><b>陷阱</b>：段中提到原因在「人」不在「環境」，但那是定義的一部分，不是全段主旨。",
+   "quote": "boredom is surprisingly hard to define"
+  },
+  {
+   "no": 16,
+   "answers": [
+    "i"
+   ],
+   "explain": "答案是 <b>i</b>。C 段談如何測量無聊，結論是無聊 far from being a calm state（絕非平靜的狀態），會伴隨 signs of physical stress（身體壓力的徵兆），例如心跳和唾液中的壓力荷爾蒙。<br><b>解題關鍵</b>：heading 常對應段落「結論句」，physical ＝ the body。",
+   "quote": "boredom, far from being a calm state, is accompanied by signs of physical stress"
+  },
+  {
+   "no": 17,
+   "answers": [
+    "vii"
+   ],
+   "explain": "答案是 <b>vii</b>。D 段列出無聊連結到的 harmful behaviours：暴食、賭博、危險駕駛，以及寧可電擊自己也不想乾坐的實驗。<br><b>同義轉換</b>：harmful behaviours ＝ risky choices。",
+   "quote": "boredom has been linked to a range of harmful behaviours"
+  },
+  {
+   "no": 18,
+   "answers": [
+    "iv"
+   ],
+   "explain": "答案是 <b>iv</b>。E 段 Mann 主張 boredom can stimulate creativity，做完無聊任務的人在創意任務中想出更多點子。<br><b>陷阱</b>：ix（科技減少無聊）是干擾項。段末提到智慧型手機，但意思是手機會讓好處消失，不是談科技如何減少無聊。",
+   "quote": "boredom can stimulate creativity"
+  },
+  {
+   "no": 19,
+   "answers": [
+    "vi"
+   ],
+   "explain": "答案是 <b>vi</b>。F 段 Westgate 把無聊比喻成 signal（訊號），就像疼痛提醒身體受傷，它 pushes us to change our goals or our situation。<br><b>同義轉換</b>：signal ＝ warning；change our goals or situation ＝ change direction。",
+   "quote": "boredom acts as a signal, much as pain warns us of physical damage"
+  },
+  {
+   "no": 20,
+   "answers": [
+    "v"
+   ],
+   "explain": "答案是 <b>v</b>。G 段開頭 These ideas have practical implications，接著分別談 In schools 和 In workplaces。<br><b>同義轉換</b>：practical implications ＝ applying research findings；schools ＝ classrooms；workplaces ＝ offices。",
+   "quote": "These ideas have practical implications. In schools"
+  },
+  {
+   "no": 21,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>（Erin Westgate）。她發現任務無聊有 two quite different reasons，而 the remedy depends on which one applies（解法取決於是哪一種）。<br><b>同義轉換</b>：remedy ＝ solution。",
+   "quote": "tasks can be boring for two quite different reasons, and that the remedy depends on which one applies"
+  },
+  {
+   "no": 22,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>（Joseph Barmack）。他提出的解法是給工人興奮劑，would today be regarded as unacceptable（今天會被認為不可接受）。<br><b>同義轉換</b>：remedy ＝ treatment；unacceptable ＝ would not be accepted。",
+   "quote": "his proposed remedy – giving workers stimulants – would today be regarded as unacceptable"
+  },
+  {
+   "no": 23,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>（John Eastwood）。G 段最後引述他：無聊的員工不是什麼都不想做，而是 wants to do something and cannot find it（想做點事卻找不到）。<br><b>陷阱</b>：Eastwood 在 B 段和 G 段都有出現，人名配對題要把同一人出現的所有段落都看過。",
+   "quote": "a bored employee is not someone who wants to do nothing; it is someone who wants to do something and cannot find it"
+  },
+  {
+   "no": 24,
+   "answers": [
+    "personality trait"
+   ],
+   "explain": "答案是 <b>personality trait</b>（人格特質）。這類量表測量的是「容易感到無聊的傾向」，rather than the experience of boredom at a particular moment。<br><b>注意</b>：空格前已經有 a，不要再寫一次。",
+   "quote": "Such scales measure a personality trait – the tendency to be bored – rather than the experience of boredom at a particular moment."
+  },
+  {
+   "no": 25,
+   "answers": [
+    "electric shock"
+   ],
+   "explain": "答案是 <b>electric shock</b>（電擊）。原文是 a mild electric shock，但題目限兩個字，而且空格前是 an（後面接母音開頭的 electric），所以填 electric shock。<br><b>注意</b>：寫成 mild electric shock 超過字數，會被判錯。",
+   "quote": "chose to give themselves a mild electric shock rather than simply sit and think. Two thirds of the men and a quarter of the women did so at least once"
+  },
+  {
+   "no": 26,
+   "answers": [
+    "smartphone"
+   ],
+   "explain": "答案是 <b>smartphone</b>（智慧型手機）。Mann 提醒：the benefit disappears if the bored person reaches for a smartphone。<br><b>同義轉換</b>：disappears ＝ is lost；reaches for ＝ use。",
+   "quote": "the benefit disappears if the bored person reaches for a smartphone"
+  }
+ ]
+}

@@ -62,7 +62,7 @@
         {% for r in rows %}
         <div class="qa {{ 'done' if r.corrected }}">
             <div class="top">
-                <span class="tag">{{ r.icon }} {{ r.name }}　{{ r.test_key }}{% if r.part %}　Part {{ r.part }}{% endif %}</span>
+                <span class="tag">{{ r.icon }} {{ r.name }}　{{ r.test_key }}{% if r.part %}　{{ 'Passage' if r.section == 'reading' else 'Part' }} {{ r.part }}{% endif %}</span>
                 <span class="n">第 {{ r.qno }} 題</span>
                 {% if r.starred %}<span>★</span>{% endif %}
                 <span class="given">你的答案：<b>{{ r.given or '（空白）' }}</b></span>
@@ -71,7 +71,7 @@
                     {{ '已訂正' if r.corrected else '答錯 %d 次' % r.wrong_count }}</span>
             </div>
             {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
-            {% if r.quote %}<div class="quote">🎧 原文：{{ r.quote }}</div>{% endif %}
+            {% if r.quote %}<div class="quote">{{ '📖' if r.section == 'reading' else '🎧' }} 原文：{{ r.quote }}</div>{% endif %}
         </div>
         {% endfor %}
     {% else %}

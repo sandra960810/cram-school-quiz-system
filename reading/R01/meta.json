@@ -1,0 +1,21 @@
+{
+ "title": "Reading Test 1",
+ "subtitle": "Academic Reading，3 篇文章共 40 題，60 分鐘",
+ "passages": [
+  {
+   "no": 1,
+   "context": "城市養蜂的熱潮與爭議",
+   "types": "是非題（TRUE/FALSE/NOT GIVEN）・ 筆記填空"
+  },
+  {
+   "no": 2,
+   "context": "無聊的心理學研究",
+   "types": "段落標題配對 ・ 人名配對 ・ 句子填空"
+  },
+  {
+   "no": 3,
+   "context": "鐵路與標準時間的誕生",
+   "types": "單選題 ・ 觀點判斷（YES/NO/NOT GIVEN）・ 摘要選詞填空"
+  }
+ ]
+}

@@ -1,0 +1,260 @@
+{
+ "no": 3,
+ "title": "Railway Time",
+ "context": "鐵路與標準時間的誕生",
+ "instructions": "You should spend about 20 minutes on <b>Questions 27–40</b>, which are based on Reading Passage 3 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "Until the middle of the nineteenth century, almost every town in Britain kept its own time. Noon was the moment when the sun stood highest in the sky, and because the earth rotates from west to east, this moment arrived progressively later the further west one travelled. Bristol, some 190 kilometres west of London, was roughly ten minutes behind the capital; Plymouth was about sixteen minutes behind. For most of history, these differences were of no practical importance. A journey from London to Bristol by stagecoach took the better part of a day, and a traveller who arrived ten minutes 'early' by his own watch would scarcely have noticed."
+  },
+  {
+   "label": "",
+   "text": "The railways changed this. By the 1840s, trains were covering the same distance in a few hours, and companies faced the problem of producing timetables that made sense at every station along a line. Some printed tables listing departure times in both local and London time; others simply ignored local time altogether. The Great Western Railway, which ran trains from London to the West Country, adopted London time for all its stations in November 1840, and other companies gradually followed. In 1847 the Railway Clearing House, a body that coordinated the activities of the different companies, recommended that all should do the same. Within a year, most of them had."
+  },
+  {
+   "label": "",
+   "text": "The time they adopted was that of the Royal Observatory at Greenwich, which became known as 'railway time'. The spread of the electric telegraph made it possible, from 1852, to send time signals from Greenwich to stations and post offices across the country, so that clocks could be checked against a single reference several times a day. For the first time, it was possible for people hundreds of kilometres apart to know that they were looking at the same moment."
+  },
+  {
+   "label": "",
+   "text": "Not everyone welcomed the change. To many, local time seemed natural, since it reflected the movement of the sun, whereas Greenwich time was an artificial convention imposed by commercial interests. Some towns installed clocks with two minute hands, one showing local time and the other railway time. In Exeter, the dean of the cathedral refused for several years to alter the cathedral clock, which continued to show local time while the station clock nearby ran fourteen minutes ahead. Newspapers printed letters complaining about passengers who had missed trains because they had trusted the wrong clock. Yet the resistance gradually faded. By 1855, it has been estimated, about 98 per cent of public clocks in Great Britain were set to Greenwich time, although the law did not formally recognise it until 1880."
+  },
+  {
+   "label": "",
+   "text": "In larger countries, the problem was far more complicated. In the United States in the 1870s, railway companies used around fifty different standards of time, and a single large station might display several clocks, each showing the time used by a different company. A uniform national time was impossible, since the country spans more than four hours of solar time from east to west. The solution, proposed by several people independently, was to divide the world into zones, each covering fifteen degrees of longitude and differing from its neighbours by exactly one hour. The American and Canadian railways introduced a system of this kind on 18 November 1883, a date sometimes referred to as 'the day of two noons', because clocks in many places were stopped or put back at midday to adjust to the new standard."
+  },
+  {
+   "label": "",
+   "text": "The following year, delegates from twenty-five countries met in Washington at the International Meridian Conference to choose a single prime meridian – the line of zero longitude from which all others would be measured. Greenwich was chosen, largely because the majority of the world's shipping already used charts based on it. France, which had argued for a neutral meridian that did not pass through any major nation, abstained from the vote and continued to use Paris time for another quarter of a century. The conference did not, in fact, establish a system of time zones; individual nations adopted them gradually and on their own terms, and some still use offsets of half an hour or even forty-five minutes."
+  },
+  {
+   "label": "",
+   "text": "It is tempting to see standard time as an inevitable consequence of faster travel. But the history suggests otherwise. Standard time was not invented by governments or scientists acting on behalf of the public; it was adopted, piece by piece, by private companies seeking to solve a practical problem, and only later endorsed by the state. Its success owed as much to the commercial dominance of the railways as to any obvious advantage for ordinary people, many of whom continued for years to live by the sun. What we now regard as a natural feature of the world – that it is 'the same time' across a whole country – is, in truth, a relatively recent agreement, and one that was not reached without argument."
+  }
+ ],
+ "groups": [
+  {
+   "type": "mcq",
+   "range": "Questions 27–31",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 27,
+     "stem": "What does the writer say about differences in local time before the railways?",
+     "options": {
+      "A": "They were measured with great accuracy.",
+      "B": "They caused problems for stagecoach companies.",
+      "C": "They had little effect on people's lives.",
+      "D": "They were largest in the west of the country."
+     }
+    },
+    {
+     "no": 28,
+     "stem": "What did the Great Western Railway do in 1840?",
+     "options": {
+      "A": "It printed timetables showing both local and London time.",
+      "B": "It used London time at every one of its stations.",
+      "C": "It persuaded other companies to adopt a single time.",
+      "D": "It set up the Railway Clearing House."
+     }
+    },
+    {
+     "no": 29,
+     "stem": "According to the third paragraph, the electric telegraph was important because it",
+     "options": {
+      "A": "allowed clocks in different places to be compared with one standard.",
+      "B": "removed the need for clocks at railway stations.",
+      "C": "made it possible to send timetables to every station.",
+      "D": "was first used by the Royal Observatory in 1852."
+     }
+    },
+    {
+     "no": 30,
+     "stem": "What point does the writer make about Exeter?",
+     "options": {
+      "A": "Its station clock was frequently inaccurate.",
+      "B": "Its cathedral clock kept local time for some years after the change.",
+      "C": "Its dean wrote letters of complaint to newspapers.",
+      "D": "It installed a clock with two minute hands."
+     }
+    },
+    {
+     "no": 31,
+     "stem": "Why was Greenwich chosen as the prime meridian?",
+     "options": {
+      "A": "Britain was hosting the conference.",
+      "B": "It did not pass through any major nation.",
+      "C": "Most ships already used charts based on it.",
+      "D": "France voted in favour of it."
+     }
+    }
+   ]
+  },
+  {
+   "type": "ynng",
+   "range": "Questions 32–36",
+   "instruction": "Do the following statements agree with the claims of the writer in Reading Passage 3?",
+   "limit": "Write<br><b>YES</b> if the statement agrees with the claims of the writer<br><b>NO</b> if the statement contradicts the claims of the writer<br><b>NOT GIVEN</b> if it is impossible to say what the writer thinks about this",
+   "items": [
+    {
+     "no": 32,
+     "text": "Greenwich time was given legal status as soon as most public clocks in Britain had adopted it."
+    },
+    {
+     "no": 33,
+     "text": "A single time for the whole of the United States would not have been practical."
+    },
+    {
+     "no": 34,
+     "text": "The changes made on 'the day of two noons' led to serious accidents on the railways."
+    },
+    {
+     "no": 35,
+     "text": "The International Meridian Conference created the system of time zones in use today."
+    },
+    {
+     "no": 36,
+     "text": "Several other countries shared France's view about where the prime meridian should be."
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 37–40",
+   "instruction": "Complete the summary using the list of words, <b>A–H</b>, below.",
+   "limit": "Write the correct letter, <b>A–H</b>, next to Questions 37–40.",
+   "title": "The origins of standard time",
+   "optionsTitle": "",
+   "options": {
+    "A": "inevitable",
+    "B": "accidental",
+    "C": "private companies",
+    "D": "scientists",
+    "E": "state",
+    "F": "public",
+    "G": "dominance",
+    "H": "weakness"
+   },
+   "rows": [
+    {
+     "text": "The writer argues that standard time should not be seen as an {37} result of faster travel. In fact, it was adopted gradually by {38} which needed to solve a practical problem, and the {39} only gave its approval later. Its success depended as much on the commercial {40} of the railways as on any clear benefit to ordinary people."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 27,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。作者說 these differences were of no practical importance，搭驛馬車要一整天，早到十分鐘 would scarcely have noticed（幾乎不會察覺）。<br><b>陷阱</b>：D 看起來合理（越往西越晚），但文章說的是時間「越晚」，不是差異「最大」，而且這不是作者的重點。",
+   "quote": "For most of history, these differences were of no practical importance."
+  },
+  {
+   "no": 28,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。Great Western Railway adopted London time for all its stations in November 1840。<br><b>陷阱</b>：A 是「有些公司」的做法（Some printed tables...），不是 GWR；C 錯在其他公司是 gradually followed（自己陸續跟進），文章沒說是被它說服；D 的 Clearing House 是 1847 年另一個機構的建議。",
+   "quote": "adopted London time for all its stations in November 1840"
+  },
+  {
+   "no": 29,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。電報讓格林威治可以把時間訊號送到全國，so that clocks could be checked against a single reference（時鐘可以對照同一個標準校正）。<br><b>陷阱</b>：C 偷換成「傳送時刻表」，原文傳的是 time signals；D 的 1852 是開始傳送時間訊號的年份，不是天文台首次使用電報。",
+   "quote": "so that clocks could be checked against a single reference several times a day"
+  },
+  {
+   "no": 30,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。Exeter 大教堂的主任牧師 refused for several years to alter the cathedral clock，鐘繼續顯示當地時間，而附近車站的鐘快了十四分鐘。<br><b>陷阱</b>：D 的雙分針時鐘是 Some towns（某些城鎮），沒說是 Exeter；C 寫信給報紙的是旅客的抱怨，不是牧師。",
+   "quote": "In Exeter, the dean of the cathedral refused for several years to alter the cathedral clock, which continued to show local time"
+  },
+  {
+   "no": 31,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。Greenwich was chosen, largely because the majority of the world's shipping already used charts based on it。<br><b>陷阱</b>：B 是法國主張的「中立子午線」條件，剛好與格林威治相反；D 錯在法國 abstained（棄權）；會議在 Washington 舉行，所以 A 也錯。",
+   "quote": "Greenwich was chosen, largely because the majority of the world's shipping already used charts based on it."
+  },
+  {
+   "no": 32,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。1855 年約 98% 的公共時鐘已改用格林威治時間，但法律 did not formally recognise it until 1880，晚了二十多年，不是 as soon as。<br><b>解題關鍵</b>：看到 as soon as、immediately 這類時間詞，要回原文核對年份。",
+   "quote": "By 1855, it has been estimated, about 98 per cent of public clocks in Great Britain were set to Greenwich time, although the law did not formally recognise it until 1880."
+  },
+  {
+   "no": 33,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。作者說 A uniform national time was impossible，因為美國東西橫跨四個多小時的太陽時。<br><b>同義轉換</b>：uniform national time ＝ a single time for the whole of the United States；impossible ＝ would not have been practical。",
+   "quote": "A uniform national time was impossible, since the country spans more than four hours of solar time from east to west."
+  },
+  {
+   "no": 34,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只解釋這天為何叫 the day of two noons（時鐘在中午被停下或調回），完全沒提到事故。<br><b>陷阱</b>：常識上會覺得調整時間可能造成混亂，但作者沒有說，就是 NOT GIVEN。",
+   "quote": "a date sometimes referred to as 'the day of two noons', because clocks in many places were stopped or put back at midday to adjust to the new standard"
+  },
+  {
+   "no": 35,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。作者明說 The conference did not, in fact, establish a system of time zones，各國是自己陸續採用的。<br><b>解題關鍵</b>：in fact 常用來糾正讀者的誤解，是 YES/NO 題的出題點。",
+   "quote": "The conference did not, in fact, establish a system of time zones"
+  },
+  {
+   "no": 36,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說 France 主張中立子午線並棄權，沒提到是否有其他國家支持法國的看法。<br><b>陷阱</b>：文章有 twenty-five countries 這個數字，但沒有說任何國家的立場。",
+   "quote": "France, which had argued for a neutral meridian that did not pass through any major nation, abstained from the vote"
+  },
+  {
+   "no": 37,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>（inevitable）。最後一段開頭：It is tempting to see standard time as an inevitable consequence of faster travel. But the history suggests otherwise。<br><b>同義轉換</b>：consequence ＝ result；tempting... But otherwise ＝ should not be seen as。",
+   "quote": "It is tempting to see standard time as an inevitable consequence of faster travel."
+  },
+  {
+   "no": 38,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>（private companies）。標準時間是 adopted, piece by piece, by private companies seeking to solve a practical problem。<br><b>陷阱</b>：D（scientists）在原文出現，但是在否定句裡：not invented by governments or scientists。",
+   "quote": "it was adopted, piece by piece, by private companies seeking to solve a practical problem"
+  },
+  {
+   "no": 39,
+   "answers": [
+    "E"
+   ],
+   "explain": "答案是 <b>E</b>（state）。原文 only later endorsed by the state（之後才由國家認可）。<br><b>同義轉換</b>：endorsed ＝ gave its approval；only later ＝ only... later。空格前是 the、後面接單數的 its，所以要填單數名詞 state。",
+   "quote": "and only later endorsed by the state"
+  },
+  {
+   "no": 40,
+   "answers": [
+    "G"
+   ],
+   "explain": "答案是 <b>G</b>（dominance）。Its success owed as much to the commercial dominance of the railways as to any obvious advantage for ordinary people。<br><b>陷阱</b>：F（public）出現在原文前一句，但這格前面是 commercial，後面是 of the railways，只能填 dominance。",
+   "quote": "Its success owed as much to the commercial dominance of the railways"
+  }
+ ]
+}
