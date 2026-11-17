@@ -24,3 +24,4 @@ fix_log.txt
 azure_tts.txt
 tools/.tts_cache/
 static/audio/listening/
+listening_audio_log.txt
