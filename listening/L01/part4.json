@@ -1,0 +1,137 @@
+{
+  "no": 4,
+  "context": "A university lecture on green roofs in cities",
+  "audio": "L01_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a lecture about green roofs in cities. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Good morning. Today I want to look at green roofs — that is, roofs deliberately covered with growing plants — and to ask whether they really deliver what their supporters claim." },
+    { "v": "m1", "t": "Let's start with some history. People have grown plants on roofs for centuries, but the modern green roof is essentially a German invention. Research in Germany in the nineteen sixties produced the layered system we still use today, and by the nineteen nineties around ten per cent of all new German buildings had one." },
+    { "v": "m1", "t": "Now, the industry divides green roofs into two categories, and the distinction matters. The first is the extensive roof. This has a very shallow layer of soil, typically under fifteen centimetres, planted with tough, drought-tolerant species. Its great advantage is that it requires almost no maintenance — you might visit it twice a year. The second category is the intensive roof, which has much deeper soil. Because of that depth it can support shrubs and even small trees, and some are designed as public parks. The trade-off, of course, is that an intensive roof must be watered, weeded and managed like any garden." },
+    { "v": "m1", "t": "So what are the benefits? The one most often quoted is drainage. In heavy rain, a conventional roof sends water straight into the drains within minutes, and in older cities that is exactly what causes flooding. A green roof holds the water in its soil and releases it slowly. The figures vary with design, but a well-built extensive roof will typically retain about sixty per cent of annual rainfall." },
+    { "v": "m1", "t": "The second benefit is thermal. In summer, the soil and plants shade the building beneath, and evaporation cools the air above. Studies in several cities have measured a reduction of up to four degrees in the air temperature immediately above a green roof. That matters because cities are already several degrees warmer than the countryside around them." },
+    { "v": "m1", "t": "Third, and this is one people rarely think of, green roofs protect the building itself. The waterproof membrane beneath the soil is no longer exposed to ultraviolet light or to extremes of heat and cold, and that roughly doubles its lifespan. Given that replacing a membrane is expensive, this alone can justify the investment." },
+    { "v": "m1", "t": "Fourth, there is the question of wildlife. A green roof is not a substitute for a meadow, but surveys of roofs in London and Basel have found substantial numbers of beetles — including several species considered rare at ground level. Birds use them too, though mainly for feeding rather than nesting." },
+    { "v": "m1", "t": "Now, the difficulties, because there certainly are some. The first and most obvious is weight. Saturated soil is extremely heavy, and many existing buildings simply cannot take the load without structural strengthening, which is often what makes a retrofit impossible." },
+    { "v": "m1", "t": "The second difficulty is cost. A green roof costs considerably more to install than a conventional one — perhaps twice as much. Supporters point out, quite correctly, that it lasts longer and reduces energy bills, so the payback period is usually between fifteen and twenty years. But that is a long time for a developer who intends to sell the building." },
+    { "v": "m1", "t": "A third problem, and one that is often underestimated in drier climates, is that even a so-called low-maintenance roof may need irrigation during a prolonged drought, and that of course uses the very water we were trying to save." },
+    { "v": "m1", "t": "Let me finish with a case study. The city most often cited is Toronto, which in two thousand and nine became the first city in North America to make green roofs compulsory on large new buildings. Ten years on, the results are encouraging — but the researchers who evaluated the scheme were clear that the main obstacle was not technical at all. It was a shortage of trained installers. You can pass a law requiring green roofs, but you cannot legislate the skills into existence." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "GREEN ROOFS",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Background",
+          "lines": [
+            "Modern green roofs developed through research carried out in {31}",
+            "By the 1990s, about 10% of new buildings there had one"
+          ]
+        },
+        {
+          "heading": "Two types",
+          "lines": [
+            "Extensive: shallow soil; needs very little {32}",
+            "Intensive: deeper soil, so it can support small {33}"
+          ]
+        },
+        {
+          "heading": "Benefits",
+          "lines": [
+            "Drainage: retains roughly {34} per cent of yearly rainfall",
+            "Temperature: air above the roof can be up to {35} degrees cooler",
+            "Protection: the life of the waterproof {36} is roughly doubled",
+            "Wildlife: surveys found large numbers of {37}, some of them rare"
+          ]
+        },
+        {
+          "heading": "Problems",
+          "lines": [
+            "{38} of wet soil — many old buildings need strengthening",
+            "Cost: about twice as much to install; payback takes 15–20 {39}",
+            "In dry climates, irrigation may still be needed"
+          ]
+        },
+        {
+          "heading": "Case study: Toronto",
+          "lines": [
+            "First North American city to make green roofs compulsory (2009)",
+            "Main obstacle was a lack of trained {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": ["Germany"],
+      "explain": "答案是 <b>Germany</b>。講者說 Research in Germany in the nineteen sixties produced the layered system we still use today。<br><b>提醒</b>：題目空格前是 carried out in，需要地點。注意國名首字母要大寫。",
+      "quote": "The modern green roof is essentially a German invention. Research in Germany in the nineteen sixties produced the layered system."
+    },
+    {
+      "no": 32,
+      "answers": ["maintenance"],
+      "explain": "答案是 <b>maintenance</b>。講者說 extensive roof... requires almost no maintenance。<br><b>同義轉換</b>：題目的 needs very little ＝ 錄音的 requires almost no。限 ONE WORD ONLY，只能寫 maintenance。",
+      "quote": "Its great advantage is that it requires almost no maintenance — you might visit it twice a year."
+    },
+    {
+      "no": 33,
+      "answers": ["trees"],
+      "explain": "答案是 <b>trees</b>。講者說 it can support shrubs and even small trees，題目已印出 small，故填 trees。<br><b>陷阱</b>：shrubs 也出現，但題目印的是 small ___，和錄音的 small trees 對應。複數形不可漏。",
+      "quote": "Because of that depth it can support shrubs and even small trees."
+    },
+    {
+      "no": 34,
+      "answers": ["60", "sixty"],
+      "explain": "答案是 <b>60</b>。講者說 will typically retain about sixty per cent of annual rainfall。<br><b>陷阱</b>：前面出現的 ten per cent 是 1990 年代德國新建築的比例，不是雨水滯留率。數字題務必確認它修飾的對象。",
+      "quote": "A well-built extensive roof will typically retain about sixty per cent of annual rainfall."
+    },
+    {
+      "no": 35,
+      "answers": ["4", "four"],
+      "explain": "答案是 <b>4</b>。講者說 a reduction of up to four degrees in the air temperature immediately above a green roof。<br><b>提醒</b>：題目的 up to ___ degrees cooler 與錄音的 a reduction of up to four degrees 完全對應。",
+      "quote": "Studies in several cities have measured a reduction of up to four degrees in the air temperature immediately above a green roof."
+    },
+    {
+      "no": 36,
+      "answers": ["membrane"],
+      "explain": "答案是 <b>membrane</b>。講者說 The waterproof membrane beneath the soil... that roughly doubles its lifespan。<br><b>同義轉換</b>：題目的 the life of... is roughly doubled ＝ 錄音的 roughly doubles its lifespan。",
+      "quote": "The waterproof membrane beneath the soil is no longer exposed to ultraviolet light... that roughly doubles its lifespan."
+    },
+    {
+      "no": 37,
+      "answers": ["beetles"],
+      "explain": "答案是 <b>beetles</b>。講者說 surveys of roofs in London and Basel have found substantial numbers of beetles — including several species considered rare。<br><b>陷阱</b>：birds 也有提到，但那是「覓食而非築巢」，且題目說 some of them rare，對應的是甲蟲。",
+      "quote": "Surveys of roofs in London and Basel have found substantial numbers of beetles — including several species considered rare at ground level."
+    },
+    {
+      "no": 38,
+      "answers": ["Weight", "weight"],
+      "explain": "答案是 <b>Weight</b>。講者說 The first and most obvious is weight. Saturated soil is extremely heavy。<br><b>提醒</b>：題目的 ___ of wet soil 對應 Saturated soil（飽和含水的土壤）。saturated 就是題目的 wet。",
+      "quote": "The first and most obvious is weight. Saturated soil is extremely heavy."
+    },
+    {
+      "no": 39,
+      "answers": ["years"],
+      "explain": "答案是 <b>years</b>。講者說 the payback period is usually between fifteen and twenty years，題目已印出 15–20，只需填單位。<br><b>提醒</b>：這類題只缺單位，複數 years 不可寫成 year。",
+      "quote": "The payback period is usually between fifteen and twenty years."
+    },
+    {
+      "no": 40,
+      "answers": ["installers"],
+      "explain": "答案是 <b>installers</b>。講者說 the main obstacle was not technical at all. It was a shortage of trained installers。<br><b>同義轉換</b>：題目的 a lack of ＝ 錄音的 a shortage of。注意講者先否定 technical，答案在 not... at all 之後的轉折裡。",
+      "quote": "The main obstacle was not technical at all. It was a shortage of trained installers."
+    }
+  ]
+}

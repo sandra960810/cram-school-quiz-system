@@ -1,0 +1,141 @@
+{
+  "no": 2,
+  "context": "A recorded information talk for visitors to Hartwell Country Park",
+  "audio": "L01_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear a recorded information talk for visitors to Hartwell Country Park. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Welcome to Hartwell Country Park. This recording will tell you what you need to know before you set off." },
+    { "v": "f2", "t": "Hartwell is one of the oldest green spaces in the county. Many visitors assume it was once a royal hunting ground, because of the name, but in fact that was Hartwell Forest, several miles to the north. Our park began life as the private estate of the Pemberton family, who built the house in 1780 and laid out the lake and the woodland walks. The estate was sold to the council in 1952, and the farmland on the eastern side was added twenty years after that." },
+    { "v": "f2", "t": "A word about parking. The main car park is open from eight in the morning until dusk, and we do ask you to be out before the gates are locked. Parking costs two pounds for up to three hours. There's no charge at all for members, and no charge on weekdays either, so if you can come midweek, you'll pay nothing." },
+    { "v": "f2", "t": "Dogs are very welcome at Hartwell. We used to insist that they were kept on a lead everywhere in the park, but after a great deal of correspondence from local dog owners, we changed the rule last spring. Dogs may now run freely in the woodland, though they must still be on a lead around the lake, where the ground-nesting birds are. Please don't take dogs into the walled garden at all." },
+    { "v": "f2", "t": "Our guided walks run every Sunday at eleven o'clock, and they last about ninety minutes. You don't need to book, and there's no charge, although we're always glad of a donation. Do bear in mind that the route goes over rough ground in places, so stout footwear is essential — the walk is not suitable for pushchairs." },
+    { "v": "f2", "t": "Finally, the big news for this year. We've been promising a new wildlife pond for some time, and I'm afraid that has had to be postponed again until next spring. The outdoor theatre is still at the planning stage. What we have opened, and what I'd encourage you all to visit, is the restored walled garden, which took three years of work by our volunteers and is now open every day." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Now let me help you find your way around. You'll find a copy of this map on the board beside the main gate." },
+    { "v": "f2", "t": "As you come through the main gate at the bottom of the map, the main path runs straight ahead of you towards the lake. The children's playground is immediately on your left as you enter, just inside the gate. Directly opposite it, on the other side of the main path, is the café — so you can sit with a coffee and keep an eye on the children at the same time." },
+    { "v": "f2", "t": "Follow the main path north and you'll come to the lake. Where the path first meets the water, on the near shore, that's where you'll find boat hire. Boats are available from April to September only." },
+    { "v": "f2", "t": "If you want to see the birds, carry on round the lake to the far side. The bird hide is on the northern shore, looking back across the water. It's the best spot in the park at dawn." },
+    { "v": "f2", "t": "And for those of you who like wild flowers, take the left-hand path into the woodland and keep walking until you reach the very top corner of the park, as far north-west as you can go. The wildflower meadow is there. It's a twenty-minute walk, but in June it's quite a sight." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "Hartwell Country Park was originally",
+          "options": { "A": "a royal hunting ground.", "B": "a private family estate.", "C": "council farmland." }
+        },
+        {
+          "no": 12,
+          "stem": "Visitors pay to use the main car park",
+          "options": { "A": "at weekends only.", "B": "on every day of the week.", "C": "only if they stay over three hours." }
+        },
+        {
+          "no": 13,
+          "stem": "The rule about dogs was changed because of",
+          "options": { "A": "complaints from dog owners.", "B": "damage to ground-nesting birds.", "C": "a decision by the council." }
+        },
+        {
+          "no": 14,
+          "stem": "What are visitors told about the guided walks?",
+          "options": { "A": "Places must be booked in advance.", "B": "There is a small charge.", "C": "Suitable shoes are needed." }
+        },
+        {
+          "no": 15,
+          "stem": "Which feature has opened at the park this year?",
+          "options": { "A": "a wildlife pond", "B": "an outdoor theatre", "C": "a walled garden" }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L01_part2_map.svg",
+      "imageAlt": "Hartwell Country Park 地圖，標示 A 到 H 八個位置",
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "items": [
+        { "no": 16, "text": "Children's playground" },
+        { "no": 17, "text": "Café" },
+        { "no": 18, "text": "Boat hire" },
+        { "no": 19, "text": "Bird hide" },
+        { "no": 20, "text": "Wildflower meadow" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（a private family estate）。錄音說 Our park began life as the private estate of the Pemberton family。<br><b>陷阱</b>：A 的 royal hunting ground 被明確否定——那是北邊幾哩外的 Hartwell Forest，不是這座公園；C 的 farmland 是 1952 年之後才併入的，不是最初的來源。",
+      "quote": "Many visitors assume it was once a royal hunting ground... but in fact that was Hartwell Forest. Our park began life as the private estate of the Pemberton family."
+    },
+    {
+      "no": 12,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（at weekends only）。錄音說平日不收費（no charge on weekdays either），反推就是只有週末要付費。<br><b>陷阱</b>：C 的「超過三小時才收費」正好相反——實際上是「三小時以內收兩英鎊」。這題需要從「不收費的情況」反推，是雅思常見的間接問法。",
+      "quote": "Parking costs two pounds for up to three hours. There's no charge at all for members, and no charge on weekdays either."
+    },
+    {
+      "no": 13,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（complaints from dog owners）。錄音說 after a great deal of correspondence from local dog owners, we changed the rule，correspondence 在此指大量來信抗議，對應 complaints。<br><b>陷阱</b>：ground-nesting birds 有出現，但那是「現在湖邊仍須繫繩」的原因，不是改規定的原因。",
+      "quote": "After a great deal of correspondence from local dog owners, we changed the rule last spring."
+    },
+    {
+      "no": 14,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（Suitable shoes are needed）。錄音說 stout footwear is essential，stout footwear 就是堅固的鞋子，對應 suitable shoes。<br><b>陷阱</b>：A 錯在 You don't need to book（不需預約）；B 錯在 there's no charge（不收費，捐款是自願的）。三個選項都有對應句子，必須聽清楚肯定或否定。",
+      "quote": "You don't need to book, and there's no charge... stout footwear is essential."
+    },
+    {
+      "no": 15,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（a walled garden）。錄音說 What we have opened... is the restored walled garden。<br><b>陷阱</b>：A 的 wildlife pond 被延到明年春天（postponed again until next spring）；B 的 outdoor theatre 還在規劃階段（still at the planning stage）。三者都提到，但只有一個真的開放了。",
+      "quote": "What we have opened, and what I'd encourage you all to visit, is the restored walled garden."
+    },
+    {
+      "no": 16,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。錄音說 The children's playground is immediately on your left as you enter, just inside the gate。從地圖下方的大門進入，左手邊就是 A。<br><b>方位技巧</b>：地圖題先在聽之前標出「入口」和「你面向的方向」，on your left 才不會左右顛倒。",
+      "quote": "The children's playground is immediately on your left as you enter, just inside the gate."
+    },
+    {
+      "no": 17,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。錄音說 Directly opposite it, on the other side of the main path, is the café。it 指上一句的 playground（A），正對面就是 B。<br><b>提醒</b>：opposite、across from、on the other side of 都是「正對面」，是地圖題高頻詞。",
+      "quote": "Directly opposite it, on the other side of the main path, is the café."
+    },
+    {
+      "no": 18,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>。錄音說 Where the path first meets the water, on the near shore, that's where you'll find boat hire。主要步道由南往北，第一次碰到湖水的位置是湖的南岸，即 E。<br><b>關鍵詞</b>：near shore（近岸）相對於說話者所在的入口方向，也就是南側。",
+      "quote": "Where the path first meets the water, on the near shore, that's where you'll find boat hire."
+    },
+    {
+      "no": 19,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>。錄音說 The bird hide is on the northern shore, looking back across the water，湖的北岸就是 F。<br><b>陷阱</b>：boat hire（E）和 bird hide（F）都在湖邊，差別只在南岸與北岸，而且兩個詞開頭都是 b，必須靠方位詞分辨。",
+      "quote": "Carry on round the lake to the far side. The bird hide is on the northern shore."
+    },
+    {
+      "no": 20,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>。錄音說 take the left-hand path into the woodland and keep walking until you reach the very top corner of the park, as far north-west as you can go，地圖左上角就是 D。<br><b>提醒</b>：top of the map 即北方，left 即西方，兩者合起來就是 north-west。",
+      "quote": "Keep walking until you reach the very top corner of the park, as far north-west as you can go. The wildflower meadow is there."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Listening Test 1",
+  "subtitle": "Parts 1–4，共 40 題，約 30 分鐘",
+  "parts": [
+    { "no": 1, "context": "租屋詢問電話", "types": "表格填空" },
+    { "no": 2, "context": "鄉村公園語音導覽", "types": "單選題 ・ 地圖題" },
+    { "no": 3, "context": "學生討論睡眠與記憶研究", "types": "單選題 ・ 配對題" },
+    { "no": 4, "context": "綠屋頂講座", "types": "筆記填空" }
+  ]
+}

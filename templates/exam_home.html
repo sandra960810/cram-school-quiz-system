@@ -45,6 +45,13 @@
         .test-chip { padding: 8px 16px; border-radius: 20px; background: white; border: 2px solid #d5d8dc; color: #2c3e50; font-size: 14px; font-weight: bold; text-decoration: none; }
         .test-chip.active { background: #5b48a2; border-color: #5b48a2; color: white; }
         .test-chip.soon { border-style: dashed; color: #95a5a6; font-weight: normal; }
+        .bank-cta { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #2471a3;
+                    border-radius: 12px; padding: 14px 18px; text-decoration: none; color: #2c3e50; margin-bottom: 18px; }
+        .bank-cta:hover { background: #f4f9fd; }
+        .bank-cta .ic { font-size: 28px; }
+        .bank-cta .tx { flex: 1; font-size: 13px; color: #7f8c8d; line-height: 1.6; }
+        .bank-cta .tx b { display: block; font-size: 16px; color: #2c3e50; margin-bottom: 2px; }
+        .bank-cta .go { font-size: 20px; color: #2471a3; font-weight: bold; }
         .tip { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.7; margin-bottom: 18px; }
     </style>
 </head>
@@ -69,6 +76,12 @@
     </div>
 
     <div class="tip">💡 聽力音檔已內建在測驗頁面裡，點進聽力就能直接播放；閱讀建議 60 分鐘內完成三篇。</div>
+
+    <a class="bank-cta" href="{{ url_for('listen_home', student_id=student.id) }}">
+        <span class="ic">🎧</span>
+        <span class="tx"><b>雅思聽力題庫</b>原創完整模考，每回 Parts 1–4 共 40 題，逐題附解析</span>
+        <span class="go">→</span>
+    </a>
 
     <div class="section-grid ui-stagger">
         {% for key, s in sections.items() %}
