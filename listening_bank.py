@@ -121,6 +121,13 @@ def _gap_html(text):
     return Markup(GAP_RE.sub(sub, escape(text)))
 
 
+def _note_line(text):
+    sub = text.startswith('- ')
+    if sub:
+        text = text[2:]
+    return {'html': _gap_html(text), 'sub': sub, 'example': '{ex:' in text}
+
+
 def _render_group(g):
     """把題組轉成樣板直接可用的結構（HTML 片段已處理成 Markup）。"""
     out = dict(g)
@@ -129,8 +136,10 @@ def _render_group(g):
         out['rows'] = [{'label': r.get('label', ''), 'html': _gap_html(r['text']),
                         'example': '{ex:' in r['text']}
                        for r in g.get('rows', [])]
-        out['sections'] = [{'heading': s['heading'],
-                            'lines': [_gap_html(ln) for ln in s['lines']]}
+        # 筆記填空的每一行：開頭是「- 」的是上一點的接續句（縮排、不加圓點），
+        # 含 {ex:…} 的是範例句（上方印 Example answer），和正式考卷一樣
+        out['sections'] = [{'heading': s.get('heading', ''),
+                            'lines': [_note_line(ln) for ln in s['lines']]}
                            for s in g.get('sections', [])]
     elif g['type'] == 'matching':
         out['option_list'] = [(k, g['options'][k]) for k in sorted(g['options'])]
