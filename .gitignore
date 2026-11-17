@@ -25,3 +25,7 @@ azure_tts.txt
 tools/.tts_cache/
 static/audio/listening/
 listening_audio_log.txt
+
+# AI 老師的 API 金鑰（只存在本機，絕對不能上傳）
+ai_key.txt
+ai_key_log.txt

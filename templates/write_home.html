@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寫作題庫</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .banner { background: linear-gradient(135deg, #f0b27a, #b9770e); color: #fff; padding: 22px 26px;
+                  border-radius: 14px; margin-bottom: 20px; }
+        .banner h1 { margin: 0 0 6px; font-size: 24px; }
+        .banner p { margin: 0; opacity: .95; line-height: 1.7; font-size: 14px; }
+        .disclaimer { background: #fdf2e9; border: 2px solid #f5cba7; color: #873600; border-radius: 10px;
+                      padding: 12px 16px; font-size: 14px; line-height: 1.8; margin-bottom: 14px; }
+        .hint { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 12px 16px;
+                font-size: 13px; line-height: 1.8; margin-bottom: 18px; }
+        .warn { background: #fadbd8; color: #922b21; border-radius: 10px; padding: 12px 16px;
+                font-size: 14px; line-height: 1.8; margin-bottom: 18px; }
+        .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 22px; }
+        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06);
+                 border-top: 4px solid #b9770e; text-decoration: none; color: #2c3e50; display: block; }
+        a.tcard:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,.12); }
+        .tcard .tt { font-size: 18px; font-weight: bold; margin-bottom: 6px; }
+        .tcard .topics { font-size: 13px; color: #7f8c8d; line-height: 1.7; min-height: 44px; }
+        .state { margin-top: 10px; font-size: 13px; font-weight: bold; display: inline-block; padding: 3px 12px; border-radius: 12px; }
+        .state.ok { background: #d5f5e3; color: #1e8449; }
+        .state.best { background: #eaf2fb; color: #2471a3; margin-left: 6px; }
+        .soon { opacity: .55; border-top-color: #bdc3c7; }
+        .soon .state { background: #ecf0f1; color: #7f8c8d; }
+        .panel { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+        .panel h2 { margin: 0 0 10px; font-size: 17px; }
+        .hrow { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px;
+                border-bottom: 1px solid #f0f2f5; font-size: 14px; color: #2c3e50; text-decoration: none; }
+        .hrow:last-child { border-bottom: none; }
+        .hrow .when { color: #95a5a6; font-size: 12px; margin-left: 8px; }
+        .band { font-weight: bold; padding: 3px 10px; border-radius: 10px; background: #eaf2fb; color: #2471a3; }
+        .band.none { background: #ecf0f1; color: #7f8c8d; font-weight: normal; }
+    </style>
+</head>
+<body>
+<div class="exam-wrap wide">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+    </div>
+
+    <div class="banner">
+        <h1>✍️ 雅思寫作題庫（學術組）</h1>
+        <p>{{ student.name }}，每一回包含 Task 1 圖表描述與 Task 2 論說文，共 60 分鐘，
+           作答畫面比照正式電腦考。交卷後由 AI 老師依四項評分標準嚴格批改，給 Band 分數與逐項評語。</p>
+    </div>
+
+    <div class="disclaimer">⚠️ <b>AI 老師的評分不等於真實考試成績。</b>這只是依照公開評分標準所做的模擬估分，
+        正式考試由受過訓練的考官評分，結果可能不同。請把分數當作練習參考，重點放在評語指出的問題。</div>
+
+    {% if not ai_ready %}
+    <div class="warn">🔑 AI 老師還沒設定，現在交卷只會存下作文、不會批改。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，
+        之後打開交卷紀錄就能補批改。</div>
+    {% endif %}
+
+    <div class="hint">💡 作答建議：Task 1 約 20 分鐘、至少 150 字；Task 2 約 40 分鐘、至少 250 字。Task 2 的分數佔兩倍，
+        時間不夠時先顧好 Task 2。考場的電腦沒有拼字檢查，這裡也一樣。</div>
+
+    <div class="tgrid">
+        {% for t in tests %}
+        <a class="tcard" href="{{ url_for('writing_test', student_id=student.id, test_key=t.key) }}">
+            <div class="tt">{{ t.title }}</div>
+            <div class="topics">{{ t.topics }}</div>
+            <span class="state ok">✓ 可作答</span>
+            {% if best.get(t.key) is not none %}<span class="state best">AI 估分最佳 {{ best[t.key] }}</span>{% endif %}
+        </a>
+        {% endfor %}
+        {% for n in range(tests|length + 1, 11) %}
+        <div class="tcard soon">
+            <div class="tt">Writing Test {{ n }}</div>
+            <div class="topics">題目製作中</div>
+            <span class="state">尚未開放</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="panel">
+        <h2>🕑 交卷紀錄</h2>
+        {% if history %}
+            {% for w in history %}
+            <a class="hrow" href="{{ url_for('writing_result', student_id=student.id, sub_id=w.id) }}">
+                <span>{{ w.test_key }}<span class="when">{{ w.submitted_at|twtime }}</span></span>
+                {% if w.overall is not none %}<span class="band">AI 估分 {{ w.overall }}</span>
+                {% else %}<span class="band none">尚未批改</span>{% endif %}
+            </a>
+            {% endfor %}
+        {% else %}
+            <div style="color:#95a5a6;font-size:14px">還沒有交卷紀錄。</div>
+        {% endif %}
+    </div>
+</div>
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+</body>
+</html>

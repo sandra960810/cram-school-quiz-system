@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ test.title }}｜寫作測驗</title>
+    <style>
+        /* 比照雅思電腦考（computer-delivered IELTS）的寫作畫面：
+           上方考生列與倒數計時、題目說明列、左題目右作答、下方 Part 切換列 */
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
+        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: #1a1a1a; background: #fff;
+               display: flex; flex-direction: column; overflow: hidden; }
+        .topbar { display: flex; align-items: center; gap: 16px; background: #222; color: #fff;
+                  padding: 0 18px; height: 52px; flex: none; }
+        .topbar .brand { font-weight: bold; font-size: 18px; letter-spacing: .5px; }
+        .topbar .who { font-size: 14px; opacity: .85; }
+        .topbar .clock { margin: 0 auto; font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .topbar .clock.warn { color: #ffb3a7; }
+        .topbar .clock.hidden-time #timeText { visibility: hidden; }
+        .topbar button { font-family: inherit; font-size: 13px; background: #444; color: #fff; border: 1px solid #666;
+                         border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+        .topbar button:hover { background: #555; }
+        .topbar a.leave { color: #ccc; font-size: 13px; text-decoration: none; }
+        .topbar a.leave:hover { color: #fff; }
+
+        .notice { background: #fff8e1; color: #6d4c00; font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid #f0e2b6; flex: none; }
+
+        .partinfo { background: #f1f2f4; border-bottom: 1px solid #d0d4d9; padding: 12px 22px; flex: none; }
+        .partinfo b { font-size: 17px; display: block; margin-bottom: 3px; }
+        .partinfo span { font-size: 14px; color: #333; }
+
+        .panes { flex: 1; display: flex; min-height: 0; }
+        .pane { overflow-y: auto; padding: 22px 26px; min-width: 240px; }
+        .pane.q { flex: 0 0 50%; }
+        .pane.a { flex: 1; display: flex; flex-direction: column; padding-bottom: 12px; }
+        .divider { flex: none; width: 10px; cursor: col-resize; background: #e3e6ea; position: relative; }
+        .divider::after { content: '⋮'; position: absolute; top: 50%; left: 1px; transform: translateY(-50%);
+                          color: #777; font-size: 18px; }
+        .divider:hover, .divider.drag { background: #c9d3de; }
+
+        .q p { font-size: 15.5px; line-height: 1.75; margin: 0 0 14px; }
+        .q .prompt-box { border: 1px solid #999; padding: 16px 20px; margin: 4px 0 16px; }
+        .q .prompt-box p { font-weight: bold; }
+        .q .prompt-box p.inst { font-weight: normal; }
+        .q .task-chart { width: 100%; max-width: 640px; display: block; margin: 6px auto 0; border: 1px solid #ddd; }
+        .q .tail { color: #333; }
+
+        textarea.essay { flex: 1; width: 100%; min-height: 260px; resize: none; border: 1px solid #8a8f96;
+                         padding: 14px 16px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.7; color: #111; }
+        textarea.essay:focus { outline: 2px solid #3a6ea5; outline-offset: -1px; }
+        textarea.essay[readonly] { background: #f4f4f4; }
+        .wc { text-align: right; font-size: 14px; color: #333; margin-top: 8px; }
+        .wc b { font-variant-numeric: tabular-nums; }
+        .saved { float: left; color: #888; font-size: 12px; }
+
+        .part { display: none; }
+        .part.on { display: flex; flex: 1; min-height: 0; flex-direction: column; }
+
+        .navbar { flex: none; display: flex; align-items: center; gap: 10px; border-top: 1px solid #c4c9cf;
+                  background: #f7f8f9; padding: 8px 14px; }
+        .navbar .ptab { font-family: inherit; font-size: 14px; border: 1px solid #b9bfc6; background: #fff;
+                        border-radius: 4px; padding: 7px 14px; cursor: pointer; color: #222; }
+        .navbar .ptab.on { background: #222; color: #fff; border-color: #222; font-weight: bold; }
+        .navbar .ptab .n { font-size: 12px; opacity: .8; margin-left: 6px; }
+        .navbar .arrow { font-family: inherit; font-size: 18px; width: 40px; height: 36px; border: 1px solid #b9bfc6;
+                         background: #fff; border-radius: 4px; cursor: pointer; }
+        .navbar .spacer { flex: 1; }
+        .navbar .submit { font-family: inherit; font-size: 15px; font-weight: bold; background: #1f6f3f; color: #fff;
+                          border: none; border-radius: 4px; padding: 9px 20px; cursor: pointer; }
+        .navbar .submit:hover { filter: brightness(1.1); }
+
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center;
+                 justify-content: center; z-index: 50; }
+        .modal.on { display: flex; }
+        .modal .box { background: #fff; border-radius: 8px; padding: 22px 26px; max-width: 440px; width: 92%;
+                      font-family: "Microsoft JhengHei", Arial, sans-serif; line-height: 1.7; }
+        .modal h3 { margin: 0 0 8px; }
+        .modal .row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+        .modal button { font-family: inherit; font-size: 15px; border-radius: 6px; padding: 8px 18px; cursor: pointer;
+                        border: 1px solid #b9bfc6; background: #fff; }
+        .modal button.go { background: #1f6f3f; color: #fff; border-color: #1f6f3f; font-weight: bold; }
+
+        @media (max-width: 820px) {
+            body { overflow: auto; height: auto; }
+            .panes { flex-direction: column; }
+            .pane.q { flex: none; }
+            .divider { display: none; }
+            .topbar .who { display: none; }
+        }
+    </style>
+</head>
+<body>
+<header class="topbar">
+    <span class="brand">IELTS Writing</span>
+    <span class="who">Candidate: {{ student.name }}</span>
+    <span class="clock" id="clock">⏱ <span id="timeText">{{ test.minutes }} minutes left</span></span>
+    <button type="button" id="hideTime" title="考場也可以把時間隱藏起來">Hide time</button>
+    <a class="leave" href="{{ url_for('writing_home', student_id=student.id) }}" id="leave">離開</a>
+</header>
+<div class="notice">🧪 這是比照正式電腦考的<b>模擬作答介面</b>：與考場相同關閉了拼字檢查，時間到會自動交卷。交卷後由 AI 老師批改，AI 評分只是模擬參考，不等於真實考試成績。</div>
+
+<form method="post" action="{{ url_for('writing_submit', student_id=student.id, test_key=test.key) }}" id="examForm"
+      style="display:contents" autocomplete="off">
+<input type="hidden" name="seconds_used" id="secondsUsed" value="0">
+
+{% for t in test.tasks %}
+<div class="part {{ 'on' if loop.first }}" data-part="{{ t.no }}">
+    <div class="partinfo">
+        <b>Part {{ t.no }}</b>
+        <span>You should spend about {{ t.minutes }} minutes on this task. Write at least {{ t.min_words }} words.</span>
+    </div>
+    <div class="panes">
+        <section class="pane q" id="prompt{{ t.no }}">
+            <div class="prompt-box">
+                {% for p in t.paragraphs %}<p>{{ p }}</p>{% endfor %}
+                <p class="inst">{{ t.instruction }}</p>
+            </div>
+            {% if t.chart_svg %}{{ t.chart_svg }}{% endif %}
+            <p class="tail" style="margin-top:14px">Write at least {{ t.min_words }} words.</p>
+        </section>
+        <div class="divider" title="拖曳調整左右寬度"></div>
+        <section class="pane a">
+            <textarea class="essay" name="task{{ t.no }}" id="task{{ t.no }}" data-task="{{ t.no }}"
+                      spellcheck="false" autocorrect="off" autocapitalize="off"
+                      aria-label="Part {{ t.no }} answer">{{ drafts.get(t.no, '') }}</textarea>
+            <div class="wc"><span class="saved" id="saved{{ t.no }}"></span>Words: <b id="wc{{ t.no }}">0</b></div>
+        </section>
+    </div>
+</div>
+{% endfor %}
+
+<nav class="navbar">
+    {% for t in test.tasks %}
+    <button type="button" class="ptab {{ 'on' if loop.first }}" data-go="{{ t.no }}">Part {{ t.no }}<span class="n" id="tabwc{{ t.no }}">0 words</span></button>
+    {% endfor %}
+    <span class="spacer"></span>
+    <button type="button" class="arrow" id="prev" title="上一部分">‹</button>
+    <button type="button" class="arrow" id="next" title="下一部分">›</button>
+    <button type="button" class="submit" id="submitBtn">✓ 交卷 Submit</button>
+</nav>
+</form>
+
+<div class="modal" id="confirmBox">
+    <div class="box">
+        <h3>確定要交卷嗎？</h3>
+        <div id="confirmText"></div>
+        <div class="row">
+            <button type="button" id="cancelSubmit">繼續寫</button>
+            <button type="button" class="go" id="doSubmit">確定交卷</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const STUDENT = {{ student.id }}, TEST = {{ test.key|tojson }}, LIMIT = {{ test.minutes }} * 60;
+    const MIN = { {% for t in test.tasks %}{{ t.no }}: {{ t.min_words }}{{ ',' if not loop.last }}{% endfor %} };
+    const KEY = `writing:${STUDENT}:${TEST}`;
+    const form = document.getElementById('examForm');
+    const areas = [...document.querySelectorAll('textarea.essay')];
+    let current = 1, submitted = false;
+
+    const store = {
+        get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
+        del(k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } },
+    };
+    const countWords = (t) => (t.trim().match(/\S+/g) || []).length;
+
+    // ---- 草稿：本機即時暫存，另外每 15 秒存一份到伺服器
+    areas.forEach(a => {
+        const local = store.get(`${KEY}:task${a.dataset.task}`);
+        if (local && local.length >= a.value.length) a.value = local;
+    });
+    const dirty = new Set();
+    function refresh(a) {
+        const n = countWords(a.value), t = a.dataset.task;
+        document.getElementById('wc' + t).innerText = n;
+        document.getElementById('tabwc' + t).innerText = n + ' words';
+    }
+    areas.forEach(a => {
+        refresh(a);
+        a.addEventListener('input', () => {
+            refresh(a);
+            store.set(`${KEY}:task${a.dataset.task}`, a.value);
+            dirty.add(a.dataset.task);
+        });
+    });
+    function pushDrafts() {
+        dirty.forEach(t => {
+            const a = document.getElementById('task' + t);
+            fetch('/api/writing/draft', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: STUDENT, test_key: TEST, task_no: +t, content: a.value }) })
+                .then(r => r.ok && (document.getElementById('saved' + t).innerText = '已自動儲存 ' + new Date().toTimeString().slice(0, 5)))
+                .catch(() => {});
+        });
+        dirty.clear();
+    }
+    setInterval(pushDrafts, 15000);
+
+    // ---- Part 切換
+    function show(n) {
+        current = n;
+        document.querySelectorAll('.part').forEach(p => p.classList.toggle('on', +p.dataset.part === n));
+        document.querySelectorAll('.ptab').forEach(b => b.classList.toggle('on', +b.dataset.go === n));
+        document.getElementById('task' + n).focus();
+    }
+    document.querySelectorAll('.ptab').forEach(b => b.addEventListener('click', () => show(+b.dataset.go)));
+    document.getElementById('prev').addEventListener('click', () => show(Math.max(1, current - 1)));
+    document.getElementById('next').addEventListener('click', () => show(Math.min(areas.length, current + 1)));
+
+    // ---- 左右拖曳調整寬度
+    document.querySelectorAll('.divider').forEach(d => {
+        d.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            const panes = d.parentElement, q = panes.querySelector('.pane.q');
+            d.classList.add('drag');
+            const move = (ev) => {
+                const r = panes.getBoundingClientRect();
+                const pct = Math.min(75, Math.max(25, (ev.clientX - r.left) * 100 / r.width));
+                document.querySelectorAll('.pane.q').forEach(p => p.style.flexBasis = pct + '%');
+            };
+            const up = () => { d.classList.remove('drag'); removeEventListener('mousemove', move); removeEventListener('mouseup', up); };
+            addEventListener('mousemove', move);
+            addEventListener('mouseup', up);
+        });
+    });
+
+    // ---- 倒數計時（重新整理不會重來）；剩 10 分鐘變色，時間到自動交卷
+    let start = parseInt(store.get(`${KEY}:start`) || '0', 10);
+    // 上次沒交卷就離開、而且早就超過時間：當成重新開始一回，作答內容保留
+    if (!start || Date.now() - start > LIMIT * 1000) { start = Date.now(); store.set(`${KEY}:start`, String(start)); }
+    const clock = document.getElementById('clock'), timeText = document.getElementById('timeText');
+    function elapsed() { return Math.floor((Date.now() - start) / 1000); }
+    function tick() {
+        const left = LIMIT - elapsed();
+        if (left <= 0) { timeText.innerText = 'Time is up'; finish(); return; }
+        const m = Math.ceil(left / 60);
+        timeText.innerText = left <= 60 ? `${left} seconds left` : `${m} minutes left`;
+        clock.classList.toggle('warn', left <= 600);
+        if (left <= 600) clock.classList.remove('hidden-time');   // 最後 10 分鐘一定顯示
+    }
+    const timer = setInterval(tick, 1000);
+    tick();
+    document.getElementById('hideTime').addEventListener('click', (e) => {
+        clock.classList.toggle('hidden-time');
+        e.target.innerText = clock.classList.contains('hidden-time') ? 'Show time' : 'Hide time';
+    });
+
+    // ---- 交卷
+    function finish() {
+        if (submitted) return;
+        submitted = true;
+        clearInterval(timer);
+        areas.forEach(a => a.readOnly = true);
+        document.getElementById('secondsUsed').value = Math.min(elapsed(), LIMIT);
+        store.del(`${KEY}:start`);
+        areas.forEach(a => store.del(`${KEY}:task${a.dataset.task}`));
+        form.submit();
+    }
+    const modal = document.getElementById('confirmBox');
+    document.getElementById('submitBtn').addEventListener('click', () => {
+        const lines = areas.map(a => {
+            const t = a.dataset.task, n = countWords(a.value);
+            return `Part ${t}：${n} 字` + (n < MIN[t] ? `　<b style="color:#c0392b">（未達 ${MIN[t]} 字，會被扣分）</b>` : '　✓');
+        });
+        const left = Math.max(0, LIMIT - elapsed());
+        document.getElementById('confirmText').innerHTML = lines.join('<br>') +
+            `<br><br>還剩 ${Math.ceil(left / 60)} 分鐘。交卷後就不能再修改。`;
+        modal.classList.add('on');
+    });
+    document.getElementById('cancelSubmit').addEventListener('click', () => modal.classList.remove('on'));
+    document.getElementById('doSubmit').addEventListener('click', finish);
+
+    // 離開前提醒（作答會保留，但計時也會繼續）
+    window.addEventListener('beforeunload', (e) => {
+        pushDrafts();
+        if (!submitted && areas.some(a => a.value.trim())) { e.preventDefault(); e.returnValue = ''; }
+    });
+})();
+</script>
+</body>
+</html>
