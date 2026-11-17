@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><title>語音清單</title></head>
+<body style="font-family:Arial,sans-serif;padding:16px">
+<h3 id="h">瀏覽器可用的英文語音</h3>
+<pre id="out" style="font-size:15px">讀取中…</pre>
+<script>
+function render() {
+  var v = speechSynthesis.getVoices();
+  var en = v.filter(function (x) { return /^en/i.test(x.lang); });
+  var lines = ['TOTAL=' + v.length + '  EN=' + en.length, ''];
+  en.forEach(function (x) {
+    var n = x.name.toLowerCase();
+    var tag = /natural|neural/.test(n) ? '  <<< 神經語音(真人級)'
+            : /google/.test(n) ? '  << Google 網路語音'
+            : /desktop|espeak|compact/.test(n) ? '  (機械)' : '';
+    lines.push(x.name + ' [' + x.lang + ']' + (x.localService ? '(local)' : '(net)') + tag);
+  });
+  document.getElementById('out').textContent = lines.join('\n');
+}
+render();
+if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = render;
+setTimeout(render, 2000);
+</script></body></html>
