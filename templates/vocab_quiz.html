@@ -17,7 +17,7 @@
         .progress-bar { height: 8px; background: var(--line); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
         .progress-bar div { height: 100%; background: var(--primary); width: 0; transition: width 0.3s; }
 
-        .card { background: white; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); padding: 24px 22px; text-align: center; }
+        .card { background: white; border-radius: 16px; box-shadow: var(--edge); padding: 24px 22px; text-align: center; }
         @keyframes card-enter { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
         .card.enter { animation: card-enter 0.28s ease-out; }
         .qtype { display: inline-block; font-size: 13px; font-weight: bold; padding: 4px 12px; border-radius: 12px; margin-bottom: 14px; }
@@ -35,7 +35,7 @@
         .sentence-zh { text-align: left; color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
 
         .listen-row { display: flex; justify-content: center; gap: 14px; margin: 6px 0 10px; }
-        .listen-btn { width: 84px; height: 84px; border-radius: 50%; border: none; background: var(--primary); color: white; font-size: 34px; cursor: pointer; box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 35%, transparent); }
+        .listen-btn { width: 84px; height: 84px; border-radius: 50%; border: none; background: var(--primary); color: white; font-size: 34px; cursor: pointer; box-shadow: var(--edge-raised); }
         .listen-btn.slow { width: 64px; height: 64px; font-size: 24px; align-self: center; background: var(--primary-300); }
         .play-sm { border: none; background: var(--primary-50); color: var(--primary); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; vertical-align: middle; margin-left: 6px; }
 
@@ -96,15 +96,15 @@
 <div class="page">
     <div class="nav-row">
         <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
-        <a href="{{ learn_url }}" class="nav-next">📚 回去滑卡<span class="arrow">→</span></a>
+        <a href="{{ learn_url }}" class="nav-next">{{ icon('library') }} 回去滑卡<span class="arrow">→</span></a>
     </div>
-    <div class="scope"><span>🧠 {{ scope_label }}</span></div>
+    <div class="scope"><span>{{ icon('quiz') }} {{ scope_label }}</span></div>
 
     {% if empty %}
     <div class="card">
         <h2 style="margin-top:0">這個範圍還沒有學過的字</h2>
         <p style="color:var(--muted); line-height:1.7">單字測驗只考你在單字學習區滑過的字。<br>先去滑卡，再回來考試吧！</p>
-        <a href="{{ learn_url }}" class="big-btn primary">📚 去單字學習區</a>
+        <a href="{{ learn_url }}" class="big-btn primary">{{ icon('library') }} 去單字學習區</a>
         <a href="{{ back_url }}" class="big-btn secondary">← 換一個範圍</a>
     </div>
     {% else %}
@@ -123,7 +123,7 @@
     const ATTEMPT_ID = {{ attempt_id | tojson }};
     const STUDENT_ID = {{ student.id | tojson }};
     const TYPE_NAMES = {{ type_names | tojson }};
-    const TYPE_ICON = { spell: '✏️', dictate: '🎧', cloze: '🧩', meaning: '🔤', word: '🅰️' };
+    const TYPE_ICON = { spell: '{{ icon('pencil') }}', dictate: '{{ icon('headphones') }}', cloze: '{{ icon('puzzle') }}', meaning: '{{ icon('type') }}', word: '{{ icon('letter') }}' };
     const RETRY_URL = {{ retry_url | tojson }};
     const BACK_URL = {{ back_url | tojson }};
     const LEARN_URL = {{ learn_url | tojson }};
@@ -149,7 +149,7 @@
                 <h2 style="margin:0 0 6px">準備好了嗎？</h2>
                 <div style="color:var(--muted)">共 ${QUESTIONS.length} 題</div>
                 <div class="intro-types">${Object.keys(counts).map(t => `<span class="qtype ${t}">${TYPE_ICON[t]} ${TYPE_NAMES[t]} ${counts[t]}</span>`).join('')}</div>
-                ${counts.dictate ? '<p style="color:var(--muted);font-size:14px;margin:0 0 14px">🎧 有聽寫題，請打開聲音或戴上耳機</p>' : ''}
+                ${counts.dictate ? '<p style="color:var(--muted);font-size:14px;margin:0 0 14px">{{ icon('headphones') }} 有聽寫題，請打開聲音或戴上耳機</p>' : ''}
                 <button class="btn next" id="go">開始 →</button>
             </div>`;
         document.getElementById('go').addEventListener('click', () => {
@@ -185,15 +185,15 @@
                 <div class="hint">開頭是 <b>${esc(q.first)}</b>・${esc(q.hint)}</div>${input}`;
         } else if (q.type === 'dictate') {
             body = `<div class="listen-row">
-                    <button class="listen-btn" id="play" data-sound="none" aria-label="播放發音">🔊</button>
-                    <button class="listen-btn slow" id="play-slow" data-sound="none" aria-label="慢速播放">🐢</button></div>
+                    <button class="listen-btn" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
+                    <button class="listen-btn slow" id="play-slow" data-sound="none" aria-label="慢速播放">{{ icon('slow') }}</button></div>
                 <div class="hint">聽發音，拼出這個字・${esc(q.hint)}</div>${input}`;
         } else if (q.type === 'cloze') {
             body = `<div class="sentence">${esc(q.before)}<span class="blank">${esc(q.hint)}</span>${esc(q.after)}</div>
                 ${q.sentence_zh ? `<div class="sentence-zh">${esc(q.sentence_zh)}</div>` : ''}
                 <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? '・<b>注意詞形變化</b>' : ''}</div>${input}`;
         } else if (q.type === 'meaning') {
-            body = `<div class="prompt-word">${esc(q.word)} <button class="play-sm" id="play" data-sound="none" aria-label="播放發音">🔊</button></div>
+            body = `<div class="prompt-word">${esc(q.word)} <button class="play-sm" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="pos">${esc(q.pos)}</div>
                 <div class="choices">${q.choices.map((c, i) => `<button class="choice" data-sound="none" data-i="${i}"><span class="k">${'ABCD'[i]}</span>${esc(c)}</button>`).join('')}</div>`;
         } else {
@@ -259,7 +259,7 @@
                 <div class="big">${ok ? '✓ 答對了！' : '✗ 答錯了'}</div>
                 ${yours}
                 <div><span class="ans">${esc(shownAnswer)}</span>
-                    <button class="play-sm" id="fb-play" data-sound="none" aria-label="播放發音">🔊</button></div>
+                    <button class="play-sm" id="fb-play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="meta">${q.type === 'cloze' && q.form_differs ? '原形 ' + esc(q.word) + '・' : ''}${esc(q.pos)} ${esc(q.meaning)}</div>
             </div>
             <button class="btn next" id="next-btn">${idx + 1 < QUESTIONS.length ? '下一題 →' : '看成績 →'}</button>`;
@@ -293,7 +293,7 @@
         document.getElementById('progress-count').innerText = `${QUESTIONS.length} / ${QUESTIONS.length} 題`;
         const pct = Math.round(nRight * 100 / QUESTIONS.length);
         const wrong = QUESTIONS.map((q, i) => ({ q, i })).filter(x => !results[x.i]);
-        const title = pct === 100 ? '🎉 全對！太厲害了' : pct >= 80 ? '👍 很不錯！' : pct >= 60 ? '💪 再加把勁' : '📚 多複習幾次就會了';
+        const title = pct === 100 ? '{{ icon('sparkle') }} 全對！太厲害了' : pct >= 80 ? '{{ icon('thumb') }} 很不錯！' : pct >= 60 ? '{{ icon('trend') }} 再加把勁' : '{{ icon('library') }} 多複習幾次就會了';
         UI.play('done');
         stage.innerHTML = `
             <div class="card enter result">
@@ -301,17 +301,17 @@
                 <div class="score">${nRight}<small> / ${QUESTIONS.length}</small></div>
                 <div style="color:var(--muted)">答對率 ${pct}%</div>
                 <div id="save-msg" class="moved" ${wrong.length ? '' : 'hidden'}>儲存中…</div>
-                ${wrong.length ? `<div class="review"><h3>答錯的字（點 🔊 聽發音）</h3>${wrong.map(({ q, i }) => `
+                ${wrong.length ? `<div class="review"><h3>答錯的字（點 {{ icon('volume') }} 聽發音）</h3>${wrong.map(({ q, i }) => `
                     <div class="review-item">
-                        <button class="play-sm" data-say="${esc(q.word)}" data-sound="none" aria-label="播放發音">🔊</button>
+                        <button class="play-sm" data-say="${esc(q.word)}" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                         <div class="body"><div class="w">${esc(q.word)} <span class="m">${esc(q.pos)}</span></div>
                             <div class="m">${esc(q.meaning)}</div>
                             <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（空白）'}</div></div>
                     </div>`).join('')}</div>` : ''}
                 <div class="error" id="err"></div>
                 <a href="${RETRY_URL}" class="big-btn primary">再考一次（換一批題目）</a>
-                ${wrong.length ? `<a href="${WEAK_URL}" class="big-btn orange">🟠 只考不熟區</a>` : ''}
-                <a href="${LEARN_URL}" class="big-btn secondary">📚 回單字學習區滑卡</a>
+                ${wrong.length ? `<a href="${WEAK_URL}" class="big-btn orange">{{ icon('dot') }} 只考不熟區</a>` : ''}
+                <a href="${LEARN_URL}" class="big-btn secondary">{{ icon('library') }} 回單字學習區滑卡</a>
                 <a href="${BACK_URL}" class="big-btn secondary">← 回測驗區</a>
             </div>`;
         stage.querySelectorAll('[data-say]').forEach(b => b.addEventListener('click', () => say(b.dataset.say)));

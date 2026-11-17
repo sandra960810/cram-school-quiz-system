@@ -12,7 +12,7 @@
                       padding: 14px 18px; font-size: 15px; line-height: 1.8; margin-bottom: 18px; }
         .disclaimer b { font-size: 16px; }
         .overall { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-        .bandcard { background: #fff; border-radius: 12px; padding: 16px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+        .bandcard { background: #fff; border-radius: 12px; padding: 16px 22px; box-shadow: var(--edge);
                     flex: 1; min-width: 180px; text-align: center; }
         .bandcard .lab { font-size: 13px; color: var(--muted); }
         .bandcard .val { font-size: 40px; font-weight: bold; color: var(--primary); line-height: 1.3; }
@@ -62,7 +62,7 @@
         <span style="color:var(--muted);font-size:14px">交卷 {{ sub.submitted_at|twtime }}｜用時 {{ (sub.seconds_used // 60) }} 分 {{ sub.seconds_used % 60 }} 秒</span>
     </div>
 
-    <div class="disclaimer">⚠️ <b>AI 老師的評分不等於真實考試成績，只是模擬。</b><br>
+    <div class="disclaimer">{{ icon('alert') }} <b>AI 老師的評分不等於真實考試成績，只是模擬。</b><br>
         分數是 AI 依照雅思公開的四項評分標準所做的估計，刻意從嚴評分；正式考試由受過訓練的考官評分，結果可能不同。
         請把分數當作練習參考，真正有用的是下面指出的問題與改法。</div>
 
@@ -76,8 +76,8 @@
             {% endfor %}
         </div>
         <div class="actions">
-            <button type="button" class="btn-export" id="exportPdf">📄 下載作文 PDF</button>
-            <button type="button" class="btn-export" id="exportPng">🖼️ 下載作文圖片</button>
+            <button type="button" class="btn-export" id="exportPdf">{{ icon('file') }} 下載作文 PDF</button>
+            <button type="button" class="btn-export" id="exportPng">{{ icon('image') }} 下載作文圖片</button>
         </div>
     {% else %}
         <div class="sheet grading" id="gradingBox">
@@ -88,9 +88,9 @@
                     <p style="color:var(--muted);font-size:14px">大約需要 1–2 分鐘，請不要關掉這一頁。</p>
                 </div>
                 <div class="errbox" id="gradingErr" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ sub.ai_error or '' }}</div>
-                <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>🔁 再請 AI 老師批改一次</button>
+                <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ icon('refresh') }} 再請 AI 老師批改一次</button>
             {% else %}
-                <div class="errbox">🔑 AI 老師還沒設定，這次的作文已經存起來了。<br>
+                <div class="errbox">{{ icon('key') }} AI 老師還沒設定，這次的作文已經存起來了。<br>
                     請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，再重新整理這一頁就會開始批改。</div>
             {% endif %}
         </div>
@@ -115,7 +115,7 @@
 
         {% if result %}{% set r = result.tasks[n|string] %}
         <div class="sheet">
-            <h2 class="sec" style="margin-top:0">📋 四項評分</h2>
+            <h2 class="sec" style="margin-top:0">{{ icon('clipboard') }} 四項評分</h2>
             {% for k, en, zh in criteria[n] %}{% set c = r.criteria[k] %}
             <div class="crit">
                 <h3><span>{{ zh }}<span class="en">{{ en }}</span></span><span class="b">{{ c.band }}</span></h3>
@@ -125,16 +125,16 @@
             </div>
             {% endfor %}
 
-            <h2 class="sec">🧑‍🏫 老師總評</h2>
+            <h2 class="sec">{{ icon('teacher') }} 老師總評</h2>
             <p style="line-height:1.85">{{ r.summary }}</p>
 
             {% if r.next_steps %}
-            <h2 class="sec">🎯 想升一級，先改這幾件事</h2>
+            <h2 class="sec">{{ icon('target') }} 想升一級，先改這幾件事</h2>
             <ol style="line-height:1.9">{% for s in r.next_steps %}<li>{{ s }}</li>{% endfor %}</ol>
             {% endif %}
 
             {% if r.errors %}
-            <h2 class="sec">✏️ 語言錯誤訂正</h2>
+            <h2 class="sec">{{ icon('pencil') }} 語言錯誤訂正</h2>
             <table class="err">
                 <tr><th style="width:32%">原文</th><th style="width:32%">建議改法</th><th>說明</th></tr>
                 {% for e in r.errors %}<tr><td class="o">{{ e.original }}</td><td class="c">{{ e.correction }}</td><td>{{ e.explain }}</td></tr>{% endfor %}
@@ -142,7 +142,7 @@
             {% endif %}
 
             {% if r.model_paragraph %}
-            <h2 class="sec">📝 改寫示範（Band 7 參考）</h2>
+            <h2 class="sec">{{ icon('exam') }} 改寫示範（Band 7 參考）</h2>
             <div class="model">{{ r.model_paragraph }}</div>
             {% endif %}
         </div>
@@ -151,7 +151,7 @@
     {% endfor %}
 
     <p style="color:var(--muted-2);font-size:12px;text-align:center;margin:10px 0 30px">
-        ⚠️ 本頁分數為 AI 模擬估分，不代表正式雅思考試成績。{% if result %}批改模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
+        {{ icon('alert') }} 本頁分數為 AI 模擬估分，不代表正式雅思考試成績。{% if result %}批改模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 <script src="{{ url_for('static', filename='writing_export.js') }}"></script>

@@ -182,6 +182,11 @@
     }
 
     // 只在這個分頁提醒一次，不要一直跳
+    // 線條圖示（static/icons.svg），和樣板的 {{ icon('名稱') }} 輸出一樣
+    function icon(name) {
+        return /^[a-z-]+$/.test(name) ? `<svg class=ui-ic aria-hidden=true><use href=/static/icons.svg#i-${name}></use></svg>` : '';
+    }
+
     const WARN_KEY = 'quiz-voice-warned';
     function voiceQualityWarning() {
         const q = voiceQuality();
@@ -190,18 +195,18 @@
         const t = document.createElement('div');
         t.className = 'ui-toast';
         t.innerHTML = q === 'none'
-            ? '⚠️ 這個瀏覽器沒有英文語音，無法發音。<br>請改用 <b>Microsoft Edge</b> 開啟本網站。'
-            : '🔈 這個瀏覽器只有機械式的英文語音。<br>改用 <b>Microsoft Edge</b> 開啟，發音會接近真人。';
+            ? icon('alert') + ' 這個瀏覽器沒有英文語音，無法發音。<br>請改用 <b>Microsoft Edge</b> 開啟本網站。'
+            : icon('volume') + ' 這個瀏覽器只有機械式的英文語音。<br>改用 <b>Microsoft Edge</b> 開啟，發音會接近真人。';
         document.body.appendChild(t);
         setTimeout(() => t.remove(), 9000);
     }
 
-    // 語音設定面板（右下角 🗣️）
+    // 語音設定面板（右下角的說話圖示）
     function buildVoicePanel() {
         const btn = document.createElement('button');
         btn.className = 'ui-voice-toggle';
         btn.dataset.sound = 'tap';
-        btn.textContent = '🗣️';
+        btn.innerHTML = icon('speech');
         btn.title = '發音設定';
         btn.setAttribute('aria-label', '發音設定');
         const panel = document.createElement('div');
@@ -215,7 +220,7 @@
             const mark = { neural: '★ ', good: '☆ ', poor: '' };
             const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${mark[voiceTier(v)]}${v.name.replace(/</g, '&lt;')}</option>`;
             panel.innerHTML = `
-                <div class="vp-title">🗣️ 發音設定</div>
+                <div class="vp-title">${icon('speech')} 發音設定</div>
                 <label>口音
                     <select data-k="accent">
                         <option value="GB" ${voiceSettings.accent === 'GB' ? 'selected' : ''}>英國腔（雅思常用）</option>
@@ -231,14 +236,14 @@
                         <option value="">自動挑最像真人的</option>${voices.map(opt).join('')}
                     </select></label>
                 <div class="vp-note">${voices.length ? ({
-                        neural: '✅ 真人級語音：' + (current ? current.name.replace(/</g, '&lt;') : ''),
-                        good: '🙂 品質不錯：' + (current ? current.name.replace(/</g, '&lt;') : '')
+                        neural: icon('check-circle') + ' 真人級語音：' + (current ? current.name.replace(/</g, '&lt;') : ''),
+                        good: icon('smile') + ' 品質不錯：' + (current ? current.name.replace(/</g, '&lt;') : '')
                               + '<br>想要更接近真人，可以改用 <b>Microsoft Edge</b> 開啟本網站。',
-                        poor: '⚠️ 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
+                        poor: icon('alert') + ' 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
                               + '<br>改用 <b>Microsoft Edge</b> 開啟本網站，發音會接近真人。'
                     }[voiceTier(current)])
                     : '這個瀏覽器沒有英文語音。請改用 <b>Microsoft Edge</b> 開啟本網站。'}</div>
-                <button class="vp-test" data-sound="none">🔊 試聽</button>`;
+                <button class="vp-test" data-sound="none">${icon('volume')} 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
                 voiceSettings[sel.dataset.k] = sel.value;
                 if (sel.dataset.k === 'accent') voiceSettings.voiceName = '';
@@ -250,7 +255,7 @@
         }
         btn.addEventListener('click', () => { panel.hidden = !panel.hidden; if (!panel.hidden) render(); });
         document.addEventListener('click', (e) => {
-            if (!panel.hidden && !panel.contains(e.target) && e.target !== btn) panel.hidden = true;
+            if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) panel.hidden = true;
         });
         if (window.speechSynthesis) speechSynthesis.addEventListener('voiceschanged', () => { if (!panel.hidden) render(); });
     }
@@ -258,7 +263,7 @@
     if (window.speechSynthesis) speechSynthesis.getVoices();
 
     function renderToggle(btn) {
-        btn.textContent = soundOn ? '🔊' : '🔇';
+        btn.innerHTML = icon(soundOn ? 'volume' : 'volume-x');
         btn.title = soundOn ? '音效：開（點一下關閉）' : '音效：關（點一下開啟）';
         btn.setAttribute('aria-label', btn.title);
     }
@@ -278,5 +283,5 @@
         buildVoicePanel();
     });
 
-    window.UI = { play, ripple, speak, voiceScore, voiceQuality, voiceTier };
+    window.UI = { icon, play, ripple, speak, voiceScore, voiceQuality, voiceTier };
 })();

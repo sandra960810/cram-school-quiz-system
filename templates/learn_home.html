@@ -10,16 +10,16 @@
         body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         .container { width: 100%; max-width: 1000px; }
 
-        .summary { background: var(--hero); color: white; padding: 25px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .summary { background: var(--hero); color: var(--hero-ink); padding: 25px 30px; border-radius: 15px; box-shadow: var(--edge-hero); margin-bottom: 30px; }
         .summary h1 { margin: 0 0 6px 0; font-size: 26px; }
         .summary p { margin: 0 0 14px 0; opacity: 0.9; }
-        .bar { background: rgba(255,255,255,0.3); border-radius: 10px; height: 12px; overflow: hidden; display: flex; }
+        .bar { background: #fff; box-shadow: inset 0 0 0 1px var(--primary-300); border-radius: 10px; height: 12px; overflow: hidden; display: flex; }
         .bar > .weak { background: var(--warn-300); }
-        .bar > div { background: white; height: 100%; }
+        .bar > div { background: var(--primary); height: 100%; }
 
         .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .theme-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: flex; align-items: flex-start; transition: 0.2s; border-left: 6px solid var(--primary); }
-        a.theme-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .theme-card { background: white; padding: 20px; border-radius: 12px; box-shadow: var(--edge); text-decoration: none; color: inherit; display: flex; align-items: flex-start; transition: 0.2s; border-left: 6px solid var(--primary); }
+        a.theme-card:hover { transform: translateY(-5px); box-shadow: var(--edge-raised); }
         .theme-card.done { border-left-color: var(--ok); }
         .theme-card.empty { background: var(--line); border-left-color: var(--line-strong); cursor: not-allowed; }
         .theme-card.empty .theme-icon { filter: grayscale(100%); }
@@ -32,7 +32,7 @@
         .mini-bar > .weak { background: var(--warn) !important; }
         .mini-bar > div { background: var(--ok); height: 100%; }
 .fav-card { display: flex; align-items: center; background: var(--star-50); border: 2px solid var(--star); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; text-decoration: none; color: inherit; transition: 0.2s; }
-        .fav-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+        .fav-card:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
         .fav-card .theme-desc { margin-bottom: 0; }
         .fav-count { font-size: 28px; font-weight: bold; color: var(--star-ink); margin-left: 15px; }
         .quiz-card { background: var(--primary-50); border-color: var(--primary-300); }
@@ -44,16 +44,16 @@
 <div class="container">
     <div class="nav-row">
         <a href="/dashboard/{{ student.id }}" class="nav-back"><span class="arrow">←</span>主介面</a>
-        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">⭐ 我的收藏<span class="arrow">→</span></a>
+        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">{{ icon('star') }} 我的收藏<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>📚 {{ student.enrolled_course }} 單字學習與圖鑑</h1>
+        <h1>{{ icon('library') }} {{ student.enrolled_course }} 單字學習與圖鑑</h1>
         <p>選一個主題開始滑卡：右滑＝熟、左滑＝不熟。目前 ✓ 熟 {{ unlocked_count }}・✗ 不熟 {{ weak_count }}／共 {{ total_count }} 字</p>
         <div class="bar"><div style="width: {{ (unlocked_count * 100 / total_count) if total_count else 0 }}%"></div><div class="weak" style="width: {{ (weak_count * 100 / total_count) if total_count else 0 }}%"></div></div>
     </div>
 
     <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="fav-card">
-        <div class="theme-icon">⭐</div>
+        <div class="theme-icon">{{ icon('star') }}</div>
         <div class="theme-content">
             <div class="theme-title">我的收藏</div>
             <div class="theme-desc">{% if favorite_count %}收藏了 {{ favorite_count }} 個單字，點進來集中複習{% else %}學習時按單字卡右上角的 ☆，就能把想加強的字收藏在這裡{% endif %}</div>
@@ -62,7 +62,7 @@
     </a>
 
     <a href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id) }}" class="fav-card quiz-card">
-        <div class="theme-icon">🧠</div>
+        <div class="theme-icon">{{ icon('quiz') }}</div>
         <div class="theme-content">
             <div class="theme-title">單字測驗區</div>
             <div class="theme-desc">{% if unlocked_count + weak_count %}考考滑過的 {{ unlocked_count + weak_count }} 個字：拼寫、聽寫、例句填空、選擇題{% else %}先滑卡學幾個字，就能在這裡考拼寫、聽寫、例句填空{% endif %}</div>
@@ -78,12 +78,12 @@
             {% else %}
             <div class="theme-card empty" title="這個主題還沒有單字">
             {% endif %}
-                <div class="theme-icon">{{ t.icon }}</div>
+                <div class="theme-icon">{{ icon(t.icon) }}</div>
                 <div class="theme-content">
                     <div class="theme-title">{{ t.label }}{% if t.total %}<span class="go-arrow">→</span>{% endif %}</div>
                     <div class="theme-desc">{{ t.desc }}</div>
                     {% if t.total %}
-                        <div class="theme-progress">✓ 熟 {{ t.unlocked }}・✗ 不熟 {{ t.weak }}／{{ t.total }} 字{% if t.unlocked == t.total %} ✅ 全部熟了{% endif %}</div>
+                        <div class="theme-progress">✓ 熟 {{ t.unlocked }}・✗ 不熟 {{ t.weak }}／{{ t.total }} 字{% if t.unlocked == t.total %} {{ icon('check-circle') }} 全部熟了{% endif %}</div>
                         <div class="mini-bar"><div style="width: {{ t.unlocked * 100 / t.total }}%"></div><div class="weak" style="width: {{ t.weak * 100 / t.total }}%"></div></div>
                     {% else %}
                         <div class="theme-progress">字庫建置中</div>

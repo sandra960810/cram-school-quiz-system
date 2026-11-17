@@ -26,8 +26,8 @@
 
         /* 卡片堆 */
         .deck { position: relative; min-height: 360px; }
-        .card-ghost { position: absolute; inset: 10px 14px -10px 14px; background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); opacity: 0.7; }
-        .card { position: relative; background: white; padding: 28px 26px 24px; border-radius: 15px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); text-align: center; touch-action: pan-y; user-select: none; will-change: transform; }
+        .card-ghost { position: absolute; inset: 10px 14px -10px 14px; background: white; border-radius: 15px; box-shadow: var(--edge); opacity: 0.7; }
+        .card { position: relative; background: white; padding: 28px 26px 24px; border-radius: 15px; box-shadow: var(--edge); text-align: center; touch-action: pan-y; user-select: none; will-change: transform; }
         .swipeable .card { cursor: grab; }
         .swipeable .card.dragging { cursor: grabbing; }
         .card.fly { transition: transform 0.32s ease-in, opacity 0.32s ease-in; }
@@ -67,14 +67,14 @@
         .swipe-actions { display: flex; gap: 12px; margin-top: 22px; }
         .swipe-btn { flex: 1; padding: 14px 10px; font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .swipe-btn.dont { background: var(--warn); } .swipe-btn.know { background: var(--ok); }
-        .swipe-btn:hover { filter: brightness(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .swipe-btn:hover { filter: brightness(1.05); box-shadow: var(--edge-raised); }
         .swipe-btn:disabled { opacity: 0.5; cursor: wait; }
         .swipe-btn.current { outline: 3px solid rgba(0,0,0,0.15); }
         .hint { text-align: center; color: var(--muted-2); font-size: 13px; margin-top: 10px; }
         .error { color: var(--bad); font-size: 14px; text-align: center; min-height: 1em; margin-top: 8px; }
 
         /* 結算 */
-        .summary { background: white; border-radius: 15px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); padding: 30px; text-align: center; }
+        .summary { background: white; border-radius: 15px; box-shadow: var(--edge); padding: 30px; text-align: center; }
         .summary h2 { color: var(--ink); margin: 0 0 18px; line-height: 1.5; }
         .summary .stats { display: flex; gap: 12px; justify-content: center; margin-bottom: 22px; }
         .summary .stat { flex: 1; border-radius: 12px; padding: 14px 8px; font-weight: bold; }
@@ -90,12 +90,12 @@
 <div class="page">
     <div class="nav-row">
         <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>{{ (back_label or '返回主題圖鑑').replace('返回', '') }}</a>
-        <a href="{{ home_url }}" class="nav-back" title="所有主題">📚 所有主題</a>
+        <a href="{{ home_url }}" class="nav-back" title="所有主題">{{ icon('library') }} 所有主題</a>
     </div>
 
     <div class="badges">
-        <span id="theme-display" class="theme-badge">🏷️ {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
-        <span class="mode-badge mode-{{ mode }}">{{ {'view': '📖 圖鑑', 'fav': '⭐ 收藏滑卡', 'weak': '🟠 不熟區練習'}.get(mode, '👆 滑卡學習') }}</span>
+        <span id="theme-display" class="theme-badge">{{ icon('tag') }} {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
+        <span class="mode-badge mode-{{ mode }}">{{ {'view': '{{ icon('book-open') }} 圖鑑', 'fav': '{{ icon('star') }} 收藏滑卡', 'weak': '{{ icon('dot') }} 不熟區練習'}.get(mode, '{{ icon('swipe') }} 滑卡學習') }}</span>
     </div>
 
     {% if mode != 'view' %}
@@ -204,7 +204,7 @@
         } else {
             box.style.display = 'none';
         }
-        if (mode === 'fav') document.getElementById('theme-display').innerText = `🏷️ ${w.theme}`;
+        if (mode === 'fav') document.getElementById('theme-display').innerHTML = `{{ icon('tag') }} ${String(w.theme).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}`;
         document.getElementById('fav-toast').innerText = '';
         renderFavorite();
         renderStatus();
@@ -226,11 +226,11 @@
         const stage = document.getElementById('stage');
         let title;
         if (totalWords === 0) {
-            title = { weak: '🎉 不熟區已經清空了！', fav: '收藏裡沒有需要練習的字<br>（熟的字不會出現在滑卡）' }[mode]
-                || '🎉 這裡的單字都熟了！';
+            title = { weak: '{{ icon('sparkle') }} 不熟區已經清空了！', fav: '收藏裡沒有需要練習的字<br>（熟的字不會出現在滑卡）' }[mode]
+                || '{{ icon('sparkle') }} 這裡的單字都熟了！';
             UI.play('done');
         } else {
-            title = `🎉 這一輪完成！`;
+            title = `{{ icon('sparkle') }} 這一輪完成！`;
             UI.play('done');
         }
         const again = totalWords
@@ -240,7 +240,7 @@
                 <h2>${title}</h2>
                 ${totalWords ? `<div class="stats"><div class="stat k"><span class="n">${knowCount}</span>熟</div><div class="stat u"><span class="n">${dontCount}</span>不熟</div></div>` : ''}
                 ${again}
-                ${!isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">🧠 馬上考考剛學的字 <span class="go-arrow">→</span></a>` : ''}
+                ${!isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">{{ icon('quiz') }} 馬上考考剛學的字 <span class="go-arrow">→</span></a>` : ''}
                 <a href="${backUrl}" class="big-btn secondary"><span>←</span> ${backLabel.replace('返回', '回到')}</a>
                 <a href="${homeUrl}" class="big-btn secondary"><span>←</span> 選擇其他主題</a>
             </div>`;
@@ -370,7 +370,7 @@
             currentWord.is_favorite = want;
             UI.play(want ? 'star' : 'unstar');
             btn.classList.remove('ui-pop'); void btn.offsetWidth; btn.classList.add('ui-pop');
-            toast.innerText = want ? '⭐ 已加入我的收藏' : '已取消收藏';
+            toast.innerHTML = want ? '{{ icon('star') }} 已加入我的收藏' : '已取消收藏';
         } catch (e) {
             UI.play('error');
             toast.innerText = '收藏沒有存到，請再按一次。';

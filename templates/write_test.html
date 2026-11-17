@@ -100,7 +100,7 @@
             .vswitch { display: flex; flex: none; gap: 0; background: var(--line); padding: 4px; }
             .vswitch button { flex: 1; font-family: inherit; font-size: 15px; font-weight: bold; border: none; background: none;
                               border-radius: 6px; padding: 8px 6px; color: var(--ink-2); cursor: pointer; }
-            .vswitch button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+            .vswitch button.on { background: #fff; color: var(--ink); box-shadow: var(--edge); }
             .vswitch .n { font-weight: normal; font-size: 12px; margin-left: 4px; color: var(--muted); }
             .divider { display: none; }
             .pane { min-width: 0; padding: 14px; }
@@ -125,19 +125,19 @@
 <header class="topbar">
     <span class="brand">IELTS Writing</span>
     <span class="who">Candidate: {{ student.name }}</span>
-    <span class="clock" id="clock">⏱ <span id="timeText">{{ test.minutes }} minutes left</span></span>
+    <span class="clock" id="clock">{{ icon('clock') }} <span id="timeText">{{ test.minutes }} minutes left</span></span>
     <button type="button" id="hideTime" title="考場也可以把時間隱藏起來">Hide time</button>
     <a class="leave" href="{{ url_for('writing_home', student_id=student.id) }}" id="leave">離開</a>
 </header>
-<div class="notice">🧪 這是比照正式電腦考的<b>模擬作答介面</b>：與考場相同關閉了拼字檢查，時間到會自動交卷。交卷後由 AI 老師批改，AI 評分只是模擬參考，不等於真實考試成績。</div>
+<div class="notice">{{ icon('flask') }} 這是比照正式電腦考的<b>模擬作答介面</b>：與考場相同關閉了拼字檢查，時間到會自動交卷。交卷後由 AI 老師批改，AI 評分只是模擬參考，不等於真實考試成績。</div>
 
 <form method="post" action="{{ url_for('writing_submit', student_id=student.id, test_key=test.key) }}" id="examForm"
       style="display:contents" autocomplete="off">
 <input type="hidden" name="seconds_used" id="secondsUsed" value="0">
 
 <div class="vswitch" id="vswitch">
-    <button type="button" data-v="q" class="on">📄 題目</button>
-    <button type="button" data-v="a">✍️ 作答<span class="n" id="vwc">0 words</span></button>
+    <button type="button" data-v="q" class="on">{{ icon('file') }} 題目</button>
+    <button type="button" data-v="a">{{ icon('pen') }} 作答<span class="n" id="vwc">0 words</span></button>
 </div>
 
 {% for t in test.tasks %}

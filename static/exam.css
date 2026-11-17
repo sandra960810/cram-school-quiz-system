@@ -8,7 +8,7 @@ body { font-family: var(--font); background: var(--bg); margin: 0; padding: 20px
 .exam-tag { background: var(--ink); color: white; font-size: 19px; font-weight: bold; padding: 7px 16px; letter-spacing: 0.5px; }
 .exam-part { font-size: 22px; border-bottom: 2px solid var(--ink); padding: 0 6px 4px; }
 
-.sheet { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 26px 30px; margin-bottom: 18px; }
+.sheet { background: white; border-radius: 10px; box-shadow: var(--edge); padding: 26px 30px; margin-bottom: 18px; }
 .qgroup { margin-bottom: 34px; }
 .qgroup:last-child { margin-bottom: 8px; }
 .qtitle { font-weight: bold; font-size: 17px; margin: 0 0 10px; }
@@ -79,13 +79,13 @@ select.pick:focus { outline: none; border-color: var(--primary); }
 /* 窄螢幕：改成上下排，文章固定在上半部（不透明，題目不會跟它疊在一起） */
 @media (max-width: 1100px) {
     .layout { grid-template-columns: 1fr; gap: 14px; }
-    .sticky { top: 0; max-height: 42vh; box-shadow: 0 6px 12px rgba(0,0,0,0.12); border-color: var(--primary); }
+    .sticky { top: 0; max-height: 42vh; box-shadow: var(--edge); border-color: var(--primary); }
 }
 
 /* 送出列 */
 .submit-bar { position: sticky; bottom: 0; background: rgba(255,255,255,0.97); border-top: 2px solid var(--line);
               padding: 14px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-              border-radius: 10px 10px 0 0; box-shadow: 0 -3px 12px rgba(0,0,0,0.07); margin-top: 10px; }
+              border-radius: 10px 10px 0 0; box-shadow: var(--edge); margin-top: 10px; }
 .submit-bar .count { color: var(--muted); font-size: 15px; flex: 1; }
 .submit-bar .count b { color: var(--ink); font-size: 17px; }
 .btn-submit { border: none; background: var(--primary); color: white; font-size: 17px; font-weight: bold;
@@ -97,7 +97,7 @@ select.pick:focus { outline: none; border-color: var(--primary); }
 .timer.over { background: var(--bad-50); color: var(--bad); }
 
 /* 聽力音檔播放列 */
-.audio-bar { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+.audio-bar { background: white; border-radius: 10px; box-shadow: var(--edge);
              padding: 18px 22px; margin-bottom: 18px; }
 .audio-bar-label { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 15px; }
 .audio-player { width: 100%; }
@@ -135,7 +135,7 @@ select.pick:focus { outline: none; border-color: var(--primary); }
     .timer { padding: 6px 10px; }
     /* 聽力：音檔播放列在該 Part 範圍內固定在畫面上方，捲到題目時也能暫停／倒帶 */
     .audio-bar { position: sticky; top: 0; z-index: 5; padding: 10px 12px; margin: 0 -4px 14px;
-                 box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+                 box-shadow: var(--edge); }
     .audio-bar-label { font-size: 13px; margin-bottom: 6px; }
     .audio-hint { display: none; }
 }

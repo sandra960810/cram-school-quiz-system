@@ -21,11 +21,11 @@ from datetime import datetime
 from flask import Blueprint, abort, jsonify, render_template, request, url_for
 
 TYPES = [
-    {"key": "spell", "name": "拼寫", "icon": "✏️", "desc": "看中文意思，拼出英文單字"},
-    {"key": "dictate", "name": "聽寫", "icon": "🎧", "desc": "聽單字發音，拼出來"},
-    {"key": "cloze", "name": "例句填空", "icon": "🧩", "desc": "例句挖空，填回正確的字（注意詞形變化）"},
-    {"key": "meaning", "name": "選意思", "icon": "🔤", "desc": "看英文單字，選出正確意思"},
-    {"key": "word", "name": "選單字", "icon": "🅰️", "desc": "看意思，選出正確的英文單字"},
+    {"key": "spell", "name": "拼寫", "icon": "pencil", "desc": "看中文意思，拼出英文單字"},
+    {"key": "dictate", "name": "聽寫", "icon": "headphones", "desc": "聽單字發音，拼出來"},
+    {"key": "cloze", "name": "例句填空", "icon": "puzzle", "desc": "例句挖空，填回正確的字（注意詞形變化）"},
+    {"key": "meaning", "name": "選意思", "icon": "type", "desc": "看英文單字，選出正確意思"},
+    {"key": "word", "name": "選單字", "icon": "letter", "desc": "看意思，選出正確的英文單字"},
 ]
 TYPE_KEYS = [t["key"] for t in TYPES]
 TYPE_NAME = {t["key"]: t["name"] for t in TYPES}
@@ -224,7 +224,7 @@ def learned_words(student, scope):
     status = _['status_of'](student.id)
     if scope == 'fav':
         words = [v for v in _['favorite_rows'](student)]
-        label = '⭐ 我的收藏'
+        label = '我的收藏'
     else:
         q = Vocabulary.query.filter(Vocabulary.category == student.enrolled_course)
         label = '全部學過的字'
@@ -238,7 +238,7 @@ def learned_words(student, scope):
         words = [v for v in q.all() if v.id in status]
         if scope == 'weak':
             words = [v for v in words if status.get(v.id) == 'unfamiliar']
-            label = '🟠 不熟區'
+            label = '不熟區'
     # 同一個字可能同時在主題字庫與 A–Z 字庫，只留一筆（優先留有中文、有例句的）
     best = {}
     for v in words:
@@ -269,9 +269,9 @@ def scope_options(student):
             seen.setdefault('weak', set()).add(w)
         seen.setdefault('theme:' + (_['official_id_of'](theme) or theme), set()).add(w)
     count = lambda k: len(seen.get(k, ()))
-    opts = [{"key": "all", "label": "全部學過的字", "icon": "📚", "count": count('all')},
-            {"key": "weak", "label": "不熟區", "icon": "🟠", "count": count('weak')},
-            {"key": "fav", "label": "我的收藏", "icon": "⭐", "count": len(_['favorite_rows'](student))}]
+    opts = [{"key": "all", "label": "全部學過的字", "icon": "library", "count": count('all')},
+            {"key": "weak", "label": "不熟區", "icon": "dot", "count": count('weak')},
+            {"key": "fav", "label": "我的收藏", "icon": "star", "count": len(_['favorite_rows'](student))}]
     for t in _['build_theme_list'](student):
         if t["total"]:
             opts.append({"key": f'theme:{t["key"]}', "label": t["label"], "icon": t["icon"],

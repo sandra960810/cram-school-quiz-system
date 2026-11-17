@@ -9,7 +9,7 @@
     <style>
         body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: var(--edge); margin-bottom: 20px; }
         .header h1 { margin: 0; color: var(--ink); font-size: 24px; }
         .stats { display: flex; gap: 14px; flex-wrap: wrap; margin: 8px 0 0; color: var(--muted); font-size: 15px; }
         .stats b { font-size: 17px; }
@@ -25,7 +25,7 @@
         .btn.disabled { background: var(--line); color: var(--muted); pointer-events: none; }
 
         .letters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
-        .letter { min-width: 34px; padding: 6px 8px; text-align: center; border-radius: 6px; background: white; color: var(--ink); text-decoration: none; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-size: 14px; }
+        .letter { min-width: 34px; padding: 6px 8px; text-align: center; border-radius: 6px; background: white; color: var(--ink); text-decoration: none; font-weight: bold; box-shadow: var(--edge); font-size: 14px; }
         .letter small { display: block; font-size: 10px; font-weight: normal; color: var(--muted-2); }
         .letter.active { background: var(--primary); color: white; }
         .letter.active small { color: var(--primary-50); }
@@ -33,7 +33,7 @@
 
         /* 熟區／不熟區分頁 */
         .zones { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
-        .zone { border: none; border-radius: 999px; padding: 8px 16px; font-size: 15px; font-weight: bold; cursor: pointer; background: white; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-family: inherit; }
+        .zone { border: none; border-radius: 999px; padding: 8px 16px; font-size: 15px; font-weight: bold; cursor: pointer; background: white; color: var(--ink); box-shadow: var(--edge); font-family: inherit; }
         .zone .cnt { display: inline-block; min-width: 18px; margin-left: 4px; padding: 0 6px; border-radius: 10px; background: var(--surface-2); font-size: 12px; }
         .zone.active { color: white; }
         .zone.active[data-zone="all"] { background: var(--ink); }
@@ -48,11 +48,11 @@
         .hint { color: var(--muted); font-size: 14px; margin: -10px 0 15px 0; }
 
         .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .dex-card { display: block; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.2s; }
+        .dex-card { display: block; padding: 15px; border-radius: 10px; box-shadow: var(--edge); text-align: center; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.2s; }
         .dex-card .number { font-size: 12px; font-weight: bold; color: var(--muted-2); margin-bottom: 5px; text-align: left; display: flex; justify-content: space-between; align-items: center; }
         .dex-card .word { font-size: 20px; font-weight: bold; margin-bottom: 5px; word-break: break-word; }
         .dex-card .meaning { font-size: 14px; color: var(--ink-2); }
-        a.dex-card:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+        a.dex-card:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
         .tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
         /* 熟：綠色 */
         .dex-card.familiar { background: var(--ok-50); border-top: 4px solid var(--ok); }
@@ -74,11 +74,11 @@
 <div class="container">
     <div class="nav-row">
         <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>所有主題</a>
-        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">⭐ 我的收藏<span class="arrow">→</span></a>
+        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">{{ icon('star') }} 我的收藏<span class="arrow">→</span></a>
     </div>
 
     <div class="header">
-        <h1>{{ theme.icon }} {{ theme.label }}</h1>
+        <h1>{{ icon(theme.icon) }} {{ theme.label }}</h1>
         {% set t_new = theme.total - theme.unlocked - theme.weak %}
         <div class="stats">
             <span class="k">✓ 熟 <b>{{ theme.unlocked }}</b></span>
@@ -103,15 +103,15 @@
         <div class="actions">
             <a class="btn btn-learn {% if not swipe_count %}disabled{% endif %}"
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=(letter if not q else None)) }}">
-                👆 開始滑卡{{ scope }}（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
+                {{ icon('swipe') }} 開始滑卡{{ scope }}（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
             <a class="btn btn-weak {% if not weak_count %}disabled{% endif %}"
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='weak', letter=(letter if not q else None)) }}">
-                🟠 只練不熟區{{ scope }}（{{ [weak_count, batch]|min }} 個）<span class="go-arrow">→</span>
+                {{ icon('dot') }} 只練不熟區{{ scope }}（{{ [weak_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
             <a class="btn btn-quiz {% if not (theme.unlocked + theme.weak) %}disabled{% endif %}"
                href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id, scope='theme:' ~ theme.key) }}">
-                🧠 測驗這個主題（學過 {{ theme.unlocked + theme.weak }} 個）<span class="go-arrow">→</span>
+                {{ icon('quiz') }} 測驗這個主題（學過 {{ theme.unlocked + theme.weak }} 個）<span class="go-arrow">→</span>
             </a>
         </div>
     </div>
@@ -139,7 +139,7 @@
           action="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}"
           {% if not paged %}onsubmit="return false;"{% endif %}>
         <input type="text" name="q" id="searchInput" class="search-bar" value="{{ q }}"
-               placeholder="🔍 搜尋學過的單字或意思{% if paged %}（按 Enter 搜尋整個主題）{% endif %}"
+               placeholder="搜尋學過的單字或意思{% if paged %}（按 Enter 搜尋整個主題）{% endif %}"
                {% if not paged %}oninput="applyFilter()"{% endif %}>
         {% if paged %}<button type="submit" class="search-btn">搜尋</button>{% endif %}
     </form>

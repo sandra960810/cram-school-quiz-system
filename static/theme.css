@@ -6,7 +6,10 @@
     --primary-600: #38205f;
     --primary-300: #b7a3db;
     --primary-50: #f1ecf8;
-    --hero: linear-gradient(135deg, #5b3a96, #2e1a52);
+    --primary-100: #e3d9f2;
+    /* 標題橫幅：淺紫平塗、不用漸層，深紫字 */
+    --hero: var(--primary-50);
+    --hero-ink: var(--primary-600);
 
     /* 文字與底色 */
     --ink: #231f2e;
@@ -24,9 +27,22 @@
     --warn: #c46a12;   --warn-ink: #8a4a0c; --warn-300: #f2c48f; --warn-50: #fdf1e2;
     --star: #f2b705;   --star-ink: #a87d00; --star-50: #fff8e0;
 
+    /* 層次：不用模糊陰影，改用實線外框疊出層次（box-shadow 的 0 0 0 1px 等於不佔版面的邊框） */
+    --edge: 0 0 0 1px var(--line);                                             /* 一般卡片 */
+    --edge-raised: 0 0 0 1px var(--primary-300), 4px 4px 0 var(--primary-100); /* 滑過、被選取 */
+    --edge-hero: 0 0 0 1px var(--primary-300), 6px 6px 0 var(--primary-100);   /* 標題橫幅 */
+    --edge-pop: 0 0 0 1px var(--line-strong), 5px 5px 0 var(--primary-100);    /* 浮動面板、提示 */
+
     --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
 }
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }
 ::selection { background: var(--primary-50); }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* 線條圖示（static/icons.svg）：取代 emoji，大小跟著文字、顏色跟著文字 */
+.ui-ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; fill: none; stroke: currentColor;
+         stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+button .ui-ic, a .ui-ic { pointer-events: none; }
+/* 卡片上的大圖示用主色 */
+.menu-icon, .theme-icon, .skill .icon { color: var(--primary); }

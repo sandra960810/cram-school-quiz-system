@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .banner { background: var(--hero); color: #fff; padding: 22px 26px;
-                  border-radius: 14px; margin-bottom: 18px; }
+        .banner { background: var(--hero); color: var(--hero-ink); padding: 22px 26px;
+                  border-radius: 14px; margin-bottom: 18px; box-shadow: var(--edge-hero); }
         .banner h1 { margin: 0 0 6px; font-size: 24px; }
         .banner p { margin: 0; opacity: .93; line-height: 1.7; font-size: 14px; }
         .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -17,7 +17,7 @@
                      font-size: 14px; text-decoration: none; color: var(--ink); }
         .filters a.on { background: var(--warn); border-color: var(--warn); color: #fff; font-weight: bold; }
         .qa { background: #fff; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
-              box-shadow: 0 2px 6px rgba(0,0,0,.05); border-left: 5px solid var(--bad-300); }
+              box-shadow: var(--edge); border-left: 5px solid var(--bad-300); }
         .qa.done { border-left-color: var(--ok-300); }
         .qa .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
         .qa .tag { font-size: 12px; color: var(--muted); background: var(--surface-2); border-radius: 10px; padding: 2px 10px; }
@@ -43,7 +43,7 @@
     </div>
 
     <div class="banner">
-        <h1>📒 錯題本</h1>
+        <h1>{{ icon('notebook') }} 錯題本</h1>
         <p>目前有 <b>{{ pending }}</b> 題待訂正。重考同一份試卷並答對後，該題就會自動標記為已訂正。</p>
     </div>
 
@@ -52,7 +52,7 @@
         <a href="{{ url_for('exam_mistakes', student_id=student.id) }}" class="{{ 'on' if not only and not show_starred }}">全部</a>
         {% for s in skills %}
         <a href="{{ url_for('exam_mistakes', student_id=student.id, section=s.key) }}"
-           class="{{ 'on' if only == s.key }}">{{ s.icon }} {{ s.name }}（{{ counts[s.key] }}）</a>
+           class="{{ 'on' if only == s.key }}">{{ icon(s.icon) }} {{ s.name }}（{{ counts[s.key] }}）</a>
         {% endfor %}
         <a href="{{ url_for('exam_mistakes', student_id=student.id, starred=1) }}"
            class="{{ 'on' if show_starred }}">★ 只看收藏</a>
@@ -63,7 +63,7 @@
         {% for r in rows %}
         <div class="qa {{ 'done' if r.corrected }}">
             <div class="top">
-                <span class="tag">{{ r.icon }} {{ r.name }}　{{ r.test_key }}{% if r.part %}　{{ 'Passage' if r.section == 'reading' else 'Part' }} {{ r.part }}{% endif %}</span>
+                <span class="tag">{{ icon(r.icon) }} {{ r.name }}　{{ r.test_key }}{% if r.part %}　{{ 'Passage' if r.section == 'reading' else 'Part' }} {{ r.part }}{% endif %}</span>
                 <span class="n">第 {{ r.qno }} 題</span>
                 {% if r.starred %}<span>★</span>{% endif %}
                 <span class="given">你的答案：<b>{{ r.given or '（空白）' }}</b></span>
@@ -72,7 +72,7 @@
                     {{ '已訂正' if r.corrected else '答錯 %d 次' % r.wrong_count }}</span>
             </div>
             {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
-            {% if r.quote %}<div class="quote">{{ '📖' if r.section == 'reading' else '🎧' }} 原文：{{ r.quote }}</div>{% endif %}
+            {% if r.quote %}<div class="quote">{{ '{{ icon('book-open') }}' if r.section == 'reading' else '{{ icon('headphones') }}' }} 原文：{{ r.quote }}</div>{% endif %}
         </div>
         {% endfor %}
     {% else %}

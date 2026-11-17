@@ -59,7 +59,7 @@
 
     {% if not test.audio_ready %}
     <div class="no-audio">
-        ⚠️ 這份試卷的音檔還沒有產生，題目可以先看、先作答，但沒有聲音。<br>
+        {{ icon('alert') }} 這份試卷的音檔還沒有產生，題目可以先看、先作答，但沒有聲音。<br>
         在專案資料夾執行 <b>python tools/make_listening_audio.py {{ test.key }}</b> 即可產生。
     </div>
     {% endif %}
@@ -75,7 +75,7 @@
 
         {% if part.audio_exists %}
         <div class="audio-bar">
-            <div class="audio-bar-label">🎧 Part {{ part.no }} 音檔</div>
+            <div class="audio-bar-label">{{ icon('headphones') }} Part {{ part.no }} 音檔</div>
             <audio controls preload="none" class="audio-player"
                    src="{{ url_for('static', filename='audio/listening/' + part.audio) }}"></audio>
         </div>

@@ -19,7 +19,7 @@ a[href], button { transition: transform 0.12s ease, box-shadow 0.2s, background 
 .nav-back, .nav-next {
     display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px;
     background: white; color: var(--ink); text-decoration: none; font-weight: bold; font-size: 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08); border: none; cursor: pointer; font-family: inherit;
+    box-shadow: var(--edge); border: none; cursor: pointer; font-family: inherit;
 }
 .nav-back:hover, .nav-next:hover { background: var(--primary-50); color: var(--primary); }
 .nav-back .arrow, .nav-next .arrow { font-size: 18px; line-height: 1; transition: transform 0.2s; }
@@ -31,17 +31,17 @@ a:hover .go-arrow { transform: translateX(4px); }
 /* 右下角音效開關 */
 .ui-sound-toggle {
     position: fixed; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; border: none;
-    background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.15); font-size: 20px; cursor: pointer; z-index: 1000;
+    background: white; box-shadow: var(--edge); font-size: 20px; cursor: pointer; z-index: 1000;
 }
 
 /* 發音設定 */
 .ui-voice-toggle {
     position: fixed; right: 68px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; border: none;
-    background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.15); font-size: 20px; cursor: pointer; z-index: 1000;
+    background: white; box-shadow: var(--edge); font-size: 20px; cursor: pointer; z-index: 1000;
 }
 .ui-voice-panel {
     position: fixed; right: 16px; bottom: 70px; width: 290px; max-width: calc(100vw - 32px); background: white; border-radius: 14px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.2); padding: 16px; z-index: 1001; font-size: 14px; color: var(--ink);
+    box-shadow: var(--edge-pop); padding: 16px; z-index: 1001; font-size: 14px; color: var(--ink);
     animation: ui-card-in 0.2s ease-out;
 }
 .ui-voice-panel .vp-title { font-weight: bold; font-size: 16px; margin-bottom: 10px; }
@@ -52,7 +52,7 @@ a:hover .go-arrow { transform: translateX(4px); }
 .ui-voice-panel .vp-test { width: 100%; padding: 10px; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; font-family: inherit; }
 .ui-toast {
     position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); background: var(--ink); color: white; padding: 12px 18px;
-    border-radius: 10px; font-size: 14px; line-height: 1.6; z-index: 1002; box-shadow: 0 6px 20px rgba(0,0,0,0.25); max-width: 90vw; text-align: center;
+    border-radius: 10px; font-size: 14px; line-height: 1.6; z-index: 1002; box-shadow: var(--edge-pop); max-width: 90vw; text-align: center;
     animation: ui-card-in 0.25s ease-out;
 }
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .score-card { background: #fff; border-radius: 14px; padding: 22px 26px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+        .score-card { background: #fff; border-radius: 14px; padding: 22px 26px; box-shadow: var(--edge);
                       display: flex; align-items: center; gap: 26px; flex-wrap: wrap; margin-bottom: 18px; }
         .score-card .big { font-size: 44px; font-weight: bold; color: var(--primary); line-height: 1; }
         .score-card .big small { font-size: 18px; color: var(--muted); font-weight: normal; }
@@ -17,10 +17,10 @@
         .score-card .side { flex: 1; min-width: 180px; color: var(--muted); font-size: 14px; line-height: 1.8; }
         .partbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
         .partbar .pb { background: #fff; border-radius: 10px; padding: 10px 16px; font-size: 14px;
-                       box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+                       box-shadow: var(--edge); }
         .partbar .pb b { font-size: 17px; color: var(--ink); }
         .qa { background: #fff; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
-              box-shadow: 0 2px 6px rgba(0,0,0,.05); border-left: 5px solid var(--ok-50); }
+              box-shadow: var(--edge); border-left: 5px solid var(--ok-50); }
         .qa.wrong { border-left-color: var(--bad-300); }
         .qa .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
         .qa .n { font-weight: bold; font-size: 16px; min-width: 30px; }
@@ -81,7 +81,7 @@
                     title="收藏這一題">{{ '★' if r.starred else '☆' }}</button>
         </div>
         {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
-        {% if r.quote %}<div class="quote">🎧 原文：{{ r.quote }}</div>{% endif %}
+        {% if r.quote %}<div class="quote">{{ icon('headphones') }} 原文：{{ r.quote }}</div>{% endif %}
     </div>
     {% endfor %}
 </div>

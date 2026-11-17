@@ -9,7 +9,7 @@
     <style>
         body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: var(--edge); margin-bottom: 20px; }
         .header-top { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; }
         .header h1 { margin: 0; color: var(--ink); font-size: 24px; }
         .header p { margin: 5px 0 0 0; color: var(--muted); }
@@ -20,8 +20,8 @@
 
         .search-bar { width: 100%; padding: 12px; font-size: 16px; border: 2px solid var(--line-strong); border-radius: 8px; box-sizing: border-box; margin-bottom: 20px; }
         .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .dex-card { position: relative; display: block; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; background: white; border-top: 4px solid var(--star); text-decoration: none; color: inherit; transition: 0.2s; }
-        .dex-card:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .dex-card { position: relative; display: block; padding: 15px; border-radius: 10px; box-shadow: var(--edge); text-align: center; background: white; border-top: 4px solid var(--star); text-decoration: none; color: inherit; transition: 0.2s; }
+        .dex-card:hover { box-shadow: var(--edge-raised); }
         .dex-card .theme { font-size: 11px; color: var(--muted-2); text-align: left; margin-bottom: 5px; padding-right: 30px; }
         .dex-card .word { font-size: 20px; font-weight: bold; color: var(--ink); margin-bottom: 5px; word-break: break-word; }
         .dex-card .meaning { font-size: 14px; color: var(--ink-2); }
@@ -41,20 +41,20 @@
     <div class="header">
         <div class="header-top">
             <div>
-                <h1>⭐ 我的收藏</h1>
+                <h1>{{ icon('star') }} 我的收藏</h1>
                 <p>{{ student.name }} 收藏了 <span id="fav-total">{{ cards|length }}</span> 個單字</p>
             </div>
         </div>
         <div class="actions">
             <a class="btn {% if not swipe_count %}disabled{% endif %}" id="study-btn"
                href="{{ url_for('learn_favorites_study', student_id=student.id) }}">
-                👆 滑卡練習收藏的字（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
+                {{ icon('swipe') }} 滑卡練習收藏的字（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
         </div>
     </div>
 
     {% if cards %}
-    <input type="text" id="searchInput" class="search-bar" onkeyup="searchFav()" placeholder="🔍 搜尋收藏的單字或意思">
+    <input type="text" id="searchInput" class="search-bar" onkeyup="searchFav()" placeholder="搜尋收藏的單字或意思">
     <div class="dex-grid ui-stagger">
         {% for item in cards %}
             <a class="dex-card {{ item.status }}" href="{{ item.url }}" data-id="{{ item.id }}">

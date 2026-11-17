@@ -11,7 +11,7 @@
         .dashboard-container { max-width: 800px; width: 100%; }
         
         /* 歡迎看板 */
-        .welcome-banner { background: var(--hero); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .welcome-banner { background: var(--hero); color: var(--hero-ink); padding: 30px; border-radius: 15px; box-shadow: var(--edge-hero); margin-bottom: 30px; }
         .welcome-banner h1 { margin: 0 0 10px 0; font-size: 28px; }
         .welcome-banner p { margin: 0; font-size: 16px; opacity: 0.9; }
 
@@ -19,8 +19,8 @@
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         
         /* 選單卡片 */
-        .menu-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
-        .menu-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .menu-card { background: white; padding: 25px; border-radius: 15px; box-shadow: var(--edge); text-align: center; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
+        .menu-card:hover { transform: translateY(-5px); box-shadow: var(--edge-raised); }
         .menu-icon { font-size: 40px; margin-bottom: 15px; }
         .menu-title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
         .menu-desc { font-size: 14px; color: var(--muted); }
@@ -35,7 +35,7 @@
 <div class="dashboard-container">
     <!-- 歡迎看板 -->
     <div class="welcome-banner">
-        <h1>👋 歡迎回來，{{ student.name }}</h1>
+        <h1>歡迎回來，{{ student.name }}</h1>
         <p>目前選修課程：{{ student.enrolled_course }} ｜ 已熟悉單字：{{ unlocked_count }} 字</p>
     </div>
 
@@ -43,21 +43,21 @@
     <div class="menu-grid ui-stagger">
         <!-- 1. 單字學習與圖鑑（原本的單字學習區＋單字圖鑑合併） -->
         <a href="/learn/{{ student.id }}" class="menu-card">
-            <div class="menu-icon">📚</div>
+            <div class="menu-icon">{{ icon('library') }}</div>
             <div class="menu-title">單字學習與圖鑑<span class="go-arrow">→</span></div>
             <div class="menu-desc">依主題滑卡學單字：右滑熟、左滑不熟<br>✓ 熟 {{ unlocked_count }} / {{ total_count }} 字</div>
         </a>
 
         <!-- 單字測驗區：考單字學習區學過的字 -->
         <a href="/vocab-quiz/{{ student.id }}" class="menu-card">
-            <div class="menu-icon">🧠</div>
+            <div class="menu-icon">{{ icon('quiz') }}</div>
             <div class="menu-title">單字測驗區<span class="go-arrow">→</span></div>
             <div class="menu-desc">拼寫・聽寫・例句填空・選擇題<br>考你滑卡學過的字，答錯自動回到不熟區</div>
         </a>
 
         <!-- 2. 模擬測驗區：四技能自製題庫 -->
         <a href="/exam/{{ student.id }}" class="menu-card">
-            <div class="menu-icon">📝</div>
+            <div class="menu-icon">{{ icon('exam') }}</div>
             <div class="menu-title">模擬測驗區<span class="go-arrow">→</span></div>
             <div class="menu-desc">自製雅思題庫：聽力・閱讀・寫作・口說<br>自動批改、逐題解析，答錯進錯題本</div>
         </a>

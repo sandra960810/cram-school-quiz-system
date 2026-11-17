@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .banner { background: var(--hero); color: #fff; padding: 22px 26px;
-                  border-radius: 14px; margin-bottom: 20px; }
+        .banner { background: var(--hero); color: var(--hero-ink); padding: 22px 26px;
+                  border-radius: 14px; margin-bottom: 20px; box-shadow: var(--edge-hero); }
         .banner h1 { margin: 0 0 6px; font-size: 24px; }
         .banner p { margin: 0; opacity: .92; line-height: 1.7; font-size: 14px; }
         .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06);
+        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: var(--edge);
                  border-top: 4px solid var(--primary); text-decoration: none; color: var(--ink); display: block; }
-        a.tcard:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,.12); }
+        a.tcard:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
         .tcard .tt { font-size: 18px; font-weight: bold; margin-bottom: 6px; }
         .tcard .topics { font-size: 13px; color: var(--muted); line-height: 1.7; min-height: 44px; }
         .tcard .state { margin-top: 10px; font-size: 13px; font-weight: bold; display: inline-block;
@@ -33,16 +33,16 @@
 <div class="exam-wrap wide">
     <div class="nav-row">
         <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
-        <a href="{{ url_for('exam_mistakes', student_id=student.id) }}" class="nav-next">📒 錯題本<span class="arrow">→</span></a>
+        <a href="{{ url_for('exam_mistakes', student_id=student.id) }}" class="nav-next">{{ icon('notebook') }} 錯題本<span class="arrow">→</span></a>
     </div>
 
     <div class="banner">
-        <h1>🎧 雅思聽力題庫</h1>
+        <h1>{{ icon('headphones') }} 雅思聽力題庫</h1>
         <p>{{ student.name }}，每一回都是完整的 Parts 1–4、共 40 題，長度與難度比照正式考試。<br>
            交卷後自動批改，每一題都有答案解析，答錯的會進錯題本。</p>
     </div>
 
-    <div class="hint">💡 作答建議：音檔從頭播到尾不要暫停，邊聽邊寫，最後再檢查。正式考試只播一次。</div>
+    <div class="hint">{{ icon('bulb') }} 作答建議：音檔從頭播到尾不要暫停，邊聽邊寫，最後再檢查。正式考試只播一次。</div>
 
     <div class="tgrid">
         {% for t in tests %}

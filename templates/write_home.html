@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .banner { background: var(--hero); color: #fff; padding: 22px 26px;
-                  border-radius: 14px; margin-bottom: 20px; }
+        .banner { background: var(--hero); color: var(--hero-ink); padding: 22px 26px;
+                  border-radius: 14px; margin-bottom: 20px; box-shadow: var(--edge-hero); }
         .banner h1 { margin: 0 0 6px; font-size: 24px; }
         .banner p { margin: 0; opacity: .95; line-height: 1.7; font-size: 14px; }
         .disclaimer { background: var(--warn-50); border: 2px solid var(--warn-300); color: var(--warn-ink); border-radius: 10px;
@@ -19,9 +19,9 @@
         .warn { background: var(--bad-50); color: var(--bad-ink); border-radius: 10px; padding: 12px 16px;
                 font-size: 14px; line-height: 1.8; margin-bottom: 18px; }
         .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 22px; }
-        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06);
+        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: var(--edge);
                  border-top: 4px solid var(--warn); text-decoration: none; color: var(--ink); display: block; }
-        a.tcard:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,.12); }
+        a.tcard:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
         .tcard .tt { font-size: 18px; font-weight: bold; margin-bottom: 6px; }
         .tcard .topics { font-size: 13px; color: var(--muted); line-height: 1.7; min-height: 44px; }
         .state { margin-top: 10px; font-size: 13px; font-weight: bold; display: inline-block; padding: 3px 12px; border-radius: 12px; }
@@ -29,7 +29,7 @@
         .state.best { background: var(--primary-50); color: var(--primary); margin-left: 6px; }
         .soon { opacity: .55; border-top-color: var(--line-strong); }
         .soon .state { background: var(--surface-2); color: var(--muted); }
-        .panel { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+        .panel { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: var(--edge); }
         .panel h2 { margin: 0 0 10px; font-size: 17px; }
         .hrow { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px;
                 border-bottom: 1px solid var(--bg); font-size: 14px; color: var(--ink); text-decoration: none; }
@@ -46,23 +46,23 @@
     </div>
 
     <div class="banner">
-        <h1>✍️ 雅思寫作題庫（學術組）</h1>
+        <h1>{{ icon('pen') }} 雅思寫作題庫（學術組）</h1>
         <p>{{ student.name }}，每一回包含 Task 1 圖表描述與 Task 2 論說文，共 60 分鐘，
            作答畫面比照正式電腦考。交卷後由 AI 老師依四項評分標準嚴格批改，給 Band 分數與逐項評語。</p>
     </div>
 
-    <div class="disclaimer">⚠️ <b>AI 老師的評分不等於真實考試成績。</b>這只是依照公開評分標準所做的模擬估分，
+    <div class="disclaimer">{{ icon('alert') }} <b>AI 老師的評分不等於真實考試成績。</b>這只是依照公開評分標準所做的模擬估分，
         正式考試由受過訓練的考官評分，結果可能不同。請把分數當作練習參考，重點放在評語指出的問題。</div>
 
     {% if ai_ready %}
-    <div class="hint" style="background:var(--ok-50);color:var(--ok)">🤖 目前的 AI 老師：<b>{{ ai_label }}</b></div>
+    <div class="hint" style="background:var(--ok-50);color:var(--ok)">{{ icon('bot') }} 目前的 AI 老師：<b>{{ ai_label }}</b></div>
     {% endif %}
     {% if not ai_ready %}
-    <div class="warn">🔑 AI 老師還沒設定，現在交卷只會存下作文、不會批改。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，
+    <div class="warn">{{ icon('key') }} AI 老師還沒設定，現在交卷只會存下作文、不會批改。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，
         之後打開交卷紀錄就能補批改。</div>
     {% endif %}
 
-    <div class="hint">💡 作答建議：Task 1 約 20 分鐘、至少 150 字；Task 2 約 40 分鐘、至少 250 字。Task 2 的分數佔兩倍，
+    <div class="hint">{{ icon('bulb') }} 作答建議：Task 1 約 20 分鐘、至少 150 字；Task 2 約 40 分鐘、至少 250 字。Task 2 的分數佔兩倍，
         時間不夠時先顧好 Task 2。考場的電腦沒有拼字檢查，這裡也一樣。</div>
 
     <div class="tgrid">
@@ -84,7 +84,7 @@
     </div>
 
     <div class="panel">
-        <h2>🕑 交卷紀錄</h2>
+        <h2>{{ icon('clock') }} 交卷紀錄</h2>
         {% if history %}
             {% for w in history %}
             <a class="hrow" href="{{ url_for('writing_result', student_id=student.id, sub_id=w.id) }}">

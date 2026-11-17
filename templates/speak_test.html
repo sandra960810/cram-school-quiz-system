@@ -28,7 +28,7 @@
         main { flex: 1; overflow-y: auto; padding: 22px 18px 120px; }
         .stage { max-width: 760px; margin: 0 auto; }
         .screen { display: none; } .screen.on { display: block; }
-        .box { background: #fff; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 16px; line-height: 1.75; }
+        .box { background: #fff; border-radius: 10px; padding: 20px 24px; box-shadow: var(--edge); margin-bottom: 16px; line-height: 1.75; }
         .box h2 { margin: 0 0 10px; font-size: 19px; }
         .box ul { margin: 6px 0; padding-left: 22px; }
         .privacy { background: var(--warn-50); border: 2px solid var(--warn-300); color: var(--warn-ink); }
@@ -52,7 +52,7 @@
         .avatar.talking::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--primary-300);
                                  animation: pulse 1.2s ease-out infinite; }
         @keyframes pulse { from { opacity: 1; transform: scale(.92); } to { opacity: 0; transform: scale(1.18); } }
-        .bubble { flex: 1; background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06); min-height: 64px; }
+        .bubble { flex: 1; background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: var(--edge); min-height: 64px; }
         .bubble .who { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
         .bubble .q { font-size: 18px; line-height: 1.6; }
         .bubble .q.masked { color: transparent; text-shadow: 0 0 9px rgba(0,0,0,.45); user-select: none; }
@@ -117,7 +117,7 @@
     <span class="clock" id="clock">00:00</span>
     <a class="leave" href="{{ url_for('speaking_home', student_id=student.id) }}" id="leave">離開</a>
 </header>
-<div class="notice">🧪 這是比照正式考試流程的<b>模擬口說測驗</b>。交卷後由 AI 老師辨識語音並評分，<b>AI 評分不等於真實考試成績，只是模擬</b>。</div>
+<div class="notice">{{ icon('flask') }} 這是比照正式考試流程的<b>模擬口說測驗</b>。交卷後由 AI 老師辨識語音並評分，<b>AI 評分不等於真實考試成績，只是模擬</b>。</div>
 <div class="parts" id="parts"><span data-p="1">Part 1 訪談</span><span data-p="2">Part 2 題卡</span><span data-p="3">Part 3 討論</span></div>
 
 <main><div class="stage">
@@ -135,31 +135,31 @@
             <div>考官會用語音發問，請戴耳機或開喇叭。正式考試考官不會給你看題目，這裡預設也把題目文字模糊起來，聽不清楚可以按「請考官再說一次」或「顯示題目文字」。</div>
         </div>
         <div class="box">
-            <div class="check"><span class="st" id="stMic">⬜</span>
+            <div class="check"><span class="st" id="stMic">{{ icon('circle') }}</span>
                 <div class="txt">麥克風<div class="meter"><i id="checkMeter"></i></div>
                     <div style="font-size:13px;color:var(--muted)" id="micHint">按「測試」後說幾句英文，綠色條會跟著跳動就沒問題。</div></div>
-                <button type="button" id="micTest">🎙️ 測試</button></div>
-            <div class="check"><span class="st" id="stVoice">⬜</span>
+                <button type="button" id="micTest">{{ icon('mic') }} 測試</button></div>
+            <div class="check"><span class="st" id="stVoice">{{ icon('circle') }}</span>
                 <div class="txt">考官的聲音<div style="font-size:13px;color:var(--muted)">用 Edge 會是最自然的真人語音。</div></div>
-                <button type="button" id="voiceTest">🔊 試聽</button></div>
+                <button type="button" id="voiceTest">{{ icon('volume') }} 試聽</button></div>
         </div>
         {% if provider == 'gemini' %}
         <div class="box privacy red">
-            <b>🔒 錄音隱私提醒</b><br>
+            <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
             目前的 AI 老師是 <b>Google Gemini 免費方案</b>。交卷後你的<b>錄音會傳給 Google</b> 做語音辨識與評分，
             而免費方案送出的內容<b>可能會被 Google 用來改善他們的服務，也可能有人工審閱</b>。
             請不要在錄音裡說出身分證字號、住址、電話或其他私人資料；第一題問姓名時，用英文名或化名回答即可。
         </div>
         {% elif provider == 'claude' %}
         <div class="box privacy">
-            <b>🔒 錄音隱私提醒</b><br>
+            <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
             目前的 AI 老師是 <b>Anthropic Claude</b>。Claude 聽不到錄音，所以作答時會用<b>瀏覽器內建的語音辨識</b>把你說的話轉成文字
             （Edge 會把聲音送到微軟、Chrome 送到 Google 的伺服器辨識），再把文字交給 Claude 評分。錄音檔本身只存在補習班這台電腦。
             請不要說出身分證字號、住址、電話等私人資料；第一題問姓名時用英文名或化名即可。
             <br><b>注意：</b>這種方式的「發音」分數只能從辨識結果推估，準確度較低。
         </div>
         {% else %}
-        <div class="box privacy red">🔑 AI 老師還沒設定，這次只會存下錄音、不會批改。設定好金鑰（雙擊 set_ai_key.bat）後，打開交卷紀錄就能補批改。</div>
+        <div class="box privacy red">{{ icon('key') }} AI 老師還沒設定，這次只會存下錄音、不會批改。設定好金鑰（雙擊 set_ai_key.bat）後，打開交卷紀錄就能補批改。</div>
         {% endif %}
         <div class="errbox" id="checkErr" hidden></div>
         <label class="agree"><input type="checkbox" id="agree"> 我了解：AI 評分只是模擬，不等於真實考試成績{% if provider %}；也已讀過上面的錄音隱私提醒{% endif %}。</label>
@@ -169,12 +169,12 @@
     <!-- 考試進行中 -->
     <section class="screen" id="scrExam">
         <div class="examiner">
-            <div class="avatar" id="avatar">🧑‍🏫</div>
+            <div class="avatar" id="avatar">{{ icon('teacher') }}</div>
             <div class="bubble"><div class="who">Examiner<span id="topicLabel"></span></div><div class="q masked" id="qText"></div></div>
         </div>
         <div class="tools">
-            <button type="button" id="repeatBtn">🔁 請考官再說一次</button>
-            <button type="button" id="showText">👁️ 顯示題目文字</button>
+            <button type="button" id="repeatBtn">{{ icon('refresh') }} 請考官再說一次</button>
+            <button type="button" id="showText">{{ icon('eye') }} 顯示題目文字</button>
         </div>
 
         <div id="cardWrap" hidden>
@@ -194,7 +194,7 @@
         </div>
 
         <div class="status" id="statusBox">
-            <div class="mic" id="micIcon">🎙️</div>
+            <div class="mic" id="micIcon">{{ icon('mic') }}</div>
             <div class="label" id="stLabel">考官說話中…</div>
             <div class="sub" id="stSub"></div>
             <div class="meter"><i id="examMeter"></i></div>
@@ -208,7 +208,7 @@
             <div class="spinner" id="upSpin"></div>
             <b id="upText">正在上傳錄音並交卷…</b>
             <div class="errbox" id="upErr" hidden></div>
-            <div style="margin-top:12px"><button type="button" class="big" id="retryUpload" hidden>🔁 再上傳一次</button></div>
+            <div style="margin-top:12px"><button type="button" class="big" id="retryUpload" hidden>{{ icon('refresh') }} 再上傳一次</button></div>
         </div>
     </section>
 </div></main>
@@ -274,10 +274,10 @@
             if (ctx.state === 'suspended') await ctx.resume();
             meterEl = $('checkMeter');
             micOk = true;
-            $('stMic').innerText = '✅';
+            $('stMic').innerHTML = '{{ icon('check-circle') }}';
             $('micHint').innerText = '麥克風已開啟。說話時綠色條有跳動就可以開始了。';
         } catch (e) {
-            $('stMic').innerText = '❌';
+            $('stMic').innerHTML = '{{ icon('x-circle') }}';
             $('checkErr').hidden = false;
             $('checkErr').innerText = e.name === 'NotAllowedError'
                 ? '麥克風被拒絕了。請按網址列左邊的鎖頭圖示，把「麥克風」改成允許，再重新整理這一頁。'
@@ -286,7 +286,7 @@
         refreshStart();
     });
     $('voiceTest').addEventListener('click', () => {
-        UI.speak("Good morning. This is a practice IELTS Speaking test.", { onend: () => { $('stVoice').innerText = '✅'; } });
+        UI.speak("Good morning. This is a practice IELTS Speaking test.", { onend: () => { $('stVoice').innerHTML = '{{ icon('check-circle') }}'; } });
     });
     $('agree').addEventListener('change', refreshStart);
     function refreshStart() { $('startBtn').disabled = !($('agree').checked && micOk); }
@@ -364,9 +364,9 @@
         mic.classList.toggle('rec', mode === 'rec');
         $('statusBox').hidden = mode === 'prep';
         $('nextBtn').disabled = mode !== 'rec';
-        if (mode === 'talk') { $('stLabel').innerText = '考官說話中…'; $('stSub').innerText = ''; mic.innerText = '🎧'; }
-        if (mode === 'rec') { $('stLabel').innerText = '● 錄音中，請回答'; mic.innerText = '🎙️'; }
-        if (mode === 'wait') { $('stLabel').innerText = extra || ''; $('stSub').innerText = ''; mic.innerText = '⏳'; }
+        if (mode === 'talk') { $('stLabel').innerText = '考官說話中…'; $('stSub').innerText = ''; mic.innerHTML = '{{ icon('headphones') }}'; }
+        if (mode === 'rec') { $('stLabel').innerText = '● 錄音中，請回答'; mic.innerHTML = '{{ icon('mic') }}'; }
+        if (mode === 'wait') { $('stLabel').innerText = extra || ''; $('stSub').innerText = ''; mic.innerHTML = '{{ icon('hourglass') }}'; }
     }
     function fmt(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
 
@@ -466,7 +466,7 @@
     });
     $('showText').addEventListener('click', (e) => {
         const masked = $('qText').classList.toggle('masked');
-        e.target.innerText = masked ? '👁️ 顯示題目文字' : '🙈 隱藏題目文字';
+        e.currentTarget.innerHTML = masked ? '{{ icon('eye') }} 顯示題目文字' : '{{ icon('eye-off') }} 隱藏題目文字';
     });
 
     $('startBtn').addEventListener('click', () => {

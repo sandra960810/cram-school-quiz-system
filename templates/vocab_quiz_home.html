@@ -9,10 +9,10 @@
     <style>
         body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 32px 16px 90px; color: var(--ink); }
         .container { max-width: 860px; margin: 0 auto; }
-        .summary { background: var(--hero); color: white; padding: 24px 28px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 24px; }
+        .summary { background: var(--hero); color: var(--hero-ink); padding: 24px 28px; border-radius: 15px; box-shadow: var(--edge-hero); margin-bottom: 24px; }
         .summary h1 { margin: 0 0 6px; font-size: 26px; }
         .summary p { margin: 0; opacity: 0.92; line-height: 1.6; }
-        .panel { background: white; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px 22px; margin-bottom: 18px; }
+        .panel { background: white; border-radius: 14px; box-shadow: var(--edge); padding: 20px 22px; margin-bottom: 18px; }
         .panel h2 { font-size: 18px; margin: 0 0 4px; }
         .panel .sub { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
 
@@ -34,7 +34,7 @@
         .size-row .opt { flex: 1; }
         .size-row .box { justify-content: center; font-weight: bold; font-size: 17px; }
 
-        .start { display: block; width: 100%; padding: 16px; font-size: 19px; font-weight: bold; color: white; background: var(--primary); border: none; border-radius: 14px; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 35%, transparent); }
+        .start { display: block; width: 100%; padding: 16px; font-size: 19px; font-weight: bold; color: white; background: var(--primary); border: none; border-radius: 14px; cursor: pointer; font-family: inherit; box-shadow: var(--edge-raised); }
         .start:hover { filter: brightness(1.06); }
         .start:disabled { background: var(--line-strong); box-shadow: none; cursor: not-allowed; }
         .warn { color: var(--bad); font-size: 14px; min-height: 1.2em; margin: 10px 0 0; text-align: center; }
@@ -65,10 +65,10 @@
 <div class="container">
     <div class="nav-row">
         <a href="/dashboard/{{ student.id }}" class="nav-back"><span class="arrow">←</span>主介面</a>
-        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-next">📚 單字學習區<span class="arrow">→</span></a>
+        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-next">{{ icon('library') }} 單字學習區<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>🧠 單字測驗區</h1>
+        <h1>{{ icon('quiz') }} 單字測驗區</h1>
         <p>考的是你在單字學習區滑過的字（熟區＋不熟區），不熟的字會優先出題。<br>答錯的字會自動移回「不熟區」，下次滑卡再加強。</p>
     </div>
 
@@ -76,7 +76,7 @@
     {% if not learned %}
     <div class="panel empty">
         還沒有學過的單字可以考喔！<br>
-        先到 <a href="{{ url_for('learn_home', student_id=student.id) }}">📚 單字學習區</a> 選一個主題滑卡，滑過的字就會出現在這裡。
+        先到 <a href="{{ url_for('learn_home', student_id=student.id) }}">{{ icon('library') }} 單字學習區</a> 選一個主題滑卡，滑過的字就會出現在這裡。
     </div>
     {% else %}
     <form id="quiz-form" action="{{ url_for('vocab_quiz.quiz_start', student_id=student.id) }}" method="get">
@@ -88,7 +88,7 @@
                 <label class="opt {% if not s.count %}off{% endif %}">
                     <input type="radio" name="scope" value="{{ s.key }}" {% if not s.count %}disabled{% endif %}
                            {% if s.key == pre_scope and s.count %}checked{% endif %}>
-                    <span class="box"><span class="ic">{{ s.icon }}</span><span class="tx"><span class="nm">{{ s.label }}</span></span><span class="ct">{{ s.count }}</span></span>
+                    <span class="box"><span class="ic">{{ icon(s.icon) }}</span><span class="tx"><span class="nm">{{ s.label }}</span></span><span class="ct">{{ s.count }}</span></span>
                 </label>
                 {% endfor %}
             </div>
@@ -101,7 +101,7 @@
                 {% for t in types %}
                 <label class="opt">
                     <input type="checkbox" name="type" value="{{ t.key }}" checked>
-                    <span class="box"><span class="ic">{{ t.icon }}</span><span class="tx"><span class="nm">{{ t.name }}</span><span class="ds">{{ t.desc }}</span></span></span>
+                    <span class="box"><span class="ic">{{ icon(t.icon) }}</span><span class="tx"><span class="nm">{{ t.name }}</span><span class="ds">{{ t.desc }}</span></span></span>
                 </label>
                 {% endfor %}
             </div>

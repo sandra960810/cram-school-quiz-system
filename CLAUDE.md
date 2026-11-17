@@ -50,6 +50,7 @@ set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_ke
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
 static/theme.css    全站色系（色彩變數），每一頁都要先載入；換色只改這一份
+static/icons.svg    全站線條圖示（取代 emoji）；icons.py 提供樣板用的 icon()
 static/exam.css     測驗頁共用樣式
 tools/              產生音檔與檢查題庫的腳本
 import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
@@ -171,6 +172,10 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 
 - 顏色全部來自 `static/theme.css` 的變數：主色 `--primary`（紫色學院風）、標題橫幅 `--hero`、文字 `--ink`／`--muted`、
   框線 `--line`、底色 `--bg`，以及狀態色 `--ok`（對）、`--bad`（錯）、`--warn`（提醒）、`--star`（收藏），各有 `-50` 淺底與 `-ink` 深字
+- 標題橫幅是淺紫平塗（`--hero`）配深紫字，**不用漸層**；層次**不用模糊陰影**，改用邊框疊：
+  一般卡片 `box-shadow: var(--edge)`、滑過或選取 `var(--edge-raised)`、橫幅 `var(--edge-hero)`、浮動面板 `var(--edge-pop)`
+- **不用 emoji**，圖示一律用線條圖示：樣板寫 `{{ icon('book-open') }}`，JS 寫 `UI.icon('book-open')`，
+  圖示在 `static/icons.svg`（缺的就照格式加一個 symbol）。✓ ✗ ★ ☆ 這類文字符號可以照用
 - 新頁面或新樣式**不要寫死色碼**，一律用 `var(--…)`；白色 `#fff` 可以直接寫
 - 新樣板的 `<head>` 第一個樣式表要是 `theme.css`，再接 `ui.css`／`exam.css`
 - 考試作答頁（聽讀寫說）維持比照雅思電腦考的版面，只套色系
