@@ -16,10 +16,8 @@ type run_log.txt
 if not "%RC%"=="0" ( echo. & echo 準備步驟失敗，請看上面的訊息 & pause & exit /b 1 )
 
 echo.
-rem 如果舊的網站還開著（佔用 5000 埠的 python），先把它關掉
-for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":5000 " ^| findstr LISTENING') do (
-    taskkill /F /PID %%p /FI "IMAGENAME eq python.exe" >nul 2>nul && echo 已關閉舊的網站（PID %%p）
-)
+rem 如果舊的網站還開著，先把它關掉（連同 debug 模式的子程式；不會動到分享連結的 cloudflared）
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0tools\stop_site.ps1"
 echo [5/5] 啟動網站：http://127.0.0.1:5000/dashboard/1
 echo     （要關閉網站，直接關掉這個視窗）
 rem 用 Edge 開啟：Edge 內建微軟神經語音（Natural），單字與例句發音最接近真人。
