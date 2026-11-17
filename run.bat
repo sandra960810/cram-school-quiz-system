@@ -22,7 +22,9 @@ for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":5000 " ^| findstr LISTENING
 )
 echo [5/5] 啟動網站：http://127.0.0.1:5000/dashboard/1
 echo     （要關閉網站，直接關掉這個視窗）
-start "" powershell -NoProfile -WindowStyle Hidden -Command "Start-Sleep 3; Start-Process 'http://127.0.0.1:5000/dashboard/1'"
+rem 用 Edge 開啟：Edge 內建微軟神經語音（Natural），單字與例句發音最接近真人。
+rem 找不到 Edge 時才用系統預設瀏覽器。
+start "" powershell -NoProfile -WindowStyle Hidden -Command "Start-Sleep 3; $u='http://127.0.0.1:5000/dashboard/1'; $p = Start-Process msedge $u -PassThru -ErrorAction SilentlyContinue; if (-not $p) { Start-Process $u }"
 %PY% app.py
 pause
 exit /b 0
