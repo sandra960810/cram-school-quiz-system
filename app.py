@@ -178,8 +178,11 @@ OFFICIAL_THEMES = [
     {"course": "IELTS", "id": "08", "name": "城市與交通", "desc": "都市化、住房、交通、公共建設", "icon": "building"},
     {"course": "IELTS", "id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "palette"},
     {"course": "IELTS", "id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "plane"},
-    {"course": "IELTS", "id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "book-open"},
+    # 11「雅思學術高頻字彙」原本是 4,000 多字的 A–Z 大字庫，已拆進 01–10、12–15 各主題；編號 11 保留不再使用
     {"course": "IELTS", "id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "pen"},
+    {"course": "IELTS", "id": "13", "name": "人物性格與情緒", "desc": "個性、態度、情緒與待人處事", "icon": "smile"},
+    {"course": "IELTS", "id": "14", "name": "日常生活與物品", "desc": "居家用品、衣物工具、日常動作", "icon": "home"},
+    {"course": "IELTS", "id": "15", "name": "通用核心字彙", "desc": "不限主題、各種文章都會出現的常用字，依字首 A–Z 分頁", "icon": "book-open"},
     # 多益（TOEIC）：依職場情境自訂的 12 個主題。編號前面加 T，避免和雅思的 01–12 混在一起
     {"course": "TOEIC", "id": "T01", "name": "辦公室與行政", "desc": "文書、設備、行程安排、日常庶務", "icon": "clipboard"},
     {"course": "TOEIC", "id": "T02", "name": "人事與職涯", "desc": "招募、面試、薪資福利、升遷與訓練", "icon": "users"},
@@ -244,11 +247,13 @@ def status_of(student_id):
 def build_theme_list(student):
     """依資料庫實際內容產生主題清單（含每個主題的字數與已解鎖數）。"""
     course = exams.course_of(student)
-    totals = dict(db.session.query(Vocabulary.theme, func.count(Vocabulary.id))
+    # 同一主題裡同拼字的字只算一次（高頻字庫拆進主題後，少數字和主題原本的字重複；學習紀錄本來就同步）
+    word_key = func.lower(Vocabulary.word)
+    totals = dict(db.session.query(Vocabulary.theme, func.count(func.distinct(word_key)))
                   .filter(Vocabulary.category == course)
                   .group_by(Vocabulary.theme).all())
     def count_status(status):
-        return dict(db.session.query(Vocabulary.theme, func.count(func.distinct(Vocabulary.id)))
+        return dict(db.session.query(Vocabulary.theme, func.count(func.distinct(word_key)))
                     .join(LearningProgress, LearningProgress.vocab_id == Vocabulary.id)
                     .filter(Vocabulary.category == course,
                             LearningProgress.student_id == student.id,
@@ -281,11 +286,26 @@ def theme_info(student, theme_key):
     abort(404, description="找不到這個主題")
 
 
-def theme_words(student, theme_key):
-    return (Vocabulary.query
+def theme_words(student, theme_key, dedupe=True):
+    """主題裡的字（依字母排序）。
+
+    dedupe：同拼字只留一張卡，留有中文意思／例句的那筆。高頻字庫拆進各主題後，
+    約 240 個字和主題原本的字重複；兩筆的學習紀錄與收藏本來就同步（set_progress），隱藏其中一筆不會少紀錄。
+    """
+    rows = (Vocabulary.query
             .filter(Vocabulary.category == exams.course_of(student), theme_condition(theme_key))
             .order_by(func.lower(Vocabulary.word), Vocabulary.id)
             .all())
+    if not dedupe:
+        return rows
+    best = {}
+    for w in rows:
+        key = w.word.lower()
+        richness = (bool(clean_sentence(w.sentence)), bool(w.pos), not w.meaning_en or w.meaning != w.meaning_en)
+        if key not in best or richness > best[key][0]:
+            best[key] = (richness, w)
+    keep = {v[1].id for v in best.values()}
+    return [w for w in rows if w.id in keep]
 
 
 def first_letter(word):
@@ -535,7 +555,7 @@ def learn_word(student_id, theme_key, vocab_id):
     """圖鑑裡學過的單字卡：跟滑卡畫面一樣，但不用滑；可以手動移到熟區／不熟區。"""
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
-    word = next((w for w in theme_words(student, theme_key) if w.id == vocab_id), None)
+    word = next((w for w in theme_words(student, theme_key, dedupe=False) if w.id == vocab_id), None)
     letter = first_letter(word.word) if word else None
     back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                        letter=letter if letter and theme["total"] > LETTER_PAGING_MIN else None)
@@ -584,7 +604,7 @@ def update_progress():
 
 
 def same_word_rows(vocab):
-    """同一個字可能同時出現在主題字庫和 A–Z 大字庫，學過一次兩邊都算。"""
+    """同一個字可能同時出現在多個主題（或同主題的兩筆），學過一次都算。"""
     return Vocabulary.query.filter(Vocabulary.category == vocab.category,
                                    func.lower(Vocabulary.word) == vocab.word.lower()).all()
 
