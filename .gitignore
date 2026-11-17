@@ -10,3 +10,14 @@ _sync_once.bat
 _libs.zip
 _pack_libs_once.bat
 tts/
+tts_bench.bat
+tts_bench.txt
+voice_check.bat
+voice_check.txt
+net_check.bat
+net_check.txt
+open_edge_voices.bat
+probe.bat
+probe_result.txt
+fix_update*.bat
+fix_log.txt

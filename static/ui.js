@@ -149,21 +149,40 @@
         speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
         const voice = pickVoice();
-        if (voice) { u.voice = voice; u.lang = voice.lang; } else { u.lang = 'en-GB'; noEnglishWarning(); }
-        u.rate = (opts && opts.rate) || RATES[voiceSettings.rate] || 0.95;
+        if (voice) { u.voice = voice; u.lang = voice.lang; } else { u.lang = 'en-GB'; }
+        voiceQualityWarning();
+        // 神經語音本來就唸得自然，用正常速度；機械語音放慢一點比較聽得懂
+        let rate = (opts && opts.rate) || RATES[voiceSettings.rate] || 0.95;
+        if (isNatural(voice) && voiceSettings.rate !== 'slow') rate = 1;
+        u.rate = rate;
         u.pitch = 1;
         speechSynthesis.speak(u);
     }
 
-    let warned = false;
-    function noEnglishWarning() {
-        if (warned) return;
-        warned = true;
+    // 判斷一個語音是不是「神經語音」（Edge 的 Natural / Google 等，聽起來接近真人）
+    const NATURAL_RE = /natural|neural|premium|enhanced|google|siri/i;
+    function isNatural(v) { return !!v && NATURAL_RE.test(v.name); }
+
+    // 目前這個瀏覽器最好能做到什麼程度：natural / plain / none
+    function voiceQuality() {
+        const v = pickVoice();
+        if (!v) return 'none';
+        return isNatural(v) ? 'natural' : 'plain';
+    }
+
+    // 只在這個分頁提醒一次，不要一直跳
+    const WARN_KEY = 'quiz-voice-warned';
+    function voiceQualityWarning() {
+        const q = voiceQuality();
+        if (q === 'natural') return;
+        try { if (sessionStorage.getItem(WARN_KEY)) return; sessionStorage.setItem(WARN_KEY, '1'); } catch (e) { /* ignore */ }
         const t = document.createElement('div');
         t.className = 'ui-toast';
-        t.innerHTML = '⚠️ 這個瀏覽器沒有英文語音，發音會不自然。<br>建議用 <b>Microsoft Edge</b> 或 <b>Google Chrome</b> 開啟本網站。';
+        t.innerHTML = q === 'none'
+            ? '⚠️ 這個瀏覽器沒有英文語音，無法發音。<br>請改用 <b>Microsoft Edge</b> 開啟本網站。'
+            : '🔈 這個瀏覽器只有機械式的英文語音。<br>改用 <b>Microsoft Edge</b> 開啟，發音會接近真人。';
         document.body.appendChild(t);
-        setTimeout(() => t.remove(), 7000);
+        setTimeout(() => t.remove(), 9000);
     }
 
     // 語音設定面板（右下角 🗣️）
@@ -182,7 +201,7 @@
         function render() {
             const voices = englishVoices().sort((a, b) => voiceScore(b, voiceSettings.accent) - voiceScore(a, voiceSettings.accent));
             const current = pickVoice();
-            const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${v.name.replace(/</g, '&lt;')}</option>`;
+            const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${isNatural(v) ? '★ ' : ''}${v.name.replace(/</g, '&lt;')}</option>`;
             panel.innerHTML = `
                 <div class="vp-title">🗣️ 發音設定</div>
                 <label>口音
@@ -200,10 +219,11 @@
                         <option value="">自動挑最像真人的</option>${voices.map(opt).join('')}
                     </select></label>
                 <div class="vp-note">${voices.length
-                    ? (current && /natural|neural|google|premium|enhanced/i.test(current.name)
-                        ? '✅ 目前使用：' + current.name.replace(/</g, '&lt;')
-                        : '目前使用：' + (current ? current.name.replace(/</g, '&lt;') : '') + '<br>想要更像真人的發音，請用 Microsoft Edge 開啟（有 Natural 真人語音）。')
-                    : '這個瀏覽器沒有英文語音。請改用 Microsoft Edge 或 Google Chrome 開啟本網站。'}</div>
+                    ? (isNatural(current)
+                        ? '✅ 真人級語音：' + current.name.replace(/</g, '&lt;')
+                        : '⚠️ 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
+                          + '<br>改用 <b>Microsoft Edge</b> 開啟本網站，就會自動換成接近真人的發音。')
+                    : '這個瀏覽器沒有英文語音。請改用 <b>Microsoft Edge</b> 開啟本網站。'}</div>
                 <button class="vp-test" data-sound="none">🔊 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
                 voiceSettings[sel.dataset.k] = sel.value;
@@ -244,5 +264,5 @@
         buildVoicePanel();
     });
 
-    window.UI = { play, ripple, speak, voiceScore };
+    window.UI = { play, ripple, speak, voiceScore, voiceQuality };
 })();
