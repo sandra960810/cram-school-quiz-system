@@ -1,0 +1,19 @@
+# 線上展示版（給主管看）：Render 免費方案
+# 只放假資料、不放 AI 金鑰；DEMO_MODE=1 會打開展示模式（見 demo_mode.py）
+services:
+  - type: web
+    name: cram-school-demo
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      python import_sheet.py &&
+      (python tools/make_listening_audio.py || echo "聽力音檔產生失敗，聽力頁會顯示尚未產生音檔")
+    startCommand: gunicorn app:app --workers 1 --threads 4 --timeout 120
+    envVars:
+      - key: DEMO_MODE
+        value: "1"
+      - key: PYTHONUTF8
+        value: "1"
+      - key: PYTHON_VERSION
+        value: "3.12.7"

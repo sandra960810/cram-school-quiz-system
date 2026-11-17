@@ -1222,6 +1222,10 @@ vocab_quiz.register(app, db, dict(
     theme_condition=theme_condition, build_theme_list=build_theme_list,
     favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of))
 
+# 展示模式（只有環境變數 DEMO_MODE=1 才會啟動，給主管看的線上展示版用；櫃台電腦不受影響）
+import demo_mode  # noqa: E402
+demo_mode.setup(app, db, dict(Student=Student, Vocabulary=Vocabulary, LearningProgress=LearningProgress))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
