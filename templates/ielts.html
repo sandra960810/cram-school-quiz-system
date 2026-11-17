@@ -193,7 +193,8 @@
     function showWord(w) {
         currentWord = w;
         document.getElementById('word-display').innerText = w.word;
-        UI.fitText(document.getElementById('word-display'));
+        // 舊版 ui.js 還在瀏覽器快取時沒有 fitText：跳過就好，不能讓整個滑卡停擺
+        if (UI.fitText) UI.fitText(document.getElementById('word-display'));
         document.getElementById('pos-display').innerText = w.pos || '';
         document.getElementById('meaning-display').innerText = w.meaning;
         document.getElementById('meaning-en-display').innerText = w.meaning_en || '';
