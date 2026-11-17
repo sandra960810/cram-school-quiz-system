@@ -145,7 +145,7 @@
     }
 
     function speak(text, opts) {
-        if (!text || !window.speechSynthesis) return;
+        if (!text || !window.speechSynthesis) { if (opts && opts.onend) opts.onend(); return; }
         speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
         const voice = pickVoice();
@@ -156,7 +156,10 @@
         if (isNatural(voice) && voiceSettings.rate !== 'slow') rate = 1;
         u.rate = rate;
         u.pitch = 1;
+        // 口說測驗要知道考官什麼時候唸完，才能開始錄音
+        if (opts && opts.onend) { u.onend = opts.onend; u.onerror = opts.onend; }
         speechSynthesis.speak(u);
+        return u;
     }
 
     // 語音分三級：

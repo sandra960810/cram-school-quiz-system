@@ -1,0 +1,41 @@
+{
+  "title": "Speaking Test 3",
+  "part1": [
+    {"topic": "Your home town", "questions": [
+      "Where is your home town?",
+      "What is your home town best known for?",
+      "Has your home town changed much since you were a child?",
+      "Would you like to live there when you are older?"
+    ]},
+    {"topic": "Gifts", "questions": [
+      "Do you enjoy choosing gifts for other people?",
+      "What was the last gift you gave to someone?",
+      "Is it acceptable to give money as a gift in your culture?",
+      "Do you prefer to receive something you need or something surprising?"
+    ]},
+    {"topic": "Photographs", "questions": [
+      "Do you take a lot of photos?",
+      "What do you usually do with the photos you take?",
+      "Do you have any old family photos at home?"
+    ]}
+  ],
+  "part2": {
+    "topic": "Helping someone",
+    "cue": "Describe a time when you helped someone you did not know well.",
+    "points": ["who the person was", "where and when it happened", "what you did to help"],
+    "final": "and explain how you felt after helping this person.",
+    "followups": ["Do you often help people around you?"]
+  },
+  "part3": [
+    {"theme": "Helping in the community", "questions": [
+      "In what ways do neighbours help each other in your country?",
+      "Do you think people are less willing to help strangers than they were in the past?",
+      "Should schools teach children to take part in community work?"
+    ]},
+    {"theme": "Volunteering and business", "questions": [
+      "What are the benefits of volunteering for the volunteers themselves?",
+      "Should large companies be expected to support charities?",
+      "Some people say that helping others should be the government's job, not individuals'. What is your opinion?"
+    ]}
+  ]
+}
