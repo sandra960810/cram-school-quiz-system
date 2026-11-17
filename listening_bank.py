@@ -106,8 +106,10 @@ def transcript(key):
 # ---------------------------------------------------------------- 渲染
 
 def _input_for(qno):
-    return (f'<input type="text" class="fill" data-q="{qno}" name="q_{qno}" '
-            f'placeholder="{qno}" autocomplete="off">')
+    # 比照正式雅思：題號以粗體印在空格前，作答後題號仍看得到
+    return (f'<span class="gap"><b class="gapno">{qno}</b>'
+            f'<input type="text" class="fill" data-q="{qno}" name="q_{qno}" '
+            f'aria-label="第 {qno} 題" autocomplete="off"></span>')
 
 
 def _gap_html(text):
@@ -115,7 +117,7 @@ def _gap_html(text):
     def sub(m):
         if m.group(1):
             return _input_for(int(m.group(1)))
-        return f'<span class="example-ans">{escape(m.group(2))}</span>'
+        return f'<span class="example-ans">……{escape(m.group(2))}……</span>'
     return Markup(GAP_RE.sub(sub, escape(text)))
 
 
@@ -123,7 +125,9 @@ def _render_group(g):
     """把題組轉成樣板直接可用的結構（HTML 片段已處理成 Markup）。"""
     out = dict(g)
     if g['type'] == 'gapfill':
-        out['rows'] = [{'label': r.get('label', ''), 'html': _gap_html(r['text'])}
+        # example：範例列，樣板會在它上方印出 Example 小標，和正式考卷一樣
+        out['rows'] = [{'label': r.get('label', ''), 'html': _gap_html(r['text']),
+                        'example': '{ex:' in r['text']}
                        for r in g.get('rows', [])]
         out['sections'] = [{'heading': s['heading'],
                             'lines': [_gap_html(ln) for ln in s['lines']]}
