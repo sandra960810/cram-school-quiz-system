@@ -44,6 +44,8 @@ listening/          聽力題庫資料（每回一個資料夾）
 reading/            閱讀題庫資料：tests.json、R01/meta.json、R01/passage1~3.json
 writing_bank.py     寫作題庫的載入、圖表繪製（SVG）與 AI 老師批改
 writing/            寫作題庫資料：tests.json、W01/meta.json、W01/task1~2.json
+speaking_bank.py    口說題庫的載入、考官台詞流程與 AI 老師評分（沿用寫作的金鑰設定）
+speaking/           口說題庫資料：tests.json、S01/test.json…
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
@@ -120,6 +122,22 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
   Task 分數與總分（Task 2 兩倍權重）在 Python 端計算，不讓 AI 自己算
 - 頁面一定要保留「AI 老師的評分不等於真實考試，只是模擬」的提示
 
+## 口說題庫與 AI 老師
+
+- 每回一個 `speaking/S01/test.json`：`part1`（3 個話題，第一個固定是住所或工作／學業，每個 3–4 題）、
+  `part2`（`cue` 題卡、`points` 三個 You should say、`final` and explain…、`followups` 收尾問題）、
+  `part3`（2 個延伸 Part 2 的抽象議題，每個 3 題）。新增一回後在 `speaking/tests.json` 加一筆
+- `speaking_bank.build_steps` 把題庫展開成考官逐句台詞（含官方流程的開場、轉場、Part 2 指示語），
+  作答頁 `speak_test.html` 用瀏覽器語音唸出（`UI.speak`，Edge 最自然）。題目文字預設模糊，比照考場只用聽的
+- 每題用 MediaRecorder 錄一段（32kbps），有上限秒數（`LIMITS`，Part 2 到 2 分鐘自動停）；Part 2 有 1 分鐘準備與筆記。
+  交卷時一次上傳全部錄音，存在 `instance/speaking_audio/<交卷 id>/`（不進 git），紀錄在 `SpeakingSubmission`
+- AI 老師依金鑰自動選：**Gemini 直接聽錄音**（自己做逐字稿、發音真的有聽）；
+  **Claude 聽不到音檔**，作答時改用瀏覽器語音辨識（Edge 送微軟、Chrome 送 Google）產生逐字稿，發音分數標示「推估」
+- 四項標準 FC／LR／GRA／P 由 AI 給整數 Band，總分在 Python 端平均後進位
+- 頁面一定要保留「AI 評分不等於真實考試，只是模擬」；用 Gemini 時要提醒「免費方案的內容可能被 Google 使用」，
+  並請學生不要在錄音裡說個資（問姓名時用英文名或化名）
+- 麥克風只能在 https 或本機網址（127.0.0.1）使用：手機要用 `share.bat` 的 https 網址
+
 ## 出題要求
 
 題目全部原創，**不要**從任何市售教材或考古題轉錄內容。
@@ -154,7 +172,8 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 - ⬜ 閱讀 R02–R10
 - ✅ 寫作題庫 **1 / 10 回**（W01 完成；電腦考作答介面＋AI 老師批改，作答可輸出 PDF／圖片）
 - ⬜ 寫作 W02–W10
-- ⬜ 口說題庫
+- ✅ 口說題庫 **3 / 10 回**（S01–S03；比照官方 Part 1–3 流程、錄音作答、AI 老師辨識語音並依四項標準評分）
+- ⬜ 口說 S04–S10
 
 ## 常用指令
 

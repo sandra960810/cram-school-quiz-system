@@ -1,0 +1,41 @@
+{
+  "title": "Speaking Test 1",
+  "part1": [
+    {"topic": "Where you live", "questions": [
+      "Do you live in a house or an apartment?",
+      "What do you like most about the place where you live?",
+      "Is there anything you would like to change about your home?",
+      "Do you think you will live in the same place in five years' time?"
+    ]},
+    {"topic": "Mornings", "questions": [
+      "Are you usually busy in the mornings?",
+      "What is the first thing you do after you wake up?",
+      "Did you have the same morning routine when you were a child?",
+      "Do you think mornings are a good time to study?"
+    ]},
+    {"topic": "Rainy days", "questions": [
+      "Does it rain a lot where you live?",
+      "What do you usually do on a rainy day?",
+      "Do you prefer rainy weather or sunny weather? Why?"
+    ]}
+  ],
+  "part2": {
+    "topic": "A new skill",
+    "cue": "Describe a time when you learned a new skill that was useful to you.",
+    "points": ["what the skill was", "when and where you learned it", "how you learned it"],
+    "final": "and explain why this skill was useful to you.",
+    "followups": ["Do you think you will learn other skills like this in the future?"]
+  },
+  "part3": [
+    {"theme": "Learning and technology", "questions": [
+      "What kinds of skills do young people in your country most want to learn nowadays?",
+      "Is it better to learn a practical skill from a teacher or from online videos?",
+      "How has technology changed the way people learn new things?"
+    ]},
+    {"theme": "Lifelong learning", "questions": [
+      "Why do some adults decide to go back to education later in life?",
+      "Should employers pay for their staff to learn new skills?",
+      "Do you think older people find it harder to learn new things than younger people? Why?"
+    ]}
+  ]
+}

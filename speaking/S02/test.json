@@ -1,0 +1,41 @@
+{
+  "title": "Speaking Test 2",
+  "part1": [
+    {"topic": "Work or studies", "questions": [
+      "Do you work or are you a student?",
+      "What do you enjoy most about your work or your studies?",
+      "Is there anything you find difficult about it?",
+      "What would you like to do in the future?"
+    ]},
+    {"topic": "Phone apps", "questions": [
+      "Which app do you use most on your phone?",
+      "Have you ever deleted an app because you used it too much?",
+      "Do you prefer free apps or apps you pay for?",
+      "What kind of app do you wish someone would invent?"
+    ]},
+    {"topic": "Parks", "questions": [
+      "How often do you go to a park?",
+      "What do people usually do in parks in your city?",
+      "Did you go to parks more when you were younger?"
+    ]}
+  ],
+  "part2": {
+    "topic": "A place you would like to spend more time in",
+    "cue": "Describe a place in your town or city where you would like to spend more time.",
+    "points": ["where this place is", "what it looks like", "how often you go there now"],
+    "final": "and explain why you would like to spend more time there.",
+    "followups": ["Would you recommend this place to visitors?"]
+  },
+  "part3": [
+    {"theme": "Public spaces in cities", "questions": [
+      "What kinds of public spaces do cities need most?",
+      "Who should pay to look after public spaces such as parks and squares, the government or local businesses?",
+      "Why do some public places become crowded while others are hardly used?"
+    ]},
+    {"theme": "City and countryside", "questions": [
+      "Why do many young people move from the countryside to big cities?",
+      "What could be done to make life in small towns more attractive?",
+      "In the future, do you think more people will choose to live outside cities? Why?"
+    ]}
+  ]
+}
