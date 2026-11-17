@@ -343,5 +343,37 @@
         buildVoicePanel();
     });
 
-    window.UI = { icon, play, ripple, speak, voiceScore, voiceQuality, voiceTier };
+    // 長單字（administrative、authorization…）在手機上會被硬切成兩行。
+    // fitText 讓文字維持一行、依可用寬度自動縮小字級；縮到 min 還放不下才在空白處換行（片語），
+    // 絕不從單字中間斷開。可用寬度＝外層寬度扣掉旁邊的按鈕等元素。視窗大小改變時自動重算。
+    const fitted = new Set();
+    function fitText(el, min = 18) {
+        if (!el || !el.parentElement) return;
+        fitted.add(el);
+        Object.assign(el.style, { fontSize: '', whiteSpace: 'nowrap', wordBreak: 'normal', overflowWrap: 'normal', flexShrink: '0', minWidth: '' });
+        const box = el.parentElement, cs = getComputedStyle(box);
+        const gap = parseFloat(cs.columnGap) || 0;
+        let avail = box.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+        for (const c of box.children) {
+            if (c !== el && getComputedStyle(c).position !== 'absolute') avail -= c.getBoundingClientRect().width + (gap || 8);
+        }
+        if (avail <= 0) return;   // 還沒排版（隱藏中），之後再算
+        const width = el.getBoundingClientRect().width;
+        let size = parseFloat(getComputedStyle(el).fontSize);
+        if (width > avail) {
+            size = Math.max(min, Math.floor(size * avail / width));
+            el.style.fontSize = size + 'px';
+        }
+        if (el.getBoundingClientRect().width > avail + 1) {
+            // 最小字級還放不下（很長的片語）：只在空白處換行
+            Object.assign(el.style, { whiteSpace: 'normal', flexShrink: '1', minWidth: '0' });
+        }
+    }
+    let fitTimer = null;
+    window.addEventListener('resize', () => {
+        clearTimeout(fitTimer);
+        fitTimer = setTimeout(() => fitted.forEach(el => el.isConnected ? fitText(el) : fitted.delete(el)), 100);
+    });
+
+    window.UI = { icon, play, ripple, speak, voiceScore, voiceQuality, voiceTier, fitText };
 })();

@@ -45,7 +45,7 @@
         .status-chip.new { background: var(--primary-50); color: var(--primary); }
 
         .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .word { font-size: 36px; font-weight: bold; color: var(--ink); word-break: break-word; }
+        .word { font-size: 36px; font-weight: bold; color: var(--ink); white-space: nowrap; }   /* 長單字由 UI.fitText 縮小字級，不從中間斷開 */
         .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--primary-50); color: var(--primary); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
         .play-btn:hover { background: var(--primary); color: white; }
         .play-btn.small { width: 30px; height: 30px; }
@@ -193,6 +193,7 @@
     function showWord(w) {
         currentWord = w;
         document.getElementById('word-display').innerText = w.word;
+        UI.fitText(document.getElementById('word-display'));
         document.getElementById('pos-display').innerText = w.pos || '';
         document.getElementById('meaning-display').innerText = w.meaning;
         document.getElementById('meaning-en-display').innerText = w.meaning_en || '';
