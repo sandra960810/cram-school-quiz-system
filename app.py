@@ -22,6 +22,16 @@ db = SQLAlchemy(app)
 exams.init_app(app)   # 考試類型（雅思、多益…）：目前在哪個考試、色系、可用功能
 
 
+@app.url_defaults
+def _static_version(endpoint, values):
+    """靜態檔網址加上修改時間（ui.js?v=…）：更新程式後手機不會拿到瀏覽器快取的舊 JS／CSS，
+    避免新頁面配舊 ui.js 而出錯（曾因此讓滑卡整個滑不動）。"""
+    if endpoint == 'static' and 'filename' in values and 'v' not in values:
+        path = os.path.join(app.static_folder, values['filename'])
+        if os.path.isfile(path):
+            values['v'] = int(os.path.getmtime(path))
+
+
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     token = db.Column(db.String(100), unique=True, nullable=False)

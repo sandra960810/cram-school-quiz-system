@@ -207,7 +207,7 @@
             <div class="keys">${q.choices ? '可按 1–4 或 A–D' : 'Enter 送出'}，Enter 下一題</div>`;
 
         const wText = stage.querySelector('.prompt-word .w-text');
-        if (wText) UI.fitText(wText);
+        if (wText && UI.fitText) UI.fitText(wText);
         const play = document.getElementById('play');
         if (play) play.addEventListener('click', () => say(q.word));
         const slow = document.getElementById('play-slow');
