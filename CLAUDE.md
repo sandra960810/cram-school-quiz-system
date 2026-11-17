@@ -52,11 +52,23 @@ static/ui.js        共用：音效、動畫、英文發音挑選
 static/exam.css     測驗頁共用樣式
 tools/              產生音檔與檢查題庫的腳本
 import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
+vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由 app.py 最後面 register 掛上）
 ```
 
 資料模型都在 `app.py` 上半部：`Student`、`Vocabulary`、`LearningProgress`、
 `Favorite`、`TestAttempt`、`TestAnswer`、`TestMistake`、`WritingDraft`。
 啟動時會自動補欄位（`PRAGMA table_info` 檢查後 `ALTER TABLE`），不用寫 migration。
+
+## 單字測驗區怎麼運作
+
+- 網址 `/vocab-quiz/<學生id>`，入口在主介面、單字學習區首頁、各主題圖鑑、滑卡結算頁
+- **只考學過的字**（`LearningProgress` 有紀錄的，熟或不熟），不熟的優先；同拼字只出一題
+- 題型：拼寫、聽寫（`UI.speak` 發音）、例句填空、選意思、選單字。例句填空只給例句裡
+  找得到這個字的字（`find_cloze` 會處理 -s／-ed／-ing／-ies 等詞形變化）
+- 選擇題的干擾選項與答案同語言（中文配中文、英文解釋配英文）
+- 交卷時伺服器依存在 `VocabQuizAttempt.questions` 的題目重新批改；**答錯的字自動移到不熟區**
+  （`set_progress`），回單字學習區滑卡會優先出現
+- 前端即時判分的 `norm()` 要和 `vocab_quiz.normalize()` 保持一致
 
 ## 聽力題庫怎麼運作
 
@@ -166,6 +178,7 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 ## 目前進度
 
 - ✅ 單字學習與圖鑑（滑卡、熟／不熟分區、收藏、音效動畫）
+- ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10
 - ✅ 閱讀題庫 **1 / 10 回**（R01 完成，3 篇 40 題含解析）

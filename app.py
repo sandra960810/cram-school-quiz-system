@@ -1209,5 +1209,15 @@ def speaking_grade(student_id, sub_id):
     return jsonify({'ok': True, 'overall': sub.overall})
 
 
+# ---------------------------------------------------------------------------
+# 單字測驗區（程式在 vocab_quiz.py）：只考學生在單字學習區學過的字
+# ---------------------------------------------------------------------------
+import vocab_quiz  # noqa: E402  放在最後，等上面的模型與輔助函式都定義好
+vocab_quiz.register(app, db, dict(
+    Student=Student, Vocabulary=Vocabulary, get_student=get_student, status_of=status_of,
+    theme_condition=theme_condition, build_theme_list=build_theme_list,
+    favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
