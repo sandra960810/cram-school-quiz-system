@@ -61,6 +61,20 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 `Favorite`、`TestAttempt`、`TestAnswer`、`TestMistake`、`WritingDraft`。
 啟動時會自動補欄位（`PRAGMA table_info` 檢查後 `ALTER TABLE`），不用寫 migration。
 
+## 考試類型（雅思、多益…）
+
+網站會涵蓋多種考試（雅思、多益、韓檢、日檢、英文零基礎），設定集中在 `exams.py` 的 `EXAMS`：
+
+- `/dashboard/<學生id>` 是**選擇考試**頁；`/dashboard/<學生id>/<考試>`（ielts、toeic）是該考試的功能選單
+- 目前在哪個考試記在 cookie `exam`，單字學習、單字測驗都只看該考試的課程（`Vocabulary.category`，
+  例如 `IELTS`、`TOEIC`），用 `exams.course_of(student)` 取得，**不要再用 `student.enrolled_course`**
+- `features` 決定開哪些功能：雅思有 learn／vocab_quiz／exam，多益目前只有 learn／vocab_quiz；`/exam/` 一律算雅思
+- 主題清單 `OFFICIAL_THEMES` 每筆有 `course`；多益主題編號是 T01–T12，避免和雅思 01–12 混在一起
+- 色系：每個樣板的 `<html data-exam="{{ exam.key }}">`，`theme.css` 用 `:root[data-exam="toeic"]` 覆寫成藍色
+- 之後做登入與後台開通權限：改 `exams.exams_for(student)` 依學生權限回傳可用考試即可
+- 多益單字在 `toeic/toeic_vocab.csv`（TOEIC Service List，CC BY-SA 4.0，來源與改動見 `toeic/README.md`），
+  `run.bat` 會匯入
+
 ## 單字測驗區怎麼運作
 
 - 網址 `/vocab-quiz/<學生id>`，入口在主介面、單字學習區首頁、各主題圖鑑、滑卡結算頁
@@ -194,6 +208,8 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 
 - ✅ 單字學習與圖鑑（滑卡、熟／不熟分區、收藏、音效動畫）
 - ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
+- ✅ 考試類型選擇頁；多益區（藍色）：1,259 字單字學習＋單字測驗
+- ⬜ 韓檢、日檢、英文零基礎；學生登入與後台開通權限
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10
 - ✅ 閱讀題庫 **1 / 10 回**（R01 完成，3 篇 40 題含解析）

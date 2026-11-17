@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-exam="{{ exam.key }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,11 +43,11 @@
 <body>
 <div class="container">
     <div class="nav-row">
-        <a href="/dashboard/{{ student.id }}" class="nav-back"><span class="arrow">←</span>主介面</a>
+        <a href="/dashboard/{{ student.id }}/{{ exam.key }}" class="nav-back"><span class="arrow">←</span>主介面</a>
         <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">{{ icon('star') }} 我的收藏<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>{{ icon('library') }} {{ student.enrolled_course }} 單字學習與圖鑑</h1>
+        <h1>{{ icon('library') }} {{ exam.name }}單字學習與圖鑑</h1>
         <p>右滑＝熟、左滑＝不熟。✓ 熟 {{ unlocked_count }}・✗ 不熟 {{ weak_count }}／共 {{ total_count }} 字</p>
         <div class="bar"><div style="width: {{ (unlocked_count * 100 / total_count) if total_count else 0 }}%"></div><div class="weak" style="width: {{ (weak_count * 100 / total_count) if total_count else 0 }}%"></div></div>
     </div>
