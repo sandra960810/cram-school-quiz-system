@@ -81,9 +81,7 @@
         <span style="color:var(--muted);font-size:14px">交卷 {{ sub.submitted_at|twtime }}｜全程 {{ (sub.seconds_used // 60) }} 分 {{ sub.seconds_used % 60 }} 秒</span>
     </div>
 
-    <div class="disclaimer">{{ icon('alert') }} <b>AI 評分不等於真實考試成績，只是模擬。</b><br>
-        分數是 AI 依照雅思公開的四項口說評分標準所做的估計，刻意從嚴評分；正式考試由受過訓練的考官面對面評分，結果可能不同。
-        請把分數當作練習參考，真正有用的是下面指出的問題與改法。</div>
+    <div class="disclaimer">{{ icon('alert') }} <b>AI 評分不等於真實考試，只是模擬。</b>分數從嚴估計，重點看下方的問題與改法。</div>
 
     {% if result %}
         <div class="overall">
@@ -95,8 +93,7 @@
             {% endfor %}
         </div>
         {% if result.transcript_source == 'browser' %}
-        <div class="note" style="margin:-8px 0 14px">ℹ 這次由 Claude 評分：逐字稿是瀏覽器語音辨識的結果（可能有聽錯的字），發音分數只能從辨識結果推估。
-            想要 AI 真正聽發音，可以改設定 Gemini 金鑰。</div>
+        <div class="note" style="margin:-8px 0 14px">ℹ 逐字稿來自瀏覽器語音辨識，可能有誤；發音分數為推估。改用 Gemini 金鑰可直接聽發音。</div>
         {% endif %}
     {% else %}
         <div class="sheet grading" id="gradingBox">
@@ -104,13 +101,12 @@
                 <div id="gradingWait" {% if sub.ai_status == 'error' %}hidden{% endif %}>
                     <div class="spinner"></div>
                     <b>AI 老師正在聽你的錄音並評分…</b>
-                    <p style="color:var(--muted);font-size:14px">大約需要 1–2 分鐘，請不要關掉這一頁。</p>
+                    <p style="color:var(--muted);font-size:14px">約 1–2 分鐘，請勿關閉此頁。</p>
                 </div>
                 <div class="errbox" id="gradingErr" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ sub.ai_error or '' }}</div>
                 <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ icon('refresh') }} 再請 AI 老師評分一次</button>
             {% else %}
-                <div class="errbox">{{ icon('key') }} AI 老師還沒設定，這次的錄音已經存起來了。<br>
-                    請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，再重新整理這一頁就會開始評分。</div>
+                <div class="errbox">{{ icon('key') }} AI 老師未設定，錄音已存。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 後重新整理此頁。</div>
             {% endif %}
         </div>
     {% endif %}
@@ -183,7 +179,7 @@
     </div>
 
     <p style="color:var(--muted-2);font-size:12px;text-align:center;margin:10px 0 30px">
-        {{ icon('alert') }} 本頁分數為 AI 模擬估分，不代表正式雅思考試成績。{% if result %}評分模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
+        {{ icon('alert') }} AI 模擬估分，非正式成績。{% if result %}評分模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 <script>
@@ -200,7 +196,7 @@
                 wait.hidden = true; err.hidden = false; btn.hidden = false;
                 err.innerText = d.error || '評分失敗，請再試一次。';
             })
-            .catch(() => { wait.hidden = true; err.hidden = false; btn.hidden = false; err.innerText = '連不上網站伺服器，請確認 run.bat 的視窗還開著。'; });
+            .catch(() => { wait.hidden = true; err.hidden = false; btn.hidden = false; err.innerText = '連不上伺服器，請確認 run.bat 視窗還開著。'; });
     }
     btn.addEventListener('click', grade);
     {% if ai_ready and sub.ai_status == 'pending' %}grade();{% endif %}

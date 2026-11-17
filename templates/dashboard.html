@@ -36,7 +36,7 @@
     <!-- 歡迎看板 -->
     <div class="welcome-banner">
         <h1>歡迎回來，{{ student.name }}</h1>
-        <p>目前選修課程：{{ student.enrolled_course }} ｜ 已熟悉單字：{{ unlocked_count }} 字</p>
+        <p>{{ student.enrolled_course }} ｜ 已熟 {{ unlocked_count }} 字</p>
     </div>
 
     <!-- 功能選單 -->
@@ -45,21 +45,21 @@
         <a href="/learn/{{ student.id }}" class="menu-card">
             <div class="menu-icon">{{ icon('library') }}</div>
             <div class="menu-title">單字學習與圖鑑<span class="go-arrow">→</span></div>
-            <div class="menu-desc">依主題滑卡學單字：右滑熟、左滑不熟<br>✓ 熟 {{ unlocked_count }} / {{ total_count }} 字</div>
+            <div class="menu-desc">依主題滑卡背單字<br>✓ 熟 {{ unlocked_count }} / {{ total_count }} 字</div>
         </a>
 
         <!-- 單字測驗區：考單字學習區學過的字 -->
         <a href="/vocab-quiz/{{ student.id }}" class="menu-card">
             <div class="menu-icon">{{ icon('quiz') }}</div>
             <div class="menu-title">單字測驗區<span class="go-arrow">→</span></div>
-            <div class="menu-desc">拼寫・聽寫・例句填空・選擇題<br>考你滑卡學過的字，答錯自動回到不熟區</div>
+            <div class="menu-desc">考學過的字，答錯回不熟區</div>
         </a>
 
         <!-- 2. 模擬測驗區：四技能自製題庫 -->
         <a href="/exam/{{ student.id }}" class="menu-card">
             <div class="menu-icon">{{ icon('exam') }}</div>
             <div class="menu-title">模擬測驗區<span class="go-arrow">→</span></div>
-            <div class="menu-desc">自製雅思題庫：聽力・閱讀・寫作・口說<br>自動批改、逐題解析，答錯進錯題本</div>
+            <div class="menu-desc">聽・讀・寫・說，自動批改附解析</div>
         </a>
     </div>
 </div>

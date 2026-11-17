@@ -59,8 +59,7 @@
 
     {% if not test.audio_ready %}
     <div class="no-audio">
-        {{ icon('alert') }} 這份試卷的音檔還沒有產生，題目可以先看、先作答，但沒有聲音。<br>
-        在專案資料夾執行 <b>python tools/make_listening_audio.py {{ test.key }}</b> 即可產生。
+        {{ icon('alert') }} 音檔尚未產生，可先作答但沒有聲音。請在櫃台電腦雙擊 <b>listening_audio.bat</b>。
     </div>
     {% endif %}
 
@@ -186,7 +185,7 @@
 
     <div class="submit-bar">
         <span class="count">已作答 <b id="done">0</b> / 40 題</span>
-        <button type="submit" class="btn-submit" data-sound="done">交卷看成績 →</button>
+        <button type="submit" class="btn-submit" data-sound="done">交卷 →</button>
     </div>
     </form>
 </div>

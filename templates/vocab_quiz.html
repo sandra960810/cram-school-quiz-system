@@ -103,7 +103,7 @@
     {% if empty %}
     <div class="card">
         <h2 style="margin-top:0">這個範圍還沒有學過的字</h2>
-        <p style="color:var(--muted); line-height:1.7">單字測驗只考你在單字學習區滑過的字。<br>先去滑卡，再回來考試吧！</p>
+        <p style="color:var(--muted); line-height:1.7">只考滑卡學過的字，先去滑卡吧。</p>
         <a href="{{ learn_url }}" class="big-btn primary">{{ icon('library') }} 去單字學習區</a>
         <a href="{{ back_url }}" class="big-btn secondary">← 換一個範圍</a>
     </div>
@@ -149,7 +149,7 @@
                 <h2 style="margin:0 0 6px">準備好了嗎？</h2>
                 <div style="color:var(--muted)">共 ${QUESTIONS.length} 題</div>
                 <div class="intro-types">${Object.keys(counts).map(t => `<span class="qtype ${t}">${TYPE_ICON[t]} ${TYPE_NAMES[t]} ${counts[t]}</span>`).join('')}</div>
-                ${counts.dictate ? '<p style="color:var(--muted);font-size:14px;margin:0 0 14px">{{ icon('headphones') }} 有聽寫題，請打開聲音或戴上耳機</p>' : ''}
+                ${counts.dictate ? '<p style="color:var(--muted);font-size:14px;margin:0 0 14px">{{ icon('headphones') }} 有聽寫題，請開聲音</p>' : ''}
                 <button class="btn next" id="go">開始 →</button>
             </div>`;
         document.getElementById('go').addEventListener('click', () => {
@@ -187,7 +187,7 @@
             body = `<div class="listen-row">
                     <button class="listen-btn" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                     <button class="listen-btn slow" id="play-slow" data-sound="none" aria-label="慢速播放">{{ icon('slow') }}</button></div>
-                <div class="hint">聽發音，拼出這個字・${esc(q.hint)}</div>${input}`;
+                <div class="hint">聽發音拼字・${esc(q.hint)}</div>${input}`;
         } else if (q.type === 'cloze') {
             body = `<div class="sentence">${esc(q.before)}<span class="blank">${esc(q.hint)}</span>${esc(q.after)}</div>
                 ${q.sentence_zh ? `<div class="sentence-zh">${esc(q.sentence_zh)}</div>` : ''}
@@ -201,7 +201,7 @@
                 <div class="choices">${q.choices.map((c, i) => `<button class="choice en" data-sound="none" data-i="${i}">${esc(c)}</button>`).join('')}</div>`;
         }
         stage.innerHTML = `<div class="card enter">${tag}${body}<div id="fb"></div></div>
-            <div class="keys">${q.choices ? '電腦可以按 1–4 或 A–D 作答' : '按 Enter 送出'}，答完按 Enter 下一題</div>`;
+            <div class="keys">${q.choices ? '可按 1–4 或 A–D' : 'Enter 送出'}，Enter 下一題</div>`;
 
         const play = document.getElementById('play');
         if (play) play.addEventListener('click', () => say(q.word));
@@ -301,7 +301,7 @@
                 <div class="score">${nRight}<small> / ${QUESTIONS.length}</small></div>
                 <div style="color:var(--muted)">答對率 ${pct}%</div>
                 <div id="save-msg" class="moved" ${wrong.length ? '' : 'hidden'}>儲存中…</div>
-                ${wrong.length ? `<div class="review"><h3>答錯的字（點 {{ icon('volume') }} 聽發音）</h3>${wrong.map(({ q, i }) => `
+                ${wrong.length ? `<div class="review"><h3>答錯的字</h3>${wrong.map(({ q, i }) => `
                     <div class="review-item">
                         <button class="play-sm" data-say="${esc(q.word)}" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                         <div class="body"><div class="w">${esc(q.word)} <span class="m">${esc(q.pos)}</span></div>
@@ -309,9 +309,9 @@
                             <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（空白）'}</div></div>
                     </div>`).join('')}</div>` : ''}
                 <div class="error" id="err"></div>
-                <a href="${RETRY_URL}" class="big-btn primary">再考一次（換一批題目）</a>
+                <a href="${RETRY_URL}" class="big-btn primary">再考一次</a>
                 ${wrong.length ? `<a href="${WEAK_URL}" class="big-btn orange">{{ icon('dot') }} 只考不熟區</a>` : ''}
-                <a href="${LEARN_URL}" class="big-btn secondary">{{ icon('library') }} 回單字學習區滑卡</a>
+                <a href="${LEARN_URL}" class="big-btn secondary">{{ icon('library') }} 回去滑卡</a>
                 <a href="${BACK_URL}" class="big-btn secondary">← 回測驗區</a>
             </div>`;
         stage.querySelectorAll('[data-say]').forEach(b => b.addEventListener('click', () => say(b.dataset.say)));
@@ -323,10 +323,10 @@
             const data = await res.json();
             if (!res.ok || !data.ok) throw new Error(data.error || res.status);
             const msg = document.getElementById('save-msg');
-            if (wrong.length) msg.innerHTML = `答錯的 ${wrong.length} 個字已放進<b>不熟區</b>${data.moved ? `（其中 ${data.moved} 個原本在熟區）` : ''}，回單字學習區滑卡時會優先出現。`;
+            if (wrong.length) msg.innerHTML = `答錯的 ${wrong.length} 個字已移到<b>不熟區</b>${data.moved ? `（${data.moved} 個原在熟區）` : ''}。`;
         } catch (e) {
             document.getElementById('save-msg').hidden = true;
-            document.getElementById('err').innerText = '成績沒有存到，請檢查網路後重新整理再考一次。';
+            document.getElementById('err').innerText = '成績未儲存，請檢查網路後重考。';
         }
     }
 

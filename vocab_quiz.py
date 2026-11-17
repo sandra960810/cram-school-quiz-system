@@ -21,11 +21,11 @@ from datetime import datetime
 from flask import Blueprint, abort, jsonify, render_template, request, url_for
 
 TYPES = [
-    {"key": "spell", "name": "拼寫", "icon": "pencil", "desc": "看中文意思，拼出英文單字"},
-    {"key": "dictate", "name": "聽寫", "icon": "headphones", "desc": "聽單字發音，拼出來"},
-    {"key": "cloze", "name": "例句填空", "icon": "puzzle", "desc": "例句挖空，填回正確的字（注意詞形變化）"},
-    {"key": "meaning", "name": "選意思", "icon": "type", "desc": "看英文單字，選出正確意思"},
-    {"key": "word", "name": "選單字", "icon": "letter", "desc": "看意思，選出正確的英文單字"},
+    {"key": "spell", "name": "拼寫", "icon": "pencil", "desc": "看意思拼單字"},
+    {"key": "dictate", "name": "聽寫", "icon": "headphones", "desc": "聽發音拼單字"},
+    {"key": "cloze", "name": "例句填空", "icon": "puzzle", "desc": "填回例句中的字"},
+    {"key": "meaning", "name": "選意思", "icon": "type", "desc": "看單字選意思"},
+    {"key": "word", "name": "選單字", "icon": "letter", "desc": "看意思選單字"},
 ]
 TYPE_KEYS = [t["key"] for t in TYPES]
 TYPE_NAME = {t["key"]: t["name"] for t in TYPES}

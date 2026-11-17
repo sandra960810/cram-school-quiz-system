@@ -195,8 +195,8 @@
         const t = document.createElement('div');
         t.className = 'ui-toast';
         t.innerHTML = q === 'none'
-            ? icon('alert') + ' 這個瀏覽器沒有英文語音，無法發音。<br>請改用 <b>Microsoft Edge</b> 開啟本網站。'
-            : icon('volume') + ' 這個瀏覽器只有機械式的英文語音。<br>改用 <b>Microsoft Edge</b> 開啟，發音會接近真人。';
+            ? icon('alert') + ' 沒有英文語音，請改用 <b>Edge</b> 開啟。'
+            : icon('volume') + ' 語音較生硬，改用 <b>Edge</b> 發音更自然。';
         document.body.appendChild(t);
         setTimeout(() => t.remove(), 9000);
     }
@@ -238,11 +238,11 @@
                 <div class="vp-note">${voices.length ? ({
                         neural: icon('check-circle') + ' 真人級語音：' + (current ? current.name.replace(/</g, '&lt;') : ''),
                         good: icon('smile') + ' 品質不錯：' + (current ? current.name.replace(/</g, '&lt;') : '')
-                              + '<br>想要更接近真人，可以改用 <b>Microsoft Edge</b> 開啟本網站。',
+                              + '<br>改用 <b>Edge</b> 更自然。',
                         poor: icon('alert') + ' 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
-                              + '<br>改用 <b>Microsoft Edge</b> 開啟本網站，發音會接近真人。'
+                              + '<br>改用 <b>Edge</b> 發音更自然。'
                     }[voiceTier(current)])
-                    : '這個瀏覽器沒有英文語音。請改用 <b>Microsoft Edge</b> 開啟本網站。'}</div>
+                    : '沒有英文語音，請改用 <b>Edge</b> 開啟。'}</div>
                 <button class="vp-test" data-sound="none">${icon('volume')} 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
                 voiceSettings[sel.dataset.k] = sel.value;

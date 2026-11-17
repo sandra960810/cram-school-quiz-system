@@ -69,20 +69,19 @@
     </div>
     <div class="summary">
         <h1>{{ icon('quiz') }} 單字測驗區</h1>
-        <p>考的是你在單字學習區滑過的字（熟區＋不熟區），不熟的字會優先出題。<br>答錯的字會自動移回「不熟區」，下次滑卡再加強。</p>
+        <p>考滑卡學過的字，不熟的優先；答錯會移回不熟區。</p>
     </div>
 
     {% set learned = scopes[0].count %}
     {% if not learned %}
     <div class="panel empty">
-        還沒有學過的單字可以考喔！<br>
-        先到 <a href="{{ url_for('learn_home', student_id=student.id) }}">{{ icon('library') }} 單字學習區</a> 選一個主題滑卡，滑過的字就會出現在這裡。
+        還沒有學過的字。先到 <a href="{{ url_for('learn_home', student_id=student.id) }}">{{ icon('library') }} 單字學習區</a> 滑卡。
     </div>
     {% else %}
     <form id="quiz-form" action="{{ url_for('vocab_quiz.quiz_start', student_id=student.id) }}" method="get">
         <div class="panel">
             <h2>① 考哪些字</h2>
-            <p class="sub">數字是這個範圍裡你學過的字數</p>
+            <p class="sub">數字＝學過的字數</p>
             <div class="scope-grid">
                 {% for s in scopes %}
                 <label class="opt {% if not s.count %}off{% endif %}">
@@ -96,7 +95,7 @@
 
         <div class="panel">
             <h2>② 題型</h2>
-            <p class="sub">可以複選，題目會平均分配；例句填空只出有例句的字</p>
+            <p class="sub">可複選</p>
             <div class="type-grid">
                 {% for t in types %}
                 <label class="opt">
@@ -109,7 +108,7 @@
 
         <div class="panel">
             <h2>③ 題數</h2>
-            <p class="sub">學過的字不夠時，會考全部學過的字</p>
+            
             <div class="size-row">
                 {% for n in sizes %}
                 <label class="opt"><input type="radio" name="n" value="{{ n }}" {% if loop.first %}checked{% endif %}><span class="box">{{ n }} 題</span></label>
