@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-exam="{{ exam.key }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選擇考試｜測驗系統</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <style>
+        body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        .wrap { max-width: 800px; width: 100%; }
+        .welcome-banner { background: var(--hero); color: var(--hero-ink); padding: 30px; border-radius: 15px; box-shadow: var(--edge-hero); margin-bottom: 30px; }
+        .welcome-banner h1 { margin: 0 0 10px 0; font-size: 28px; }
+        .welcome-banner p { margin: 0; font-size: 16px; opacity: 0.9; }
+
+        .exam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .exam-card { background: #fff; border-radius: 15px; padding: 24px; text-decoration: none; color: var(--ink);
+                     box-shadow: 0 0 0 1px var(--line); border-top: 6px solid var(--tone); transition: transform .2s, box-shadow .2s;
+                     display: flex; flex-direction: column; gap: 8px; min-height: 160px; }
+        a.exam-card:hover { transform: translateY(-5px); box-shadow: 0 0 0 1px var(--tone-300), 5px 5px 0 var(--tone-100); }
+        .exam-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--tone-50); color: var(--tone);
+                     display: flex; align-items: center; justify-content: center; font-size: 28px; }
+        .exam-name { font-size: 22px; font-weight: bold; display: flex; align-items: baseline; gap: 8px; }
+        .exam-en { font-size: 14px; color: var(--tone); font-weight: bold; letter-spacing: .5px; }
+        .exam-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+        .exam-meta { margin-top: auto; font-size: 13px; color: var(--tone); font-weight: bold; }
+        .exam-card.soon { --tone: var(--muted-2); --tone-50: var(--surface-2); background: var(--surface-2); cursor: default; }
+        .exam-card.soon .exam-name { color: var(--muted); }
+        .soon-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--muted); }
+        h2.sec { font-size: 15px; color: var(--muted); margin: 30px 0 12px; font-weight: normal; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="welcome-banner">
+        <h1>歡迎回來，{{ student.name }}</h1>
+        <p>請選擇要練習的考試</p>
+    </div>
+
+    <div class="exam-grid ui-stagger">
+        {% for c in cards if c.allowed %}
+        <a href="{{ url_for('exam_dashboard', student_id=student.id, exam_key=c.key) }}" class="exam-card exam-tone-{{ c.key }}">
+            <div class="exam-icon">{{ icon(c.icon) }}</div>
+            <div class="exam-name">{{ c.name }}<span class="exam-en">{{ c.en }}</span><span class="go-arrow">→</span></div>
+            <div class="exam-desc">{{ c.desc }}</div>
+            <div class="exam-meta">✓ 已熟 {{ c.unlocked }} / {{ c.total }} 字</div>
+        </a>
+        {% endfor %}
+    </div>
+
+    {% set soon = cards | rejectattr('allowed') | list %}
+    {% if soon %}
+    <h2 class="sec">即將開放</h2>
+    <div class="exam-grid">
+        {% for c in soon %}
+        <div class="exam-card soon">
+            <div class="exam-icon">{{ icon(c.icon) }}</div>
+            <div class="exam-name">{{ c.name }}<span class="exam-en">{{ c.en }}</span></div>
+            <div class="exam-desc">{{ c.desc }}</div>
+            <div class="soon-tag exam-meta">{{ icon('lock') }} 準備中</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+</body>
+</html>

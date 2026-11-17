@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-exam="{{ exam.key }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,8 +135,9 @@
     let idx = -1, answered = false, nRight = 0, nWrong = 0;
 
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    // 和 vocab_quiz.normalize() 一樣的規則：不分大小寫、彎引號當直引號、多個空白算一個
-    const norm = (s) => String(s || '').trim().toLowerCase().replace(/[‘’]/g, "'").replace(/[‐‑]/g, '-').replace(/\s+/g, ' ');
+    // 和 vocab_quiz.normalize() 一樣的規則：不分大小寫、彎引號當直引號、多個空白算一個、
+    // 重音字母當一般字母（résumé 打 resume 也算對）
+    const norm = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/[‘’]/g, "'").replace(/[‐‑]/g, '-').replace(/\s+/g, ' ');
     const hasZh = (s) => /[一-鿿]/.test(s || '');
     const say = (text, slow) => UI.speak(text, slow ? { rate: 0.6 } : undefined);
 

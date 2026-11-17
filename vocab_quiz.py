@@ -16,6 +16,7 @@
 import json
 import random
 import re
+import unicodedata
 from datetime import datetime
 
 from flask import Blueprint, abort, jsonify, render_template, request, url_for
@@ -42,8 +43,9 @@ _ = {}   # register() 放進來的主程式物件：db、Student、Vocabulary、
 # ---------------------------------------------------------------------------
 
 def normalize(s):
-    """比對用：去頭尾空白、小寫、彎引號換直引號、連續空白合併。"""
-    s = (s or '').strip().lower()
+    """比對用：去頭尾空白、小寫、彎引號換直引號、連續空白合併、去掉重音符號（résumé = resume）。"""
+    s = unicodedata.normalize('NFD', s or '')
+    s = ''.join(c for c in s if not unicodedata.combining(c)).strip().lower()
     s = s.replace('’', "'").replace('‘', "'").replace('‐', '-').replace('‑', '-')
     return re.sub(r'\s+', ' ', s)
 
@@ -75,7 +77,7 @@ def find_cloze(word, sentence):
     if ' ' in word:
         m = re.search(r'(?<![A-Za-z])' + re.escape(word) + r'(?:s|es)?(?![A-Za-z])', sentence, re.I)
         return (sentence[:m.start()], m.group(0), sentence[m.end():]) if m else None
-    tokens = list(re.finditer(r"[A-Za-z](?:[A-Za-z'\-]*[A-Za-z])?", sentence))
+    tokens = list(re.finditer(r"[A-Za-zÀ-ÿ](?:[A-Za-zÀ-ÿ'\-]*[A-Za-zÀ-ÿ])?", sentence))
     w = word.lower()
     for m in tokens:   # 先找一模一樣的
         if m.group(0).lower() == w:
@@ -203,6 +205,7 @@ def register(app, db, deps):
         created_at = db.Column(db.DateTime, default=datetime.utcnow)
         finished_at = db.Column(db.DateTime)
         questions = db.Column(db.Text)      # 出題內容（JSON），交卷時用來批改
+        course = db.Column(db.String(50))   # 哪個考試的單字（IELTS / TOEIC…）；舊紀錄是空的，算雅思
 
     class VocabQuizAnswer(db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -215,6 +218,11 @@ def register(app, db, deps):
     _.update(Attempt=VocabQuizAttempt, Answer=VocabQuizAnswer)
     with app.app_context():
         db.create_all()
+        from sqlalchemy import text
+        cols = {r[1] for r in db.session.execute(text("PRAGMA table_info(vocab_quiz_attempt)"))}
+        if 'course' not in cols:
+            db.session.execute(text("ALTER TABLE vocab_quiz_attempt ADD COLUMN course VARCHAR(50)"))
+            db.session.commit()
     app.register_blueprint(bp)
 
 
@@ -226,7 +234,7 @@ def learned_words(student, scope):
         words = [v for v in _['favorite_rows'](student)]
         label = '我的收藏'
     else:
-        q = Vocabulary.query.filter(Vocabulary.category == student.enrolled_course)
+        q = Vocabulary.query.filter(Vocabulary.category == _['course_of'](student))
         label = '全部學過的字'
         if scope.startswith('theme:'):
             key = scope[6:]
@@ -257,7 +265,7 @@ def scope_options(student):
     Vocabulary = _['Vocabulary']
     status = _['status_of'](student.id)
     rows = (Vocabulary.query.with_entities(Vocabulary.id, Vocabulary.word, Vocabulary.theme)
-            .filter(Vocabulary.category == student.enrolled_course).all())
+            .filter(Vocabulary.category == _['course_of'](student)).all())
     seen = {}
     for vid, word, theme in rows:
         st = status.get(vid)
@@ -291,7 +299,11 @@ def student_or_404(student_id):
 def quiz_home(student_id):
     student = student_or_404(student_id)
     Attempt = _['Attempt']
-    history = (Attempt.query.filter(Attempt.student_id == student.id, Attempt.finished_at.isnot(None))
+    course = _['course_of'](student)
+    same_course = (Attempt.course == course) if course != 'IELTS' else \
+        ((Attempt.course == course) | Attempt.course.is_(None))
+    history = (Attempt.query.filter(Attempt.student_id == student.id, Attempt.finished_at.isnot(None),
+                                    same_course)
                .order_by(Attempt.finished_at.desc()).limit(10).all())
     return render_template('vocab_quiz_home.html', student=student, scopes=scope_options(student),
                            types=TYPES, sizes=SIZES, history=history,
@@ -315,10 +327,11 @@ def quiz_start(student_id):
                                learn_url=_learn_url(student, scope))
     Vocabulary = _['Vocabulary']
     # 選擇題的干擾選項：同課程的字都可以用（build_questions 會挑同語言的意思）
-    pool = Vocabulary.query.filter(Vocabulary.category == student.enrolled_course).all()
+    pool = Vocabulary.query.filter(Vocabulary.category == _['course_of'](student)).all()
     questions = build_questions(words, types, size, pool)
     db = _['db']
     attempt = _['Attempt'](student_id=student.id, scope=scope, scope_label=label,
+                           course=_['course_of'](student),
                            types=','.join(types), total=len(questions),
                            questions=json.dumps(questions, ensure_ascii=False))
     db.session.add(attempt)

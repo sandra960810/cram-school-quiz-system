@@ -35,6 +35,27 @@
 
     --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
 }
+/* 多益（TOEIC）：藍色。只覆寫主色與帶紫調的中性色，狀態色（對／錯／提醒／收藏）沿用。
+   樣板的 <html data-exam="…"> 由 exams.py 決定；新增考試照這個格式加一組 */
+:root[data-exam="toeic"] {
+    --primary: #1d4ed8;
+    --primary-600: #1e3a8a;
+    --primary-300: #9db8ec;
+    --primary-50: #eaf1fd;
+    --primary-100: #d4e2fa;
+    --ink: #1c2433;
+    --ink-2: #434c5e;
+    --muted: #667085;
+    --muted-2: #98a2b3;
+    --line: #e0e6ef;
+    --line-strong: #c2cddc;
+    --bg: #f3f6fb;
+    --surface-2: #eef2f8;
+}
+/* 考試選擇頁的卡片：各自顯示自己考試的主色（不受整頁色系影響） */
+.exam-tone-ielts { --tone: #4a2d7f; --tone-50: #f1ecf8; --tone-300: #b7a3db; --tone-100: #e3d9f2; }
+.exam-tone-toeic { --tone: #1d4ed8; --tone-50: #eaf1fd; --tone-300: #9db8ec; --tone-100: #d4e2fa; }
+
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }
 ::selection { background: var(--primary-50); }

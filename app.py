@@ -10,6 +10,7 @@ import listening_bank
 import reading_bank
 import writing_bank
 import speaking_bank
+import exams
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # 口說測驗交卷時一次上傳整場錄音（約 3–8MB），上限放寬到 60MB
 app.config['MAX_CONTENT_LENGTH'] = 60 * 1024 * 1024
 db = SQLAlchemy(app)
+exams.init_app(app)   # 考試類型（雅思、多益…）：目前在哪個考試、色系、可用功能
 
 
 class Student(db.Model):
@@ -156,18 +158,31 @@ with app.app_context():
 # 官方主題。資料庫裡的 theme 只要以「編號 + 空白」開頭就歸到這個主題，
 # 例如 "01 教育與學習" 會算進 01。名稱以這裡為準，資料庫裡的舊名稱不影響顯示。
 OFFICIAL_THEMES = [
-    {"id": "01", "name": "教育與職涯", "desc": "教育制度、學術研究、就業、職場發展", "icon": "cap"},
-    {"id": "02", "name": "環境與自然生態", "desc": "氣候變遷、環境污染、能源、動物保育", "icon": "globe"},
-    {"id": "03", "name": "科技與科學", "desc": "人工智慧、數位科技、科學研究、創新", "icon": "microscope"},
-    {"id": "04", "name": "健康與心理", "desc": "醫療、公共衛生、心理健康、人類行為", "icon": "heart"},
-    {"id": "05", "name": "社會與文化", "desc": "社會議題、文化差異、家庭、全球化", "icon": "users"},
-    {"id": "06", "name": "經濟與商業", "desc": "經濟發展、金融、消費、企業經營", "icon": "coins"},
-    {"id": "07", "name": "政府與法律", "desc": "公共政策、社會福利、犯罪、司法制度", "icon": "scale"},
-    {"id": "08", "name": "城市與交通", "desc": "都市化、住房、交通、公共建設", "icon": "building"},
-    {"id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "palette"},
-    {"id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "plane"},
-    {"id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "book-open"},
-    {"id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "pen"},
+    {"course": "IELTS", "id": "01", "name": "教育與職涯", "desc": "教育制度、學術研究、就業、職場發展", "icon": "cap"},
+    {"course": "IELTS", "id": "02", "name": "環境與自然生態", "desc": "氣候變遷、環境污染、能源、動物保育", "icon": "globe"},
+    {"course": "IELTS", "id": "03", "name": "科技與科學", "desc": "人工智慧、數位科技、科學研究、創新", "icon": "microscope"},
+    {"course": "IELTS", "id": "04", "name": "健康與心理", "desc": "醫療、公共衛生、心理健康、人類行為", "icon": "heart"},
+    {"course": "IELTS", "id": "05", "name": "社會與文化", "desc": "社會議題、文化差異、家庭、全球化", "icon": "users"},
+    {"course": "IELTS", "id": "06", "name": "經濟與商業", "desc": "經濟發展、金融、消費、企業經營", "icon": "coins"},
+    {"course": "IELTS", "id": "07", "name": "政府與法律", "desc": "公共政策、社會福利、犯罪、司法制度", "icon": "scale"},
+    {"course": "IELTS", "id": "08", "name": "城市與交通", "desc": "都市化、住房、交通、公共建設", "icon": "building"},
+    {"course": "IELTS", "id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "palette"},
+    {"course": "IELTS", "id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "plane"},
+    {"course": "IELTS", "id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "book-open"},
+    {"course": "IELTS", "id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "pen"},
+    # 多益（TOEIC）：依職場情境自訂的 12 個主題。編號前面加 T，避免和雅思的 01–12 混在一起
+    {"course": "TOEIC", "id": "T01", "name": "辦公室與行政", "desc": "文書、設備、行程安排、日常庶務", "icon": "clipboard"},
+    {"course": "TOEIC", "id": "T02", "name": "人事與職涯", "desc": "招募、面試、薪資福利、升遷與訓練", "icon": "users"},
+    {"course": "TOEIC", "id": "T03", "name": "會議與溝通", "desc": "會議、簡報、電話、信件與協商", "icon": "speech"},
+    {"course": "TOEIC", "id": "T04", "name": "行銷與銷售", "desc": "廣告、促銷、顧客服務、購物", "icon": "megaphone"},
+    {"course": "TOEIC", "id": "T05", "name": "財務與會計", "desc": "預算、帳單、銀行、稅務與投資", "icon": "coins"},
+    {"course": "TOEIC", "id": "T06", "name": "採購與物流", "desc": "訂單、出貨、庫存、倉儲與供應商", "icon": "truck"},
+    {"course": "TOEIC", "id": "T07", "name": "製造與設施", "desc": "工廠、設備維修、建築工程、房地產", "icon": "wrench"},
+    {"course": "TOEIC", "id": "T08", "name": "旅遊與交通", "desc": "機票、飯店、行程、通勤與交通", "icon": "plane"},
+    {"course": "TOEIC", "id": "T09", "name": "餐飲與活動", "desc": "餐廳、外燴、宴會、展覽與娛樂", "icon": "utensils"},
+    {"course": "TOEIC", "id": "T10", "name": "科技與通訊", "desc": "電腦、網路、軟體、媒體與出版", "icon": "monitor"},
+    {"course": "TOEIC", "id": "T11", "name": "生活與健康", "desc": "居家、醫療、天氣、休閒與運動", "icon": "heart"},
+    {"course": "TOEIC", "id": "T12", "name": "通用商務字彙", "desc": "各種情境都會用到的動詞、形容詞與副詞", "icon": "book-open"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -218,13 +233,14 @@ def status_of(student_id):
 
 def build_theme_list(student):
     """依資料庫實際內容產生主題清單（含每個主題的字數與已解鎖數）。"""
+    course = exams.course_of(student)
     totals = dict(db.session.query(Vocabulary.theme, func.count(Vocabulary.id))
-                  .filter(Vocabulary.category == student.enrolled_course)
+                  .filter(Vocabulary.category == course)
                   .group_by(Vocabulary.theme).all())
     def count_status(status):
         return dict(db.session.query(Vocabulary.theme, func.count(func.distinct(Vocabulary.id)))
                     .join(LearningProgress, LearningProgress.vocab_id == Vocabulary.id)
-                    .filter(Vocabulary.category == student.enrolled_course,
+                    .filter(Vocabulary.category == course,
                             LearningProgress.student_id == student.id,
                             LearningProgress.status == status)
                     .group_by(Vocabulary.theme).all())
@@ -232,12 +248,12 @@ def build_theme_list(student):
     weak = count_status('unfamiliar')     # 不熟
 
     themes = [dict(t, key=t["id"], label=f'{t["id"]} {t["name"]}', total=0, unlocked=0, weak=0)
-              for t in OFFICIAL_THEMES]
+              for t in OFFICIAL_THEMES if t["course"] == course]
     by_key = {t["key"]: t for t in themes}
     extras = []
     for theme_name, total in sorted(totals.items()):
         oid = official_id_of(theme_name)
-        if oid:
+        if oid in by_key:
             by_key[oid]["total"] += total
             by_key[oid]["unlocked"] += unlocked.get(theme_name, 0)
             by_key[oid]["weak"] += weak.get(theme_name, 0)
@@ -257,7 +273,7 @@ def theme_info(student, theme_key):
 
 def theme_words(student, theme_key):
     return (Vocabulary.query
-            .filter(Vocabulary.category == student.enrolled_course, theme_condition(theme_key))
+            .filter(Vocabulary.category == exams.course_of(student), theme_condition(theme_key))
             .order_by(func.lower(Vocabulary.word), Vocabulary.id)
             .all())
 
@@ -288,11 +304,34 @@ def login_redirect():
 
 @app.route('/dashboard/<int:student_id>')
 def dashboard(student_id):
+    """主介面：先選考試類型（雅思、多益…），再進到該考試的功能選單。"""
     student = get_student(student_id)
+    allowed = {e["key"] for e in exams.exams_for(student)}
+    cards = []
+    for e in exams.EXAMS:
+        themes = []
+        if e["key"] in allowed:
+            exams.use_exam(e["key"])          # 切到該考試，才算得到它的字數
+            themes = build_theme_list(student)
+        cards.append(dict(e, allowed=e["key"] in allowed,
+                          unlocked=sum(t["unlocked"] for t in themes),
+                          total=sum(t["total"] for t in themes)))
+    # 選擇頁本身用雅思的色系（紫色學院風）；卡片各自帶自己的主色
+    exams.use_exam(exams.DEFAULT_EXAM)
+    return render_template('exam_select.html', student=student, cards=cards)
+
+
+@app.route('/dashboard/<int:student_id>/<exam_key>')
+def exam_dashboard(student_id, exam_key):
+    """某個考試的功能選單（雅思：單字＋模擬測驗；多益：單字學習＋單字測驗）。"""
+    student = get_student(student_id)
+    if exam_key not in exams.EXAM_BY_KEY or not exams.can_use(student, exam_key):
+        return redirect(url_for('dashboard', student_id=student_id))
+    exam = exams.use_exam(exam_key)
     themes = build_theme_list(student)
     unlocked_count = sum(t["unlocked"] for t in themes)
     total_count = sum(t["total"] for t in themes)
-    return render_template('dashboard.html', student=student,
+    return render_template('dashboard.html', student=student, features=exam["features"],
                            unlocked_count=unlocked_count, total_count=total_count)
 
 
@@ -409,7 +448,7 @@ def favorite_rows(student):
     rows = (db.session.query(Vocabulary, Favorite.created_at)
             .join(Favorite, Favorite.vocab_id == Vocabulary.id)
             .filter(Favorite.student_id == student.id,
-                    Vocabulary.category == student.enrolled_course)
+                    Vocabulary.category == exams.course_of(student))
             .order_by(Favorite.created_at.desc(), Favorite.id.desc())
             .all())
     seen, result = set(), []
@@ -1220,7 +1259,8 @@ import vocab_quiz  # noqa: E402  放在最後，等上面的模型與輔助函�
 vocab_quiz.register(app, db, dict(
     Student=Student, Vocabulary=Vocabulary, get_student=get_student, status_of=status_of,
     theme_condition=theme_condition, build_theme_list=build_theme_list,
-    favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of))
+    favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of,
+    course_of=exams.course_of))
 
 # 單字與例句的發音音檔（程式在 word_audio.py）：手機的瀏覽器語音不可靠，改由伺服器產生
 import word_audio  # noqa: E402

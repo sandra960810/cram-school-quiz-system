@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-exam="{{ exam.key }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +64,7 @@
 <body>
 <div class="container">
     <div class="nav-row">
-        <a href="/dashboard/{{ student.id }}" class="nav-back"><span class="arrow">←</span>主介面</a>
+        <a href="/dashboard/{{ student.id }}/{{ exam.key }}" class="nav-back"><span class="arrow">←</span>主介面</a>
         <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-next">{{ icon('library') }} 單字學習區<span class="arrow">→</span></a>
     </div>
     <div class="summary">
