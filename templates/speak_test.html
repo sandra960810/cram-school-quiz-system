@@ -4,88 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ test.title }}｜口說測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
         /* 比照正式口說考試：考官逐題發問（語音），考生用麥克風作答；
            Part 2 有題卡、1 分鐘準備（可寫筆記）、最多說 2 分鐘 */
         * { box-sizing: border-box; }
         html, body { height: 100%; }
-        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: #1a1a1a; background: #f1f2f4;
+        body { margin: 0; font-family: Arial, "Microsoft JhengHei", sans-serif; color: var(--ink); background: var(--bg);
                display: flex; flex-direction: column; }
         @supports (height: 100dvh) { html, body { height: 100dvh; } }
-        .topbar { display: flex; align-items: center; gap: 14px; background: #222; color: #fff; padding: 0 18px;
+        .topbar { display: flex; align-items: center; gap: 14px; background: var(--ink); color: #fff; padding: 0 18px;
                   height: 52px; flex: none; }
         .topbar .brand { font-weight: bold; font-size: 18px; }
         .topbar .who { font-size: 14px; opacity: .85; }
         .topbar .clock { margin-left: auto; font-size: 15px; font-weight: bold; font-variant-numeric: tabular-nums; }
-        .topbar a.leave { color: #ccc; font-size: 13px; text-decoration: none; }
-        .notice { background: #fff8e1; color: #6d4c00; font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid #f0e2b6; flex: none; line-height: 1.6; }
-        .parts { display: flex; gap: 6px; padding: 10px 18px; background: #fff; border-bottom: 1px solid #d0d4d9; flex: none; }
-        .parts span { flex: 1; text-align: center; font-size: 14px; padding: 7px 4px; border-radius: 4px; background: #eceef1; color: #777; }
-        .parts span.on { background: #222; color: #fff; font-weight: bold; }
-        .parts span.done { background: #d5f5e3; color: #1e8449; }
+        .topbar a.leave { color: var(--line-strong); font-size: 13px; text-decoration: none; }
+        .notice { background: var(--star-50); color: var(--warn-ink); font-size: 12.5px; padding: 6px 18px; border-bottom: 1px solid var(--star-50); flex: none; line-height: 1.6; }
+        .parts { display: flex; gap: 6px; padding: 10px 18px; background: #fff; border-bottom: 1px solid var(--line-strong); flex: none; }
+        .parts span { flex: 1; text-align: center; font-size: 14px; padding: 7px 4px; border-radius: 4px; background: var(--line); color: var(--muted); }
+        .parts span.on { background: var(--ink); color: #fff; font-weight: bold; }
+        .parts span.done { background: var(--ok-50); color: var(--ok); }
         main { flex: 1; overflow-y: auto; padding: 22px 18px 120px; }
         .stage { max-width: 760px; margin: 0 auto; }
         .screen { display: none; } .screen.on { display: block; }
-        .box { background: #fff; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 16px; line-height: 1.75; }
+        .box { background: #fff; border-radius: 10px; padding: 20px 24px; box-shadow: var(--edge); margin-bottom: 16px; line-height: 1.75; }
         .box h2 { margin: 0 0 10px; font-size: 19px; }
         .box ul { margin: 6px 0; padding-left: 22px; }
-        .privacy { background: #fdf2e9; border: 2px solid #f5cba7; color: #873600; }
-        .privacy.red { background: #fadbd8; border-color: #f1948a; color: #922b21; }
-        .check { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f2f5; }
+        .privacy { background: var(--warn-50); border: 2px solid var(--warn-300); color: var(--warn-ink); }
+        .privacy.red { background: var(--bad-50); border-color: var(--bad-300); color: var(--bad-ink); }
+        .check { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--bg); }
         .check:last-child { border-bottom: none; }
         .check .st { width: 26px; text-align: center; font-size: 18px; }
         .check .txt { flex: 1; font-size: 15px; }
-        .check button { font-family: inherit; font-size: 14px; padding: 7px 14px; border-radius: 6px; border: 1px solid #b9bfc6; background: #fff; cursor: pointer; }
-        .meter { height: 12px; background: #eceef1; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-        .meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #58d68d, #f4d03f, #e74c3c); transition: width .08s; }
+        .check button { font-family: inherit; font-size: 14px; padding: 7px 14px; border-radius: 6px; border: 1px solid var(--line-strong); background: #fff; cursor: pointer; }
+        .meter { height: 12px; background: var(--line); border-radius: 6px; overflow: hidden; margin-top: 6px; }
+        .meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #58d68d, var(--star), var(--bad)); transition: width .08s; }
         label.agree { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; margin: 6px 0 0; cursor: pointer; }
         label.agree input { width: 20px; height: 20px; margin-top: 3px; flex: none; }
         .big { font-family: inherit; font-size: 17px; font-weight: bold; padding: 13px 28px; border-radius: 8px; border: none;
-               background: #1f6f3f; color: #fff; cursor: pointer; }
-        .big:disabled { background: #aab7b8; cursor: not-allowed; }
+               background: var(--ok-ink); color: #fff; cursor: pointer; }
+        .big:disabled { background: var(--line-strong); cursor: not-allowed; }
 
         .examiner { display: flex; gap: 16px; align-items: flex-start; }
-        .avatar { width: 64px; height: 64px; border-radius: 50%; background: #34495e; color: #fff; font-size: 34px;
+        .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 34px;
                   display: flex; align-items: center; justify-content: center; flex: none; position: relative; }
-        .avatar.talking::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid #5dade2;
+        .avatar.talking::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--primary-300);
                                  animation: pulse 1.2s ease-out infinite; }
         @keyframes pulse { from { opacity: 1; transform: scale(.92); } to { opacity: 0; transform: scale(1.18); } }
-        .bubble { flex: 1; background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06); min-height: 64px; }
-        .bubble .who { font-size: 12px; color: #7f8c8d; margin-bottom: 4px; }
+        .bubble { flex: 1; background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: var(--edge); min-height: 64px; }
+        .bubble .who { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
         .bubble .q { font-size: 18px; line-height: 1.6; }
         .bubble .q.masked { color: transparent; text-shadow: 0 0 9px rgba(0,0,0,.45); user-select: none; }
         .tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 0 80px; }
-        .tools button { font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 16px; border: 1px solid #c4c9cf; background: #fff; cursor: pointer; }
+        .tools button { font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 16px; border: 1px solid var(--line-strong); background: #fff; cursor: pointer; }
 
         .status { text-align: center; margin: 26px 0 10px; }
-        .mic { width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 10px; background: #d5d8dc; color: #fff; font-size: 40px;
+        .mic { width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 10px; background: var(--line); color: #fff; font-size: 40px;
                display: flex; align-items: center; justify-content: center; transition: background .2s; }
-        .mic.rec { background: #e74c3c; box-shadow: 0 0 0 0 rgba(231,76,60,.5); animation: rec 1.4s infinite; }
+        .mic.rec { background: var(--bad); box-shadow: 0 0 0 0 rgba(231,76,60,.5); animation: rec 1.4s infinite; }
         @keyframes rec { 70% { box-shadow: 0 0 0 18px rgba(231,76,60,0); } 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); } }
         .status .label { font-size: 17px; font-weight: bold; }
-        .status .sub { font-size: 14px; color: #7f8c8d; margin-top: 4px; min-height: 20px; }
+        .status .sub { font-size: 14px; color: var(--muted); margin-top: 4px; min-height: 20px; }
         .status .meter { max-width: 260px; margin: 10px auto 0; }
-        .live { max-width: 560px; margin: 10px auto 0; font-size: 13px; color: #95a5a6; font-style: italic; min-height: 18px; }
+        .live { max-width: 560px; margin: 10px auto 0; font-size: 13px; color: var(--muted-2); font-style: italic; min-height: 18px; }
 
-        .card { border: 2px solid #333; background: #fffdf5; padding: 18px 22px; margin: 4px 0 14px; }
+        .card { border: 2px solid var(--ink); background: var(--star-50); padding: 18px 22px; margin: 4px 0 14px; }
         .card .cue { font-weight: bold; font-size: 17px; margin-bottom: 8px; }
         .card ul { margin: 4px 0 6px; padding-left: 22px; line-height: 1.8; }
-        textarea.notes { width: 100%; min-height: 120px; font-family: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid #b9bfc6; border-radius: 6px; resize: vertical; }
-        .countdown { font-size: 30px; font-weight: bold; text-align: center; color: #b9770e; font-variant-numeric: tabular-nums; }
+        textarea.notes { width: 100%; min-height: 120px; font-family: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 6px; resize: vertical; }
+        .countdown { font-size: 30px; font-weight: bold; text-align: center; color: var(--warn); font-variant-numeric: tabular-nums; }
 
-        .actionbar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #c4c9cf;
+        .actionbar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--line-strong);
                      padding: 10px 18px calc(10px + env(safe-area-inset-bottom)); display: flex; gap: 10px; justify-content: center; z-index: 5; }
         .actionbar button { font-family: inherit; font-size: 16px; font-weight: bold; border-radius: 8px; padding: 12px 22px; cursor: pointer; border: none; }
-        .actionbar .next { background: #1f6f3f; color: #fff; min-width: 220px; }
-        .actionbar .next:disabled { background: #aab7b8; cursor: not-allowed; }
+        .actionbar .next { background: var(--ok-ink); color: #fff; min-width: 220px; }
+        .actionbar .next:disabled { background: var(--line-strong); cursor: not-allowed; }
         .actionbar[hidden] { display: none; }
         /* 下方有固定的「下一題」列：把右下角的音效／發音按鈕往上移，避免蓋住 */
         body:has(.actionbar:not([hidden])) .ui-sound-toggle,
         body:has(.actionbar:not([hidden])) .ui-voice-toggle { bottom: 84px; }
         body:has(.actionbar:not([hidden])) .ui-voice-panel { bottom: 138px; }
-        .errbox { background: #fadbd8; color: #922b21; border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
-        .spinner { width: 46px; height: 46px; border: 5px solid #e8e3f5; border-top-color: #5b48a2; border-radius: 50%;
+        .errbox { background: var(--bad-50); color: var(--bad-ink); border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
+        .spinner { width: 46px; height: 46px; border: 5px solid var(--primary-50); border-top-color: var(--primary); border-radius: 50%;
                    animation: spin 1s linear infinite; margin: 0 auto 14px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -116,7 +117,7 @@
     <span class="clock" id="clock">00:00</span>
     <a class="leave" href="{{ url_for('speaking_home', student_id=student.id) }}" id="leave">離開</a>
 </header>
-<div class="notice">🧪 這是比照正式考試流程的<b>模擬口說測驗</b>。交卷後由 AI 老師辨識語音並評分，<b>AI 評分不等於真實考試成績，只是模擬</b>。</div>
+<div class="notice">{{ icon('flask') }} 這是比照正式考試流程的<b>模擬口說測驗</b>。交卷後由 AI 老師辨識語音並評分，<b>AI 評分不等於真實考試成績，只是模擬</b>。</div>
 <div class="parts" id="parts"><span data-p="1">Part 1 訪談</span><span data-p="2">Part 2 題卡</span><span data-p="3">Part 3 討論</span></div>
 
 <main><div class="stage">
@@ -134,31 +135,31 @@
             <div>考官會用語音發問，請戴耳機或開喇叭。正式考試考官不會給你看題目，這裡預設也把題目文字模糊起來，聽不清楚可以按「請考官再說一次」或「顯示題目文字」。</div>
         </div>
         <div class="box">
-            <div class="check"><span class="st" id="stMic">⬜</span>
+            <div class="check"><span class="st" id="stMic">{{ icon('circle') }}</span>
                 <div class="txt">麥克風<div class="meter"><i id="checkMeter"></i></div>
-                    <div style="font-size:13px;color:#7f8c8d" id="micHint">按「測試」後說幾句英文，綠色條會跟著跳動就沒問題。</div></div>
-                <button type="button" id="micTest">🎙️ 測試</button></div>
-            <div class="check"><span class="st" id="stVoice">⬜</span>
-                <div class="txt">考官的聲音<div style="font-size:13px;color:#7f8c8d">用 Edge 會是最自然的真人語音。</div></div>
-                <button type="button" id="voiceTest">🔊 試聽</button></div>
+                    <div style="font-size:13px;color:var(--muted)" id="micHint">按「測試」後說幾句英文，綠色條會跟著跳動就沒問題。</div></div>
+                <button type="button" id="micTest">{{ icon('mic') }} 測試</button></div>
+            <div class="check"><span class="st" id="stVoice">{{ icon('circle') }}</span>
+                <div class="txt">考官的聲音<div style="font-size:13px;color:var(--muted)">用 Edge 會是最自然的真人語音。</div></div>
+                <button type="button" id="voiceTest">{{ icon('volume') }} 試聽</button></div>
         </div>
         {% if provider == 'gemini' %}
         <div class="box privacy red">
-            <b>🔒 錄音隱私提醒</b><br>
+            <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
             目前的 AI 老師是 <b>Google Gemini 免費方案</b>。交卷後你的<b>錄音會傳給 Google</b> 做語音辨識與評分，
             而免費方案送出的內容<b>可能會被 Google 用來改善他們的服務，也可能有人工審閱</b>。
             請不要在錄音裡說出身分證字號、住址、電話或其他私人資料；第一題問姓名時，用英文名或化名回答即可。
         </div>
         {% elif provider == 'claude' %}
         <div class="box privacy">
-            <b>🔒 錄音隱私提醒</b><br>
+            <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
             目前的 AI 老師是 <b>Anthropic Claude</b>。Claude 聽不到錄音，所以作答時會用<b>瀏覽器內建的語音辨識</b>把你說的話轉成文字
             （Edge 會把聲音送到微軟、Chrome 送到 Google 的伺服器辨識），再把文字交給 Claude 評分。錄音檔本身只存在補習班這台電腦。
             請不要說出身分證字號、住址、電話等私人資料；第一題問姓名時用英文名或化名即可。
             <br><b>注意：</b>這種方式的「發音」分數只能從辨識結果推估，準確度較低。
         </div>
         {% else %}
-        <div class="box privacy red">🔑 AI 老師還沒設定，這次只會存下錄音、不會批改。設定好金鑰（雙擊 set_ai_key.bat）後，打開交卷紀錄就能補批改。</div>
+        <div class="box privacy red">{{ icon('key') }} AI 老師還沒設定，這次只會存下錄音、不會批改。設定好金鑰（雙擊 set_ai_key.bat）後，打開交卷紀錄就能補批改。</div>
         {% endif %}
         <div class="errbox" id="checkErr" hidden></div>
         <label class="agree"><input type="checkbox" id="agree"> 我了解：AI 評分只是模擬，不等於真實考試成績{% if provider %}；也已讀過上面的錄音隱私提醒{% endif %}。</label>
@@ -168,12 +169,12 @@
     <!-- 考試進行中 -->
     <section class="screen" id="scrExam">
         <div class="examiner">
-            <div class="avatar" id="avatar">🧑‍🏫</div>
+            <div class="avatar" id="avatar">{{ icon('teacher') }}</div>
             <div class="bubble"><div class="who">Examiner<span id="topicLabel"></span></div><div class="q masked" id="qText"></div></div>
         </div>
         <div class="tools">
-            <button type="button" id="repeatBtn">🔁 請考官再說一次</button>
-            <button type="button" id="showText">👁️ 顯示題目文字</button>
+            <button type="button" id="repeatBtn">{{ icon('refresh') }} 請考官再說一次</button>
+            <button type="button" id="showText">{{ icon('eye') }} 顯示題目文字</button>
         </div>
 
         <div id="cardWrap" hidden>
@@ -186,14 +187,14 @@
                 </div>
                 <div id="prepBox">
                     <div class="countdown" id="prepClock">1:00</div>
-                    <div style="text-align:center;font-size:14px;color:#7f8c8d;margin-bottom:8px">準備時間：可以在下面寫筆記（考場給紙筆，這裡用打字）</div>
+                    <div style="text-align:center;font-size:14px;color:var(--muted);margin-bottom:8px">準備時間：可以在下面寫筆記（考場給紙筆，這裡用打字）</div>
                     <textarea class="notes" id="notes" placeholder="Notes…" spellcheck="false"></textarea>
                 </div>
             </div>
         </div>
 
         <div class="status" id="statusBox">
-            <div class="mic" id="micIcon">🎙️</div>
+            <div class="mic" id="micIcon">{{ icon('mic') }}</div>
             <div class="label" id="stLabel">考官說話中…</div>
             <div class="sub" id="stSub"></div>
             <div class="meter"><i id="examMeter"></i></div>
@@ -207,7 +208,7 @@
             <div class="spinner" id="upSpin"></div>
             <b id="upText">正在上傳錄音並交卷…</b>
             <div class="errbox" id="upErr" hidden></div>
-            <div style="margin-top:12px"><button type="button" class="big" id="retryUpload" hidden>🔁 再上傳一次</button></div>
+            <div style="margin-top:12px"><button type="button" class="big" id="retryUpload" hidden>{{ icon('refresh') }} 再上傳一次</button></div>
         </div>
     </section>
 </div></main>
@@ -273,10 +274,10 @@
             if (ctx.state === 'suspended') await ctx.resume();
             meterEl = $('checkMeter');
             micOk = true;
-            $('stMic').innerText = '✅';
+            $('stMic').innerHTML = '{{ icon('check-circle') }}';
             $('micHint').innerText = '麥克風已開啟。說話時綠色條有跳動就可以開始了。';
         } catch (e) {
-            $('stMic').innerText = '❌';
+            $('stMic').innerHTML = '{{ icon('x-circle') }}';
             $('checkErr').hidden = false;
             $('checkErr').innerText = e.name === 'NotAllowedError'
                 ? '麥克風被拒絕了。請按網址列左邊的鎖頭圖示，把「麥克風」改成允許，再重新整理這一頁。'
@@ -285,7 +286,7 @@
         refreshStart();
     });
     $('voiceTest').addEventListener('click', () => {
-        UI.speak("Good morning. This is a practice IELTS Speaking test.", { onend: () => { $('stVoice').innerText = '✅'; } });
+        UI.speak("Good morning. This is a practice IELTS Speaking test.", { onend: () => { $('stVoice').innerHTML = '{{ icon('check-circle') }}'; } });
     });
     $('agree').addEventListener('change', refreshStart);
     function refreshStart() { $('startBtn').disabled = !($('agree').checked && micOk); }
@@ -363,9 +364,9 @@
         mic.classList.toggle('rec', mode === 'rec');
         $('statusBox').hidden = mode === 'prep';
         $('nextBtn').disabled = mode !== 'rec';
-        if (mode === 'talk') { $('stLabel').innerText = '考官說話中…'; $('stSub').innerText = ''; mic.innerText = '🎧'; }
-        if (mode === 'rec') { $('stLabel').innerText = '● 錄音中，請回答'; mic.innerText = '🎙️'; }
-        if (mode === 'wait') { $('stLabel').innerText = extra || ''; $('stSub').innerText = ''; mic.innerText = '⏳'; }
+        if (mode === 'talk') { $('stLabel').innerText = '考官說話中…'; $('stSub').innerText = ''; mic.innerHTML = '{{ icon('headphones') }}'; }
+        if (mode === 'rec') { $('stLabel').innerText = '● 錄音中，請回答'; mic.innerHTML = '{{ icon('mic') }}'; }
+        if (mode === 'wait') { $('stLabel').innerText = extra || ''; $('stSub').innerText = ''; mic.innerHTML = '{{ icon('hourglass') }}'; }
     }
     function fmt(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
 
@@ -465,7 +466,7 @@
     });
     $('showText').addEventListener('click', (e) => {
         const masked = $('qText').classList.toggle('masked');
-        e.target.innerText = masked ? '👁️ 顯示題目文字' : '🙈 隱藏題目文字';
+        e.currentTarget.innerHTML = masked ? '{{ icon('eye') }} 顯示題目文字' : '{{ icon('eye-off') }} 隱藏題目文字';
     });
 
     $('startBtn').addEventListener('click', () => {

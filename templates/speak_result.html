@@ -4,60 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ test.title }}｜口說評分</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .disclaimer { background: #fdf2e9; border: 2px solid #e59866; color: #873600; border-radius: 10px;
+        .disclaimer { background: var(--warn-50); border: 2px solid var(--warn-300); color: var(--warn-ink); border-radius: 10px;
                       padding: 14px 18px; font-size: 15px; line-height: 1.8; margin-bottom: 18px; }
         .disclaimer b { font-size: 16px; }
         .overall { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-        .bandcard { background: #fff; border-radius: 12px; padding: 16px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+        .bandcard { background: #fff; border-radius: 12px; padding: 16px 22px; box-shadow: var(--edge);
                     flex: 1; min-width: 180px; text-align: center; }
-        .bandcard .lab { font-size: 13px; color: #7f8c8d; }
-        .bandcard .val { font-size: 40px; font-weight: bold; color: #5b48a2; line-height: 1.3; }
-        .bandcard.main { border: 3px solid #5b48a2; }
-        .bandcard .sub { font-size: 12px; color: #95a5a6; }
+        .bandcard .lab { font-size: 13px; color: var(--muted); }
+        .bandcard .val { font-size: 40px; font-weight: bold; color: var(--primary); line-height: 1.3; }
+        .bandcard.main { border: 3px solid var(--primary); }
+        .bandcard .sub { font-size: 12px; color: var(--muted-2); }
         .ttabs { display: flex; gap: 8px; margin-bottom: 12px; }
-        .ttabs button { font-family: inherit; font-size: 15px; border: 2px solid #d5d8dc; background: #fff;
+        .ttabs button { font-family: inherit; font-size: 15px; border: 2px solid var(--line); background: #fff;
                         border-radius: 8px; padding: 7px 16px; cursor: pointer; }
-        .ttabs button.on { background: #3d3d3d; border-color: #3d3d3d; color: #fff; font-weight: bold; }
+        .ttabs button.on { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: bold; }
         .tpanel { display: none; } .tpanel.on { display: block; }
-        .crit { border: 1px solid #e5e8e8; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; }
+        .crit { border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; }
         .crit h3 { margin: 0 0 6px; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
-        .crit h3 .b { background: #5b48a2; color: #fff; border-radius: 8px; padding: 2px 12px; font-size: 18px; }
-        .crit .en { color: #95a5a6; font-size: 12px; font-weight: normal; margin-left: 6px; }
+        .crit h3 .b { background: var(--primary); color: #fff; border-radius: 8px; padding: 2px 12px; font-size: 18px; }
+        .crit .en { color: var(--muted-2); font-size: 12px; font-weight: normal; margin-left: 6px; }
         .crit p { margin: 4px 0 8px; line-height: 1.8; }
         .crit ul { margin: 0 0 4px; padding-left: 22px; line-height: 1.8; }
-        .good { color: #1e8449; } .bad { color: #ba4a00; }
+        .good { color: var(--ok); } .bad { color: var(--warn); }
         table.err { width: 100%; border-collapse: collapse; font-size: 14px; }
-        table.err th, table.err td { border: 1px solid #e5e8e8; padding: 8px 10px; vertical-align: top; text-align: left; line-height: 1.6; }
-        table.err th { background: #f8f9f9; }
-        table.err .o { color: #c0392b; text-decoration: line-through; text-decoration-color: rgba(192,57,43,.5); }
-        table.err .c { color: #1e8449; font-weight: bold; }
-        .model { background: #f4f1fb; border-left: 5px solid #5b48a2; padding: 12px 16px; line-height: 1.85; white-space: pre-wrap; }
-        .essay { white-space: pre-wrap; line-height: 1.85; font-size: 15.5px; background: #fcfcfc;
-                 border: 1px solid #e5e8e8; border-radius: 8px; padding: 14px 18px; }
-        .prompt { color: #555; font-style: italic; line-height: 1.7; margin: 0 0 10px; }
+        table.err th, table.err td { border: 1px solid var(--line); padding: 8px 10px; vertical-align: top; text-align: left; line-height: 1.6; }
+        table.err th { background: var(--surface-2); }
+        table.err .o { color: var(--bad); text-decoration: line-through; text-decoration-color: rgba(192,57,43,.5); }
+        table.err .c { color: var(--ok); font-weight: bold; }
+        .model { background: var(--primary-50); border-left: 5px solid var(--primary); padding: 12px 16px; line-height: 1.85; white-space: pre-wrap; }
+        .essay { white-space: pre-wrap; line-height: 1.85; font-size: 15.5px; background: var(--surface-2);
+                 border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px; }
+        .prompt { color: var(--ink-2); font-style: italic; line-height: 1.7; margin: 0 0 10px; }
         .wc { font-size: 13px; font-weight: bold; margin: 6px 0; }
         .grading { text-align: center; padding: 30px 10px; }
-        .spinner { width: 46px; height: 46px; border: 5px solid #e8e3f5; border-top-color: #5b48a2; border-radius: 50%;
+        .spinner { width: 46px; height: 46px; border: 5px solid var(--primary-50); border-top-color: var(--primary); border-radius: 50%;
                    animation: spin 1s linear infinite; margin: 0 auto 14px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .errbox { background: #fadbd8; color: #922b21; border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
+        .errbox { background: var(--bad-50); color: var(--bad-ink); border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
         .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
         h2.sec { font-size: 18px; margin: 22px 0 10px; }
-            .qa { border-bottom: 1px solid #f0f2f5; padding: 12px 0; }
+            .qa { border-bottom: 1px solid var(--bg); padding: 12px 0; }
         .qa:last-child { border-bottom: none; }
         .qa .qq { font-weight: bold; line-height: 1.6; }
-        .qa .qq .tag { display: inline-block; font-size: 12px; background: #eaf2fb; color: #2471a3; border-radius: 8px;
+        .qa .qq .tag { display: inline-block; font-size: 12px; background: var(--primary-50); color: var(--primary); border-radius: 8px;
                        padding: 1px 8px; margin-right: 6px; font-weight: normal; }
-        .qa .dur { color: #95a5a6; font-size: 12px; font-weight: normal; margin-left: 6px; }
+        .qa .dur { color: var(--muted-2); font-size: 12px; font-weight: normal; margin-left: 6px; }
         .qa audio { width: 100%; max-width: 420px; height: 36px; margin: 6px 0 2px; display: block; }
-        .qa .tr { background: #fcfcfc; border: 1px solid #e5e8e8; border-radius: 8px; padding: 8px 12px; line-height: 1.7; margin-top: 4px; }
-        .qa .tr.none { color: #95a5a6; }
-        .qa.best { background: #f4f1fb; border-radius: 8px; padding: 12px; }
-        .card2 { border: 2px solid #333; background: #fffdf5; padding: 12px 16px; margin: 6px 0; line-height: 1.7; }
-        .note { font-size: 13px; color: #7f8c8d; line-height: 1.7; }
+        .qa .tr { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; line-height: 1.7; margin-top: 4px; }
+        .qa .tr.none { color: var(--muted-2); }
+        .qa.best { background: var(--primary-50); border-radius: 8px; padding: 12px; }
+        .card2 { border: 2px solid var(--ink); background: var(--star-50); padding: 12px 16px; margin: 6px 0; line-height: 1.7; }
+        .note { font-size: 13px; color: var(--muted); line-height: 1.7; }
         @media (max-width: 640px) {
             .bandcard { box-sizing: border-box; min-width: calc(50% - 7px); flex-basis: calc(50% - 7px); padding: 12px; }
             .bandcard.main { flex-basis: 100%; }
@@ -77,10 +78,10 @@
     <div class="exam-head">
         <span class="exam-tag">{{ test.title }}</span>
         <span class="exam-part">AI 老師評分</span>
-        <span style="color:#7f8c8d;font-size:14px">交卷 {{ sub.submitted_at|twtime }}｜全程 {{ (sub.seconds_used // 60) }} 分 {{ sub.seconds_used % 60 }} 秒</span>
+        <span style="color:var(--muted);font-size:14px">交卷 {{ sub.submitted_at|twtime }}｜全程 {{ (sub.seconds_used // 60) }} 分 {{ sub.seconds_used % 60 }} 秒</span>
     </div>
 
-    <div class="disclaimer">⚠️ <b>AI 評分不等於真實考試成績，只是模擬。</b><br>
+    <div class="disclaimer">{{ icon('alert') }} <b>AI 評分不等於真實考試成績，只是模擬。</b><br>
         分數是 AI 依照雅思公開的四項口說評分標準所做的估計，刻意從嚴評分；正式考試由受過訓練的考官面對面評分，結果可能不同。
         請把分數當作練習參考，真正有用的是下面指出的問題與改法。</div>
 
@@ -94,7 +95,7 @@
             {% endfor %}
         </div>
         {% if result.transcript_source == 'browser' %}
-        <div class="note" style="margin:-8px 0 14px">ℹ️ 這次由 Claude 評分：逐字稿是瀏覽器語音辨識的結果（可能有聽錯的字），發音分數只能從辨識結果推估。
+        <div class="note" style="margin:-8px 0 14px">ℹ 這次由 Claude 評分：逐字稿是瀏覽器語音辨識的結果（可能有聽錯的字），發音分數只能從辨識結果推估。
             想要 AI 真正聽發音，可以改設定 Gemini 金鑰。</div>
         {% endif %}
     {% else %}
@@ -103,12 +104,12 @@
                 <div id="gradingWait" {% if sub.ai_status == 'error' %}hidden{% endif %}>
                     <div class="spinner"></div>
                     <b>AI 老師正在聽你的錄音並評分…</b>
-                    <p style="color:#7f8c8d;font-size:14px">大約需要 1–2 分鐘，請不要關掉這一頁。</p>
+                    <p style="color:var(--muted);font-size:14px">大約需要 1–2 分鐘，請不要關掉這一頁。</p>
                 </div>
                 <div class="errbox" id="gradingErr" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ sub.ai_error or '' }}</div>
-                <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>🔁 再請 AI 老師評分一次</button>
+                <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ icon('refresh') }} 再請 AI 老師評分一次</button>
             {% else %}
-                <div class="errbox">🔑 AI 老師還沒設定，這次的錄音已經存起來了。<br>
+                <div class="errbox">{{ icon('key') }} AI 老師還沒設定，這次的錄音已經存起來了。<br>
                     請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，再重新整理這一頁就會開始評分。</div>
             {% endif %}
         </div>
@@ -116,7 +117,7 @@
 
     {% if result %}
     <div class="sheet">
-        <h2 class="sec" style="margin-top:0">📋 四項評分</h2>
+        <h2 class="sec" style="margin-top:0">{{ icon('clipboard') }} 四項評分</h2>
         {% for k, en, zh in criteria %}{% set c = result.criteria[k] %}
         <div class="crit">
             <h3><span>{{ zh }}<span class="en">{{ en }}</span></span><span class="b">{{ c.band }}</span></h3>
@@ -126,16 +127,16 @@
         </div>
         {% endfor %}
 
-        <h2 class="sec">🧑‍🏫 老師總評</h2>
+        <h2 class="sec">{{ icon('teacher') }} 老師總評</h2>
         <p style="line-height:1.85">{{ result.summary }}</p>
 
         {% if result.next_steps %}
-        <h2 class="sec">🎯 想升一級，先改這幾件事</h2>
+        <h2 class="sec">{{ icon('target') }} 想升一級，先改這幾件事</h2>
         <ol style="line-height:1.9">{% for s in result.next_steps %}<li>{{ s }}</li>{% endfor %}</ol>
         {% endif %}
 
         {% if result.pronunciation %}
-        <h2 class="sec">🔊 發音要加強的地方</h2>
+        <h2 class="sec">{{ icon('volume') }} 發音要加強的地方</h2>
         <table class="err">
             <tr><th style="width:24%">字或片語</th><th style="width:38%">問題</th><th>怎麼練</th></tr>
             {% for e in result.pronunciation %}<tr><td class="c">{{ e.item }}</td><td>{{ e.issue }}</td><td>{{ e.tip }}</td></tr>{% endfor %}
@@ -143,7 +144,7 @@
         {% endif %}
 
         {% if result.errors %}
-        <h2 class="sec">✏️ 文法與用字訂正</h2>
+        <h2 class="sec">{{ icon('pencil') }} 文法與用字訂正</h2>
         <table class="err">
             <tr><th style="width:32%">你說的</th><th style="width:32%">建議改法</th><th>說明</th></tr>
             {% for e in result.errors %}<tr><td class="o">{{ e.original }}</td><td class="c">{{ e.correction }}</td><td>{{ e.explain }}</td></tr>{% endfor %}
@@ -151,7 +152,7 @@
         {% endif %}
 
         {% if result.model_answer and result.model_answer.text %}{% set mq = test.questions.get(result.model_answer.qid) %}
-        <h2 class="sec">📝 示範回答（Band 7 參考）</h2>
+        <h2 class="sec">{{ icon('exam') }} 示範回答（Band 7 參考）</h2>
         {% if mq %}<p class="prompt">{{ mq.text }}</p>{% endif %}
         <div class="model">{{ result.model_answer.text }}</div>
         {% endif %}
@@ -159,7 +160,7 @@
     {% endif %}
 
     <div class="sheet">
-        <h2 class="sec" style="margin-top:0">🎧 你的錄音與逐字稿</h2>
+        <h2 class="sec" style="margin-top:0">{{ icon('headphones') }} 你的錄音與逐字稿</h2>
         {% if not result %}<p class="note">逐字稿會在 AI 老師評分後出現。</p>{% endif %}
         {% for part in (1, 2, 3) %}
         <h3 style="margin:16px 0 4px">Part {{ part }}</h3>
@@ -181,8 +182,8 @@
         {% endfor %}
     </div>
 
-    <p style="color:#95a5a6;font-size:12px;text-align:center;margin:10px 0 30px">
-        ⚠️ 本頁分數為 AI 模擬估分，不代表正式雅思考試成績。{% if result %}評分模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
+    <p style="color:var(--muted-2);font-size:12px;text-align:center;margin:10px 0 30px">
+        {{ icon('alert') }} 本頁分數為 AI 模擬估分，不代表正式雅思考試成績。{% if result %}評分模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 <script>

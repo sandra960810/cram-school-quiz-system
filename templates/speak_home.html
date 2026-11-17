@@ -4,38 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>口說題庫</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
-        .banner { background: linear-gradient(135deg, #76d7c4, #148f77); color: #fff; padding: 22px 26px;
-                  border-radius: 14px; margin-bottom: 20px; }
+        .banner { background: var(--hero); color: var(--hero-ink); padding: 22px 26px;
+                  border-radius: 14px; margin-bottom: 20px; box-shadow: var(--edge-hero); }
         .banner h1 { margin: 0 0 6px; font-size: 24px; }
         .banner p { margin: 0; opacity: .95; line-height: 1.7; font-size: 14px; }
-        .disclaimer { background: #fdf2e9; border: 2px solid #f5cba7; color: #873600; border-radius: 10px;
+        .disclaimer { background: var(--warn-50); border: 2px solid var(--warn-300); color: var(--warn-ink); border-radius: 10px;
                       padding: 12px 16px; font-size: 14px; line-height: 1.8; margin-bottom: 14px; }
-        .hint { background: #eaf2fb; color: #2471a3; border-radius: 10px; padding: 12px 16px;
+        .hint { background: var(--primary-50); color: var(--primary); border-radius: 10px; padding: 12px 16px;
                 font-size: 13px; line-height: 1.8; margin-bottom: 18px; }
-        .warn { background: #fadbd8; color: #922b21; border-radius: 10px; padding: 12px 16px;
+        .warn { background: var(--bad-50); color: var(--bad-ink); border-radius: 10px; padding: 12px 16px;
                 font-size: 14px; line-height: 1.8; margin-bottom: 18px; }
         .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 22px; }
-        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06);
-                 border-top: 4px solid #148f77; text-decoration: none; color: #2c3e50; display: block; }
-        a.tcard:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,.12); }
+        .tcard { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: var(--edge);
+                 border-top: 4px solid var(--primary); text-decoration: none; color: var(--ink); display: block; }
+        a.tcard:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
         .tcard .tt { font-size: 18px; font-weight: bold; margin-bottom: 6px; }
-        .tcard .topics { font-size: 13px; color: #7f8c8d; line-height: 1.7; min-height: 44px; }
+        .tcard .topics { font-size: 13px; color: var(--muted); line-height: 1.7; min-height: 44px; }
         .state { margin-top: 10px; font-size: 13px; font-weight: bold; display: inline-block; padding: 3px 12px; border-radius: 12px; }
-        .state.ok { background: #d5f5e3; color: #1e8449; }
-        .state.best { background: #eaf2fb; color: #2471a3; margin-left: 6px; }
-        .soon { opacity: .55; border-top-color: #bdc3c7; }
-        .soon .state { background: #ecf0f1; color: #7f8c8d; }
-        .panel { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+        .state.ok { background: var(--ok-50); color: var(--ok); }
+        .state.best { background: var(--primary-50); color: var(--primary); margin-left: 6px; }
+        .soon { opacity: .55; border-top-color: var(--line-strong); }
+        .soon .state { background: var(--surface-2); color: var(--muted); }
+        .panel { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: var(--edge); }
         .panel h2 { margin: 0 0 10px; font-size: 17px; }
         .hrow { display: flex; justify-content: space-between; align-items: center; padding: 9px 4px;
-                border-bottom: 1px solid #f0f2f5; font-size: 14px; color: #2c3e50; text-decoration: none; }
+                border-bottom: 1px solid var(--bg); font-size: 14px; color: var(--ink); text-decoration: none; }
         .hrow:last-child { border-bottom: none; }
-        .hrow .when { color: #95a5a6; font-size: 12px; margin-left: 8px; }
-        .band { font-weight: bold; padding: 3px 10px; border-radius: 10px; background: #eaf2fb; color: #2471a3; }
-        .band.none { background: #ecf0f1; color: #7f8c8d; font-weight: normal; }
+        .hrow .when { color: var(--muted-2); font-size: 12px; margin-left: 8px; }
+        .band { font-weight: bold; padding: 3px 10px; border-radius: 10px; background: var(--primary-50); color: var(--primary); }
+        .band.none { background: var(--surface-2); color: var(--muted); font-weight: normal; }
     </style>
 </head>
 <body>
@@ -45,29 +46,29 @@
     </div>
 
     <div class="banner">
-        <h1>🗣️ 雅思口說題庫</h1>
+        <h1>{{ icon('speech') }} 雅思口說題庫</h1>
         <p>{{ student.name }}，每一回比照正式考試：Part 1 訪談、Part 2 題卡（1 分鐘準備、說 1–2 分鐘）、Part 3 深入討論，
            全程約 11–14 分鐘。考官用語音發問，你用麥克風回答；交卷後由 AI 老師辨識你的語音，依四項評分標準嚴格評分，附逐字稿與評語。</p>
     </div>
 
-    <div class="disclaimer">⚠️ <b>AI 老師的評分不等於真實考試成績。</b>這只是依照公開評分標準所做的模擬估分，
+    <div class="disclaimer">{{ icon('alert') }} <b>AI 老師的評分不等於真實考試成績。</b>這只是依照公開評分標準所做的模擬估分，
         正式考試由受過訓練的考官評分，結果可能不同。請把分數當作練習參考，重點放在評語指出的問題。</div>
 
     {% if ai_ready %}
-    <div class="hint" style="background:#e9f7ef;color:#1e8449">🤖 目前的 AI 老師：<b>{{ ai_label }}</b>
+    <div class="hint" style="background:var(--ok-50);color:var(--ok)">{{ icon('bot') }} 目前的 AI 老師：<b>{{ ai_label }}</b>
         {% if provider == 'gemini' %}（直接聽錄音辨識語音，發音也會真的聽過再評分）
         {% else %}（Claude 聽不到錄音，會用瀏覽器的語音辨識轉成文字再評分，發音分數只能推估；建議用 Edge）{% endif %}</div>
     {% endif %}
     {% if provider == 'gemini' %}
-    <div class="warn">🔒 <b>錄音隱私提醒：</b>交卷後錄音會傳給 Google Gemini。<b>免費方案送出的內容可能會被 Google 用來改善服務，也可能有人工審閱。</b>
+    <div class="warn">{{ icon('lock') }} <b>錄音隱私提醒：</b>交卷後錄音會傳給 Google Gemini。<b>免費方案送出的內容可能會被 Google 用來改善服務，也可能有人工審閱。</b>
         請不要在錄音裡說出身分證字號、住址、電話等私人資料，問姓名時用英文名或化名即可。</div>
     {% endif %}
     {% if not ai_ready %}
-    <div class="warn">🔑 AI 老師還沒設定，現在交卷只會存下錄音、不會批改。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，
+    <div class="warn">{{ icon('key') }} AI 老師還沒設定，現在交卷只會存下錄音、不會批改。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，
         之後打開交卷紀錄就能補批改。</div>
     {% endif %}
 
-    <div class="hint">💡 作答建議：找安靜的地方、戴耳機麥克風效果最好。Part 1 每題回答 2–3 句；Part 2 至少說滿 1 分鐘，
+    <div class="hint">{{ icon('bulb') }} 作答建議：找安靜的地方、戴耳機麥克風效果最好。Part 1 每題回答 2–3 句；Part 2 至少說滿 1 分鐘，
         最好接近 2 分鐘；Part 3 要說出理由與例子。手機也可以考，第一次會詢問麥克風權限，請按「允許」。</div>
 
     <div class="tgrid">
@@ -89,7 +90,7 @@
     </div>
 
     <div class="panel">
-        <h2>🕑 交卷紀錄</h2>
+        <h2>{{ icon('clock') }} 交卷紀錄</h2>
         {% if history %}
             {% for w in history %}
             <a class="hrow" href="{{ url_for('speaking_result', student_id=student.id, sub_id=w.id) }}">
@@ -99,7 +100,7 @@
             </a>
             {% endfor %}
         {% else %}
-            <div style="color:#95a5a6;font-size:14px">還沒有交卷紀錄。</div>
+            <div style="color:var(--muted-2);font-size:14px">還沒有交卷紀錄。</div>
         {% endif %}
     </div>
 </div>

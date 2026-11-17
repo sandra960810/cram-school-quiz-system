@@ -156,18 +156,18 @@ with app.app_context():
 # 官方主題。資料庫裡的 theme 只要以「編號 + 空白」開頭就歸到這個主題，
 # 例如 "01 教育與學習" 會算進 01。名稱以這裡為準，資料庫裡的舊名稱不影響顯示。
 OFFICIAL_THEMES = [
-    {"id": "01", "name": "教育與職涯", "desc": "教育制度、學術研究、就業、職場發展", "icon": "🎓"},
-    {"id": "02", "name": "環境與自然生態", "desc": "氣候變遷、環境污染、能源、動物保育", "icon": "🌍"},
-    {"id": "03", "name": "科技與科學", "desc": "人工智慧、數位科技、科學研究、創新", "icon": "🔬"},
-    {"id": "04", "name": "健康與心理", "desc": "醫療、公共衛生、心理健康、人類行為", "icon": "🏥"},
-    {"id": "05", "name": "社會與文化", "desc": "社會議題、文化差異、家庭、全球化", "icon": "🤝"},
-    {"id": "06", "name": "經濟與商業", "desc": "經濟發展、金融、消費、企業經營", "icon": "💰"},
-    {"id": "07", "name": "政府與法律", "desc": "公共政策、社會福利、犯罪、司法制度", "icon": "⚖️"},
-    {"id": "08", "name": "城市與交通", "desc": "都市化、住房、交通、公共建設", "icon": "🏙️"},
-    {"id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "🎨"},
-    {"id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "✈️"},
-    {"id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "📖"},
-    {"id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "✍️"},
+    {"id": "01", "name": "教育與職涯", "desc": "教育制度、學術研究、就業、職場發展", "icon": "cap"},
+    {"id": "02", "name": "環境與自然生態", "desc": "氣候變遷、環境污染、能源、動物保育", "icon": "globe"},
+    {"id": "03", "name": "科技與科學", "desc": "人工智慧、數位科技、科學研究、創新", "icon": "microscope"},
+    {"id": "04", "name": "健康與心理", "desc": "醫療、公共衛生、心理健康、人類行為", "icon": "heart"},
+    {"id": "05", "name": "社會與文化", "desc": "社會議題、文化差異、家庭、全球化", "icon": "users"},
+    {"id": "06", "name": "經濟與商業", "desc": "經濟發展、金融、消費、企業經營", "icon": "coins"},
+    {"id": "07", "name": "政府與法律", "desc": "公共政策、社會福利、犯罪、司法制度", "icon": "scale"},
+    {"id": "08", "name": "城市與交通", "desc": "都市化、住房、交通、公共建設", "icon": "building"},
+    {"id": "09", "name": "媒體與藝術", "desc": "新聞、廣告、社群媒體、藝術娛樂", "icon": "palette"},
+    {"id": "10", "name": "食品與觀光", "desc": "食品安全、農業、飲食文化、觀光產業", "icon": "plane"},
+    {"id": "11", "name": "雅思學術高頻字彙", "desc": "4000 Academic Word List，依字首 A–Z 分頁學習", "icon": "book-open"},
+    {"id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "pen"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -243,7 +243,7 @@ def build_theme_list(student):
             by_key[oid]["weak"] += weak.get(theme_name, 0)
         else:
             extras.append({"key": theme_name, "label": theme_name, "desc": "其他字庫",
-                           "icon": "🗂️", "total": total, "unlocked": unlocked.get(theme_name, 0),
+                           "icon": "folder", "total": total, "unlocked": unlocked.get(theme_name, 0),
                            "weak": weak.get(theme_name, 0)})
     return themes + extras
 
@@ -456,7 +456,7 @@ def learn_favorites_study(student_id):
     fav = {v.word.lower() for v in pool}
     back_url = url_for('learn_favorites', student_id=student_id)
     return render_template('ielts.html', words=[word_payload(v, theme_label_of(v), fav, status) for v in picked],
-                           student_id=student_id, theme={"label": "⭐ 我的收藏"}, mode='fav', letter=None,
+                           student_id=student_id, theme={"label": "我的收藏"}, mode='fav', letter=None,
                            back_url=back_url, again_url=url_for('learn_favorites_study', student_id=student_id),
                            home_url=url_for('learn_home', student_id=student_id), back_label='返回我的收藏')
 
@@ -563,6 +563,10 @@ RETIRED_TEST_KEYS = ('test3',)
 TAIPEI = timezone(timedelta(hours=8))
 
 
+import icons
+icons.init_app(app)
+
+
 @app.template_filter('twtime')
 def twtime(dt, fmt='%m/%d %H:%M'):
     if not dt:
@@ -572,13 +576,13 @@ def twtime(dt, fmt='%m/%d %H:%M'):
     return dt.astimezone(TAIPEI).strftime(fmt)
 
 SKILLS = [
-    {'key': 'listening', 'name': '聽力', 'icon': '🎧', 'endpoint': 'listen_home',
+    {'key': 'listening', 'name': '聽力', 'icon': 'headphones', 'endpoint': 'listen_home',
      'desc': '完整 Parts 1–4，共 40 題，交卷自動批改並附逐題解析'},
-    {'key': 'reading', 'name': '閱讀', 'icon': '📖', 'endpoint': 'read_home',
+    {'key': 'reading', 'name': '閱讀', 'icon': 'book-open', 'endpoint': 'read_home',
      'desc': '三篇文章共 40 題，題型比照正式考試'},
-    {'key': 'writing', 'name': '寫作', 'icon': '✍️', 'endpoint': 'writing_home',
+    {'key': 'writing', 'name': '寫作', 'icon': 'pen', 'endpoint': 'writing_home',
      'desc': '比照電腦考作答介面，Task 1＋Task 2 共 60 分鐘，AI 老師依四項標準批改'},
-    {'key': 'speaking', 'name': '口說', 'icon': '🗣️', 'endpoint': 'speaking_home',
+    {'key': 'speaking', 'name': '口說', 'icon': 'speech', 'endpoint': 'speaking_home',
      'desc': '比照正式考試 Part 1–3，麥克風錄音作答，AI 老師辨識語音並依四項標準評分'},
 ]
 SKILL_BY_KEY = {s['key']: s for s in SKILLS}

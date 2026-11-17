@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ test.title }}｜閱讀測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
     <style>
         /* 比照電腦考：左邊文章、右邊題目，各自捲動 */
         .exam-wrap.reading { max-width: 1400px; }
         .ptabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-        .ptabs button { font-family: inherit; font-size: 15px; border: 2px solid #d5d8dc; background: #fff;
-                        border-radius: 8px; padding: 7px 16px; cursor: pointer; color: #2c3e50; }
-        .ptabs button.on { background: #3d3d3d; border-color: #3d3d3d; color: #fff; font-weight: bold; }
+        .ptabs button { font-family: inherit; font-size: 15px; border: 2px solid var(--line); background: #fff;
+                        border-radius: 8px; padding: 7px 16px; cursor: pointer; color: var(--ink); }
+        .ptabs button.on { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: bold; }
         .ptabs .cnt { font-size: 12px; opacity: .75; margin-left: 6px; }
         .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .split .sheet { margin-bottom: 0; height: calc(100vh - 300px); min-height: 420px; overflow-y: auto; }
         .passage h2 { margin: 0 0 6px; font-size: 22px; }
-        .passage .lead { color: #7f8c8d; font-size: 14px; margin: 0 0 18px; line-height: 1.7; }
+        .passage .lead { color: var(--muted); font-size: 14px; margin: 0 0 18px; line-height: 1.7; }
         .passage .para { display: flex; gap: 12px; margin: 0 0 14px; line-height: 1.85; text-align: justify; font-size: 16px; }
-        .passage .para .lab { font-weight: bold; min-width: 16px; color: #1e8449; }
+        .passage .para .lab { font-weight: bold; min-width: 16px; color: var(--ok); }
         .match-grid { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; }
         .match-grid .mno { font-weight: bold; }
         .note-sec h4 { margin: 14px 0 6px; font-size: 16px; }
@@ -34,21 +35,21 @@
         .passage-panel { display: none; }
         .passage-panel.on { display: block; }
         .pnav { display: flex; justify-content: space-between; margin-top: 18px; }
-        .pnav button { font-family: inherit; font-size: 14px; border: 2px solid #d5d8dc; background: #fff;
+        .pnav button { font-family: inherit; font-size: 14px; border: 2px solid var(--line); background: #fff;
                        border-radius: 8px; padding: 6px 14px; cursor: pointer; }
         /* 手機／窄螢幕：一次只顯示「文章」或「題目」，用上方切換鈕對照，不必上下捲一大段 */
         .vswitch { display: none; }
         @media (max-width: 860px) {
             .split { grid-template-columns: 1fr; }
             .split .sheet { height: auto; min-height: 0; }
-            .rtop { position: sticky; top: 0; z-index: 6; background: #f0f2f5; margin: 0 -10px; padding: 8px 10px 8px; }
+            .rtop { position: sticky; top: 0; z-index: 6; background: var(--bg); margin: 0 -10px; padding: 8px 10px 8px; }
             .ptabs { margin-bottom: 8px; gap: 6px; flex-wrap: nowrap; }
             .ptabs button { flex: 1; padding: 6px 4px; font-size: 14px; line-height: 1.25; }
             .ptabs .cnt { display: block; margin: 0; font-size: 11px; }
-            .vswitch { display: flex; background: #dfe3e8; border-radius: 10px; padding: 3px; }
+            .vswitch { display: flex; background: var(--line); border-radius: 10px; padding: 3px; }
             .vswitch button { flex: 1; font-family: inherit; font-size: 15px; border: none; background: none;
-                              border-radius: 8px; padding: 8px 6px; color: #566573; cursor: pointer; font-weight: bold; }
-            .vswitch button.on { background: #fff; color: #1e8449; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+                              border-radius: 8px; padding: 8px 6px; color: var(--ink-2); cursor: pointer; font-weight: bold; }
+            .vswitch button.on { background: #fff; color: var(--ok); box-shadow: var(--edge); }
             .vswitch .cnt { font-size: 12px; font-weight: normal; margin-left: 4px; }
             body.view-passage .split > section.sheet { display: none; }
             body.view-questions .split > article.sheet { display: none; }
@@ -56,7 +57,7 @@
             .passage .para { text-align: left; font-size: 16px; gap: 8px; }
             .judge select { margin-left: 0; }
             .to-q { display: block; width: 100%; margin-top: 8px; font-family: inherit; font-size: 15px; font-weight: bold;
-                    border: 2px solid #1e8449; color: #1e8449; background: #fff; border-radius: 10px; padding: 10px; cursor: pointer; }
+                    border: 2px solid var(--ok); color: var(--ok); background: #fff; border-radius: 10px; padding: 10px; cursor: pointer; }
         }
         @media (min-width: 861px) { .to-q { display: none; } }
     </style>
@@ -81,8 +82,8 @@
         {% endfor %}
     </div>
     <div class="vswitch" id="vswitch" role="tablist" aria-label="切換文章與題目">
-        <button type="button" data-v="passage" class="on">📄 文章</button>
-        <button type="button" data-v="questions">✏️ 題目<span class="cnt" id="vcnt"></span></button>
+        <button type="button" data-v="passage" class="on">{{ icon('file') }} 文章</button>
+        <button type="button" data-v="questions">{{ icon('pencil') }} 題目<span class="cnt" id="vcnt"></span></button>
     </div>
     </div>
 
