@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ test.title }}｜口說評分</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .disclaimer { background: #fdf2e9; border: 2px solid #e59866; color: #873600; border-radius: 10px;
+                      padding: 14px 18px; font-size: 15px; line-height: 1.8; margin-bottom: 18px; }
+        .disclaimer b { font-size: 16px; }
+        .overall { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+        .bandcard { background: #fff; border-radius: 12px; padding: 16px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+                    flex: 1; min-width: 180px; text-align: center; }
+        .bandcard .lab { font-size: 13px; color: #7f8c8d; }
+        .bandcard .val { font-size: 40px; font-weight: bold; color: #5b48a2; line-height: 1.3; }
+        .bandcard.main { border: 3px solid #5b48a2; }
+        .bandcard .sub { font-size: 12px; color: #95a5a6; }
+        .ttabs { display: flex; gap: 8px; margin-bottom: 12px; }
+        .ttabs button { font-family: inherit; font-size: 15px; border: 2px solid #d5d8dc; background: #fff;
+                        border-radius: 8px; padding: 7px 16px; cursor: pointer; }
+        .ttabs button.on { background: #3d3d3d; border-color: #3d3d3d; color: #fff; font-weight: bold; }
+        .tpanel { display: none; } .tpanel.on { display: block; }
+        .crit { border: 1px solid #e5e8e8; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; }
+        .crit h3 { margin: 0 0 6px; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .crit h3 .b { background: #5b48a2; color: #fff; border-radius: 8px; padding: 2px 12px; font-size: 18px; }
+        .crit .en { color: #95a5a6; font-size: 12px; font-weight: normal; margin-left: 6px; }
+        .crit p { margin: 4px 0 8px; line-height: 1.8; }
+        .crit ul { margin: 0 0 4px; padding-left: 22px; line-height: 1.8; }
+        .good { color: #1e8449; } .bad { color: #ba4a00; }
+        table.err { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table.err th, table.err td { border: 1px solid #e5e8e8; padding: 8px 10px; vertical-align: top; text-align: left; line-height: 1.6; }
+        table.err th { background: #f8f9f9; }
+        table.err .o { color: #c0392b; text-decoration: line-through; text-decoration-color: rgba(192,57,43,.5); }
+        table.err .c { color: #1e8449; font-weight: bold; }
+        .model { background: #f4f1fb; border-left: 5px solid #5b48a2; padding: 12px 16px; line-height: 1.85; white-space: pre-wrap; }
+        .essay { white-space: pre-wrap; line-height: 1.85; font-size: 15.5px; background: #fcfcfc;
+                 border: 1px solid #e5e8e8; border-radius: 8px; padding: 14px 18px; }
+        .prompt { color: #555; font-style: italic; line-height: 1.7; margin: 0 0 10px; }
+        .wc { font-size: 13px; font-weight: bold; margin: 6px 0; }
+        .grading { text-align: center; padding: 30px 10px; }
+        .spinner { width: 46px; height: 46px; border: 5px solid #e8e3f5; border-top-color: #5b48a2; border-radius: 50%;
+                   animation: spin 1s linear infinite; margin: 0 auto 14px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .errbox { background: #fadbd8; color: #922b21; border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
+        h2.sec { font-size: 18px; margin: 22px 0 10px; }
+            .qa { border-bottom: 1px solid #f0f2f5; padding: 12px 0; }
+        .qa:last-child { border-bottom: none; }
+        .qa .qq { font-weight: bold; line-height: 1.6; }
+        .qa .qq .tag { display: inline-block; font-size: 12px; background: #eaf2fb; color: #2471a3; border-radius: 8px;
+                       padding: 1px 8px; margin-right: 6px; font-weight: normal; }
+        .qa .dur { color: #95a5a6; font-size: 12px; font-weight: normal; margin-left: 6px; }
+        .qa audio { width: 100%; max-width: 420px; height: 36px; margin: 6px 0 2px; display: block; }
+        .qa .tr { background: #fcfcfc; border: 1px solid #e5e8e8; border-radius: 8px; padding: 8px 12px; line-height: 1.7; margin-top: 4px; }
+        .qa .tr.none { color: #95a5a6; }
+        .qa.best { background: #f4f1fb; border-radius: 8px; padding: 12px; }
+        .card2 { border: 2px solid #333; background: #fffdf5; padding: 12px 16px; margin: 6px 0; line-height: 1.7; }
+        .note { font-size: 13px; color: #7f8c8d; line-height: 1.7; }
+        @media (max-width: 640px) {
+            .bandcard { box-sizing: border-box; min-width: calc(50% - 7px); flex-basis: calc(50% - 7px); padding: 12px; }
+            .bandcard.main { flex-basis: 100%; }
+            .bandcard .val { font-size: 32px; }
+            table.err { font-size: 13px; }
+            table.err th, table.err td { padding: 6px; }
+        }
+    </style>
+</head>
+<body>
+<div class="exam-wrap wide">
+    <div class="nav-row">
+        <a href="{{ url_for('speaking_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>口說題庫</a>
+        <a href="{{ url_for('speaking_test', student_id=student.id, test_key=test.key) }}" class="nav-next">再考一次<span class="arrow">→</span></a>
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">{{ test.title }}</span>
+        <span class="exam-part">AI 老師評分</span>
+        <span style="color:#7f8c8d;font-size:14px">交卷 {{ sub.submitted_at|twtime }}｜全程 {{ (sub.seconds_used // 60) }} 分 {{ sub.seconds_used % 60 }} 秒</span>
+    </div>
+
+    <div class="disclaimer">⚠️ <b>AI 評分不等於真實考試成績，只是模擬。</b><br>
+        分數是 AI 依照雅思公開的四項口說評分標準所做的估計，刻意從嚴評分；正式考試由受過訓練的考官面對面評分，結果可能不同。
+        請把分數當作練習參考，真正有用的是下面指出的問題與改法。</div>
+
+    {% if result %}
+        <div class="overall">
+            <div class="bandcard main"><div class="lab">口說總分（AI 模擬估分）</div><div class="val">{{ result.overall }}</div>
+                <div class="sub">四項平均</div></div>
+            {% for k, en, zh in criteria %}
+            <div class="bandcard"><div class="lab">{{ zh }}</div><div class="val">{{ result.criteria[k].band }}</div>
+                <div class="sub">{{ en }}{% if k == 'p' and result.transcript_source == 'browser' %}（推估）{% endif %}</div></div>
+            {% endfor %}
+        </div>
+        {% if result.transcript_source == 'browser' %}
+        <div class="note" style="margin:-8px 0 14px">ℹ️ 這次由 Claude 評分：逐字稿是瀏覽器語音辨識的結果（可能有聽錯的字），發音分數只能從辨識結果推估。
+            想要 AI 真正聽發音，可以改設定 Gemini 金鑰。</div>
+        {% endif %}
+    {% else %}
+        <div class="sheet grading" id="gradingBox">
+            {% if ai_ready %}
+                <div id="gradingWait" {% if sub.ai_status == 'error' %}hidden{% endif %}>
+                    <div class="spinner"></div>
+                    <b>AI 老師正在聽你的錄音並評分…</b>
+                    <p style="color:#7f8c8d;font-size:14px">大約需要 1–2 分鐘，請不要關掉這一頁。</p>
+                </div>
+                <div class="errbox" id="gradingErr" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ sub.ai_error or '' }}</div>
+                <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>🔁 再請 AI 老師評分一次</button>
+            {% else %}
+                <div class="errbox">🔑 AI 老師還沒設定，這次的錄音已經存起來了。<br>
+                    請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 輸入 API 金鑰，再重新整理這一頁就會開始評分。</div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if result %}
+    <div class="sheet">
+        <h2 class="sec" style="margin-top:0">📋 四項評分</h2>
+        {% for k, en, zh in criteria %}{% set c = result.criteria[k] %}
+        <div class="crit">
+            <h3><span>{{ zh }}<span class="en">{{ en }}</span></span><span class="b">{{ c.band }}</span></h3>
+            <p>{{ c.reason }}</p>
+            {% if c.strengths %}<b class="good">做得好的地方</b><ul>{% for s in c.strengths %}<li>{{ s }}</li>{% endfor %}</ul>{% endif %}
+            {% if c.weaknesses %}<b class="bad">被扣分的地方</b><ul>{% for s in c.weaknesses %}<li>{{ s }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        {% endfor %}
+
+        <h2 class="sec">🧑‍🏫 老師總評</h2>
+        <p style="line-height:1.85">{{ result.summary }}</p>
+
+        {% if result.next_steps %}
+        <h2 class="sec">🎯 想升一級，先改這幾件事</h2>
+        <ol style="line-height:1.9">{% for s in result.next_steps %}<li>{{ s }}</li>{% endfor %}</ol>
+        {% endif %}
+
+        {% if result.pronunciation %}
+        <h2 class="sec">🔊 發音要加強的地方</h2>
+        <table class="err">
+            <tr><th style="width:24%">字或片語</th><th style="width:38%">問題</th><th>怎麼練</th></tr>
+            {% for e in result.pronunciation %}<tr><td class="c">{{ e.item }}</td><td>{{ e.issue }}</td><td>{{ e.tip }}</td></tr>{% endfor %}
+        </table>
+        {% endif %}
+
+        {% if result.errors %}
+        <h2 class="sec">✏️ 文法與用字訂正</h2>
+        <table class="err">
+            <tr><th style="width:32%">你說的</th><th style="width:32%">建議改法</th><th>說明</th></tr>
+            {% for e in result.errors %}<tr><td class="o">{{ e.original }}</td><td class="c">{{ e.correction }}</td><td>{{ e.explain }}</td></tr>{% endfor %}
+        </table>
+        {% endif %}
+
+        {% if result.model_answer and result.model_answer.text %}{% set mq = test.questions.get(result.model_answer.qid) %}
+        <h2 class="sec">📝 示範回答（Band 7 參考）</h2>
+        {% if mq %}<p class="prompt">{{ mq.text }}</p>{% endif %}
+        <div class="model">{{ result.model_answer.text }}</div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="sheet">
+        <h2 class="sec" style="margin-top:0">🎧 你的錄音與逐字稿</h2>
+        {% if not result %}<p class="note">逐字稿會在 AI 老師評分後出現。</p>{% endif %}
+        {% for part in (1, 2, 3) %}
+        <h3 style="margin:16px 0 4px">Part {{ part }}</h3>
+        {% if part == 2 %}
+        <div class="card2"><b>{{ test.part2.cue }}</b><br>You should say:
+            <ul style="margin:2px 0">{% for p in test.part2.points %}<li>{{ p }}</li>{% endfor %}</ul>{{ test.part2.final }}</div>
+        {% if sub.notes %}<div class="note">你的準備筆記：{{ sub.notes }}</div>{% endif %}
+        {% endif %}
+        {% for s in test.steps if s.qid and s.part == part %}{% set a = answers.get(s.qid) %}
+        <div class="qa {{ 'best' if result and result.model_answer and result.model_answer.qid == s.qid }}">
+            <div class="qq"><span class="tag">{{ s.topic }}</span>{{ 'Long turn（1–2 分鐘）' if s.kind == 'p2' else s.text }}
+                {% if a %}<span class="dur">{{ a.seconds }} 秒</span>{% endif %}</div>
+            {% if a and a.file %}<audio controls preload="none" src="{{ url_for('speaking_audio', student_id=student.id, sub_id=sub.id, filename=a.file) }}"></audio>{% endif %}
+            {% if result %}{% set tr = result.transcripts.get(s.qid, '') %}
+            <div class="tr {{ 'none' if not tr }}">{{ tr or '（沒有辨識到內容）' }}</div>
+            {% elif not a %}<div class="tr none">（沒有作答）</div>{% endif %}
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+
+    <p style="color:#95a5a6;font-size:12px;text-align:center;margin:10px 0 30px">
+        ⚠️ 本頁分數為 AI 模擬估分，不代表正式雅思考試成績。{% if result %}評分模型：{{ result.model }}，{{ sub.graded_at|twtime }}{% endif %}</p>
+</div>
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+(function () {
+    const btn = document.getElementById('gradeBtn');
+    if (!btn) return;
+    const wait = document.getElementById('gradingWait'), err = document.getElementById('gradingErr');
+    function grade() {
+        wait.hidden = false; err.hidden = true; btn.hidden = true;
+        fetch({{ url_for('speaking_grade', student_id=student.id, sub_id=sub.id)|tojson }}, { method: 'POST' })
+            .then(r => r.json().catch(() => ({ ok: false, error: '伺服器沒有回應正確的資料。' })))
+            .then(d => {
+                if (d.ok) { location.reload(); return; }
+                wait.hidden = true; err.hidden = false; btn.hidden = false;
+                err.innerText = d.error || '評分失敗，請再試一次。';
+            })
+            .catch(() => { wait.hidden = true; err.hidden = false; btn.hidden = false; err.innerText = '連不上網站伺服器，請確認 run.bat 的視窗還開著。'; });
+    }
+    btn.addEventListener('click', grade);
+    {% if ai_ready and sub.ai_status == 'pending' %}grade();{% endif %}
+})();
+</script>
+</body>
+</html>

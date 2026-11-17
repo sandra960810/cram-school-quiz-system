@@ -3,17 +3,20 @@ import os
 import random
 from datetime import datetime, timedelta, timezone
 
-from flask import Flask, request, render_template, redirect, jsonify, url_for, abort
+from flask import Flask, request, render_template, redirect, jsonify, url_for, abort, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 import listening_bank
 import reading_bank
 import writing_bank
+import speaking_bank
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# 口說測驗交卷時一次上傳整場錄音（約 3–8MB），上限放寬到 60MB
+app.config['MAX_CONTENT_LENGTH'] = 60 * 1024 * 1024
 db = SQLAlchemy(app)
 
 
@@ -105,6 +108,23 @@ class WritingSubmission(db.Model):
     ai_error = db.Column(db.String(300))
     ai_result = db.Column(db.Text)          # JSON：各 Task 的四項分數與評語
     overall = db.Column(db.Float)           # AI 估計的寫作總分
+    graded_at = db.Column(db.DateTime)
+
+
+class SpeakingSubmission(db.Model):
+    """一次口說模擬考的交卷紀錄：每題的錄音檔、瀏覽器辨識的逐字稿與 AI 老師的批改結果。
+    錄音檔存在 instance/speaking_audio/<id>/（不進 git）。"""
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    test_key = db.Column(db.String(20), nullable=False)
+    answers = db.Column(db.Text)            # JSON：[{qid, seconds, file, transcript}]
+    notes = db.Column(db.Text, default='')  # Part 2 準備時寫的筆記
+    seconds_used = db.Column(db.Integer, default=0)
+    submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
+    ai_status = db.Column(db.String(20), default='pending')   # pending / done / error
+    ai_error = db.Column(db.String(300))
+    ai_result = db.Column(db.Text)          # JSON：四項分數、評語、逐字稿
+    overall = db.Column(db.Float)           # AI 估計的口說總分
     graded_at = db.Column(db.DateTime)
 
 
@@ -558,8 +578,8 @@ SKILLS = [
      'desc': '三篇文章共 40 題，題型比照正式考試'},
     {'key': 'writing', 'name': '寫作', 'icon': '✍️', 'endpoint': 'writing_home',
      'desc': '比照電腦考作答介面，Task 1＋Task 2 共 60 分鐘，AI 老師依四項標準批改'},
-    {'key': 'speaking', 'name': '口說', 'icon': '🗣️', 'endpoint': None,
-     'desc': 'Parts 1–3 題目與計時練習'},
+    {'key': 'speaking', 'name': '口說', 'icon': '🗣️', 'endpoint': 'speaking_home',
+     'desc': '比照正式考試 Part 1–3，麥克風錄音作答，AI 老師辨識語音並依四項標準評分'},
 ]
 SKILL_BY_KEY = {s['key']: s for s in SKILLS}
 
@@ -610,6 +630,11 @@ def bank_summary():
             info['ready_count'] = len(writing_tests)
             info['total_count'] = 10
             info['available'] = bool(writing_tests)
+        elif s['key'] == 'speaking':
+            speaking_tests = speaking_bank.list_tests()
+            info['ready_count'] = len(speaking_tests)
+            info['total_count'] = 10
+            info['available'] = bool(speaking_tests)
         else:
             info['ready_count'] = 0
             info['total_count'] = 10
@@ -1037,6 +1062,142 @@ def writing_grade(student_id, sub_id):
         return jsonify({'ok': False, 'error': str(e)}), 502
     except Exception as e:  # 其他意外：記下來，不讓整頁壞掉
         app.logger.exception('寫作批改失敗')
+        sub.ai_status, sub.ai_error = 'error', f'批改時發生錯誤：{e}'[:300]
+        db.session.commit()
+        return jsonify({'ok': False, 'error': sub.ai_error}), 500
+    sub.ai_result = json.dumps(result, ensure_ascii=False)
+    sub.overall = result['overall']
+    sub.ai_status, sub.ai_error = 'done', None
+    sub.graded_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify({'ok': True, 'overall': sub.overall})
+
+
+# ---------------------------------------------------------------------------
+# 口說題庫：比照正式考試 Part 1–3，錄音交卷後由 AI 老師辨識語音、依四項標準評分
+# ---------------------------------------------------------------------------
+
+def _speaking_rows(student_id):
+    return (SpeakingSubmission.query.filter_by(student_id=student_id)
+            .order_by(SpeakingSubmission.submitted_at.desc()).all())
+
+
+@app.route('/exam/<int:student_id>/speaking')
+def speaking_home(student_id):
+    student = get_student(student_id)
+    history = _speaking_rows(student_id)
+    best = {}
+    for w in history:
+        if w.overall is not None and w.overall > best.get(w.test_key, -1):
+            best[w.test_key] = w.overall
+    return render_template('speak_home.html', student=student, tests=speaking_bank.list_tests(),
+                           best=best, history=history[:10], ai_ready=speaking_bank.ai_ready(),
+                           ai_label=speaking_bank.ai_label(), provider=speaking_bank.ai_config()[0])
+
+
+@app.route('/exam/<int:student_id>/speaking/<test_key>')
+def speaking_test(student_id, test_key):
+    student = get_student(student_id)
+    test = speaking_bank.load_test(test_key)
+    if not test:
+        abort(404, description="找不到這份口說試卷")
+    return render_template('speak_test.html', student=student, test=test,
+                           provider=speaking_bank.ai_config()[0], ai_ready=speaking_bank.ai_ready())
+
+
+@app.route('/exam/<int:student_id>/speaking/<test_key>/submit', methods=['POST'])
+def speaking_submit(student_id, test_key):
+    """交卷：表單裡有 meta（每題秒數與逐字稿的 JSON）和每題一個錄音檔 audio_<qid>。"""
+    get_student(student_id)
+    test = speaking_bank.load_test(test_key)
+    if not test:
+        return jsonify({'ok': False, 'error': '找不到這份口說試卷'}), 404
+    try:
+        meta = json.loads(request.form.get('meta', '{}'))
+        used = max(0, int(request.form.get('seconds_used', 0)))
+    except (ValueError, TypeError):
+        return jsonify({'ok': False, 'error': '交卷資料格式不正確'}), 400
+    sub = SpeakingSubmission(student_id=student_id, test_key=test_key, seconds_used=used,
+                             notes=str(request.form.get('notes', ''))[:3000])
+    db.session.add(sub)
+    db.session.flush()          # 先拿到 id 才能建錄音資料夾
+    folder = speaking_bank.sub_dir(sub.id)
+    os.makedirs(folder, exist_ok=True)
+    answers = []
+    for qid in test['questions']:
+        info = meta.get(qid) if isinstance(meta, dict) else None
+        f = request.files.get('audio_' + qid)
+        if not info and not f:
+            continue
+        info = info if isinstance(info, dict) else {}
+        row = {'qid': qid, 'transcript': str(info.get('transcript', ''))[:5000], 'file': ''}
+        try:
+            row['seconds'] = max(0, min(600, int(info.get('seconds', 0))))
+        except (TypeError, ValueError):
+            row['seconds'] = 0
+        if f:
+            ext = speaking_bank.audio_ext(f.mimetype) or speaking_bank.audio_ext(info.get('mime', ''))
+            if ext:
+                name = f'{qid}.{ext}'
+                f.save(os.path.join(folder, name))
+                row['file'] = name
+        answers.append(row)
+    sub.answers = json.dumps(answers, ensure_ascii=False)
+    db.session.commit()
+    return jsonify({'ok': True, 'url': url_for('speaking_result', student_id=student_id, sub_id=sub.id)})
+
+
+def _speaking_sub(student_id, sub_id):
+    sub = db.session.get(SpeakingSubmission, sub_id)
+    if not sub or sub.student_id != student_id:
+        abort(404, description="找不到這次口說紀錄")
+    return sub
+
+
+@app.route('/exam/<int:student_id>/speaking/audio/<int:sub_id>/<filename>')
+def speaking_audio(student_id, sub_id, filename):
+    _speaking_sub(student_id, sub_id)
+    return send_from_directory(speaking_bank.sub_dir(sub_id), filename,
+                               mimetype=speaking_bank.audio_mime(filename))
+
+
+@app.route('/exam/<int:student_id>/speaking/result/<int:sub_id>')
+def speaking_result(student_id, sub_id):
+    student = get_student(student_id)
+    sub = _speaking_sub(student_id, sub_id)
+    test = speaking_bank.load_test(sub.test_key)
+    if not test:
+        abort(404, description="找不到這份口說試卷")
+    answers = {a['qid']: a for a in json.loads(sub.answers or '[]')}
+    result = json.loads(sub.ai_result) if sub.ai_result else None
+    return render_template('speak_result.html', student=student, sub=sub, test=test, answers=answers,
+                           result=result, criteria=speaking_bank.CRITERIA, ai_ready=speaking_bank.ai_ready())
+
+
+@app.route('/exam/<int:student_id>/speaking/result/<int:sub_id>/grade', methods=['POST'])
+def speaking_grade(student_id, sub_id):
+    """請 AI 老師聽錄音批改（約 1–2 分鐘）。結果存進資料庫，重開不會重複扣費。"""
+    get_student(student_id)
+    sub = _speaking_sub(student_id, sub_id)
+    if sub.ai_status == 'done' and request.args.get('again') != '1':
+        return jsonify({'ok': True})
+    if not speaking_bank.ai_ready():
+        return jsonify({'ok': False, 'error': 'AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。'}), 400
+    test = speaking_bank.load_test(sub.test_key)
+    answers = []
+    for a in json.loads(sub.answers or '[]'):
+        if a['qid'] not in test['questions']:
+            continue
+        path = os.path.join(speaking_bank.sub_dir(sub.id), a['file']) if a.get('file') else ''
+        answers.append({**a, 'path': path if path and os.path.exists(path) else ''})
+    try:
+        result = speaking_bank.grade(test, answers)
+    except RuntimeError as e:
+        sub.ai_status, sub.ai_error = 'error', str(e)[:300]
+        db.session.commit()
+        return jsonify({'ok': False, 'error': str(e)}), 502
+    except Exception as e:  # 其他意外：記下來，不讓整頁壞掉
+        app.logger.exception('口說批改失敗')
         sub.ai_status, sub.ai_error = 'error', f'批改時發生錯誤：{e}'[:300]
         db.session.commit()
         return jsonify({'ok': False, 'error': sub.ai_error}), 500
