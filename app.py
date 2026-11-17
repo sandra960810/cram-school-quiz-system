@@ -196,6 +196,36 @@ OFFICIAL_THEMES = [
     {"course": "TOEIC", "id": "T10", "name": "科技與通訊", "desc": "電腦、網路、軟體、媒體與出版", "icon": "monitor"},
     {"course": "TOEIC", "id": "T11", "name": "生活與健康", "desc": "居家、醫療、天氣、休閒與運動", "icon": "heart"},
     {"course": "TOEIC", "id": "T12", "name": "通用商務字彙", "desc": "各種情境都會用到的動詞、形容詞與副詞", "icon": "book-open"},
+    # 英文零基礎（BASIC）：國中小程度約 2,000 字，編號 B01–B13
+    {"course": "BASIC", "id": "B01", "name": "數字與時間", "desc": "數字、星期、月份、時間與季節", "icon": "clock"},
+    {"course": "BASIC", "id": "B02", "name": "家人與人物", "desc": "家人、朋友、職業與稱呼", "icon": "users"},
+    {"course": "BASIC", "id": "B03", "name": "身體與健康", "desc": "身體部位、生病與看醫生", "icon": "heart"},
+    {"course": "BASIC", "id": "B04", "name": "食物與飲料", "desc": "三餐、水果、點心與飲料", "icon": "utensils"},
+    {"course": "BASIC", "id": "B05", "name": "動物與大自然", "desc": "動物、植物、天氣與自然景物", "icon": "globe"},
+    {"course": "BASIC", "id": "B06", "name": "學校與學習", "desc": "教室、文具、科目與上課用語", "icon": "cap"},
+    {"course": "BASIC", "id": "B07", "name": "家與日常用品", "desc": "房間、家具、家電與生活用品", "icon": "home"},
+    {"course": "BASIC", "id": "B08", "name": "衣服、顏色與購物", "desc": "衣服、顏色、形狀與買東西", "icon": "tag"},
+    {"course": "BASIC", "id": "B09", "name": "地方與交通", "desc": "城市裡的地方、方向與交通工具", "icon": "truck"},
+    {"course": "BASIC", "id": "B10", "name": "運動與休閒", "desc": "運動、遊戲、音樂與假日活動", "icon": "target"},
+    {"course": "BASIC", "id": "B11", "name": "常用動詞", "desc": "每天都會用到的動作", "icon": "pencil"},
+    {"course": "BASIC", "id": "B12", "name": "形容詞與感覺", "desc": "大小、顏色以外的描述與心情", "icon": "smile"},
+    {"course": "BASIC", "id": "B13", "name": "常用小字", "desc": "代名詞、介系詞、連接詞與疑問詞", "icon": "type"},
+    # 一般英文（GENERAL）：零基礎之後的 4,000 個日常生活單字，編號 G01–G15（和零基礎不重複）
+    {"course": "GENERAL", "id": "G01", "name": "人際與家庭", "desc": "家人親戚、朋友、感情與人際往來", "icon": "users"},
+    {"course": "GENERAL", "id": "G02", "name": "居家生活", "desc": "房子、家具、家事與生活用品", "icon": "home"},
+    {"course": "GENERAL", "id": "G03", "name": "飲食與烹飪", "desc": "食材、料理、餐廳與飲料", "icon": "utensils"},
+    {"course": "GENERAL", "id": "G04", "name": "購物與金錢", "desc": "買賣、價格、銀行與消費", "icon": "coins"},
+    {"course": "GENERAL", "id": "G05", "name": "交通與旅行", "desc": "交通工具、道路、旅遊與住宿", "icon": "plane"},
+    {"course": "GENERAL", "id": "G06", "name": "工作與職場", "desc": "職業、公司、工作內容與同事", "icon": "briefcase"},
+    {"course": "GENERAL", "id": "G07", "name": "學習與知識", "desc": "學校、科目、考試與知識", "icon": "cap"},
+    {"course": "GENERAL", "id": "G08", "name": "健康與醫療", "desc": "身體、疾病、醫院與保健", "icon": "heart"},
+    {"course": "GENERAL", "id": "G09", "name": "自然與環境", "desc": "動植物、天氣、地理與環境", "icon": "globe"},
+    {"course": "GENERAL", "id": "G10", "name": "休閒娛樂與媒體", "desc": "運動、音樂、電影、遊戲與網路", "icon": "palette"},
+    {"course": "GENERAL", "id": "G11", "name": "社會與新聞", "desc": "政府、法律、犯罪、宗教與時事", "icon": "megaphone"},
+    {"course": "GENERAL", "id": "G12", "name": "情緒與個性", "desc": "心情、感受、個性與態度", "icon": "smile"},
+    {"course": "GENERAL", "id": "G13", "name": "常用動詞", "desc": "生活中常用的動作與片語動詞", "icon": "pencil"},
+    {"course": "GENERAL", "id": "G14", "name": "常用形容詞與副詞", "desc": "描述人事物的常用字", "icon": "sparkle"},
+    {"course": "GENERAL", "id": "G15", "name": "通用名詞與概念", "desc": "時間、數量、狀態等各種場合都會用到的字", "icon": "book-open"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -1295,6 +1325,10 @@ vocab_quiz.register(app, db, dict(
 # 單字與例句的發音音檔（程式在 word_audio.py）：手機的瀏覽器語音不可靠，改由伺服器產生
 import word_audio  # noqa: E402
 app.register_blueprint(word_audio.bp)
+
+# 英文零基礎的 ABC 與自然發音教學頁（程式在 phonics.py）
+import phonics  # noqa: E402
+phonics.register(app, get_student)
 
 
 if __name__ == '__main__':

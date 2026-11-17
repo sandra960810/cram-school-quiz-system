@@ -20,7 +20,8 @@
         a.exam-card:hover { transform: translateY(-5px); box-shadow: 0 0 0 1px var(--tone-300), 5px 5px 0 var(--tone-100); }
         .exam-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--tone-50); color: var(--tone);
                      display: flex; align-items: center; justify-content: center; font-size: 28px; }
-        .exam-name { font-size: 22px; font-weight: bold; display: flex; align-items: baseline; gap: 8px; }
+        .exam-name { font-size: 22px; font-weight: bold; display: flex; align-items: baseline; gap: 0 8px; flex-wrap: wrap; }
+        .exam-name .nm, .exam-name .exam-en { white-space: nowrap; }
         .exam-en { font-size: 14px; color: var(--tone); font-weight: bold; letter-spacing: .5px; }
         .exam-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
         .exam-meta { margin-top: auto; font-size: 13px; color: var(--tone); font-weight: bold; }
@@ -41,7 +42,7 @@
         {% for c in cards if c.allowed %}
         <a href="{{ url_for('exam_dashboard', student_id=student.id, exam_key=c.key) }}" class="exam-card exam-tone-{{ c.key }}">
             <div class="exam-icon">{{ icon(c.icon) }}</div>
-            <div class="exam-name">{{ c.name }}<span class="exam-en">{{ c.en }}</span><span class="go-arrow">→</span></div>
+            <div class="exam-name"><span class="nm">{{ c.name }}</span><span class="exam-en">{{ c.en }}</span><span class="go-arrow">→</span></div>
             <div class="exam-desc">{{ c.desc }}</div>
             <div class="exam-meta">✓ 已熟 {{ c.unlocked }} / {{ c.total }} 字</div>
         </a>
@@ -55,7 +56,7 @@
         {% for c in soon %}
         <div class="exam-card soon">
             <div class="exam-icon">{{ icon(c.icon) }}</div>
-            <div class="exam-name">{{ c.name }}<span class="exam-en">{{ c.en }}</span></div>
+            <div class="exam-name"><span class="nm">{{ c.name }}</span><span class="exam-en">{{ c.en }}</span></div>
             <div class="exam-desc">{{ c.desc }}</div>
             <div class="soon-tag exam-meta">{{ icon('lock') }} 準備中</div>
         </div>

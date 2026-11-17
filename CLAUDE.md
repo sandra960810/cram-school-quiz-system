@@ -61,6 +61,8 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 tools/dedupe_vocab.py  合併同課程的重複單字並轉移學生紀錄（run.bat 匯入後會跑）
 word_audio.py       單字／例句發音音檔 /tts（edge-tts 產生、快取在 instance/tts_cache/）
 vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由 app.py 最後面 register 掛上）
+phonics.py          英文零基礎的 ABC 字母、自然發音、聽音選字教學頁 /phonics/<學生id>（資料寫在檔案裡）
+basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
 ```
 
 資料模型都在 `app.py` 上半部：`Student`、`Vocabulary`、`LearningProgress`、
@@ -69,17 +71,24 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 
 ## 考試類型（雅思、多益…）
 
-網站會涵蓋多種考試（雅思、多益、韓檢、日檢、英文零基礎），設定集中在 `exams.py` 的 `EXAMS`：
+網站會涵蓋多種考試（雅思、多益、英文零基礎、一般英文、韓檢、日檢），設定集中在 `exams.py` 的 `EXAMS`：
 
 - `/dashboard/<學生id>` 是**選擇考試**頁；`/dashboard/<學生id>/<考試>`（ielts、toeic）是該考試的功能選單
 - 目前在哪個考試記在 cookie `exam`，單字學習、單字測驗都只看該考試的課程（`Vocabulary.category`，
   例如 `IELTS`、`TOEIC`），用 `exams.course_of(student)` 取得，**不要再用 `student.enrolled_course`**
-- `features` 決定開哪些功能：雅思有 learn／vocab_quiz／exam，多益目前只有 learn／vocab_quiz；`/exam/` 一律算雅思
-- 主題清單 `OFFICIAL_THEMES` 每筆有 `course`；多益主題編號是 T01–T12，避免和雅思 01–12 混在一起
-- 色系：每個樣板的 `<html data-exam="{{ exam.key }}">`，`theme.css` 用 `:root[data-exam="toeic"]` 覆寫成藍色
+- `features` 決定開哪些功能：雅思有 learn／vocab_quiz／exam，多益與一般英文有 learn／vocab_quiz，
+  零基礎多一個 phonics（ABC 與發音教學）；`/exam/` 一律算雅思、`/phonics/` 一律算零基礎
+- 主題清單 `OFFICIAL_THEMES` 每筆有 `course`；多益主題編號是 T01–T12、零基礎 B01–B13、一般英文 G01–G15，避免和雅思 01–15 混在一起
+- 色系：每個樣板的 `<html data-exam="{{ exam.key }}">`，`theme.css` 用 `:root[data-exam="toeic"]` 覆寫成藍色，
+  零基礎（basic）暖橘、一般英文（general）青綠；選擇考試頁的卡片色是 `.exam-tone-<考試>`
 - 之後做登入與後台開通權限：改 `exams.exams_for(student)` 依學生權限回傳可用考試即可
 - 多益單字在 `toeic/toeic_vocab.csv`（TSL＋BSL＋NGSL 三份開放字表共 4,002 字，CC BY-SA 4.0，來源與改動見 `toeic/README.md`），
   `run.bat` 會匯入
+- 零基礎單字在 `basic/basic_vocab.csv`（2,006 字，國中小程度、例句刻意很短），一般英文在 `general/general_vocab.csv`
+  （4,032 個日常生活字）。**兩區互不重複**，各自也沒有重複字；來源是 NGSL＋OpenSubtitles 字頻（CC BY-SA 4.0），
+  中文意思與例句原創，見各資料夾的 `README.md`。`run.bat` 會匯入。加字時兩份都要檢查不重複
+- ABC 與發音教學（`phonics.py`）：電腦語音唸不出單獨的 /k/ 這種音，所以字母的音用「代表單字」示範，
+  加注音近似音與嘴型說明；單字寫成 `"c.a.t"` 拆格，`*` 開頭的格子不發音（Magic e）
 
 ## 單字測驗區怎麼運作
 
@@ -221,7 +230,9 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
   學習紀錄、收藏、測驗作答與題目 JSON 都轉到留下的那筆。**雅思字庫不能有重複字**，換主題改「主題」欄就好
 - ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
 - ✅ 考試類型選擇頁；多益區（藍色）：4,002 字單字學習＋單字測驗（TSL＋BSL＋NGSL）
-- ⬜ 韓檢、日檢、英文零基礎；學生登入與後台開通權限
+- ✅ 英文零基礎（橘色）：ABC 字母、自然發音 6 課、聽音選字，加上 2,006 字單字學習＋單字測驗
+- ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
+- ⬜ 韓檢、日檢；學生登入與後台開通權限
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10
 - ✅ 閱讀題庫 **1 / 10 回**（R01 完成，3 篇 40 題含解析）
