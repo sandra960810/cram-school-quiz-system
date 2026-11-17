@@ -93,7 +93,7 @@
             <h2>🕑 最近的成績</h2>
             {% if attempts %}
                 {% for a in attempts %}
-                <a class="attempt" href="{{ url_for('listen_result', student_id=student.id, attempt_id=a.id) if a.section == 'listening' else '#' }}">
+                <a class="attempt" href="{% if a.section == 'listening' %}{{ url_for('listen_result', student_id=student.id, attempt_id=a.id) }}{% elif a.section == 'reading' %}{{ url_for('read_result', student_id=student.id, attempt_id=a.id) }}{% else %}#{% endif %}">
                     <span>{{ a.icon }} {{ a.name }}　<span class="when">{{ a.test_key }}　{{ a.when|twtime }}</span></span>
                     {% set pct = (a.correct * 100 // a.total) if a.total else 0 %}
                     <span class="score {{ 'good' if pct >= 75 else ('mid' if pct >= 50 else 'bad') }}">{{ a.correct }} / {{ a.total }}</span>

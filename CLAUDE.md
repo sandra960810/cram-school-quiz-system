@@ -36,10 +36,12 @@ Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），需要給主管或
 ```
 app.py              Flask 主程式：資料模型、單字學習、測驗區路由
 listening_bank.py   聽力題庫的載入、渲染與批改
+reading_bank.py     閱讀題庫的載入、渲染與批改（判分沿用 listening_bank）
 listening/          聽力題庫資料（每回一個資料夾）
   tests.json        題庫清單
   L01/meta.json     該回的標題與說明
   L01/part1~4.json  逐字稿、題組、答案、解析
+reading/            閱讀題庫資料：tests.json、R01/meta.json、R01/passage1~3.json
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
 static/exam.css     測驗頁共用樣式
@@ -84,6 +86,20 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 產生的 mp3 不進 git（`.gitignore` 排除 `static/audio/listening/`），
 因為 10 回約 80MB，而且隨時可以重新產生。
 
+## 閱讀題庫怎麼運作
+
+每篇文章一個 JSON（`reading/R01/passage1.json`…），三塊內容：
+
+- `paragraphs` — 文章段落，`label` 是段落字母（A、B…，不需要時留空字串）
+- `groups` — 題組。型別有 `tfng`（TRUE/FALSE/NOT GIVEN）、`ynng`（YES/NO/NOT GIVEN）、
+  `mcq`（單選 A–D）、`matching`（配對）、`headings`（段落標題 i–x）、
+  `gapfill`（筆記／句子／摘要填空，用 `{3}` 標空格；有 `options` 時變成摘要選詞下拉選單）
+- `questions` — 與聽力相同：`answers`、`explain`、`quote`（引句必須逐字出自同一篇文章）
+
+新增一回：建 `reading/R02/`、在 `reading/tests.json` 加一筆，然後跑
+`python tools/check_reading.py`，**必過**。正式考試比照：3 篇共 40 題（13／13／14），
+每篇約 700–900 字，題型混搭，NOT GIVEN 與干擾項的陷阱要在解析裡點明。
+
 ## 出題要求
 
 題目全部原創，**不要**從任何市售教材或考古題轉錄內容。
@@ -114,7 +130,8 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 - ✅ 單字學習與圖鑑（滑卡、熟／不熟分區、收藏、音效動畫）
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10
-- ⬜ 閱讀題庫（可自動批改，建議優先做）
+- ✅ 閱讀題庫 **1 / 10 回**（R01 完成，3 篇 40 題含解析）
+- ⬜ 閱讀 R02–R10
 - ⬜ 寫作題庫（作答可輸出 PDF／圖片的功能已完成，缺題目）
 - ⬜ 口說題庫
 
