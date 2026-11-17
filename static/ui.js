@@ -144,22 +144,82 @@
         try { localStorage.setItem(VOICE_KEY, JSON.stringify(voiceSettings)); } catch (e) { /* ignore */ }
     }
 
+    // ---------- 發音 ----------
+    // 有神經語音的瀏覽器（例如櫃台電腦的 Edge）直接用瀏覽器語音，最快；
+    // 其他裝置（特別是 Android 手機：連續播放時會一直唸同一個字）改播伺服器產生的音檔
+    // （/tts，見 word_audio.py），產生失敗才退回瀏覽器語音。
+    const IS_ANDROID = /android/i.test(navigator.userAgent || '');
+    let player = null;       // 共用的 <audio>，播下一個字前先停掉上一個
+    let speakSeq = 0;        // 每次發音的編號，舊的回呼不會干擾新的發音
+    let serverTtsOk = true;  // 伺服器產生失敗過一次，這個分頁就不再試
+
+    function useServerAudio() {
+        if (!serverTtsOk || !window.Audio) return false;
+        if (IS_ANDROID) return true;
+        if (voiceSettings.voiceName) return false;          // 自己在發音設定選了語音，就照選的
+        return voiceQuality() !== 'neural';
+    }
+
+    function stopSpeaking() {
+        speakSeq += 1;
+        if (player) { player.onended = player.onerror = null; player.pause(); }
+        if (window.speechSynthesis) speechSynthesis.cancel();
+    }
+
     function speak(text, opts) {
-        if (!text || !window.speechSynthesis) { if (opts && opts.onend) opts.onend(); return; }
-        speechSynthesis.cancel();
+        opts = opts || {};
+        const done = opts.onend || (() => {});
+        if (!text) { done(); return; }
+        stopSpeaking();
+        const seq = speakSeq;
+        if (useServerAudio()) {
+            speakServer(text, opts, seq).catch(() => {
+                if (seq !== speakSeq) return;       // 已經換下一個字了
+                serverTtsOk = false;
+                speakBrowser(text, opts, seq);
+            });
+        } else {
+            speakBrowser(text, opts, seq);
+        }
+    }
+
+    function speakServer(text, opts, seq) {
+        return new Promise((resolve, reject) => {
+            if (!player) { player = new Audio(); player.preload = 'auto'; }
+            const accent = voiceSettings.accent === 'US' ? 'US' : 'GB';
+            player.onended = () => { if (seq === speakSeq && opts.onend) opts.onend(); };
+            player.onerror = () => reject(new Error('音檔載入失敗'));
+            player.src = `/tts?accent=${accent}&text=${encodeURIComponent(text)}`;
+            const rate = opts.rate || (voiceSettings.rate === 'slow' ? RATES.slow : 1);
+            player.defaultPlaybackRate = player.playbackRate = rate;
+            if ('preservesPitch' in player) player.preservesPitch = true;
+            const p = player.play();
+            if (p && p.then) p.then(resolve, (e) => {
+                // 瀏覽器擋自動播放（使用者還沒點過頁面）不算伺服器壞掉，不改用瀏覽器語音
+                if (e && e.name === 'NotAllowedError') { resolve(); if (opts.onend) setTimeout(opts.onend, 300); return; }
+                reject(e);
+            });
+            else resolve();
+        });
+    }
+
+    function speakBrowser(text, opts, seq) {
+        if (!window.speechSynthesis) { if (opts.onend) opts.onend(); return; }
         const u = new SpeechSynthesisUtterance(text);
         const voice = pickVoice();
-        if (voice) { u.voice = voice; u.lang = voice.lang; } else { u.lang = 'en-GB'; }
+        // Android 的 Chrome 指定 voice 時常常出錯，只指定語言比較穩
+        if (voice && !IS_ANDROID) { u.voice = voice; u.lang = voice.lang; } else { u.lang = voice ? voice.lang : 'en-GB'; }
         voiceQualityWarning();
         // 神經語音本來就唸得自然，用正常速度；機械語音放慢一點比較聽得懂
-        let rate = (opts && opts.rate) || RATES[voiceSettings.rate] || 0.95;
-        if (isNatural(voice) && voiceSettings.rate !== 'slow' && !(opts && opts.rate)) rate = 1;   // 呼叫端指定速度（例如聽寫的慢速）時照指定
+        let rate = opts.rate || RATES[voiceSettings.rate] || 0.95;
+        if (isNatural(voice) && voiceSettings.rate !== 'slow' && !opts.rate) rate = 1;   // 呼叫端指定速度（例如聽寫的慢速）時照指定
         u.rate = rate;
         u.pitch = 1;
         // 口說測驗要知道考官什麼時候唸完，才能開始錄音
-        if (opts && opts.onend) { u.onend = opts.onend; u.onerror = opts.onend; }
-        speechSynthesis.speak(u);
-        return u;
+        if (opts.onend) { u.onend = u.onerror = () => { if (seq === speakSeq) opts.onend(); }; }
+        window.__lastUtterance = u;   // 留住參照，避免某些瀏覽器把還沒唸完的發音回收掉
+        // 剛 cancel 就馬上 speak，Android／Chrome 有時會吃掉新的字或重唸舊的字，稍等一下再唸
+        setTimeout(() => { if (seq === speakSeq) speechSynthesis.speak(u); }, IS_ANDROID ? 120 : 30);
     }
 
     // 語音分三級：

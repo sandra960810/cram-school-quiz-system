@@ -31,6 +31,10 @@ Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），需要給主管或
 語音，而 Edge 內建 46 個微軟神經語音（Sonia、Ryan、Libby…），單字發音自然得多。
 `static/ui.js` 會自動挑最好的語音，挑不到神經語音時會提示改用 Edge。
 
+其他裝置（**特別是 Android 的 Chrome：連續播放時會一直唸同一個字**）改播伺服器產生的音檔：
+`UI.speak` 在瀏覽器沒有神經語音或是 Android 時，改用 `/tts?text=…`（`word_audio.py` 用 edge-tts 產生並快取），
+產生失敗才退回瀏覽器語音。所以櫃台電腦要能連上微軟語音服務，`run.bat` 會裝 `edge-tts`。
+
 ## 程式結構
 
 ```
@@ -54,6 +58,7 @@ static/icons.svg    全站線條圖示（取代 emoji）；icons.py 提供樣板
 static/exam.css     測驗頁共用樣式
 tools/              產生音檔與檢查題庫的腳本
 import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
+word_audio.py       單字／例句發音音檔 /tts（edge-tts 產生、快取在 instance/tts_cache/）
 vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由 app.py 最後面 register 掛上）
 ```
 
