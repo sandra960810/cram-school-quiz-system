@@ -1,0 +1,133 @@
+{
+  "no": 4,
+  "context": "A social history lecture on the development of the bicycle",
+  "audio": "L06_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a social history lecture about the development of the bicycle. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m2", "t": "Good afternoon. Today, I'm going to talk about a machine that most of us take for granted, but which changed society more than almost any other invention of the nineteenth century, and that's the bicycle." },
+    { "v": "m2", "t": "The story begins in Germany in eighteen seventeen, with Baron Karl von Drais. His machine had two wheels in a line and a wooden frame, and the rider could steer it, but it had no pedals. You simply sat on it and pushed yourself along the ground with your feet." },
+    { "v": "m2", "t": "Why was it invented at that moment? One popular theory links it to the eruption of a volcano in Indonesia in eighteen fifteen. The ash in the atmosphere caused what became known as the year without a summer. Crops failed across Europe, and with no oats to feed them, large numbers of horses died or were slaughtered. Some historians believe von Drais was looking for a replacement for them." },
+    { "v": "m2", "t": "His invention attracted a lot of attention at first, but it was expensive, and it was soon banned from the pavements of several cities, so the craze was short-lived." },
+    { "v": "m2", "t": "Pedals finally arrived in France in the eighteen sixties, attached directly to the front wheel. These machines were heavy, and because they had iron tyres, they gave riders a terribly uncomfortable journey over cobbled streets. In Britain, people nicknamed them boneshakers." },
+    { "v": "m2", "t": "Even so, they were popular with young men, and indoor riding schools opened in many large towns." },
+    { "v": "m2", "t": "Riders wanted more speed. Since the pedals turned the front wheel directly, the only way to travel further with each turn was to make that wheel bigger. So, in the eighteen seventies, we get the machine known in Britain as the penny-farthing. Its huge front wheel could be a metre and a half across, and it was very fast." },
+    { "v": "m2", "t": "It was also extremely dangerous. The rider sat high up, almost directly above the axle, so if the wheel struck a stone, he could be thrown forward over the handlebars, head first, onto the road. As a result, it was ridden almost entirely by wealthy, athletic young men." },
+    { "v": "m2", "t": "The breakthrough came in eighteen eighty-five, with John Kemp Starley's Rover, the so-called safety bicycle. It had two wheels of similar size, with the rider sitting between them, and the back wheel was driven by a chain. Speed no longer depended on the size of the wheel, and the rider's feet could reach the ground." },
+    { "v": "m2", "t": "Many experienced riders laughed at it at first, but racing results soon proved that it was faster as well as safer." },
+    { "v": "m2", "t": "One problem remained, and that was comfort. In eighteen eighty-eight, John Boyd Dunlop wanted to give his young son a smoother ride on his tricycle, so he made an air-filled tyre from sheets of rubber. Interestingly, Dunlop wasn't an engineer or a bicycle maker. He was a Scottish vet, working in Belfast." },
+    { "v": "m2", "t": "Racing cyclists who adopted his tyre began to win almost every event, and within a few years solid tyres had all but disappeared." },
+    { "v": "m2", "t": "Within a few years, bicycles were cheap enough for ordinary people, and the social effects were enormous. Nowhere was this clearer than in the lives of women. A bicycle gave a woman independence, because she could travel without a companion. Long skirts got caught in the wheels, so female cyclists began to adopt more practical clothing, including loose trousers called bloomers. In eighteen ninety-six, the American campaigner Susan B. Anthony said that the bicycle had done more to emancipate women than anything else in the world." },
+    { "v": "m2", "t": "Cyclists changed the landscape too. At that time, the highways outside the towns were in a dreadful state. Cycling clubs in Britain and America campaigned for better roads, and they had won many improvements long before the motor car appeared." },
+    { "v": "m2", "t": "And the bicycle trade trained a generation of engineers. Two brothers in Ohio, Orville and Wilbur Wright, ran a bicycle shop, and they used what they'd learned about chains, light frames and balance to build the first successful powered aeroplane in nineteen oh three." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE DEVELOPMENT OF THE BICYCLE",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Early machines",
+          "lines": [
+            "1817: von Drais's machine had no {31}",
+            "It may have been a response to the loss of {32} after crops failed",
+            "1860s: boneshakers were uncomfortable because of their iron {33}"
+          ]
+        },
+        {
+          "heading": "The penny-farthing",
+          "lines": [
+            "Its speed came from a very large front {34}",
+            "Riders could be thrown over the {35}"
+          ]
+        },
+        {
+          "heading": "The modern bicycle",
+          "lines": [
+            "1885: the back wheel of the safety bicycle was driven by a {36}",
+            "1888: the air-filled tyre was invented by a {37}"
+          ]
+        },
+        {
+          "heading": "Effects on society",
+          "lines": [
+            "Women gained independence and wore more practical {38}",
+            "Cycling clubs campaigned for better {39}",
+            "The Wright brothers used their knowledge to build a powered {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": ["pedals"],
+      "explain": "答案是 <b>pedals</b>（踏板）。講者說 the rider could steer it, but it had no pedals，與題目的 had no ___ 完全對應。<br><b>提醒</b>：騎士是用雙腳蹬地前進，所以沒有踏板。複數 s 不可漏。",
+      "quote": "His machine had two wheels in a line and a wooden frame, and the rider could steer it, but it had no pedals."
+    },
+    {
+      "no": 32,
+      "answers": ["horses"],
+      "explain": "答案是 <b>horses</b>。講者說 large numbers of horses died or were slaughtered，von Drais 想找替代品。<br><b>陷阱</b>：oats 和 crops 也出現了，但題目的 loss of ___ after crops failed，損失的是因此死亡的馬匹。",
+      "quote": "Crops failed across Europe, and with no oats to feed them, large numbers of horses died or were slaughtered."
+    },
+    {
+      "no": 33,
+      "answers": ["tyres", "tires"],
+      "explain": "答案是 <b>tyres</b>（美式拼法 tires 也可以）。講者說 because they had iron tyres, they gave riders a terribly uncomfortable journey。<br><b>提醒</b>：題目的 because of their iron ___ 對應錄音的 because they had iron ___。",
+      "quote": "These machines were heavy, and because they had iron tyres, they gave riders a terribly uncomfortable journey over cobbled streets."
+    },
+    {
+      "no": 34,
+      "answers": ["wheel"],
+      "explain": "答案是 <b>wheel</b>。講者說 Its huge front wheel could be a metre and a half across, and it was very fast。<b>同義轉換</b>：huge ＝ very large。",
+      "quote": "Its huge front wheel could be a metre and a half across, and it was very fast."
+    },
+    {
+      "no": 35,
+      "answers": ["handlebars"],
+      "explain": "答案是 <b>handlebars</b>（車把）。講者說 he could be thrown forward over the handlebars，與題目幾乎逐字對應。<br><b>陷阱</b>：axle 也有提到，但那是騎士坐的位置，不是被甩過去的東西。",
+      "quote": "The rider sat high up, almost directly above the axle, so if the wheel struck a stone, he could be thrown forward over the handlebars, head first, onto the road."
+    },
+    {
+      "no": 36,
+      "answers": ["chain"],
+      "explain": "答案是 <b>chain</b>。講者說 the back wheel was driven by a chain，與題目完全對應。<br><b>提醒</b>：這是 safety bicycle 的關鍵改良：速度不再取決於車輪大小。",
+      "quote": "It had two wheels of similar size, with the rider sitting between them, and the back wheel was driven by a chain."
+    },
+    {
+      "no": 37,
+      "answers": ["vet", "veterinarian"],
+      "explain": "答案是 <b>vet</b>（獸醫）。講者說 He was a Scottish vet, working in Belfast。<br><b>陷阱</b>：Dunlop wasn't an engineer or a bicycle maker，engineer 和 bicycle maker 都被否定。",
+      "quote": "Interestingly, Dunlop wasn't an engineer or a bicycle maker. He was a Scottish vet, working in Belfast."
+    },
+    {
+      "no": 38,
+      "answers": ["clothing", "clothes"],
+      "explain": "答案是 <b>clothing</b>（寫 clothes 也可以）。講者說 female cyclists began to adopt more practical clothing。<br><b>陷阱</b>：bloomers 是其中一個例子，但前面 more practical 後面接的是總稱 clothing。",
+      "quote": "Long skirts got caught in the wheels, so female cyclists began to adopt more practical clothing, including loose trousers called bloomers."
+    },
+    {
+      "no": 39,
+      "answers": ["roads"],
+      "explain": "答案是 <b>roads</b>。講者說 Cycling clubs in Britain and America campaigned for better roads，與題目完全對應。<br><b>提醒</b>：前一句用 highways 鋪陳，正式答案是緊接在 better 後面的 roads。複數 s 不可漏。",
+      "quote": "Cycling clubs in Britain and America campaigned for better roads, and they had won many improvements long before the motor car appeared."
+    },
+    {
+      "no": 40,
+      "answers": ["aeroplane", "airplane", "plane", "aircraft"],
+      "explain": "答案是 <b>aeroplane</b>（寫 airplane、plane 或 aircraft 也可以）。講者說 to build the first successful powered aeroplane in nineteen oh three。<br><b>提醒</b>：題目的 used their knowledge 對應錄音的 used what they'd learned。",
+      "quote": "Two brothers in Ohio, Orville and Wilbur Wright, ran a bicycle shop, and they used what they'd learned about chains, light frames and balance to build the first successful powered aeroplane in nineteen oh three."
+    }
+  ]
+}

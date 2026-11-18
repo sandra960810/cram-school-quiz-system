@@ -1,0 +1,162 @@
+{
+  "no": 1,
+  "context": "Telephone enquiry about hiring a room for a family party",
+  "audio": "L03_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a woman telephoning a country house hotel to ask about hiring a room for a party. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "m2", "t": "Good morning, Oakfield Hall, Declan speaking." },
+    { "v": "f4", "t": "Hello. I'm calling to ask about hiring a room for a family party next spring." },
+    { "v": "m2", "t": "Of course. Could I take your name first?" },
+    { "v": "f4", "t": "It's Joanna Whitlock. That's W-H-I-T-L-O-C-K." },
+    { "v": "narrator", "t": "The woman's surname is Whitlock, so Whitlock has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "m2", "t": "Good morning, Oakfield Hall, Declan speaking." },
+    { "v": "f4", "t": "Hello. I'm calling to ask about hiring a room for a family party next spring." },
+    { "v": "m2", "t": "Of course. Could I take your name first?" },
+    { "v": "f4", "t": "It's Joanna Whitlock. That's W-H-I-T-L-O-C-K." },
+    { "v": "m2", "t": "Thank you, Ms Whitlock. And what's the occasion?" },
+    { "v": "f4", "t": "Well, my father turns seventy that month, so we did wonder about a birthday party. But he hates any fuss about his age, so in the end we've decided it'll be for my parents' fortieth wedding anniversary." },
+    { "v": "m2", "t": "Congratulations to them. Forty years is quite an achievement. Have you got a date in mind?" },
+    { "v": "f4", "t": "We were hoping for Saturday the 5th of April." },
+    { "v": "m2", "t": "Let me check. Ah, I'm sorry, we've got a wedding here that day. The following Saturday, the 12th, is completely free, though." },
+    { "v": "f4", "t": "The 12th would be fine. Most of the family can manage that." },
+    { "v": "m2", "t": "I'll pencil that in for you. And how many guests are you expecting?" },
+    { "v": "f4", "t": "We sent out ninety invitations, but quite a few of our relatives live abroad. All the replies are in now, and 75 people have said they're definitely coming." },
+    { "v": "m2", "t": "75. That affects which room you can have. The Garden Room is the prettiest, with doors opening onto the lawn, but it only holds sixty people. For a group your size, I'd recommend the Orchard Room, upstairs." },
+    { "v": "f4", "t": "Upstairs? My grandmother uses a wheelchair." },
+    { "v": "m2", "t": "That's no problem at all. There's a lift right beside the door." },
+    { "v": "f4", "t": "That's a relief. She'd be very upset to miss it. Is there somewhere for people to leave their coats?" },
+    { "v": "m2", "t": "Yes, there's a cloakroom on the same floor, and the toilets are just along the corridor. The room also has a small balcony, which guests can use if the evening's warm." },
+    { "v": "f4", "t": "Then the Orchard Room sounds ideal. What does it cost?" },
+    { "v": "m2", "t": "From Monday to Friday it's 420 pounds for the evening, but the Saturday rate is 540 pounds. That includes the tables, the chairs and the cleaning afterwards." },
+    { "v": "f4", "t": "540. Right, that's within our budget. Now, what about food? We'd thought about a sit-down meal." },
+    { "v": "m2", "t": "Our chef can certainly do that, at thirty-eight pounds a head." },
+    { "v": "f4", "t": "Goodness, that's more than we can afford for so many people. I think a buffet would be better. Then everyone can move around and chat." },
+    { "v": "m2", "t": "That's our most popular choice. Are there any special dietary needs the chef should know about?" },
+    { "v": "f4", "t": "My aunt avoids dairy, but she's happy to choose for herself from what's there. The important one is my nephew. He has a serious allergy, so there mustn't be any nuts in the food at all." },
+    { "v": "m2", "t": "I'll mark that clearly on the booking. And will you be wanting music? A lot of people bring in a DJ." },
+    { "v": "f4", "t": "My parents would hate that. My brother suggested a band." },
+    { "v": "m2", "t": "A band could be difficult, I'm afraid. We have a strict noise limit after nine o'clock, because of the houses next door." },
+    { "v": "f4", "t": "In that case, we'll book a pianist. My cousin knows someone who plays in hotels, and it would be lovely in the background." },
+    { "v": "m2", "t": "That's perfect, and there's already a piano in the room. Now, one thing about decorations. You're welcome to bring balloons and flowers, and you can hang banners from the hooks on the walls. But we don't allow confetti anywhere in the building, because it damages the old wooden floors." },
+    { "v": "f4", "t": "That's fine. Would it be possible to come and see the room first?" },
+    { "v": "m2", "t": "Certainly. We're closed to visitors next Monday, and there's a conference in there all day on Friday. Would Tuesday afternoon suit you?" },
+    { "v": "f4", "t": "Tuesday's good. I finish work early that day." },
+    { "v": "m2", "t": "I'll ask our events manager to show you round, and she can talk you through the menus as well. Is there anything else you'd like to know at this stage?" },
+    { "v": "f4", "t": "Just one thing. How late can the party go on?" },
+    { "v": "m2", "t": "Guests need to be out of the building by midnight, and the bar closes half an hour before that." },
+    { "v": "f4", "t": "That should be plenty of time, with so many elderly relatives." },
+    { "v": "m2", "t": "Lovely. We'll see you then, Ms Whitlock." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Oakfield Hall – Party Booking",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The party",
+          "lines": [
+            "The customer's name is Joanna",
+            "- {ex:Whitlock}",
+            "The party will celebrate her parents' wedding {1}",
+            "Date: Saturday {2} April",
+            "Number of guests: {3}"
+          ]
+        },
+        {
+          "heading": "The room",
+          "lines": [
+            "She will hire the {4} Room",
+            "The cost for that day is £{5}"
+          ]
+        },
+        {
+          "heading": "Food and music",
+          "lines": [
+            "She has chosen a {6} for the meal",
+            "The food must not contain any {7}",
+            "Music will be provided by a {8}"
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "{9} is not allowed in the building",
+            "She will visit to see the room on {10} afternoon"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": ["anniversary"],
+      "explain": "答案是 <b>anniversary</b>。Joanna 說 it'll be for my parents' fortieth wedding anniversary，對應題目的 wedding ___。<br><b>陷阱</b>：她先提到父親七十歲 birthday party，但 But he hates any fuss about his age，生日派對的想法被放棄了。so we did wonder about... 通常是「想過但沒採用」。",
+      "quote": "so we did wonder about a birthday party. But he hates any fuss about his age, so in the end we've decided it'll be for my parents' fortieth wedding anniversary."
+    },
+    {
+      "no": 2,
+      "answers": ["12", "12th", "twelfth"],
+      "explain": "答案是 <b>12</b>。Declan 說 The following Saturday, the 12th, is completely free，Joanna 回答 The 12th would be fine。<br><b>陷阱</b>：5 號是她原本想要的日期，但當天已有婚禮（we've got a wedding here that day）。日期題要聽到雙方最後確認的那一個。",
+      "quote": "The following Saturday, the 12th, is completely free, though."
+    },
+    {
+      "no": 3,
+      "answers": ["75", "seventy-five", "seventy five"],
+      "explain": "答案是 <b>75</b>。Joanna 說 75 people have said they're definitely coming。<br><b>陷阱</b>：ninety 是寄出的邀請函數量，不是實際出席人數；sixty 則是 Garden Room 的容納上限。一段話出現多個數字時，要對準題目問的 guests。",
+      "quote": "All the replies are in now, and 75 people have said they're definitely coming."
+    },
+    {
+      "no": 4,
+      "answers": ["Orchard"],
+      "explain": "答案是 <b>Orchard</b>。Declan 推薦 the Orchard Room，Joanna 也說 Then the Orchard Room sounds ideal。<br><b>陷阱</b>：Garden Room 雖然最漂亮，但 it only holds sixty people，容納不下 75 人。",
+      "quote": "The Garden Room is the prettiest, with doors opening onto the lawn, but it only holds sixty people. For a group your size, I'd recommend the Orchard Room, upstairs."
+    },
+    {
+      "no": 5,
+      "answers": ["540"],
+      "explain": "答案是 <b>540</b>。Declan 說 the Saturday rate is 540 pounds，而派對辦在星期六。<br><b>陷阱</b>：420 是星期一到星期五的價格。題目寫 for that day，要回頭想派對是哪一天。",
+      "quote": "From Monday to Friday it's 420 pounds for the evening, but the Saturday rate is 540 pounds."
+    },
+    {
+      "no": 6,
+      "answers": ["buffet"],
+      "explain": "答案是 <b>buffet</b>。Joanna 說 I think a buffet would be better。<br><b>陷阱</b>：sit-down meal 是她原本的想法，但每人 38 英鎊太貴（more than we can afford），所以改變主意。We'd thought about... 後面常是被放棄的選項。",
+      "quote": "Goodness, that's more than we can afford for so many people. I think a buffet would be better."
+    },
+    {
+      "no": 7,
+      "answers": ["nuts"],
+      "explain": "答案是 <b>nuts</b>。Joanna 說 He has a serious allergy, so there mustn't be any nuts in the food at all，對應題目的 must not contain any。<br><b>陷阱</b>：dairy 也出現了，但阿姨 happy to choose for herself，不需要特別避開。The important one is 之後才是重點。",
+      "quote": "The important one is my nephew. He has a serious allergy, so there mustn't be any nuts in the food at all."
+    },
+    {
+      "no": 8,
+      "answers": ["pianist"],
+      "explain": "答案是 <b>pianist</b>。Joanna 說 In that case, we'll book a pianist。<br><b>陷阱</b>：DJ 被否決（My parents would hate that）；band 也行不通，因為 9 點後有噪音限制。In that case 表示前面的方案都排除後的最終決定。注意是「人」pianist，不是樂器 piano。",
+      "quote": "In that case, we'll book a pianist."
+    },
+    {
+      "no": 9,
+      "answers": ["Confetti", "confetti"],
+      "explain": "答案是 <b>Confetti</b>。Declan 說 we don't allow confetti anywhere in the building，對應題目的 is not allowed in the building。<br><b>陷阱</b>：balloons、flowers、banners 都可以帶，只有 But 後面的 confetti 不行。",
+      "quote": "You're welcome to bring balloons and flowers, and you can hang banners from the hooks on the walls. But we don't allow confetti anywhere in the building, because it damages the old wooden floors."
+    },
+    {
+      "no": 10,
+      "answers": ["Tuesday"],
+      "explain": "答案是 <b>Tuesday</b>。Declan 問 Would Tuesday afternoon suit you?，Joanna 回答 Tuesday's good。<br><b>陷阱</b>：Monday 不開放參觀，Friday 整天有會議。三個星期只有一個真的可行。",
+      "quote": "We're closed to visitors next Monday, and there's a conference in there all day on Friday. Would Tuesday afternoon suit you?"
+    }
+  ]
+}

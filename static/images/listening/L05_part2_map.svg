@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 570" width="100%" style="max-width:700px;font-family:Arial,Helvetica,sans-serif">
+  <rect width="700" height="570" fill="#ffffff"/>
+  <text x="350" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">KINGSMEAD UNIVERSITY CAMPUS</text>
+
+  <!-- 校園外框 -->
+  <rect x="40" y="40" width="620" height="500" fill="#f2f6ee" stroke="#555" stroke-width="2"/>
+
+  <!-- 大道（東西向，東側大門進入） -->
+  <rect x="110" y="266" width="550" height="26" fill="#d9d4c7" stroke="#a89f8c" stroke-width="1"/>
+  <text x="510" y="284" text-anchor="middle" font-size="13" font-weight="bold" fill="#54503f">UNIVERSITY AVENUE</text>
+
+  <!-- 圖書館 -->
+  <rect x="290" y="160" width="140" height="84" fill="#c9d3e6" stroke="#4d6089" stroke-width="2"/>
+  <text x="360" y="208" text-anchor="middle" font-size="16" font-weight="bold" fill="#2f4068">LIBRARY</text>
+
+  <!-- 圖書館旁小徑 -->
+  <line x1="445" y1="266" x2="445" y2="135" stroke="#b08a52" stroke-width="5" stroke-dasharray="10 6"/>
+  <line x1="445" y1="135" x2="400" y2="135" stroke="#b08a52" stroke-width="5" stroke-dasharray="10 6"/>
+
+  <!-- 湖 -->
+  <ellipse cx="235" cy="410" rx="120" ry="58" fill="#cfe4f5" stroke="#6ba3d0" stroke-width="2"/>
+  <text x="235" y="416" text-anchor="middle" font-size="16" font-style="italic" fill="#2f6a9c">LAKE</text>
+
+  <!-- 繞湖小徑 -->
+  <path d="M 360 372 Q 395 450 330 490 Q 290 512 262 505" fill="none" stroke="#b08a52" stroke-width="5" stroke-dasharray="10 6"/>
+
+  <!-- 東側大門 -->
+  <rect x="648" y="252" width="24" height="54" fill="#ffffff" stroke="#333" stroke-width="2"/>
+  <text x="686" y="279" text-anchor="middle" font-size="13" font-weight="bold" fill="#222" transform="rotate(90 686 279)">MAIN GATE</text>
+
+  <!-- 指北針 -->
+  <g transform="translate(90,95)">
+    <line x1="0" y1="26" x2="0" y2="-16" stroke="#333" stroke-width="2.5"/>
+    <polygon points="0,-26 -7,-10 7,-10" fill="#333"/>
+    <text x="0" y="44" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">N</text>
+  </g>
+
+  <!-- 位置標記 A–H -->
+  <g font-size="19" font-weight="bold" text-anchor="middle">
+    <g><circle cx="590" cy="215" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="590" y="222" fill="#c0392b">A</text></g>
+    <g><circle cx="590" cy="345" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="590" y="352" fill="#c0392b">B</text></g>
+    <g><circle cx="540" cy="95" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="540" y="102" fill="#c0392b">C</text></g>
+    <g><circle cx="360" cy="95" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="360" y="102" fill="#c0392b">D</text></g>
+    <g><circle cx="190" cy="205" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="190" y="212" fill="#c0392b">E</text></g>
+    <g><circle cx="80" cy="279" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="80" y="286" fill="#c0392b">F</text></g>
+    <g><circle cx="375" cy="340" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="375" y="347" fill="#c0392b">G</text></g>
+    <g><circle cx="235" cy="505" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="235" y="512" fill="#c0392b">H</text></g>
+  </g>
+</svg>

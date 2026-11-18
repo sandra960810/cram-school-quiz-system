@@ -1,0 +1,163 @@
+{
+  "no": 1,
+  "context": "Telephone call to book a place at a dog boarding kennels",
+  "audio": "L06_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a woman telephoning a boarding kennels to book a place for her dog. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "m3", "t": "Hillcrest Boarding Kennels, Gareth speaking." },
+    { "v": "f1", "t": "Good morning. We're going on holiday this summer, and I'd like to book a place for my dog." },
+    { "v": "m3", "t": "Of course. Can I start with your name?" },
+    { "v": "f1", "t": "Yes, it's Mrs Ashworth. A-S-H-W-O-R-T-H." },
+    { "v": "narrator", "t": "The woman's surname is Ashworth, so Ashworth has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Hillcrest Boarding Kennels, Gareth speaking." },
+    { "v": "f1", "t": "Good morning. We're going on holiday this summer, and I'd like to book a place for my dog." },
+    { "v": "m3", "t": "Of course. Can I start with your name?" },
+    { "v": "f1", "t": "Yes, it's Mrs Ashworth. A-S-H-W-O-R-T-H." },
+    { "v": "m3", "t": "Thank you, Mrs Ashworth. And what's your dog called?" },
+    { "v": "f1", "t": "Our last dog was called Rusty, and I still use that name by mistake sometimes. But this one is Pepper, because of the little black spots on his nose." },
+    { "v": "m3", "t": "That's a nice name. What breed is he?" },
+    { "v": "f1", "t": "People always think he's a beagle, because of his colouring, but he's actually a spaniel." },
+    { "v": "m3", "t": "Lovely dogs. And how old is he?" },
+    { "v": "f1", "t": "We've had him for seven years, but he was two when we got him, so he's 9 now." },
+    { "v": "m3", "t": "He's still got plenty of energy, then?" },
+    { "v": "f1", "t": "Oh yes. He'll walk for hours if you let him, though he does get a bit stiff in cold weather." },
+    { "v": "m3", "t": "We walk all our dogs twice a day, and there's a big field behind the kennels where they can run around." },
+    { "v": "m3", "t": "Right. And when would you like him to come to us?" },
+    { "v": "f1", "t": "Our flight is on the 19th of July, but it leaves very early in the morning, so I'd like to bring him the day before, on the 18th." },
+    { "v": "m3", "t": "Let me check the calendar. Yes, we've got space then. How long will he be staying?" },
+    { "v": "f1", "t": "Ten nights altogether. We're going to visit my sister in Canada." },
+    { "v": "m3", "t": "That's fine. Now, our prices depend on size. It's 22 pounds a night for small dogs, 28 pounds for medium dogs, and 35 pounds for large ones." },
+    { "v": "f1", "t": "He's definitely medium." },
+    { "v": "m3", "t": "So that'll be 28 pounds a night, including his food and exercise." },
+    { "v": "f1", "t": "That's reasonable. Now, I should mention his health. He used to have problems with his ears, but they're fine now. The important thing is that he has to take a tablet every morning for his heart." },
+    { "v": "m3", "t": "Our staff are used to that. Just give us the tablets in the original packet. What about his diet?" },
+    { "v": "f1", "t": "Tinned food gives him a terrible stomach upset, so he only eats dry food. I'll bring a bag of the brand he likes." },
+    { "v": "m3", "t": "How much does he usually have?" },
+    { "v": "f1", "t": "Two small bowls a day, one in the morning and one in the early evening. I'll write it all down for you." },
+    { "v": "m3", "t": "Thanks, that's very helpful. We like to keep to the same routine they have at home." },
+    { "v": "m3", "t": "No problem. Many owners like to bring something from home, to help their dogs settle in. We can't accept toys, because the dogs fight over them, but a blanket is ideal." },
+    { "v": "f1", "t": "He's got an old one that he sleeps on, so I'll bring that." },
+    { "v": "m3", "t": "That'll be a comfort to him, especially at night. Does he get on with other dogs?" },
+    { "v": "f1", "t": "He's very friendly, but he's a little nervous of big dogs." },
+    { "v": "m3", "t": "Then we'll put him in a quiet area, next to some of the smaller ones." },
+    { "v": "m3", "t": "Perfect. There's one document we'll need to see. We don't ask for your insurance details, but you must bring his vaccination certificate, or we can't accept him." },
+    { "v": "f1", "t": "I'll make sure I find it. Now, we get home on a Sunday afternoon, so could I come straight from the airport to pick him up?" },
+    { "v": "m3", "t": "I'm sorry, but that won't be possible. We're open on Saturday mornings, but dogs can't be collected on a Sunday, because there's only one member of staff on duty. You could come first thing on the Monday." },
+    { "v": "f1", "t": "All right, we'll do that. Thank you very much." },
+    { "v": "m3", "t": "You're welcome. I'll put a confirmation in the post today, with a map showing how to find us." },
+    { "v": "f1", "t": "That would be useful. We've never been up to your part of the valley before." },
+    { "v": "m3", "t": "It's easy enough. Just look out for the large green sign at the end of the lane." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Hillcrest Boarding Kennels",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The dog",
+          "lines": [
+            "The owner's name is Mrs",
+            "- {ex:Ashworth}",
+            "The dog's name is {1}",
+            "Breed: {2}",
+            "Age: {3} years old"
+          ]
+        },
+        {
+          "heading": "The booking",
+          "lines": [
+            "The dog will arrive on {4} July",
+            "The price per night is £{5}"
+          ]
+        },
+        {
+          "heading": "Care instructions",
+          "lines": [
+            "He needs a daily tablet for his {6}",
+            "He can only eat {7} food",
+            "His owner can bring his {8} from home"
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "The owner must bring his vaccination {9}",
+            "Dogs cannot be collected on a {10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": ["Pepper"],
+      "explain": "答案是 <b>Pepper</b>。Mrs Ashworth 說 But this one is Pepper。<br><b>陷阱</b>：Rusty 是「上一隻狗」的名字（Our last dog）。But this one is 之後才是現在這隻。",
+      "quote": "Our last dog was called Rusty, and I still use that name by mistake sometimes. But this one is Pepper, because of the little black spots on his nose."
+    },
+    {
+      "no": 2,
+      "answers": ["spaniel"],
+      "explain": "答案是 <b>spaniel</b>（西班牙獵犬）。她說 he's actually a spaniel。<br><b>陷阱</b>：People always think he's a beagle 是別人的誤解，actually 後面才是事實。",
+      "quote": "People always think he's a beagle, because of his colouring, but he's actually a spaniel."
+    },
+    {
+      "no": 3,
+      "answers": ["9", "nine"],
+      "explain": "答案是 <b>9</b>。她說 so he's 9 now。<br><b>陷阱</b>：seven 是養牠的年數，two 是領養時的年齡，7＋2＝9。一句話裡有三個數字，要對準題目問的 Age。",
+      "quote": "We've had him for seven years, but he was two when we got him, so he's 9 now."
+    },
+    {
+      "no": 4,
+      "answers": ["18", "18th", "eighteenth"],
+      "explain": "答案是 <b>18</b>。她說 I'd like to bring him the day before, on the 18th。<br><b>陷阱</b>：19 號是她搭飛機的日期，不是狗狗入住的日期。題目問 arrive，要找送狗過去的那一天。",
+      "quote": "Our flight is on the 19th of July, but it leaves very early in the morning, so I'd like to bring him the day before, on the 18th."
+    },
+    {
+      "no": 5,
+      "answers": ["28"],
+      "explain": "答案是 <b>28</b>。Pepper 是中型犬（He's definitely medium），Gareth 確認 So that'll be 28 pounds a night。<br><b>陷阱</b>：22 是小型犬、35 是大型犬的價格。價目表題要等對方確認自己屬於哪一類。",
+      "quote": "So that'll be 28 pounds a night, including his food and exercise."
+    },
+    {
+      "no": 6,
+      "answers": ["heart"],
+      "explain": "答案是 <b>heart</b>。她說 he has to take a tablet every morning for his heart。<br><b>陷阱</b>：ears 是以前的問題（He used to have problems），they're fine now。The important thing is 後面才是重點。",
+      "quote": "He used to have problems with his ears, but they're fine now. The important thing is that he has to take a tablet every morning for his heart."
+    },
+    {
+      "no": 7,
+      "answers": ["dry"],
+      "explain": "答案是 <b>dry</b>。她說 he only eats dry food，與題目的 only eat ___ food 對應。<br><b>陷阱</b>：Tinned food 會讓牠腸胃不適，是不能吃的。",
+      "quote": "Tinned food gives him a terrible stomach upset, so he only eats dry food."
+    },
+    {
+      "no": 8,
+      "answers": ["blanket"],
+      "explain": "答案是 <b>blanket</b>。Gareth 說 a blanket is ideal，她回答 He's got an old one... so I'll bring that。<br><b>陷阱</b>：toys 不能帶，因為 the dogs fight over them。",
+      "quote": "We can't accept toys, because the dogs fight over them, but a blanket is ideal."
+    },
+    {
+      "no": 9,
+      "answers": ["certificate"],
+      "explain": "答案是 <b>certificate</b>（證明書）。Gareth 說 you must bring his vaccination certificate，與題目的 vaccination ___ 對應。<br><b>陷阱</b>：insurance details 不需要（We don't ask for）。",
+      "quote": "We don't ask for your insurance details, but you must bring his vaccination certificate, or we can't accept him."
+    },
+    {
+      "no": 10,
+      "answers": ["Sunday"],
+      "explain": "答案是 <b>Sunday</b>。Gareth 說 dogs can't be collected on a Sunday，與題目完全對應。<br><b>陷阱</b>：Saturday 早上有開放；Monday 是建議改來接狗的日子。三個星期都有出現，只有 Sunday 不行。",
+      "quote": "We're open on Saturday mornings, but dogs can't be collected on a Sunday, because there's only one member of staff on duty."
+    }
+  ]
+}

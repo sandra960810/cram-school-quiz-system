@@ -1,0 +1,169 @@
+{
+  "no": 3,
+  "context": "Two museum studies students planning an exhibition about a textile mill",
+  "audio": "L06_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two museum studies students, Nina and Jake, planning an exhibition about a local textile mill. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Nina, have you got the plan for our mill exhibition? We're meeting the museum's curator on Monday." },
+    { "v": "f4", "t": "Here it is. We'll need to explain why we picked this theme. The curator wanted something on the town's wartime history, didn't she?" },
+    { "v": "m4", "t": "She did. And you've got that personal link, with your great-grandmother working there. But the real reason was the date. Next spring, it'll be exactly fifty years since Albion Mill shut down, so the timing couldn't be better." },
+    { "v": "f4", "t": "True. The research has been harder than I expected, though. The former workers have been keen to help, and the museum's given us a decent budget. But the mill's wage books and staff records were all destroyed in a fire in nineteen sixty-two, so we can't check who worked there or what they earned." },
+    { "v": "m4", "t": "At least the interviews have filled some of the gaps. What struck you most about them?" },
+    { "v": "f4", "t": "I'd expected people to complain mainly about the low pay and the dangerous machines, and they did mention those things. But what they really wanted to talk about was their workmates. Almost everybody told me that they missed the friendships more than anything else." },
+    { "v": "m4", "t": "That's rather moving. Did anyone have a story that stood out?" },
+    { "v": "f4", "t": "One woman told me that her whole shift went to her wedding, and they all clubbed together to buy the dress. I'd love to put that on one of the panels." },
+    { "v": "m4", "t": "That should shape the whole display. I was going to arrange everything in date order, from the opening of the mill to its closure." },
+    { "v": "f4", "t": "I think that would feel like a textbook. And organising it by job would just confuse people. Why don't we follow one working day, from the morning whistle to the end of the shift?" },
+    { "v": "m4", "t": "A day in the life of the mill. I like that." },
+    { "v": "f4", "t": "Visitors could walk through the gallery just as a worker moved through the building, starting at the gates and finishing in the canteen." },
+    { "v": "m4", "t": "And we could play recordings of the machines in the background, to give people an idea of the noise." },
+    { "v": "f4", "t": "Not too loud, though, or nobody will be able to read anything." },
+    { "v": "f4", "t": "So what's the priority now? I could start writing the labels." },
+    { "v": "m4", "t": "The labels can wait until the layout's been agreed, and the curator has already approved our budget. The urgent job is the insurance. The museum won't let us borrow anything from private owners until that's been arranged." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Let's go through the five main exhibits. What's the plan for the loom?" },
+    { "v": "f4", "t": "The loom is enormous. It wouldn't even fit through the gallery doors, so we'll have to show a film of one working on a big screen instead." },
+    { "v": "m4", "t": "Then there are the clogs." },
+    { "v": "f4", "t": "Those are my favourite. The museum has several spare pairs, so visitors will be able to pick them up and try them on. Children will love that." },
+    { "v": "m4", "t": "We'd better check that they're clean first!" },
+    { "v": "f4", "t": "Yes, and we'll need to keep a few different sizes." },
+    { "v": "m4", "t": "What about the wage packet?" },
+    { "v": "f4", "t": "That's a lovely thing to have. It isn't from the museum's collection. A family in the town has kept it for seventy years, and they've agreed to lend it to us for the exhibition." },
+    { "v": "m4", "t": "Does it still have anything inside?" },
+    { "v": "f4", "t": "Just a handwritten slip showing the hours worked and the amount paid. It's a wonderful piece of evidence." },
+    { "v": "m4", "t": "And the shuttle, the wooden one from the weaving shed." },
+    { "v": "f4", "t": "The trouble is that most people today have no idea what a shuttle is or what it does, so we'll need a clear description of its function right next to it." },
+    { "v": "m4", "t": "Couldn't we put a short diagram beside it?" },
+    { "v": "f4", "t": "That's a good idea. It would only take up a small space on the wall." },
+    { "v": "m4", "t": "Finally, the union banner. That would look wonderful on the main wall." },
+    { "v": "f4", "t": "It would, but the silk is in such poor condition that even a little light would damage it. We thought about having a copy made, but that would cost far too much. So the banner will have to stay in storage, and we'll just show a photograph." },
+    { "v": "m4", "t": "That's a shame, but I understand." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose Albion Mill as their theme?",
+          "options": { "A": "The curator suggested the subject.", "B": "It is fifty years since the mill closed.", "C": "Nina's relative used to work there." }
+        },
+        {
+          "no": 22,
+          "stem": "What has been the main difficulty with the research?",
+          "options": { "A": "The company's records no longer exist.", "B": "Former workers do not want to talk.", "C": "The museum's budget is too small." }
+        },
+        {
+          "no": 23,
+          "stem": "What did the former workers mostly want to talk about?",
+          "options": { "A": "the low wages", "B": "the dangerous machinery", "C": "the friends they had made" }
+        },
+        {
+          "no": 24,
+          "stem": "How will the exhibition be organised?",
+          "options": { "A": "in date order", "B": "around a typical working day", "C": "according to different jobs" }
+        },
+        {
+          "no": 25,
+          "stem": "What do the students need to do first?",
+          "options": { "A": "arrange insurance", "B": "write the labels", "C": "get the budget approved" }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students say about each exhibit?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "It is too delicate to be displayed.",
+        "B": "Visitors will be allowed to handle it.",
+        "C": "It is on loan from local people.",
+        "D": "Its purpose will need to be explained.",
+        "E": "It is too large to bring into the museum.",
+        "F": "A copy of it will be made."
+      },
+      "items": [
+        { "no": 26, "text": "Loom" },
+        { "no": 27, "text": "Clogs" },
+        { "no": 28, "text": "Wage packet" },
+        { "no": 29, "text": "Shuttle" },
+        { "no": 30, "text": "Union banner" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Jake 說 the real reason was the date. Next spring, it'll be exactly fifty years since Albion Mill shut down。<b>同義轉換</b>：shut down ＝ closed。<br><b>陷阱</b>：A 的策展人其實想做戰時歷史；C 確實有關聯，但 But the real reason 把它排除了。",
+      "quote": "And you've got that personal link, with your great-grandmother working there. But the real reason was the date. Next spring, it'll be exactly fifty years since Albion Mill shut down."
+    },
+    {
+      "no": 22,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Nina 說 the mill's wage books and staff records were all destroyed in a fire。<b>同義轉換</b>：destroyed ＝ no longer exist。<br><b>陷阱</b>：B、C 都被否定——former workers have been keen to help；the museum's given us a decent budget。",
+      "quote": "The former workers have been keen to help, and the museum's given us a decent budget. But the mill's wage books and staff records were all destroyed in a fire in nineteen sixty-two."
+    },
+    {
+      "no": 23,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Nina 說 what they really wanted to talk about was their workmates... they missed the friendships more than anything else。<br><b>陷阱</b>：A、B 他們確實提過（they did mention those things），但 But 之後才是最想談的內容。",
+      "quote": "I'd expected people to complain mainly about the low pay and the dangerous machines, and they did mention those things. But what they really wanted to talk about was their workmates."
+    },
+    {
+      "no": 24,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Nina 提議 follow one working day, from the morning whistle to the end of the shift，Jake 同意 I like that。<br><b>陷阱</b>：A 是 Jake 原本的打算（I was going to），被 Nina 否定；C 會 confuse people。",
+      "quote": "I think that would feel like a textbook. And organising it by job would just confuse people. Why don't we follow one working day, from the morning whistle to the end of the shift?"
+    },
+    {
+      "no": 25,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Jake 說 The urgent job is the insurance。<b>同義轉換</b>：urgent ＝ first。<br><b>陷阱</b>：B 可以等（The labels can wait）；C 已完成（the curator has already approved our budget）。",
+      "quote": "The labels can wait until the layout's been agreed, and the curator has already approved our budget. The urgent job is the insurance."
+    },
+    {
+      "no": 26,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>（太大無法搬進博物館）。Nina 說 It wouldn't even fit through the gallery doors。<br><b>同義轉換</b>：enormous、wouldn't fit ＝ too large to bring into the museum。",
+      "quote": "The loom is enormous. It wouldn't even fit through the gallery doors, so we'll have to show a film of one working on a big screen instead."
+    },
+    {
+      "no": 27,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（訪客可以拿取）。Nina 說 visitors will be able to pick them up and try them on。<br><b>同義轉換</b>：pick them up and try them on ＝ handle。",
+      "quote": "The museum has several spare pairs, so visitors will be able to pick them up and try them on."
+    },
+    {
+      "no": 28,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（向當地人借展）。Nina 說 A family in the town has kept it for seventy years, and they've agreed to lend it to us。<br><b>同義轉換</b>：a family in the town ＝ local people；lend ＝ on loan。",
+      "quote": "A family in the town has kept it for seventy years, and they've agreed to lend it to us for the exhibition."
+    },
+    {
+      "no": 29,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>（需要說明用途）。Nina 說 most people today have no idea what a shuttle is or what it does, so we'll need a clear description of its function。<br><b>同義轉換</b>：description of its function ＝ purpose explained。",
+      "quote": "The trouble is that most people today have no idea what a shuttle is or what it does, so we'll need a clear description of its function right next to it."
+    },
+    {
+      "no": 30,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（太脆弱無法展示）。Nina 說 the silk is in such poor condition that even a little light would damage it，所以只能留在倉庫。<br><b>陷阱</b>：F 被否定——We thought about having a copy made, but that would cost far too much，所以 F 是本題組沒用到的選項。",
+      "quote": "It would, but the silk is in such poor condition that even a little light would damage it. We thought about having a copy made, but that would cost far too much."
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "no": 2,
+  "context": "A welcome talk for new international students at Kingsmead University",
+  "audio": "L05_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear a student adviser giving a welcome talk to new international students at a university. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Hello, everybody, and welcome to Kingsmead University. I'm Greg Mason from the Student Support Office, and over the next few minutes I'll try to answer the questions that new students ask us most often." },
+    { "v": "m4", "t": "The first thing on your list should be enrolment. You've probably filled in the online form already, but that's only the first stage. And there's no need to visit your department about this. To complete your enrolment, you must come in person to the Great Hall before Friday, and you must bring your passport with you." },
+    { "v": "m4", "t": "The queues are usually shortest in the mornings, so try to arrive early. The staff will check your documents, take your photograph and answer any questions you may have about your visa." },
+    { "v": "m4", "t": "Once you've enrolled, you'll be given a student card. It isn't a bus pass, so if you want cheap travel, you'll need to apply to the bus company separately. You can't use it to pay for meals either, although we're hoping to introduce that next year. But do carry it with you at all times, because you can't get into the library without it." },
+    { "v": "m4", "t": "Every new student is also given a mentor, who's a second-year student from your own department. Your mentor can't advise you on which modules to take, as that's your tutor's job, and they won't correct your essays. They're there to help you with everyday things, like how to register with a doctor, where to shop, and how the laundry works." },
+    { "v": "m4", "t": "Your mentor will get in touch with you by email this week, so do look out for that message. Most mentors arrange to meet their students for a coffee in the first few days." },
+    { "v": "m4", "t": "Many of you will be interested in our free English classes. These are open to all students, whatever level you're studying at. They last for one term only, and because everyone has to take a placement test first, they don't start until week three." },
+    { "v": "m4", "t": "The test takes about an hour, and you can sign up for it at the Language Centre." },
+    { "v": "m4", "t": "Finally, a word about money. I wouldn't advise looking for a part-time job in your first term, while you're still settling in. And you can open a bank account during your first week here, so there's no need to worry about that in advance. My main piece of advice is this. Don't buy new textbooks. They're extremely expensive, and the Students' Union runs a second-hand book sale during the first fortnight." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Now, let's see how to find your way around. Please look at the campus map. The main gate is on the east side of the campus, on the right of your map, and University Avenue runs straight ahead of you from there, from east to west." },
+    { "v": "m4", "t": "As you pass through the gate, the first building on your left is the Students' Union. Opposite it, on your right, is the administration block." },
+    { "v": "m4", "t": "The Union has a shop, a café and a large common room, and it's the best place to go if you want to join a club or a society." },
+    { "v": "m4", "t": "Carry on along the avenue until you reach the library, which is the large building on the north side. Directly across the avenue from the library, you'll find the Health Centre, so that's where to go if you need to see a nurse." },
+    { "v": "m4", "t": "If you keep walking, the avenue comes to an end at the Sports Hall, right on the western edge of the campus. Membership is free for all students in their first year." },
+    { "v": "m4", "t": "The campus bookshop is a little harder to find. Take the footpath that runs along the side of the library, and you'll see the shop to the north of the library, facing the back of the building." },
+    { "v": "m4", "t": "It stays open until six o'clock during the first two weeks of term." },
+    { "v": "m4", "t": "And lastly, the Language Centre, where the English classes are held. Go back to the Health Centre and follow the footpath round the lake. The Language Centre stands on the southern shore, with a lovely view across the water." },
+    { "v": "m4", "t": "If you do get lost, just ask anyone wearing a yellow Welcome Team T-shirt. They'll be around the campus all week." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "To complete their enrolment, new students must",
+          "options": { "A": "go to the Great Hall in person.", "B": "fill in a form online.", "C": "visit their department office." }
+        },
+        {
+          "no": 12,
+          "stem": "The student card is needed in order to",
+          "options": { "A": "travel cheaply on local buses.", "B": "pay for meals on campus.", "C": "enter the library." }
+        },
+        {
+          "no": 13,
+          "stem": "What will mentors help new students with?",
+          "options": { "A": "choosing their modules", "B": "practical matters of daily life", "C": "improving their essays" }
+        },
+        {
+          "no": 14,
+          "stem": "The free English classes",
+          "options": { "A": "are only for postgraduate students.", "B": "continue for the whole academic year.", "C": "begin in the third week of term." }
+        },
+        {
+          "no": 15,
+          "stem": "What is Greg's main advice about money?",
+          "options": { "A": "Avoid buying new textbooks.", "B": "Find a part-time job as soon as possible.", "C": "Open a bank account before arriving." }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L05_part2_map.svg",
+      "imageAlt": "Kingsmead University 校園地圖，大門在東側，標示 A 到 H 八個位置",
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "items": [
+        { "no": 16, "text": "Students' Union" },
+        { "no": 17, "text": "Health Centre" },
+        { "no": 18, "text": "Sports Hall" },
+        { "no": 19, "text": "Bookshop" },
+        { "no": 20, "text": "Language Centre" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Greg 說 To complete your enrolment, you must come in person to the Great Hall。<br><b>陷阱</b>：B 的線上表單 only the first stage，還不算完成；C 被否定——there's no need to visit your department。題目的 complete 是定位關鍵。",
+      "quote": "You've probably filled in the online form already, but that's only the first stage. And there's no need to visit your department about this. To complete your enrolment, you must come in person to the Great Hall before Friday."
+    },
+    {
+      "no": 12,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Greg 說 you can't get into the library without it。<br><b>陷阱</b>：A 被否定——It isn't a bus pass；B 也被否定——You can't use it to pay for meals，只是明年「希望」推出。雙重否定 can't... without 等於「一定要有」。",
+      "quote": "It isn't a bus pass, so if you want cheap travel, you'll need to apply to the bus company separately. You can't use it to pay for meals either, although we're hoping to introduce that next year. But do carry it with you at all times, because you can't get into the library without it."
+    },
+    {
+      "no": 13,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Greg 說 They're there to help you with everyday things，例如看醫生、購物、洗衣。<b>同義轉換</b>：everyday things ＝ practical matters of daily life。<br><b>陷阱</b>：A 是導師（tutor）的工作；C 被否定——they won't correct your essays。",
+      "quote": "Your mentor can't advise you on which modules to take, as that's your tutor's job, and they won't correct your essays. They're there to help you with everyday things, like how to register with a doctor, where to shop, and how the laundry works."
+    },
+    {
+      "no": 14,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Greg 說 they don't start until week three。<b>同義轉換</b>：don't start until week three ＝ begin in the third week。<br><b>陷阱</b>：A 被否定——open to all students；B 也被否定——They last for one term only。",
+      "quote": "These are open to all students, whatever level you're studying at. They last for one term only, and because everyone has to take a placement test first, they don't start until week three."
+    },
+    {
+      "no": 15,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Greg 說 My main piece of advice is this. Don't buy new textbooks。<br><b>陷阱</b>：B 剛好相反——I wouldn't advise looking for a part-time job in your first term；C 也不必——you can open a bank account during your first week here。",
+      "quote": "I wouldn't advise looking for a part-time job in your first term, while you're still settling in. And you can open a bank account during your first week here, so there's no need to worry about that in advance. My main piece of advice is this. Don't buy new textbooks."
+    },
+    {
+      "no": 16,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。大門在東側，走進校園時面向西方，左手邊是南方，所以第一棟建築是大道南側的 B。<br><b>陷阱</b>：A 在對面右手邊，是行政大樓。這回入口在東邊，left＝南、right＝北，和平常的直覺不同。",
+      "quote": "As you pass through the gate, the first building on your left is the Students' Union. Opposite it, on your right, is the administration block."
+    },
+    {
+      "no": 17,
+      "answers": ["G"],
+      "explain": "答案是 <b>G</b>。Greg 說 Directly across the avenue from the library，圖書館在大道北側，正對面的南側就是 G。<br><b>提醒</b>：先在地圖上找到已標示的 LIBRARY 當參考點。directly across 表示隔著大道正對面。",
+      "quote": "Directly across the avenue from the library, you'll find the Health Centre."
+    },
+    {
+      "no": 18,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>。Greg 說 the avenue comes to an end at the Sports Hall, right on the western edge of the campus，大道最西端是 F。<br><b>陷阱</b>：E 也在西邊，但不在大道盡頭，而是在大道北側。",
+      "quote": "If you keep walking, the avenue comes to an end at the Sports Hall, right on the western edge of the campus."
+    },
+    {
+      "no": 19,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>。Greg 說 you'll see the shop to the north of the library, facing the back of the building，圖書館正北方是 D。<br><b>陷阱</b>：C 在東北邊，E 在西邊，都不是圖書館正後方。the back of the building 表示在建築背面。",
+      "quote": "Take the footpath that runs along the side of the library, and you'll see the shop to the north of the library, facing the back of the building."
+    },
+    {
+      "no": 20,
+      "answers": ["H"],
+      "explain": "答案是 <b>H</b>。Greg 說 The Language Centre stands on the southern shore，湖的南岸是 H。<br><b>陷阱</b>：G 也靠近湖，但那是上一段的 Health Centre，只是這段路線的起點（Go back to the Health Centre）。",
+      "quote": "Go back to the Health Centre and follow the footpath round the lake. The Language Centre stands on the southern shore, with a lovely view across the water."
+    }
+  ]
+}

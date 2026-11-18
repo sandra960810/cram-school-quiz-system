@@ -1,0 +1,144 @@
+{
+  "no": 2,
+  "context": "A guide's talk for visitors to the Tarnside Steam Railway",
+  "audio": "L04_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear a volunteer guide talking to visitors at a heritage steam railway. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Good morning, ladies and gentlemen, and welcome to the Tarnside Steam Railway. My name's Alastair, and I'm one of the volunteer guides here. Before you board, I'll give you a bit of background and a few tips for the day." },
+    { "v": "m3", "t": "Visitors often imagine that this line was built to bring holidaymakers up to the lakes. Tourists did use it later on, and local farmers sent some of their produce down on it too. But the reason it was built, back in eighteen sixty-three, was to carry slate from the quarries at the top of the valley down to the coast. When the quarries closed, the line's days were numbered, and the last train ran in nineteen sixty-four." },
+    { "v": "m3", "t": "Reopening it took twenty-two years. We did receive a government grant, but that only paid for repairing one bridge. And some people think the company sold off land along the line, which isn't true. The restoration was really made possible by ordinary members of the public. Thousands of people sent in small donations, often just a few pounds at a time, and that's what paid for most of the work." },
+    { "v": "m3", "t": "The first restored section opened in nineteen eighty-six, and our volunteers have been extending the line a little further ever since." },
+    { "v": "m3", "t": "Now, a couple of things are different this season. Ticket prices are the same as last year, and dogs are still welcome on board, as they've always been. But your ticket is no longer for one journey only. It's now valid all day, so you can get on and off at any station, and ride as many times as you like." },
+    { "v": "m3", "t": "A word about safety. You may get a bit of soot on your clothes, but it brushes off easily, so don't worry about that. And the guard locks the doors before we set off, so you needn't do anything there. What I must ask you not to do is to lean out of the windows. The tunnel at Scar Bank is very narrow, and there's hardly any room on either side of the train." },
+    { "v": "m3", "t": "And here's my top tip. You don't need to buy a guidebook, because there's a free leaflet in every carriage. There's no advantage in catching the first train of the day either, because it's always the busiest. But do try to sit on the left-hand side as we go up the valley, because that's where you'll get the best view of the waterfall." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Now, if you look at the map in front of you, I'll show you what there is to see at this end of the line. We're standing in the car park, at the south of the site. The railway line runs straight across the map from west to east, and to reach the station, you walk north up the path and cross the line by the footbridge." },
+    { "v": "m3", "t": "Before you get to the bridge, you'll come to the gift shop. As you walk north up the path, it's on your left, just before the steps." },
+    { "v": "m3", "t": "Once you've crossed the footbridge, turn right and follow the fence beside the line. Keep walking east, past the old water tower, and right at the far end, in the north-east corner of the site, you'll find the engine shed. You can watch the locomotives being repaired there." },
+    { "v": "m3", "t": "If you turn left off the bridge instead, you'll walk along the platform and past the station building. When you reach the end of the platform, carry on beside the line, and you'll come to the signal box, standing on its own at the far west of the site." },
+    { "v": "m3", "t": "It was built in eighteen ninety and, on most weekends, one of our signalmen will be happy to show you how the levers work." },
+    { "v": "m3", "t": "The museum is easy to find, because it's directly behind the station building, on its north side. It has a fine collection of old posters and uniforms." },
+    { "v": "m3", "t": "And now something for the children. Go back over the bridge to the south side of the line and turn left, heading east. You'll pass the picnic area first. Keep going beyond it, and over in the far south-east of the site is the miniature railway." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "The railway was originally built to transport",
+          "options": { "A": "slate.", "B": "holidaymakers.", "C": "farm produce." }
+        },
+        {
+          "no": 12,
+          "stem": "Most of the money for the restoration came from",
+          "options": { "A": "a government grant.", "B": "gifts from the public.", "C": "the sale of land." }
+        },
+        {
+          "no": 13,
+          "stem": "What has changed this season?",
+          "options": { "A": "Tickets can be used for a whole day.", "B": "Ticket prices have gone up.", "C": "Dogs are now allowed on the trains." }
+        },
+        {
+          "no": 14,
+          "stem": "Passengers are warned not to",
+          "options": { "A": "touch the soot on the carriages.", "B": "open the carriage doors.", "C": "lean out of the windows." }
+        },
+        {
+          "no": 15,
+          "stem": "The guide recommends that visitors should",
+          "options": { "A": "catch the first train of the day.", "B": "sit on the left side of the train.", "C": "buy a guidebook." }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L04_part2_map.svg",
+      "imageAlt": "Tarnside Steam Railway 地圖，鐵道東西橫貫，停車場在南側，標示 A 到 H 八個位置",
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "items": [
+        { "no": 16, "text": "Gift shop" },
+        { "no": 17, "text": "Engine shed" },
+        { "no": 18, "text": "Signal box" },
+        { "no": 19, "text": "Museum" },
+        { "no": 20, "text": "Miniature railway" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Alastair 說 the reason it was built... was to carry slate from the quarries。<br><b>陷阱</b>：B 是 Visitors often imagine 的誤解；B、C 都是 later on 或附帶的用途。題目問 originally，要找 the reason it was built。",
+      "quote": "Visitors often imagine that this line was built to bring holidaymakers up to the lakes. Tourists did use it later on, and local farmers sent some of their produce down on it too. But the reason it was built, back in eighteen sixty-three, was to carry slate from the quarries at the top of the valley down to the coast."
+    },
+    {
+      "no": 12,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Alastair 說 Thousands of people sent in small donations... that's what paid for most of the work。<b>同義轉換</b>：donations ＝ gifts。<br><b>陷阱</b>：A 的補助只修了一座橋（only paid for repairing one bridge）；C 被否定（which isn't true）。",
+      "quote": "We did receive a government grant, but that only paid for repairing one bridge. And some people think the company sold off land along the line, which isn't true... Thousands of people sent in small donations, often just a few pounds at a time, and that's what paid for most of the work."
+    },
+    {
+      "no": 13,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Alastair 說 It's now valid all day。<br><b>陷阱</b>：B 被否定——Ticket prices are the same as last year；C 也不是改變——dogs are still welcome... as they've always been。聽到 still、always 就表示沒有變。",
+      "quote": "Ticket prices are the same as last year, and dogs are still welcome on board, as they've always been. But your ticket is no longer for one journey only. It's now valid all day."
+    },
+    {
+      "no": 14,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Alastair 說 What I must ask you not to do is to lean out of the windows，因為隧道很窄。<br><b>陷阱</b>：soot 只會沾到衣服，don't worry about that；車門由列車長鎖上，乘客不用處理。What I must ask you not to do 直接對應題目的 warned not to。",
+      "quote": "What I must ask you not to do is to lean out of the windows."
+    },
+    {
+      "no": 15,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Alastair 說 do try to sit on the left-hand side，因為看瀑布的視野最好。<br><b>陷阱</b>：C 被否定——You don't need to buy a guidebook；A 也被否定——no advantage in catching the first train。do try to 是強調的建議語氣。",
+      "quote": "You don't need to buy a guidebook, because there's a free leaflet in every carriage. There's no advantage in catching the first train of the day either, because it's always the busiest. But do try to sit on the left-hand side as we go up the valley."
+    },
+    {
+      "no": 16,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。從停車場往北走，面向北時左手邊是西方，步道西側、靠近天橋階梯的是 B。<br><b>陷阱</b>：C 在步道右邊（東側），是野餐區。A 雖然也在西邊，但離步道太遠，不符合 just before the steps。",
+      "quote": "As you walk north up the path, it's on your left, just before the steps."
+    },
+    {
+      "no": 17,
+      "answers": ["G"],
+      "explain": "答案是 <b>G</b>。過橋右轉往東，經過舊水塔（E），走到最遠的 north-east corner 就是機車棚。<br><b>陷阱</b>：E 是途中經過的 old water tower。past 表示「經過」，目的地還在更前面。",
+      "quote": "Keep walking east, past the old water tower, and right at the far end, in the north-east corner of the site, you'll find the engine shed."
+    },
+    {
+      "no": 18,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>。過橋左轉，沿月台走過車站，繼續沿鐵道往西，at the far west of the site 就是號誌樓。<br><b>陷阱</b>：A 也在西邊，但在鐵道南側。整段路都沒有再過橋，所以一定還在鐵道北側。",
+      "quote": "When you reach the end of the platform, carry on beside the line, and you'll come to the signal box, standing on its own at the far west of the site."
+    },
+    {
+      "no": 19,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>。Alastair 說 it's directly behind the station building, on its north side，地圖上 STATION 正上方是 F。<br><b>提醒</b>：behind 要看說話者的方向，這裡他直接補充 on its north side，以方位為準最安全。",
+      "quote": "The museum is easy to find, because it's directly behind the station building, on its north side."
+    },
+    {
+      "no": 20,
+      "answers": ["H"],
+      "explain": "答案是 <b>H</b>。回到鐵道南側往東走，先經過野餐區（C），再往前到 the far south-east 就是迷你鐵道。<br><b>陷阱</b>：C 是 You'll pass 的野餐區，Keep going beyond it 表示答案還在更遠處。",
+      "quote": "You'll pass the picnic area first. Keep going beyond it, and over in the far south-east of the site is the miniature railway."
+    }
+  ]
+}

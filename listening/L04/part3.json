@@ -1,0 +1,164 @@
+{
+  "no": 3,
+  "context": "Two education students discussing a project on outdoor learning",
+  "audio": "L04_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two education students, Chloe and Liam, discussing Liam's project on outdoor learning in a primary school. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "m2", "t": "Hi Chloe. Thanks for reading my draft. I'm presenting the outdoor learning project next week, and I want to be sure it makes sense." },
+    { "v": "f3", "t": "It was really interesting. Remind me, what made you choose the topic? Was it that lecture by Dr Okafor?" },
+    { "v": "m2", "t": "No, I missed most of that, I'm afraid. And it certainly wasn't my own school days, because we hardly ever left the classroom. It came from my teaching placement. The school I was sent to had this huge garden that nobody was using, and I couldn't stop wondering what could be done with it." },
+    { "v": "f3", "t": "How did the headteacher react? I imagine she was worried about the cost." },
+    { "v": "m2", "t": "Actually, money wasn't an issue, because a local charity offered to pay for the equipment. And she wasn't bothered about the children getting wet or cold. What concerned her was the timetable. With so much to cover in maths and English, she felt that every hour outside was an hour lost from lessons." },
+    { "v": "f3", "t": "That's understandable. So what did you notice once you'd started?" },
+    { "v": "m2", "t": "I expected the boys to enjoy it more than the girls, but there was no difference at all. And although they found it hard to concentrate for the first week, that soon passed. What struck me was the shy children. Pupils who'd hardly said a word in class all term started chatting to each other and asking questions." },
+    { "v": "f3", "t": "Did the class teacher notice that too?" },
+    { "v": "m2", "t": "She did. She said it was the first time she'd heard some of those children speak in a full sentence, and she's now planning to take them outside at least once a week." },
+    { "v": "f3", "t": "That's lovely. My one criticism is the evaluation. You say their work improved, but improved compared to what? Talking to the parents wouldn't really help, and it's too late to add more schools. What you need is to compare them with a class that stayed indoors for the same six weeks." },
+    { "v": "m2", "t": "You're right. There's another class in the same year, so I could use their test scores." },
+    { "v": "f3", "t": "Perfect. And what about the appendix? Are you putting in those photographs of the children?" },
+    { "v": "m2", "t": "I can't, because I never got written permission from all the parents. And the questionnaires would take up thirty pages. So I'll just include my lesson plans, since other teachers might find them useful." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "f3", "t": "Now, the section on your five activities. What did each one do for the children? Start with the minibeast hunt." },
+    { "v": "m2", "t": "They went searching for insects under logs, and they had to record what they found. They started looking very closely, counting legs and comparing wings, and noticing tiny details they'd never have seen in a textbook." },
+    { "v": "f3", "t": "And the den building?" },
+    { "v": "m2", "t": "People say it builds confidence, but I didn't really see that. The real gain was that they had to work as a team. Nobody could hold up the branches alone, so they learned to share out the jobs and agree on a plan." },
+    { "v": "f3", "t": "Did they all join in?" },
+    { "v": "m2", "t": "Nearly all of them. A couple of them complained about the mud at first, but once the walls started going up, they forgot all about it." },
+    { "v": "f3", "t": "Then there's growing vegetables." },
+    { "v": "m2", "t": "That one was slow. For weeks there was nothing to see but soil, and at first the children kept digging up the seeds to check on them. In the end, they accepted that some things can't be hurried, and that you simply have to wait." },
+    { "v": "f3", "t": "What about the story walk?" },
+    { "v": "m2", "t": "We stopped at different places, and the children made up a story as they went along. By the end, they were using words like rustling, damp and shadowy, which had never appeared in their writing before. Their range of language really grew." },
+    { "v": "f3", "t": "Did you write down what they said?" },
+    { "v": "m2", "t": "Yes, I recorded the stories on my phone and typed them up later, so I've got plenty of examples to quote." },
+    { "v": "f3", "t": "And last of all, measuring shadows." },
+    { "v": "m2", "t": "They measured their own shadows every hour with tape measures, and then they drew charts. Children who said they hated numbers were suddenly working out differences and averages, so it was wonderful for their maths." },
+    { "v": "f3", "t": "That's a really strong section, Liam." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did Liam choose outdoor learning as his topic?",
+          "options": { "A": "He had attended a lecture about it.", "B": "He had seen unused grounds at his placement school.", "C": "He had enjoyed outdoor lessons as a pupil." }
+        },
+        {
+          "no": 22,
+          "stem": "What was the headteacher's main concern?",
+          "options": { "A": "the cost of the equipment", "B": "the effect of bad weather", "C": "the loss of teaching time" }
+        },
+        {
+          "no": 23,
+          "stem": "What did Liam notice during the outdoor lessons?",
+          "options": { "A": "Quiet pupils became more talkative.", "B": "Boys enjoyed the lessons more than girls.", "C": "Pupils' concentration remained poor." }
+        },
+        {
+          "no": 24,
+          "stem": "What does Chloe suggest to improve the evaluation?",
+          "options": { "A": "interviewing the children's parents", "B": "including additional schools", "C": "making a comparison with an indoor class" }
+        },
+        {
+          "no": 25,
+          "stem": "What will Liam put in the appendix?",
+          "options": { "A": "photographs", "B": "lesson plans", "C": "questionnaires" }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What was the main benefit of each activity?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Benefits",
+      "options": {
+        "A": "learning to cooperate",
+        "B": "improving mathematical skills",
+        "C": "widening vocabulary",
+        "D": "developing patience",
+        "E": "observing things carefully",
+        "F": "gaining confidence"
+      },
+      "items": [
+        { "no": 26, "text": "Minibeast hunt" },
+        { "no": 27, "text": "Den building" },
+        { "no": 28, "text": "Growing vegetables" },
+        { "no": 29, "text": "Story walk" },
+        { "no": 30, "text": "Measuring shadows" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Liam 說 It came from my teaching placement，學校有一座 huge garden that nobody was using。<b>同義轉換</b>：garden that nobody was using ＝ unused grounds。<br><b>陷阱</b>：A 被否定（I missed most of that）；C 也被否定（we hardly ever left the classroom）。",
+      "quote": "No, I missed most of that, I'm afraid. And it certainly wasn't my own school days, because we hardly ever left the classroom. It came from my teaching placement. The school I was sent to had this huge garden that nobody was using."
+    },
+    {
+      "no": 22,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Liam 說 What concerned her was the timetable... every hour outside was an hour lost from lessons。<br><b>陷阱</b>：A 被否定——money wasn't an issue；B 也被否定——she wasn't bothered about the children getting wet or cold。",
+      "quote": "Actually, money wasn't an issue, because a local charity offered to pay for the equipment. And she wasn't bothered about the children getting wet or cold. What concerned her was the timetable."
+    },
+    {
+      "no": 23,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Liam 說 Pupils who'd hardly said a word in class all term started chatting to each other。<b>同義轉換</b>：shy children ＝ quiet pupils；chatting ＝ talkative。<br><b>陷阱</b>：B 被否定——there was no difference at all；C 也不對——只有第一週難專心，that soon passed。",
+      "quote": "I expected the boys to enjoy it more than the girls, but there was no difference at all. And although they found it hard to concentrate for the first week, that soon passed. What struck me was the shy children."
+    },
+    {
+      "no": 24,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Chloe 說 What you need is to compare them with a class that stayed indoors for the same six weeks。<br><b>陷阱</b>：A 被否定——Talking to the parents wouldn't really help；B 也被否定——it's too late to add more schools。",
+      "quote": "Talking to the parents wouldn't really help, and it's too late to add more schools. What you need is to compare them with a class that stayed indoors for the same six weeks."
+    },
+    {
+      "no": 25,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Liam 說 So I'll just include my lesson plans。<br><b>陷阱</b>：A 沒有家長書面同意（I never got written permission）；C 太佔篇幅（would take up thirty pages）。三個選項都有提到，只有 So I'll just include 是最後決定。",
+      "quote": "I can't, because I never got written permission from all the parents. And the questionnaires would take up thirty pages. So I'll just include my lesson plans, since other teachers might find them useful."
+    },
+    {
+      "no": 26,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>（仔細觀察）。Liam 說 They started looking very closely, counting legs and comparing wings, and noticing tiny details。<br><b>同義轉換</b>：looking very closely ＝ observing things carefully。<b>陷阱</b>：counting 雖然和數字有關，但重點是觀察，不是數學。",
+      "quote": "They started looking very closely, counting legs and comparing wings, and noticing tiny details they'd never have seen in a textbook."
+    },
+    {
+      "no": 27,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（學習合作）。Liam 說 The real gain was that they had to work as a team。<br><b>陷阱</b>：F 的 confidence 被否定——People say it builds confidence, but I didn't really see that，所以 F 是本題組沒用到的選項。",
+      "quote": "People say it builds confidence, but I didn't really see that. The real gain was that they had to work as a team."
+    },
+    {
+      "no": 28,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>（培養耐心）。Liam 說 they accepted that some things can't be hurried, and that you simply have to wait。<br><b>同義轉換</b>：can't be hurried、have to wait ＝ patience。錄音沒有直接說 patience，要從描述推斷。",
+      "quote": "In the end, they accepted that some things can't be hurried, and that you simply have to wait."
+    },
+    {
+      "no": 29,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（擴充字彙）。Liam 說 they were using words like rustling, damp and shadowy... Their range of language really grew。<br><b>同義轉換</b>：range of language grew ＝ widening vocabulary。",
+      "quote": "By the end, they were using words like rustling, damp and shadowy, which had never appeared in their writing before. Their range of language really grew."
+    },
+    {
+      "no": 30,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（提升數學能力）。Liam 說 working out differences and averages, so it was wonderful for their maths。<br><b>提醒</b>：maths 直接對應 mathematical skills，是本題組最直接的一題。",
+      "quote": "Children who said they hated numbers were suddenly working out differences and averages, so it was wonderful for their maths."
+    }
+  ]
+}

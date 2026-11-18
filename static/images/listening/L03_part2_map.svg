@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 590" width="100%" style="max-width:700px;font-family:Arial,Helvetica,sans-serif">
+  <rect width="700" height="590" fill="#ffffff"/>
+  <text x="350" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">WRENBURY CENTRAL LIBRARY – GROUND FLOOR</text>
+
+  <!-- 建築外牆與大廳 -->
+  <rect x="40" y="45" width="620" height="480" fill="#f7f4ec" stroke="#444" stroke-width="3"/>
+
+  <!-- 北側房間 -->
+  <rect x="40" y="45" width="210" height="130" fill="#ffffff" stroke="#666" stroke-width="2"/>
+  <rect x="450" y="45" width="210" height="130" fill="#ffffff" stroke="#666" stroke-width="2"/>
+
+  <!-- 樓梯（北側中央） -->
+  <rect x="280" y="55" width="140" height="80" fill="#e4dfd2" stroke="#666" stroke-width="2"/>
+  <g stroke="#888" stroke-width="1.5">
+    <line x1="300" y1="55" x2="300" y2="135"/><line x1="320" y1="55" x2="320" y2="135"/>
+    <line x1="340" y1="55" x2="340" y2="135"/><line x1="360" y1="55" x2="360" y2="135"/>
+    <line x1="380" y1="55" x2="380" y2="135"/><line x1="400" y1="55" x2="400" y2="135"/>
+  </g>
+  <rect x="312" y="84" width="76" height="22" fill="#e4dfd2"/>
+  <text x="350" y="101" text-anchor="middle" font-size="15" font-weight="bold" fill="#444">STAIRS</text>
+
+  <!-- 東西兩側房間 -->
+  <rect x="40" y="215" width="170" height="140" fill="#ffffff" stroke="#666" stroke-width="2"/>
+  <rect x="490" y="215" width="170" height="140" fill="#ffffff" stroke="#666" stroke-width="2"/>
+
+  <!-- 接待櫃台（中央） -->
+  <rect x="280" y="255" width="140" height="60" rx="8" fill="#d9c9a8" stroke="#7a6442" stroke-width="2"/>
+  <text x="350" y="291" text-anchor="middle" font-size="15" font-weight="bold" fill="#54401f">RECEPTION</text>
+
+  <!-- 南側房間 -->
+  <rect x="40" y="395" width="130" height="130" fill="#ffffff" stroke="#666" stroke-width="2"/>
+  <rect x="170" y="395" width="125" height="130" fill="#ffffff" stroke="#666" stroke-width="2"/>
+  <rect x="405" y="395" width="125" height="130" fill="#ffffff" stroke="#666" stroke-width="2"/>
+  <rect x="530" y="395" width="130" height="130" fill="#ffffff" stroke="#666" stroke-width="2"/>
+
+  <!-- 主要入口（南牆中央） -->
+  <rect x="315" y="517" width="70" height="16" fill="#ffffff" stroke="#333" stroke-width="2"/>
+  <polygon points="350,500 340,512 360,512" fill="#333"/>
+  <text x="350" y="553" text-anchor="middle" font-size="15" font-weight="bold" fill="#222">MAIN ENTRANCE</text>
+
+  <!-- 指北針 -->
+  <g transform="translate(628,562)">
+    <line x1="0" y1="14" x2="0" y2="-8" stroke="#333" stroke-width="2.5"/>
+    <polygon points="0,-18 -7,-4 7,-4" fill="#333"/>
+    <text x="20" y="6" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">N</text>
+  </g>
+
+  <!-- 位置標記 A–H -->
+  <g font-size="19" font-weight="bold" text-anchor="middle">
+    <g><circle cx="145" cy="110" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="145" y="117" fill="#c0392b">A</text></g>
+    <g><circle cx="555" cy="110" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="555" y="117" fill="#c0392b">B</text></g>
+    <g><circle cx="125" cy="285" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="125" y="292" fill="#c0392b">C</text></g>
+    <g><circle cx="575" cy="285" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="575" y="292" fill="#c0392b">D</text></g>
+    <g><circle cx="105" cy="460" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="105" y="467" fill="#c0392b">E</text></g>
+    <g><circle cx="232" cy="460" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="232" y="467" fill="#c0392b">F</text></g>
+    <g><circle cx="468" cy="460" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="468" y="467" fill="#c0392b">G</text></g>
+    <g><circle cx="595" cy="460" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="595" y="467" fill="#c0392b">H</text></g>
+  </g>
+</svg>

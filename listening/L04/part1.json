@@ -1,0 +1,158 @@
+{
+  "no": 1,
+  "context": "Telephone enquiry about an evening course at an adult learning centre",
+  "audio": "L04_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a man telephoning an adult learning centre to ask about an evening course. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "f2", "t": "Good evening, Bramley Adult Learning Centre. Sophie speaking." },
+    { "v": "m4", "t": "Hi there. I'd like to sign up for one of your evening courses, if there's still space." },
+    { "v": "f2", "t": "Let's see what we can do. Can I have your name, please?" },
+    { "v": "m4", "t": "Yes, it's Ian Prentice. P-R-E-N-T-I-C-E." },
+    { "v": "narrator", "t": "The man's surname is Prentice, so Prentice has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Good evening, Bramley Adult Learning Centre. Sophie speaking." },
+    { "v": "m4", "t": "Hi there. I'd like to sign up for one of your evening courses, if there's still space." },
+    { "v": "f2", "t": "Let's see what we can do. Can I have your name, please?" },
+    { "v": "m4", "t": "Yes, it's Ian Prentice. P-R-E-N-T-I-C-E." },
+    { "v": "f2", "t": "Thanks, Mr Prentice. Which course were you interested in?" },
+    { "v": "m4", "t": "I was hoping to do watercolour painting, but your website says it's full." },
+    { "v": "f2", "t": "It is, I'm afraid. There's a waiting list of about twenty people." },
+    { "v": "m4", "t": "Oh well. In that case, I'll try something I've always fancied. Are there any places left on the beginners' pottery course?" },
+    { "v": "f2", "t": "Yes, plenty. Now, the brochure gives the first class as the 1st of September, but the tutor can't make that date, so the course will start a week later, on the 8th." },
+    { "v": "m4", "t": "The 8th of September. That's fine. And the classes are on Thursdays, aren't they?" },
+    { "v": "f2", "t": "They used to be, but another group needs the kiln that day. So it's every Monday now, from half past seven until half past nine." },
+    { "v": "m4", "t": "Monday suits me. Where do I go? The brochure says Room C7." },
+    { "v": "f2", "t": "That's been changed as well, I'm sorry. C7 was far too small, so this year you'll be in Room B12, on the ground floor of the new block." },
+    { "v": "m4", "t": "Is the new block the one beside the main entrance?" },
+    { "v": "f2", "t": "That's right, the brick building on your left as you come in. There'll be signs up during the first week, and someone on the front desk to point you in the right direction." },
+    { "v": "m4", "t": "B12. Got it. And what's the fee for the course?" },
+    { "v": "f2", "t": "The full price for the ten weeks is 195 pounds. Are you working at the moment?" },
+    { "v": "m4", "t": "No, I retired in June." },
+    { "v": "f2", "t": "Then you qualify for our reduced rate, which is 165 pounds." },
+    { "v": "m4", "t": "165. That's very welcome. Does that include everything?" },
+    { "v": "f2", "t": "It covers your tuition, the use of all the tools, and firing your work in the kiln. The one thing you'll pay for separately is clay. You buy it from the tutor, by the bag, whenever you need it." },
+    { "v": "m4", "t": "Roughly how much does a bag cost?" },
+    { "v": "f2", "t": "Only a few pounds, and one bag lasts most people several weeks, so it won't add much to your costs." },
+    { "v": "m4", "t": "Fair enough. Should I bring anything with me? An apron, perhaps?" },
+    { "v": "f2", "t": "Most people find an apron doesn't cover enough, and we provide the towels. What the tutor recommends is an old shirt with long sleeves, to keep your clothes clean." },
+    { "v": "m4", "t": "I've got plenty of those. Who's the tutor, by the way? A friend of mine did a class with a Mr Barker." },
+    { "v": "f2", "t": "Mr Barker retired last summer. It's Mrs Fenwick now. That's F-E-N-W-I-C-K. She's very good." },
+    { "v": "m4", "t": "And how many students are there in a group?" },
+    { "v": "f2", "t": "We keep it to twelve, because there are only twelve wheels. Everyone gets their own place, and she'll show you how to use it in the very first lesson." },
+    { "v": "m4", "t": "That sounds ideal. I've never touched a potter's wheel in my life." },
+    { "v": "f2", "t": "Most of the group will be complete beginners too, so you won't feel out of place." },
+    { "v": "m4", "t": "Great. And is there anywhere to park? I noticed some parking meters outside." },
+    { "v": "f2", "t": "The signs in the car park say you have to pay until eight o'clock, but they're out of date. The council changed the rules in the spring, and parking is now free after 7 p.m." },
+    { "v": "m4", "t": "That's good news, because the class doesn't start until half past seven anyway." },
+    { "v": "f2", "t": "Exactly. Most of our evening students arrive at around twenty past." },
+    { "v": "m4", "t": "Excellent. So how do I enrol? Can I do it now, over the phone?" },
+    { "v": "f2", "t": "We stopped taking bookings by phone last year, I'm afraid. You'll need to fill in the enrolment form on our website. It only takes five minutes." },
+    { "v": "m4", "t": "No problem, I'll do that tonight. Thanks very much for your help." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Bramley Adult Learning Centre",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The course",
+          "lines": [
+            "The caller's name is Ian",
+            "- {ex:Prentice}",
+            "He wants to join the beginners' {1} course",
+            "The first class is on {2} September",
+            "Classes take place every {3} evening",
+            "The course is held in Room {4}"
+          ]
+        },
+        {
+          "heading": "Costs",
+          "lines": [
+            "He will pay the reduced fee of £{5}",
+            "Students have to pay extra for {6}"
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "He should bring an old {7} to protect his clothes",
+            "The tutor is Mrs {8}",
+            "Parking is free after {9} p.m.",
+            "To enrol, he must complete a form on the {10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": ["pottery"],
+      "explain": "答案是 <b>pottery</b>（陶藝）。Ian 問 Are there any places left on the beginners' pottery course?，Sophie 回答 Yes, plenty。<br><b>陷阱</b>：watercolour painting 是他原本想上的課，但已額滿（it's full）。I was hoping to... 常是沒有實現的計畫。",
+      "quote": "Are there any places left on the beginners' pottery course?"
+    },
+    {
+      "no": 2,
+      "answers": ["8", "8th", "eighth"],
+      "explain": "答案是 <b>8</b>。Sophie 說 the course will start a week later, on the 8th。<br><b>陷阱</b>：1st 是簡章上印的日期，但 the tutor can't make that date，已經改期。「簡章寫的」常是被更正的舊資訊。",
+      "quote": "Now, the brochure gives the first class as the 1st of September, but the tutor can't make that date, so the course will start a week later, on the 8th."
+    },
+    {
+      "no": 3,
+      "answers": ["Monday"],
+      "explain": "答案是 <b>Monday</b>。Sophie 說 So it's every Monday now，與題目的 every ___ evening 對應。<br><b>陷阱</b>：Ian 問的 Thursdays 是以前的上課日（They used to be）。used to be 表示現在已經不是了。",
+      "quote": "They used to be, but another group needs the kiln that day. So it's every Monday now, from half past seven until half past nine."
+    },
+    {
+      "no": 4,
+      "answers": ["B12"],
+      "explain": "答案是 <b>B12</b>。Sophie 說 this year you'll be in Room B12。<br><b>陷阱</b>：C7 是簡章上的教室，但 That's been changed as well，而且太小了。這題同樣是「簡章上的舊資訊被更正」。",
+      "quote": "C7 was far too small, so this year you'll be in Room B12, on the ground floor of the new block."
+    },
+    {
+      "no": 5,
+      "answers": ["165"],
+      "explain": "答案是 <b>165</b>。Ian 已退休，所以 you qualify for our reduced rate, which is 165 pounds，對應題目的 reduced fee。<br><b>陷阱</b>：195 是 full price（全額）。題目明確寫 reduced，要等到優惠價出現。",
+      "quote": "The full price for the ten weeks is 195 pounds... Then you qualify for our reduced rate, which is 165 pounds."
+    },
+    {
+      "no": 6,
+      "answers": ["clay"],
+      "explain": "答案是 <b>clay</b>（黏土）。Sophie 說 The one thing you'll pay for separately is clay。<b>同義轉換</b>：pay for separately ＝ pay extra for。<br><b>陷阱</b>：tuition、tools、firing 都已包含在學費裡。",
+      "quote": "It covers your tuition, the use of all the tools, and firing your work in the kiln. The one thing you'll pay for separately is clay."
+    },
+    {
+      "no": 7,
+      "answers": ["shirt"],
+      "explain": "答案是 <b>shirt</b>。Sophie 說 What the tutor recommends is an old shirt with long sleeves, to keep your clothes clean。<br><b>陷阱</b>：apron 是 Ian 自己猜的，但 doesn't cover enough；towels 則由中心提供。",
+      "quote": "Most people find an apron doesn't cover enough, and we provide the towels. What the tutor recommends is an old shirt with long sleeves, to keep your clothes clean."
+    },
+    {
+      "no": 8,
+      "answers": ["Fenwick"],
+      "explain": "答案是 <b>Fenwick</b>。Sophie 拼出 F-E-N-W-I-C-K。<br><b>陷阱</b>：Mr Barker 是前任老師，已經 retired last summer。人名題要等到拼字才寫，而且題目印的是 Mrs，也能排除 Mr Barker。",
+      "quote": "Mr Barker retired last summer. It's Mrs Fenwick now. That's F-E-N-W-I-C-K."
+    },
+    {
+      "no": 9,
+      "answers": ["7", "seven"],
+      "explain": "答案是 <b>7</b>。Sophie 說 parking is now free after 7 p.m.。<br><b>陷阱</b>：eight o'clock 是停車場告示牌上的時間，但 they're out of date（已過時）。",
+      "quote": "The signs in the car park say you have to pay until eight o'clock, but they're out of date. The council changed the rules in the spring, and parking is now free after 7 p.m."
+    },
+    {
+      "no": 10,
+      "answers": ["website"],
+      "explain": "答案是 <b>website</b>。Sophie 說 You'll need to fill in the enrolment form on our website。<br><b>陷阱</b>：Ian 想用電話報名，但 We stopped taking bookings by phone last year。",
+      "quote": "We stopped taking bookings by phone last year, I'm afraid. You'll need to fill in the enrolment form on our website."
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "no": 2,
+  "context": "A briefing for volunteers at the Porthaven Harbour Festival",
+  "audio": "L06_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear the organiser of a harbour festival giving a briefing to new volunteers. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Hello, everyone, and thanks for volunteering at this year's Porthaven Harbour Festival. I'm Beth Carey, the organiser. Visitors will ask you all sorts of questions over the weekend, so I'd like to make sure you've got the answers." },
+    { "v": "f2", "t": "Some of them will want to know how the festival began. Many people suppose it was dreamed up by the tourist office, and others think it was a way of honouring the local fishing fleet. In fact, back in nineteen eighty-two, the lifeboat station urgently needed a new boat, and a few local families held a seafood supper to raise money for it. We still give part of our profits to the lifeboat today." },
+    { "v": "f2", "t": "Since then, it has grown from one evening in a church hall to a weekend that attracts around thirty thousand people." },
+    { "v": "f2", "t": "Now, what's different this year? Entry remains free, and we'll be finishing at ten o'clock on both nights, just as we did last year. The big change is transport. Because the harbour car parks fill up so quickly, there'll be a free shuttle bus from the railway station, running every fifteen minutes." },
+    { "v": "f2", "t": "Please tell visitors that the last bus leaves the harbour at half past ten." },
+    { "v": "f2", "t": "Everyone asks about the boat parade, which takes place at noon on Saturday. We've never had to cancel it, and we won't make it any shorter, because some of the boats travel a long way to be here. If the wind is too strong on Saturday, the parade will simply take place at the same time on Sunday." },
+    { "v": "f2", "t": "The best place to watch it is from the quay, but that gets crowded, so suggest arriving at least half an hour beforehand." },
+    { "v": "f2", "t": "Our chefs will be giving cookery demonstrations on both days. Visitors don't have to pay for these, but there's limited space in the tent, so they need to pick up a free ticket from the information tent on the morning of the demonstration." },
+    { "v": "f2", "t": "Each session lasts for about forty minutes, and the recipes are printed on the back of the programme." },
+    { "v": "f2", "t": "And one last point for visitors. Dogs are welcome, as long as they're on a lead. The seagulls can be a nuisance, I know, but the stallholders will warn people about those. What we really want to do this year is cut down on waste, so please encourage everyone to bring their own reusable cup. The drinks stalls won't be giving out disposable ones." },
+    { "v": "narrator", "t": "Before you hear the rest of the briefing, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Now, please look at the site map. The main gate is on Harbour Road, at the north of the site, so as you walk in, you're facing south, towards the sea. A wide path runs straight ahead of you, down to the quay." },
+    { "v": "f2", "t": "The information tent is the first thing you'll come to. As you walk through the gate, it's just inside, on your left. The first aid post is directly opposite." },
+    { "v": "f2", "t": "That tent is where you should report for duty each morning, and collect your radio." },
+    { "v": "f2", "t": "Walk on down the main path. Just before you reach the quay, you'll see the seafood market on your right-hand side, and the craft stalls are straight across the path from it." },
+    { "v": "f2", "t": "When you get to the quay, turn right and follow it as far as you can go. The music stage is at the far western end of the quay, so the sound carries out over the water, and not towards the houses." },
+    { "v": "f2", "t": "Bands will be playing there from two o'clock onwards on both afternoons." },
+    { "v": "f2", "t": "The children's area has been placed well away from the crowds. Go back up the main path a little way, and take the side path heading east, behind the craft stalls. Follow it to the end, and you'll find the children's area on the eastern edge of the site." },
+    { "v": "f2", "t": "There are face painters and a small puppet theatre there, and parents must stay with their children at all times." },
+    { "v": "f2", "t": "And finally, the boat trips. Tickets are sold from a kiosk on the pier. The pier runs out to sea from the eastern end of the quay, and the kiosk is right at the very end of it." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "The festival was first held in order to",
+          "options": { "A": "raise money for a lifeboat.", "B": "honour the fishing fleet.", "C": "attract tourists to the town." }
+        },
+        {
+          "no": 12,
+          "stem": "What is new at this year's festival?",
+          "options": { "A": "an entrance charge", "B": "a free bus service", "C": "a later finishing time" }
+        },
+        {
+          "no": 13,
+          "stem": "If the weather is bad, the boat parade will be",
+          "options": { "A": "cancelled.", "B": "moved to the next day.", "C": "made shorter." }
+        },
+        {
+          "no": 14,
+          "stem": "To attend a cookery demonstration, visitors must",
+          "options": { "A": "pay in advance.", "B": "come on the Saturday.", "C": "collect a free ticket." }
+        },
+        {
+          "no": 15,
+          "stem": "Visitors are being encouraged to",
+          "options": { "A": "bring their own cups.", "B": "leave their dogs at home.", "C": "avoid feeding the seagulls." }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L06_part2_map.svg",
+      "imageAlt": "Porthaven Harbour Festival 場地圖，大門在北側，南邊是海，標示 A 到 H 八個位置",
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "items": [
+        { "no": 16, "text": "Information tent" },
+        { "no": 17, "text": "Seafood market" },
+        { "no": 18, "text": "Music stage" },
+        { "no": 19, "text": "Children's area" },
+        { "no": 20, "text": "Boat trip kiosk" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Beth 說 the lifeboat station urgently needed a new boat, and a few local families held a seafood supper to raise money for it。<br><b>陷阱</b>：C 和 B 都是 Many people suppose／others think 的誤解，In fact 之後才是事實。",
+      "quote": "Many people suppose it was dreamed up by the tourist office, and others think it was a way of honouring the local fishing fleet. In fact, back in nineteen eighty-two, the lifeboat station urgently needed a new boat, and a few local families held a seafood supper to raise money for it."
+    },
+    {
+      "no": 12,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Beth 說 The big change is transport... there'll be a free shuttle bus。<br><b>陷阱</b>：A 被否定——Entry remains free；C 也被否定——finishing at ten o'clock... just as we did last year。",
+      "quote": "Entry remains free, and we'll be finishing at ten o'clock on both nights, just as we did last year. The big change is transport. Because the harbour car parks fill up so quickly, there'll be a free shuttle bus from the railway station."
+    },
+    {
+      "no": 13,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Beth 說 If the wind is too strong on Saturday, the parade will simply take place at the same time on Sunday。<br><b>陷阱</b>：A 被否定——We've never had to cancel it；C 也被否定——we won't make it any shorter。",
+      "quote": "We've never had to cancel it, and we won't make it any shorter, because some of the boats travel a long way to be here. If the wind is too strong on Saturday, the parade will simply take place at the same time on Sunday."
+    },
+    {
+      "no": 14,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Beth 說 they need to pick up a free ticket from the information tent。<b>同義轉換</b>：pick up ＝ collect。<br><b>陷阱</b>：A 被否定——Visitors don't have to pay；B 也被否定——on both days。",
+      "quote": "Our chefs will be giving cookery demonstrations on both days. Visitors don't have to pay for these, but there's limited space in the tent, so they need to pick up a free ticket from the information tent on the morning of the demonstration."
+    },
+    {
+      "no": 15,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Beth 說 please encourage everyone to bring their own reusable cup。<br><b>陷阱</b>：B 被否定——Dogs are welcome；C 的海鷗只是 a nuisance，由攤主提醒，並不是這裡要鼓勵的事。What we really want 後面才是重點。",
+      "quote": "Dogs are welcome, as long as they're on a lead. The seagulls can be a nuisance, I know, but the stallholders will warn people about those. What we really want to do this year is cut down on waste, so please encourage everyone to bring their own reusable cup."
+    },
+    {
+      "no": 16,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。大門在北側，走進去時面向南方，此時左手邊是東方，所以資訊帳篷是大門內東側的 B。<br><b>陷阱</b>：這回是往南走，left＝東、right＝西，和看地圖的左右相反。A 是對面的急救站。",
+      "quote": "As you walk through the gate, it's just inside, on your left. The first aid post is directly opposite."
+    },
+    {
+      "no": 17,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>。往南走到快接近碼頭時，海鮮市場 on your right-hand side，面向南的右手邊是西方，所以是步道西側的 D。<br><b>陷阱</b>：E 是對面的 craft stalls。",
+      "quote": "Just before you reach the quay, you'll see the seafood market on your right-hand side, and the craft stalls are straight across the path from it."
+    },
+    {
+      "no": 18,
+      "answers": ["G"],
+      "explain": "答案是 <b>G</b>。Beth 說 The music stage is at the far western end of the quay，碼頭最西端是 G。<br><b>提醒</b>：面向南方時右轉就是往西，和她後面說的 western end 一致，可以互相驗證。",
+      "quote": "When you get to the quay, turn right and follow it as far as you can go. The music stage is at the far western end of the quay."
+    },
+    {
+      "no": 19,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>。沿東向的小徑經過手工藝攤位後方，走到底 on the eastern edge of the site 就是 F。<br><b>陷阱</b>：E 是途中經過的 craft stalls，Follow it to the end 表示還要繼續往東走。",
+      "quote": "Follow it to the end, and you'll find the children's area on the eastern edge of the site."
+    },
+    {
+      "no": 20,
+      "answers": ["H"],
+      "explain": "答案是 <b>H</b>。Beth 說 The pier runs out to sea from the eastern end of the quay, and the kiosk is right at the very end of it，碼頭東端伸入海中的棧橋盡頭是 H。<br><b>提醒</b>：right at the very end 強調在最末端。",
+      "quote": "The pier runs out to sea from the eastern end of the quay, and the kiosk is right at the very end of it."
+    }
+  ]
+}

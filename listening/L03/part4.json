@@ -1,0 +1,130 @@
+{
+  "no": 4,
+  "context": "A history of engineering lecture on the Eddystone lighthouses",
+  "audio": "L03_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a lecture on the history of engineering, about the lighthouses built on the Eddystone Rocks. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Good morning. In today's lecture I want to tell the story of one of the most dangerous building sites in British history. The Eddystone Rocks lie about twelve miles out to sea from the port of Plymouth, and most of them are covered at high tide. For centuries, they wrecked vessels approaching the English Channel. Four lighthouses have stood on this reef, and each one taught engineers something new." },
+    { "v": "m1", "t": "The first was the work of Henry Winstanley, who was not an engineer at all. He was a merchant and a showman, famous for a house full of mechanical tricks. His interest in the reef was personal. It wasn't a government order that drove him. He had invested in shipping, and he decided to act after he lost two of his ships on the rocks." },
+    { "v": "m1", "t": "His design was a strange, highly decorated structure, looking more like a Chinese pagoda than a working building." },
+    { "v": "m1", "t": "Winstanley's wooden tower was lit in sixteen ninety-eight, and for five years not one ship was lost on the reef. Then, in November seventeen oh three, the worst storm ever recorded in Britain swept across the country. Winstanley had gone out to carry out repairs. By the next morning, the tower had vanished, and he had vanished with it." },
+    { "v": "m1", "t": "The second lighthouse, designed by a silk merchant called John Rudyerd, was a smooth cone of timber built around a stone core. The sea never defeated it. It stood for almost fifty years, until seventeen fifty-five, when it was destroyed by fire, which began in the lantern at the top. There's an extraordinary detail here. The keeper on duty, a man of ninety-four called Henry Hall, was throwing water upwards at the flames when he swallowed melted lead that dripped from the roof. Doctors didn't believe his story, but when he died twelve days later, they found the piece of metal in his stomach." },
+    { "v": "m1", "t": "The third tower is the one that really matters to engineers. John Smeaton was asked to design it, and he thought hard about shape. He'd noticed how a tree survives a gale, and he modelled his tower on the trunk of an oak, wide at the base and curving inwards as it rises. The low, heavy base would resist the waves." },
+    { "v": "m1", "t": "Smeaton also rejected timber and chose stone, but stone blocks can be lifted away by the force of the sea. His answer was to cut every block with dovetail joints, so that each one locked into its neighbours, rather like the pieces of a jigsaw. A whole layer of stone behaved as a single mass." },
+    { "v": "m1", "t": "Then there was the problem of mortar. Ordinary mortar is washed away before it can harden. Smeaton carried out a long series of experiments, and he discovered that a particular kind of limestone containing clay produced what we now call hydraulic lime, which sets even under water. That discovery led eventually to modern concrete." },
+    { "v": "m1", "t": "When Smeaton's tower was finished in seventeen fifty-nine, its light was surprisingly simple. There were no oil lamps or mirrors. The beam came from twenty-four candles, hanging in a large frame, and they had to be trimmed every half hour throughout the night." },
+    { "v": "m1", "t": "It must have been exhausting work, and yet on a clear night that modest light could be seen from several miles away." },
+    { "v": "m1", "t": "Smeaton's tower lasted for over a hundred and twenty years, and it might be standing there still. The tower itself remained perfectly sound. But in the eighteen seventies, inspectors found that the rock underneath it was being worn away by the sea, and the whole structure shook whenever a large wave hit it. So a fourth, taller lighthouse was built on a neighbouring part of the reef, and it opened in eighteen eighty-two. The upper part of Smeaton's tower was taken down and rebuilt on the seafront at Plymouth, where you can still climb it." },
+    { "v": "m1", "t": "The fourth lighthouse is still working today. Its light is electric now, and a helicopter pad was added to its top. Since nineteen eighty-two, it has been controlled automatically from the shore, so after almost three centuries, there are no longer any keepers living out on the Eddystone Rocks." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE EDDYSTONE LIGHTHOUSES",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "First lighthouse: Henry Winstanley",
+          "lines": [
+            "Built after he lost two {31} on the reef",
+            "Destroyed in 1703 by a severe {32}"
+          ]
+        },
+        {
+          "heading": "Second lighthouse: John Rudyerd",
+          "lines": [
+            "Destroyed in 1755 by {33}",
+            "A keeper died after swallowing melted {34}"
+          ]
+        },
+        {
+          "heading": "Third lighthouse: John Smeaton",
+          "lines": [
+            "Shape was based on the trunk of an {35} tree",
+            "Stone blocks were locked together by {36} joints",
+            "Mortar: hydraulic {37} can harden under water",
+            "The light came from 24 {38}"
+          ]
+        },
+        {
+          "heading": "Fourth lighthouse",
+          "lines": [
+            "Needed because the {39} under the third tower was wearing away",
+            "Since 1982 there have been no {40} on the reef"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": ["ships"],
+      "explain": "答案是 <b>ships</b>。講者說 he decided to act after he lost two of his ships on the rocks。複數 s 不可漏。<br><b>陷阱</b>：It wasn't a government order that drove him，建塔不是政府下令，而是他自己的損失。",
+      "quote": "He had invested in shipping, and he decided to act after he lost two of his ships on the rocks."
+    },
+    {
+      "no": 32,
+      "answers": ["storm"],
+      "explain": "答案是 <b>storm</b>。講者說 in November seventeen oh three, the worst storm ever recorded in Britain swept across the country，隔天塔就消失了。<br><b>提醒</b>：題目的 severe 對應錄音的 the worst... ever recorded。",
+      "quote": "Then, in November seventeen oh three, the worst storm ever recorded in Britain swept across the country."
+    },
+    {
+      "no": 33,
+      "answers": ["fire"],
+      "explain": "答案是 <b>fire</b>。講者說 until seventeen fifty-five, when it was destroyed by fire。<br><b>陷阱</b>：前一座塔毀於風暴，容易以為第二座也是，但講者特別說 The sea never defeated it。",
+      "quote": "The sea never defeated it. It stood for almost fifty years, until seventeen fifty-five, when it was destroyed by fire, which began in the lantern at the top."
+    },
+    {
+      "no": 34,
+      "answers": ["lead"],
+      "explain": "答案是 <b>lead</b>（鉛）。講者說 he swallowed melted lead that dripped from the roof，與題目的 swallowing melted ___ 完全對應。<br><b>提醒</b>：lead 當「鉛」時唸 /led/，和動詞 lead /liːd/ 發音不同，聽力要特別注意。",
+      "quote": "The keeper on duty, a man of ninety-four called Henry Hall, was throwing water upwards at the flames when he swallowed melted lead that dripped from the roof."
+    },
+    {
+      "no": 35,
+      "answers": ["oak"],
+      "explain": "答案是 <b>oak</b>（橡樹）。講者說 he modelled his tower on the trunk of an oak。<b>同義轉換</b>：modelled on ＝ based on。<br><b>提醒</b>：題目已印出冠詞 an，可以預測答案是母音開頭的字。",
+      "quote": "He'd noticed how a tree survives a gale, and he modelled his tower on the trunk of an oak, wide at the base and curving inwards as it rises."
+    },
+    {
+      "no": 36,
+      "answers": ["dovetail", "dovetailed"],
+      "explain": "答案是 <b>dovetail</b>（鳩尾榫）。講者說 cut every block with dovetail joints, so that each one locked into its neighbours。<br><b>提醒</b>：題目的 locked together 對應錄音的 locked into its neighbours。jigsaw 只是比喻，不是接合方式的名稱。",
+      "quote": "His answer was to cut every block with dovetail joints, so that each one locked into its neighbours, rather like the pieces of a jigsaw."
+    },
+    {
+      "no": 37,
+      "answers": ["lime"],
+      "explain": "答案是 <b>lime</b>（石灰）。講者說 what we now call hydraulic lime, which sets even under water。<b>同義轉換</b>：sets ＝ harden。<br><b>陷阱</b>：limestone 和 clay 是原料，concrete 是後來的發展，題目前面已印出 hydraulic，只有 lime 能接在後面。",
+      "quote": "he discovered that a particular kind of limestone containing clay produced what we now call hydraulic lime, which sets even under water."
+    },
+    {
+      "no": 38,
+      "answers": ["candles"],
+      "explain": "答案是 <b>candles</b>。講者說 The beam came from twenty-four candles。<br><b>陷阱</b>：There were no oil lamps or mirrors，oil lamps 被明確否定。複數 s 不可漏。",
+      "quote": "There were no oil lamps or mirrors. The beam came from twenty-four candles, hanging in a large frame."
+    },
+    {
+      "no": 39,
+      "answers": ["rock"],
+      "explain": "答案是 <b>rock</b>。講者說 the rock underneath it was being worn away by the sea。<b>同義轉換</b>：underneath ＝ under；worn away ＝ wearing away。<br><b>陷阱</b>：The tower itself remained perfectly sound，塔本身沒問題，出問題的是下面的岩石。",
+      "quote": "The tower itself remained perfectly sound. But in the eighteen seventies, inspectors found that the rock underneath it was being worn away by the sea."
+    },
+    {
+      "no": 40,
+      "answers": ["keepers"],
+      "explain": "答案是 <b>keepers</b>（燈塔看守人）。講者說 there are no longer any keepers living out on the Eddystone Rocks。複數 s 不可漏。<br><b>提醒</b>：Since nineteen eighty-two 是定位關鍵，題目的 no 對應錄音的 no longer any。",
+      "quote": "Since nineteen eighty-two, it has been controlled automatically from the shore, so after almost three centuries, there are no longer any keepers living out on the Eddystone Rocks."
+    }
+  ]
+}

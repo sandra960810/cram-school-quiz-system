@@ -1,0 +1,163 @@
+{
+  "no": 3,
+  "context": "Two urban planning students discussing their case study on transport in a town",
+  "audio": "L03_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two urban planning students, Amy and Ben, discussing a case study they are writing about transport in the town of Norbury. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Amy, have you got a few minutes to go through the Norbury case study? The deadline's getting close." },
+    { "v": "f2", "t": "Sure. I'm rewriting the introduction, actually, and I need to explain why we chose Norbury in the first place." },
+    { "v": "m3", "t": "Well, Professor Lang didn't suggest it. She wanted us to look at somewhere much bigger. And although I grew up near there, that had nothing to do with it." },
+    { "v": "f2", "t": "No, the deciding factor was that the council had put ten years of traffic counts on its website. We could use all those records for free, without collecting any of the figures ourselves." },
+    { "v": "m3", "t": "That's right. Mind you, we still had to go there. How do you think the site visit went?" },
+    { "v": "f2", "t": "Better than I'd feared. The shopkeepers were happy to talk, and the bus company even gave us free passes. The only real setback was the weather. It poured with rain on the second day, so we had to abandon the passenger count at lunchtime." },
+    { "v": "m3", "t": "I know. I got completely soaked, and half my notes were unreadable by the time we got back to the hotel." },
+    { "v": "f2", "t": "At least we'd photographed the timetables on the first day, so those weren't lost. And the conversations at the market were really useful for the background section." },
+    { "v": "m3", "t": "We got enough to work with, though. What struck me most when we analysed the data was how short people's car journeys are." },
+    { "v": "f2", "t": "Yes, I'd assumed most drivers were commuting to the city. But over sixty per cent of car trips in Norbury are under two miles. That was a real surprise. It wasn't surprising that drivers objected to higher parking charges, of course, or that older residents use the buses the most." },
+    { "v": "m3", "t": "No, we could have predicted those. So, looking at the draft as a whole, which section worries you the most?" },
+    { "v": "f2", "t": "Not the literature review. I think that's the strongest part. And the conclusions follow logically from the data. It's the cost estimates that let us down. Some of those figures are nearly ten years old, so they don't really tell us anything." },
+    { "v": "m3", "t": "I agree. So here's what I'll do. Before we see Professor Lang, I'll ask the council's transport office to send us their latest figures. There's no point booking a meeting until we've got them." },
+    { "v": "f2", "t": "Good idea. And I'll carry on with the introduction." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Let's check the section on the five transport schemes. First, the park-and-ride." },
+    { "v": "f2", "t": "It's been so successful that two neighbouring towns have now set up almost identical services, using Norbury's timetable as a model. That's worth a paragraph." },
+    { "v": "m3", "t": "Definitely. Next, the bus lanes. A lot of residents think they only operate in the rush hour, but they're in force all day." },
+    { "v": "f2", "t": "And the important point is the effect. The trip from the station to the hospital now takes twelve minutes less than it did. No other scheme has made such a difference to how long people spend travelling." },
+    { "v": "m3", "t": "Then there's the cycle hire scheme. It was meant to get local people out of their cars." },
+    { "v": "f2", "t": "But it hasn't worked out like that. If you look at the records, nearly all the bikes are hired by holidaymakers visiting the castle. Residents hardly touch them." },
+    { "v": "m3", "t": "That's a pity, considering how much publicity it got when it opened." },
+    { "v": "f2", "t": "I know. There were posters at every bus stop in town, and the mayor rode the first bike himself. It's still worth including, though, because it shows how a scheme can end up serving the wrong people." },
+    { "v": "m3", "t": "What about the riverside tram? Do we need to say much about that?" },
+    { "v": "f2", "t": "Just a sentence or two. It never got beyond the planning stage. Hundreds of people who lived along the route marched through the town against it, and the council dropped the idea the following year." },
+    { "v": "m3", "t": "And finally, the new bridge on the ring road." },
+    { "v": "f2", "t": "Everyone agrees it's eased the traffic. The trouble is the bill. The original budget was eight million pounds, and it ended up at more than twenty. The council's still paying for it now." },
+    { "v": "m3", "t": "Right. I think that covers everything." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose Norbury for their case study?",
+          "options": { "A": "Useful traffic records were freely available.", "B": "Ben had lived in the area.", "C": "Their professor recommended it." }
+        },
+        {
+          "no": 22,
+          "stem": "What problem did the students have during their site visit?",
+          "options": { "A": "The bus company refused to help them.", "B": "Bad weather interrupted their research.", "C": "Shopkeepers would not answer questions." }
+        },
+        {
+          "no": 23,
+          "stem": "What surprised the students about their data?",
+          "options": { "A": "the opposition to parking charges", "B": "the age of most bus passengers", "C": "the short length of most car journeys" }
+        },
+        {
+          "no": 24,
+          "stem": "Which part of the draft does Amy think is the weakest?",
+          "options": { "A": "the literature review", "B": "the cost estimates", "C": "the conclusions" }
+        },
+        {
+          "no": 25,
+          "stem": "What will Ben do next?",
+          "options": { "A": "rewrite the introduction", "B": "arrange a meeting with the professor", "C": "request information from the council" }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students say about each transport scheme?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "It was abandoned after public protests.",
+        "B": "It cost far more than planned.",
+        "C": "It is used mainly by tourists.",
+        "D": "It has saved the most travelling time.",
+        "E": "It operates only at busy times of day.",
+        "F": "It has been copied by other places."
+      },
+      "items": [
+        { "no": 26, "text": "Park-and-ride" },
+        { "no": 27, "text": "Bus lanes" },
+        { "no": 28, "text": "Cycle hire scheme" },
+        { "no": 29, "text": "Riverside tram" },
+        { "no": 30, "text": "Ring road bridge" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Amy 說 the deciding factor was that the council had put ten years of traffic counts on its website，而且 for free。<br><b>陷阱</b>：C 被否定——Professor Lang didn't suggest it；B 也被否定——I grew up near there, that had nothing to do with it。the deciding factor 就是題目問的原因。",
+      "quote": "Well, Professor Lang didn't suggest it... And although I grew up near there, that had nothing to do with it... No, the deciding factor was that the council had put ten years of traffic counts on its website."
+    },
+    {
+      "no": 22,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Amy 說 The only real setback was the weather，大雨讓他們中午就放棄計算乘客人數。<br><b>陷阱</b>：A、C 剛好相反——店家 happy to talk，巴士公司還送免費車票。<b>同義轉換</b>：setback ＝ problem；abandon the passenger count ＝ interrupted their research。",
+      "quote": "The shopkeepers were happy to talk, and the bus company even gave us free passes. The only real setback was the weather. It poured with rain on the second day, so we had to abandon the passenger count at lunchtime."
+    },
+    {
+      "no": 23,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Amy 說 over sixty per cent of car trips in Norbury are under two miles. That was a real surprise。<br><b>陷阱</b>：A、B 都有提到，但 It wasn't surprising that...，Ben 也說 we could have predicted those。聽到 surprise 時要注意前面有沒有否定。",
+      "quote": "But over sixty per cent of car trips in Norbury are under two miles. That was a real surprise. It wasn't surprising that drivers objected to higher parking charges, of course, or that older residents use the buses the most."
+    },
+    {
+      "no": 24,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Amy 說 It's the cost estimates that let us down，因為數字已將近十年。<b>同義轉換</b>：let us down ＝ weakest。<br><b>陷阱</b>：A 是 the strongest part；C 是 follow logically from the data，都是正面評價。",
+      "quote": "Not the literature review. I think that's the strongest part. And the conclusions follow logically from the data. It's the cost estimates that let us down."
+    },
+    {
+      "no": 25,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Ben 說 I'll ask the council's transport office to send us their latest figures。<br><b>陷阱</b>：A 是 Amy 要做的事（I'll carry on with the introduction）；B 要等拿到數字後才做（There's no point booking a meeting until we've got them）。題目問 Ben，要分清楚誰做什麼。",
+      "quote": "Before we see Professor Lang, I'll ask the council's transport office to send us their latest figures. There's no point booking a meeting until we've got them."
+    },
+    {
+      "no": 26,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>（被其他地方仿效）。Amy 說 two neighbouring towns have now set up almost identical services。<br><b>同義轉換</b>：neighbouring towns ＝ other places；almost identical services, using... as a model ＝ copied。",
+      "quote": "It's been so successful that two neighbouring towns have now set up almost identical services, using Norbury's timetable as a model."
+    },
+    {
+      "no": 27,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>（節省最多交通時間）。Amy 說 No other scheme has made such a difference to how long people spend travelling。<br><b>陷阱</b>：E 是居民的誤解——A lot of residents think they only operate in the rush hour, but they're in force all day，所以 E 是本題組沒用到的選項。",
+      "quote": "A lot of residents think they only operate in the rush hour, but they're in force all day... No other scheme has made such a difference to how long people spend travelling."
+    },
+    {
+      "no": 28,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（主要是遊客在用）。Amy 說 nearly all the bikes are hired by holidaymakers visiting the castle。<br><b>同義轉換</b>：holidaymakers ＝ tourists。<b>陷阱</b>：Ben 說它原本 meant to get local people out of their cars，但實際結果並非如此。",
+      "quote": "If you look at the records, nearly all the bikes are hired by holidaymakers visiting the castle. Residents hardly touch them."
+    },
+    {
+      "no": 29,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（因民眾抗議而放棄）。Amy 說 Hundreds of people who lived along the route marched through the town against it, and the council dropped the idea。<br><b>同義轉換</b>：marched against ＝ public protests；dropped the idea ＝ abandoned。",
+      "quote": "Hundreds of people who lived along the route marched through the town against it, and the council dropped the idea the following year."
+    },
+    {
+      "no": 30,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（花費遠超預算）。Amy 說 The original budget was eight million pounds, and it ended up at more than twenty。<br><b>陷阱</b>：她先肯定這座橋 eased the traffic，但 The trouble is the bill 才是重點。",
+      "quote": "Everyone agrees it's eased the traffic. The trouble is the bill. The original budget was eight million pounds, and it ended up at more than twenty."
+    }
+  ]
+}

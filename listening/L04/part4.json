@@ -1,0 +1,126 @@
+{
+  "no": 4,
+  "context": "A public health history lecture on the building of London's sewers",
+  "audio": "L04_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a lecture on the history of public health, about the building of London's sewers. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "f4", "t": "Good afternoon, everyone. In this lecture on the history of public health, we're going to look at one of the greatest engineering projects of the nineteenth century, the building of London's sewers. It's a story that begins, I'm afraid, with a very bad smell." },
+    { "v": "f4", "t": "At the start of the eighteen hundreds, London had no proper system for removing human waste. Most houses relied on cesspits, which were simply holes in the ground beneath or behind the building. They were emptied by hand, at night, by men who sold the contents to farmers as fertiliser." },
+    { "v": "f4", "t": "Then, in the eighteen forties, things changed. The flushing toilet became far more common, which greatly increased the volume of liquid waste, and the cesspits began to overflow. So the authorities ordered that homes should be connected to the existing drains, which had only been designed to carry rainwater. And those drains all ran directly into the Thames. Unfortunately, the river was also where much of London's drinking water came from." },
+    { "v": "f4", "t": "The consequences were terrible. Cholera swept through the city in repeated epidemics. Most doctors at the time believed the disease was spread by what they called miasma, which means bad air rising from rotting matter. Hardly anyone thought it had anything to do with water." },
+    { "v": "f4", "t": "One doctor disagreed. In eighteen fifty-four, during an outbreak in Soho, John Snow marked every death on a street map, and he saw that the cases were clustered around a single water pump in Broad Street. He persuaded local officials to remove its handle, and the outbreak came to an end, although it was already declining by then. Very few of his colleagues were convinced." },
+    { "v": "f4", "t": "It would be many years before his explanation was generally accepted." },
+    { "v": "f4", "t": "What finally forced politicians to act was not medical evidence at all. In the summer of eighteen fifty-eight, unusually hot weather caused the level of the river to drop, and the waste along its banks began to rot. The stench was so dreadful that the episode is remembered as the Great Stink. The Houses of Parliament stand right beside the river, and members could hardly work. The building's curtains were soaked in chemicals in an attempt to block the smell, but this had little effect. Within weeks, Parliament had passed a law to pay for a new sewer system." },
+    { "v": "f4", "t": "The chief engineer was Joseph Bazalgette. His plan was to build huge sewers running parallel to the river, which would intercept the waste before it reached the Thames and carry it east, out of the city. Pumping is expensive, so the tunnels were built on a gentle slope, and for most of the distance gravity did the work. Pumping stations were needed only at a few low-lying points." },
+    { "v": "f4", "t": "The scale of the work was astonishing. Over the following years, his workers laid more than eighty miles of main sewers and around eleven hundred miles of smaller street sewers, using hundreds of millions of bricks." },
+    { "v": "f4", "t": "Bazalgette was also very careful about materials. Most builders at that time used ordinary lime mortar, but he insisted on a newer product, Portland cement, which grows stronger when it's in contact with water. Every batch was tested on site, and that's one reason why his tunnels are still in use today." },
+    { "v": "f4", "t": "Perhaps his most famous decision concerned size. For each pipe, he calculated the diameter that would be needed for the most crowded areas, and then he doubled it, saying that the job would only be done once. Thanks to that decision, the system was able to cope with London's growing population for more than a century." },
+    { "v": "f4", "t": "The project reshaped the city above ground as well. Along the north bank, the sewer was built into a new river wall called the Victoria Embankment. This reclaimed land from the river, and it made room for a wide new road on top and, beneath that road, a section of the underground railway. And once the sewers were working, cholera all but disappeared from the parts of London connected to them." },
+    { "v": "f4", "t": "The last major epidemic in the capital, in eighteen sixty-six, struck mainly in an eastern district that had not yet been linked to the new network." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE BUILDING OF LONDON'S SEWERS",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The problem",
+          "lines": [
+            "Early 1800s: most homes used {31} to store waste",
+            "1840s: waste from homes was sent through drains into the {32}",
+            "Most doctors believed cholera was caused by bad {33}",
+            "John Snow linked one outbreak to a water {34} in Soho"
+          ]
+        },
+        {
+          "heading": "The Great Stink, 1858",
+          "lines": [
+            "The smell got worse because of hot {35}",
+            "Chemicals were put on the {36} in Parliament"
+          ]
+        },
+        {
+          "heading": "Bazalgette's sewers",
+          "lines": [
+            "Tunnels sloped, so that {37} moved most of the waste",
+            "He insisted on using Portland {38}",
+            "He doubled the {39} of each pipe",
+            "The Victoria Embankment also contains part of the underground {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": ["cesspits", "cesspit"],
+      "explain": "答案是 <b>cesspits</b>（化糞池）。講者說 Most houses relied on cesspits, which were simply holes in the ground。<b>同義轉換</b>：houses relied on ＝ homes used。<br><b>提醒</b>：講者接著解釋這個字的意思（holes in the ground），聽不懂單字時可從解釋推斷。",
+      "quote": "Most houses relied on cesspits, which were simply holes in the ground beneath or behind the building."
+    },
+    {
+      "no": 32,
+      "answers": ["Thames"],
+      "explain": "答案是 <b>Thames</b>（泰晤士河）。講者說 those drains all ran directly into the Thames。<br><b>提醒</b>：Thames 的 Th 不發 /θ/，唸 /temz/，是常見的聽力難點。專有名詞首字母大寫。",
+      "quote": "And those drains all ran directly into the Thames."
+    },
+    {
+      "no": 33,
+      "answers": ["air"],
+      "explain": "答案是 <b>air</b>。講者說 miasma, which means bad air rising from rotting matter。<br><b>陷阱</b>：water 也出現了，但 Hardly anyone thought it had anything to do with water，當時的醫生並不認為和水有關。",
+      "quote": "Most doctors at the time believed the disease was spread by what they called miasma, which means bad air rising from rotting matter."
+    },
+    {
+      "no": 34,
+      "answers": ["pump"],
+      "explain": "答案是 <b>pump</b>（抽水機）。講者說 the cases were clustered around a single water pump in Broad Street，對應題目的 a water ___。<br><b>陷阱</b>：handle 是後來被拆掉的「把手」，不能接在 water 後面。",
+      "quote": "John Snow marked every death on a street map, and he saw that the cases were clustered around a single water pump in Broad Street."
+    },
+    {
+      "no": 35,
+      "answers": ["weather"],
+      "explain": "答案是 <b>weather</b>。講者說 unusually hot weather caused the level of the river to drop，與題目的 hot ___ 對應。<br><b>陷阱</b>：summer 雖然也和炎熱有關，但錄音的搭配是 hot weather。",
+      "quote": "In the summer of eighteen fifty-eight, unusually hot weather caused the level of the river to drop, and the waste along its banks began to rot."
+    },
+    {
+      "no": 36,
+      "answers": ["curtains"],
+      "explain": "答案是 <b>curtains</b>。講者說 The building's curtains were soaked in chemicals。<b>同義轉換</b>：soaked in chemicals ＝ chemicals were put on。複數 s 不可漏。",
+      "quote": "The building's curtains were soaked in chemicals in an attempt to block the smell, but this had little effect."
+    },
+    {
+      "no": 37,
+      "answers": ["gravity"],
+      "explain": "答案是 <b>gravity</b>（重力）。講者說 the tunnels were built on a gentle slope, and for most of the distance gravity did the work。<br><b>陷阱</b>：pumping 也有提到，但它昂貴，只用在 a few low-lying points，不是主要方式。",
+      "quote": "Pumping is expensive, so the tunnels were built on a gentle slope, and for most of the distance gravity did the work."
+    },
+    {
+      "no": 38,
+      "answers": ["cement"],
+      "explain": "答案是 <b>cement</b>（水泥）。講者說 he insisted on a newer product, Portland cement，與題目的 insisted on using Portland ___ 對應。<br><b>陷阱</b>：lime mortar 是當時多數建商使用的材料，but 之後才是他的選擇。",
+      "quote": "Most builders at that time used ordinary lime mortar, but he insisted on a newer product, Portland cement, which grows stronger when it's in contact with water."
+    },
+    {
+      "no": 39,
+      "answers": ["diameter"],
+      "explain": "答案是 <b>diameter</b>（直徑）。講者說 he calculated the diameter that would be needed... and then he doubled it。<br><b>提醒</b>：doubled it 的 it 指前面的 diameter，要往前找代名詞指的是什麼。",
+      "quote": "For each pipe, he calculated the diameter that would be needed for the most crowded areas, and then he doubled it."
+    },
+    {
+      "no": 40,
+      "answers": ["railway"],
+      "explain": "答案是 <b>railway</b>。講者說 beneath that road, a section of the underground railway，與題目的 the underground ___ 對應。<br><b>陷阱</b>：road 也在同一句，但它在堤岸上方（on top），不能接在 underground 後面。",
+      "quote": "it made room for a wide new road on top and, beneath that road, a section of the underground railway."
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "no": 1,
+  "context": "Telephone call to a coach company's lost property office",
+  "audio": "L05_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a man telephoning a coach company about a bag he has lost. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "f4", "t": "Swiftline Coaches, lost property office. This is Erin." },
+    { "v": "m1", "t": "Good morning. I'm afraid I left a bag on one of your coaches yesterday." },
+    { "v": "f4", "t": "I'm sorry to hear that. Let me take some details. What's your name, please?" },
+    { "v": "m1", "t": "It's Peter Haldane. That's H-A-L-D-A-N-E." },
+    { "v": "narrator", "t": "The man's surname is Haldane, so Haldane has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "f4", "t": "Swiftline Coaches, lost property office. This is Erin." },
+    { "v": "m1", "t": "Good morning. I'm afraid I left a bag on one of your coaches yesterday." },
+    { "v": "f4", "t": "I'm sorry to hear that. Let me take some details. What's your name, please?" },
+    { "v": "m1", "t": "It's Peter Haldane. That's H-A-L-D-A-N-E." },
+    { "v": "f4", "t": "Thank you, Mr Haldane. What kind of bag was it? A suitcase?" },
+    { "v": "m1", "t": "No, my suitcase was under the coach, and I've got that safely at home. It's a black rucksack, which I put on the rack above my seat." },
+    { "v": "f4", "t": "Is it a large one?" },
+    { "v": "m1", "t": "Medium-sized, I'd say. It's the kind of thing you'd take on a day's walking." },
+    { "v": "f4", "t": "Right. Now, which service were you on?" },
+    { "v": "m1", "t": "The one from Newcastle to Leeds, which gets in at about five o'clock." },
+    { "v": "f4", "t": "And did you get on at Newcastle?" },
+    { "v": "m1", "t": "No, that's where the coach started from. I got on at Durham, the first stop." },
+    { "v": "f4", "t": "And that was yesterday afternoon?" },
+    { "v": "m1", "t": "Yes, it left at about twenty past two. I only noticed the bag was missing when I got home, and by then your office had closed." },
+    { "v": "f4", "t": "That's quite common, I'm afraid. We get dozens of calls like this every week, and most of the items do turn up within a day or two." },
+    { "v": "f4", "t": "I see. Do you remember where you were sitting?" },
+    { "v": "m1", "t": "I think it was seat 17. No, wait, I've still got my ticket here. It says 27, next to the window, near the back." },
+    { "v": "f4", "t": "That's very helpful. Can you describe the bag in more detail? Is there anything unusual about it?" },
+    { "v": "m1", "t": "Well, it's quite old, and one of the straps has been repaired. But you'd recognise it by the badge on the front. It's bright yellow, from a mountaineering club I used to belong to." },
+    { "v": "f4", "t": "Is your name on it anywhere?" },
+    { "v": "m1", "t": "I don't think so. There might be an old luggage label inside, but I wouldn't count on it." },
+    { "v": "f4", "t": "Not to worry. Your description should be enough for the drivers to go on." },
+    { "v": "f4", "t": "That'll make it easy to spot. And what was inside?" },
+    { "v": "m1", "t": "My wallet and phone were in my jacket, thank goodness. The most valuable thing in the bag is my laptop." },
+    { "v": "f4", "t": "Was there anything else of value?" },
+    { "v": "m1", "t": "Let me think. There's a pair of binoculars, because I'd been birdwatching on the coast. Otherwise it's just a few clothes and a map." },
+    { "v": "f4", "t": "Were there any papers or documents that we should know about?" },
+    { "v": "m1", "t": "No, nothing like that, just a paperback I was reading." },
+    { "v": "f4", "t": "And what would you say the contents are worth altogether? We need a figure for our records." },
+    { "v": "m1", "t": "The laptop cost me about nine hundred pounds, but that was three years ago. Including the binoculars, I'd say the whole lot's worth 650 pounds today." },
+    { "v": "f4", "t": "Fine. What's the best way of contacting you if it's found?" },
+    { "v": "m1", "t": "You've got my email address from the booking, but I rarely check it during the week. And I'm not allowed to take calls at work. So a text would be best." },
+    { "v": "f4", "t": "Could you give me your mobile number, then?" },
+    { "v": "m1", "t": "It's oh seven seven double-oh, nine double-oh, one four three." },
+    { "v": "f4", "t": "Thank you. I'll contact the driver this morning and ask him to check the rack and the lockers on that coach." },
+    { "v": "m1", "t": "How long do you think it'll take?" },
+    { "v": "f4", "t": "We should know by tomorrow. All lost items are sent to one place and kept there for three months." },
+    { "v": "f4", "t": "If it's been handed in, you'll need to collect it from our depot in Harcourt Street." },
+    { "v": "m1", "t": "How do you spell that?" },
+    { "v": "f4", "t": "H-A-R-C-O-U-R-T. It's just behind the bus station." },
+    { "v": "m1", "t": "And do I need to bring anything with me?" },
+    { "v": "f4", "t": "You'll need proof of identity. A bank card isn't enough, and your ticket doesn't show who you are, so please bring your passport." },
+    { "v": "m1", "t": "Is the depot open at weekends?" },
+    { "v": "f4", "t": "It's open from nine until four, Monday to Saturday, but it's closed on Sundays." },
+    { "v": "m1", "t": "I'll do that. Thanks very much, Erin." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Swiftline Coaches – Lost Property",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The journey",
+          "lines": [
+            "The customer's name is Peter",
+            "- {ex:Haldane}",
+            "He has lost a black {1}",
+            "He got on the coach at {2}",
+            "He was sitting in seat {3}"
+          ]
+        },
+        {
+          "heading": "The lost item",
+          "lines": [
+            "It has a yellow {4} on the front",
+            "The most valuable item inside is a {5}",
+            "It also contains a pair of {6}",
+            "Total value of the contents: £{7}"
+          ]
+        },
+        {
+          "heading": "What happens next",
+          "lines": [
+            "The company will contact him by {8}",
+            "Collection is from the depot in {9} Street",
+            "He must bring his {10} as proof of identity"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": ["rucksack", "backpack"],
+      "explain": "答案是 <b>rucksack</b>（後背包，寫 backpack 也可以）。Peter 說 It's a black rucksack。<br><b>陷阱</b>：Erin 問 A suitcase?，但 Peter 回答 No，行李箱已經帶回家了。對方猜測的選項常常是干擾項。",
+      "quote": "No, my suitcase was under the coach, and I've got that safely at home. It's a black rucksack, which I put on the rack above my seat."
+    },
+    {
+      "no": 2,
+      "answers": ["Durham"],
+      "explain": "答案是 <b>Durham</b>。Peter 說 I got on at Durham, the first stop。<br><b>陷阱</b>：Newcastle 是客運的起點（that's where the coach started from），Leeds 是終點，都不是他上車的地方。",
+      "quote": "No, that's where the coach started from. I got on at Durham, the first stop."
+    },
+    {
+      "no": 3,
+      "answers": ["27"],
+      "explain": "答案是 <b>27</b>。Peter 看了車票後說 It says 27。<br><b>陷阱</b>：17 是他憑記憶說的，馬上用 No, wait 更正。No, wait／Sorry, I mean 後面才是正確資訊。",
+      "quote": "I think it was seat 17. No, wait, I've still got my ticket here. It says 27, next to the window, near the back."
+    },
+    {
+      "no": 4,
+      "answers": ["badge"],
+      "explain": "答案是 <b>badge</b>（徽章）。Peter 說 you'd recognise it by the badge on the front. It's bright yellow，對應題目的 yellow ___ on the front。<br><b>陷阱</b>：repaired straps 也是特徵，但題目問的是正面黃色的東西。",
+      "quote": "But you'd recognise it by the badge on the front. It's bright yellow, from a mountaineering club I used to belong to."
+    },
+    {
+      "no": 5,
+      "answers": ["laptop"],
+      "explain": "答案是 <b>laptop</b>。Peter 說 The most valuable thing in the bag is my laptop，與題目的 most valuable item 對應。<br><b>陷阱</b>：wallet 和 phone 先出現，但它們 were in my jacket，根本不在包包裡。",
+      "quote": "My wallet and phone were in my jacket, thank goodness. The most valuable thing in the bag is my laptop."
+    },
+    {
+      "no": 6,
+      "answers": ["binoculars"],
+      "explain": "答案是 <b>binoculars</b>（雙筒望遠鏡）。Peter 說 There's a pair of binoculars，與題目的 a pair of ___ 完全對應。<br><b>提醒</b>：binoculars 一定是複數，a pair of 後面接複數名詞。",
+      "quote": "There's a pair of binoculars, because I'd been birdwatching on the coast."
+    },
+    {
+      "no": 7,
+      "answers": ["650"],
+      "explain": "答案是 <b>650</b>。Peter 說 I'd say the whole lot's worth 650 pounds today。<b>同義轉換</b>：the whole lot ＝ total value of the contents。<br><b>陷阱</b>：nine hundred 是筆電三年前的購買價格，不是現在全部物品的總值。",
+      "quote": "The laptop cost me about nine hundred pounds, but that was three years ago. Including the binoculars, I'd say the whole lot's worth 650 pounds today."
+    },
+    {
+      "no": 8,
+      "answers": ["text"],
+      "explain": "答案是 <b>text</b>（簡訊）。Peter 說 So a text would be best。<br><b>陷阱</b>：email 他平日很少看（rarely check it during the week），上班也不能接電話（not allowed to take calls），兩個方式都被排除。",
+      "quote": "You've got my email address from the booking, but I rarely check it during the week. And I'm not allowed to take calls at work. So a text would be best."
+    },
+    {
+      "no": 9,
+      "answers": ["Harcourt"],
+      "explain": "答案是 <b>Harcourt</b>。Erin 拼出 H-A-R-C-O-U-R-T。<br><b>提醒</b>：街名題幾乎都會拼字，要提前準備好寫下字母。bus station 只是附近的地標。",
+      "quote": "If it's been handed in, you'll need to collect it from our depot in Harcourt Street."
+    },
+    {
+      "no": 10,
+      "answers": ["passport"],
+      "explain": "答案是 <b>passport</b>。Erin 說 so please bring your passport。<br><b>陷阱</b>：bank card 不夠（isn't enough），ticket 也無法證明身分（doesn't show who you are）。",
+      "quote": "A bank card isn't enough, and your ticket doesn't show who you are, so please bring your passport."
+    }
+  ]
+}

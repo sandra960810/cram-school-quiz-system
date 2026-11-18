@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 570" width="100%" style="max-width:700px;font-family:Arial,Helvetica,sans-serif">
+  <rect width="700" height="570" fill="#ffffff"/>
+  <text x="350" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">PORTHAVEN HARBOUR FESTIVAL</text>
+
+  <!-- 陸地 -->
+  <rect x="40" y="40" width="620" height="345" fill="#f6f3e6" stroke="#555" stroke-width="2"/>
+  <!-- 海 -->
+  <rect x="40" y="385" width="620" height="150" fill="#cfe4f5" stroke="#555" stroke-width="2"/>
+  <text x="250" y="475" text-anchor="middle" font-size="20" font-style="italic" fill="#2f6a9c">THE SEA</text>
+
+  <!-- 北側道路 -->
+  <rect x="40" y="40" width="620" height="32" fill="#d5d1c5" stroke="#999" stroke-width="1"/>
+  <text x="170" y="61" text-anchor="middle" font-size="14" font-weight="bold" fill="#4d4a3e">HARBOUR ROAD</text>
+
+  <!-- 大門 -->
+  <rect x="318" y="66" width="64" height="16" fill="#ffffff" stroke="#333" stroke-width="2"/>
+  <text x="440" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">MAIN GATE</text>
+
+  <!-- 主要步道（往南到碼頭） -->
+  <rect x="335" y="82" width="30" height="258" fill="#e0c9a0" stroke="#b08a52" stroke-width="1"/>
+
+  <!-- 東向小徑 -->
+  <rect x="365" y="214" width="215" height="16" fill="#e0c9a0" stroke="#b08a52" stroke-width="1"/>
+
+  <!-- 碼頭 -->
+  <rect x="60" y="340" width="580" height="45" fill="#c9c4b6" stroke="#6f6a5c" stroke-width="2"/>
+  <text x="350" y="368" text-anchor="middle" font-size="15" font-weight="bold" fill="#403c30">THE QUAY</text>
+
+  <!-- 棧橋（由碼頭東端伸入海中） -->
+  <rect x="590" y="385" width="40" height="125" fill="#c9c4b6" stroke="#6f6a5c" stroke-width="2"/>
+  <text x="572" y="440" text-anchor="middle" font-size="14" font-weight="bold" fill="#403c30" transform="rotate(-90 572 440)">PIER</text>
+
+  <!-- 指北針 -->
+  <g transform="translate(90,130)">
+    <line x1="0" y1="26" x2="0" y2="-16" stroke="#333" stroke-width="2.5"/>
+    <polygon points="0,-26 -7,-10 7,-10" fill="#333"/>
+    <text x="0" y="44" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">N</text>
+  </g>
+
+  <!-- 位置標記 A–H -->
+  <g font-size="19" font-weight="bold" text-anchor="middle">
+    <g><circle cx="285" cy="125" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="285" y="132" fill="#c0392b">A</text></g>
+    <g><circle cx="415" cy="125" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="415" y="132" fill="#c0392b">B</text></g>
+    <g><circle cx="110" cy="245" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="110" y="252" fill="#c0392b">C</text></g>
+    <g><circle cx="285" cy="295" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="285" y="302" fill="#c0392b">D</text></g>
+    <g><circle cx="415" cy="295" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="415" y="302" fill="#c0392b">E</text></g>
+    <g><circle cx="615" cy="222" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="615" y="229" fill="#c0392b">F</text></g>
+    <g><circle cx="90" cy="362" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="90" y="369" fill="#c0392b">G</text></g>
+    <g><circle cx="610" cy="490" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="610" y="497" fill="#c0392b">H</text></g>
+  </g>
+</svg>

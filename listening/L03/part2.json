@@ -1,0 +1,142 @@
+{
+  "no": 2,
+  "context": "A talk at the reopening of Wrenbury Central Library",
+  "audio": "L03_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear the head librarian giving a talk to local residents at the reopening of a town library. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "f3", "t": "Good evening, everyone, and thank you for coming to this first look at Wrenbury Central Library. I'm Karen Doyle, the head librarian, and after eighteen months behind scaffolding, I'm delighted to be able to show you what we've done." },
+    { "v": "f3", "t": "Let me begin with why the building closed at all. Many people assumed we simply wanted room for more computers, and others told me they'd heard that visitor numbers had collapsed. Neither is true. In fact, our visitor numbers held up very well. The work became necessary when surveyors inspected the building and found that the old roof was no longer safe. Once that repair had begun, it made sense to modernise the rest of the library at the same time." },
+    { "v": "f3", "t": "Now, what does all this mean for members? Your existing cards will still work, so there's no need to apply for a new one. The loan limit stays at twelve books, which most of you told us was plenty. And you've always been able to return books to any branch in the county, so nothing has changed there. The new service is that you can now renew your loans by text message. Just send the number on the back of your card, and you'll get a reply within a minute." },
+    { "v": "f3", "t": "I know you'll also want to hear about overdue fines. When this was first discussed, the plan was to stop charging children and to keep the fines for adults. But the council looked at how much it cost to collect such small sums, and decided to go further. So from today, nobody pays a fine for a late book, whatever their age. We'd simply ask you to bring books back when you've finished with them." },
+    { "v": "f3", "t": "Upstairs, there are six new study rooms. They aren't just for students, as some people have suggested. Anyone over sixteen may use them, and they're free of charge at any time of day. But they're small, and we expect them to be very popular, so you do have to reserve one online, at least a day in advance. Please don't just turn up and hope." },
+    { "v": "f3", "t": "Finally, we're looking for volunteers. Our children's story sessions are well covered, thanks to a wonderful team of retired teachers, and the computer classes are taught by staff from the local college. Where we really need your help is our home delivery service. There are over two hundred people in this town who can't get to the library because of age or illness, and we need drivers to take books to them." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "f3", "t": "Now, let's look at the plan of the ground floor. I'd like you to imagine that you've just come in through the main entrance, which is in the middle of the south wall, at the bottom of your plan. Straight ahead of you, in the centre of the building, is the reception desk." },
+    { "v": "f3", "t": "Let's start with what everyone asks about first, the café. It's the room immediately to your right as you come through the doors, so you can get a coffee without walking through the library at all. Beyond the café, in the south-east corner, is a meeting room that local groups can hire." },
+    { "v": "f3", "t": "If you turn left at the entrance instead, you'll walk past the cloakroom. Keep going to the very end, and in the south-west corner you'll find the children's library. We put it there so that the noise won't travel to the reading areas." },
+    { "v": "f3", "t": "Now go back to the reception desk. On the west side of the hall, to the left of reception as you face it, there's a large room full of armchairs. That's where you'll find the newspapers and magazines." },
+    { "v": "f3", "t": "Directly across the hall from it, on the east side, is the computer area. There are thirty machines in there, and you can book them at reception." },
+    { "v": "f3", "t": "And finally, the local history room. Go round the reception desk to the staircase, at the north end of the building. Many people expect to find local history to the left of the stairs, because that's where it used to be, but that room is now the staff office. The collection has moved to the other side, so you'll find it in the north-east corner." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "The library closed for building work because of",
+          "options": { "A": "the condition of the roof.", "B": "a demand for more computers.", "C": "a fall in visitor numbers." }
+        },
+        {
+          "no": 12,
+          "stem": "What new service is available to library members?",
+          "options": { "A": "borrowing more books at one time", "B": "returning books to any branch", "C": "renewing loans by text message" }
+        },
+        {
+          "no": 13,
+          "stem": "Overdue fines have been",
+          "options": { "A": "reduced for adults.", "B": "abolished for all members.", "C": "abolished for children only." }
+        },
+        {
+          "no": 14,
+          "stem": "What must people do in order to use a study room?",
+          "options": { "A": "show a student card", "B": "book a room on the internet", "C": "pay a small charge" }
+        },
+        {
+          "no": 15,
+          "stem": "Volunteers are needed to",
+          "options": { "A": "take books to people at home.", "B": "read stories to children.", "C": "teach computer skills." }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the plan below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L03_part2_map.svg",
+      "imageAlt": "Wrenbury Central Library 一樓平面圖，主要入口在南側，標示 A 到 H 八個位置",
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "items": [
+        { "no": 16, "text": "Café" },
+        { "no": 17, "text": "Children's library" },
+        { "no": 18, "text": "Newspapers and magazines" },
+        { "no": 19, "text": "Computer area" },
+        { "no": 20, "text": "Local history room" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Karen 說 surveyors inspected the building and found that the old roof was no longer safe，對應 the condition of the roof。<br><b>陷阱</b>：B、C 都是 Many people assumed／others told me 的傳聞，緊接著 Neither is true 一次否定兩個選項。",
+      "quote": "Many people assumed we simply wanted room for more computers, and others told me they'd heard that visitor numbers had collapsed. Neither is true... The work became necessary when surveyors inspected the building and found that the old roof was no longer safe."
+    },
+    {
+      "no": 12,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Karen 說 The new service is that you can now renew your loans by text message。<br><b>陷阱</b>：A 被否定——The loan limit stays at twelve books；B 是本來就有的服務——you've always been able to... nothing has changed。題目問 new，要避開 always 和 stays。",
+      "quote": "The loan limit stays at twelve books... And you've always been able to return books to any branch in the county, so nothing has changed there. The new service is that you can now renew your loans by text message."
+    },
+    {
+      "no": 13,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Karen 說 nobody pays a fine for a late book, whatever their age，也就是所有人都免罰款。<br><b>陷阱</b>：C 是「最初的計畫」（the plan was to stop charging children），但議會 decided to go further。the plan was 表示後來有改變。",
+      "quote": "When this was first discussed, the plan was to stop charging children and to keep the fines for adults. But the council looked at how much it cost to collect such small sums, and decided to go further. So from today, nobody pays a fine for a late book, whatever their age."
+    },
+    {
+      "no": 14,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Karen 說 you do have to reserve one online, at least a day in advance。<b>同義轉換</b>：reserve online ＝ book on the internet。<br><b>陷阱</b>：A 被否定——They aren't just for students；C 也被否定——free of charge at any time of day。",
+      "quote": "They aren't just for students, as some people have suggested. Anyone over sixteen may use them, and they're free of charge at any time of day. But they're small, and we expect them to be very popular, so you do have to reserve one online, at least a day in advance."
+    },
+    {
+      "no": 15,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Karen 說 Where we really need your help is our home delivery service... we need drivers to take books to them。<br><b>陷阱</b>：B 的說故事 are well covered（人手已足夠）；C 的電腦課由當地學院的老師授課。Where we really need your help 才是答案所在。",
+      "quote": "Our children's story sessions are well covered, thanks to a wonderful team of retired teachers, and the computer classes are taught by staff from the local college. Where we really need your help is our home delivery service."
+    },
+    {
+      "no": 16,
+      "answers": ["G"],
+      "explain": "答案是 <b>G</b>。入口在南牆中央，進門後面向北方，咖啡廳 immediately to your right，也就是入口東側緊鄰的 G。<br><b>陷阱</b>：H 也在右手邊，但它是更遠的東南角會議室（Beyond the café）。immediately 表示緊鄰入口。",
+      "quote": "It's the room immediately to your right as you come through the doors, so you can get a coffee without walking through the library at all."
+    },
+    {
+      "no": 17,
+      "answers": ["E"],
+      "explain": "答案是 <b>E</b>。進門左轉，經過衣帽間（F），走到底的 south-west corner 就是兒童圖書館。<br><b>陷阱</b>：F 是途中經過的 cloakroom。Keep going to the very end 表示要走到最遠的角落。",
+      "quote": "If you turn left at the entrance instead, you'll walk past the cloakroom. Keep going to the very end, and in the south-west corner you'll find the children's library."
+    },
+    {
+      "no": 18,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Karen 說 On the west side of the hall, to the left of reception as you face it，大廳西側的房間就是 C。<br><b>提醒</b>：先在圖上找到已標示的 RECEPTION，再判斷方位。",
+      "quote": "On the west side of the hall, to the left of reception as you face it, there's a large room full of armchairs. That's where you'll find the newspapers and magazines."
+    },
+    {
+      "no": 19,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>。Karen 說 Directly across the hall from it, on the east side，也就是報刊區 C 正對面、大廳東側的 D。<br><b>提醒</b>：it 指上一題的 newspapers and magazines 房間，連續題常用代名詞接續，前一題的位置要記住。",
+      "quote": "Directly across the hall from it, on the east side, is the computer area."
+    },
+    {
+      "no": 20,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Karen 說 The collection has moved to the other side, so you'll find it in the north-east corner，右上角是 B。<br><b>陷阱</b>：A 在樓梯左邊，是地方史室「以前」的位置（where it used to be），現在是員工辦公室。",
+      "quote": "Many people expect to find local history to the left of the stairs, because that's where it used to be, but that room is now the staff office. The collection has moved to the other side, so you'll find it in the north-east corner."
+    }
+  ]
+}

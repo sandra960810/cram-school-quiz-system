@@ -1,0 +1,165 @@
+{
+  "no": 3,
+  "context": "Two environmental science students discussing a river fieldwork report",
+  "audio": "L05_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two environmental science students, Hannah and Raj, discussing a report on their fieldwork on a river. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Raj, have you looked at the river data yet? We really need to get this fieldwork report finished." },
+    { "v": "m1", "t": "I have. But before we get to the results, we should explain why we picked that stretch of the River Esk. It's a long way from the campus, after all." },
+    { "v": "f1", "t": "It is. And Dr Mills did offer us a site on the river she's researching, which would have been far easier. No, we chose the Esk because of the old copper mine upstream. It poisoned the river for over a century, and we wanted to find out whether the water had recovered since it closed." },
+    { "v": "m1", "t": "Right. Then there's the method. I thought we'd have trouble getting permission from the landowner, but he couldn't have been more helpful." },
+    { "v": "f1", "t": "And the river didn't flood, even after all that rain. Our only real difficulty was the oxygen meter. It kept giving impossible readings on the first morning, and we lost about three hours before we realised that it needed to be recalibrated." },
+    { "v": "m1", "t": "Don't remind me. Anyway, the results. What surprised you most?" },
+    { "v": "f1", "t": "The nitrate levels were higher below the farms, but anyone could have predicted that. What I didn't expect was the mayfly larvae. They're very sensitive to pollution, so I assumed we wouldn't find any near the town. But there were more of them there than anywhere else on the river." },
+    { "v": "m1", "t": "That's fascinating. We should make more of that in the discussion." },
+    { "v": "f1", "t": "Yes. One explanation could be that the town's treatment works has improved so much in recent years." },
+    { "v": "m1", "t": "Possibly, but we'd need far more evidence before we could say that. We should probably mention it as a question for future research." },
+    { "v": "f1", "t": "Definitely. What did Dr Mills say about the draft, by the way?" },
+    { "v": "m1", "t": "She liked the tables, and she doesn't think we need to go back and take more samples in the winter, because that's beyond the scope of the project. But she does want us to run a statistical test on the differences between the sites. Without that, we can't claim that they're significant." },
+    { "v": "f1", "t": "Fair enough. So what comes first? Shall I write to the water company about our findings?" },
+    { "v": "m1", "t": "That can wait until the report's finished, and the maps are already done. Let's start by entering the last set of readings into the spreadsheet, because we can't do any analysis until that's done." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Let's look at the methods section. We used five techniques, and we should comment on each of them. Kick sampling first." },
+    { "v": "f1", "t": "You'd think you'd need special training for that, but we learned to do it in about ten minutes. What makes it valuable is that the insects you collect have been living in that spot for months, so they show what the river has been like over a long period, not just on one particular day." },
+    { "v": "m1", "t": "It was certainly the most enjoyable part of the whole trip." },
+    { "v": "f1", "t": "Apart from falling in the river, you mean." },
+    { "v": "m1", "t": "Then the dissolved oxygen probe." },
+    { "v": "f1", "t": "It's reliable once it's been calibrated, but you have to be careful. Oxygen rises during daylight, as the water plants produce it, and it falls again at night, so two readings can differ simply because of the hour they were taken." },
+    { "v": "m1", "t": "What about the nitrate test strips?" },
+    { "v": "f1", "t": "They're very convenient, and they cost only a few pence each. The drawback is that you're judging a colour by eye, so the figures you get are only rough." },
+    { "v": "m1", "t": "And the temperature loggers?" },
+    { "v": "f1", "t": "We just tied them to a rock and left them there for a month. They took a measurement automatically every ten minutes, day and night, so we ended up with an unbroken record." },
+    { "v": "m1", "t": "Did we lose any of them?" },
+    { "v": "f1", "t": "Only one, which was washed downstream during the storm. The other five all worked perfectly." },
+    { "v": "m1", "t": "Finally, the phosphate sampling." },
+    { "v": "f1", "t": "That was the most awkward one. You can't test for it on the riverbank. The bottles have to be kept cold and taken to the university's chemists for testing within twenty-four hours." },
+    { "v": "m1", "t": "Good. I'll start writing that up tonight." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose the site on the River Esk?",
+          "options": { "A": "It was close to the university.", "B": "It had a history of pollution.", "C": "Their tutor was doing research there." }
+        },
+        {
+          "no": 22,
+          "stem": "What problem did the students have during the fieldwork?",
+          "options": { "A": "A piece of equipment gave false readings.", "B": "The river flooded.", "C": "A landowner refused them access." }
+        },
+        {
+          "no": 23,
+          "stem": "What surprised Hannah about the results?",
+          "options": { "A": "the nitrate levels below the farms", "B": "the number of mayfly larvae near the town", "C": "the oxygen levels in the upper river" }
+        },
+        {
+          "no": 24,
+          "stem": "What does Dr Mills want the students to do?",
+          "options": { "A": "reduce the number of tables", "B": "collect more samples in winter", "C": "add a statistical analysis" }
+        },
+        {
+          "no": 25,
+          "stem": "What will the students do first?",
+          "options": { "A": "enter the remaining data", "B": "contact the water company", "C": "redraw the maps" }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students say about each method?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "It is cheap but not very accurate.",
+        "B": "It cannot be carried out in the field.",
+        "C": "It provides continuous data.",
+        "D": "Its results depend on the time of day.",
+        "E": "It requires a long period of training.",
+        "F": "It reflects conditions over several months."
+      },
+      "items": [
+        { "no": 26, "text": "Kick sampling" },
+        { "no": 27, "text": "Dissolved oxygen probe" },
+        { "no": 28, "text": "Nitrate test strips" },
+        { "no": 29, "text": "Temperature loggers" },
+        { "no": 30, "text": "Phosphate sampling" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Hannah 說 we chose the Esk because of the old copper mine upstream. It poisoned the river for over a century。<b>同義轉換</b>：poisoned ＝ pollution。<br><b>陷阱</b>：A 剛好相反——It's a long way from the campus；C 是導師提供但他們沒選的地點。",
+      "quote": "And Dr Mills did offer us a site on the river she's researching, which would have been far easier. No, we chose the Esk because of the old copper mine upstream. It poisoned the river for over a century."
+    },
+    {
+      "no": 22,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Hannah 說 Our only real difficulty was the oxygen meter. It kept giving impossible readings。<b>同義轉換</b>：impossible readings ＝ false readings。<br><b>陷阱</b>：C 被否定——he couldn't have been more helpful（極度幫忙）；B 也被否定——the river didn't flood。",
+      "quote": "And the river didn't flood, even after all that rain. Our only real difficulty was the oxygen meter. It kept giving impossible readings on the first morning."
+    },
+    {
+      "no": 23,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>。Hannah 說 What I didn't expect was the mayfly larvae，城鎮附近的數量比其他地方都多。<br><b>陷阱</b>：A 有提到，但 anyone could have predicted that，表示並不意外。What I didn't expect 直接對應 surprised。",
+      "quote": "The nitrate levels were higher below the farms, but anyone could have predicted that. What I didn't expect was the mayfly larvae."
+    },
+    {
+      "no": 24,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>。Raj 說 she does want us to run a statistical test on the differences between the sites。<br><b>陷阱</b>：A 被否定——She liked the tables；B 也被否定——she doesn't think we need to go back and take more samples。does want 是強調語氣，後面就是答案。",
+      "quote": "She liked the tables, and she doesn't think we need to go back and take more samples in the winter, because that's beyond the scope of the project. But she does want us to run a statistical test on the differences between the sites."
+    },
+    {
+      "no": 25,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>。Raj 說 Let's start by entering the last set of readings into the spreadsheet。<b>同義轉換</b>：the last set of readings ＝ the remaining data。<br><b>陷阱</b>：B 要等報告完成（That can wait）；C 已經做好（the maps are already done）。",
+      "quote": "That can wait until the report's finished, and the maps are already done. Let's start by entering the last set of readings into the spreadsheet."
+    },
+    {
+      "no": 26,
+      "answers": ["F"],
+      "explain": "答案是 <b>F</b>（反映數個月的狀況）。Hannah 說 the insects you collect have been living in that spot for months, so they show what the river has been like over a long period。<br><b>陷阱</b>：E 被否定——we learned to do it in about ten minutes，所以 E 是本題組沒用到的選項。",
+      "quote": "You'd think you'd need special training for that, but we learned to do it in about ten minutes. What makes it valuable is that the insects you collect have been living in that spot for months."
+    },
+    {
+      "no": 27,
+      "answers": ["D"],
+      "explain": "答案是 <b>D</b>（結果隨時間而變）。Hannah 說 two readings can differ simply because of the hour they were taken。<br><b>同義轉換</b>：the hour they were taken ＝ the time of day。",
+      "quote": "Oxygen rises during daylight, as the water plants produce it, and it falls again at night, so two readings can differ simply because of the hour they were taken."
+    },
+    {
+      "no": 28,
+      "answers": ["A"],
+      "explain": "答案是 <b>A</b>（便宜但不太準確）。Hannah 說 they cost only a few pence each，但 the figures you get are only rough。<br><b>同義轉換</b>：a few pence ＝ cheap；only rough ＝ not very accurate。",
+      "quote": "They're very convenient, and they cost only a few pence each. The drawback is that you're judging a colour by eye, so the figures you get are only rough."
+    },
+    {
+      "no": 29,
+      "answers": ["C"],
+      "explain": "答案是 <b>C</b>（提供連續資料）。Hannah 說 every ten minutes, day and night, so we ended up with an unbroken record。<br><b>同義轉換</b>：unbroken record ＝ continuous data。",
+      "quote": "They took a measurement automatically every ten minutes, day and night, so we ended up with an unbroken record."
+    },
+    {
+      "no": 30,
+      "answers": ["B"],
+      "explain": "答案是 <b>B</b>（無法在野外進行）。Hannah 說 You can't test for it on the riverbank，樣本要送回大學化驗。<br><b>同義轉換</b>：on the riverbank ＝ in the field。",
+      "quote": "You can't test for it on the riverbank. The bottles have to be kept cold and taken to the university's chemists for testing within twenty-four hours."
+    }
+  ]
+}

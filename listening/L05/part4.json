@@ -1,0 +1,128 @@
+{
+  "no": 4,
+  "context": "A biology lecture on how honeybees communicate",
+  "audio": "L05_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a biology lecture about the way honeybees communicate. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "f3", "t": "Good morning. Today we're turning to animal communication, and in particular to what may be the most remarkable language in the natural world, apart from our own. I'm talking about the dance of the honeybee." },
+    { "v": "f3", "t": "Beekeepers had noticed for centuries that bees perform strange movements on the comb, but nobody understood why. The person who solved the puzzle was an Austrian biologist, Karl von Frisch, whose work eventually earned him a Nobel Prize in nineteen seventy-three." },
+    { "v": "f3", "t": "Von Frisch's methods were beautifully simple. He put out dishes of sugar water to attract bees, and he marked each visitor with a tiny spot of paint on its back, so that he could recognise individuals. Then he built a special hive with walls made of glass, which meant that he could watch what each returning bee did inside the colony." },
+    { "v": "f3", "t": "He would then move the dish to a new position and record how long it took other bees to find it. He noticed that new bees arrived soon after a successful forager returned, and this suggested that information was somehow being passed on." },
+    { "v": "f3", "t": "He found two main kinds of dance. In the round dance, a bee simply runs in small circles. This tells her sisters that there's food close to the hive, within about fifty metres, but it gives no information about direction. They just fly out and search the area nearby." },
+    { "v": "f3", "t": "The waggle dance is far more sophisticated. The bee runs in a straight line, shaking her body from side to side, then circles back and repeats the run. The angle of that straight run is the key. Inside the hive, the comb hangs vertically, so the bee uses the direction straight up to stand for the position of the sun. If she runs thirty degrees to the right of vertical, the food lies thirty degrees to the right of the sun." },
+    { "v": "f3", "t": "The second piece of information is in the timing. The length of the waggle run tells the other bees the distance to the food. Roughly speaking, each second of waggling represents about one kilometre of flight." },
+    { "v": "f3", "t": "You might ask what happens when clouds hide the sun. Bees aren't defeated by this. Their eyes can detect patterns of polarised light in any small patch of blue sky, and these patterns reveal where the sun must be." },
+    { "v": "f3", "t": "On completely overcast days, they can still rely on landmarks they've memorised, such as a line of trees or the edge of a river." },
+    { "v": "f3", "t": "The dance doesn't tell the whole story, however. Followers crowd around the dancer, touching her with their antennae, and they pick up the scent of the flowers she's been visiting. This helps them to recognise the right plants when they arrive." },
+    { "v": "f3", "t": "A dancer will also repeat her performance more often if the food is especially rich, so the best sources attract the greatest number of followers." },
+    { "v": "f3", "t": "Not everyone accepted von Frisch's theory. In the nineteen sixties, some scientists argued that the dance meant nothing, and that bees found food by following odours alone. The argument wasn't finally settled until two thousand and five, when researchers in Britain attached tiny transmitters to bees and followed their flights using radar. The bees flew straight towards the place that the dance had indicated." },
+    { "v": "f3", "t": "Dancing isn't only about food. When a colony becomes too crowded, thousands of bees leave with the old queen and hang in a cluster from a branch. Scout bees then search for a new home, and they return to dance for the sites they've found. Over several days, more and more scouts join the dance for the best option, until the swarm reaches a decision." },
+    { "v": "f3", "t": "Research has shown that this process is remarkably reliable, and the swarm nearly always chooses the most suitable site available." },
+    { "v": "f3", "t": "Finally, this research has had an unexpected practical application. Computer scientists have borrowed the bees' system to share out work between internet servers. Each server advertises the demand it has found, just as a bee advertises a patch of flowers, and this has made some networks noticeably more efficient." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "HOW HONEYBEES COMMUNICATE",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Von Frisch's research",
+          "lines": [
+            "Individual bees were marked with {31}",
+            "He observed bees in a hive with {32} walls"
+          ]
+        },
+        {
+          "heading": "The dances",
+          "lines": [
+            "Round dance: food is {33} to the hive",
+            "Waggle dance: the angle of the run shows direction in relation to the {34}",
+            "The length of the run shows the {35} to the food",
+            "On cloudy days, bees detect patterns of polarised {36}",
+            "Followers learn which flowers to visit from their {37}"
+          ]
+        },
+        {
+          "heading": "Later developments",
+          "lines": [
+            "2005: theory was proved by tracking bees with {38}",
+            "Swarms: scout bees dance to select a new {39}",
+            "Modern application: sharing work between internet {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": ["paint"],
+      "explain": "答案是 <b>paint</b>。講者說 he marked each visitor with a tiny spot of paint on its back，對應題目的 marked with ___。<br><b>陷阱</b>：sugar water 是用來吸引蜜蜂的，不是做記號的工具。",
+      "quote": "He put out dishes of sugar water to attract bees, and he marked each visitor with a tiny spot of paint on its back."
+    },
+    {
+      "no": 32,
+      "answers": ["glass"],
+      "explain": "答案是 <b>glass</b>。講者說 a special hive with walls made of glass。<b>同義轉換</b>：walls made of glass ＝ glass walls，這裡 glass 當形容詞用。",
+      "quote": "Then he built a special hive with walls made of glass, which meant that he could watch what each returning bee did inside the colony."
+    },
+    {
+      "no": 33,
+      "answers": ["close", "near"],
+      "explain": "答案是 <b>close</b>（寫 near 也可以）。講者說 there's food close to the hive, within about fifty metres。<br><b>提醒</b>：題目已印出 to the hive，常見搭配就是 close to。round dance 不提供方向，只表示「很近」。",
+      "quote": "This tells her sisters that there's food close to the hive, within about fifty metres, but it gives no information about direction."
+    },
+    {
+      "no": 34,
+      "answers": ["sun"],
+      "explain": "答案是 <b>sun</b>。講者說 the bee uses the direction straight up to stand for the position of the sun。<br><b>陷阱</b>：vertical 是蜂巢內的參考方向，但實際代表的是太陽的位置。題目問 in relation to the ___，要填真正的參照物。",
+      "quote": "Inside the hive, the comb hangs vertically, so the bee uses the direction straight up to stand for the position of the sun."
+    },
+    {
+      "no": 35,
+      "answers": ["distance"],
+      "explain": "答案是 <b>distance</b>。講者說 The length of the waggle run tells the other bees the distance to the food，與題目幾乎逐字對應。<br><b>提醒</b>：每搖擺一秒約代表飛行一公里。",
+      "quote": "The length of the waggle run tells the other bees the distance to the food."
+    },
+    {
+      "no": 36,
+      "answers": ["light"],
+      "explain": "答案是 <b>light</b>。講者說 Their eyes can detect patterns of polarised light，與題目的 patterns of polarised ___ 對應。<b>同義轉換</b>：clouds hide the sun ＝ cloudy days。",
+      "quote": "Their eyes can detect patterns of polarised light in any small patch of blue sky, and these patterns reveal where the sun must be."
+    },
+    {
+      "no": 37,
+      "answers": ["scent", "smell"],
+      "explain": "答案是 <b>scent</b>（氣味，寫 smell 也可以）。講者說 they pick up the scent of the flowers she's been visiting。<br><b>提醒</b>：題目的 their 指 flowers，要找花的什麼特徵能讓蜜蜂認出來。",
+      "quote": "Followers crowd around the dancer, touching her with their antennae, and they pick up the scent of the flowers she's been visiting."
+    },
+    {
+      "no": 38,
+      "answers": ["radar"],
+      "explain": "答案是 <b>radar</b>。講者說 attached tiny transmitters to bees and followed their flights using radar。<b>同義轉換</b>：followed ＝ tracking。<br><b>陷阱</b>：transmitters 是裝在蜜蜂身上的裝置，真正用來追蹤的是 radar。",
+      "quote": "The argument wasn't finally settled until two thousand and five, when researchers in Britain attached tiny transmitters to bees and followed their flights using radar."
+    },
+    {
+      "no": 39,
+      "answers": ["home", "nest"],
+      "explain": "答案是 <b>home</b>（寫 nest 也可以）。講者說 Scout bees then search for a new home，與題目的 a new ___ 對應。<br><b>陷阱</b>：queen 和 branch 都出現了，但蜂群分出去後要找的是新家。",
+      "quote": "Scout bees then search for a new home, and they return to dance for the sites they've found."
+    },
+    {
+      "no": 40,
+      "answers": ["servers"],
+      "explain": "答案是 <b>servers</b>（伺服器）。講者說 share out work between internet servers，與題目幾乎逐字對應。複數 s 不可漏。<br><b>陷阱</b>：networks 出現在後面，但 internet ___ 的空格要接 servers。",
+      "quote": "Computer scientists have borrowed the bees' system to share out work between internet servers."
+    }
+  ]
+}
