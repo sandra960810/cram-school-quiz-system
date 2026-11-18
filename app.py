@@ -1,3 +1,4 @@
+import difflib
 import json
 import os
 import random
@@ -467,7 +468,6 @@ def learn_theme(student_id, theme_key):
     paged = len(cards) > LETTER_PAGING_MIN
     letters = []
     letter = None
-    q = (request.args.get('q') or '').strip()
     if paged:
         counts = {}
         for c in cards:
@@ -475,20 +475,14 @@ def learn_theme(student_id, theme_key):
             stat["total"] += 1
             stat["unlocked"] += c["status"] == 'familiar'
         letters = [counts[k] for k in sorted(counts)]
-        if not q:
-            letter = (request.args.get('letter') or '').upper()
-            if letter not in counts:
-                letter = letters[0]["letter"] if letters else None
-            cards = [c for c in cards if c["letter"] == letter]
-    if q:
-        # 只搜得到學過的字，還沒學的不會洩漏答案
-        ql = q.lower()
-        cards = [c for c in cards if c["is_unlocked"]
-                 and (ql in c["word"].lower() or ql in c["meaning"].lower())]
+        letter = (request.args.get('letter') or '').upper()
+        if letter not in counts:
+            letter = letters[0]["letter"] if letters else None
+        cards = [c for c in cards if c["letter"] == letter]
 
     zone_counts = {z: sum(1 for c in cards if c["status"] == z) for z in ('familiar', 'unfamiliar', 'new')}
     return render_template('learn_theme.html', student=student, theme=theme, cards=cards,
-                           paged=paged, letters=letters, letter=letter, q=q,
+                           paged=paged, letters=letters, letter=letter,
                            zone_counts=zone_counts,
                            batch=STUDY_BATCH_SIZE)
 
@@ -645,6 +639,66 @@ def learn_word(student_id, theme_key, vocab_id):
                            theme=theme, mode='view', letter=None,
                            back_url=back_url, again_url=back_url,
                            home_url=url_for('learn_home', student_id=student_id))
+
+
+SEARCH_LIMIT = 40          # 搜尋最多列出幾個字
+
+
+def search_score(q, word, meaning):
+    """單字和搜尋字有多像：0 代表不像。完全一樣 > 開頭一樣 > 包含 > 中文意思包含 > 拼法相近（打錯字也找得到）。"""
+    w = word.lower()
+    if w == q:
+        return 100
+    if w.startswith(q):
+        return 90 - min(len(w) - len(q), 20) * 0.1
+    if q in w:
+        return 80 - min(len(w) - len(q), 20) * 0.1
+    if meaning and q in meaning.lower():
+        return 70
+    if len(q) >= 3:
+        # 拼法相近：先用便宜的 real_quick_ratio 篩掉差很多的，再算精確相似度
+        m = difflib.SequenceMatcher(None, q, w)
+        if m.real_quick_ratio() >= 0.8 and m.quick_ratio() >= 0.8:
+            r = m.ratio()
+            if r >= 0.8:
+                return r * 60
+    return 0
+
+
+@app.route('/learn/<int:student_id>/search')
+def learn_search(student_id):
+    """單字學習區首頁的搜尋：跨所有主題找相似的單字（拼字或中文意思），邊打邊回傳結果。"""
+    student = get_student(student_id)
+    q = (request.args.get('q') or '').strip().lower()
+    if not q:
+        return jsonify({"results": []})
+    locked = locked_theme_ids(student)
+    status = status_of(student_id)
+    fav = favorite_words(student)
+    scored = {}
+    for w in Vocabulary.query.filter(Vocabulary.category == exams.course_of(student)).all():
+        if official_id_of(w.theme) in locked:
+            continue
+        sc = search_score(q, w.word, w.meaning)
+        if not sc:
+            continue
+        key = w.word.lower()
+        st = status.get(w.id, 'new')
+        # 同拼字只列一次，優先留學過的那筆
+        if key not in scored or (sc, st != 'new') > (scored[key][0], scored[key][2] != 'new'):
+            scored[key] = (sc, w, st)
+    top = sorted(scored.values(), key=lambda t: (-t[0], t[1].word.lower()))[:SEARCH_LIMIT]
+    results = []
+    for sc, w, st in top:
+        tkey = theme_key_of(w)
+        theme_url = url_for('learn_theme', student_id=student_id, theme_key=tkey, letter=first_letter(w.word))
+        seen = st != 'new' or w.word.lower() in fav
+        results.append({
+            "word": w.word, "pos": w.pos or '', "meaning": w.meaning or '',
+            "theme": theme_label_of(w), "status": st,
+            "url": url_for('learn_word', student_id=student_id, theme_key=tkey, vocab_id=w.id) if seen else theme_url,
+        })
+    return jsonify({"results": results})
 
 
 @app.route('/vocab_themes/<int:student_id>')
