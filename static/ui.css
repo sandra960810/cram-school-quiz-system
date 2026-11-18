@@ -18,7 +18,7 @@ a[href], button { transition: transform 0.12s ease, box-shadow 0.2s, background 
 .nav-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
 .nav-back, .nav-next {
     display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px;
-    background: white; color: var(--ink); text-decoration: none; font-weight: bold; font-size: 15px;
+    background: white; color: var(--deep); text-decoration: none; font-weight: bold; font-size: 15px;
     box-shadow: var(--edge); border: none; cursor: pointer; font-family: inherit;
 }
 .nav-back:hover, .nav-next:hover { background: var(--primary-50); color: var(--primary); }

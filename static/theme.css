@@ -1,25 +1,29 @@
 /* 全站色系：所有頁面的顏色都從這裡的變數來，要換色只改這一份。
    各頁 <style> 裡只寫 var(--primary) 這類變數，不要再寫死色碼。 */
 :root {
-    /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
-    --primary: #4a2d7f;
-    --primary-600: #38205f;
-    --primary-300: #b7a3db;
-    --primary-50: #f1ecf8;
-    --primary-100: #e3d9f2;
-    /* 標題橫幅：淺紫平塗、不用漸層，深紫字 */
-    --hero: var(--primary-50);
-    --hero-ink: var(--primary-600);
+    /* 雙色層次：每個考試一個「主色」（按鈕、重點、選取）＋一個同色系的「深色」（標題橫幅、標題字）。
+       雅思（也是選擇考試頁的預設）：橘色＋咖啡色 */
+    --primary: #b85a17;
+    --primary-600: #8f4410;
+    --primary-300: #efb98c;
+    --primary-50: #fdf1e7;
+    --primary-100: #f9dfc8;
+    /* 深色：咖啡。標題橫幅用深色底＋白字，下方再墊一層主色淺色，做出前後層次（不用漸層、不用模糊陰影） */
+    --deep: #5a3a28;
+    --deep-2: #7b5440;
+    --deep-50: #f1e7df;
+    --hero: var(--deep);
+    --hero-ink: #fff;
 
-    /* 文字與底色 */
-    --ink: #231f2e;
-    --ink-2: #4c4757;
-    --muted: #6e6879;
-    --muted-2: #9c96a6;
-    --line: #e5e1ec;
-    --line-strong: #c9c2d4;
-    --bg: #f5f3f8;
-    --surface-2: #f3f0f6;
+    /* 文字與底色（帶一點暖咖啡調） */
+    --ink: #2b211b;
+    --ink-2: #55463c;
+    --muted: #7a6a5f;
+    --muted-2: #a8988c;
+    --line: #ece1d7;
+    --line-strong: #d8c4b4;
+    --bg: #faf5ef;
+    --surface-2: #f5ece3;
 
     /* 狀態色：對／錯／提醒／收藏 */
     --ok: #1f8a4c;     --ok-ink: #176b3a;   --ok-300: #9fd5b4;  --ok-50: #e3f4ea;
@@ -30,13 +34,13 @@
     /* 層次：不用模糊陰影，改用實線外框疊出層次（box-shadow 的 0 0 0 1px 等於不佔版面的邊框） */
     --edge: 0 0 0 1px var(--line);                                             /* 一般卡片 */
     --edge-raised: 0 0 0 1px var(--primary-300), 4px 4px 0 var(--primary-100); /* 滑過、被選取 */
-    --edge-hero: 0 0 0 1px var(--primary-300), 6px 6px 0 var(--primary-100);   /* 標題橫幅 */
+    --edge-hero: 0 0 0 1px var(--deep), 6px 6px 0 var(--primary-300);         /* 標題橫幅：深色板＋主色墊底 */
     --edge-pop: 0 0 0 1px var(--line-strong), 5px 5px 0 var(--primary-100);    /* 浮動面板、提示 */
 
     /* 中文字型沒有韓文字，韓文會自動改用後面的韓文字型（Windows 的 Malgun Gothic、Mac/iPhone 的 Apple SD Gothic Neo） */
     --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
-/* 多益（TOEIC）：藍色。只覆寫主色與帶紫調的中性色，狀態色（對／錯／提醒／收藏）沿用。
+/* 多益（TOEIC）：藍色＋深海軍藍。只覆寫主色、深色與中性色，狀態色（對／錯／提醒／收藏）沿用。
    樣板的 <html data-exam="…"> 由 exams.py 決定；新增考試照這個格式加一組 */
 :root[data-exam="toeic"] {
     --primary: #1d4ed8;
@@ -44,6 +48,9 @@
     --primary-300: #9db8ec;
     --primary-50: #eaf1fd;
     --primary-100: #d4e2fa;
+    --deep: #172a52;
+    --deep-2: #2b4373;
+    --deep-50: #e3e8f2;
     --ink: #1c2433;
     --ink-2: #434c5e;
     --muted: #667085;
@@ -53,29 +60,35 @@
     --bg: #f3f6fb;
     --surface-2: #eef2f8;
 }
-/* 英文零基礎（BASIC）：暖橘色，給剛起步的學生活潑一點 */
+/* 英文零基礎（BASIC）：蜂蜜黃＋棕色（雅思改成橘色後，零基礎換成黃色系，兩區才分得出來） */
 :root[data-exam="basic"] {
-    --primary: #c2410c;
-    --primary-600: #9a3412;
-    --primary-300: #f4b48a;
-    --primary-50: #fff1e8;
-    --primary-100: #fde0cc;
-    --ink: #2a211c;
-    --ink-2: #54473f;
-    --muted: #7a6b62;
-    --muted-2: #a8998f;
-    --line: #eee3da;
-    --line-strong: #d8c6b8;
-    --bg: #fbf6f2;
-    --surface-2: #f7efe8;
+    --primary: #a15c07;
+    --primary-600: #7c4506;
+    --primary-300: #f0cd85;
+    --primary-50: #fef7e4;
+    --primary-100: #fcecc2;
+    --deep: #5e4320;
+    --deep-2: #7d5d33;
+    --deep-50: #f1e9dc;
+    --ink: #2a2318;
+    --ink-2: #54493a;
+    --muted: #7a6d5c;
+    --muted-2: #a89b88;
+    --line: #eee5d4;
+    --line-strong: #d9caae;
+    --bg: #fbf7ee;
+    --surface-2: #f7f0e1;
 }
-/* 一般英文（GENERAL）：青綠色 */
+/* 一般英文（GENERAL）：青綠色＋深墨綠 */
 :root[data-exam="general"] {
     --primary: #0f766e;
     --primary-600: #115e59;
     --primary-300: #8fd0c7;
     --primary-50: #e7f6f4;
     --primary-100: #cdeee9;
+    --deep: #163f3b;
+    --deep-2: #2a5a55;
+    --deep-50: #e0ecea;
     --ink: #18272a;
     --ink-2: #3f5254;
     --muted: #627476;
@@ -85,13 +98,16 @@
     --bg: #f2f8f7;
     --surface-2: #eaf3f2;
 }
-/* 韓檢（TOPIK）：莓果紅 */
+/* 韓檢（TOPIK）：莓果紅＋深酒紅 */
 :root[data-exam="topik"] {
     --primary: #9d174d;
     --primary-600: #831843;
     --primary-300: #f0a5c4;
     --primary-50: #fdedf3;
     --primary-100: #fad5e3;
+    --deep: #4a1529;
+    --deep-2: #6b2a42;
+    --deep-50: #f0e2e8;
     --ink: #2a1c22;
     --ink-2: #554049;
     --muted: #7a6670;
@@ -102,11 +118,11 @@
     --surface-2: #f7edf1;
 }
 /* 考試選擇頁的卡片：各自顯示自己考試的主色（不受整頁色系影響） */
-.exam-tone-ielts { --tone: #4a2d7f; --tone-50: #f1ecf8; --tone-300: #b7a3db; --tone-100: #e3d9f2; }
-.exam-tone-toeic { --tone: #1d4ed8; --tone-50: #eaf1fd; --tone-300: #9db8ec; --tone-100: #d4e2fa; }
-.exam-tone-basic { --tone: #c2410c; --tone-50: #fff1e8; --tone-300: #f4b48a; --tone-100: #fde0cc; }
-.exam-tone-general { --tone: #0f766e; --tone-50: #e7f6f4; --tone-300: #8fd0c7; --tone-100: #cdeee9; }
-.exam-tone-topik { --tone: #9d174d; --tone-50: #fdedf3; --tone-300: #f0a5c4; --tone-100: #fad5e3; }
+.exam-tone-ielts { --tone: #b85a17; --tone-50: #fdf1e7; --tone-300: #efb98c; --tone-100: #f9dfc8; --tone-deep: #5a3a28; }
+.exam-tone-toeic { --tone: #1d4ed8; --tone-50: #eaf1fd; --tone-300: #9db8ec; --tone-100: #d4e2fa; --tone-deep: #172a52; }
+.exam-tone-basic { --tone: #a15c07; --tone-50: #fef7e4; --tone-300: #f0cd85; --tone-100: #fcecc2; --tone-deep: #5e4320; }
+.exam-tone-general { --tone: #0f766e; --tone-50: #e7f6f4; --tone-300: #8fd0c7; --tone-100: #cdeee9; --tone-deep: #163f3b; }
+.exam-tone-topik { --tone: #9d174d; --tone-50: #fdedf3; --tone-300: #f0a5c4; --tone-100: #fad5e3; --tone-deep: #4a1529; }
 
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }
@@ -119,3 +135,9 @@ a { color: var(--primary); }
 button .ui-ic, a .ui-ic { pointer-events: none; }
 /* 卡片上的大圖示用主色 */
 .menu-icon, .theme-icon, .skill .icon { color: var(--primary); }
+
+/* 雙色層次：標題字用深色、重點用主色，同一頁有深有淺 */
+/* 加 :root 提高優先順序，蓋過各頁 <style> 裡的 color: var(--ink) */
+:root .menu-title, :root .theme-title, :root .skill .name, :root .pick, :root .dex-title,
+:root .panel h2, :root .header h1 { color: var(--deep); }
+:root .exam-card .exam-name .nm { color: var(--tone-deep, var(--deep)); }
