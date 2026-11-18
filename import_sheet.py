@@ -21,9 +21,10 @@ from sqlalchemy import func
 HEADERS = {
     '編號': 'id', '課程': 'category', '主題': 'theme', '程度': 'level', '單字': 'word',
     '詞性': 'pos', '中文意思': 'meaning_zh', '英文解釋': 'meaning_en',
-    '例句': 'sentence', '例句中譯': 'sentence_zh',
+    '例句': 'sentence', '例句中譯': 'sentence_zh', '讀音': 'reading',
 }
-LEVELS = {'基礎級', '中級', '中高級', '進階級', '不分級', '1級', '2級', '3級', '4級', '5級', '6級'}   # 1～6 級：韓檢
+LEVELS = {'基礎級', '中級', '中高級', '進階級', '不分級', '1級', '2級', '3級', '4級', '5級', '6級',   # 1～6 級：韓檢
+          'N5', 'N4', 'N3', 'N2', 'N1'}   # 日檢
 SHEET_NAME = '單字總表'
 
 
@@ -93,6 +94,8 @@ def run(path, dry_run=False):
                           pos=r.get('pos') or None, meaning=meaning_zh or meaning_en,
                           meaning_en=meaning_en or None, sentence=r.get('sentence') or None,
                           sentence_zh=r.get('sentence_zh') or None)
+            if 'reading' in r:   # 只有日檢的單字檔有「讀音」欄，其他課程的字不動這個欄位
+                values['reading'] = r.get('reading') or None
 
             vocab = None
             raw_id = r.get('id', '')

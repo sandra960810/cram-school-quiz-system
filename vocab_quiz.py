@@ -50,10 +50,40 @@ def normalize(s):
     return re.sub(r'\s+', ' ', s)
 
 
+CLOZE_MARK = re.compile(r'\[([^\[\]|]*)(?:\|([^\[\]]*))?\]')
+
+
 def clean_sentence(sentence):
     if not sentence or sentence.startswith(NO_SENTENCE_PREFIX):
         return None
-    return sentence.replace('[', '').replace(']', '')   # 韓文例句用 [ ] 標出填空處，顯示時拿掉
+    # 例句用 [ ] 標出填空處（韓文 [들어요]、日文 [飲みます|のみます]），顯示時拿掉標記與讀音
+    return CLOZE_MARK.sub(lambda m: m.group(1), sentence)
+
+
+# ---------- 日文（日檢） ----------
+def to_hiragana(text):
+    return ''.join(chr(ord(c) - 0x60) if 'ァ' <= c <= 'ヶ' else c for c in (text or ''))
+
+
+def normalize_ja(s):
+    """日文打字題的比對：全形半形統一、片假名當平假名（カメラ＝かめら）、去掉空白與「・」。
+    不能用 normalize()：它會把濁音點去掉（が→か）。前端 vocab_quiz.html 的 normJa() 要保持一致。"""
+    s = unicodedata.normalize('NFKC', s or '')
+    s = to_hiragana(s)
+    return re.sub(r'[\s・･]', '', s).replace('〜', '').replace('~', '')
+
+
+def find_cloze_ja(sentence):
+    """日文例句填空：例句裡用 [寫法|讀音] 標出要挖掉的地方（例：毎朝コーヒーを[飲みます|のみます]。），
+    回傳 (挖空前, 寫法, 挖空後, 讀音)。日文沒有空格分詞，所以挖空位置由製作字庫時先標好（見 jlpt/README.md）。"""
+    raw = sentence or ''
+    if raw.startswith(NO_SENTENCE_PREFIX):
+        return None
+    m = CLOZE_MARK.search(raw)
+    if not m or not m.group(1):
+        return None
+    before, after = clean_sentence(raw[:m.start()]) or '', clean_sentence(raw[m.end():]) or ''
+    return before, m.group(1), after, m.group(2) or m.group(1)
 
 
 def _stems(word):
@@ -175,8 +205,12 @@ def length_hint(word):
     return f'{len(word)} 個字' if is_korean(word) else f'{len(word)} 個字母'
 
 
-def check_answer(qtype, given, answer):
-    """批改一題。打字題不分大小寫；選擇題比對選項文字。"""
+def check_answer(qtype, given, answer, accept=None):
+    """批改一題。打字題不分大小寫；選擇題比對選項文字。
+    accept：日文打字題可以接受的寫法（漢字或假名都算對，例如 学校／がっこう）。"""
+    if qtype in TYPED and accept:
+        g = normalize_ja(given)
+        return bool(g) and g in {normalize_ja(a) for a in accept}
     if qtype in TYPED:
         return normalize(given) == normalize(answer) and normalize(answer) != ''
     return (given or '') == (answer or '')
@@ -221,15 +255,32 @@ def build_questions(words, types, size, distractor_pool, rng=random):
     # 干擾選項要和正確答案同一種語言（中文意思配中文、英文解釋配英文），不然一眼就看出答案
     pools = {True: [d for d in distractor_pool if has_zh(d.meaning)],
              False: [d for d in distractor_pool if not has_zh(d.meaning)]}
-    clozes = {v.id: find_cloze(v.word, v.sentence) for v in picked} if 'cloze' in types else {}
+    clozes = {v.id: (find_cloze_ja(v.sentence) if getattr(v, 'reading', None) else find_cloze(v.word, v.sentence))
+              for v in picked} if 'cloze' in types else {}
     plan = assign_types(picked, types, {k for k, c in clozes.items() if c}, rng)
     for v in picked:
         qtype = plan[v.id]
         cloze = clozes.get(v.id)
         meaning = v.meaning or ''
+        readings = [r for r in (getattr(v, 'reading', None) or '').split('／') if r]
+        # 日文的中文意思本來就常和漢字一樣（学校＝學校），不遮
         q = {"vocab_id": v.id, "type": qtype, "word": v.word, "pos": v.pos or '',
-             "meaning": mask_word(meaning, v.word), "answer": v.word}
-        if qtype == 'cloze':
+             "meaning": meaning if readings else mask_word(meaning, v.word), "answer": v.word}
+        if readings:
+            # 日文：單字卡顯示讀音、發音唸假名；打字題漢字或假名都算對
+            q.update(ja=True, say=readings[0], accept=[v.word] + readings,
+                     reading='' if to_hiragana(readings[0]) == to_hiragana(v.word) else '／'.join(readings))
+        if qtype == 'cloze' and readings:
+            before, form, after, form_reading = cloze
+            form_readings = [r for r in form_reading.split('／') if r]
+            q.update(before=before, after=after, answer=form, sentence_zh=v.sentence_zh or '',
+                     accept=[form] + form_readings, say=form_readings[0],
+                     hint=form_readings[0][0] + ' ＿' * (len(form_readings[0]) - 1),
+                     form_differs=form != v.word)
+        elif qtype in ('spell', 'dictate') and readings:
+            q["hint"] = f'{len(readings[0])} 個假名'
+            q["first"] = readings[0][0]
+        elif qtype == 'cloze':
             before, form, after = cloze
             q.update(before=before, after=after, answer=form, sentence_zh=v.sentence_zh or '',
                      hint=initials(form) if is_korean(form) else form[0] + ' _' * (len(form) - 1),
@@ -253,11 +304,15 @@ def build_questions(words, types, size, distractor_pool, rng=random):
                     break
             if len(opts) < 3:          # 湊不滿四個選項就改出拼寫
                 qtype = 'spell'
-                q.update(type='spell', hint=length_hint(v.word),
-                         first=initials(v.word[0]) if is_korean(v.word) else v.word[0])
+                if readings:
+                    q.update(type='spell', hint=f'{len(readings[0])} 個假名', first=readings[0][0])
+                else:
+                    q.update(type='spell', hint=length_hint(v.word),
+                             first=initials(v.word[0]) if is_korean(v.word) else v.word[0])
             else:
                 if qtype == 'meaning':
-                    choices = [q["meaning"]] + [mask_word(d.meaning, d.word) for d in opts]
+                    choices = [q["meaning"]] + [d.meaning if getattr(d, 'reading', None) else mask_word(d.meaning, d.word)
+                                                for d in opts]
                     q["answer"] = q["meaning"]
                 else:
                     choices = [v.word] + [d.word for d in opts]
@@ -454,7 +509,7 @@ def quiz_submit():
     correct, wrong_ids = 0, []
     for i, q in enumerate(questions):
         g = given[i] if i < len(given) and isinstance(given[i], str) else ''
-        ok = check_answer(q["type"], g, q["answer"])
+        ok = check_answer(q["type"], g, q["answer"], q.get("accept"))
         correct += ok
         db.session.add(_['Answer'](attempt_id=attempt.id, vocab_id=q["vocab_id"], qtype=q["type"],
                                    given=g[:300], is_correct=ok))

@@ -18,6 +18,7 @@
 """
 import json
 import os
+import re
 import secrets
 import time
 from functools import wraps
@@ -30,7 +31,8 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 _ = {}   # register() 放進來的主程式物件
 
 TRASH = 'TRASH:'
-LEVELS = ['不分級', '基礎級', '中級', '中高級', '進階級', '1級', '2級', '3級', '4級', '5級', '6級']   # 1～6 級：韓檢
+LEVELS = ['不分級', '基礎級', '中級', '中高級', '進階級', '1級', '2級', '3級', '4級', '5級', '6級',   # 1～6 級：韓檢
+          'N5', 'N4', 'N3', 'N2', 'N1']   # 日檢
 PAGE_SIZE = 50
 MAX_FAILS, LOCK_SECONDS = 5, 600
 _fails = {}   # 來源 IP → [連續失敗次數, 鎖到什麼時候]
@@ -280,7 +282,8 @@ def vocab_list(course):
                                                  if _['official_id_of'](theme) else theme))
     if q:
         like = f"%{q}%"
-        query = query.filter(or_(V.word.ilike(like), V.meaning.ilike(like), V.meaning_en.ilike(like)))
+        query = query.filter(or_(V.word.ilike(like), V.meaning.ilike(like), V.meaning_en.ilike(like),
+                                 V.reading.ilike(like)))
     total = query.count()
     rows = (query.order_by(func.lower(V.word), V.id)
             .offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE).all())
@@ -299,8 +302,9 @@ def vocab_list(course):
 def _form_values(course):
     f = request.form
     vals = {k: (f.get(k) or '').strip() for k in
-            ('word', 'pos', 'meaning_zh', 'meaning_en', 'sentence', 'sentence_zh', 'theme', 'level')}
+            ('word', 'pos', 'meaning_zh', 'meaning_en', 'sentence', 'sentence_zh', 'theme', 'level', 'reading')}
     vals['theme'] = normalize_theme(course, vals['theme'])
+    vals['is_ja'] = course == 'JLPT'
     errors = []
     if not vals['word']:
         errors.append('請填單字')
@@ -310,14 +314,17 @@ def _form_values(course):
         errors.append('請選主題')
     if vals['level'] not in LEVELS:
         vals['level'] = '不分級'
-    for k, limit in (('word', 100), ('pos', 20), ('meaning_zh', 200), ('meaning_en', 500),
+    if course == 'JLPT' and vals['reading'] and not JA_READING.fullmatch(vals['reading']):
+        errors.append('「讀音」請只填假名（平假名或片假名），兩種讀法用「／」隔開，例如 あした／あす')
+    for k, limit in (('word', 100), ('pos', 20), ('meaning_zh', 200), ('meaning_en', 500), ('reading', 100),
                      ('sentence', 500), ('sentence_zh', 500), ('theme', 50)):
         if len(vals[k]) > limit:
             errors.append(f'「{FIELD_NAMES[k]}」太長了（最多 {limit} 個字）')
     return vals, errors
 
 
-FIELD_NAMES = {'word': '單字', 'pos': '詞性', 'meaning_zh': '中文意思', 'meaning_en': '英文解釋',
+JA_READING = re.compile(r'[ぁ-ゖァ-ヺー・／]+')
+FIELD_NAMES = {'word': '單字', 'pos': '詞性', 'meaning_zh': '中文意思', 'meaning_en': '英文解釋', 'reading': '讀音',
                'sentence': '例句', 'sentence_zh': '例句中譯', 'theme': '主題'}
 
 
@@ -330,12 +337,23 @@ def _apply(v, vals):
     v.sentence_zh = vals['sentence_zh'] or None
     v.theme = vals['theme']
     v.level = vals['level']
+    if v.category == 'JLPT':
+        v.reading = vals.get('reading') or None
+        # 日文例句要用 [寫法|讀音] 標出例句填空挖掉的地方；沒標而且例句裡有原字時自動標上
+        s = v.sentence or ''
+        if s and '[' not in s and v.word in s:
+            mark = f'[{v.word}|{v.reading.split("／")[0]}]' if v.reading and v.reading != v.word else f'[{v.word}]'
+            v.sentence = s.replace(v.word, mark, 1)
 
 
 def _hints(vals):
     """不擋存檔、但提醒管理員的事。"""
     hints = []
-    if vals.get('sentence') and not _['find_cloze'](vals['word'], vals['sentence']):
+    if vals.get('sentence') and vals.get('is_ja'):
+        if '[' not in vals['sentence'] and vals['word'] not in vals['sentence']:
+            hints.append('日文例句請用 [寫法|讀音] 標出「例句填空」要挖掉的地方，例如：毎朝コーヒーを[飲みます|のみます]。'
+                         '沒標的話，單字測驗不會出這個字的例句填空題（其他題型照常）。')
+    elif vals.get('sentence') and not _['find_cloze'](vals['word'], vals['sentence']):
         hints.append('例句裡找不到這個單字，單字測驗不會出這個字的「例句填空」題（其他題型照常）。')
     return hints
 
@@ -346,7 +364,8 @@ def _edit_values(v):
     if sentence.startswith('無例句'):
         sentence = ''
     return dict(word=v.word, pos=v.pos or '', meaning_zh=zh, meaning_en=v.meaning_en or '',
-                sentence=sentence, sentence_zh=v.sentence_zh or '', theme=v.theme, level=v.level)
+                sentence=sentence, sentence_zh=v.sentence_zh or '', theme=v.theme, level=v.level,
+                reading=v.reading or '', is_ja=v.category == 'JLPT')
 
 
 @bp.route('/vocab/<course>/new', methods=['GET', 'POST'])

@@ -42,6 +42,7 @@
         .s-card.familiar { border-top-color: var(--ok); }
         .s-card.unfamiliar { border-top-color: var(--warn); }
         .s-word { font-size: 19px; font-weight: bold; color: var(--ink); word-break: break-word; }
+        .s-reading { font-size: 13px; font-weight: normal; color: var(--muted); margin-left: 8px; }
         .s-meaning { font-size: 14px; color: var(--ink-2); margin-top: 3px; }
         .s-meta { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; justify-content: space-between; gap: 8px; }
         .s-tag { font-weight: bold; white-space: nowrap; }
@@ -68,7 +69,7 @@
 
     <div class="search-box">
         <input type="search" id="searchInput" class="search-bar" autocomplete="off"
-               value="{{ request.args.get('q', '') }}" placeholder="找單字：打英文或中文都可以">
+               value="{{ request.args.get('q', '') }}" placeholder="{{ {'ja': '找單字：打日文（漢字、假名都可以）或中文', 'ko': '找單字：打韓文或中文都可以'}.get(exam.lang, '找單字：打英文或中文都可以') }}">
         <p class="search-info" id="searchInfo" hidden></p>
         <div class="search-results" id="searchResults"></div>
     </div>
@@ -109,6 +110,7 @@
     </div>
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+{% if exam.lang == 'ja' %}<script src="{{ url_for('static', filename='kana_keyboard.js') }}"></script>{% endif %}
 <script>
     // 邊打邊搜：跨主題找拼字或意思相近的單字
     (function () {
@@ -124,7 +126,9 @@
             timer = setTimeout(run, 200);
         });
         async function run() {
-            const q = input.value.trim();
+            let q = input.value.trim();
+            // 日檢：打羅馬拼音也找得到（gakkou → がっこう）
+            if (window.KanaKeyboard && /^[a-z' -]+$/i.test(q)) q = KanaKeyboard.romajiToKana(q, true);
             const my = ++seq;
             if (!q) { box.innerHTML = ''; info.hidden = true; return; }
             let data;
@@ -137,7 +141,7 @@
             info.textContent = r.length ? `「${q}」找到 ${r.length} 個相近的單字` : `「${q}」沒有找到相近的單字`;
             box.innerHTML = r.map(w => `
                 <a class="s-card ${w.status}" href="${esc(w.url)}">
-                    <div class="s-word">${esc(w.word)}</div>
+                    <div class="s-word"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}>${esc(w.word)}${w.reading ? `<span class="s-reading">${esc(w.reading)}</span>` : ''}</div>
                     <div class="s-meaning">${w.pos ? '<i>' + esc(w.pos) + '</i> ' : ''}${esc(w.meaning)}</div>
                     <div class="s-meta"><span>${esc(w.theme)}</span><span class="s-tag">${TAG[w.status] || ''}</span></div>
                 </a>`).join('');

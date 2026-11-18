@@ -54,6 +54,7 @@ class Vocabulary(db.Model):
     meaning_en = db.Column(db.String(500))   # 英文解釋
     sentence = db.Column(db.String(500))
     sentence_zh = db.Column(db.String(500))  # 例句中譯
+    reading = db.Column(db.String(100))      # 讀音（日檢用：漢字的假名讀音，例如 学校 → がっこう；兩種讀法用「／」隔開）
     # 管理員後台改過、新增或刪除（移到回收區）的字：匯入單字檔時跳過，不會被蓋回去（見 admin.py）
     admin_locked = db.Column(db.Boolean, default=False)
     src_key = db.Column(db.String(200))      # 管理員第一次動它之前，它在單字檔裡的「課程|主題|單字」
@@ -158,7 +159,7 @@ class Favorite(db.Model):
 
 # 舊版資料庫沒有的欄位：啟動時自動補上（SQLite 的 create_all 不會幫既有的表加欄位）
 NEW_VOCAB_COLUMNS = [("pos", "VARCHAR(20)"), ("meaning_en", "VARCHAR(500)"), ("sentence_zh", "VARCHAR(500)"),
-                     ("admin_locked", "BOOLEAN DEFAULT 0"), ("src_key", "VARCHAR(200)")]
+                     ("admin_locked", "BOOLEAN DEFAULT 0"), ("src_key", "VARCHAR(200)"), ("reading", "VARCHAR(100)")]
 
 with app.app_context():
     db.create_all()
@@ -244,6 +245,12 @@ OFFICIAL_THEMES = [
     {"course": "TOPIK", "id": "K4", "level": 4, "name": "4級", "desc": "TOPIK II 中級：新聞、說明文常見的字與正式說法", "icon": "megaphone"},
     {"course": "TOPIK", "id": "K5", "level": 5, "name": "5級", "desc": "TOPIK II 高級：社會、經濟、文化等抽象概念", "icon": "globe"},
     {"course": "TOPIK", "id": "K6", "level": 6, "name": "6級", "desc": "TOPIK II 高級：論說文、專業領域與書面語", "icon": "cap"},
+    # 日檢依等級分主題（N5～N1），一樣可以逐級對學生開放；level 用數字 5～1（N5 最簡單）
+    {"course": "JLPT", "id": "N5", "level": 5, "name": "入門", "desc": "最基本的生活單字：數字、家人、食物、日常動作", "icon": "smile"},
+    {"course": "JLPT", "id": "N4", "level": 4, "name": "初級", "desc": "購物、交通、學校、工作等日常生活用字", "icon": "home"},
+    {"course": "JLPT", "id": "N3", "level": 3, "name": "中級", "desc": "日常生活到一般場合都會用到的字", "icon": "briefcase"},
+    {"course": "JLPT", "id": "N2", "level": 2, "name": "中高級", "desc": "新聞、報導、職場與社會話題的常用字", "icon": "megaphone"},
+    {"course": "JLPT", "id": "N1", "level": 1, "name": "高級", "desc": "論說文、專業領域與正式書面語", "icon": "cap"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -358,6 +365,8 @@ def theme_words(student, theme_key, dedupe=True):
             .filter(Vocabulary.category == exams.course_of(student), theme_condition(theme_key))
             .order_by(func.lower(Vocabulary.word), Vocabulary.id)
             .all())
+    if any(w.reading for w in rows):
+        rows.sort(key=lambda w: (kana_key(w.reading or w.word), w.id))   # 日文依讀音的五十音順序
     if not dedupe:
         return rows
     best = {}
@@ -375,8 +384,26 @@ HANGUL_INITIALS = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'
 HANGUL_MERGE = {'ㄲ': 'ㄱ', 'ㄸ': 'ㄷ', 'ㅃ': 'ㅂ', 'ㅆ': 'ㅅ', 'ㅉ': 'ㅈ'}
 
 
-def first_letter(word):
-    """分頁用的字首：英文取 A–Z，韓文取第一個字的子音（가→ㄱ、나→ㄴ），其他歸到 #。"""
+# 日文分頁依讀音第一個假名的「行」（あ行、か行…），濁音、半濁音併到清音那一行（が→か、ぱ→は）
+KANA_ROWS = [('あ', 'あいうえおぁぃぅぇぉゔ'), ('か', 'かきくけこがぎぐげごゕゖ'), ('さ', 'さしすせそざじずぜぞ'),
+             ('た', 'たちつてとだぢづでどっ'), ('な', 'なにぬねの'), ('は', 'はひふへほばびぶべぼぱぴぷぺぽ'),
+             ('ま', 'まみむめも'), ('や', 'やゆよゃゅょ'), ('ら', 'らりるれろ'), ('わ', 'わゐゑをんゎ')]
+KANA_ROW_OF = {c: row for row, chars in KANA_ROWS for c in chars}
+
+
+def to_hiragana(text):
+    """片假名轉平假名（カメラ → かめら），比對、排序用。"""
+    return ''.join(chr(ord(c) - 0x60) if 'ァ' <= c <= 'ヶ' else c for c in (text or ''))
+
+
+def kana_key(reading):
+    return to_hiragana((reading or '').split('／')[0])
+
+
+def first_letter(word, reading=None):
+    """分頁用的字首：英文取 A–Z，韓文取第一個字的子音（가→ㄱ、나→ㄴ），日文取讀音的行（が→か），其他歸到 #。"""
+    if reading:
+        return KANA_ROW_OF.get(kana_key(reading)[:1], '#')
     c = (word or '?')[0].upper()
     if '가' <= c <= '힣':
         initial = HANGUL_INITIALS[(ord(c) - 0xAC00) // 588]
@@ -384,10 +411,23 @@ def first_letter(word):
     return c if 'A' <= c <= 'Z' else '#'
 
 
+def letter_of(w):
+    return first_letter(w.word, w.reading)
+
+
+CLOZE_MARK = re.compile(r'\[([^\[\]|]*)(?:\|[^\[\]]*)?\]')
+
+
 def clean_sentence(sentence):
     if not sentence or sentence.startswith(NO_SENTENCE_PREFIX):
         return None
-    return sentence.replace('[', '').replace(']', '')   # 韓文例句用 [ ] 標出填空處（vocab_quiz.find_cloze_ko），顯示時拿掉
+    # 例句用 [ ] 標出填空處（韓文 [들어요]、日文 [飲みます|のみます]，見 vocab_quiz），顯示時拿掉標記與讀音
+    return CLOZE_MARK.sub(lambda m: m.group(1), sentence)
+
+
+def say_text(w):
+    """播放單字時要唸的文字：日文唸讀音（假名，不會被語音唸錯漢字），其他唸單字本身。"""
+    return (w.reading or '').split('／')[0] or w.word
 
 
 # ---------------------------------------------------------------------------
@@ -460,7 +500,8 @@ def learn_theme(student_id, theme_key):
 
     # status：familiar 熟／unfamiliar 不熟／new 還沒學。學過（熟或不熟）的字才看得到內容
     cards = [{"number": i, "id": w.id, "word": w.word, "pos": w.pos or '', "meaning": w.meaning,
-              "sentence": clean_sentence(w.sentence), "letter": first_letter(w.word),
+              "reading": shown_reading(w),
+              "sentence": clean_sentence(w.sentence), "letter": letter_of(w),
               "status": status.get(w.id, 'new'), "is_unlocked": w.id in status,
               "is_favorite": w.word.lower() in fav}
              for i, w in enumerate(words, start=1)]
@@ -499,7 +540,7 @@ def learn_study(student_id, theme_key):
 
     words = theme_words(student, theme_key)
     if letter:
-        words = [w for w in words if first_letter(w.word) == letter]
+        words = [w for w in words if letter_of(w) == letter]
     picked = pick_swipe_words(words, status_of(student_id), weak_only=(mode == 'weak'))
 
     fav = favorite_words(student)
@@ -524,8 +565,15 @@ def pick_swipe_words(words, status, weak_only=False):
     return (weak + new)[:STUDY_BATCH_SIZE]
 
 
+def shown_reading(w):
+    """單字卡上顯示的讀音：和單字本身一樣（純假名的字）就不顯示。"""
+    r = w.reading or ''
+    return '' if not r or to_hiragana(r) == to_hiragana(w.word) else r
+
+
 def word_payload(w, theme_label, fav_words=(), status=None):
     return {"id": w.id, "theme": theme_label, "word": w.word, "pos": w.pos or '',
+            "reading": shown_reading(w), "say": say_text(w),
             "meaning": w.meaning,
             "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
             "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or '',
@@ -574,6 +622,7 @@ def learn_favorites(student_id):
     student = get_student(student_id)
     status = status_of(student_id)
     cards = [{"id": v.id, "word": v.word, "pos": v.pos or '', "meaning": v.meaning,
+              "reading": shown_reading(v),
               "theme": theme_label_of(v), "status": status.get(v.id, 'new'),
               "url": url_for('learn_word', student_id=student_id, theme_key=theme_key_of(v),
                              vocab_id=v.id, **{"from": "favorites"})}
@@ -638,11 +687,11 @@ def learn_word(student_id, theme_key, vocab_id):
     else:
         rows = theme_words(student, theme_key)
         word = next((w for w in theme_words(student, theme_key, dedupe=False) if w.id == vocab_id), None)
-        letter = first_letter(word.word) if word else None
+        letter = letter_of(word) if word else None
         paged = theme["total"] > LETTER_PAGING_MIN
         if paged and letter:
             # 大主題依字首分頁：清單就是那一頁（跟圖鑑看到的一樣）
-            rows = [w for w in rows if first_letter(w.word) == letter]
+            rows = [w for w in rows if letter_of(w) == letter]
         if word and word.id not in {w.id for w in rows}:
             # 同拼字重複的那筆被藏起來了：換成清單裡同拼字的那張
             word = next((w for w in rows if w.word.lower() == word.word.lower()), word)
@@ -669,8 +718,22 @@ def is_subsequence(q, text):
     return all(c in it for c in q)
 
 
-def search_score(q, word, meaning):
-    """單字和搜尋字有多像：0 代表不像。完全一樣 > 開頭一樣 > 包含 > 中文意思包含 > 拼法相近（打錯字也找得到）。"""
+def search_score(q, word, meaning, reading=None):
+    """單字和搜尋字有多像：0 代表不像。完全一樣 > 開頭一樣 > 包含 > 中文意思包含 > 拼法相近（打錯字也找得到）。
+    日文另外比對讀音：打平假名、片假名都找得到（がっこう、ガッコウ → 学校）。"""
+    if reading:
+        best = 0
+        qk = to_hiragana(q)
+        for r in reading.split('／'):
+            r = to_hiragana(r)
+            if r == qk:
+                best = max(best, 98)
+            elif r.startswith(qk):
+                best = max(best, 88 - min(len(r) - len(qk), 20) * 0.1)
+            elif len(qk) >= 2 and qk in r:
+                best = max(best, 78 - min(len(r) - len(qk), 20) * 0.1)
+        word_score = search_score(q, word, meaning)
+        return max(best, word_score)
     w = word.lower()
     if w == q:
         return 100
@@ -706,7 +769,7 @@ def search_words(student, q):
     for w in Vocabulary.query.filter(Vocabulary.category == exams.course_of(student)).all():
         if official_id_of(w.theme) in locked:
             continue
-        sc = search_score(q, w.word, w.meaning)
+        sc = search_score(q, w.word, w.meaning, w.reading)
         if not sc:
             continue
         key = w.word.lower()
@@ -728,6 +791,7 @@ def learn_search(student_id):
         tkey = theme_key_of(w)
         results.append({
             "word": w.word, "pos": w.pos or '', "meaning": w.meaning or '',
+            "reading": shown_reading(w),
             "theme": theme_label_of(w), "status": st,
             "url": url_for('learn_word', student_id=student_id, theme_key=tkey, vocab_id=w.id,
                            **{"from": "search", "q": q}),
@@ -1450,7 +1514,7 @@ vocab_quiz.register(app, db, dict(
     Student=Student, Vocabulary=Vocabulary, get_student=get_student, status_of=status_of,
     theme_condition=theme_condition, build_theme_list=build_theme_list,
     favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of,
-    course_of=exams.course_of, locked_theme_ids=locked_theme_ids))
+    course_of=exams.course_of, locked_theme_ids=locked_theme_ids, to_hiragana=to_hiragana))
 
 # 單字與例句的發音音檔（程式在 word_audio.py）：手機的瀏覽器語音不可靠，改由伺服器產生
 import word_audio  # noqa: E402
