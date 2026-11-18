@@ -1,0 +1,85 @@
+{
+ "no": 1,
+ "title": "A Short History of Salt",
+ "context": "鹽的歷史",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {"label": "", "text": "Salt is so cheap and plentiful today that it is hard to imagine a time when it was one of the most valuable substances on earth. Yet for most of human history, salt was not merely a seasoning. Before canning and refrigeration, it was the principal means of preserving food. Meat, fish and vegetables packed in salt could be stored through the winter or carried on long sea voyages, and a community without a reliable supply was permanently at risk of hunger."},
+  {"label": "", "text": "Because it was essential and could be obtained in relatively few places, salt shaped the geography of the ancient world. One of the oldest roads in Italy, the Via Salaria or 'salt road', was built to carry salt from the coast to Rome. Across the Sahara, caravans of camels transported slabs of salt cut from the desert to the markets of West Africa, where, according to medieval travellers, it was sometimes exchanged for gold. It is often claimed that Roman soldiers were paid in salt, and that this is the origin of the word 'salary'. The word does derive from the Latin for salt, but historians have found no firm evidence that soldiers ever received their wages in this form; the term more probably referred to an allowance of money for buying it."},
+  {"label": "", "text": "Governments were quick to realise that a substance nobody could do without was an ideal thing to tax. In China, a state monopoly on salt was established more than two thousand years ago, and for long periods it provided a large share of the emperor's income. In France, the salt tax known as the gabelle obliged households in much of the country to purchase a fixed minimum quantity each year at a price set by the crown. The rate varied enormously from one region to another, which encouraged smuggling on a huge scale, and the tax was so widely hated that it became one of the grievances behind the revolution of 1789. It was abolished the following year."},
+  {"label": "", "text": "A similar tax played a part in the end of British rule in India. Under colonial law, Indians were forbidden to collect or sell salt, and had to buy it from the government, which taxed it heavily. In March 1930, Mohandas Gandhi set out with a small group of followers to walk to the coastal village of Dandi, a journey of nearly four hundred kilometres that took twenty-four days. By the time he reached the sea, the group had grown into a crowd of thousands. There, in front of journalists from around the world, he picked up a handful of natural salt from the shore – a simple act that was nonetheless a crime. Tens of thousands of Indians who followed his example were arrested, and the campaign drew international attention to the movement for independence."},
+  {"label": "", "text": "Methods of producing salt changed little for centuries. In hot climates, sea water was simply left in shallow ponds until the sun had evaporated it. In cooler regions such as northern Europe, salty water from springs or from the sea had to be boiled in large pans, which consumed enormous quantities of wood and later coal. Salt was also dug from underground deposits, the remains of ancient seas. The mine at Wieliczka in Poland, which was worked continuously from the thirteenth century until 1996, extends more than three hundred metres below the surface and contains chapels carved entirely out of salt by the miners themselves."},
+  {"label": "", "text": "In the twentieth century, salt took on a new role in public health. A lack of iodine in the diet causes goitre, a swelling of the neck, and can harm the mental development of children. In the early 1920s the condition was common in parts of the United States far from the sea, and in 1924 manufacturers in the state of Michigan began adding small amounts of iodine to table salt. Salt was chosen because almost everybody eats it, and in roughly constant amounts. Within a few years the condition had become much rarer in the area, and iodised salt is now used in the majority of the world's households."},
+  {"label": "", "text": "The modern world produces far more salt than ever before, but very little of it is eaten. The largest share goes to the chemical industry, where it is a raw material for making plastics, paper and soap, and in cold countries huge quantities are spread on roads to melt ice in winter. Food accounts for only a small fraction of the total. Indeed, the main concern of health authorities today is no longer that people might go without salt but that they consume too much of it: a high intake is linked to raised blood pressure, and most dietary salt now comes not from the salt cellar but from processed foods."}
+ ],
+ "groups": [
+  {"type": "tfng", "range": "Questions 1–6",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {"no": 1, "text": "Before modern methods of storage existed, salt was the main way of stopping food from going bad."},
+    {"no": 2, "text": "There is clear proof that Roman soldiers were given salt instead of money."},
+    {"no": 3, "text": "The Chinese salt monopoly was introduced in order to pay for a war."},
+    {"no": 4, "text": "The French salt tax was charged at the same rate throughout the country."},
+    {"no": 5, "text": "Gandhi's walk to Dandi lasted for more than three weeks."},
+    {"no": 6, "text": "Producing salt by boiling was more expensive than mining it."}
+   ]},
+  {"type": "gapfill", "range": "Questions 7–13",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD AND/OR A NUMBER</b> from the passage for each answer.",
+   "title": "Salt: tax, production and health",
+   "sections": [
+    {"heading": "Taxation", "lines": [
+      "France: differences in the tax rate between regions led to large-scale {7}",
+      "India: under colonial law, people had to buy their salt from the {8}"]},
+    {"heading": "Production", "lines": [
+      "hot climates: sea water was left to evaporate in shallow {9}",
+      "cooler regions: water was boiled in pans, using a great deal of wood and, later, {10}",
+      "the Wieliczka mine contains {11} made of salt"]},
+    {"heading": "Health", "lines": [
+      "iodine was first added to table salt in Michigan in {12}",
+      "today, most salt in the diet comes from {13} foods"]}
+   ]}
+ ],
+ "questions": [
+  {"no": 1, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。在罐頭和冷藏出現之前，鹽是 the principal means of preserving food。<br><b>同義轉換</b>：Before canning and refrigeration ＝ before modern methods of storage；principal means ＝ main way；preserving food ＝ stopping food from going bad。",
+   "quote": "Before canning and refrigeration, it was the principal means of preserving food."},
+  {"no": 2, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。文章說這只是常見的說法（It is often claimed），歷史學家 have found no firm evidence。<br><b>陷阱</b>：salary 這個字確實源自拉丁文的「鹽」，但字源正確不代表士兵真的領鹽當薪水。題目的 clear proof 與 no firm evidence 相反。",
+   "quote": "historians have found no firm evidence that soldiers ever received their wages in this form"},
+  {"no": 3, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說中國在兩千多年前建立鹽的專賣，而且長期提供皇帝一大部分的收入，沒有說當初設立的目的。<br><b>陷阱</b>：「提供收入」是結果，不是文章說明的動機；戰爭完全沒被提到。",
+   "quote": "In China, a state monopoly on salt was established more than two thousand years ago"},
+  {"no": 4, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。原文 The rate varied enormously from one region to another（各地稅率差異極大），所以才會走私盛行。<br><b>解題關鍵</b>：varied enormously 與題目的 the same rate 直接矛盾。",
+   "quote": "The rate varied enormously from one region to another"},
+  {"no": 5, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。這趟路程 took twenty-four days，二十四天超過三週（二十一天）。<br><b>解題關鍵</b>：這題要做簡單的換算，題目不會照抄原文的數字。",
+   "quote": "a journey of nearly four hundred kilometres that took twenty-four days"},
+  {"no": 6, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章說煮鹽消耗大量木材和煤，也介紹了採礦，但從頭到尾沒有比較兩種方法的成本。<br><b>陷阱</b>：consumed enormous quantities of wood 容易讓人自己推論「比較貴」，但文章沒有做這個比較。",
+   "quote": "had to be boiled in large pans, which consumed enormous quantities of wood and later coal"},
+  {"no": 7, "answers": ["smuggling"],
+   "explain": "答案是 <b>smuggling</b>（走私）。各地稅率差很多，which encouraged smuggling on a huge scale。<br><b>同義轉換</b>：encouraged ＝ led to；on a huge scale ＝ large-scale。",
+   "quote": "which encouraged smuggling on a huge scale"},
+  {"no": 8, "answers": ["government"],
+   "explain": "答案是 <b>government</b>。印度人被禁止採集或販賣鹽，had to buy it from the government。<br><b>解題關鍵</b>：空格前的 from the 與原文相同，直接對應。",
+   "quote": "had to buy it from the government, which taxed it heavily"},
+  {"no": 9, "answers": ["ponds"],
+   "explain": "答案是 <b>ponds</b>（池）。炎熱地區把海水留在 shallow ponds，等太陽把水蒸發。<br><b>陷阱</b>：pans 是寒冷地區煮鹽用的鍋，不要和 ponds 搞混；題目的 shallow 只對應 ponds。",
+   "quote": "sea water was simply left in shallow ponds until the sun had evaporated it"},
+  {"no": 10, "answers": ["coal"],
+   "explain": "答案是 <b>coal</b>（煤）。煮鹽 consumed enormous quantities of wood and later coal。<br><b>解題關鍵</b>：題目已經寫出 wood 和 later，另一種燃料就是答案。",
+   "quote": "which consumed enormous quantities of wood and later coal"},
+  {"no": 11, "answers": ["chapels"],
+   "explain": "答案是 <b>chapels</b>（小禮拜堂）。這座礦坑 contains chapels carved entirely out of salt。<br><b>同義轉換</b>：carved entirely out of salt ＝ made of salt。",
+   "quote": "contains chapels carved entirely out of salt by the miners themselves"},
+  {"no": 12, "answers": ["1924"],
+   "explain": "答案是 <b>1924</b>。原文 in 1924 manufacturers in the state of Michigan began adding small amounts of iodine to table salt。<br><b>陷阱</b>：the early 1920s 是這種病常見的時期，不是開始加碘的年份。",
+   "quote": "in 1924 manufacturers in the state of Michigan began adding small amounts of iodine to table salt"},
+  {"no": 13, "answers": ["processed"],
+   "explain": "答案是 <b>processed</b>（加工的）。現在飲食中的鹽大多 comes not from the salt cellar but from processed foods。<br><b>解題關鍵</b>：not A but B 的句型，答案在 but 之後。",
+   "quote": "most dietary salt now comes not from the salt cellar but from processed foods"}
+ ]
+}
