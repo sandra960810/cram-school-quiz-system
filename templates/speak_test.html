@@ -82,7 +82,6 @@
         .actionbar .next:disabled { background: var(--line-strong); cursor: not-allowed; }
         .actionbar[hidden] { display: none; }
         /* 下方有固定的「下一題」列：把右下角的音效／發音按鈕往上移，避免蓋住 */
-        body:has(.actionbar:not([hidden])) .ui-sound-toggle,
         body:has(.actionbar:not([hidden])) .ui-voice-toggle { bottom: 84px; }
         body:has(.actionbar:not([hidden])) .ui-voice-panel { bottom: 138px; }
         .errbox { background: var(--bad-50); color: var(--bad-ink); border-radius: 10px; padding: 12px 16px; margin: 12px 0; line-height: 1.7; }

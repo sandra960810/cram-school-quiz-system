@@ -635,7 +635,7 @@ def learn_word(student_id, theme_key, vocab_id):
     if not word:
         return redirect(back_url)
     return render_template('ielts.html', words=[word_payload(word, theme["label"], fav, status)],
-                           back_label='返回我的收藏' if from_fav else '返回主題圖鑑',
+                           back_label='返回我的收藏' if from_fav else '返回主題',
                            student_id=student_id,
                            theme=theme, mode='view', letter=None,
                            back_url=back_url, again_url=back_url,
@@ -780,13 +780,13 @@ def twtime(dt, fmt='%m/%d %H:%M'):
 
 SKILLS = [
     {'key': 'listening', 'name': '聽力', 'icon': 'headphones', 'endpoint': 'listen_home',
-     'desc': 'Parts 1–4，共 40 題'},
+     'desc': '聽錄音作答，約 30 分鐘'},
     {'key': 'reading', 'name': '閱讀', 'icon': 'book-open', 'endpoint': 'read_home',
-     'desc': '3 篇文章，共 40 題'},
+     'desc': '讀 3 篇文章，60 分鐘'},
     {'key': 'writing', 'name': '寫作', 'icon': 'pen', 'endpoint': 'writing_home',
-     'desc': 'Task 1＋2，60 分鐘，AI 批改'},
+     'desc': '寫 2 篇，AI 老師幫你改'},
     {'key': 'speaking', 'name': '口說', 'icon': 'speech', 'endpoint': 'speaking_home',
-     'desc': 'Part 1–3，錄音作答，AI 評分'},
+     'desc': '對著麥克風說，AI 老師評分'},
 ]
 SKILL_BY_KEY = {s['key']: s for s in SKILLS}
 

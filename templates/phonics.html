@@ -132,12 +132,11 @@
 <div class="container">
     <div class="nav-row">
         <a href="/dashboard/{{ student.id }}/{{ exam.key }}" class="nav-back"><span class="arrow">←</span>主介面</a>
-        <a href="/learn/{{ student.id }}" class="nav-next">{{ icon('library') }} 去學單字<span class="arrow">→</span></a>
+        <a href="/learn/{{ student.id }}" class="nav-next">{{ icon('library') }} 背單字<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>{{ icon('volume') }} 單字發音教學</h1>
-        <p>一個字一個字學怎麼唸：看 KK 音標和音節、找重音，先聽正常速度再聽慢速拆音節，最後對著麥克風跟讀，電腦幫你打星星。<br>
-           看到不懂的拼法，點「發音規則」就會帶你去學那個規則。</p>
+        <h1>{{ icon('volume') }} 學發音</h1>
+        <p>每個字照 ① 聽 → ② 慢慢聽 → ③ 跟著唸 的順序練，電腦幫你打星星。</p>
     </div>
 
     <div class="tabs" role="tablist">
@@ -256,10 +255,10 @@
             <div class="sh-zh" id="sh-zh"></div>
             <div class="sh-rules" id="sh-rules"></div>
             <div class="sh-btns">
-                <button class="round-btn play" id="sh-play">{{ icon('volume') }}<small>正常速度</small></button>
-                <button class="round-btn play" id="sh-slow">{{ icon('slow') }}<small>慢速拆音節</small></button>
-                <button class="round-btn rec" id="sh-rec">{{ icon('mic') }}<small id="sh-rec-label">按我跟讀</small></button>
-                <button class="round-btn mine" id="sh-mine" disabled>{{ icon('headphones') }}<small>聽我的</small></button>
+                <button class="round-btn play" id="sh-play">{{ icon('volume') }}<small>① 聽</small></button>
+                <button class="round-btn play" id="sh-slow">{{ icon('slow') }}<small>② 慢慢聽</small></button>
+                <button class="round-btn rec" id="sh-rec">{{ icon('mic') }}<small id="sh-rec-label">③ 跟著唸</small></button>
+                <button class="round-btn mine" id="sh-mine" disabled>{{ icon('headphones') }}<small>聽自己</small></button>
             </div>
             <div class="stars" id="sh-stars"></div>
             <div class="sh-heard" id="sh-heard">先聽一次標準發音，再按麥克風跟著唸</div>
@@ -270,8 +269,7 @@
             </div>
             <div class="sh-total" id="sh-total"></div>
             <div class="sh-note" id="sh-note">
-                評分用瀏覽器的語音辨識：電腦聽得懂你唸的字就給星星（Edge 送微軟、Chrome 送 Google 辨識）。
-                錄音只留在這台電腦的瀏覽器，不會上傳到網站。電腦評分只是參考，最準的還是跟著老師唸。
+                錄音只留在這台電腦，不會上傳。電腦評分只是參考，最準的還是跟著老師唸。
             </div>
         </div>
     </section>
@@ -546,7 +544,7 @@ function showShadow() {
     $('sh-sent').textContent = w.sentence || '';
     $('sh-sent-play').hidden = !w.sentence;
     drawStars(sh.stars[w.word]);
-    $('sh-heard').textContent = sh.stars[w.word] != null ? '之前練過了，可以再挑戰一次' : '先聽正常速度，再聽慢速拆音節，最後按麥克風跟著唸';
+    $('sh-heard').textContent = sh.stars[w.word] != null ? '之前練過了，可以再挑戰一次' : '按 ① 聽、② 慢慢聽，再按 ③ 跟著唸';
     if (sh.myUrl) { URL.revokeObjectURL(sh.myUrl); sh.myUrl = null; }
     $('sh-mine').disabled = true;
     $('sh-prev').disabled = sh.idx === 0;
@@ -589,7 +587,7 @@ function stopRec() {
     if (sh.recog) { try { sh.recog.abort(); } catch (e) {} sh.recog = null; }
     if (sh.rec && sh.rec.state === 'recording') sh.rec.stop();
     $('sh-rec').classList.remove('on');
-    $('sh-rec-label').textContent = '按我跟讀';
+    $('sh-rec-label').textContent = '③ 跟著唸';
 }
 async function startRec() {
     const w = sh.list[sh.idx];
@@ -620,7 +618,7 @@ async function startRec() {
         sh.rec.start();
     } catch (e) { sh.rec = null; }
     const stopAll = () => { if (sh.rec && sh.rec.state === 'recording') sh.rec.stop(); else stream.getTracks().forEach(t => t.stop());
-                            $('sh-rec').classList.remove('on'); $('sh-rec-label').textContent = '按我跟讀'; };
+                            $('sh-rec').classList.remove('on'); $('sh-rec-label').textContent = '③ 跟著唸'; };
     // 2. 語音辨識：電腦聽懂就給星星
     if (!SR) {
         $('sh-heard').textContent = '這個瀏覽器不能自動評分（請用 Edge），先錄 3 秒，和標準音比比看';

@@ -270,9 +270,10 @@
         const btn = document.createElement('button');
         btn.className = 'ui-voice-toggle';
         btn.dataset.sound = 'tap';
-        btn.innerHTML = icon('speech');
-        btn.title = '發音設定';
-        btn.setAttribute('aria-label', '發音設定');
+        // 一顆有字的按鈕就好：以前右下角兩顆沒字的圓鈕，學生看不懂是什麼
+        btn.innerHTML = icon('volume') + '<span>聲音</span>';
+        btn.title = '聲音設定（音效、發音）';
+        btn.setAttribute('aria-label', '聲音設定');
         const panel = document.createElement('div');
         panel.className = 'ui-voice-panel';
         panel.hidden = true;
@@ -284,7 +285,12 @@
             const mark = { neural: '★ ', good: '☆ ', poor: '' };
             const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${mark[voiceTier(v)]}${v.name.replace(/</g, '&lt;')}</option>`;
             panel.innerHTML = `
-                <div class="vp-title">${icon('speech')} 發音設定</div>
+                <div class="vp-title">${icon('volume')} 聲音設定</div>
+                <label>按鈕音效
+                    <select data-k="sfx">
+                        <option value="1" ${soundOn ? 'selected' : ''}>開</option>
+                        <option value="0" ${soundOn ? '' : 'selected'}>關</option>
+                    </select></label>
                 ${KOREAN ? '' : `<label>口音
                     <select data-k="accent">
                         <option value="GB" ${voiceSettings.accent === 'GB' ? 'selected' : ''}>英國腔（雅思常用）</option>
@@ -309,6 +315,12 @@
                     : `沒有${KOREAN ? '韓文' : '英文'}語音，請改用 <b>Edge</b> 開啟。`}</div>
                 <button class="vp-test" data-sound="none">${icon('volume')} 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
+                if (sel.dataset.k === 'sfx') {
+                    soundOn = sel.value === '1';
+                    try { localStorage.setItem(STORE_KEY, soundOn ? '1' : '0'); } catch (e) { /* ignore */ }
+                    play('tap');
+                    return;
+                }
                 voiceSettings[sel.dataset.k] = sel.value;
                 if (sel.dataset.k === 'accent') voiceSettings.voiceName = '';
                 saveVoiceSettings();
@@ -326,26 +338,8 @@
     // 有些瀏覽器要先呼叫一次才會開始載入語音清單
     if (window.speechSynthesis) speechSynthesis.getVoices();
 
-    function renderToggle(btn) {
-        btn.innerHTML = icon(soundOn ? 'volume' : 'volume-x');
-        btn.title = soundOn ? '音效：開（點一下關閉）' : '音效：關（點一下開啟）';
-        btn.setAttribute('aria-label', btn.title);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.createElement('button');
-        btn.className = 'ui-sound-toggle';
-        btn.dataset.sound = 'none';
-        btn.addEventListener('click', () => {
-            soundOn = !soundOn;
-            try { localStorage.setItem(STORE_KEY, soundOn ? '1' : '0'); } catch (e) { /* ignore */ }
-            renderToggle(btn);
-            play('tap');
-        });
-        renderToggle(btn);
-        document.body.appendChild(btn);
-        buildVoicePanel();
-    });
+    // 音效開關併進「聲音」面板（右下角只留一顆按鈕）
+    document.addEventListener('DOMContentLoaded', buildVoicePanel);
 
     // 長單字（administrative、authorization…）在手機上會被硬切成兩行。
     // fitText 讓文字維持一行、依可用寬度自動縮小字級；縮到 min 還放不下才在空白處換行（片語），

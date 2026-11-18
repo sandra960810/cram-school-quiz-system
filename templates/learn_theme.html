@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ theme.label }}｜單字學習與圖鑑</title>
+    <title>{{ theme.label }}｜背單字</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
@@ -19,7 +19,10 @@
 
         .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
         .btn { padding: 12px 20px; font-size: 16px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; }
-        .btn-learn { background: var(--primary); color: white; }
+        .btn-learn { background: var(--primary); color: white; font-size: 18px; padding: 14px 34px; }
+        .how { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+        .dex-title { font-size: 18px; margin: 26px 0 10px; color: var(--ink); }
+        .dex-title small { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 10px; }
         .btn-weak { background: var(--warn); color: white; }
         .btn.disabled { background: var(--line); color: var(--muted); pointer-events: none; }
 
@@ -70,18 +73,12 @@
 <div class="container">
     <div class="nav-row">
         <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>所有主題</a>
-        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">{{ icon('star') }} 我的收藏<span class="arrow">→</span></a>
     </div>
 
     <div class="header">
         <h1>{{ icon(theme.icon) }} {{ theme.label }}</h1>
         {% set t_new = theme.total - theme.unlocked - theme.weak %}
-        <div class="stats">
-            <span class="k">✓ 熟 <b>{{ theme.unlocked }}</b></span>
-            <span class="u">✗ 不熟 <b>{{ theme.weak }}</b></span>
-            <span class="n">○ 還沒學 <b>{{ t_new }}</b></span>
-            <span>／ 共 {{ theme.total }} 字</span>
-        </div>
+        <div class="stats"><span>已熟 <b>{{ theme.unlocked }}</b> / {{ theme.total }} 字</span></div>
         <div class="bar">
             <div class="k" style="width: {{ theme.unlocked * 100 / theme.total if theme.total else 0 }}%"></div>
             <div class="u" style="width: {{ theme.weak * 100 / theme.total if theme.total else 0 }}%"></div>
@@ -95,11 +92,15 @@
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=letter) }}">
                 {{ icon('swipe') }} 開始<span class="go-arrow">→</span>
             </a>
-            <a class="btn btn-weak {% if not weak_count %}disabled{% endif %}"
+            {# 沒有不熟的字時不顯示，免得多一顆按不下去的灰按鈕 #}
+            {% if weak_count %}
+            <a class="btn btn-weak"
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='weak', letter=letter) }}">
                 {{ icon('dot') }} 只練不熟區{{ scope }}（{{ [weak_count, batch]|min }} 個）<span class="go-arrow">→</span>
             </a>
+            {% endif %}
         </div>
+        <p class="how">{% if swipe_count %}按「開始」，一次背 {{ [swipe_count, batch]|min }} 個字：會的按「熟」，不會的按「不熟」。{% else %}這個主題的字都熟了！可以按上面的「只練不熟區」複習，或回去選別的主題。{% endif %}</p>
     </div>
 
     {% if paged %}
@@ -114,6 +115,7 @@
     </div>
     {% endif %}
 
+    <h2 class="dex-title">這個主題的單字<small>綠色＝熟、橘色＝不熟、灰色＝還沒背；點卡片可以看詳細</small></h2>
     <div class="zones" role="tablist">
         <button class="zone active" data-zone="all" data-sound="tap" role="tab">全部<span class="cnt">{{ cards|length }}</span></button>
         <button class="zone" data-zone="familiar" data-sound="tap" role="tab">✓ 熟區<span class="cnt">{{ zone_counts.familiar }}</span></button>

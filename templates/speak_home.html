@@ -42,7 +42,7 @@
 <body>
 <div class="exam-wrap wide">
     <div class="nav-row">
-        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <a href="{{ url_for('exam_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>模擬考</a>
     </div>
 
     <div class="banner">
@@ -51,12 +51,6 @@
     </div>
 
     <div class="disclaimer">{{ icon('alert') }} <b>AI 評分不等於真實考試，只是模擬。</b>分數僅供參考，重點看評語。</div>
-
-    {% if ai_ready %}
-    <div class="hint" style="background:var(--ok-50);color:var(--ok)">{{ icon('bot') }} 目前的 AI 老師：<b>{{ ai_label }}</b>
-        {% if provider == 'gemini' %}（直接聽錄音評分）
-        {% else %}（用瀏覽器辨識成文字，發音分數為推估；建議用 Edge）{% endif %}</div>
-    {% endif %}
     {% if provider == 'gemini' %}
     <div class="warn">{{ icon('lock') }} <b>隱私：</b>錄音會傳給 Google Gemini，<b>免費方案的內容可能被 Google 使用</b>。請勿說出個資，姓名用英文名或化名。</div>
     {% endif %}
@@ -75,14 +69,8 @@
             {% if best.get(t.key) is not none %}<span class="state best">AI 估分最佳 {{ best[t.key] }}</span>{% endif %}
         </a>
         {% endfor %}
-        {% for n in range(tests|length + 1, 11) %}
-        <div class="tcard soon">
-            <div class="tt">Speaking Test {{ n }}</div>
-            <div class="topics">題目製作中</div>
-            <span class="state">尚未開放</span>
-        </div>
-        {% endfor %}
     </div>
+    {% if tests|length < 10 %}<p class="soon-note">還有 {{ 10 - tests|length }} 回題目製作中，完成後會出現在這裡。</p>{% endif %}
 
     <div class="panel">
         <h2>{{ icon('clock') }} 交卷紀錄</h2>

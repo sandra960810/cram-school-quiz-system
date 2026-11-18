@@ -72,7 +72,7 @@
         .swipe-btn:hover { filter: brightness(1.05); box-shadow: var(--edge-raised); }
         .swipe-btn:disabled { opacity: 0.5; cursor: wait; }
         .swipe-btn.current { outline: 3px solid rgba(0,0,0,0.15); }
-        .hint { text-align: center; color: var(--muted-2); font-size: 13px; margin-top: 10px; }
+        .hint { text-align: center; color: var(--muted); font-size: 15px; margin-top: 12px; }
         .error { color: var(--bad); font-size: 14px; text-align: center; min-height: 1em; margin-top: 8px; }
 
         /* 結算 */
@@ -91,13 +91,12 @@
 {% set PLAY_ICON %}<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>{% endset %}
 <div class="page">
     <div class="nav-row">
-        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>{{ (back_label or '返回主題圖鑑').replace('返回', '') }}</a>
-        <a href="{{ home_url }}" class="nav-back" title="所有主題">{{ icon('library') }} 所有主題</a>
+        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>{{ (back_label or '返回主題').replace('返回', '回') }}</a>
     </div>
 
     <div class="badges">
         <span id="theme-display" class="theme-badge">{{ icon('tag') }} {{ theme.label }}{% if letter %}・{{ letter }}{% endif %}</span>
-        <span class="mode-badge mode-{{ mode }}">{% set badge = {'view': ('book-open', '圖鑑'), 'fav': ('star', '收藏滑卡'), 'weak': ('dot', '不熟區練習')}.get(mode, ('swipe', '滑卡學習')) %}{{ icon(badge[0]) }} {{ badge[1] }}</span>
+        {% if mode == 'weak' %}<span class="mode-badge mode-weak">{{ icon('dot') }} 不熟區練習</span>{% endif %}
     </div>
 
     {% if mode != 'view' %}
@@ -140,7 +139,7 @@
         </div>
         <div class="error" id="error-display"></div>
         {% if mode != 'view' %}
-        <div class="hint">右滑＝熟、左滑＝不熟（鍵盤 ← →）</div>
+        <div class="hint">會的按「熟」，不會的按「不熟」。卡片也可以左右滑。</div>
         {% endif %}
     </div>
 </div>
@@ -156,7 +155,7 @@
     // 滑完一輪可以直接到單字測驗區考同一個範圍
     const quizUrl = {{ url_for('vocab_quiz.quiz_home', student_id=student_id,
                                scope=('fav' if mode == 'fav' else ('theme:' ~ theme.key if theme.key else 'all'))) | tojson }};
-    const backLabel = {{ (back_label or '返回主題圖鑑') | tojson }};
+    const backLabel = {{ (back_label or '返回主題') | tojson }};
     const isView = mode === 'view';
     const totalWords = wordsQueue.length;
     const STATUS_TEXT = { familiar: '✓ 熟區', unfamiliar: '上次標記：不熟', new: '新單字' };
