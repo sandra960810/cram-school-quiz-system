@@ -1,0 +1,21 @@
+{
+ "title": "Reading Test 5",
+ "subtitle": "Academic Reading，3 篇文章共 40 題，60 分鐘",
+ "passages": [
+  {
+   "no": 1,
+   "context": "用竹子蓋房子",
+   "types": "是非題（TRUE/FALSE/NOT GIVEN）・ 筆記填空"
+  },
+  {
+   "no": 2,
+   "context": "光害與消失的夜空",
+   "types": "段落標題配對 ・ 動物配對 ・ 句子填空"
+  },
+  {
+   "no": 3,
+   "context": "開放式辦公室的理想與現實",
+   "types": "單選題 ・ 觀點判斷（YES/NO/NOT GIVEN）・ 摘要選詞填空"
+  }
+ ]
+}

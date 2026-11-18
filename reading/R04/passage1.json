@@ -1,0 +1,85 @@
+{
+ "no": 1,
+ "title": "The Eddystone Lighthouses",
+ "context": "埃迪斯通礁石上的四座燈塔",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {"label": "", "text": "Some fourteen kilometres off the south-west coast of England, a line of jagged rocks lies directly in the path of ships approaching the port of Plymouth. At high tide the Eddystone reef is almost entirely covered by the sea, and for centuries it wrecked vessels with terrible regularity. It was said that some captains were so afraid of it that they steered too far south to avoid it and ran aground on the coast of France instead. Building a warning light on the reef was an obvious solution, but nobody had ever constructed a tower on a rock in the open sea, and many believed it could not be done."},
+  {"label": "", "text": "The man who proved otherwise was Henry Winstanley, a showman and designer of mechanical curiosities who had himself lost two ships on the reef. Work began in 1696, and could proceed only in summer, when the sea was calm enough for workmen to land. Britain was then at war with France, and the following year a French ship seized Winstanley and carried him across the Channel as a prisoner. When King Louis XIV heard of it, he ordered that Winstanley be released at once, remarking that France was at war with England, not with humanity. The lighthouse, an ornate wooden tower lit by candles, was completed in 1698. Winstanley was so proud of it that he expressed a wish to be inside it during the greatest storm there ever was. In November 1703 he got his wish. He was at the lighthouse carrying out repairs when the most violent storm in English records struck. By morning, the tower and everyone in it had vanished."},
+  {"label": "", "text": "A second lighthouse, designed by John Rudyerd, a London silk merchant, was finished in 1709. Rudyerd abandoned decoration in favour of a smooth cone of timber built around a core of stone, offering as little resistance as possible to the waves, and his tower stood for nearly half a century. What destroyed it was not water but fire. One night in December 1755 the roof of the lantern caught light from the candles. The three keepers threw buckets of sea water upwards at the flames for hours before being driven out onto the rock, from which they were rescued the next day. The tower burned to its foundations."},
+  {"label": "", "text": "The task of replacing it was given to John Smeaton, a maker of scientific instruments who is now regarded as Britain's first civil engineer. Smeaton decided to build entirely in stone, and introduced two ideas of lasting importance. First, he cut each granite block so that it locked into its neighbours like the pieces of a puzzle, making the whole tower behave as a single mass. Second, after a long series of experiments, he developed a type of cement that would set hard under water, something that had not been achieved since Roman times. For the tower's outline he took as his model the trunk of an oak tree, broad at the base and curving gently inwards as it rises. His lighthouse was first lit in 1759."},
+  {"label": "", "text": "Smeaton's tower was never defeated by the sea. In the 1870s, however, it was discovered that the waves were eating away the rock on which it stood, and that the tower shook whenever a large wave hit. A fourth lighthouse, designed by James Douglass and more than twice as tall, was built on a neighbouring part of the reef and completed in 1882. The people of Plymouth were unwilling to see its famous predecessor demolished, and they raised the money to have the upper part taken down stone by stone and rebuilt on a hill overlooking the harbour, where it still stands as a monument. The base proved too solid to remove and remains on the reef beside the present tower."},
+  {"label": "", "text": "Douglass's lighthouse is still in service, though it has changed considerably. Its oil lamps were eventually replaced by electricity. In 1982 it became the first offshore lighthouse in Britain to be converted to automatic operation, and the keepers who had lived on the reef for months at a time were withdrawn. A platform was added on top of the lantern so that maintenance crews could arrive by helicopter rather than by boat, and today the light is monitored from a control centre hundreds of kilometres away."},
+  {"label": "", "text": "The influence of the Eddystone lights extended far beyond one reef. Smeaton published a detailed account of his methods, and the principles he established – interlocking stone, a low centre of gravity, a curved profile – were followed by the builders of rock lighthouses around the world for the next hundred and fifty years. His work on cement, meanwhile, prepared the way for the material on which modern construction depends: concrete."}
+ ],
+ "groups": [
+  {"type": "gapfill", "range": "Questions 1–7",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "The first three Eddystone lighthouses",
+   "sections": [
+    {"heading": "Winstanley's lighthouse (completed 1698)", "lines": [
+      "building work was only possible in {1}",
+      "the light was provided by {2}",
+      "it was destroyed by a {3} in 1703"]},
+    {"heading": "Rudyerd's lighthouse (completed 1709)", "lines": [
+      "it had the shape of a smooth {4} made of timber",
+      "it was destroyed by {5} in 1755"]},
+    {"heading": "Smeaton's lighthouse (first lit 1759)", "lines": [
+      "blocks of {6} were cut so that they locked together",
+      "its outline was based on the trunk of an {7} tree"]}
+   ]},
+  {"type": "tfng", "range": "Questions 8–13",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {"no": 8, "text": "Winstanley had personally suffered losses because of the Eddystone reef."},
+    {"no": 9, "text": "The French king rewarded the sailors who had captured Winstanley."},
+    {"no": 10, "text": "All three keepers died in the fire of 1755."},
+    {"no": 11, "text": "Before Smeaton, nobody since the Romans had produced a cement that hardened under water."},
+    {"no": 12, "text": "Smeaton's tower was replaced because storms had damaged its structure."},
+    {"no": 13, "text": "Douglass's lighthouse cost more to build than Smeaton's."}
+   ]}
+ ],
+ "questions": [
+  {"no": 1, "answers": ["summer"],
+   "explain": "答案是 <b>summer</b>。工程 could proceed only in summer，因為只有夏天海面夠平靜，工人才上得了礁石。<br><b>同義轉換</b>：could proceed only in ＝ was only possible in。",
+   "quote": "could proceed only in summer, when the sea was calm enough for workmen to land"},
+  {"no": 2, "answers": ["candles"],
+   "explain": "答案是 <b>candles</b>（蠟燭）。第一座燈塔是 an ornate wooden tower lit by candles。<br><b>同義轉換</b>：lit by ＝ the light was provided by。",
+   "quote": "an ornate wooden tower lit by candles, was completed in 1698"},
+  {"no": 3, "answers": ["storm"],
+   "explain": "答案是 <b>storm</b>（暴風雨）。1703 年十一月，英格蘭有紀錄以來最猛烈的暴風雨來襲，到了早上，塔和裡面的人全都消失了。<br><b>解題關鍵</b>：空格前有冠詞 a，要填單數名詞。",
+   "quote": "the most violent storm in English records struck"},
+  {"no": 4, "answers": ["cone"],
+   "explain": "答案是 <b>cone</b>（圓錐）。Rudyerd 捨棄裝飾，改用 a smooth cone of timber，盡量減少對海浪的阻力。<br><b>解題關鍵</b>：題目的 smooth 和 timber 都是原文的字，中間的名詞就是答案。",
+   "quote": "a smooth cone of timber built around a core of stone"},
+  {"no": 5, "answers": ["fire"],
+   "explain": "答案是 <b>fire</b>（火）。原文 What destroyed it was not water but fire。<br><b>陷阱</b>：前一座是被暴風雨摧毀的，這一座不是。not A but B 的句型，答案在 but 之後。",
+   "quote": "What destroyed it was not water but fire."},
+  {"no": 6, "answers": ["granite"],
+   "explain": "答案是 <b>granite</b>（花崗岩）。Smeaton 把每塊 granite block 切割成能和相鄰石塊互相卡住的形狀，像拼圖一樣。<br><b>陷阱</b>：只寫 stone 不夠精確。題目是 blocks of ___，原文對應的是 granite block。",
+   "quote": "he cut each granite block so that it locked into its neighbours like the pieces of a puzzle"},
+  {"no": 7, "answers": ["oak"],
+   "explain": "答案是 <b>oak</b>（橡樹）。塔的輪廓以 the trunk of an oak tree 為範本，底部寬、往上逐漸向內彎。<br><b>解題關鍵</b>：空格前是 an，後面要接母音開頭的字，oak 剛好符合。",
+   "quote": "he took as his model the trunk of an oak tree"},
+  {"no": 8, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。Winstanley had himself lost two ships on the reef，他自己就有兩艘船在這片礁石沉沒。<br><b>同義轉換</b>：had himself lost two ships ＝ had personally suffered losses。",
+   "quote": "who had himself lost two ships on the reef"},
+  {"no": 9, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說路易十四下令立刻釋放 Winstanley，並說法國是和英格蘭作戰、不是和人類作戰。至於那些水手後來得到獎賞或懲罰，文章沒有提。<br><b>陷阱</b>：從國王的態度容易推測水手不會被獎賞，但這是推測，不是文章的資訊。",
+   "quote": "he ordered that Winstanley be released at once, remarking that France was at war with England, not with humanity"},
+  {"no": 10, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。三名燈塔看守人被逼到礁石上，from which they were rescued the next day（隔天獲救）。<br><b>陷阱</b>：前一段 Winstanley 的塔是「所有人都消失了」，不要把兩次災難搞混。",
+   "quote": "before being driven out onto the rock, from which they were rescued the next day"},
+  {"no": 11, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。他研發出能在水下硬化的水泥，something that had not been achieved since Roman times。<br><b>同義轉換</b>：set hard under water ＝ hardened under water；had not been achieved since Roman times ＝ nobody since the Romans。",
+   "quote": "he developed a type of cement that would set hard under water, something that had not been achieved since Roman times"},
+  {"no": 12, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。原文 Smeaton's tower was never defeated by the sea，問題出在塔下面的岩石被海浪侵蝕。<br><b>解題關鍵</b>：被破壞的是 the rock on which it stood，不是塔本身的結構。",
+   "quote": "it was discovered that the waves were eating away the rock on which it stood"},
+  {"no": 13, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章比較了兩座塔的高度（more than twice as tall），但完全沒有提到建造費用。<br><b>陷阱</b>：比較高不代表文章說它比較貴。文章唯一提到錢的地方，是 Plymouth 居民募款搬遷舊塔。",
+   "quote": "A fourth lighthouse, designed by James Douglass and more than twice as tall, was built on a neighbouring part of the reef"}
+ ]
+}
