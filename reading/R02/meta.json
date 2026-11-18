@@ -1,0 +1,21 @@
+{
+ "title": "Reading Test 2",
+ "subtitle": "Academic Reading，3 篇文章共 40 題，60 分鐘",
+ "passages": [
+  {
+   "no": 1,
+   "context": "河狸重返英國",
+   "types": "是非題（TRUE/FALSE/NOT GIVEN）・ 筆記填空"
+  },
+  {
+   "no": 2,
+   "context": "數位時代還要學寫字嗎",
+   "types": "段落資訊配對 ・ 人名配對 ・ 摘要填空"
+  },
+  {
+   "no": 3,
+   "context": "週末是怎麼被發明的",
+   "types": "單選題 ・ 觀點判斷（YES/NO/NOT GIVEN）・ 句子結尾配對"
+  }
+ ]
+}

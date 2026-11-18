@@ -1,0 +1,85 @@
+{
+ "no": 1,
+ "title": "The Return of the Beaver",
+ "context": "河狸重返英國",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {"label": "", "text": "Four hundred years ago, the beaver vanished from Britain. The animal had once been common along rivers throughout the country, but it was hunted relentlessly for its thick fur, for its meat and for castoreum, an oily substance it produces which was used in medicines and perfumes. By the sixteenth century, the last British beavers are thought to have died out. For most people living today, the beaver is an animal associated with Canada rather than with the rivers of Scotland or Devon."},
+  {"label": "", "text": "That is now changing. In 2009, after years of debate, a small number of beavers brought from Norway were released at Knapdale, a forest in the west of Scotland, in the first official trial of its kind in Britain. A few years later, a family of beavers was found to be living wild on the River Otter in Devon, in south-west England. Nobody knows for certain how they got there; they had probably escaped from a private collection or been released illegally. The government's first reaction was to plan their removal, but after protests from local people the animals were allowed to stay while scientists studied their effects over a five-year period."},
+  {"label": "", "text": "The interest in beavers is not sentimental. Ecologists describe the animal as an 'ecosystem engineer', meaning a species that reshapes its surroundings to an unusual degree. Beavers feel safest in deep water, and where a stream is too shallow they build dams of branches, stones and mud to create a pond. Behind each dam, water spreads out across the land, forming pools and marshy ground. Studies at the British trial sites recorded increases in the numbers of frogs, water insects and wetland birds, and found that fish such as trout were more abundant in beaver ponds than in other stretches of the same rivers. Contrary to popular belief, beavers do not eat fish. Their diet consists entirely of plants: grasses and water plants in summer, and the bark of trees such as willow in winter."},
+  {"label": "", "text": "There are benefits for people as well. Because a series of dams holds water back and releases it slowly, the flow of a river after heavy rain becomes less sudden. Researchers from the University of Exeter, who monitored a village downstream of the beavers on the River Otter, reported that flood peaks had been reduced. The ponds also trap soil washed off farmland, together with the fertilisers it carries, so the water leaving a beaver site is cleaner than the water entering it. During dry periods, meanwhile, the stored water keeps streams flowing."},
+  {"label": "", "text": "Not everyone is persuaded. Farmers point out that the same dams that protect a village may flood a field of crops a short distance upstream, and on flat, low-lying land even a small rise in the water level can damage drainage systems that took generations to build. Beavers also cut down trees, including those planted for timber or fruit, and they sometimes dig burrows into riverbanks, which may weaken them. Some anglers, for their part, fear that dams could prevent salmon from swimming upstream to breed, although the evidence on this question is mixed."},
+  {"label": "", "text": "Countries with longer experience of living alongside beavers have developed practical answers to many of these problems. In Bavaria, in southern Germany, where beavers were reintroduced in the 1960s, a network of trained volunteers advises landowners. Valuable trees can be protected by wrapping wire mesh around their trunks or by coating the bark with paint containing sand, which beavers dislike chewing. Where a dam threatens to flood farmland, a pipe can be fitted through it so that the pond drains to an acceptable level without the animals noticing the leak. Only when such methods fail are beavers trapped and moved elsewhere."},
+  {"label": "", "text": "Britain is slowly moving in the same direction. The beavers in Scotland were given legal protection in 2019, and those on the River Otter were granted the right to remain permanently the following year. Conservation groups would like to see the animals return to every major river system. Farming organisations, however, insist that this should not happen until there is a clear, properly funded system for dealing with the damage the animals can cause. What both sides accept is that the beaver, once established, will not stay where it is put: young animals leave their parents at around two years of age and may travel many kilometres in search of territory of their own."}
+ ],
+ "groups": [
+  {"type": "tfng", "range": "Questions 1–7",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {"no": 1, "text": "One reason beavers were hunted in Britain was to obtain a substance used in making perfume."},
+    {"no": 2, "text": "The beavers released at Knapdale were brought from Canada."},
+    {"no": 3, "text": "It has been established exactly how beavers came to be living on the River Otter."},
+    {"no": 4, "text": "The government originally intended to take the River Otter beavers away."},
+    {"no": 5, "text": "The trial at Knapdale lasted longer than the study on the River Otter."},
+    {"no": 6, "text": "Beavers eat more fish in winter than they do in summer."},
+    {"no": 7, "text": "The majority of anglers are opposed to the return of beavers."}
+   ]},
+  {"type": "gapfill", "range": "Questions 8–13",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Living alongside beavers",
+   "sections": [
+    {"heading": "Benefits for people", "lines": [
+      "a series of dams can reduce flood {8} downstream",
+      "ponds trap {9} from farmland, along with fertilisers"]},
+    {"heading": "Problems", "lines": [
+      "on low-lying land, higher water levels can harm {10} systems",
+      "riverbanks may be weakened when beavers dig {11}"]},
+    {"heading": "Solutions used in Bavaria", "lines": [
+      "tree trunks are wrapped in wire {12}",
+      "a {13} is put through a dam to lower the level of the pond"]}
+   ]}
+ ],
+ "questions": [
+  {"no": 1, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。文章說河狸被獵捕是為了毛皮、肉和 castoreum，這種物質 was used in medicines and perfumes。<br><b>同義轉換</b>：hunted... for castoreum ＝ to obtain a substance；題目的 One reason 對應原文列出的三個原因之一。",
+   "quote": "castoreum, an oily substance it produces which was used in medicines and perfumes"},
+  {"no": 2, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。Knapdale 的河狸是 brought from Norway（來自挪威）。<br><b>陷阱</b>：第一段提到一般人把河狸和 Canada 聯想在一起，出題者故意拿這個國名來混淆。題目與原文的來源地直接矛盾，所以是 FALSE。",
+   "quote": "a small number of beavers brought from Norway were released at Knapdale"},
+  {"no": 3, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。原文 Nobody knows for certain how they got there，後面的 probably 也只是推測。<br><b>解題關鍵</b>：題目的 established exactly（已確切查明）與 Nobody knows for certain 相反。",
+   "quote": "Nobody knows for certain how they got there"},
+  {"no": 4, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。政府的 first reaction was to plan their removal，後來因居民抗議才讓牠們留下。<br><b>同義轉換</b>：first reaction ＝ originally intended；removal ＝ take... away。",
+   "quote": "The government's first reaction was to plan their removal"},
+  {"no": 5, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說 River Otter 的研究是 five-year period，Knapdale 的試驗持續多久完全沒提，無法比較。<br><b>陷阱</b>：Knapdale 在 2009 年開始、比較早，容易讓人以為它比較久。開始得早不等於持續得久。",
+   "quote": "the animals were allowed to stay while scientists studied their effects over a five-year period"},
+  {"no": 6, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。原文明說 beavers do not eat fish，牠們只吃植物，夏天和冬天的差別是吃的植物種類不同。<br><b>陷阱</b>：題目借用了原文的 summer / winter 對比，但前提（吃魚）本身就與原文矛盾。",
+   "quote": "Contrary to popular belief, beavers do not eat fish."},
+  {"no": 7, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說 Some anglers（有些釣客）擔心水壩會擋住鮭魚，沒有說多數釣客的立場，也沒說他們反對河狸回來。<br><b>解題關鍵</b>：some 不能推成 the majority；「擔心」也不等於「反對」。",
+   "quote": "Some anglers, for their part, fear that dams could prevent salmon from swimming upstream to breed"},
+  {"no": 8, "answers": ["peaks", "peak"],
+   "explain": "答案是 <b>peaks</b>（洪峰）。Exeter 大學的研究者監測下游的村莊，發現 flood peaks had been reduced。<br><b>解題關鍵</b>：空格前是 flood，後面是 downstream，要填被 reduce 的名詞。",
+   "quote": "reported that flood peaks had been reduced"},
+  {"no": 9, "answers": ["soil"],
+   "explain": "答案是 <b>soil</b>（土壤）。原文 The ponds also trap soil washed off farmland, together with the fertilisers it carries。<br><b>同義轉換</b>：together with ＝ along with。fertilisers 題目已經寫出，另一個被攔住的東西就是答案。",
+   "quote": "The ponds also trap soil washed off farmland, together with the fertilisers it carries"},
+  {"no": 10, "answers": ["drainage"],
+   "explain": "答案是 <b>drainage</b>（排水）。在平坦低窪的土地上，水位稍微升高就會 damage drainage systems。<br><b>同義轉換</b>：a small rise in the water level ＝ higher water levels；damage ＝ harm。",
+   "quote": "even a small rise in the water level can damage drainage systems that took generations to build"},
+  {"no": 11, "answers": ["burrows"],
+   "explain": "答案是 <b>burrows</b>（洞穴）。原文 they sometimes dig burrows into riverbanks, which may weaken them。<br><b>解題關鍵</b>：空格前是動詞 dig，要填牠們挖的東西，而且要照原文用複數。",
+   "quote": "they sometimes dig burrows into riverbanks, which may weaken them"},
+  {"no": 12, "answers": ["mesh"],
+   "explain": "答案是 <b>mesh</b>（網）。保護樹木的方法之一是 wrapping wire mesh around their trunks。<br><b>陷阱</b>：另一個方法是塗含沙的油漆（paint containing sand），但題目寫的是 wrapped in wire，只能接 mesh。",
+   "quote": "wrapping wire mesh around their trunks"},
+  {"no": 13, "answers": ["pipe"],
+   "explain": "答案是 <b>pipe</b>（管子）。水壩可能淹到農地時，a pipe can be fitted through it，讓池水降到可接受的高度。<br><b>同義轉換</b>：fitted through ＝ put through；drains to an acceptable level ＝ lower the level。",
+   "quote": "a pipe can be fitted through it so that the pond drains to an acceptable level"}
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "no": 1,
+ "title": "The Development of the Bicycle",
+ "context": "腳踏車的演進",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {"label": "", "text": "The bicycle is so simple a machine that it is surprising how long it took to appear. Its earliest ancestor was built in 1817 by Karl Drais, a German forestry official. His 'running machine' consisted of two wooden wheels in line, joined by a beam on which the rider sat, and a handlebar for steering the front wheel. There were no pedals: the rider pushed against the ground with each foot in turn, as if walking with very long strides. Some historians have suggested that Drais was looking for a substitute for the horse, since a failed harvest the previous year had led to the death of large numbers of horses, though the evidence for this is slight. The machine enjoyed a brief vogue among wealthy young men in several European cities before the authorities, concerned about collisions with pedestrians, banned it from pavements, and the fashion faded."},
+  {"label": "", "text": "Nearly half a century passed before the next important step. In Paris in the 1860s, cranks and pedals were attached directly to the front wheel, so that for the first time riders could keep their feet off the ground. The new 'velocipede' had a frame of iron and wooden wheels with iron tyres, and on the cobbled streets of the period it gave such an uncomfortable ride that in England it became known as the 'boneshaker'. It was nevertheless a commercial success, and schools were opened to teach people to ride."},
+  {"label": "", "text": "Because the pedals turned the front wheel directly, the distance travelled with each turn of the pedals depended on the size of that wheel. Makers seeking greater speed therefore made the front wheel larger and larger, limited only by the length of the rider's legs, while the rear wheel shrank to save weight. The result, which appeared in the 1870s, was the high-wheeler, later nicknamed the 'penny-farthing' after two British coins of very different sizes. With its wire spokes and solid rubber tyres it was light and fast, but the rider sat almost directly above the front axle, well over a metre from the ground. If the wheel struck a stone, he was likely to be thrown forward over the handlebars. The high-wheeler remained largely a machine for athletic young men."},
+  {"label": "", "text": "The design that made cycling available to everyone was the 'safety bicycle'. The version that set the pattern was the Rover, produced in the English city of Coventry by John Kemp Starley in 1885. It had two wheels of similar, moderate size, and the rider sat between them, with feet within reach of the ground. The pedals drove the rear wheel by means of a chain, and by using toothed wheels of different sizes at either end of the chain, the maker could give the rider the same speed as a high-wheeler without the danger. In its essentials the Rover is the bicycle we ride today."},
+  {"label": "", "text": "One thing was still missing. The safety bicycle's smaller wheels transmitted every bump in the road, and many riders at first found it less comfortable than the high-wheeler. The remedy came in 1888 from John Boyd Dunlop, a Scottish veterinary surgeon living in Belfast, who fitted air-filled rubber tubes to the wheels of his young son's tricycle. Pneumatic tyres were at first laughed at, but when racing cyclists who used them began to beat all their rivals, the doubts disappeared, and within a few years solid tyres had virtually gone from the market."},
+  {"label": "", "text": "The consequences reached well beyond transport. In the 1890s, bicycles were produced in their millions and prices fell steadily, until a machine that had been a rich man's toy was within reach of a factory worker. People who had never been able to afford a horse could now travel independently for the first time, and studies of parish records in rural England have shown that, as cycling spread, people began to marry partners from more distant villages. Cyclists' organisations campaigned for smoother roads, with results from which motorists would later benefit."},
+  {"label": "", "text": "For women, the change was especially significant. Cycling was scarcely possible in the heavy skirts of the period, and it gave a powerful argument to those campaigning for more practical clothing. It also allowed women to travel without a companion, which many had rarely done. The American reformer Susan B. Anthony declared in 1896 that the bicycle had done more to emancipate women than anything else in the world. Not everyone approved – some doctors issued solemn warnings about the dangers of cycling to female health – but the warnings were ignored, and the bicycle had come to stay."}
+ ],
+ "groups": [
+  {"type": "gapfill", "range": "Questions 1–6",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Stages in the development of the bicycle",
+   "sections": [
+    {"heading": "1817: Drais's 'running machine'", "lines": [
+      "the rider moved forward by pushing with the feet against the {1}"]},
+    {"heading": "1860s: the velocipede", "lines": [
+      "pedals were fixed to the {2} wheel",
+      "the wheels were wooden, with tyres made of {3}"]},
+    {"heading": "1870s: the high-wheeler", "lines": [
+      "riders risked being thrown over the {4}"]},
+    {"heading": "1885: the Rover safety bicycle", "lines": [
+      "the rear wheel was driven by a {5}"]},
+    {"heading": "1888: the pneumatic tyre", "lines": [
+      "Dunlop first fitted air-filled tubes to a {6}"]}
+   ]},
+  {"type": "tfng", "range": "Questions 7–13",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {"no": 7, "text": "It is certain that Drais built his machine because of a shortage of horses."},
+    {"no": 8, "text": "Drais's machine was banned from pavements because of the risk to people on foot."},
+    {"no": 9, "text": "The velocipede sold poorly because it was so uncomfortable."},
+    {"no": 10, "text": "The high-wheeler cost more to buy than the velocipede."},
+    {"no": 11, "text": "The Rover was able to match the speed of a high-wheeler."},
+    {"no": 12, "text": "Dunlop intended from the start to sell his tyres to racing cyclists."},
+    {"no": 13, "text": "Doctors' warnings stopped many women from taking up cycling."}
+   ]}
+ ],
+ "questions": [
+  {"no": 1, "answers": ["ground"],
+   "explain": "答案是 <b>ground</b>（地面）。這台機器沒有踏板，the rider pushed against the ground with each foot in turn。<br><b>解題關鍵</b>：題目的 pushing... against the 與原文相同，後面接的名詞就是答案。",
+   "quote": "the rider pushed against the ground with each foot in turn"},
+  {"no": 2, "answers": ["front"],
+   "explain": "答案是 <b>front</b>（前）。1860 年代在巴黎，cranks and pedals were attached directly to the front wheel。<br><b>陷阱</b>：rear wheel 是後來 Rover 用鏈條帶動的輪子，年代不同。",
+   "quote": "cranks and pedals were attached directly to the front wheel"},
+  {"no": 3, "answers": ["iron"],
+   "explain": "答案是 <b>iron</b>（鐵）。velocipede 有 wooden wheels with iron tyres，所以騎起來很顛，被稱為 boneshaker。<br><b>陷阱</b>：rubber 是後來 high-wheeler 的輪胎材質（solid rubber tyres），不是 velocipede。",
+   "quote": "a frame of iron and wooden wheels with iron tyres"},
+  {"no": 4, "answers": ["handlebars"],
+   "explain": "答案是 <b>handlebars</b>（車把）。輪子如果撞到石頭，騎士 was likely to be thrown forward over the handlebars。<br><b>注意</b>：要照原文用複數 handlebars。",
+   "quote": "he was likely to be thrown forward over the handlebars"},
+  {"no": 5, "answers": ["chain"],
+   "explain": "答案是 <b>chain</b>（鏈條）。The pedals drove the rear wheel by means of a chain。<br><b>同義轉換</b>：drove... by means of ＝ was driven by。",
+   "quote": "The pedals drove the rear wheel by means of a chain"},
+  {"no": 6, "answers": ["tricycle"],
+   "explain": "答案是 <b>tricycle</b>（三輪車）。Dunlop 把充氣橡膠管裝在 the wheels of his young son's tricycle 上。<br><b>陷阱</b>：不是 bicycle。充氣輪胎最早是裝在他兒子的三輪車上。",
+   "quote": "who fitted air-filled rubber tubes to the wheels of his young son's tricycle"},
+  {"no": 7, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。這只是 Some historians have suggested 的說法，而且 the evidence for this is slight（證據薄弱）。<br><b>解題關鍵</b>：題目的 It is certain 與 the evidence is slight 相反。",
+   "quote": "though the evidence for this is slight"},
+  {"no": 8, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。當局 concerned about collisions with pedestrians, banned it from pavements。<br><b>同義轉換</b>：collisions with pedestrians ＝ the risk to people on foot。",
+   "quote": "the authorities, concerned about collisions with pedestrians, banned it from pavements"},
+  {"no": 9, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。雖然騎起來很不舒服，It was nevertheless a commercial success，甚至有人開學校教騎車。<br><b>解題關鍵</b>：nevertheless 表示轉折，不舒服是事實，但並沒有影響銷售。",
+   "quote": "It was nevertheless a commercial success, and schools were opened to teach people to ride."},
+  {"no": 10, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章描述了 high-wheeler 的構造、速度和危險，但沒有提到價格，也沒有和 velocipede 比較。<br><b>陷阱</b>：價格到第六段才出現，講的是 1890 年代腳踏車降價。",
+   "quote": "With its wire spokes and solid rubber tyres it was light and fast"},
+  {"no": 11, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。在鏈條兩端用不同大小的齒輪，製造商 could give the rider the same speed as a high-wheeler without the danger。<br><b>同義轉換</b>：the same speed as ＝ match the speed of。",
+   "quote": "the maker could give the rider the same speed as a high-wheeler without the danger"},
+  {"no": 12, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說他把充氣管裝在兒子的三輪車上，後來賽車手用了之後獲勝，沒有提到 Dunlop 原本的商業打算。<br><b>陷阱</b>：賽車手確實讓充氣輪胎被接受，但這是結果，不是文章說明的動機。",
+   "quote": "when racing cyclists who used them began to beat all their rivals, the doubts disappeared"},
+  {"no": 13, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。有些醫生確實發出警告，but the warnings were ignored。<br><b>解題關鍵</b>：were ignored（被忽視）與題目的 stopped many women 相反。",
+   "quote": "but the warnings were ignored, and the bicycle had come to stay"}
+ ]
+}
