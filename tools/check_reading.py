@@ -59,9 +59,11 @@ def check_passage(key, p, problems):
         if not q.get('explain'):
             problems.append(f'{where} 第 {no} 題：沒有解析')
         allowed = valid.get(no)
-        for a in q['answers']:
+        for i, a in enumerate(q['answers']):
             if allowed is None:
-                if normalise(a) not in normalise(text):
+                # 第一個答案必須逐字出自文章；後面的是可接受的其他寫法
+                # （例如美式拼法 summarize），不要求出現在文章裡
+                if i == 0 and normalise(a) not in normalise(text):
                     problems.append(f'{where} 第 {no} 題：答案「{a}」在文章中找不到')
             elif a not in allowed:
                 problems.append(f'{where} 第 {no} 題：答案「{a}」不是有效選項')

@@ -1,0 +1,86 @@
+{
+ "no": 1,
+ "title": "Building with Bamboo",
+ "context": "用竹子蓋房子",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {"label": "", "text": "Bamboo is not a tree but a grass, and it grows like one. A new shoot emerges from the ground at its full diameter and, in the fastest species, may rise by as much as ninety centimetres in a single day, reaching its final height within a few months. Over the following three to five years the walls of the hollow stem harden, after which it is ready to be cut. A tree of comparable size might need thirty years or more. Because the plant regrows from its roots, harvesting does not kill it, and a well-managed grove can be cut year after year without replanting."},
+  {"label": "", "text": "These qualities have made bamboo a building material for thousands of years across Asia, Africa and Latin America. In Hong Kong, scaffolding made of bamboo poles tied together with nylon strips is still erected around buildings dozens of storeys high; workers value it because it is light enough to be carried by hand and can be cut to fit awkward spaces. The fibres that run the length of the stem give it remarkable strength when pulled, comparable, weight for weight, to that of steel. It is this property that has earned bamboo the nickname 'vegetable steel'."},
+  {"label": "", "text": "Yet in most of the countries where it grows, bamboo has long been regarded as the poor man's timber, a material that people abandon for concrete and brick as soon as they can afford to. The reputation is not wholly undeserved. Untreated bamboo contains a great deal of starch, which attracts beetles and fungi, and a structure built from it may last no more than a few years. The traditional remedy was to soak the poles in water or to smoke them over a fire. Today they are more often immersed in a solution of borax, a mineral salt of low toxicity, which is cheap and makes the material unattractive to insects for decades."},
+  {"label": "", "text": "A second difficulty is that bamboo is awkward to join. A hollow, round, slightly tapering pole cannot simply be nailed like a plank, since nails tend to split it, and traditional builders relied instead on lashing poles together with rope, which loosens over time. A solution was devised in the 1980s by the Colombian architect Simón Vélez. He found that if the hollow section at a joint was filled with cement mortar and a steel bolt was passed through it, the connection could carry heavy loads without crushing the pole. The technique made it possible to construct bamboo roofs of a size never attempted before. In 2000, Vélez built a pavilion of bamboo for a world exhibition in Germany, but only after constructing an identical one in Colombia so that German engineers, who had no rules for such a material, could test it."},
+  {"label": "", "text": "That episode points to the third obstacle, which is regulatory rather than technical. Steel and concrete are manufactured to precise standards, and engineers can look up exactly how much load a beam will bear. Bamboo is a natural product: each pole differs in diameter, wall thickness and straightness, and its strength depends on its species, its age and where it grew. For a long time most national building codes simply did not mention it, which meant that banks would not lend money for bamboo houses and insurers would not cover them. An international standard for designing bamboo structures now exists, but only a few countries have incorporated it into their own regulations."},
+  {"label": "", "text": "One response has been to turn bamboo into something more predictable. In 'engineered' bamboo, the stems are sliced into strips, dried, and glued together under pressure to form beams and panels of uniform size and known strength, which can be sawn and fixed like ordinary timber. The product has found a market in flooring and furniture and is beginning to be used for structural frames. Critics observe, however, that the glue and the energy consumed in manufacture reduce the environmental advantages, and that the factories are far from the villages where bamboo grows, so that the income goes elsewhere."},
+  {"label": "", "text": "The environmental case for the raw material remains strong. A bamboo grove absorbs carbon dioxide rapidly as it grows, its dense roots hold soil in place on steep slopes, and the plant needs little or no fertiliser. Advocates also point to its behaviour in earthquakes: being light and flexible, a bamboo frame bends where a brick wall cracks. After an earthquake struck the coffee-growing region of Colombia in 1999, surveys found that many traditional bamboo houses had survived while newer masonry buildings nearby had collapsed. For the hundreds of millions of people who live where bamboo grows and conventional materials are expensive, that may be the most persuasive argument of all."}
+ ],
+ "groups": [
+  {"type": "tfng", "range": "Questions 1–7",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {"no": 1, "text": "A bamboo shoot becomes thicker as it grows taller."},
+    {"no": 2, "text": "Bamboo stems can be harvested sooner than trees of a similar size."},
+    {"no": 3, "text": "In Hong Kong, bamboo scaffolding costs less than scaffolding made of steel."},
+    {"no": 4, "text": "In countries where bamboo grows, it has traditionally been seen as a low-status material."},
+    {"no": 5, "text": "Treating bamboo with borax is more expensive than the traditional methods of treatment."},
+    {"no": 6, "text": "The pavilion Vélez built in Germany was the first bamboo building in Europe."},
+    {"no": 7, "text": "Most countries have now added the international bamboo standard to their own regulations."}
+   ]},
+  {"type": "gapfill", "range": "Questions 8–13",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Bamboo as a building material: problems and responses",
+   "sections": [
+    {"heading": "Durability", "lines": [
+      "untreated bamboo contains a lot of {8}, which attracts beetles and fungi"]},
+    {"heading": "Joints", "lines": [
+      "nails are unsuitable because they tend to {9} the pole",
+      "Vélez's method: the joint is filled with mortar and a steel {10} is passed through it"]},
+    {"heading": "Regulation", "lines": [
+      "when building codes did not mention bamboo, {11} refused to lend money for bamboo houses"]},
+    {"heading": "Engineered bamboo", "lines": [
+      "strips are dried and glued together under {12}",
+      "critics say its benefits are reduced by the glue and the {13} used in manufacture"]}
+   ]}
+ ],
+ "questions": [
+  {"no": 1, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。新筍 emerges from the ground at its full diameter，冒出地面時就已經是完整的粗細，之後只長高、不長粗。<br><b>陷阱</b>：一般的樹會越長越粗，這題考的正是竹子和樹不同的地方。",
+   "quote": "A new shoot emerges from the ground at its full diameter"},
+  {"no": 2, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。竹子三到五年就能砍伐，而 A tree of comparable size might need thirty years or more。<br><b>同義轉換</b>：ready to be cut ＝ can be harvested；comparable size ＝ similar size。",
+   "quote": "A tree of comparable size might need thirty years or more."},
+  {"no": 3, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。工人喜歡竹鷹架的理由是輕、可以用手搬、能裁切成適合的長度，文章沒有提到價格，也沒有和鋼製鷹架比較。<br><b>陷阱</b>：同一段確實拿竹子和 steel 比，但比的是強度，不是價錢。",
+   "quote": "workers value it because it is light enough to be carried by hand and can be cut to fit awkward spaces"},
+  {"no": 4, "answers": ["TRUE"],
+   "explain": "答案是 <b>TRUE</b>。竹子 has long been regarded as the poor man's timber，人們一有能力就改用水泥和磚。<br><b>同義轉換</b>：has long been regarded as ＝ has traditionally been seen as；the poor man's timber ＝ a low-status material。",
+   "quote": "bamboo has long been regarded as the poor man's timber"},
+  {"no": 5, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說硼砂 is cheap，沒有拿它和泡水、煙燻這些傳統方法比較成本。<br><b>陷阱</b>：有人會因為 cheap 而選 FALSE。但「便宜」不等於「比傳統方法便宜或貴」，文章沒有做比較就是 NOT GIVEN。",
+   "quote": "a solution of borax, a mineral salt of low toxicity, which is cheap"},
+  {"no": 6, "answers": ["NOT GIVEN"],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章只說德國工程師 had no rules for such a material，沒說這是不是歐洲第一棟竹建築。<br><b>陷阱</b>：「沒有相關規範」容易讓人推論成「以前沒蓋過」，但這是讀者自己的推論。",
+   "quote": "German engineers, who had no rules for such a material, could test it"},
+  {"no": 7, "answers": ["FALSE"],
+   "explain": "答案是 <b>FALSE</b>。國際標準雖然已經存在，but only a few countries have incorporated it into their own regulations。<br><b>解題關鍵</b>：only a few 與題目的 Most countries 直接矛盾。",
+   "quote": "only a few countries have incorporated it into their own regulations"},
+  {"no": 8, "answers": ["starch"],
+   "explain": "答案是 <b>starch</b>（澱粉）。原文 Untreated bamboo contains a great deal of starch, which attracts beetles and fungi。<br><b>同義轉換</b>：a great deal of ＝ a lot of。",
+   "quote": "Untreated bamboo contains a great deal of starch, which attracts beetles and fungi"},
+  {"no": 9, "answers": ["split"],
+   "explain": "答案是 <b>split</b>（使裂開）。竹竿不能像木板那樣釘，since nails tend to split it。<br><b>解題關鍵</b>：空格前是 tend to，要填原形動詞。",
+   "quote": "since nails tend to split it"},
+  {"no": 10, "answers": ["bolt"],
+   "explain": "答案是 <b>bolt</b>（螺栓）。Vélez 發現把接合處的空心部分灌滿水泥砂漿，再穿過 a steel bolt，接合處就能承受很大的重量。<br><b>解題關鍵</b>：題目的 mortar、steel、passed through 都是原文用字。",
+   "quote": "filled with cement mortar and a steel bolt was passed through it"},
+  {"no": 11, "answers": ["banks"],
+   "explain": "答案是 <b>banks</b>（銀行）。建築法規沒提到竹子，which meant that banks would not lend money for bamboo houses。<br><b>陷阱</b>：insurers 是不肯承保（would not cover them），不是不肯借錢。",
+   "quote": "banks would not lend money for bamboo houses and insurers would not cover them"},
+  {"no": 12, "answers": ["pressure"],
+   "explain": "答案是 <b>pressure</b>（壓力）。竹條 sliced into strips, dried, and glued together under pressure。<br><b>解題關鍵</b>：空格前的 glued together under 與原文相同。",
+   "quote": "the stems are sliced into strips, dried, and glued together under pressure"},
+  {"no": 13, "answers": ["energy"],
+   "explain": "答案是 <b>energy</b>（能源）。批評者指出 the glue and the energy consumed in manufacture reduce the environmental advantages。<br><b>同義轉換</b>：consumed ＝ used；reduce the environmental advantages ＝ its benefits are reduced。",
+   "quote": "the glue and the energy consumed in manufacture reduce the environmental advantages"}
+ ]
+}

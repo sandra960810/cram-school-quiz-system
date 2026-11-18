@@ -18,7 +18,7 @@ import re
 
 import bank_store
 import writing_bank
-from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_models, _gemini_error
+from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_client, gemini_models, _gemini_error, _try_next_model, _no_model_error
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BANK_DIR = os.path.join(BASE, 'speaking')
@@ -205,7 +205,7 @@ def _blank_answers(answers):
 def _ask_gemini(key, test, answers):
     from google import genai
     from google.genai import errors, types
-    client = genai.Client(api_key=key)
+    client = gemini_client(key)   # 指定 v1beta，原因見 writing_bank.gemini_client
     total = sum(os.path.getsize(a['path']) for a in answers if a.get('path'))
     contents = [types.Part.from_text(text=(
         f"IELTS Speaking practice test: {test['title']}. Below is each examiner question followed by the candidate's "
@@ -238,7 +238,7 @@ def _ask_gemini(key, test, answers):
         try:
             resp = client.models.generate_content(model=model, contents=contents, config=config)
         except errors.APIError as e:
-            if e.code == 404:
+            if _try_next_model(e):     # 模型下架或暫時太忙：換下一個
                 last = e
                 continue
             if e.code == 400 and 'mime' in str(e).lower():
@@ -253,7 +253,7 @@ def _ask_gemini(key, test, answers):
                 raise RuntimeError('AI 回覆太長被截斷，請再按一次批改。')
             raise RuntimeError('Gemini 沒有回覆批改內容（可能被安全機制擋下），請再按一次批改。')
         return text, model
-    raise RuntimeError('找不到可用的 Gemini 模型，請通知維護人員更新 GEMINI_MODELS。' + (f'（{last}）' if last else ''))
+    raise RuntimeError(_no_model_error(last))
 
 
 def _ask_claude(key, test, answers):
