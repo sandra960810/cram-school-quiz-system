@@ -72,24 +72,29 @@
 
     <div class="theme-grid ui-stagger">
         {% for t in themes %}
-            {% if t.total %}
+            {% set clickable = t.total and not t.locked %}
+            {% if clickable %}
             <a href="{{ url_for('learn_theme', student_id=student.id, theme_key=t.key) }}"
                class="theme-card {% if t.unlocked == t.total %}done{% endif %}">
+            {% elif t.locked %}
+            <div class="theme-card empty locked" title="這個等級還沒有開通">
             {% else %}
             <div class="theme-card empty" title="這個主題還沒有單字">
             {% endif %}
                 <div class="theme-icon">{{ icon(t.icon) }}</div>
                 <div class="theme-content">
-                    <div class="theme-title">{{ t.label }}{% if t.total %}<span class="go-arrow">→</span>{% endif %}</div>
+                    <div class="theme-title">{{ t.label }}{% if clickable %}<span class="go-arrow">→</span>{% endif %}</div>
                     <div class="theme-desc">{{ t.desc }}</div>
-                    {% if t.total %}
+                    {% if t.locked %}
+                        <div class="theme-progress">{{ icon('lock') }} 尚未開通{% if t.total %}・共 {{ t.total }} 字{% endif %}</div>
+                    {% elif t.total %}
                         <div class="theme-progress">✓ 熟 {{ t.unlocked }}・✗ 不熟 {{ t.weak }}／{{ t.total }} 字{% if t.unlocked == t.total %} {{ icon('check-circle') }} 全部熟了{% endif %}</div>
                         <div class="mini-bar"><div style="width: {{ t.unlocked * 100 / t.total }}%"></div><div class="weak" style="width: {{ t.weak * 100 / t.total }}%"></div></div>
                     {% else %}
                         <div class="theme-progress">字庫建置中</div>
                     {% endif %}
                 </div>
-            {% if t.total %}</a>{% else %}</div>{% endif %}
+            {% if clickable %}</a>{% else %}</div>{% endif %}
         {% endfor %}
     </div>
 </div>

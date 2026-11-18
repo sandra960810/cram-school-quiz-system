@@ -58,4 +58,7 @@ if errorlevel 1 ( echo     零基礎單字匯入失敗，資料庫備份在 back
 echo     匯入一般英文單字 general\general_vocab.csv...
 %PY% import_sheet.py general\general_vocab.csv
 if errorlevel 1 ( echo     一般英文單字匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
+echo     匯入韓檢單字 topik\topik_vocab.csv...
+%PY% import_sheet.py topik\topik_vocab.csv
+if errorlevel 1 ( echo     韓檢單字匯入失敗，資料庫備份在 backups 資料夾 & exit /b 1 )
 exit /b 0

@@ -37,6 +37,8 @@ class Student(db.Model):
     token = db.Column(db.String(100), unique=True, nullable=False)
     name = db.Column(db.String(50), nullable=False)
     enrolled_course = db.Column(db.String(50))
+    # 分級考試（韓檢…）開通了哪幾級，JSON，例如 {"topik": [1, 2]}；空的＝全部開放（見 exams.open_levels）
+    unlocked_levels = db.Column(db.Text)
 
 
 class Vocabulary(db.Model):
@@ -162,6 +164,9 @@ with app.app_context():
     for col, ddl in NEW_VOCAB_COLUMNS:
         if col not in existing_cols:
             db.session.execute(text(f"ALTER TABLE vocabulary ADD COLUMN {col} {ddl}"))
+    student_cols = {row[1] for row in db.session.execute(text("PRAGMA table_info(student)"))}
+    if 'unlocked_levels' not in student_cols:
+        db.session.execute(text("ALTER TABLE student ADD COLUMN unlocked_levels TEXT"))
     db.session.commit()
 
 
@@ -230,6 +235,13 @@ OFFICIAL_THEMES = [
     {"course": "GENERAL", "id": "G13", "name": "常用動詞", "desc": "生活中常用的動作與片語動詞", "icon": "pencil"},
     {"course": "GENERAL", "id": "G14", "name": "常用形容詞與副詞", "desc": "描述人事物的常用字", "icon": "sparkle"},
     {"course": "GENERAL", "id": "G15", "name": "通用名詞與概念", "desc": "時間、數量、狀態等各種場合都會用到的字", "icon": "book-open"},
+    # 韓檢依等級分主題（K1～K6），每一級可以各自對學生開放（exams.open_levels）
+    {"course": "TOPIK", "id": "K1", "level": 1, "name": "1級", "desc": "TOPIK I 初級：數字、家人、食物、日常動作等最基本的字", "icon": "smile"},
+    {"course": "TOPIK", "id": "K2", "level": 2, "name": "2級", "desc": "TOPIK I 初級：購物、交通、天氣、心情等生活用字", "icon": "home"},
+    {"course": "TOPIK", "id": "K3", "level": 3, "name": "3級", "desc": "TOPIK II 中級：工作、學校、社會生活的常用字", "icon": "briefcase"},
+    {"course": "TOPIK", "id": "K4", "level": 4, "name": "4級", "desc": "TOPIK II 中級：新聞、說明文常見的字與正式說法", "icon": "megaphone"},
+    {"course": "TOPIK", "id": "K5", "level": 5, "name": "5級", "desc": "TOPIK II 高級：社會、經濟、文化等抽象概念", "icon": "globe"},
+    {"course": "TOPIK", "id": "K6", "level": 6, "name": "6級", "desc": "TOPIK II 高級：論說文、專業領域與書面語", "icon": "cap"},
 ]
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
@@ -243,6 +255,16 @@ def get_student(student_id):
     if not student:
         abort(404, description="找不到學生資料")
     return student
+
+
+def locked_theme_ids(student):
+    """目前這個考試裡，學生還沒開通的等級主題（例如韓檢沒買的級數）。"""
+    levels = exams.open_levels(student, exams.current_exam())
+    if levels is None:
+        return set()
+    course = exams.course_of(student)
+    return {t["id"] for t in OFFICIAL_THEMES
+            if t["course"] == course and t.get("level") and t["level"] not in levels}
 
 
 def official_id_of(theme_name):
@@ -296,7 +318,9 @@ def build_theme_list(student):
     unlocked = count_status('familiar')   # 熟
     weak = count_status('unfamiliar')     # 不熟
 
-    themes = [dict(t, key=t["id"], label=f'{t["id"]} {t["name"]}', total=0, unlocked=0, weak=0)
+    locked = locked_theme_ids(student)
+    themes = [dict(t, key=t["id"], label=f'{t["id"]} {t["name"]}', total=0, unlocked=0, weak=0,
+                   locked=t["id"] in locked)
               for t in OFFICIAL_THEMES if t["course"] == course]
     by_key = {t["key"]: t for t in themes}
     extras = []
@@ -308,7 +332,7 @@ def build_theme_list(student):
             by_key[oid]["weak"] += weak.get(theme_name, 0)
         else:
             extras.append({"key": theme_name, "label": theme_name, "desc": "其他字庫",
-                           "icon": "folder", "total": total, "unlocked": unlocked.get(theme_name, 0),
+                           "icon": "folder", "locked": False, "total": total, "unlocked": unlocked.get(theme_name, 0),
                            "weak": weak.get(theme_name, 0)})
     return themes + extras
 
@@ -316,6 +340,8 @@ def build_theme_list(student):
 def theme_info(student, theme_key):
     for t in build_theme_list(student):
         if t["key"] == theme_key:
+            if t.get("locked"):
+                abort(403, description="這個等級還沒有開通")
             return t
     abort(404, description="找不到這個主題")
 
@@ -342,15 +368,24 @@ def theme_words(student, theme_key, dedupe=True):
     return [w for w in rows if w.id in keep]
 
 
+HANGUL_INITIALS = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'
+# 分頁時雙子音併到單子音（ㄲ 算 ㄱ），每一頁的字數比較平均
+HANGUL_MERGE = {'ㄲ': 'ㄱ', 'ㄸ': 'ㄷ', 'ㅃ': 'ㅂ', 'ㅆ': 'ㅅ', 'ㅉ': 'ㅈ'}
+
+
 def first_letter(word):
+    """分頁用的字首：英文取 A–Z，韓文取第一個字的子音（가→ㄱ、나→ㄴ），其他歸到 #。"""
     c = (word or '?')[0].upper()
+    if '가' <= c <= '힣':
+        initial = HANGUL_INITIALS[(ord(c) - 0xAC00) // 588]
+        return HANGUL_MERGE.get(initial, initial)
     return c if 'A' <= c <= 'Z' else '#'
 
 
 def clean_sentence(sentence):
     if not sentence or sentence.startswith(NO_SENTENCE_PREFIX):
         return None
-    return sentence
+    return sentence.replace('[', '').replace(']', '')   # 韓文例句用 [ ] 標出填空處（vocab_quiz.find_cloze_ko），顯示時拿掉
 
 
 # ---------------------------------------------------------------------------
@@ -378,8 +413,8 @@ def dashboard(student_id):
             exams.use_exam(e["key"])          # 切到該考試，才算得到它的字數
             themes = build_theme_list(student)
         cards.append(dict(e, allowed=e["key"] in allowed,
-                          unlocked=sum(t["unlocked"] for t in themes),
-                          total=sum(t["total"] for t in themes)))
+                          unlocked=sum(t["unlocked"] for t in themes if not t["locked"]),
+                          total=sum(t["total"] for t in themes if not t["locked"])))
     # 選擇頁本身用雅思的色系（紫色學院風）；卡片各自帶自己的主色
     exams.use_exam(exams.DEFAULT_EXAM)
     return render_template('exam_select.html', student=student, cards=cards)
@@ -393,8 +428,8 @@ def exam_dashboard(student_id, exam_key):
         return redirect(url_for('dashboard', student_id=student_id))
     exam = exams.use_exam(exam_key)
     themes = build_theme_list(student)
-    unlocked_count = sum(t["unlocked"] for t in themes)
-    total_count = sum(t["total"] for t in themes)
+    unlocked_count = sum(t["unlocked"] for t in themes if not t["locked"])
+    total_count = sum(t["total"] for t in themes if not t["locked"])
     return render_template('dashboard.html', student=student, features=exam["features"],
                            unlocked_count=unlocked_count, total_count=total_count)
 
@@ -404,11 +439,11 @@ def learn_home(student_id):
     """單字學習與圖鑑：主題總覽。"""
     student = get_student(student_id)
     themes = build_theme_list(student)
-    unlocked_count = sum(t["unlocked"] for t in themes)
-    total_count = sum(t["total"] for t in themes)
+    unlocked_count = sum(t["unlocked"] for t in themes if not t["locked"])
+    total_count = sum(t["total"] for t in themes if not t["locked"])
     return render_template('learn_home.html', student=student, themes=themes,
                            unlocked_count=unlocked_count, total_count=total_count,
-                           weak_count=sum(t["weak"] for t in themes),
+                           weak_count=sum(t["weak"] for t in themes if not t["locked"]),
                            favorite_count=len(favorite_rows(student)))
 
 
@@ -516,7 +551,10 @@ def favorite_rows(student):
             .order_by(Favorite.created_at.desc(), Favorite.id.desc())
             .all())
     seen, result = set(), []
+    locked = locked_theme_ids(student)
     for v, _ in rows:
+        if locked and official_id_of(v.theme) in locked:
+            continue   # 沒開通的等級：收藏先藏起來（紀錄還在，開通後就會出現）
         if v.word.lower() not in seen:
             seen.add(v.word.lower())
             result.append(v)
@@ -1324,7 +1362,7 @@ vocab_quiz.register(app, db, dict(
     Student=Student, Vocabulary=Vocabulary, get_student=get_student, status_of=status_of,
     theme_condition=theme_condition, build_theme_list=build_theme_list,
     favorite_rows=favorite_rows, set_progress=set_progress, official_id_of=official_id_of,
-    course_of=exams.course_of))
+    course_of=exams.course_of, locked_theme_ids=locked_theme_ids))
 
 # 單字與例句的發音音檔（程式在 word_audio.py）：手機的瀏覽器語音不可靠，改由伺服器產生
 import word_audio  # noqa: E402

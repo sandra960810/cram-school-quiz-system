@@ -44,6 +44,17 @@
         .answer-row { display: flex; gap: 8px; margin-top: 6px; }
         .answer-row input { flex: 1; min-width: 0; font-size: 22px; padding: 12px 14px; border: 2px solid var(--line); border-radius: 12px; font-family: Arial, sans-serif; text-align: center; outline: none; }
         .answer-row input:focus { border-color: var(--primary); }
+        /* 韓文鍵盤（static/hangul_keyboard.js，韓檢才有） */
+        .hk-panel { margin-top: 10px; }
+        .hk-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+        .hk-switch { display: inline-flex; align-items: center; gap: 4px; font-weight: bold; color: var(--primary); cursor: pointer; }
+        .hk-keys { margin-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+        .hk-row { display: flex; justify-content: center; gap: 4px; }
+        .hk-key { flex: 1 1 0; max-width: 44px; min-width: 0; height: 40px; border: none; border-radius: 8px; background: var(--surface-2); box-shadow: var(--edge); font-size: 18px; color: var(--ink); cursor: pointer; font-family: inherit; padding: 0; }
+        .hk-key:hover { background: var(--primary-50); }
+        .hk-key.wide { max-width: 66px; flex-grow: 1.5; font-size: 14px; }
+        .hk-key.on { background: var(--primary); color: #fff; }
+        .hk-key.space { max-width: 220px; font-size: 14px; }
         .answer-row input.right { border-color: var(--ok); background: var(--ok-50); }
         .answer-row input.wrong { border-color: var(--bad); background: var(--bad-50); }
         .btn { padding: 12px 18px; font-size: 17px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; color: white; background: var(--primary); }
@@ -119,6 +130,7 @@
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+{% if exam.lang == 'ko' %}<script src="{{ url_for('static', filename='hangul_keyboard.js') }}"></script>{% endif %}
 {% if not empty %}
 <script>
     const QUESTIONS = {{ questions | tojson }};
@@ -179,7 +191,7 @@
         const meaningCls = q.meaning.length > 40 && !hasZh(q.meaning) ? 'prompt-meaning long' : 'prompt-meaning';
         const input = `<div class="answer-row">
                 <input id="ans" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
-                       enterkeyhint="done" placeholder="輸入英文" aria-label="輸入答案">
+                       enterkeyhint="done" placeholder="{{ '輸入韓文' if exam.lang == 'ko' else '輸入英文' }}" aria-label="輸入答案">
                 <button class="btn" id="ok-btn" data-sound="none">確定</button></div>`;
         let body = '';
         if (q.type === 'spell') {
@@ -219,6 +231,7 @@
             // 手機上自動跳出鍵盤會擋住題目，只有電腦才自動聚焦
             if (window.matchMedia('(pointer: fine)').matches) ans.focus();
             document.getElementById('ok-btn').addEventListener('click', () => submitTyped());
+            if (window.HangulKeyboard) HangulKeyboard.attach(ans);   // 韓檢：沒有韓文輸入法也能打字
         }
         stage.querySelectorAll('.choice').forEach(b => b.addEventListener('click', () => submitChoice(+b.dataset.i)));
     }
@@ -279,6 +292,7 @@
     document.addEventListener('keydown', (e) => {
         if (idx < 0 || idx >= QUESTIONS.length) return;
         if (e.key === 'Enter') {
+            if (e.isComposing || e.keyCode === 229) return;   // 韓文輸入法還在組字，這個 Enter 是確認組字
             e.preventDefault();
             if (answered) next();
             else if (document.getElementById('ans')) submitTyped();

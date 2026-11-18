@@ -30,7 +30,7 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 _ = {}   # register() 放進來的主程式物件
 
 TRASH = 'TRASH:'
-LEVELS = ['不分級', '基礎級', '中級', '中高級', '進階級']
+LEVELS = ['不分級', '基礎級', '中級', '中高級', '進階級', '1級', '2級', '3級', '4級', '5級', '6級']   # 1～6 級：韓檢
 PAGE_SIZE = 50
 MAX_FAILS, LOCK_SECONDS = 5, 600
 _fails = {}   # 來源 IP → [連續失敗次數, 鎖到什麼時候]

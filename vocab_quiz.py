@@ -53,7 +53,7 @@ def normalize(s):
 def clean_sentence(sentence):
     if not sentence or sentence.startswith(NO_SENTENCE_PREFIX):
         return None
-    return sentence
+    return sentence.replace('[', '').replace(']', '')   # 韓文例句用 [ ] 標出填空處，顯示時拿掉
 
 
 def _stems(word):
@@ -69,6 +69,8 @@ def _stems(word):
 
 def find_cloze(word, sentence):
     """在例句裡找出這個單字（含詞形變化），回傳 (挖空前, 例句中的寫法, 挖空後)；找不到回傳 None。"""
+    if is_korean(word):
+        return find_cloze_ko(word, sentence)
     sentence = clean_sentence(sentence)
     if not sentence or not word:
         return None
@@ -92,6 +94,85 @@ def find_cloze(word, sentence):
                 if re.fullmatch(r"(s|es|d|ed|ing|ied|ies|ier|iest|er|est|ly|'s|y|e|ted|ting|ned|ning|red|ring|ped|ping|ged|ging|led|ling|ded|ding|med|ming|bed|bing)", rest):
                     return sentence[:m.start()], m.group(0), sentence[m.end():]
     return None
+
+
+# ---------- 韓文（韓檢） ----------
+HANGUL = re.compile(r'[가-힣]')
+# 名詞後面可以接的助詞、語尾（例句填空只挖掉名詞本身，助詞留在題目上）
+KO_NOUN_TAIL = re.compile(
+    r'(은|는|이|가|을|를|에|의|도|로|으로|와|과|랑|이랑|하고|에서|에게|한테|께|께서|까지|부터|만|보다|처럼|마다|밖에|입니까|인가요|이죠|죠|'
+    r'이나|나|이든|든지|요|이요|이에요|예요|이야|야|이다|다|였다|이었다|입니다|이었어요|였어요|들|들이|들은|들을|들의|들도|들에게)*')
+# 語幹最後一個字縮寫時母音的變化：오→와（보다→봐요）、우→워（주다→줘요）、이→여（마시다→마셔요）、으→어（쓰다→써요）、되→돼
+KO_CONTRACT = {8: 9, 13: 14, 20: 6, 18: 4, 11: 10}   # 中聲編號：ㅗ→ㅘ、ㅜ→ㅝ、ㅣ→ㅕ、ㅡ→ㅓ、ㅚ→ㅙ
+
+
+def is_korean(word):
+    return bool(HANGUL.search(word or ''))
+
+
+def _syl(c):
+    """韓文字拆成 (初聲, 中聲, 終聲) 編號；不是韓文字回傳 None。"""
+    o = ord(c) - 0xAC00
+    return (o // 588, (o % 588) // 28, o % 28) if 0 <= o < 11172 else None
+
+
+def _ko_stem_match(stem, token):
+    """token 是不是這個語幹的活用形（가 → 가요、갑니다、갔어요；보 → 봐요；하 → 해요、했어요）。"""
+    if len(token) < len(stem) or token[:len(stem) - 1] != stem[:-1]:
+        return False
+    s, t = _syl(stem[-1]), _syl(token[len(stem) - 1])
+    if not s or not t:
+        return False
+    if s[2]:                       # 語幹有收尾音（먹、읽）：要完全一樣
+        return token.startswith(stem)
+    if t[0] != s[0]:
+        return False
+    if t[1] == s[1]:               # 가 → 가요、간、갈、갑니다、갔어요
+        return True
+    if stem[-1] == '하' and token[len(stem) - 1] in '해했':
+        return True
+    return KO_CONTRACT.get(s[1]) == t[1]
+
+
+def find_cloze_ko(word, sentence):
+    """韓文例句填空：在例句裡找出這個字，回傳 (挖空前, 例句中的寫法, 挖空後)；找不到回傳 None。
+    名詞只挖名詞本身（助詞留著），動詞與形容詞挖整個活用形（例如 가다 → 갔어요）。
+    自動找不到的不規則活用（듣다 → 들어요），例句裡用 [ ] 標出要挖的地方：음악을 [들어요].
+    （[ ] 只給出題用，顯示例句時 clean_sentence 會拿掉）"""
+    raw = sentence or ''
+    if raw.startswith(NO_SENTENCE_PREFIX):
+        return None
+    m = re.search(r'\[([^\[\]]+)\]', raw)
+    if m:
+        before, after = raw[:m.start()], raw[m.end():]
+        return before.replace('[', '').replace(']', ''), m.group(1), after.replace('[', '').replace(']', '')
+    sentence = clean_sentence(raw)
+    word = (word or '').strip()
+    if not sentence or not word or ' ' in word:
+        return None
+    tokens = list(re.finditer(r'[가-힣]+', sentence))
+    if word.endswith('다') and len(word) >= 2:
+        stem = word[:-1]
+        for m in reversed(tokens):   # 韓文的動詞、形容詞通常在句尾，從後面找比較不會誤認（가다 ≠ 가방）
+            if _ko_stem_match(stem, m.group(0)):
+                return sentence[:m.start()], m.group(0), sentence[m.end():]
+    for m in tokens:
+        t = m.group(0)
+        if t.startswith(word) and KO_NOUN_TAIL.fullmatch(t[len(word):]):
+            end = m.start() + len(word)
+            return sentence[:m.start()], word, sentence[end:]
+    return None
+
+
+def initials(text):
+    """韓文提示只給子音（좋아요 → ㅈㅇㅇ），直接給第一個字的話一個字的單字就等於給答案。"""
+    return ''.join('ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'[_syl(c)[0]] if _syl(c) else c for c in text)
+
+
+def length_hint(word):
+    if ' ' in word:
+        return f'{len(word.split())} 個字'
+    return f'{len(word)} 個字' if is_korean(word) else f'{len(word)} 個字母'
 
 
 def check_answer(qtype, given, answer):
@@ -151,10 +232,11 @@ def build_questions(words, types, size, distractor_pool, rng=random):
         if qtype == 'cloze':
             before, form, after = cloze
             q.update(before=before, after=after, answer=form, sentence_zh=v.sentence_zh or '',
-                     hint=form[0] + ' _' * (len(form) - 1), form_differs=form.lower() != v.word.lower())
+                     hint=initials(form) if is_korean(form) else form[0] + ' _' * (len(form) - 1),
+                     form_differs=form.lower() != v.word.lower())
         elif qtype in ('spell', 'dictate'):
-            q["hint"] = f'{len(v.word)} 個字母' if ' ' not in v.word else f'{len(v.word.split())} 個字'
-            q["first"] = v.word[0]
+            q["hint"] = length_hint(v.word)
+            q["first"] = initials(v.word[0]) if is_korean(v.word) else v.word[0]
         else:
             pool_words = pools[has_zh(meaning)]
             sample = rng.sample(pool_words, min(40, len(pool_words)))
@@ -171,7 +253,8 @@ def build_questions(words, types, size, distractor_pool, rng=random):
                     break
             if len(opts) < 3:          # 湊不滿四個選項就改出拼寫
                 qtype = 'spell'
-                q.update(type='spell', hint=f'{len(v.word)} 個字母', first=v.word[0])
+                q.update(type='spell', hint=length_hint(v.word),
+                         first=initials(v.word[0]) if is_korean(v.word) else v.word[0])
             else:
                 if qtype == 'meaning':
                     choices = [q["meaning"]] + [mask_word(d.meaning, d.word) for d in opts]
@@ -243,7 +326,9 @@ def learned_words(student, scope):
             if not info:
                 abort(404, description='找不到這個主題')
             label = info["label"]
-        words = [v for v in q.all() if v.id in status]
+        locked = _['locked_theme_ids'](student)
+        words = [v for v in q.all() if v.id in status
+                 and not (locked and _['official_id_of'](v.theme) in locked)]   # 沒開通的等級不出題
         if scope == 'weak':
             words = [v for v in words if status.get(v.id) == 'unfamiliar']
             label = '不熟區'
@@ -267,9 +352,10 @@ def scope_options(student):
     rows = (Vocabulary.query.with_entities(Vocabulary.id, Vocabulary.word, Vocabulary.theme)
             .filter(Vocabulary.category == _['course_of'](student)).all())
     seen = {}
+    locked = _['locked_theme_ids'](student)
     for vid, word, theme in rows:
         st = status.get(vid)
-        if not st:
+        if not st or (locked and _['official_id_of'](theme) in locked):
             continue
         w = word.lower()
         seen.setdefault('all', set()).add(w)
@@ -281,7 +367,7 @@ def scope_options(student):
             {"key": "weak", "label": "不熟區", "icon": "dot", "count": count('weak')},
             {"key": "fav", "label": "我的收藏", "icon": "star", "count": len(_['favorite_rows'](student))}]
     for t in _['build_theme_list'](student):
-        if t["total"]:
+        if t["total"] and not t.get("locked"):
             opts.append({"key": f'theme:{t["key"]}', "label": t["label"], "icon": t["icon"],
                          "count": count(f'theme:{t["key"]}')})
     return opts
