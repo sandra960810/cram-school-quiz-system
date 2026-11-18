@@ -61,7 +61,8 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 tools/dedupe_vocab.py  合併同課程的重複單字並轉移學生紀錄（run.bat 匯入後會跑）
 word_audio.py       單字／例句發音音檔 /tts（edge-tts 產生、快取在 instance/tts_cache/）
 vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由 app.py 最後面 register 掛上）
-phonics.py          英文零基礎的 ABC 字母、自然發音、聽音選字教學頁 /phonics/<學生id>（資料寫在檔案裡）
+phonics.py          英文零基礎的單字發音教學頁 /phonics/<學生id>：單字發音（主角）、發音規則、聽音選字、ABC 字母
+pronunciation/      單字 KK 音標 kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生，見 README）
 basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
 ```
 
@@ -87,12 +88,16 @@ basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權
 - 零基礎單字在 `basic/basic_vocab.csv`（2,006 字，國中小程度、例句刻意很短），一般英文在 `general/general_vocab.csv`
   （4,032 個日常生活字）。**兩區互不重複**，各自也沒有重複字；來源是 NGSL＋OpenSubtitles 字頻（CC BY-SA 4.0），
   中文意思與例句原創，見各資料夾的 `README.md`。`run.bat` 會匯入。加字時兩份都要檢查不重複
-- ABC 與發音教學（`phonics.py`）：電腦語音唸不出單獨的 /k/ 這種音，所以字母的音用「代表單字」示範，
+- 單字發音教學（`phonics.py`）：**重點是教「單字怎麼唸」，不是 ABC**。預設分頁「單字發音」選零基礎／一般英文主題逐字學：
+  拼字拆音節、重音那格加底線、KK 音標（`pronunciation/kk.json`）、正常速度與慢速拆音節（整字放慢、音節依序亮起）、
+  這個字用到的發音規則（`rules_for()`，拼字和 KK 都對上才顯示，點了跳到發音規則課）、例句、跟讀評分。
+  加新單字後要重跑 `python tools/make_pronunciation.py cmudict.dict`
+- 發音規則與 ABC 字母（補充分頁）：電腦語音唸不出單獨的 /k/ 這種音，所以字母的音用「代表單字」示範，
   加 KK 音標、嘴型（`MOUTHS`）與注音近似音（只當輔助）；單字寫成 `"c.a.t"` 拆格，`*` 開頭的格子不發音（Magic e）
-- 跟讀評分（phonics 的第 4 個分頁）：學生按麥克風跟唸，瀏覽器語音辨識（`SpeechRecognition`，Edge 送微軟）
+- 跟讀評分（在「單字發音」分頁裡）：學生按麥克風跟唸，瀏覽器語音辨識（`SpeechRecognition`，Edge 送微軟）
   回傳最多 5 個候選，`scoreOf()` 給 0–3 顆星（第一候選就對 3、候選裡有 2、長字只差一兩個字母 1，短字差一個字母不給，
   同音字表 `SAME` 算對）；同時用 MediaRecorder 錄音讓學生重聽，錄音與星星都只存在瀏覽器（localStorage），不上傳。
-  單字來源：ABC 代表字、各發音課、零基礎主題（`/phonics/<id>/words?theme=B01`）
+  單字來源：零基礎與一般英文主題（`/phonics/<id>/words?theme=B01`，附音標）、各發音規則課、ABC 代表字
 
 ## 單字測驗區怎麼運作
 
@@ -234,7 +239,7 @@ basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權
   學習紀錄、收藏、測驗作答與題目 JSON 都轉到留下的那筆。**雅思字庫不能有重複字**，換主題改「主題」欄就好
 - ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
 - ✅ 考試類型選擇頁；多益區（藍色）：4,002 字單字學習＋單字測驗（TSL＋BSL＋NGSL）
-- ✅ 英文零基礎（橘色）：ABC 字母、自然發音 6 課、聽音選字，加上 2,006 字單字學習＋單字測驗
+- ✅ 英文零基礎（橘色）：單字發音教學（音標、音節、重音、慢速、跟讀評分）、發音規則 6 課、聽音選字、ABC，加上 2,006 字單字學習＋單字測驗
 - ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
 - ⬜ 韓檢、日檢；學生登入與後台開通權限
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）

@@ -1,22 +1,21 @@
-"""英文零基礎：ABC 字母與自然發音（phonics）教學頁。
+"""英文零基礎：單字發音教學頁（/phonics/<學生id>）。
 
-網址 /phonics/<學生id>，入口在零基礎的主介面（exams.py 的 features 有 "phonics"）。
-頁面分三塊：
-1. ABC 字母：大小寫、字母名稱、字母的「代表音」與代表單字、嘴型提示
-2. 自然發音課：短母音、長母音（Magic e）、子音組合、子音連音、母音組合、r 控制母音
-   每個單字可以「拼拼看」：一格一格亮起來再唸出整個字（c·a·t → cat）
+入口在零基礎的主介面（exams.py 的 features 有 "phonics"）。重點是「每個單字怎麼唸」：
+1. 單字發音（主角）：選主題逐字學。每個字有 KK 音標、音節拆解與重音、正常／慢速示範、
+   「一個音節一個音節」的慢速拆唸、這個字用到的發音規則（連到發音規則課），最後按麥克風跟讀，
+   瀏覽器語音辨識（Edge 送微軟、Chrome 送 Google）聽懂就給星星，也能重聽自己的錄音（錄音不上傳）
+2. 發音規則：短母音、Magic e、子音組合、子音連音、母音組合、r 控制母音，每個字可以「拼拼看」
 3. 聽音選字：聽一個字，從長得很像的幾個字裡選出來（cat／cut／cot）
-4. 跟讀評分：學生對著麥克風唸，瀏覽器的語音辨識（Edge 送微軟、Chrome 送 Google）聽懂就給星星，
-   同時錄下聲音讓學生和標準發音對照。錄音只留在瀏覽器，不上傳到網站
+4. ABC 字母（補充）：大小寫、KK 音標、嘴型、ABC 唸唸歌
 
-教法比照國外小學的 phonics：字母的「音」用 KK 音標＋嘴型圖＋代表單字，ABC 唸唸歌用
-"A is for apple" 的節奏；注音只當輔助提示。
-
-發音一律用 UI.speak（Edge 神經語音，或伺服器 /tts）。電腦語音沒辦法單獨唸出 /k/ 這種「音」，
-所以字母的音用「代表單字」示範，並附注音近似音與嘴型說明，由老師或學生跟著唸。
-
-單字的拆法寫成 "c.a.t"：每一格是一個發音單位；前面加 * 的格子不發音（例如 Magic e 的 e）。
+音標資料在 pronunciation/kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生）。
+電腦語音沒辦法單獨唸出 /k/ 這種「音」，所以音節拆唸是把整個字放慢、音節一格一格亮起來。
+發音規則課的單字寫成 "c.a.t"：每一格是一個發音單位；前面加 * 的格子不發音（例如 Magic e 的 e）。
 """
+import json
+import os
+import re
+
 from flask import Blueprint, jsonify, render_template, request
 
 bp = Blueprint('phonics', __name__)
@@ -154,24 +153,104 @@ def lessons_json():
     return out
 
 
+KK_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pronunciation', 'kk.json')
+_kk = None
+
+
+def kk_table():
+    global _kk
+    if _kk is None:
+        try:
+            with open(KK_PATH, encoding='utf-8') as f:
+                _kk = json.load(f)
+        except OSError:
+            _kk = {}
+    return _kk
+
+
+# 單字裡看得到的發音規則：(拼字的正規表示式, 要在 KK 裡出現的音, 顯示的拼法, 提示, 發音規則課的 key)
+# 拼字對上、KK 也真的有那個音才顯示（例如 bread 的 ea 唸 /ɛ/，就不提示「ea 唸長長的一」）
+RULES = [
+    (r'a[^aeiouy]e$', 'e', 'a_e', '字尾不發音的 e，a 唸字母名字 /e/', 'magic-e'),
+    (r'i[^aeiouy]e$', 'aɪ', 'i_e', '字尾不發音的 e，i 唸字母名字 /aɪ/', 'magic-e'),
+    (r'o[^aeiouy]e$', 'o', 'o_e', '字尾不發音的 e，o 唸字母名字 /o/', 'magic-e'),
+    (r'u[^aeiouy]e$', 'ju', 'u_e', '字尾不發音的 e，u 唸字母名字 /ju/', 'magic-e'),
+    (r'a[iy]', 'e', 'ai／ay', '唸 A 的名字 /e/', 'team'),
+    (r'ee|ea', 'i', 'ee／ea', '長長的 /i/', 'team'),
+    (r'oa|ow', 'o', 'oa／ow', '唸 O 的名字 /o/', 'team'),
+    (r'ou|ow', 'aʊ', 'ou／ow', '/aʊ/，像被嚇到的 ouch', 'team'),
+    (r'oi|oy', 'ɔɪ', 'oi／oy', '/ɔɪ/', 'team'),
+    (r'oo', 'u', 'oo', '長的 /u/', 'team'),
+    (r'oo', 'ʊ', 'oo', '短的 /ʊ/，像 book', 'team'),
+    (r'ar', 'ɑr', 'ar', '/ɑr/，ㄚ再捲舌', 'r-vowel'),
+    (r'or', 'ɔr', 'or', '/ɔr/，ㄛ再捲舌', 'r-vowel'),
+    (r'[eiu]r', 'ɝ', 'er／ir／ur', '捲舌的 /ɝ/（重音）', 'r-vowel'),
+    (r'er$|ar$|or$', 'ɚ', '字尾 er', '輕輕捲舌的 /ɚ/', 'r-vowel'),
+    (r'sh', 'ʃ', 'sh', '/ʃ/，嘟嘴像叫人安靜', 'digraph'),
+    (r'tch|ch', 'tʃ', 'ch', '/tʃ/，嘟嘴的ㄑ', 'digraph'),
+    (r'th', 'θ', 'th', '/θ/，舌尖放在上下牙齒中間吹氣', 'digraph'),
+    (r'th', 'ð', 'th', '/ð/，舌尖在齒間、喉嚨震動', 'digraph'),
+    (r'ph', 'f', 'ph', '和 f 一樣 /f/', 'digraph'),
+    (r'ck', 'k', 'ck', '和 k 一樣 /k/', 'digraph'),
+    (r'ng', 'ŋ', 'ng', '/ŋ/，從鼻子出聲', 'digraph'),
+    (r'^(bl|cl|fl|gl|pl|sl|br|cr|dr|fr|gr|pr|tr|sc|sk|sm|sn|sp|st|sw)', '', '連音', '開頭兩個子音要一口氣唸', 'blend'),
+]
+LESSON_NO = {}
+
+
+def rules_for(word, kk):
+    """這個字用到哪些發音規則（最多 3 個）。"""
+    w, out, seen = word.lower(), [], set()
+    for pat, sound, label, hint, lesson in RULES:
+        m = re.search(pat, w)
+        if not m or (sound and sound not in kk) or label in seen:
+            continue
+        if label == '連音':
+            label = m.group(1)
+        seen.add(label)
+        out.append({"pat": label, "kk": sound, "hint": hint, "lesson": lesson})
+        if len(out) >= 3:
+            break
+    # 三、四個字母的短字：只有一個母音字母又是短母音，提示短母音
+    vowels = [c for c in w if c in 'aeiou']
+    short = {'a': 'æ', 'e': 'ɛ', 'i': 'ɪ', 'o': 'ɑ', 'u': 'ʌ'}
+    if not out and len(w) <= 5 and len(vowels) == 1 and short[vowels[0]] in kk and not w.endswith('e'):
+        out.append({"pat": vowels[0], "kk": short[vowels[0]], "hint": '夾在子音中間的短母音', "lesson": 'short'})
+    return out
+
+
+def pron_of(word):
+    """單字的發音資料：kk、音節、重音、拼字音節、發音規則；字典沒有就回 None。"""
+    p = kk_table().get(word.strip().lower())
+    if not p:
+        return None
+    return dict(p, rules=rules_for(word, p["kk"]))
+
+
 def register(app, get_student, Vocabulary, theme_condition, themes):
-    """themes：零基礎的官方主題（跟讀評分可以挑主題練單字）。"""
-    basic_themes = [t for t in themes if t["course"] == "BASIC"]
+    """themes：官方主題，單字發音可以挑零基礎（BASIC）與一般英文（GENERAL）的主題。"""
+    word_themes = {t["id"]: t for t in themes if t["course"] in ("BASIC", "GENERAL")}
 
     @bp.route('/phonics/<int:student_id>')
     def phonics_home(student_id):
         student = get_student(student_id)
+        # 發音規則課與 ABC 的字也附上音標，單字發音分頁可以直接練
+        extra = {w: pron_of(w) for w in
+                 [x[1] for x in LETTERS] + [w["word"] for l in lessons_json() for p in l["patterns"] for w in p["words"]]}
         return render_template('phonics.html', student=student, letters=LETTERS, mouths=MOUTHS,
-                               lessons=lessons_json(), listen_sets=LISTEN_SETS, basic_themes=basic_themes)
+                               lessons=lessons_json(), listen_sets=LISTEN_SETS,
+                               basic_themes=[t for t in word_themes.values() if t["course"] == "BASIC"],
+                               general_themes=[t for t in word_themes.values() if t["course"] == "GENERAL"],
+                               pron={k: v for k, v in extra.items() if v})
 
     @bp.route('/phonics/<int:student_id>/words')
     def phonics_words(student_id):
-        """跟讀評分用：某個零基礎主題的單字（拼字、中文、例句），同拼字只給一次。"""
+        """單字發音用：某個主題的單字（拼字、中文、例句、音標），同拼字只給一次。"""
         get_student(student_id)
-        theme = request.args.get('theme', '')
-        if theme not in {t["id"] for t in basic_themes}:
+        theme = word_themes.get(request.args.get('theme', ''))
+        if not theme:
             return jsonify([])
-        rows = Vocabulary.query.filter(Vocabulary.category == 'BASIC', theme_condition(theme)) \
+        rows = Vocabulary.query.filter(Vocabulary.category == theme["course"], theme_condition(theme["id"])) \
             .order_by(Vocabulary.id).all()
         seen, out = set(), []
         for v in rows:
@@ -179,7 +258,8 @@ def register(app, get_student, Vocabulary, theme_condition, themes):
             if key in seen or ' ' in key:
                 continue
             seen.add(key)
-            out.append({"word": v.word.strip(), "zh": v.meaning or '', "sentence": v.sentence or ''})
+            out.append({"word": v.word.strip(), "zh": v.meaning or '', "sentence": v.sentence or '',
+                        "pron": pron_of(key)})
         return jsonify(out)
 
     app.register_blueprint(bp)
