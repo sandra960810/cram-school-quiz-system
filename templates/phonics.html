@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABC 與發音教學</title>
+    <title>單字發音教學</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
@@ -60,9 +60,22 @@
         /* 跟讀評分 */
         .sh-pick { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
         .sh-pick select { max-width: 100%; min-width: 0;  font-family: inherit; font-size: 15px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: #fff; color: var(--ink); }
-        .sh-word { font-size: 52px; font-weight: bold; color: var(--ink); margin: 6px 0 2px; letter-spacing: 1px; }
+        .sh-word { font-size: 52px; font-weight: bold; color: var(--ink); margin: 6px 0 2px; letter-spacing: 1px; display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; }
+        .sh-word .sy { padding: 0 4px; border-radius: 10px; transition: background .15s, color .15s; }
+        .sh-word .sy.stress { color: var(--primary); text-decoration: underline; text-decoration-thickness: 4px; text-underline-offset: 8px; }
+        .sh-word .sy.lit { background: var(--primary); color: #fff; }
+        .sh-word .dot { color: var(--muted-2); font-weight: normal; padding: 0 2px; }
+        .sh-kk { font-family: "Lucida Sans Unicode", "Segoe UI", Arial, sans-serif; font-size: 24px; color: var(--primary-600); margin-top: 6px; }
+        .sh-kk .sk { border-radius: 6px; }
+        .sh-kk .sk.lit { background: var(--primary-50); }
+        .sh-meta { color: var(--muted); font-size: 14px; margin-top: 4px; }
+        .sh-rules { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+        .rule-chip { border: none; background: var(--surface-2); color: var(--ink-2); border-radius: 999px; padding: 6px 12px; font-size: 14px; cursor: pointer; font-family: inherit; }
+        .rule-chip b { color: var(--primary); }
+        .rule-chip:hover { box-shadow: 0 0 0 1px var(--primary-300); }
+        .sh-sent-row { margin-top: 12px; }
+        .sh-sent-row .pair { font-size: 15px; }
         .sh-zh { color: var(--muted); font-size: 17px; }
-        .sh-sent { color: var(--ink-2); margin-top: 8px; font-size: 15px; }
         .sh-btns { display: flex; gap: 16px; justify-content: center; margin: 20px 0 10px; flex-wrap: wrap; }
         .round-btn { border: none; width: 84px; height: 84px; border-radius: 50%; font-size: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-direction: column; font-family: inherit; }
         .round-btn small { font-size: 12px; margin-top: 2px; }
@@ -108,6 +121,10 @@
             body { padding: 24px 16px; }
             .abc-grid { grid-template-columns: repeat(2, 1fr); }
             .letter .big { font-size: 38px; }
+            .sh-btns { gap: 10px; }
+            .round-btn { width: 70px; height: 70px; font-size: 26px; }
+            .round-btn small { font-size: 11px; }
+            .sh-word { font-size: 42px; }
         }
     </style>
 </head>
@@ -118,20 +135,20 @@
         <a href="/learn/{{ student.id }}" class="nav-next">{{ icon('library') }} 去學單字<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>{{ icon('letter') }} ABC 與發音教學</h1>
-        <p>比照國外小學的 phonics：字母的音看 KK 音標和嘴型，學會「看到字就會唸、聽到字就會拼」。<br>
-           每個字都可以點來聽；到「跟讀評分」對著麥克風唸，電腦會幫你打星星。</p>
+        <h1>{{ icon('volume') }} 單字發音教學</h1>
+        <p>一個字一個字學怎麼唸：看 KK 音標和音節、找重音，先聽正常速度再聽慢速拆音節，最後對著麥克風跟讀，電腦幫你打星星。<br>
+           看到不懂的拼法，點「發音規則」就會帶你去學那個規則。</p>
     </div>
 
     <div class="tabs" role="tablist">
-        <button class="tab on" data-tab="abc">{{ icon('type') }} ABC 字母</button>
-        <button class="tab" data-tab="phonics">{{ icon('volume') }} 自然發音</button>
+        <button class="tab on" data-tab="shadow">{{ icon('mic') }} 單字發音</button>
+        <button class="tab" data-tab="phonics">{{ icon('book-open') }} 發音規則</button>
         <button class="tab" data-tab="listen">{{ icon('headphones') }} 聽音選字</button>
-        <button class="tab" data-tab="shadow">{{ icon('mic') }} 跟讀評分</button>
+        <button class="tab" data-tab="abc">{{ icon('type') }} ABC 字母</button>
     </div>
 
     <!-- 1. ABC 字母 -->
-    <section class="panel on" id="panel-abc">
+    <section class="panel" id="panel-abc">
         <div class="tools">
             <button class="btn" id="play-abc">{{ icon('volume') }} 從 A 唸到 Z</button>
             <button class="btn ghost" id="chant-abc">{{ icon('sparkle') }} 唸唸歌：A is for apple</button>
@@ -213,17 +230,20 @@
         </div>
     </section>
 
-    <!-- 4. 跟讀評分 -->
-    <section class="panel" id="panel-shadow">
+    <!-- 單字發音（預設分頁）：音標、音節、重音、慢速拆唸、發音規則、跟讀評分 -->
+    <section class="panel on" id="panel-shadow">
         <div class="sh-pick">
-            <label for="sh-src"><b>練習哪些字：</b></label>
+            <label for="sh-src"><b>學哪些字：</b></label>
             <select id="sh-src">
-                <optgroup label="ABC 與自然發音">
-                    <option value="letters">ABC 代表單字（apple、ball…）</option>
-                    {% for l in lessons %}<option value="lesson:{{ loop.index0 }}">發音課 {{ loop.index }}：{{ l.title }}</option>{% endfor %}
-                </optgroup>
-                <optgroup label="零基礎單字主題">
+                <optgroup label="零基礎單字">
                     {% for t in basic_themes %}<option value="theme:{{ t.id }}">{{ t.id }} {{ t.name }}</option>{% endfor %}
+                </optgroup>
+                <optgroup label="一般英文單字">
+                    {% for t in general_themes %}<option value="theme:{{ t.id }}">{{ t.id }} {{ t.name }}</option>{% endfor %}
+                </optgroup>
+                <optgroup label="發音規則課的字">
+                    {% for l in lessons %}<option value="lesson:{{ loop.index0 }}">規則 {{ loop.index }}：{{ l.title }}</option>{% endfor %}
+                    <option value="letters">ABC 代表單字（apple、ball…）</option>
                 </optgroup>
             </select>
             <button class="btn ghost" id="sh-shuffle">{{ icon('refresh') }} 換一批</button>
@@ -231,15 +251,19 @@
         <div class="quiz-box">
             <div class="quiz-progress" id="sh-progress"></div>
             <div class="sh-word" id="sh-word"></div>
+            <div class="sh-kk" id="sh-kk"></div>
+            <div class="sh-meta" id="sh-meta"></div>
             <div class="sh-zh" id="sh-zh"></div>
-            <div class="sh-sent" id="sh-sent"></div>
+            <div class="sh-rules" id="sh-rules"></div>
             <div class="sh-btns">
-                <button class="round-btn play" id="sh-play">{{ icon('volume') }}<small>聽標準音</small></button>
+                <button class="round-btn play" id="sh-play">{{ icon('volume') }}<small>正常速度</small></button>
+                <button class="round-btn play" id="sh-slow">{{ icon('slow') }}<small>慢速拆音節</small></button>
                 <button class="round-btn rec" id="sh-rec">{{ icon('mic') }}<small id="sh-rec-label">按我跟讀</small></button>
                 <button class="round-btn mine" id="sh-mine" disabled>{{ icon('headphones') }}<small>聽我的</small></button>
             </div>
             <div class="stars" id="sh-stars"></div>
             <div class="sh-heard" id="sh-heard">先聽一次標準發音，再按麥克風跟著唸</div>
+            <div class="sh-sent-row"><button class="pair" id="sh-sent-play" hidden>{{ icon('volume') }} <span id="sh-sent"></span></button></div>
             <div class="tools" style="justify-content:center;margin-top:14px">
                 <button class="btn ghost" id="sh-prev">← 上一個</button>
                 <button class="btn" id="sh-next">下一個 →</button>
@@ -258,6 +282,7 @@
 const LETTERS = {{ letters|tojson }};
 const MOUTHS = {{ mouths|tojson }};
 const LESSONS = {{ lessons|tojson }};
+const PRON = {{ pron|tojson }};   // 發音規則課與 ABC 代表字的音標
 const LISTEN_SETS = {{ listen_sets|tojson }};
 const STORE_KEY = 'phonics-practiced-{{ student.id }}';
 
@@ -284,7 +309,7 @@ function sayOne(text) { token++; UI.speak(text); }
 // 分頁
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     token++;
-    if (typeof stopRec === 'function' && t.dataset.tab !== 'shadow') stopRec();
+    if (t.dataset.tab !== 'shadow') stopRec();
     document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'panel-' + t.dataset.tab));
     if (t.dataset.tab === 'listen' && !quiz.started) startQuiz();
@@ -466,10 +491,10 @@ function saveStars() { try { localStorage.setItem(srcKey(), JSON.stringify(sh.st
 async function loadSource() {
     const v = $('sh-src').value;
     let list = [];
-    if (v === 'letters') list = LETTERS.map(x => ({ word: x[1], zh: `${x[0]} 的代表單字　/${x[2]}/` }));
+    if (v === 'letters') list = LETTERS.map(x => ({ word: x[1], zh: `${x[0]} 的代表單字`, pron: PRON[x[1]] }));
     else if (v.startsWith('lesson:')) {
         const l = LESSONS[+v.slice(7)];
-        l.patterns.forEach(p => p.words.forEach(w => list.push({ word: w.word, zh: `${p.pat}　/${p.kk}/` })));
+        l.patterns.forEach(p => p.words.forEach(w => list.push({ word: w.word, zh: `規則 ${p.pat}　/${p.kk}/`, pron: PRON[w.word] })));
     } else if (v.startsWith('theme:')) {
         $('sh-heard').textContent = '載入單字中…';
         try {
@@ -489,22 +514,68 @@ function pickBatch(random) {
     sh.idx = 0;
     showShadow();
 }
+let userActed = false;   // 第一次載入不自動發音（瀏覽器會擋），使用者動過之後換字就自動唸
+document.addEventListener('pointerdown', () => { userActed = true; }, { once: true });
+function esc(t) { return String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function showShadow() {
     stopRec();
+    token++;
     const w = sh.list[sh.idx];
-    if (!w) { $('sh-word').textContent = '這裡還沒有單字'; return; }
+    if (!w) { $('sh-word').textContent = '這裡還沒有單字'; ['sh-kk', 'sh-meta', 'sh-zh', 'sh-rules'].forEach(id => $(id).innerHTML = ''); return; }
+    const p = w.pron;
     $('sh-progress').textContent = `第 ${sh.idx + 1} / ${sh.list.length} 個`;
-    $('sh-word').textContent = w.word;
+    // 拼字：有拆音節就一格一格顯示，重音那格用主色加底線
+    if (p && p.spell && p.spell.length > 1) {
+        $('sh-word').innerHTML = p.spell.map((x, i) => `<span class="sy${p.stress[i] === 1 ? ' stress' : ''}">${esc(x)}</span>`)
+            .join('<span class="dot">·</span>');
+    } else {
+        $('sh-word').innerHTML = `<span class="sy">${esc(w.word)}</span>`;
+    }
+    if (p) {
+        $('sh-kk').innerHTML = '/' + (p.syl.length > 1
+            ? p.syl.map((x, i) => `<span class="sk">${p.stress[i] === 1 ? 'ˈ' : p.stress[i] === 2 ? 'ˌ' : ''}${esc(x)}</span>`).join('')
+            : `<span class="sk">${esc(p.kk)}</span>`) + '/';
+        const n = p.syl.length, at = p.stress.indexOf(1) + 1;
+        $('sh-meta').textContent = 'KK 音標・' + (n > 1 ? `${n} 個音節，重音在第 ${at} 個（底線那格要唸得比較重、比較長）` : '1 個音節');
+        $('sh-rules').innerHTML = (p.rules || []).map(r =>
+            `<button class="rule-chip" data-lesson="${r.lesson}">發音規則 <b>${esc(r.pat)}</b>${r.kk ? ' /' + esc(r.kk) + '/' : ''}：${esc(r.hint)} →</button>`).join('');
+    } else {
+        $('sh-kk').innerHTML = ''; $('sh-meta').textContent = ''; $('sh-rules').innerHTML = '';
+    }
     $('sh-zh').textContent = w.zh || '';
     $('sh-sent').textContent = w.sentence || '';
+    $('sh-sent-play').hidden = !w.sentence;
     drawStars(sh.stars[w.word]);
-    $('sh-heard').textContent = sh.stars[w.word] != null ? '之前練過了，可以再挑戰一次' : '先聽一次標準發音，再按麥克風跟著唸';
+    $('sh-heard').textContent = sh.stars[w.word] != null ? '之前練過了，可以再挑戰一次' : '先聽正常速度，再聽慢速拆音節，最後按麥克風跟著唸';
     if (sh.myUrl) { URL.revokeObjectURL(sh.myUrl); sh.myUrl = null; }
     $('sh-mine').disabled = true;
     $('sh-prev').disabled = sh.idx === 0;
     updateTotal();
-    setTimeout(() => { if ($('panel-shadow').classList.contains('on')) sayOne(w.word); }, 250);
+    if (userActed) setTimeout(() => { if ($('panel-shadow').classList.contains('on')) sayOne(w.word); }, 250);
 }
+// 慢速拆音節：整個字放慢唸，同時音節一格一格亮起來（電腦語音沒辦法單獨唸一個音節，放慢最接近）
+function slowSplit() {
+    const w = sh.list[sh.idx];
+    if (!w) return;
+    const my = ++token;
+    const sy = [...document.querySelectorAll('#sh-word .sy')], sk = [...document.querySelectorAll('#sh-kk .sk')];
+    const n = Math.max(sy.length, 1), step = 520;
+    const light = i => { sy.forEach((e, k) => e.classList.toggle('lit', k === i)); sk.forEach((e, k) => e.classList.toggle('lit', k === i)); };
+    let i = 0;
+    (function tick() {
+        if (my !== token || i >= n) { light(-1); if (my === token) UI.speak(w.word, { rate: 0.55 }); return; }
+        light(i++); setTimeout(tick, step);
+    })();
+}
+$('sh-slow').addEventListener('click', slowSplit);
+$('sh-sent-play').addEventListener('click', () => { const w = sh.list[sh.idx]; if (w && w.sentence) sayOne(w.sentence); });
+$('sh-rules').addEventListener('click', e => {
+    const b = e.target.closest('.rule-chip');
+    if (!b) return;
+    document.querySelector('.tab[data-tab="phonics"]').click();
+    const nav = document.querySelector(`.lesson-nav button[data-lesson="${b.dataset.lesson}"]`);
+    if (nav) { nav.click(); nav.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+});
 function drawStars(n) {
     $('sh-stars').innerHTML = n == null ? '' : [0, 1, 2].map(i => `<span class="${i < n ? 'lit' : ''}">★</span>`).join('');
 }
@@ -593,10 +664,8 @@ $('sh-next').addEventListener('click', () => { if (sh.idx < sh.list.length - 1) 
 $('sh-prev').addEventListener('click', () => { if (sh.idx > 0) { sh.idx--; showShadow(); } });
 $('sh-shuffle').addEventListener('click', () => pickBatch(true));
 $('sh-src').addEventListener('change', loadSource);
-let shadowStarted = false;
-document.querySelector('.tab[data-tab="shadow"]').addEventListener('click', () => {
-    if (!shadowStarted) { shadowStarted = true; loadSource(); } else showShadow();
-});
+document.querySelector('.tab[data-tab="shadow"]').addEventListener('click', () => showShadow());
+loadSource();   // 單字發音是預設分頁，一進來就載入第一個主題
 </script>
 </body>
 </html>
