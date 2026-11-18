@@ -64,6 +64,8 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 phonics.py          英文零基礎的單字發音教學頁 /phonics/<學生id>：單字發音（主角）、發音規則、聽音選字、ABC 字母
 pronunciation/      單字 KK 音標 kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生，見 README）
 basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
+admin.py            管理員後台 /admin：新增、編輯、刪除單字（要密碼；樣板在 templates/admin/）
+reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設定
 ```
 
 資料模型都在 `app.py` 上半部：`Student`、`Vocabulary`、`LearningProgress`、
@@ -98,6 +100,21 @@ basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權
   回傳最多 5 個候選，`scoreOf()` 給 0–3 顆星（第一候選就對 3、候選裡有 2、長字只差一兩個字母 1，短字差一個字母不給，
   同音字表 `SAME` 算對）；同時用 MediaRecorder 錄音讓學生重聽，錄音與星星都只存在瀏覽器（localStorage），不上傳。
   單字來源：零基礎與一般英文主題（`/phonics/<id>/words?theme=B01`，附音標）、各發音規則課、ABC 代表字
+
+## 管理員後台（admin.py）
+
+- 網址 `/admin`，入口在選擇考試頁最下面。目前只管單字（四個課程），題庫編輯還沒做
+- **一定要密碼**：網站會用公開連結分享、學生靠網址編號辨識，不能讓拿到連結的人改資料。
+  第一次設定密碼只能在櫃台電腦本機（看 `Cf-Connecting-Ip` 等標頭分辨是不是經過 Cloudflare 通道）；
+  密碼雜湊存 `instance/admin.json`、session 金鑰存 `instance/secret_key.txt`（都不進 git）；
+  輸錯 5 次鎖 10 分鐘；改密碼後其他裝置的登入失效；表單都帶 csrf
+- **刪除不是真的刪**：課程改成 `TRASH:原課程`，所有用課程篩選的查詢自然就看不到，學生的學習紀錄、收藏不動，
+  回收區可以救回。不要改成真的刪除，學生紀錄綁在 vocab_id 上
+- **後台動過的字不會被 run.bat 的匯入蓋回去**：`Vocabulary.admin_locked` 標記，`src_key` 記下第一次動它之前
+  在單字檔裡的「課程|主題|單字」。`import_sheet.py` 依編號、`src_key`、或（課程,主題,單字）找到的字只要是
+  admin_locked 就跳過，所以改拼字、換主題、刪除之後都不會被重新加回來；`dedupe_vocab.py` 合併時優先留後台改過的那筆
+- 同一課程不能有重複拼字（新增、改拼字、救回時都會檢查）
+- 新增的零基礎／一般英文單字沒有 KK 音標，要重跑 `tools/make_pronunciation.py`
 
 ## 單字測驗區怎麼運作
 
@@ -241,6 +258,8 @@ basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權
 - ✅ 考試類型選擇頁；多益區（藍色）：4,002 字單字學習＋單字測驗（TSL＋BSL＋NGSL）
 - ✅ 英文零基礎（橘色）：單字發音教學（音標、音節、重音、慢速、跟讀評分）、發音規則 6 課、聽音選字、ABC，加上 2,006 字單字學習＋單字測驗
 - ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
+- ✅ 管理員後台：單字新增、編輯、刪除（回收區可救回），密碼保護
+- ⬜ 後台編輯題庫（聽說讀寫）
 - ⬜ 韓檢、日檢；學生登入與後台開通權限
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10

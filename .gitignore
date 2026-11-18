@@ -33,3 +33,7 @@ ai_key_log.txt
 # 口說測驗的錄音檔（學生的聲音，只存在本機）
 instance/speaking_audio/
 instance/tts_cache/
+
+# 管理員後台的密碼（只存雜湊值）與登入用的金鑰，只存在本機
+instance/admin.json
+instance/secret_key.txt

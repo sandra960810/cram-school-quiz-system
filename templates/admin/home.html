@@ -1,0 +1,29 @@
+{% extends 'admin/base.html' %}
+{% block head %}<style>
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.card { background: #fff; border-radius: 14px; padding: 18px 20px; text-decoration: none; color: var(--ink); box-shadow: 0 0 0 1px var(--line); border-top: 6px solid var(--tone); display: flex; flex-direction: column; gap: 6px; transition: transform .15s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--tone-300), 4px 4px 0 var(--tone-100); }
+.card .nm { font-size: 20px; font-weight: bold; }
+.card .ct { color: var(--tone); font-weight: bold; font-size: 14px; }
+.card .tr { color: var(--muted); font-size: 12px; }
+</style>{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('library') }} 單字管理</h1>
+<p>選一個課程，就可以搜尋、新增、修改或刪除單字。改完學生重新整理頁面就會看到，單字測驗的題目也會跟著更新。</p></div>
+<div class="cards">
+    {% for c in cards %}
+    <a class="card exam-tone-{{ c.exam }}" href="{{ url_for('admin.vocab_list', course=c.course) }}">
+        <span class="nm">{{ c.name }}</span>
+        <span class="ct">{{ '{:,}'.format(c.count) }} 筆單字 →</span>
+        {% if c.trash %}<span class="tr">回收區 {{ c.trash }} 筆</span>{% endif %}
+    </a>
+    {% endfor %}
+</div>
+<div class="panel" style="margin-top:18px">
+    <h2>{{ icon('bulb') }} 小提醒</h2>
+    <p class="muted" style="margin:0">
+    ・刪除的字會先放進「回收區」，學生看不到，但學過、收藏的紀錄都保留，隨時可以救回。<br>
+    ・在後台改過的字，以後重新開網站（run.bat）也不會被單字檔蓋回去。<br>
+    ・同一個課程裡不能有兩個一樣的字，新增時會自動檢查。</p>
+</div>
+{% endblock %}

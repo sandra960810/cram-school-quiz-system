@@ -1,0 +1,83 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ '編輯 ' ~ v.word if v else '新增單字' }}{% endblock %}
+{% block head %}<style>
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+.actions .sp { flex: 1; }
+.usage { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--muted); margin-top: 8px; }
+.usage b { color: var(--ink); }
+.danger-zone { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 16px; }
+.speak { margin-left: 6px; }
+</style>{% endblock %}
+{% block body %}
+{% set list_url = back or url_for('admin.vocab_list', course=course) %}
+<div class="topbar" style="margin-bottom:10px"><a href="{{ list_url }}">← 回{{ course_label }}單字列表</a></div>
+<div class="hero">
+    <h1>{{ icon('pencil') }} {{ '編輯「' ~ v.word ~ '」' if v else '新增' ~ course_label ~ '單字' }}</h1>
+    <p>{% if v %}改完按「儲存」，學生的學習紀錄與收藏都會保留。{% else %}填好按「新增」，學生馬上就能在單字學習區看到。{% endif %}</p>
+</div>
+{% for e in errors %}<div class="flash bad">{{ e }}</div>{% endfor %}
+{% for h in hints or [] %}<div class="flash warn">{{ h }}</div>{% endfor %}
+<div class="panel">
+    <form method="post" id="f">
+        <input type="hidden" name="csrf" value="{{ admin_csrf }}">
+        <input type="hidden" name="back" value="{{ back }}">
+        <div class="row2">
+            <div><label class="f">單字 <span class="req">*</span>
+                <button type="button" class="linkbtn speak" onclick="UI.speak(document.getElementById('word').value)">{{ icon('volume') }} 聽發音</button></label>
+                <input type="text" name="word" id="word" value="{{ vals.word }}" required maxlength="100" autocomplete="off" spellcheck="false"></div>
+            <div><label class="f">詞性 <span class="tip">例如 n.、v.、adj.</span></label>
+                <input type="text" name="pos" value="{{ vals.pos }}" maxlength="20" autocomplete="off"></div>
+        </div>
+        <div class="row2">
+            <div><label class="f">主題 <span class="req">*</span></label>
+                <select name="theme" required>
+                    <option value="">請選擇</option>
+                    {% set found = namespace(v=false) %}
+                    {% for k, label in themes %}
+                    {% set sel = (k == vals.theme or k.split(' ')[0] == (vals.theme or '').split(' ')[0]) and not found.v %}
+                    {% if sel %}{% set found.v = true %}{% endif %}
+                    <option value="{{ k }}" {{ 'selected' if sel }}>{{ label }}</option>
+                    {% endfor %}
+                </select></div>
+            <div><label class="f">程度</label>
+                <select name="level">{% for l in levels %}<option {{ 'selected' if l == vals.level }}>{{ l }}</option>{% endfor %}</select></div>
+        </div>
+        <label class="f">中文意思 <span class="tip">中文意思和英文解釋至少填一個</span></label>
+        <input type="text" name="meaning_zh" value="{{ vals.meaning_zh }}" maxlength="200" autocomplete="off">
+        <label class="f">英文解釋</label>
+        <input type="text" name="meaning_en" value="{{ vals.meaning_en }}" maxlength="500" autocomplete="off">
+        <label class="f">例句 <span class="tip">例句裡有這個字，單字測驗才會出「例句填空」題</span></label>
+        <textarea name="sentence" maxlength="500">{{ vals.sentence }}</textarea>
+        <label class="f">例句中譯</label>
+        <textarea name="sentence_zh" maxlength="500">{{ vals.sentence_zh }}</textarea>
+        <div class="actions">
+            <button class="btn">{{ '儲存' if v else '新增' }}</button>
+            {% if not v %}<button class="btn ghost" name="again" value="1">新增後再加下一個</button>{% endif %}
+            <a class="btn ghost" href="{{ list_url }}">取消</a>
+        </div>
+    </form>
+    {% if v %}
+    <div class="danger-zone">
+        <div class="usage">
+            <span>學過這個字的學生：<b>{{ learned }}</b> 位</span>
+            <span>收藏的學生：<b>{{ fav }}</b> 位</span>
+        </div>
+        <form method="post" action="{{ url_for('admin.vocab_delete', course=course, vocab_id=v.id) }}" id="del" style="margin-top:12px">
+            <input type="hidden" name="csrf" value="{{ admin_csrf }}">
+            <input type="hidden" name="back" value="{{ back }}">
+            <div id="ask">
+                <button type="button" class="btn danger small" onclick="ask.hidden=true;sure.hidden=false">{{ icon('x-circle') }} 刪除這個字</button>
+                <span class="muted" style="margin-left:8px">會先放進回收區，學生紀錄保留，可以救回</span>
+            </div>
+            <div id="sure" class="flash warn" hidden>
+                確定要刪除「{{ v.word }}」嗎？學生之後看不到這個字，也不會再考到；學過、收藏的紀錄會保留，之後可以從回收區救回。
+                <div style="margin-top:10px;display:flex;gap:8px">
+                    <button class="btn danger small">確定刪除</button>
+                    <button type="button" class="btn ghost small" onclick="sure.hidden=true;ask.hidden=false">不要刪</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

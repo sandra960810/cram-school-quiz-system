@@ -50,6 +50,9 @@ class Vocabulary(db.Model):
     meaning_en = db.Column(db.String(500))   # 英文解釋
     sentence = db.Column(db.String(500))
     sentence_zh = db.Column(db.String(500))  # 例句中譯
+    # 管理員後台改過、新增或刪除（移到回收區）的字：匯入單字檔時跳過，不會被蓋回去（見 admin.py）
+    admin_locked = db.Column(db.Boolean, default=False)
+    src_key = db.Column(db.String(200))      # 管理員第一次動它之前，它在單字檔裡的「課程|主題|單字」
 
 
 class LearningProgress(db.Model):
@@ -150,7 +153,8 @@ class Favorite(db.Model):
 
 
 # 舊版資料庫沒有的欄位：啟動時自動補上（SQLite 的 create_all 不會幫既有的表加欄位）
-NEW_VOCAB_COLUMNS = [("pos", "VARCHAR(20)"), ("meaning_en", "VARCHAR(500)"), ("sentence_zh", "VARCHAR(500)")]
+NEW_VOCAB_COLUMNS = [("pos", "VARCHAR(20)"), ("meaning_en", "VARCHAR(500)"), ("sentence_zh", "VARCHAR(500)"),
+                     ("admin_locked", "BOOLEAN DEFAULT 0"), ("src_key", "VARCHAR(200)")]
 
 with app.app_context():
     db.create_all()
@@ -1329,6 +1333,14 @@ app.register_blueprint(word_audio.bp)
 # 英文零基礎的 ABC 與自然發音教學頁（程式在 phonics.py）
 import phonics  # noqa: E402
 phonics.register(app, get_student, Vocabulary, theme_condition, OFFICIAL_THEMES)
+
+
+# 管理員後台（程式在 admin.py）：新增、編輯、刪除單字，要先輸入管理員密碼
+import admin  # noqa: E402
+admin.register(app, db, dict(
+    Vocabulary=Vocabulary, LearningProgress=LearningProgress, Favorite=Favorite, exams=exams,
+    OFFICIAL_THEMES=OFFICIAL_THEMES, official_id_of=official_id_of, theme_condition=theme_condition,
+    find_cloze=vocab_quiz.find_cloze))
 
 
 if __name__ == '__main__':

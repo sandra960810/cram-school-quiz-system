@@ -9,6 +9,7 @@
 - 有「編號」的列：更新資料庫裡那個字（可以改主題、拼字、意思…）
 - 沒有編號的列：找同課程、同主題、同拼字的字更新；找不到就新增
 - 不會刪除資料庫裡的字，也不會動學生的學習進度
+- 管理員在後台（/admin）改過、新增或刪除的字會跳過，不會被這份檔案蓋回去或重新加回來
 - 匯入後，同一個字若出現在多個主題，學生學過的會兩邊同步解鎖
 """
 import csv
@@ -60,11 +61,17 @@ def normalize_theme(value):
 
 def run(path, dry_run=False):
     rows = read_rows(path)
-    added = updated = unchanged = 0
+    added = updated = unchanged = kept = 0
     problems = []
     with app.app_context():
         by_id = {v.id: v for v in Vocabulary.query.all()}
         by_key = {(v.category, v.theme, v.word.lower()): v for v in by_id.values()}
+        # 管理員動過的字：用它原本在單字檔裡的位置找（改了拼字、主題或移到回收區也找得到）
+        by_src = {}
+        for v in by_id.values():
+            if v.admin_locked and v.src_key:
+                c, t, w = v.src_key.split('|', 2)
+                by_src[(c, t, w)] = v
 
         for line_no, r in rows:
             word = r.get('word', '')
@@ -97,8 +104,11 @@ def run(path, dry_run=False):
                 if vocab is None:
                     problems.append(f"第 {line_no} 列（{word}）：編號 {raw_id} 不存在，改用單字比對")
             if vocab is None:
-                vocab = by_key.get((category, theme, word.lower()))
+                vocab = by_src.get((category, theme, word.lower())) or by_key.get((category, theme, word.lower()))
 
+            if vocab is not None and vocab.admin_locked:
+                kept += 1      # 管理員在後台改過：以後台為準
+                continue
             if vocab is None:
                 vocab = Vocabulary(**values)
                 db.session.add(vocab)
@@ -135,7 +145,8 @@ def run(path, dry_run=False):
 
         for p in problems:
             print('⚠️ ', p)
-        print(f"讀取 {len(rows)} 列：新增 {added}、更新 {updated}、沒變動 {unchanged}；同步解鎖 {synced} 筆學習紀錄。")
+        print(f"讀取 {len(rows)} 列：新增 {added}、更新 {updated}、沒變動 {unchanged}、"
+              f"後台改過而保留 {kept}；同步解鎖 {synced} 筆學習紀錄。")
         if dry_run:
             db.session.rollback()
             print('（--dry-run：沒有寫入資料庫）')
