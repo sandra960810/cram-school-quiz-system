@@ -57,7 +57,11 @@
         .sentence-body { flex: 1; }
         #sentence-text { font-style: italic; }
         /* 韓文沒有斜體字型，瀏覽器硬斜會很難看 */
-        :root[data-exam="topik"] #sentence-text, :root[data-exam="topik"] .pos { font-style: normal; }
+        :root[data-exam="topik"] #sentence-text, :root[data-exam="topik"] .pos,
+        :root[data-exam="jlpt"] #sentence-text, :root[data-exam="jlpt"] .pos { font-style: normal; }
+        /* 日檢：單字下面的假名讀音 */
+        .reading { font-size: 18px; color: var(--primary); margin: -4px 0 6px; letter-spacing: 1px; min-height: 0; }
+        .reading:empty { display: none; }
         .sentence-zh { display: block; font-style: normal; color: var(--muted); font-size: 14px; margin-top: 6px; }
 
         .fav-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: var(--line-strong); cursor: pointer; padding: 0; z-index: 2; }
@@ -124,11 +128,12 @@
                     <span id="word-display" class="word"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}>載入中...</span>
                     <button class="play-btn" data-sound="none" onclick="playWord()" title="播放單字" aria-label="播放單字">{{ PLAY_ICON }}</button>
                 </div>
+                {% if exam.lang == 'ja' %}<div id="reading-display" class="reading" lang="ja"></div>{% endif %}
                 <div id="pos-display" class="pos"></div>
                 <div id="meaning-display" class="meaning"></div>
                 <div id="meaning-en-display" class="meaning-en"></div>
                 <div id="sentence-display" class="sentence">
-                    <div class="sentence-body"><span id="sentence-text"></span><span id="sentence-zh" class="sentence-zh"></span></div>
+                    <div class="sentence-body"><span id="sentence-text"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}></span><span id="sentence-zh" class="sentence-zh"></span></div>
                     <button class="play-btn small" data-sound="none" onclick="playSentence()" title="播放例句" aria-label="播放例句">{{ PLAY_ICON }}</button>
                 </div>
                 <div id="fav-toast" class="toast"></div>
@@ -213,6 +218,8 @@
         document.getElementById('word-display').innerText = w.word;
         // 舊版 ui.js 還在瀏覽器快取時沒有 fitText：跳過就好，不能讓整個滑卡停擺
         if (UI.fitText) UI.fitText(document.getElementById('word-display'));
+        const rd = document.getElementById('reading-display');
+        if (rd) rd.innerText = w.reading || '';
         document.getElementById('pos-display').innerText = w.pos || '';
         document.getElementById('meaning-display').innerText = w.meaning;
         document.getElementById('meaning-en-display').innerText = w.meaning_en || '';
@@ -436,7 +443,7 @@
 
     // ---------- 發音 ----------
     const speak = (text) => UI.speak(text);   // 自動挑最像真人的語音（韓檢唸韓文，其他唸英文；見 static/ui.js）
-    function playWord() { if (currentWord) speak(currentWord.word); }
+    function playWord() { if (currentWord) speak(currentWord.say || currentWord.word); }   // 日文唸假名讀音
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
     window.addEventListener('load', () => {

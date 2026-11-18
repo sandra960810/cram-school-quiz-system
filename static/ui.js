@@ -102,10 +102,13 @@
     // ------------------------------------------------------------------
     // 英文發音：從瀏覽器的語音裡挑最像真人的（Natural / Neural / Google 等）
     // ------------------------------------------------------------------
-    // 韓檢頁面（<html data-exam="topik">）唸韓文，其他頁面唸英文；兩種語言的發音設定分開存
-    const KOREAN = document.documentElement.dataset.exam === 'topik';
-    const LANG_RE = KOREAN ? /^ko[-_]/i : /^en[-_]/i;
-    const VOICE_KEY = KOREAN ? 'quiz-voice-settings-ko' : 'quiz-voice-settings';
+    // 韓檢頁面（<html data-exam="topik">）唸韓文、日檢（jlpt）唸日文，其他頁面唸英文；各語言的發音設定分開存
+    const FOREIGN = {
+        topik: { name: '韓文', re: /^ko[-_]/i, store: '-ko', bcp: 'ko-KR', accent: 'KR', test: '안녕하세요? 한국어 공부를 시작해 볼까요?' },
+        jlpt: { name: '日文', re: /^ja[-_]/i, store: '-ja', bcp: 'ja-JP', accent: 'JP', test: 'こんにちは。日本語の勉強を始めましょう。' },
+    }[document.documentElement.dataset.exam] || null;
+    const LANG_RE = FOREIGN ? FOREIGN.re : /^en[-_]/i;
+    const VOICE_KEY = 'quiz-voice-settings' + (FOREIGN ? FOREIGN.store : '');
     let voiceSettings = { accent: 'GB', rate: 'normal', voiceName: '' };
     try { Object.assign(voiceSettings, JSON.parse(localStorage.getItem(VOICE_KEY) || '{}')); } catch (e) { /* ignore */ }
     const RATES = { slow: 0.75, normal: 0.95 };
@@ -123,7 +126,7 @@
         if (n.includes('siri')) score += 35;
         if (/(desktop|espeak|robot|compact)/.test(n)) score -= 30;
         const lang = v.lang.replace('_', '-').toUpperCase();
-        if (KOREAN) score += 0;
+        if (FOREIGN) score += 0;
         else if (lang === 'EN-' + accent) score += 25;
         else if (lang === 'EN-AU' || lang === 'EN-GB' || lang === 'EN-US') score += 5;
         if (!v.localService) score += 3;
@@ -190,7 +193,7 @@
     function speakServer(text, opts, seq) {
         return new Promise((resolve, reject) => {
             if (!player) { player = new Audio(); player.preload = 'auto'; }
-            const accent = KOREAN ? 'KR' : (voiceSettings.accent === 'US' ? 'US' : 'GB');
+            const accent = FOREIGN ? FOREIGN.accent : (voiceSettings.accent === 'US' ? 'US' : 'GB');
             player.onended = () => { if (seq === speakSeq && opts.onend) opts.onend(); };
             player.onerror = () => reject(new Error('音檔載入失敗'));
             player.src = `/tts?accent=${accent}&text=${encodeURIComponent(text)}`;
@@ -212,7 +215,7 @@
         const u = new SpeechSynthesisUtterance(text);
         const voice = pickVoice();
         // Android 的 Chrome 指定 voice 時常常出錯，只指定語言比較穩
-        if (voice && !IS_ANDROID) { u.voice = voice; u.lang = voice.lang; } else { u.lang = voice ? voice.lang : (KOREAN ? 'ko-KR' : 'en-GB'); }
+        if (voice && !IS_ANDROID) { u.voice = voice; u.lang = voice.lang; } else { u.lang = voice ? voice.lang : (FOREIGN ? FOREIGN.bcp : 'en-GB'); }
         voiceQualityWarning();
         // 神經語音本來就唸得自然，用正常速度；機械語音放慢一點比較聽得懂
         let rate = opts.rate || RATES[voiceSettings.rate] || 0.95;
@@ -259,7 +262,7 @@
         const t = document.createElement('div');
         t.className = 'ui-toast';
         t.innerHTML = q === 'none'
-            ? icon('alert') + (KOREAN ? ' 沒有韓文語音，請改用 <b>Edge</b> 開啟。' : ' 沒有英文語音，請改用 <b>Edge</b> 開啟。')
+            ? icon('alert') + ` 沒有${FOREIGN ? FOREIGN.name : '英文'}語音，請改用 <b>Edge</b> 開啟。`
             : icon('volume') + ' 語音較生硬，改用 <b>Edge</b> 發音更自然。';
         document.body.appendChild(t);
         setTimeout(() => t.remove(), 9000);
@@ -291,7 +294,7 @@
                         <option value="1" ${soundOn ? 'selected' : ''}>開</option>
                         <option value="0" ${soundOn ? '' : 'selected'}>關</option>
                     </select></label>
-                ${KOREAN ? '' : `<label>口音
+                ${FOREIGN ? '' : `<label>口音
                     <select data-k="accent">
                         <option value="GB" ${voiceSettings.accent === 'GB' ? 'selected' : ''}>英國腔（雅思常用）</option>
                         <option value="US" ${voiceSettings.accent === 'US' ? 'selected' : ''}>美國腔</option>
@@ -301,7 +304,7 @@
                         <option value="normal" ${voiceSettings.rate === 'normal' ? 'selected' : ''}>正常</option>
                         <option value="slow" ${voiceSettings.rate === 'slow' ? 'selected' : ''}>慢速</option>
                     </select></label>
-                <label>語音 ${voices.length ? '' : `<span class="vp-bad">（找不到${KOREAN ? '韓文' : '英文'}語音）</span>`}
+                <label>語音 ${voices.length ? '' : `<span class="vp-bad">（找不到${FOREIGN ? FOREIGN.name : '英文'}語音）</span>`}
                     <select data-k="voiceName" ${voices.length ? '' : 'disabled'}>
                         <option value="">自動挑最像真人的</option>${voices.map(opt).join('')}
                     </select></label>
@@ -312,7 +315,7 @@
                         poor: icon('alert') + ' 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
                               + '<br>改用 <b>Edge</b> 發音更自然。'
                     }[voiceTier(current)])
-                    : `沒有${KOREAN ? '韓文' : '英文'}語音，請改用 <b>Edge</b> 開啟。`}</div>
+                    : `沒有${FOREIGN ? FOREIGN.name : '英文'}語音，請改用 <b>Edge</b> 開啟。`}</div>
                 <button class="vp-test" data-sound="none">${icon('volume')} 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
                 if (sel.dataset.k === 'sfx') {
@@ -327,7 +330,7 @@
                 render();
             }));
             panel.querySelector('.vp-test').addEventListener('click', () =>
-                speak(KOREAN ? '안녕하세요? 한국어 공부를 시작해 볼까요?' : 'The climate is becoming warmer. Welcome to your IELTS practice.'));
+                speak(FOREIGN ? FOREIGN.test : 'The climate is becoming warmer. Welcome to your IELTS practice.'));
         }
         btn.addEventListener('click', () => { panel.hidden = !panel.hidden; if (!panel.hidden) render(); });
         document.addEventListener('click', (e) => {

@@ -27,8 +27,11 @@ EXAMS = [
      "features": ["learn", "vocab_quiz"],
      # 分級字庫：每一級是一個主題（K1～K6，見 app.py 的 OFFICIAL_THEMES），可以逐級對學生開放
      "levels": [1, 2, 3, 4, 5, 6]},
-    {"key": "jlpt", "name": "日檢", "en": "JLPT", "course": "JLPT", "icon": "letter", "ready": False,
-     "desc": "日本語能力試驗", "features": []},
+    {"key": "jlpt", "name": "日檢", "en": "JLPT", "course": "JLPT", "icon": "letter", "ready": True,
+     "desc": "日本語能力試驗：N5～N1 分級單字學習與單字測驗", "lang": "ja",
+     "features": ["learn", "vocab_quiz"],
+     # 分級字庫：N5～N1 各是一個主題（app.py 的 OFFICIAL_THEMES），level 用 5～1，可以逐級對學生開放
+     "levels": [5, 4, 3, 2, 1]},
     {"key": "basic", "name": "英文零基礎", "en": "Basic English", "course": "BASIC", "icon": "smile",
      "ready": True, "desc": "ABC 字母、自然發音，加上國中小程度 2,000 個生活單字",
      "features": ["phonics", "learn", "vocab_quiz"]},

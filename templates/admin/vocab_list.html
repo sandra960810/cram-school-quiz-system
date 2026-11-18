@@ -77,7 +77,7 @@ td.a { text-align: right; white-space: nowrap; }
         <tbody>
         {% for v in rows %}
         <tr>
-            <td class="w">{{ v.word }}{% if v.admin_locked and not trash %}<span class="tag">後台改過</span>{% endif %}<small>{{ v.pos or '' }}</small></td>
+            <td class="w">{{ v.word }}{% if v.reading %} <span class="muted">{{ v.reading }}</span>{% endif %}{% if v.admin_locked and not trash %}<span class="tag">後台改過</span>{% endif %}<small>{{ v.pos or '' }}</small></td>
             <td class="m">{{ v.meaning }}{% if v.meaning_en and v.meaning_en != v.meaning %}<div class="en">{{ v.meaning_en }}</div>{% endif %}</td>
             <td class="t">{{ v.theme }}</td>
             <td class="n">{{ learned.get(v.id, 0) }}</td>

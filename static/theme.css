@@ -107,12 +107,32 @@
     --bg: #fbf5f7;
     --surface-2: #f7edf1;
 }
+/* 日檢（JLPT）：抹茶綠（偏黃的綠，和一般英文的青綠分得開） */
+:root[data-exam="jlpt"] {
+    --primary: #4d7c0f;
+    --primary-600: #3f6212;
+    --primary-300: #b9d48e;
+    --primary-50: #f2f7e9;
+    --primary-100: #e1edcc;
+    --deep: #2f4214;
+    --ink: #1f241a;
+    --ink-2: #464d3e;
+    --muted: #6b7262;
+    --muted-2: #9ca394;
+    --line: #e3e8da;
+    --line-strong: #c7d0b9;
+    --bg: #f6f8f2;
+    --surface-2: #eff3e8;
+}
+/* 日文字（lang="ja"）用日文字型：同一個漢字，中文字型和日文字型的寫法不一樣（例如「骨」「直」） */
+:lang(ja) { font-family: "Yu Gothic UI", "Yu Gothic", "Meiryo", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", var(--font); }
 /* 考試選擇頁的卡片：各自顯示自己考試的主色（不受整頁色系影響） */
 .exam-tone-ielts { --tone: #4a2d7f; --tone-50: #f1ecf8; --tone-300: #b7a3db; --tone-100: #e3d9f2; --tone-deep: #2e1a52; }
 .exam-tone-toeic { --tone: #1d4ed8; --tone-50: #eaf1fd; --tone-300: #9db8ec; --tone-100: #d4e2fa; --tone-deep: #172a52; }
 .exam-tone-basic { --tone: #c2410c; --tone-50: #fff1e8; --tone-300: #f4b48a; --tone-100: #fde0cc; --tone-deep: #5a3a28; }
 .exam-tone-general { --tone: #0f766e; --tone-50: #e7f6f4; --tone-300: #8fd0c7; --tone-100: #cdeee9; --tone-deep: #163f3b; }
 .exam-tone-topik { --tone: #9d174d; --tone-50: #fdedf3; --tone-300: #f0a5c4; --tone-100: #fad5e3; --tone-deep: #4a1529; }
+.exam-tone-jlpt { --tone: #4d7c0f; --tone-50: #f2f7e9; --tone-300: #b9d48e; --tone-100: #e1edcc; --tone-deep: #2f4214; }
 
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }

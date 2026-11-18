@@ -55,6 +55,11 @@
         .hk-key.wide { max-width: 66px; flex-grow: 1.5; font-size: 14px; }
         .hk-key.on { background: var(--primary); color: #fff; }
         .hk-key.space { max-width: 220px; font-size: 14px; }
+        .hk-key.blank { visibility: hidden; }
+        .kana-keys .hk-key { max-width: 40px; height: 36px; font-size: 17px; }
+        .kana-keys .hk-key.wide { max-width: 64px; }
+        .answer-row input:lang(ja) { font-family: "Yu Gothic UI", "Yu Gothic", "Meiryo", "Hiragino Sans", "Noto Sans JP", sans-serif; }
+        .w-reading { display: block; font-size: 16px; font-weight: normal; color: var(--muted); margin-top: 2px; }
         .answer-row input.right { border-color: var(--ok); background: var(--ok-50); }
         .answer-row input.wrong { border-color: var(--bad); background: var(--bad-50); }
         .btn { padding: 12px 18px; font-size: 17px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; color: white; background: var(--primary); }
@@ -133,6 +138,7 @@
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 {% if exam.lang == 'ko' %}<script src="{{ url_for('static', filename='hangul_keyboard.js') }}"></script>{% endif %}
+{% if exam.lang == 'ja' %}<script src="{{ url_for('static', filename='kana_keyboard.js') }}"></script>{% endif %}
 {% if not empty %}
 <script>
     const QUESTIONS = {{ questions | tojson }};
@@ -154,8 +160,13 @@
     // 和 vocab_quiz.normalize() 一樣的規則：不分大小寫、彎引號當直引號、多個空白算一個、
     // 重音字母當一般字母（résumé 打 resume 也算對）
     const norm = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/[‘’]/g, "'").replace(/[‐‑]/g, '-').replace(/\s+/g, ' ');
+    // 日文打字題：和 vocab_quiz.normalize_ja() 一樣，全形半形統一、片假名當平假名、去掉空白與「・」
+    const normJa = (s) => String(s || '').normalize('NFKC').replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60)).replace(/[\s・･〜~]/g, '');
+    const isRight = (q, given) => q.accept ? (normJa(given) !== '' && q.accept.some(a => normJa(a) === normJa(given))) : norm(given) === norm(q.answer);
     const hasZh = (s) => /[一-鿿]/.test(s || '');
     const say = (text, slow) => UI.speak(text, slow ? { rate: 0.6 } : undefined);
+    const sayOf = (q) => q.say || q.word;   // 日文唸假名讀音
+    const readingOf = (q) => q.reading ? `<span class="w-reading" lang="ja">${esc(q.reading)}</span>` : '';
 
     // ---------- 開始畫面：按一下才開始，瀏覽器才肯播放發音 ----------
     function intro() {
@@ -193,7 +204,7 @@
         const meaningCls = q.meaning.length > 40 && !hasZh(q.meaning) ? 'prompt-meaning long' : 'prompt-meaning';
         const input = `<div class="answer-row">
                 <input id="ans" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
-                       enterkeyhint="done" placeholder="{{ '輸入韓文' if exam.lang == 'ko' else '輸入英文' }}" aria-label="輸入答案">
+                       enterkeyhint="done" placeholder="{{ {'ko': '輸入韓文', 'ja': '輸入假名或漢字'}.get(exam.lang, '輸入英文') }}" aria-label="輸入答案">
                 <button class="btn" id="ok-btn" data-sound="none">確定</button></div>`;
         let body = '';
         if (q.type === 'spell') {
@@ -204,18 +215,18 @@
             body = `<div class="listen-row">
                     <button class="listen-btn" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                     <button class="listen-btn slow" id="play-slow" data-sound="none" aria-label="慢速播放">{{ icon('slow') }}</button></div>
-                <div class="hint">聽發音拼字・${esc(q.hint)}</div>${input}`;
+                <div class="hint">${q.ja ? '聽發音打出這個字' : '聽發音拼字'}・${esc(q.hint)}</div>${input}`;
         } else if (q.type === 'cloze') {
-            body = `<div class="sentence">${esc(q.before)}<span class="blank">${esc(q.hint)}</span>${esc(q.after)}</div>
+            body = `<div class="sentence"${q.ja ? ' lang="ja"' : ''}>${esc(q.before)}<span class="blank">${esc(q.hint)}</span>${esc(q.after)}</div>
                 ${q.sentence_zh ? `<div class="sentence-zh">${esc(q.sentence_zh)}</div>` : ''}
-                <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? '・<b>注意詞形變化</b>' : ''}</div>${input}`;
+                <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? (q.ja ? '・<b>注意活用變化</b>' : '・<b>注意詞形變化</b>') : ''}</div>${input}`;
         } else if (q.type === 'meaning') {
-            body = `<div class="prompt-word"><span class="w-text">${esc(q.word)}</span><button class="play-sm" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
+            body = `<div class="prompt-word"><span class="w-text"${q.ja ? ' lang="ja"' : ''}>${esc(q.word)}${readingOf(q)}</span><button class="play-sm" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="pos">${esc(q.pos)}</div>
                 <div class="choices">${q.choices.map((c, i) => `<button class="choice" data-sound="none" data-i="${i}"><span class="k">${'ABCD'[i]}</span>${esc(c)}</button>`).join('')}</div>`;
         } else {
             body = `<div class="${meaningCls}">${esc(q.meaning)}</div><div class="pos">${esc(q.pos)}</div>
-                <div class="choices">${q.choices.map((c, i) => `<button class="choice en" data-sound="none" data-i="${i}">${esc(c)}</button>`).join('')}</div>`;
+                <div class="choices">${q.choices.map((c, i) => `<button class="choice en" data-sound="none" data-i="${i}"${q.ja ? ' lang="ja"' : ''}>${esc(c)}</button>`).join('')}</div>`;
         }
         stage.innerHTML = `<div class="card enter">${tag}${body}<div id="fb"></div></div>
             <div class="keys">${q.choices ? '可按 1–4 或 A–D' : 'Enter 送出'}，Enter 下一題</div>`;
@@ -223,10 +234,10 @@
         const wText = stage.querySelector('.prompt-word .w-text');
         if (wText && UI.fitText) UI.fitText(wText);
         const play = document.getElementById('play');
-        if (play) play.addEventListener('click', () => say(q.word));
+        if (play) play.addEventListener('click', () => say(sayOf(q)));
         const slow = document.getElementById('play-slow');
-        if (slow) slow.addEventListener('click', () => say(q.word, true));
-        if (q.type === 'dictate') setTimeout(() => say(q.word), 250);
+        if (slow) slow.addEventListener('click', () => say(sayOf(q), true));
+        if (q.type === 'dictate') setTimeout(() => say(sayOf(q)), 250);
 
         const ans = document.getElementById('ans');
         if (ans) {
@@ -234,6 +245,7 @@
             if (window.matchMedia('(pointer: fine)').matches) ans.focus();
             document.getElementById('ok-btn').addEventListener('click', () => submitTyped());
             if (window.HangulKeyboard) HangulKeyboard.attach(ans);   // 韓檢：沒有韓文輸入法也能打字
+            if (window.KanaKeyboard) KanaKeyboard.attach(ans);       // 日檢：羅馬拼音自動轉假名、五十音鍵盤
         }
         stage.querySelectorAll('.choice').forEach(b => b.addEventListener('click', () => submitChoice(+b.dataset.i)));
     }
@@ -242,8 +254,9 @@
         if (answered) return;
         const ans = document.getElementById('ans');
         const q = QUESTIONS[idx];
+        if (window.KanaKeyboard) KanaKeyboard.flush(ans);   // 最後的 n 轉成ん
         if (!ans.value.trim()) { ans.classList.add('ui-shake'); setTimeout(() => ans.classList.remove('ui-shake'), 300); ans.focus(); return; }
-        const ok = norm(ans.value) === norm(q.answer);
+        const ok = isRight(q, ans.value);
         ans.readOnly = true;
         ans.blur();
         ans.classList.add(ok ? 'right' : 'wrong');
@@ -274,25 +287,28 @@
         UI.play(ok ? 'right' : 'error');
         const yours = (!ok && q.type !== 'meaning' && q.type !== 'word') ? `<div>你寫的：<span class="yours">${esc(given)}</span></div>` : '';
         const shownAnswer = q.type === 'cloze' ? q.answer : q.word;
+        // 日文：答案旁邊附讀音（填空題是例句裡那一段的讀音）
+        const shownReading = !q.ja ? '' : q.type === 'cloze' ? (normJa(q.say) !== normJa(q.answer) ? q.say : '') : q.reading;
+        const sayAnswer = q.ja ? q.say : shownAnswer;
         // 例句填空：作答後才顯示完整例句和播放鍵（作答前播放會洩漏答案）
         const fullSentence = q.type === 'cloze' ? `${q.before}${q.answer}${q.after}` : '';
         document.getElementById('fb').innerHTML = `
             <div class="feedback ${ok ? 'right' : 'wrong'}">
                 <div class="big">${ok ? '✓ 答對了！' : '✗ 答錯了'}</div>
                 ${yours}
-                <div><span class="ans">${esc(shownAnswer)}</span>
+                <div><span class="ans"${q.ja ? ' lang="ja"' : ''}>${esc(shownAnswer)}</span>${shownReading ? `<span class="m" lang="ja">（${esc(shownReading)}）</span>` : ''}
                     <button class="play-sm" id="fb-play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
-                <div class="meta">${q.type === 'cloze' && q.form_differs ? '原形 ' + esc(q.word) + '・' : ''}${esc(q.pos)} ${esc(q.meaning)}</div>
-                ${fullSentence ? `<div class="fb-sentence"><span>${esc(fullSentence)}</span>
+                <div class="meta">${q.type === 'cloze' && q.form_differs ? (q.ja ? '辭書形 ' : '原形 ') + esc(q.word) + (q.ja && q.reading ? '（' + esc(q.reading) + '）' : '') + '・' : ''}${esc(q.pos)} ${esc(q.meaning)}</div>
+                ${fullSentence ? `<div class="fb-sentence"><span${q.ja ? ' lang="ja"' : ''}>${esc(fullSentence)}</span>
                     <button class="play-sm" id="fb-sent-play" data-sound="none" aria-label="播放整句">{{ icon('volume') }}</button></div>` : ''}
             </div>
             <button class="btn next" id="next-btn">${idx + 1 < QUESTIONS.length ? '下一題 →' : '看成績 →'}</button>`;
-        document.getElementById('fb-play').addEventListener('click', () => say(shownAnswer));
+        document.getElementById('fb-play').addEventListener('click', () => say(sayAnswer));
         const sentPlay = document.getElementById('fb-sent-play');
         if (sentPlay) sentPlay.addEventListener('click', () => say(fullSentence));
         document.getElementById('next-btn').addEventListener('click', next);
         // 答錯時自動唸一次正確答案，加深印象
-        if (!ok) setTimeout(() => say(shownAnswer), 350);
+        if (!ok) setTimeout(() => say(sayAnswer), 350);
         // 打字題：手機鍵盤收起後，把「下一題」捲進畫面
         document.getElementById('next-btn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -330,8 +346,8 @@
                 <div id="save-msg" class="moved" ${wrong.length ? '' : 'hidden'}>儲存中…</div>
                 ${wrong.length ? `<div class="review"><h3>答錯的字</h3>${wrong.map(({ q, i }) => `
                     <div class="review-item">
-                        <button class="play-sm" data-say="${esc(q.word)}" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
-                        <div class="body"><div class="w">${esc(q.word)} <span class="m">${esc(q.pos)}</span></div>
+                        <button class="play-sm" data-say="${esc(q.type === 'cloze' && q.ja ? (q.reading || q.word).split('／')[0] : sayOf(q))}" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
+                        <div class="body"><div class="w"${q.ja ? ' lang="ja"' : ''}>${esc(q.word)}${q.reading ? ' <span class="m">' + esc(q.reading) + '</span>' : ''} <span class="m">${esc(q.pos)}</span></div>
                             <div class="m">${esc(q.meaning)}</div>
                             <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（空白）'}</div></div>
                     </div>`).join('')}</div>` : ''}

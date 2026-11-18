@@ -42,11 +42,15 @@
             <div><label class="f">程度</label>
                 <select name="level">{% for l in levels %}<option {{ 'selected' if l == vals.level }}>{{ l }}</option>{% endfor %}</select></div>
         </div>
+        {% if course == 'JLPT' %}
+        <label class="f">讀音 <span class="tip">漢字的假名讀音，例如 学校 填 がっこう；兩種讀法用「／」隔開。整個字都是假名的可以不填</span></label>
+        <input type="text" name="reading" value="{{ vals.reading }}" maxlength="100" autocomplete="off" lang="ja">
+        {% endif %}
         <label class="f">中文意思 <span class="tip">中文意思和英文解釋至少填一個</span></label>
         <input type="text" name="meaning_zh" value="{{ vals.meaning_zh }}" maxlength="200" autocomplete="off">
         <label class="f">英文解釋</label>
         <input type="text" name="meaning_en" value="{{ vals.meaning_en }}" maxlength="500" autocomplete="off">
-        <label class="f">例句 <span class="tip">例句裡有這個字，單字測驗才會出「例句填空」題</span></label>
+        <label class="f">例句 <span class="tip">{% if course == 'JLPT' %}用 [寫法|讀音] 標出「例句填空」要挖掉的地方，例如 毎朝コーヒーを[飲みます|のみます]。例句裡有原字時會自動標{% else %}例句裡有這個字，單字測驗才會出「例句填空」題{% endif %}</span></label>
         <textarea name="sentence" maxlength="500">{{ vals.sentence }}</textarea>
         <label class="f">例句中譯</label>
         <textarea name="sentence_zh" maxlength="500">{{ vals.sentence_zh }}</textarea>

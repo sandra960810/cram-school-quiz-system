@@ -24,6 +24,7 @@
         .dex-card:hover { box-shadow: var(--edge-raised); }
         .dex-card .theme { font-size: 11px; color: var(--muted-2); text-align: left; margin-bottom: 5px; padding-right: 30px; }
         .dex-card .word { font-size: 20px; font-weight: bold; color: var(--ink); margin-bottom: 5px; word-break: break-word; }
+        .dex-card .word .reading { font-size: 13px; font-weight: normal; color: var(--muted); }
         .dex-card .meaning { font-size: 14px; color: var(--ink-2); }
         .dex-card.familiar { background: var(--ok-50); } .dex-card.familiar .word { color: var(--ok); } .dex-card.familiar .tag { background: var(--ok-50); color: var(--ok); }
         .dex-card.unfamiliar { background: var(--warn-50); } .dex-card.unfamiliar .word { color: var(--warn); } .dex-card.unfamiliar .tag { background: var(--warn-50); color: var(--warn); }
@@ -61,7 +62,7 @@
                 <button class="unfav" data-sound="none" title="取消收藏" aria-label="取消收藏 {{ item.word }}"
                         onclick="unfavorite(event, this, {{ item.id }})">★</button>
                 <div class="theme">{{ item.theme }}</div>
-                <div class="word">{{ item.word }}</div>
+                <div class="word"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}>{{ item.word }}{% if item.reading %} <small class="reading" lang="ja">{{ item.reading }}</small>{% endif %}</div>
                 <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
                 <span class="tag">{{ {'familiar': '✓ 熟', 'unfamiliar': '✗ 不熟'}.get(item.status, '還沒學過') }}</span>
             </a>

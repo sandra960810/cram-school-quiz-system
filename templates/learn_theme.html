@@ -50,6 +50,7 @@
         .dex-card .number { font-size: 12px; font-weight: bold; color: var(--muted-2); margin-bottom: 5px; text-align: left; display: flex; justify-content: space-between; align-items: center; }
         .dex-card .word { font-size: 20px; font-weight: bold; margin-bottom: 5px; word-break: break-word; }
         .dex-card .meaning { font-size: 14px; color: var(--ink-2); }
+        .dex-card .reading { font-size: 13px; color: var(--muted); margin: -3px 0 4px; }
         a.dex-card:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
         .tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
         /* 熟：綠色 */
@@ -86,7 +87,7 @@
 
         {% set swipe_count = zone_counts.unfamiliar + zone_counts.new %}
         {% set weak_count = zone_counts.unfamiliar %}
-        {% set scope = (' ' ~ letter ~ ' 開頭') if letter else '' %}
+        {% set scope = ((' ' ~ letter ~ '行') if exam.lang == 'ja' else (' ' ~ letter ~ ' 開頭')) if letter else '' %}
         <div class="actions">
             <a class="btn btn-learn {% if not swipe_count %}disabled{% endif %}"
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=letter) }}">
@@ -109,7 +110,7 @@
             <a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key, letter=l.letter) }}"
                class="letter {% if l.letter == letter %}active{% endif %} {% if l.unlocked == l.total %}full{% endif %}"
                title="熟 {{ l.unlocked }} / {{ l.total }}" data-sound="tap">
-                {{ l.letter }}<small>{{ l.unlocked }}/{{ l.total }}</small>
+                {{ l.letter }}{% if exam.lang == 'ja' and l.letter != '#' %}行{% endif %}<small>{{ l.unlocked }}/{{ l.total }}</small>
             </a>
         {% endfor %}
     </div>
@@ -132,7 +133,8 @@
                href="{{ url_for('learn_word', student_id=student.id, theme_key=theme.key, vocab_id=item.id) }}" title="打開單字卡">
                 <div class="number"><span># {{ item.number }}{% if item.is_favorite %}<span class="fav-mark" title="已收藏">★</span>{% endif %}</span>
                     <span class="tag">{{ {'familiar': '熟', 'unfamiliar': '不熟'}.get(item.status, '還沒學') }}</span></div>
-                <div class="word">{{ item.word }}</div>
+                <div class="word"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}>{{ item.word }}</div>
+                {% if item.reading %}<div class="reading" lang="ja">{{ item.reading }}</div>{% endif %}
                 <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
             </a>
         {% endfor %}
