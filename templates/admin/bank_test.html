@@ -1,0 +1,109 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ test.title }}｜題庫管理{% endblock %}
+{% block head %}
+{% if job.running %}<meta http-equiv="refresh" content="15">{% endif %}
+<style>
+.crumb { font-size: 14px; margin-bottom: 12px; }
+.crumb a { color: var(--primary); font-weight: bold; text-decoration: none; }
+.state { display: inline-block; font-size: 13px; font-weight: bold; padding: 3px 10px; border-radius: 99px; background: var(--ok-50); color: var(--ok-ink); }
+.state.draft { background: var(--warn-50); color: var(--warn-ink); }
+.state.trash { background: var(--bad-50); color: var(--bad-ink); }
+.file { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 14px 0; border-top: 1px solid var(--line); }
+.file:first-of-type { border-top: none; }
+.file .main { flex: 1; min-width: 220px; }
+.file .nm { font-weight: bold; font-size: 16px; }
+.file .sub { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.note { margin: 6px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.6; }
+.note.bad { color: var(--bad-ink); }
+.note.warn { color: var(--warn-ink); }
+.acts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.acts form { margin: 0; }
+.audio { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+.audio span { font-size: 13px; padding: 4px 10px; border-radius: 8px; background: var(--ok-50); color: var(--ok-ink); }
+.audio span.stale { background: var(--warn-50); color: var(--warn-ink); }
+pre.log { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bad-50); color: var(--bad-ink); padding: 10px; border-radius: 8px; font-size: 12px; }
+</style>{% endblock %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('admin.bank_home') }}">← 題庫管理</a></div>
+<div class="hero"><h1>{{ icon(info.icon) }} {{ test.title }}</h1>
+<p>{{ info.name }}測驗 ・
+{% if test.trash %}<span class="state trash">在回收區</span>{% elif test.draft %}<span class="state draft">草稿，學生看不到</span>{% else %}<span class="state">已上架</span>{% endif %}
+{% if need_total %} ・ 共 {{ total }} 題{% endif %}</p></div>
+
+{% if need_total and total != need_total and not test.draft %}
+<div class="flash warn">這回現在共 {{ total }} 題，正式考試是 {{ need_total }} 題，成績換算的 Band 會不準。</div>
+{% endif %}
+
+<div class="panel">
+    <h2>題目內容</h2>
+    {% for f in files %}
+    <div class="file">
+        <div class="main">
+            <div class="nm">{{ f.title }}{% if need_total %} <span class="muted">（{{ f.count }} 題）</span>{% endif %}{% if f.edited %} <span class="muted">・已修改</span>{% endif %}</div>
+            {% if f.sub %}<div class="sub">{{ f.sub }}</div>{% endif %}
+            {% if f.errors %}<ul class="note bad">{% for e in f.errors[:4] %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+            {% if f.warnings %}<ul class="note warn">{% for w in f.warnings[:4] %}<li>{{ w }}</li>{% endfor %}{% if f.warnings|length > 4 %}<li>還有 {{ f.warnings|length - 4 }} 項提醒</li>{% endif %}</ul>{% endif %}
+        </div>
+        {% if f.can_revert %}
+        <form method="post" action="{{ url_for('admin.bank_revert', section=section, key=test.key, name=f.name) }}" onsubmit="return confirm('確定要放棄修改，還原成原本的題目嗎？')">
+            <input type="hidden" name="csrf" value="{{ admin_csrf }}"><button class="btn ghost small">還原</button>
+        </form>
+        {% endif %}
+        <a class="btn small" href="{{ url_for('admin.bank_edit', section=section, key=test.key, name=f.name) }}">{{ icon('pencil') }} 編輯</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% if section == 'listening' %}
+<div class="panel">
+    <h2>{{ icon('volume') }} 音檔</h2>
+    <p class="muted" style="margin:0">音檔是由逐字稿產生的。改過逐字稿後要重新產生，學生才會聽到新內容。</p>
+    <div class="audio">
+        {% for a in audio %}
+        <span class="{{ 'stale' if a.stale or a.empty }}">Part {{ a.no }}：{% if a.empty %}還沒有逐字稿{% elif a.stale %}{{ '要重新產生' if a.exists else '還沒產生' }}{% else %}正常{% endif %}</span>
+        {% endfor %}
+    </div>
+    {% if job.running %}
+    <p class="muted">音檔產生中，這一頁會自動更新，可以先做別的事。</p>
+    {% elif audio|selectattr('stale')|list %}
+    <form method="post" action="{{ url_for('admin.bank_audio', section=section, key=test.key) }}" style="margin:0">
+        <input type="hidden" name="csrf" value="{{ admin_csrf }}"><button class="btn">{{ icon('refresh') }} 重新產生音檔</button>
+    </form>
+    {% endif %}
+    {% if job.failed %}<div class="flash warn" style="margin-top:12px">上次產生音檔失敗，請確認櫃台電腦有連上網路後再試一次。</div>{% if log %}<pre class="log">{{ log }}</pre>{% endif %}{% endif %}
+</div>
+{% endif %}
+
+<div class="panel">
+    <h2>測驗資訊</h2>
+    <form method="post" action="{{ url_for('admin.bank_info', section=section, key=test.key) }}">
+        <input type="hidden" name="csrf" value="{{ admin_csrf }}">
+        <label class="f">測驗名稱 <span class="req">*</span></label>
+        <input type="text" name="title" value="{{ test.title }}" maxlength="80" required>
+        <label class="f">主題說明</label>
+        <input type="text" name="topics" value="{{ test.topics or '' }}" maxlength="200">
+        {% if section in ('listening', 'reading') %}
+        <label class="f">副標題</label>
+        <input type="text" name="subtitle" value="{{ subtitle }}" maxlength="120">
+        {% endif %}
+        <div class="acts"><button class="btn small">儲存資訊</button></div>
+    </form>
+</div>
+
+<div class="panel">
+    <h2>上架與刪除</h2>
+    <p class="muted" style="margin:0">刪除的測驗會放進回收區，學生看不到，但成績都保留，隨時可以救回。</p>
+    <div class="acts">
+        {% if test.trash %}
+        <form method="post" action="{{ url_for('admin.bank_restore', section=section, key=test.key) }}"><input type="hidden" name="csrf" value="{{ admin_csrf }}"><button class="btn">救回這份測驗</button></form>
+        {% else %}
+        {% if test.draft %}
+        <form method="post" action="{{ url_for('admin.bank_publish', section=section, key=test.key) }}"><input type="hidden" name="csrf" value="{{ admin_csrf }}"><button class="btn">上架給學生</button></form>
+        {% else %}
+        <form method="post" action="{{ url_for('admin.bank_unpublish', section=section, key=test.key) }}"><input type="hidden" name="csrf" value="{{ admin_csrf }}"><button class="btn ghost">下架成草稿</button></form>
+        {% endif %}
+        <form method="post" action="{{ url_for('admin.bank_trash', section=section, key=test.key) }}" onsubmit="return confirm('確定要把這份測驗移到回收區嗎？')"><input type="hidden" name="csrf" value="{{ admin_csrf }}"><button class="btn danger">刪除這份測驗</button></form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

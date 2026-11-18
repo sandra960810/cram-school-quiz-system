@@ -1,0 +1,49 @@
+{% extends 'admin/base.html' %}
+{% block title %}編輯 {{ title }}｜{{ test.title }}{% endblock %}
+{% block head %}<style>
+body { padding-bottom: 110px; }
+.crumb { font-size: 14px; margin-bottom: 12px; }
+.crumb a { color: var(--primary); font-weight: bold; text-decoration: none; }
+.be-block { background: #fff; border-radius: 14px; box-shadow: var(--edge); margin-bottom: 16px; }
+.be-block > summary { cursor: pointer; padding: 15px 20px; font-weight: bold; font-size: 17px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.be-block > summary .tip { font-weight: normal; font-size: 13px; color: var(--muted); }
+.be-body { padding: 0 20px 18px; }
+.be-q { border: 2px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-top: 12px; }
+.be-q-head { display: flex; align-items: center; gap: 8px; font-weight: bold; }
+.be-q-head .sp { flex: 1; }
+.be-row { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; }
+.be-row > .grow { flex: 1; min-width: 0; }
+.be-row > .key { flex: none; width: 38px; padding-top: 11px; font-weight: bold; text-align: center; color: var(--primary); }
+.be-row > select.who { flex: none; width: 150px; }
+.be-row > input.sec { flex: none; width: 90px; }
+.be-row textarea { min-height: 44px; }
+.be-mini { flex: none; border: none; background: none; color: var(--primary); font: inherit; font-size: 13px; font-weight: bold; cursor: pointer; padding: 10px 6px; }
+.be-mini.del { color: var(--bad); }
+.be-add { margin-top: 12px; }
+.be-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+.be-tools select { width: auto; }
+.be-sec { background: var(--bg); border-radius: 10px; padding: 10px 12px; margin-top: 10px; }
+.be-tip { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 8px 0 0; }
+.be-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; box-shadow: 0 -2px 0 var(--line); padding: 12px 16px; z-index: 20; }
+.be-bar .in { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.be-bar .msg { flex: 1; min-width: 0; font-size: 14px; color: var(--muted); }
+#be-errors { background: var(--bad-50); color: var(--bad-ink); border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; line-height: 1.6; }
+#be-errors ul { margin: 6px 0 0; padding-left: 20px; }
+@media (max-width: 600px) { .be-row { flex-wrap: wrap; } .be-row > select.who { width: 100%; } .be-body { padding: 0 14px 14px; } .be-block > summary { padding: 14px; } }
+</style>{% endblock %}
+{% block body %}
+<div class="crumb"><a href="{{ url_for('admin.bank_test', section=section, key=test.key) }}">← {{ test.title }}</a></div>
+<div class="hero"><h1>{{ icon(info.icon) }} {{ title }}</h1>
+<p>{% if section in ('listening', 'reading') %}題號存檔後會自動重新排好，不用自己算。{% else %}改完按下方的「儲存」，學生重新整理頁面就會看到。{% endif %}</p></div>
+<div id="be-errors" hidden role="alert"></div>
+<div id="be-root"></div>
+<div class="be-bar"><div class="in">
+    <span class="msg" id="be-msg">還沒有修改</span>
+    <a class="btn ghost" href="{{ url_for('admin.bank_test', section=section, key=test.key) }}">返回</a>
+    <button class="btn" id="be-save" type="button">儲存</button>
+</div></div>
+<script type="application/json" id="be-config">{{ config|tojson }}</script>
+<script type="application/json" id="be-data">{{ data|tojson }}</script>
+<input type="hidden" id="be-csrf" value="{{ admin_csrf }}">
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='admin_bank.js') }}"></script>{% endblock %}

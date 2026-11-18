@@ -4,11 +4,11 @@
 文章段落、題組與每題的答案、解析、原文引句。批改規則與聽力相同，直接沿用
 listening_bank 的比對函式，兩邊的判分標準才會一致。
 """
-import json
 import os
 import re
 from markupsafe import Markup, escape
 
+import bank_store
 import listening_bank
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -27,40 +27,26 @@ JUDGE_OPTIONS = {
 # ---------------------------------------------------------------- 載入
 
 def list_tests():
-    path = os.path.join(BANK_DIR, 'tests.json')
-    if not os.path.exists(path):
-        return []
-    with open(path, encoding='utf-8') as f:
-        tests = json.load(f)
+    tests = bank_store.tests(SECTION)
     for t in tests:
         t['passages_ready'] = len(_passage_files(t['key']))
     return [t for t in tests if t['passages_ready']]
 
 
 def _passage_files(key):
-    d = os.path.join(BANK_DIR, key)
-    if not os.path.isdir(d):
-        return []
-    out = []
-    for name in os.listdir(d):
-        if re.fullmatch(r'passage\d+\.json', name):
-            with open(os.path.join(d, name), encoding='utf-8') as f:
-                out.append(json.load(f))
+    out = [bank_store.read(SECTION, key, name) for name in bank_store.names(SECTION, key)
+           if re.fullmatch(r'passage\d+\.json', name)]
     return sorted(out, key=lambda p: p['no'])
 
 
 def load_test(key):
     """載入一份測驗；找不到回傳 None。"""
-    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or ''):
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or '') or bank_store.is_draft(SECTION, key):
         return None
     passages = _passage_files(key)
     if not passages:
         return None
-    meta_path = os.path.join(BANK_DIR, key, 'meta.json')
-    meta = {}
-    if os.path.exists(meta_path):
-        with open(meta_path, encoding='utf-8') as f:
-            meta = json.load(f)
+    meta = bank_store.read(SECTION, key, 'meta.json', {})
     for p in passages:
         p['rendered'] = [_render_group(g) for g in p['groups']]
         nos = [q['no'] for q in p['questions']]

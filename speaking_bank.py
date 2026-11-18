@@ -16,6 +16,7 @@ import json
 import os
 import re
 
+import bank_store
 import writing_bank
 from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_models, _gemini_error
 
@@ -39,23 +40,16 @@ INLINE_LIMIT = 14 * 1024 * 1024     # Gemini 單次請求上限 20MB（含 base6
 # ---------------------------------------------------------------- 載入
 
 def list_tests():
-    path = os.path.join(BANK_DIR, 'tests.json')
-    if not os.path.exists(path):
-        return []
-    with open(path, encoding='utf-8') as f:
-        tests = json.load(f)
-    return [t for t in tests if os.path.exists(os.path.join(BANK_DIR, t['key'], 'test.json'))]
+    return [t for t in bank_store.tests('speaking') if bank_store.read('speaking', t['key'], 'test.json')]
 
 
 def load_test(key):
     """載入一份口說測驗，並展開成考官逐句的流程 steps；找不到回傳 None。"""
-    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or ''):
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or '') or bank_store.is_draft('speaking', key):
         return None
-    path = os.path.join(BANK_DIR, key, 'test.json')
-    if not os.path.exists(path):
+    t = bank_store.read('speaking', key, 'test.json')
+    if not t:
         return None
-    with open(path, encoding='utf-8') as f:
-        t = json.load(f)
     t['key'] = key
     t['steps'] = build_steps(t)
     t['questions'] = {s['qid']: s for s in t['steps'] if s.get('qid')}

@@ -4,10 +4,11 @@
 每題的答案與解析。音檔由 tools/make_listening_audio.py 依同一份逐字稿產生，
 因此音檔內容與題目必定一致。
 """
-import json
 import os
 import re
 from markupsafe import Markup, escape
+
+import bank_store
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BANK_DIR = os.path.join(BASE, 'listening')
@@ -21,11 +22,7 @@ GAP_RE = re.compile(r'\{(?:(\d+)|ex:([^}]*))\}')
 
 def list_tests():
     """回傳題庫清單，含音檔是否已產生。"""
-    path = os.path.join(BANK_DIR, 'tests.json')
-    if not os.path.exists(path):
-        return []
-    with open(path, encoding='utf-8') as f:
-        tests = json.load(f)
+    tests = bank_store.tests(SECTION)
     for t in tests:
         parts = _part_files(t['key'])
         t['parts_ready'] = len(parts)
@@ -36,29 +33,19 @@ def list_tests():
 
 
 def _part_files(key):
-    d = os.path.join(BANK_DIR, key)
-    if not os.path.isdir(d):
-        return []
-    parts = []
-    for name in sorted(os.listdir(d)):
-        if re.fullmatch(r'part\d+\.json', name):
-            with open(os.path.join(d, name), encoding='utf-8') as f:
-                parts.append(json.load(f))
+    parts = [bank_store.read(SECTION, key, name) for name in bank_store.names(SECTION, key)
+             if re.fullmatch(r'part\d+\.json', name)]
     return sorted(parts, key=lambda p: p['no'])
 
 
 def load_test(key):
     """載入一份測驗；找不到回傳 None。"""
-    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or ''):
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or '') or bank_store.is_draft(SECTION, key):
         return None
     parts = _part_files(key)
     if not parts:
         return None
-    meta_path = os.path.join(BANK_DIR, key, 'meta.json')
-    meta = {}
-    if os.path.exists(meta_path):
-        with open(meta_path, encoding='utf-8') as f:
-            meta = json.load(f)
+    meta = bank_store.read(SECTION, key, 'meta.json', {})
     for p in parts:
         p['audio_exists'] = os.path.exists(os.path.join(AUDIO_DIR, p['audio']))
         p['rendered'] = [_render_group(g) for g in p['groups']]
