@@ -28,6 +28,9 @@
         .exam-card.soon { --tone: var(--muted-2); --tone-50: var(--surface-2); background: var(--surface-2); cursor: default; }
         .exam-card.soon .exam-name { color: var(--muted); }
         .soon-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--muted); }
+        .admin-entry { text-align: center; margin: 40px 0 0; font-size: 13px; }
+        .admin-entry a { color: var(--muted-2); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+        .admin-entry a:hover { color: var(--primary); }
         h2.sec { font-size: 15px; color: var(--muted); margin: 30px 0 12px; font-weight: normal; }
     </style>
 </head>
@@ -63,6 +66,7 @@
         {% endfor %}
     </div>
     {% endif %}
+    <p class="admin-entry"><a href="{{ url_for('admin.home') }}">{{ icon('key') }} 管理員後台</a></p>
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 </body>

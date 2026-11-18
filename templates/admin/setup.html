@@ -1,0 +1,21 @@
+{% extends 'admin/base.html' %}
+{% block title %}設定管理員密碼{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('lock') }} 第一次使用：設定管理員密碼</h1>
+<p>後台可以新增、修改、刪除單字，所以要先設一組密碼，之後進後台都要輸入。</p></div>
+<div class="panel" style="max-width:460px">
+{% if not local %}
+    <div class="flash warn">為了安全，第一次設定密碼只能在櫃台電腦上操作。<br>請在櫃台電腦打開 <b>http://127.0.0.1:5000/admin</b> 設定。</div>
+{% else %}
+    {% if error %}<div class="flash bad">{{ error }}</div>{% endif %}
+    <form method="post">
+        <label class="f">密碼 <span class="tip">至少 6 個字</span></label>
+        <input type="password" name="password" autocomplete="new-password" required autofocus>
+        <label class="f">再輸入一次</label>
+        <input type="password" name="password2" autocomplete="new-password" required>
+        <p class="muted">密碼請自己記好。忘記的話，在櫃台電腦雙擊 <b>reset_admin_password.bat</b> 就能重新設定。</p>
+        <button class="btn">設定並進入後台</button>
+    </form>
+{% endif %}
+</div>
+{% endblock %}

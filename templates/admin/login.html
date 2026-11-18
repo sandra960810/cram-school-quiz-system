@@ -1,0 +1,14 @@
+{% extends 'admin/base.html' %}
+{% block title %}管理員登入{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('lock') }} 管理員登入</h1><p>請輸入管理員密碼。</p></div>
+<div class="panel" style="max-width:420px">
+    {% if error %}<div class="flash bad">{{ error }}</div>{% endif %}
+    <form method="post">
+        <label class="f">密碼</label>
+        <input type="password" name="password" autocomplete="current-password" required autofocus>
+        <p class="muted">忘記密碼：在櫃台電腦雙擊 reset_admin_password.bat 重新設定。</p>
+        <button class="btn">登入</button>
+    </form>
+</div>
+{% endblock %}

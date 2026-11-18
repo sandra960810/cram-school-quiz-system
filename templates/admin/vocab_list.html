@@ -1,0 +1,109 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ course_label }}單字{% endblock %}
+{% block head %}<style>
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs a { padding: 8px 14px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1px var(--line); color: var(--ink); text-decoration: none; font-size: 14px; font-weight: bold; }
+.tabs a.on { background: var(--primary); color: #fff; box-shadow: none; }
+.filters { display: grid; grid-template-columns: 1fr 1.3fr auto; gap: 10px; align-items: end; }
+.filters .btn { height: 44px; }
+.bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 4px 0 12px; }
+.bar .sp { flex: 1; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; color: var(--muted); font-weight: normal; font-size: 12px; padding: 8px 6px; border-bottom: 2px solid var(--line); }
+td { padding: 10px 6px; border-bottom: 1px solid var(--surface-2); vertical-align: top; }
+td.w { font-weight: bold; font-size: 15px; white-space: nowrap; }
+td.w small { display: block; font-weight: normal; color: var(--muted); font-size: 12px; }
+td.m { line-height: 1.5; }
+td.m .en { color: var(--muted); font-size: 12px; }
+td.t { color: var(--muted); font-size: 12px; white-space: nowrap; }
+td.n { text-align: center; color: var(--muted); }
+td.a { text-align: right; white-space: nowrap; }
+.tag { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 6px; background: var(--primary-50); color: var(--primary); margin-left: 4px; vertical-align: middle; }
+.pager { display: flex; gap: 8px; justify-content: center; align-items: center; margin-top: 16px; font-size: 14px; }
+.pager a { color: var(--primary); font-weight: bold; text-decoration: none; padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 0 1px var(--line); background: #fff; }
+.empty { text-align: center; color: var(--muted); padding: 30px 10px; }
+@media (max-width: 680px) {
+    .filters { grid-template-columns: 1fr; }
+    thead { display: none; }
+    tr { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 10px 0; border-bottom: 1px solid var(--surface-2); }
+    td { border: none; padding: 0; }
+    td.w { grid-column: 1; } td.a { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
+    td.m, td.t { grid-column: 1; white-space: normal; }
+    td.n { display: none; }
+}
+</style>{% endblock %}
+{% block body %}
+<div class="tabs">
+    {% for c, n, k in courses %}
+    <a href="{{ url_for('admin.vocab_list', course=c) }}" class="{{ 'on' if c == course and not trash }}">{{ n }}</a>
+    {% endfor %}
+</div>
+<div class="hero">
+    {% if trash %}
+    <h1>{{ icon('folder') }} {{ course_label }}・回收區</h1>
+    <p>這裡的字學生看不到，但學過、收藏的紀錄都還在。按「救回」就會回到原本的主題。</p>
+    {% else %}
+    <h1>{{ icon('library') }} {{ course_label }}單字</h1>
+    <p>可以用單字或中文意思搜尋，按「編輯」修改內容或刪除。</p>
+    {% endif %}
+</div>
+<div class="panel">
+    <form method="get" class="filters">
+        {% if trash %}<input type="hidden" name="trash" value="1">{% endif %}
+        <div><label class="f" style="margin-top:0">搜尋</label>
+            <input type="search" name="q" value="{{ q }}" placeholder="例如 apple 或 蘋果"></div>
+        <div><label class="f" style="margin-top:0">主題</label>
+            <select name="theme" onchange="this.form.submit()">
+                <option value="">全部主題</option>
+                {% for k, label in themes %}<option value="{{ k }}" {{ 'selected' if k == theme }}>{{ label }}</option>{% endfor %}
+            </select></div>
+        <button class="btn ghost">{{ icon('search') }} 搜尋</button>
+    </form>
+</div>
+<div class="panel">
+    <div class="bar">
+        <b>共 {{ '{:,}'.format(total) }} 筆</b>
+        <span class="sp"></span>
+        {% if trash %}
+            <a class="btn ghost small" href="{{ url_for('admin.vocab_list', course=course) }}">← 回單字列表</a>
+        {% else %}
+            <a class="btn ghost small" href="{{ url_for('admin.vocab_list', course=course, trash=1) }}">{{ icon('folder') }} 回收區（{{ trash_count }}）</a>
+            <a class="btn small" href="{{ url_for('admin.vocab_new', course=course, theme=theme) }}">＋ 新增單字</a>
+        {% endif %}
+    </div>
+    {% if rows %}
+    <table>
+        <thead><tr><th>單字</th><th>意思</th><th>主題</th><th>學過人數</th><th></th></tr></thead>
+        <tbody>
+        {% for v in rows %}
+        <tr>
+            <td class="w">{{ v.word }}{% if v.admin_locked and not trash %}<span class="tag">後台改過</span>{% endif %}<small>{{ v.pos or '' }}</small></td>
+            <td class="m">{{ v.meaning }}{% if v.meaning_en and v.meaning_en != v.meaning %}<div class="en">{{ v.meaning_en }}</div>{% endif %}</td>
+            <td class="t">{{ v.theme }}</td>
+            <td class="n">{{ learned.get(v.id, 0) }}</td>
+            <td class="a">
+                {% if trash %}
+                <form method="post" action="{{ url_for('admin.vocab_restore', course=course, vocab_id=v.id) }}" style="margin:0">
+                    <input type="hidden" name="csrf" value="{{ admin_csrf }}">
+                    <button class="btn ghost small">{{ icon('refresh') }} 救回</button>
+                </form>
+                {% else %}
+                <a class="btn ghost small" href="{{ url_for('admin.vocab_edit', course=course, vocab_id=v.id, back=request.full_path) }}">{{ icon('pencil') }} 編輯</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if pages > 1 %}
+    <div class="pager">
+        {% if page > 1 %}<a href="{{ url_for('admin.vocab_list', course=course, q=q or None, theme=theme or None, trash=1 if trash else None, page=page-1) }}">← 上一頁</a>{% endif %}
+        <span>第 {{ page }} / {{ pages }} 頁</span>
+        {% if page < pages %}<a href="{{ url_for('admin.vocab_list', course=course, q=q or None, theme=theme or None, trash=1 if trash else None, page=page+1) }}">下一頁 →</a>{% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="empty">{{ '回收區是空的' if trash else '找不到符合的單字' }}</div>
+    {% endif %}
+</div>
+{% endblock %}

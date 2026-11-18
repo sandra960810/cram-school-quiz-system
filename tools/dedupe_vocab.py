@@ -9,7 +9,7 @@ run.bat 匯入單字之後會自動跑，可以重複執行（沒有重複字時
 規則：
 - 只處理 COURSES 裡的課程（目前只有 IELTS），不同課程的同一個字不算重複
 - 同拼字（不分大小寫、前後空白）的幾筆裡，留下內容最完整的一筆：
-  有例句 > 有詞性 > 有中文意思，一樣完整就留編號最小的
+  管理員在後台改過的 > 有例句 > 有詞性 > 有中文意思，一樣完整就留編號最小的
 - 被合併掉那筆的學習紀錄（熟／不熟）、收藏、單字測驗作答與題目、舊版錯題，
   全部改指到留下的那筆；兩筆都有紀錄時保留比較新的那筆紀錄
 - REMOVED_WORDS 是確定要下架的錯誤資料（來源檔混進來的亂碼），連同它的學習紀錄一起刪掉
@@ -39,7 +39,7 @@ def richness(row):
     sentence = row.sentence or ''
     has_sentence = bool(sentence) and not sentence.startswith(NO_SENTENCE_PREFIX)
     has_zh = bool(row.meaning) and row.meaning != (row.meaning_en or '')
-    return (has_sentence, bool(row.pos), has_zh, -row.id)
+    return (bool(getattr(row, 'admin_locked', False)), has_sentence, bool(row.pos), has_zh, -row.id)
 
 
 def move_rows(table, old_id, new_id, unique_cols=None, newer_col=None):
@@ -108,7 +108,7 @@ def run(dry_run=False):
     with app.app_context():
         id_map = {}
         for course in COURSES:
-            rows = db.session.execute(text("SELECT id, word, pos, meaning, meaning_en, sentence "
+            rows = db.session.execute(text("SELECT id, word, pos, meaning, meaning_en, sentence, admin_locked "
                                            "FROM vocabulary WHERE category=:c"), {"c": course}).all()
             groups = {}
             for r in rows:
