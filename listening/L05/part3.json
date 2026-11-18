@@ -1,22 +1,22 @@
 {
   "no": 3,
-  "context": "Two architecture students planning a presentation on bamboo as a building material",
+  "context": "Two architecture students planning a presentation on rammed earth as a building material",
   "audio": "L05_part3.mp3",
   "instructions": "Questions 21–30",
   "cues": [
-    { "v": "narrator", "t": "Part 3. You will hear two architecture students, Laura and Finn, planning a presentation on bamboo as a building material. First you have some time to look at questions 21 to 25." },
+    { "v": "narrator", "t": "Part 3. You will hear two architecture students, Laura and Finn, planning a presentation on rammed earth as a building material. First you have some time to look at questions 21 to 25." },
     { "v": "pause", "t": "25" },
     { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
     { "v": "pause", "t": "3" },
-    { "v": "f1", "t": "Finn, can we plan the bamboo presentation? It's only ten days away." },
+    { "v": "f1", "t": "Finn, can we plan the rammed earth presentation? It's only ten days away." },
     { "v": "m3", "t": "Sure. I was thinking we should begin by explaining how we came to choose the topic." },
-    { "v": "f1", "t": "Wasn't it your trip to Indonesia? You came back full of ideas." },
-    { "v": "m3", "t": "No, that was afterwards. We'd already chosen it by then. What started it was that television documentary about the school in Colombia. And remember, Dr Marsh was trying to persuade us to do recycled concrete instead." },
-    { "v": "f1", "t": "That's right, she was. Okay. Then we need to set out the advantages. Everyone says bamboo is cheap." },
-    { "v": "m3", "t": "It is where it grows. But once you've shipped it to Europe, it isn't cheap at all. And whether it looks good is a matter of taste. For me, the point that matters most is how fast it grows. You can harvest it after three to five years, and a tree needs thirty at least." },
-    { "v": "f1", "t": "Agreed, we'll lead with that. I'd like to say something about strength as well. I'd read that it can be as strong as steel when you pull it, so that didn't surprise me. What did surprise me was how much it varies from one species to another. Some kinds are no use for building at all." },
-    { "v": "m3", "t": "Yes, we should warn people about that. And then the difficulties. I suppose the damp climate here is the big one." },
-    { "v": "f1", "t": "I don't think so. Properly treated bamboo copes with rain perfectly well. And you can always train builders to work with it. The real obstacle is that the building regulations here don't mention bamboo at all. So you can't get a design approved, and nobody will insure it." },
+    { "v": "f1", "t": "Wasn't it your trip to Morocco? You came back full of ideas." },
+    { "v": "m3", "t": "No, that was afterwards. We'd already chosen it by then. What started it was that radio programme about the farmhouse in Wales. And remember, Dr Marsh was trying to persuade us to do recycled plastic instead." },
+    { "v": "f1", "t": "That's right, she was. Okay. Then we need to set out the advantages. Everyone says rammed earth is cheap, because the soil is free." },
+    { "v": "m3", "t": "The soil may be free, but the labour isn't. Ramming the walls by hand takes weeks, so it isn't cheap at all. And whether it looks good is a matter of taste. For me, the point that matters most is the way it keeps a building at an even temperature. The thick walls soak up heat during the day and give it back at night, so you hardly need heating or air conditioning." },
+    { "v": "f1", "t": "Agreed, we'll lead with that. I'd like to say something about strength as well. I'd read that earth walls can last for centuries, so that didn't surprise me. What did surprise me was how much it depends on the soil. If there's too much clay in it, the walls crack as they dry, so the soil on every site has to be tested." },
+    { "v": "m3", "t": "Yes, we should warn people about that. And then the difficulties. I suppose the wet climate here is the big one." },
+    { "v": "f1", "t": "I don't think so. With a good roof and a stone base, rain isn't a problem. And you can always train builders to work with it. The real obstacle is that the building regulations here don't mention rammed earth at all. So you can't get a design approved, and nobody will insure it." },
     { "v": "m3", "t": "Good point. Now, how shall we divide it up?" },
     { "v": "f1", "t": "I'll do the introduction. And since you did the laboratory work, perhaps you could explain the test results." },
     { "v": "m3", "t": "I'd rather you did the figures, to be honest. You explain numbers more clearly than I do. I'll describe the case studies. I've got all the photographs." },
@@ -26,13 +26,13 @@
     { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
     { "v": "pause", "t": "3" },
     { "v": "f1", "t": "So tell me about the case studies. Which buildings have you got?" },
-    { "v": "m3", "t": "Five. The first is Riverbend School, the one from the documentary. What I like about it is that no construction company was involved. The parents and neighbours put it up themselves, without being paid, over two summers." },
-    { "v": "f1", "t": "That's a good story. And the footbridge?" },
-    { "v": "m3", "t": "Sanda Bridge. It's forty metres long, and two years after it opened there was a major earthquake. Concrete buildings nearby collapsed, and the bridge was still standing." },
+    { "v": "m3", "t": "Five. The first is Riverbend School, in Kenya. What I like about it is that no construction company was involved. The parents and neighbours put it up themselves, without being paid, over two summers." },
+    { "v": "f1", "t": "That's a good story. And the library?" },
+    { "v": "m3", "t": "Sanda Library. It's two storeys high, and two years after it opened there was a major earthquake. Concrete buildings nearby collapsed, and the library was still standing." },
     { "v": "f1", "t": "Impressive. What about the café you mentioned?" },
-    { "v": "m3", "t": "The Lotus Café. That one's a warning, really. To save money, the owners used bamboo that hadn't been treated, and within three years beetles had eaten into the main posts. Half of it had to be pulled down." },
+    { "v": "m3", "t": "The Lotus Café. That one's a warning, really. To save money, the owners left out the stone base, and in the first winter the river flooded and soaked the bottom of the walls. Half of it had to be pulled down." },
     { "v": "f1", "t": "We should definitely include that. And the hostel?" },
-    { "v": "m3", "t": "Mountain View Hostel, in Austria. It looks wonderful, and it was finished on time. But all the bamboo had to be imported, and the final bill was almost double the original budget." },
+    { "v": "m3", "t": "Mountain View Hostel, in Austria. It looks wonderful, and it was finished on time. But the local soil had too much clay in it, so all the earth had to be brought in by lorry, and the final bill was almost double the original budget." },
     { "v": "f1", "t": "So it went well over budget. And the last one?" },
     { "v": "m3", "t": "The Harbour Pavilion. It took twice as long to build as anyone expected. But last year it was given an international prize for design, which is probably why people have heard of it." },
     { "v": "f1", "t": "Great. That gives us a good mix of successes and failures." },
@@ -47,34 +47,34 @@
       "items": [
         {
           "no": 21,
-          "stem": "How did the students first become interested in bamboo?",
+          "stem": "How did the students first become interested in rammed earth?",
           "options": {
-            "A": "Finn visited a bamboo building abroad.",
+            "A": "Finn visited an earth building abroad.",
             "B": "Their tutor suggested the topic.",
-            "C": "They saw a programme about it."
+            "C": "They heard a programme about it."
           }
         },
         {
           "no": 22,
-          "stem": "What does Finn think is the greatest advantage of bamboo?",
+          "stem": "What does Finn think is the greatest advantage of rammed earth?",
           "options": {
-            "A": "It grows quickly.",
+            "A": "It keeps indoor temperatures stable.",
             "B": "It is inexpensive.",
             "C": "It is attractive."
           }
         },
         {
           "no": 23,
-          "stem": "What surprised Laura about the strength of bamboo?",
+          "stem": "What surprised Laura about the strength of rammed earth?",
           "options": {
-            "A": "It can be as strong as steel.",
-            "B": "It differs between species.",
-            "C": "It decreases as the plant gets older."
+            "A": "It can last for hundreds of years.",
+            "B": "It depends on the type of soil.",
+            "C": "It increases as the walls get older."
           }
         },
         {
           "no": 24,
-          "stem": "According to Laura, the main barrier to building with bamboo locally is",
+          "stem": "According to Laura, the main barrier to building with rammed earth locally is",
           "options": {
             "A": "the lack of official standards.",
             "B": "the shortage of skilled builders.",
@@ -102,7 +102,7 @@
         "A": "It went over budget.",
         "B": "It was built by unpaid local people.",
         "C": "It was finished ahead of schedule.",
-        "D": "It was attacked by insects.",
+        "D": "It was damaged by water.",
         "E": "It received an international award.",
         "F": "It withstood an earthquake."
       },
@@ -113,7 +113,7 @@
         },
         {
           "no": 27,
-          "text": "Sanda Bridge"
+          "text": "Sanda Library"
         },
         {
           "no": 28,
@@ -136,32 +136,32 @@
       "answers": [
         "C"
       ],
-      "explain": "答案是 <b>C</b>。Finn 說 What started it was that television documentary about the school in Colombia。<br><b>同義轉換</b>：television documentary ＝ a programme。<b>陷阱</b>：A 是 Laura 的印象，但 Finn 說 that was afterwards，印尼之行是選定題目之後的事；B 錯在老師其實希望他們做再生混凝土。",
-      "quote": "No, that was afterwards. We'd already chosen it by then. What started it was that television documentary about the school in Colombia."
+      "explain": "答案是 <b>C</b>。Finn 說 What started it was that radio programme about the farmhouse in Wales。<br><b>同義轉換</b>：radio programme ＝ a programme，heard 對應收音機。<b>陷阱</b>：A 是 Laura 的印象，但 Finn 說 that was afterwards，摩洛哥之行是選定題目之後的事；B 錯在老師其實希望他們做再生塑膠。",
+      "quote": "No, that was afterwards. We'd already chosen it by then. What started it was that radio programme about the farmhouse in Wales."
     },
     {
       "no": 22,
       "answers": [
         "A"
       ],
-      "explain": "答案是 <b>A</b>。Finn 說 For me, the point that matters most is how fast it grows。<br><b>陷阱</b>：B 是 Everyone says，但運到歐洲之後 it isn't cheap at all；C 的外觀是 a matter of taste（見仁見智）。題目問 greatest advantage，對應 the point that matters most。",
-      "quote": "For me, the point that matters most is how fast it grows."
+      "explain": "答案是 <b>A</b>。Finn 說 the point that matters most is the way it keeps a building at an even temperature。<br><b>同義轉換</b>：an even temperature ＝ temperatures stable。<b>陷阱</b>：B 是 Everyone says，但人工很貴，it isn't cheap at all；C 的外觀是 a matter of taste（見仁見智）。題目問 greatest advantage，對應 the point that matters most。",
+      "quote": "For me, the point that matters most is the way it keeps a building at an even temperature."
     },
     {
       "no": 23,
       "answers": [
         "B"
       ],
-      "explain": "答案是 <b>B</b>。Laura 說 What did surprise me was how much it varies from one species to another。<br><b>陷阱</b>：A 的「和鋼一樣強」她早就讀過，that didn't surprise me；C 整段都沒提到。題目問 surprised，要分清楚「不意外」和「意外」的兩件事。",
-      "quote": "What did surprise me was how much it varies from one species to another. Some kinds are no use for building at all."
+      "explain": "答案是 <b>B</b>。Laura 說 What did surprise me was how much it depends on the soil，黏土太多牆就會裂。<br><b>陷阱</b>：A 的「可以撐好幾百年」她早就讀過（last for centuries），that didn't surprise me；C 整段都沒提到。題目問 surprised，要分清楚「不意外」和「意外」的兩件事。",
+      "quote": "What did surprise me was how much it depends on the soil. If there's too much clay in it, the walls crack as they dry."
     },
     {
       "no": 24,
       "answers": [
         "A"
       ],
-      "explain": "答案是 <b>A</b>。Laura 說 The real obstacle is that the building regulations here don't mention bamboo at all。<br><b>同義轉換</b>：regulations don't mention bamboo ＝ lack of official standards。<b>陷阱</b>：C 是 Finn 的猜測，被 Laura 否定（I don't think so）；B 錯在工人 you can always train。",
-      "quote": "The real obstacle is that the building regulations here don't mention bamboo at all."
+      "explain": "答案是 <b>A</b>。Laura 說 The real obstacle is that the building regulations here don't mention rammed earth at all。<br><b>同義轉換</b>：regulations don't mention it ＝ lack of official standards。<b>陷阱</b>：C 是 Finn 的猜測，被 Laura 否定（I don't think so）；B 錯在工人 you can always train。",
+      "quote": "The real obstacle is that the building regulations here don't mention rammed earth at all."
     },
     {
       "no": 25,
@@ -184,16 +184,16 @@
       "answers": [
         "F"
       ],
-      "explain": "答案是 <b>F</b>（撐過地震）。Finn 說大地震後 Concrete buildings nearby collapsed, and the bridge was still standing。<br><b>同義轉換</b>：was still standing ＝ withstood。",
-      "quote": "Concrete buildings nearby collapsed, and the bridge was still standing."
+      "explain": "答案是 <b>F</b>（撐過地震）。Finn 說大地震後 Concrete buildings nearby collapsed, and the library was still standing。<br><b>同義轉換</b>：was still standing ＝ withstood。",
+      "quote": "Concrete buildings nearby collapsed, and the library was still standing."
     },
     {
       "no": 28,
       "answers": [
         "D"
       ],
-      "explain": "答案是 <b>D</b>（被昆蟲蛀蝕）。Finn 說 beetles had eaten into the main posts。<br><b>同義轉換</b>：beetles（甲蟲）屬於 insects。<b>陷阱</b>：他提到 To save money，但這是用了未處理竹材的原因，不是 A（超出預算）。",
-      "quote": "To save money, the owners used bamboo that hadn't been treated, and within three years beetles had eaten into the main posts."
+      "explain": "答案是 <b>D</b>（被水損壞）。Finn 說 the river flooded and soaked the bottom of the walls。<br><b>同義轉換</b>：flooded、soaked ＝ damaged by water。<b>陷阱</b>：他提到 To save money，但這是省掉石頭底座的原因，不是 A（超出預算）。",
+      "quote": "To save money, the owners left out the stone base, and in the first winter the river flooded and soaked the bottom of the walls."
     },
     {
       "no": 29,
@@ -201,7 +201,7 @@
         "A"
       ],
       "explain": "答案是 <b>A</b>（超出預算）。Finn 說 the final bill was almost double the original budget，Laura 總結 So it went well over budget。<br><b>陷阱</b>：it was finished on time 是「準時」完工，不是 C 的「提前」完工（ahead of schedule）。",
-      "quote": "But all the bamboo had to be imported, and the final bill was almost double the original budget."
+      "quote": "so all the earth had to be brought in by lorry, and the final bill was almost double the original budget."
     },
     {
       "no": 30,
