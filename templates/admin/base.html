@@ -47,6 +47,8 @@
     {% if session.get('admin') %}
     <div class="topbar">
         <a class="brand" href="{{ url_for('admin.home') }}">{{ icon('key') }} 管理員後台</a>
+        <a href="{{ url_for('admin.home') }}">單字</a>
+        <a href="{{ url_for('admin.bank_home') }}">題庫</a>
         <span class="sp"></span>
         <a href="{{ url_for('admin.change_password') }}">改密碼</a>
         <form method="post" action="{{ url_for('admin.logout') }}" style="margin:0"><button class="linkbtn">登出</button></form>

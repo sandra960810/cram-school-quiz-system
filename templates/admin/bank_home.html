@@ -1,0 +1,49 @@
+{% extends 'admin/base.html' %}
+{% block title %}題庫管理{% endblock %}
+{% block head %}<style>
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start; }
+.col h2 { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.test { display: flex; align-items: center; gap: 8px; padding: 11px 12px; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); margin-bottom: 8px; color: var(--ink); text-decoration: none; }
+.test:hover { box-shadow: 0 0 0 2px var(--primary); }
+.test .nm { flex: 1; min-width: 0; font-weight: bold; font-size: 15px; }
+.test .tp { display: block; font-weight: normal; color: var(--muted); font-size: 12px; margin-top: 2px; overflow-wrap: anywhere; }
+.tag { flex: none; font-size: 12px; font-weight: bold; padding: 2px 8px; border-radius: 99px; background: var(--warn-50); color: var(--warn-ink); }
+details.add { margin-top: 12px; }
+details.add summary { cursor: pointer; color: var(--primary); font-weight: bold; font-size: 14px; }
+details.add .btn { margin-top: 12px; }
+.trash { margin-top: 12px; font-size: 13px; color: var(--muted); }
+.trash a { color: var(--primary); font-weight: bold; }
+</style>{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('exam') }} 題庫管理</h1>
+<p>選一份測驗就能修改題目；也可以新增一份測驗，填好後按「上架」學生才看得到。</p></div>
+<div class="cols">
+    {% for c in columns %}
+    <section class="panel col">
+        <h2>{{ icon(c.icon) }} {{ c.name }}</h2>
+        {% for t in c.tests %}
+        <a class="test" href="{{ url_for('admin.bank_test', section=c.key, key=t.key) }}">
+            <span class="nm">{{ t.title }}{% if t.topics %}<span class="tp">{{ t.topics }}</span>{% endif %}</span>
+            {% if t.draft %}<span class="tag">草稿</span>{% endif %}
+        </a>
+        {% else %}
+        <p class="muted">還沒有測驗</p>
+        {% endfor %}
+        <details class="add">
+            <summary>＋ 新增一份{{ c.name }}測驗</summary>
+            <form method="post" action="{{ url_for('admin.bank_new', section=c.key) }}">
+                <input type="hidden" name="csrf" value="{{ admin_csrf }}">
+                <label class="f">測驗名稱 <span class="req">*</span></label>
+                <input type="text" name="title" maxlength="80" required>
+                <label class="f">主題說明</label>
+                <input type="text" name="topics" maxlength="200">
+                <button class="btn small">建立草稿</button>
+            </form>
+        </details>
+        {% if c.trash %}
+        <div class="trash">回收區：{% for t in c.trash %}<a href="{{ url_for('admin.bank_test', section=c.key, key=t.key) }}">{{ t.title }}</a>{% if not loop.last %}、{% endif %}{% endfor %}</div>
+        {% endif %}
+    </section>
+    {% endfor %}
+</div>
+{% endblock %}

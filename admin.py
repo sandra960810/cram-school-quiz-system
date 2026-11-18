@@ -1,4 +1,4 @@
-"""管理員後台：新增、編輯、刪除單字（題庫的編輯之後再做）。
+"""管理員後台：登入與單字的新增、編輯、刪除（題庫的編輯在 admin_bank.py）。
 
 網址一律在 /admin 底下，要先登入管理員密碼才能進去：
 - 網站會透過 share.bat 的公開連結給外面的人看，學生又只靠網址裡的編號辨識，
@@ -456,4 +456,5 @@ def register(app, db, deps):
     app.config.setdefault('PERMANENT_SESSION_LIFETIME', 8 * 3600)   # 登入 8 小時後要重新輸入密碼
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['SESSION_COOKIE_HTTPONLY'] = True
+    import admin_bank  # noqa: F401  題庫編輯的路由掛在同一個 bp 上，要在註冊前載入
     app.register_blueprint(bp)

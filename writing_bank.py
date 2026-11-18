@@ -18,6 +18,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 from markupsafe import Markup, escape
 
+import bank_store
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 BANK_DIR = os.path.join(BASE, 'writing')
 KEY_FILE = os.path.join(BASE, 'ai_key.txt')
@@ -43,37 +45,22 @@ CRITERIA = {
 # ---------------------------------------------------------------- 載入
 
 def list_tests():
-    path = os.path.join(BANK_DIR, 'tests.json')
-    if not os.path.exists(path):
-        return []
-    with open(path, encoding='utf-8') as f:
-        tests = json.load(f)
-    return [t for t in tests if _task_files(t['key'])]
+    return [t for t in bank_store.tests('writing') if _task_files(t['key'])]
 
 
 def _task_files(key):
-    d = os.path.join(BANK_DIR, key)
-    out = []
-    for n in (1, 2):
-        p = os.path.join(d, f'task{n}.json')
-        if os.path.exists(p):
-            with open(p, encoding='utf-8') as f:
-                out.append(json.load(f))
+    out = [t for t in (bank_store.read('writing', key, f'task{n}.json') for n in (1, 2)) if t]
     return out if len(out) == 2 else []
 
 
 def load_test(key):
     """載入一份寫作測驗；找不到回傳 None。"""
-    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or ''):
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', key or '') or bank_store.is_draft('writing', key):
         return None
     tasks = _task_files(key)
     if not tasks:
         return None
-    meta = {}
-    meta_path = os.path.join(BANK_DIR, key, 'meta.json')
-    if os.path.exists(meta_path):
-        with open(meta_path, encoding='utf-8') as f:
-            meta = json.load(f)
+    meta = bank_store.read('writing', key, 'meta.json', {})
     for t in tasks:
         t['paragraphs'] = [p for p in t['prompt'].split('\n') if p.strip()]
         if t.get('chart'):

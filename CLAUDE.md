@@ -64,7 +64,9 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 phonics.py          英文零基礎的單字發音教學頁 /phonics/<學生id>：單字發音（主角）、發音規則、聽音選字、ABC 字母
 pronunciation/      單字 KK 音標 kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生，見 README）
 basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
-admin.py            管理員後台 /admin：新增、編輯、刪除單字（要密碼；樣板在 templates/admin/）
+admin.py            管理員後台 /admin：登入、新增、編輯、刪除單字（要密碼；樣板在 templates/admin/）
+admin_bank.py       管理員後台 /admin/bank：聽說讀寫題庫的新增、編輯、刪除（編輯頁的前端在 static/admin_bank.js）
+bank_store.py       題庫存取層：原始題庫＋後台改動（instance/bank_edits/，不進 git）
 reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設定
 ```
 
@@ -101,9 +103,20 @@ reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設
   同音字表 `SAME` 算對）；同時用 MediaRecorder 錄音讓學生重聽，錄音與星星都只存在瀏覽器（localStorage），不上傳。
   單字來源：零基礎與一般英文主題（`/phonics/<id>/words?theme=B01`，附音標）、各發音規則課、ABC 代表字
 
+## 後台題庫編輯（admin_bank.py、bank_store.py）
+
+- **所有讀題庫的程式都要走 `bank_store`**，不要直接開 `listening/`、`reading/` 的檔案，否則讀不到後台改的內容
+- 後台存檔寫到 `instance/bank_edits/<技能>/<測驗>/`，原始題庫檔不動，所以 `run.bat` 的 `git pull` 不會衝突；
+  每次覆寫前舊版留在 `_history/`（每個檔留 20 份），測驗頁的「還原」會回到原始題庫
+- 新增的測驗代號是 LX01、RX01、WX01、SX01（多一個 X，避免和之後進 git 的 L03、R02 撞名），先是草稿，檢查通過才能上架
+- 聽力、閱讀存檔時依頁面順序把整回重新編號（`renumber_test`），「Questions 1–6」也一起更新；學生舊成績的分數不變，
+  但檢討頁顯示的是新題目
+- 存檔檢查：缺答案、答案不是有效選項、圖表數據數量不符等會擋住；答案或引句在原文找不到、沒寫解析只提醒
+- 聽力改逐字稿後，測驗頁會出現「重新產生音檔」（背景跑 `tools/make_listening_audio.py`）；地圖題的圖片不能在後台換
+
 ## 管理員後台（admin.py）
 
-- 網址 `/admin`，入口在選擇考試頁最下面。目前只管單字（四個課程），題庫編輯還沒做
+- 網址 `/admin`，入口在選擇考試頁最下面。單字（四個課程）與聽說讀寫題庫都能管理
 - **一定要密碼**：網站會用公開連結分享、學生靠網址編號辨識，不能讓拿到連結的人改資料。
   第一次設定密碼只能在櫃台電腦本機（看 `Cf-Connecting-Ip` 等標頭分辨是不是經過 Cloudflare 通道）；
   密碼雜湊存 `instance/admin.json`、session 金鑰存 `instance/secret_key.txt`（都不進 git）；
@@ -259,7 +272,7 @@ reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設
 - ✅ 英文零基礎（橘色）：單字發音教學（音標、音節、重音、慢速、跟讀評分）、發音規則 6 課、聽音選字、ABC，加上 2,006 字單字學習＋單字測驗
 - ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
 - ✅ 管理員後台：單字新增、編輯、刪除（回收區可救回），密碼保護
-- ⬜ 後台編輯題庫（聽說讀寫）
+- ✅ 後台編輯題庫（聽說讀寫）：新增、編輯、刪除題目與整份測驗，草稿上架、回收區可救回
 - ⬜ 韓檢、日檢；學生登入與後台開通權限
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10

@@ -17,7 +17,6 @@ edge-tts 使用的就是 Microsoft Edge 內建的那套神經語音（Sonia、Ry
 """
 import asyncio
 import hashlib
-import json
 import pathlib
 import sys
 
@@ -28,7 +27,9 @@ except ImportError:
              '    venv\\Scripts\\python.exe -m pip install edge-tts')
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BANK = ROOT / 'listening'
+sys.path.insert(0, str(ROOT))
+import bank_store  # noqa: E402  讀題庫要包含管理員在後台改過的內容
+
 OUT = ROOT / 'static' / 'audio' / 'listening'
 CACHE = ROOT / 'tools' / '.tts_cache'
 SILENCE = (ROOT / 'tools' / 'assets' / 'silence_1s.mp3').read_bytes()
@@ -119,14 +120,17 @@ async def build_part(part):
 
 def collect(only_test, only_part):
     files = []
-    for d in sorted(p for p in BANK.iterdir() if p.is_dir()):
-        if only_test and d.name != only_test:
+    for t in bank_store.all_tests('listening'):
+        key = t['key']
+        if t['trash'] or (only_test and key != only_test):
             continue
-        for pf in sorted(d.glob('part*.json')):
-            part = json.loads(pf.read_text(encoding='utf-8'))
-            if only_part and part['no'] != only_part:
+        for name in bank_store.names('listening', key):
+            if not name.startswith('part'):
                 continue
-            files.append((d.name, part))
+            part = bank_store.read('listening', key, name)
+            if not part['cues'] or (only_part and part['no'] != only_part):
+                continue
+            files.append((key, part))
     return files
 
 
@@ -157,6 +161,7 @@ async def main():
         print(f'  產生 {label} …', flush=True)
         audio, spoken = await build_part(part)
         target.write_bytes(audio)
+        bank_store.mark_audio_made(test_key, f'part{part["no"]}.json', part['cues'])
         made += 1
         print(f'     完成 {target.name}（{len(audio) // 1024} KB，約 {spoken} 字元）')
 

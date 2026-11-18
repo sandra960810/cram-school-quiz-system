@@ -19,7 +19,12 @@
     </a>
     {% endfor %}
 </div>
-<div class="panel" style="margin-top:18px">
+<div class="panel" style="margin-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <div style="flex:1;min-width:220px"><h2>{{ icon('exam') }} 題庫管理</h2>
+    <p class="muted" style="margin:0">新增、修改、刪除聽力、閱讀、寫作、口說的題目。</p></div>
+    <a class="btn" href="{{ url_for('admin.bank_home') }}">進入題庫管理</a>
+</div>
+<div class="panel">
     <h2>{{ icon('bulb') }} 小提醒</h2>
     <p class="muted" style="margin:0">
     ・刪除的字會先放進「回收區」，學生看不到，但學過、收藏的紀錄都保留，隨時可以救回。<br>
