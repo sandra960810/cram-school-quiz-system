@@ -68,6 +68,8 @@ admin.py            管理員後台 /admin：登入、新增、編輯、刪除�
 admin_bank.py       管理員後台 /admin/bank：聽說讀寫題庫的新增、編輯、刪除（編輯頁的前端在 static/admin_bank.js）
 bank_store.py       題庫存取層：原始題庫＋後台改動（instance/bank_edits/，不進 git）
 reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設定
+topik/              韓檢 1～6 級單字 CSV 與來源說明（README.md）
+static/hangul_keyboard.js  韓文鍵盤：韓檢單字測驗的打字題用（沒有韓文輸入法的電腦也能打）
 ```
 
 資料模型都在 `app.py` 上半部：`Student`、`Vocabulary`、`LearningProgress`、
@@ -92,6 +94,16 @@ reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設
 - 零基礎單字在 `basic/basic_vocab.csv`（2,006 字，國中小程度、例句刻意很短），一般英文在 `general/general_vocab.csv`
   （4,032 個日常生活字）。**兩區互不重複**，各自也沒有重複字；來源是 NGSL＋OpenSubtitles 字頻（CC BY-SA 4.0），
   中文意思與例句原創，見各資料夾的 `README.md`。`run.bat` 會匯入。加字時兩份都要檢查不重複
+- **韓檢（topik，莓果紅）**：單字依等級分成 K1～K6 六個主題（1～6 級），約 6,600 字，來源與分級方式見 `topik/README.md`。
+  - **逐級開通**：學生可用的等級由 `exams.open_levels(student, exam)` 決定，讀 `Student.unlocked_levels`
+    （JSON，例如 `{"topik": [1, 2]}`；空的＝全部開放）。沒開通的等級（`app.locked_theme_ids`）在單字學習區顯示
+    「尚未開通」、主題頁回 403，也不會出現在單字測驗與收藏。之後接購買紀錄或後台，只要寫這個欄位
+  - 韓文頁面（`<html data-exam="topik">`）：`UI.speak` 唸韓文（伺服器音檔 `/tts?accent=KR` 用 `ko-KR-SunHiNeural`，
+    瀏覽器語音挑 ko-KR），發音設定和英文分開存；圖鑑分頁依第一個字的子音（ㄱㄴㄷ…，`first_letter`）
+  - 單字測驗：例句填空由 `vocab_quiz.find_cloze_ko` 辨認活用形（가다→가요、봤어요、했어요），
+    不規則活用在例句裡用 `[ ]` 標出（顯示例句時 `clean_sentence` 會拿掉括號）；拼寫與填空提示只給子音（ㅈㅇㅇ），
+    打字題有韓文鍵盤（實體鍵盤照 2 벌식鍵位打，或點螢幕按鍵）
+  - 「英文解釋」欄放漢字（`漢字：學校`），單字卡顯示在中文意思下面
 - 單字發音教學（`phonics.py`）：**重點是教「單字怎麼唸」，不是 ABC**。預設分頁「單字發音」選零基礎／一般英文主題逐字學：
   拼字拆音節、重音那格加底線、KK 音標（`pronunciation/kk.json`）、正常速度與慢速拆音節（整字放慢、音節依序亮起）、
   這個字用到的發音規則（`rules_for()`，拼字和 KK 都對上才顯示，點了跳到發音規則課）、例句、跟讀評分。
@@ -273,7 +285,9 @@ reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設
 - ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
 - ✅ 管理員後台：單字新增、編輯、刪除（回收區可救回），密碼保護
 - ✅ 後台編輯題庫（聽說讀寫）：新增、編輯、刪除題目與整份測驗，草稿上架、回收區可救回
-- ⬜ 韓檢、日檢；學生登入與後台開通權限
+- ✅ 韓檢（莓果紅）：1～6 級分級字庫＋單字學習＋單字測驗（韓語發音、韓文鍵盤、逐級開通的資料欄位）
+  - 1、2 級（TOPIK I，1,850 字）完成；3～6 級陸續加入
+- ⬜ 日檢；學生登入與後台開通權限（韓檢逐級開通已有 `Student.unlocked_levels`，等後台寫入）
 - ✅ 聽力題庫 **2 / 10 回**（L01、L02 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L03–L10
 - ✅ 閱讀題庫 **1 / 10 回**（R01 完成，3 篇 40 題含解析）

@@ -99,6 +99,8 @@
 
     function render() {
         if (!panel) return;
+        // 用螢幕鍵盤時不要再跳出手機自己的鍵盤（擋住題目）；關掉就恢復用手機或電腦的輸入法
+        if (input) { if (on && window.matchMedia('(pointer: coarse)').matches) input.setAttribute('inputmode', 'none'); else input.removeAttribute('inputmode'); }
         panel.innerHTML = `
             <div class="hk-head">
                 <label class="hk-switch"><input type="checkbox" ${on ? 'checked' : ''}> 韓文鍵盤</label>
@@ -107,7 +109,7 @@
             ${on ? `<div class="hk-keys">${ROWS.map((row, i) => `<div class="hk-row">${i === 2 ? `<button type="button" class="hk-key wide ${shift ? 'on' : ''}" data-k="shift">Shift</button>` : ''}${row.map(j => {
                 const s = shift && SHIFTED[j] ? SHIFTED[j] : j;
                 return `<button type="button" class="hk-key" data-k="${s}">${s}</button>`;
-            }).join('')}${i === 2 ? '<button type="button" class="hk-key wide" data-k="back">⌫</button>' : ''}</div>`).join('')}
+            }).join('')}${i === 2 ? '<button type="button" class="hk-key wide" data-k="back">刪除</button>' : ''}</div>`).join('')}
                 <div class="hk-row"><button type="button" class="hk-key space" data-k=" ">空白</button></div></div>` : ''}`;
         panel.querySelector('.hk-switch input').addEventListener('change', (e) => {
             on = e.target.checked;
