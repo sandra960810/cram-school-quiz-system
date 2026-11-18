@@ -21,7 +21,6 @@
         .btn { padding: 12px 20px; font-size: 16px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; }
         .btn-learn { background: var(--primary); color: white; }
         .btn-weak { background: var(--warn); color: white; }
-        .btn-quiz { background: var(--primary); color: white; }
         .btn.disabled { background: var(--line); color: var(--muted); pointer-events: none; }
 
         .letters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
@@ -42,10 +41,6 @@
         .zone.active[data-zone="new"] { background: var(--muted-2); }
         .zone.active .cnt { background: rgba(255,255,255,0.3); }
 
-        .search-form { display: flex; gap: 8px; margin-bottom: 20px; }
-        .search-bar { flex: 1; padding: 12px; font-size: 16px; border: 2px solid var(--line-strong); border-radius: 8px; box-sizing: border-box; }
-        .search-btn { padding: 0 18px; border: none; border-radius: 8px; background: var(--ink); color: white; font-size: 15px; cursor: pointer; }
-        .hint { color: var(--muted); font-size: 14px; margin: -10px 0 15px 0; }
 
         .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .dex-card { display: block; padding: 15px; border-radius: 10px; box-shadow: var(--edge); text-align: center; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.2s; }
@@ -91,27 +86,17 @@
             <div class="u" style="width: {{ theme.weak * 100 / theme.total if theme.total else 0 }}%"></div>
         </div>
 
-        {% if q %}
-            {% set swipe_count = theme.weak + t_new %}
-            {% set weak_count = theme.weak %}
-            {% set scope = '' %}
-        {% else %}
-            {% set swipe_count = zone_counts.unfamiliar + zone_counts.new %}
-            {% set weak_count = zone_counts.unfamiliar %}
-            {% set scope = (' ' ~ letter ~ ' 開頭') if letter else '' %}
-        {% endif %}
+        {% set swipe_count = zone_counts.unfamiliar + zone_counts.new %}
+        {% set weak_count = zone_counts.unfamiliar %}
+        {% set scope = (' ' ~ letter ~ ' 開頭') if letter else '' %}
         <div class="actions">
             <a class="btn btn-learn {% if not swipe_count %}disabled{% endif %}"
-               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=(letter if not q else None)) }}">
-                {{ icon('swipe') }} 開始滑卡{{ scope }}（{{ [swipe_count, batch]|min }} 個）<span class="go-arrow">→</span>
+               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=letter) }}">
+                {{ icon('swipe') }} 開始<span class="go-arrow">→</span>
             </a>
             <a class="btn btn-weak {% if not weak_count %}disabled{% endif %}"
-               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='weak', letter=(letter if not q else None)) }}">
+               href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='weak', letter=letter) }}">
                 {{ icon('dot') }} 只練不熟區{{ scope }}（{{ [weak_count, batch]|min }} 個）<span class="go-arrow">→</span>
-            </a>
-            <a class="btn btn-quiz {% if not (theme.unlocked + theme.weak) %}disabled{% endif %}"
-               href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id, scope='theme:' ~ theme.key) }}">
-                {{ icon('quiz') }} 測驗這個主題（學過 {{ theme.unlocked + theme.weak }} 個）<span class="go-arrow">→</span>
             </a>
         </div>
     </div>
@@ -135,15 +120,6 @@
         <button class="zone" data-zone="new" data-sound="tap" role="tab">○ 還沒學<span class="cnt">{{ zone_counts.new }}</span></button>
     </div>
 
-    <form class="search-form" method="get"
-          action="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}"
-          {% if not paged %}onsubmit="return false;"{% endif %}>
-        <input type="text" name="q" id="searchInput" class="search-bar" value="{{ q }}"
-               placeholder="搜尋單字或意思{% if paged %}（按 Enter）{% endif %}"
-               {% if not paged %}oninput="applyFilter()"{% endif %}>
-        {% if paged %}<button type="submit" class="search-btn">搜尋</button>{% endif %}
-    </form>
-    {% if q %}<p class="hint">「{{ q }}」：{{ cards|length }} 個結果。<a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key) }}">清除搜尋 ×</a></p>{% endif %}
 
     {% if cards %}
     <div class="dex-grid ui-stagger" id="dexGrid">
@@ -167,7 +143,7 @@
     </div>
     {% endif %}
     <div class="empty-msg" id="emptyMsg" {% if cards %}style="display:none"{% endif %}>
-        {% if q %}沒有符合的單字。{% else %}這一區還沒有單字。{% endif %}
+        這一區還沒有單字。
     </div>
 </div>
 
@@ -180,17 +156,11 @@
         applyFilter();
     }));
 
-    // 依分頁（熟區／不熟區／還沒學）與搜尋文字篩選卡片
+    // 依分頁（熟區／不熟區／還沒學）篩選卡片；搜尋改到單字學習區首頁，可以跨主題找
     function applyFilter() {
-        const input = (document.getElementById('searchInput').value || '').toLowerCase();
-        const live = !{{ paged | tojson }};   // 小主題才即時搜尋；大主題用伺服器搜尋
         let shown = 0;
         for (const card of document.querySelectorAll('.dex-card')) {
-            let ok = zone === 'all' || card.dataset.status === zone;
-            if (ok && live && input) {
-                ok = card.dataset.status !== 'new' &&
-                     (card.querySelector('.word').innerText + ' ' + card.querySelector('.meaning').innerText).toLowerCase().includes(input);
-            }
+            const ok = zone === 'all' || card.dataset.status === zone;
             card.style.display = ok ? '' : 'none';
             if (ok) shown++;
         }
