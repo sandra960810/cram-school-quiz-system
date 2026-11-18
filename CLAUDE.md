@@ -87,7 +87,7 @@ static/hangul_keyboard.js  韓文鍵盤：韓檢單字測驗的打字題用（�
   零基礎多一個 phonics（ABC 與發音教學）；`/exam/` 一律算雅思、`/phonics/` 一律算零基礎
 - 主題清單 `OFFICIAL_THEMES` 每筆有 `course`；多益主題編號是 T01–T12、零基礎 B01–B13、一般英文 G01–G15，避免和雅思 01–15 混在一起
 - 色系：每個樣板的 `<html data-exam="{{ exam.key }}">`，`theme.css` 用 `:root[data-exam="toeic"]` 覆寫成藍色，
-  零基礎（basic）暖橘、一般英文（general）青綠；選擇考試頁的卡片色是 `.exam-tone-<考試>`
+  零基礎（basic）蜂蜜黃、一般英文（general）青綠；選擇考試頁的卡片色是 `.exam-tone-<考試>`
 - 之後做登入與後台開通權限：改 `exams.exams_for(student)` 依學生權限回傳可用考試即可
 - 多益單字在 `toeic/toeic_vocab.csv`（TSL＋BSL＋NGSL 三份開放字表 4,002 字＋2026-11 從雅思字庫補 1,003 字，共 5,005 字，CC BY-SA 4.0，來源與改動見 `toeic/README.md`），
   `run.bat` 會匯入
@@ -251,9 +251,11 @@ static/hangul_keyboard.js  韓文鍵盤：韓檢單字測驗的打字題用（�
 
 ## 全站視覺與色系
 
-- 顏色全部來自 `static/theme.css` 的變數：主色 `--primary`（紫色學院風）、標題橫幅 `--hero`、文字 `--ink`／`--muted`、
+- 顏色全部來自 `static/theme.css` 的變數，**雙色層次**：主色 `--primary`（按鈕、重點）＋同色系深色 `--deep`（標題橫幅、標題字、返回鈕）。
+  雅思與選擇考試頁是橘＋咖啡，多益藍＋海軍藍，零基礎蜂蜜黃＋棕，一般英文青綠＋墨綠，韓檢莓果紅＋酒紅。
+  其他變數：標題橫幅 `--hero`、文字 `--ink`／`--muted`、
   框線 `--line`、底色 `--bg`，以及狀態色 `--ok`（對）、`--bad`（錯）、`--warn`（提醒）、`--star`（收藏），各有 `-50` 淺底與 `-ink` 深字
-- 標題橫幅是淺紫平塗（`--hero`）配深紫字，**不用漸層**；層次**不用模糊陰影**，改用邊框疊：
+- 標題橫幅是深色平塗（`--hero` = `--deep`）配白字，下面墊一層主色淺色（`--edge-hero`），**不用漸層**；層次**不用模糊陰影**，改用邊框疊：
   一般卡片 `box-shadow: var(--edge)`、滑過或選取 `var(--edge-raised)`、橫幅 `var(--edge-hero)`、浮動面板 `var(--edge-pop)`
 - **不用 emoji**，圖示一律用線條圖示：樣板寫 `{{ icon('book-open') }}`，JS 寫 `UI.icon('book-open')`，
   圖示在 `static/icons.svg`（缺的就照格式加一個 symbol）。✓ ✗ ★ ☆ 這類文字符號可以照用
