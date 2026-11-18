@@ -1,0 +1,151 @@
+{
+  "no": 4,
+  "context": "A lecture on sand as a disappearing resource",
+  "audio": "L06_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a lecture about the growing shortage of sand. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m2", "t": "Good morning. Today's topic is a material that most of us never give a thought to, even though we walk on it every summer. I'm talking about sand. After water, sand is the natural resource that human beings use in the greatest quantity, and in several parts of the world it is beginning to run short." },
+    { "v": "m2", "t": "To give you an idea of the scale, it is estimated that the world uses around fifty billion tonnes of sand and gravel every year. That would be enough to build a wall twenty-seven metres high and twenty-seven metres wide right around the equator. And demand has tripled in the last twenty years, largely because of the growth of cities in Asia." },
+    { "v": "m2", "t": "So where does it all go? A small share is melted to make glass, for windows and bottles. But by far the largest share, well over half, is mixed with cement to produce concrete. Every new road, flat and office block is, in a sense, made of sand." },
+    { "v": "m2", "t": "Sand also lies behind modern electronics. The very purest sand is the source of the silicon from which computer chips are made. That, though, requires only tiny amounts." },
+    { "v": "m2", "t": "Now, you may be thinking that the world has whole deserts full of the stuff. Unfortunately, desert sand is of very little use to a builder. Its grains have been blown about by the wind for thousands of years, and this has left them smooth and round, so they do not grip one another. Builders need rough grains with sharp corners, and those are formed by water. They come from rivers, lakes and the sea bed." },
+    { "v": "m2", "t": "The best-known example is Dubai. The city is surrounded by desert, and yet, to build its tallest tower, it had to bring in sand by ship, and that sand came from Australia." },
+    { "v": "m2", "t": "Taking so much sand has serious effects. In rivers, removing sand from the bed makes the water flow faster and cut deeper. In India, this has left the supports of several bridges standing in mid-air, and some have had to be closed. At the same time, the level of the water under the surrounding land falls, so that farmers find their wells have run dry." },
+    { "v": "m2", "t": "At sea, the damage is of a different kind. The machines that suck sand from the sea bed stir up clouds of mud. The mud blocks out the sunlight and covers the places where fish lay their eggs, and local fishermen report that their catches have fallen sharply." },
+    { "v": "m2", "t": "And in Indonesia, so much sand has been removed from shallow water that around two dozen small islands are reported to have disappeared altogether. With prices rising, much of this trade is now illegal, and in some places it is controlled by criminal gangs." },
+    { "v": "m2", "t": "What are the alternatives? One is to make sand ourselves, by crushing rock. The grains are sharp, so the quality is good, although the process uses a great deal of energy. A second is to recycle. Old concrete from buildings that have been knocked down can be broken up and used again, at least for roads." },
+    { "v": "m2", "t": "The third is simply to use less concrete in the first place. Steel is no answer, since making it causes even more pollution. But engineers in several countries are now putting up tall buildings whose frames are made of timber, a material that, unlike sand, can be grown again." },
+    { "v": "m2", "t": "So the next time you are on a beach, remember that what is under your feet is not as unlimited as it looks. Next week, we'll move on to another resource that we take for granted, which is fresh water." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "SAND: A DISAPPEARING RESOURCE",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "How sand is used",
+          "lines": [
+            "More than half of all sand goes into making {31}",
+            "The purest sand provides the silicon for computer {32}"
+          ]
+        },
+        {
+          "heading": "Why desert sand cannot be used",
+          "lines": [
+            "Its grains have been made smooth and round by the {33}",
+            "Dubai had to import sand from {34} for its tallest tower"
+          ]
+        },
+        {
+          "heading": "Effects of removing sand",
+          "lines": [
+            "In India: several {35} have been left without support",
+            "Farmers' {36} dry up as the water level falls",
+            "At sea: mud covers the places where {37} lay eggs",
+            "In Indonesia: about twenty-four small {38} have vanished"
+          ]
+        },
+        {
+          "heading": "Alternatives",
+          "lines": [
+            "Sand can be manufactured by crushing {39}",
+            "The frames of tall buildings can be made of {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "concrete"
+      ],
+      "explain": "答案是 <b>concrete</b>（混凝土）。講者說 by far the largest share, well over half, is mixed with cement to produce concrete。<br><b>陷阱</b>：glass 先出現，但那只是 A small share（一小部分）；cement 是和沙「混合」的材料，不是做出來的成品。題目的 More than half 對應 well over half。",
+      "quote": "But by far the largest share, well over half, is mixed with cement to produce concrete."
+    },
+    {
+      "no": 32,
+      "answers": [
+        "chips"
+      ],
+      "explain": "答案是 <b>chips</b>（晶片）。講者說 the silicon from which computer chips are made。<br><b>提醒</b>：題目已經印出 silicon 和 computer，空格要填的是 computer 後面那個字。複數 s 不可漏。",
+      "quote": "The very purest sand is the source of the silicon from which computer chips are made."
+    },
+    {
+      "no": 33,
+      "answers": [
+        "wind"
+      ],
+      "explain": "答案是 <b>wind</b>。講者說沙漠的沙粒 have been blown about by the wind for thousands of years, and this has left them smooth and round。<br><b>陷阱</b>：water 緊接著出現，但水造成的是建築需要的 rough grains with sharp corners，正好相反。",
+      "quote": "Its grains have been blown about by the wind for thousands of years, and this has left them smooth and round."
+    },
+    {
+      "no": 34,
+      "answers": [
+        "Australia"
+      ],
+      "explain": "答案是 <b>Australia</b>。講者說杜拜蓋最高的大樓時 had to bring in sand by ship, and that sand came from Australia。<br><b>同義轉換</b>：bring in ＝ import。<b>提醒</b>：Asia 在前面出現過（cities in Asia），但那是在講需求成長，和杜拜的沙從哪裡來無關。國名字首要大寫。",
+      "quote": "it had to bring in sand by ship, and that sand came from Australia."
+    },
+    {
+      "no": 35,
+      "answers": [
+        "bridges"
+      ],
+      "explain": "答案是 <b>bridges</b>。講者說 this has left the supports of several bridges standing in mid-air。<br><b>同義轉換</b>：supports standing in mid-air（橋墩懸空）＝ left without support。<b>提醒</b>：題目有 several，要填複數。",
+      "quote": "In India, this has left the supports of several bridges standing in mid-air, and some have had to be closed."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "wells"
+      ],
+      "explain": "答案是 <b>wells</b>（水井）。講者說 farmers find their wells have run dry。<br><b>同義轉換</b>：run dry ＝ dry up；the level of the water... falls ＝ the water level falls。<b>陷阱</b>：不要寫成 rivers，河流是沙被挖走的地方，乾掉的是農民的井。",
+      "quote": "At the same time, the level of the water under the surrounding land falls, so that farmers find their wells have run dry."
+    },
+    {
+      "no": 37,
+      "answers": [
+        "fish"
+      ],
+      "explain": "答案是 <b>fish</b>。講者說泥巴 covers the places where fish lay their eggs。<br><b>陷阱</b>：後面的 fishermen 是「回報漁獲減少的人」，不是產卵的主角。fish 單複數同形，不用加 s。",
+      "quote": "The mud blocks out the sunlight and covers the places where fish lay their eggs."
+    },
+    {
+      "no": 38,
+      "answers": [
+        "islands"
+      ],
+      "explain": "答案是 <b>islands</b>。講者說 around two dozen small islands are reported to have disappeared altogether。<br><b>同義轉換</b>：two dozen（兩打）＝ twenty-four；disappeared ＝ vanished。聽到 dozen 要馬上換算成 12。",
+      "quote": "around two dozen small islands are reported to have disappeared altogether."
+    },
+    {
+      "no": 39,
+      "answers": [
+        "rock",
+        "rocks"
+      ],
+      "explain": "答案是 <b>rock</b>。講者說 One is to make sand ourselves, by crushing rock。<br><b>同義轉換</b>：make sand ourselves ＝ manufactured。<b>陷阱</b>：第二個替代方案的 Old concrete 是被 broken up 再利用，那是「回收」，不是「製造」沙子。",
+      "quote": "One is to make sand ourselves, by crushing rock."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "timber"
+      ],
+      "explain": "答案是 <b>timber</b>（木材）。講者說 tall buildings whose frames are made of timber。<br><b>陷阱</b>：Steel 先被提到，但 Steel is no answer（鋼不是解答），因為製造過程污染更嚴重。But 之後才是講者推薦的材料。",
+      "quote": "But engineers in several countries are now putting up tall buildings whose frames are made of timber."
+    }
+  ]
+}

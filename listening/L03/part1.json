@@ -1,0 +1,171 @@
+{
+  "no": 1,
+  "context": "Telephone call to a cookery school to book a course",
+  "audio": "L03_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a woman telephoning a cookery school to book a place on a course. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "m1", "t": "Good morning, Riverside Cookery School. Peter speaking." },
+    { "v": "f3", "t": "Hello. I saw your advert in the paper, and I'd like to book a place on one of your courses." },
+    { "v": "m1", "t": "Certainly. Could I take your surname first?" },
+    { "v": "f3", "t": "Yes, it's Hadley. H-A-D-L-E-Y." },
+    { "v": "narrator", "t": "The woman's surname is Hadley, so Hadley has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Good morning, Riverside Cookery School. Peter speaking." },
+    { "v": "f3", "t": "Hello. I saw your advert in the paper, and I'd like to book a place on one of your courses." },
+    { "v": "m1", "t": "Certainly. Could I take your surname first?" },
+    { "v": "f3", "t": "Yes, it's Hadley. H-A-D-L-E-Y." },
+    { "v": "m1", "t": "Thank you, Ms Hadley. And which course were you interested in? We've got bread making, Italian cooking and Thai cooking, all starting next month." },
+    { "v": "f3", "t": "Well, my sister did the Italian one last year and loved it, and I was quite tempted by the Thai course. But what I really want to learn is how to make bread, so I think I'll go for that one." },
+    { "v": "m1", "t": "Good choice. The bread course runs on Saturday mornings or on Thursday evenings." },
+    { "v": "f3", "t": "I work most Saturdays, I'm afraid, so it'll have to be Thursday." },
+    { "v": "m1", "t": "That's fine. The Thursday class starts on the 9th of October. Oh, I'm so sorry, I'm looking at last year's calendar. This year it starts on the 7th of October." },
+    { "v": "f3", "t": "The 7th. And how many weeks does it last?" },
+    { "v": "m1", "t": "It used to be eight weeks, but we've cut it down to six, because people found it hard to give up two whole months." },
+    { "v": "f3", "t": "Six weeks suits me much better. And what does it cost?" },
+    { "v": "m1", "t": "The full price is 150 pounds. But if you book before the end of this week, there's a discount for booking early, so you'd pay 135." },
+    { "v": "f3", "t": "Oh, then I'll definitely book today. Does that cover everything?" },
+    { "v": "m1", "t": "It covers all your ingredients, and you can use our equipment. The one thing we ask you to bring is an apron. People used to bring containers for taking their food home, but we give you boxes for that now." },
+    { "v": "f3", "t": "An apron. Right. And where exactly are you? Is it the building next to the station?" },
+    { "v": "m1", "t": "That was our old address. We moved in the spring. We're now on Mill Lane, directly opposite the library." },
+    { "v": "f3", "t": "Oh, I know where that is. Is there anywhere to park?" },
+    { "v": "m1", "t": "Not at the school itself. But there's a car park behind the supermarket, two minutes' walk away, and it's free in the evenings." },
+    { "v": "f3", "t": "That's handy. And who teaches the course?" },
+    { "v": "m1", "t": "The bread course is taught by Marco Benetti. I'll spell the surname for you. It's B-E-N-E-T-T-I. He ran his own bakery for twenty years." },
+    { "v": "f3", "t": "Lovely. There's one more thing I ought to mention. I can't eat nuts. Is that going to be a problem?" },
+    { "v": "m1", "t": "Not at all, as long as we know in advance. I'll make a note of it. Some of the recipes use seeds. Are those all right for you?" },
+    { "v": "f3", "t": "Seeds are fine, and so is milk. It's just nuts." },
+    { "v": "m1", "t": "I've noted that down. Finally, how would you like to pay? We can take a card over the phone, or you can pay in cash on the first evening." },
+    { "v": "f3", "t": "I'd rather not carry that much cash around, and I haven't got my card with me. Could I pay by bank transfer?" },
+    { "v": "m1", "t": "Of course. I'll email you our bank details this afternoon, and as soon as the transfer comes through, your place is confirmed." },
+    { "v": "f3", "t": "That's great. Thank you very much for your help." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Riverside Cookery School",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Booking",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Hadley}",
+            "She has chosen the course in {1} making",
+            "She will attend on {2} evenings",
+            "The course starts on {3} October",
+            "It lasts for {4} weeks",
+            "With the discount, the fee is £{5}"
+          ]
+        },
+        {
+          "heading": "Practical information",
+          "lines": [
+            "Students need to bring their own {6}",
+            "The school is on Mill Lane, opposite the {7}",
+            "The teacher's name is Marco {8}"
+          ]
+        },
+        {
+          "heading": "Other details",
+          "lines": [
+            "The customer cannot eat {9}",
+            "She will pay by bank {10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "bread"
+      ],
+      "explain": "答案是 <b>bread</b>。她說 what I really want to learn is how to make bread，題目已印出 making，所以只填 bread。<br><b>陷阱</b>：Italian 是姊姊去年上的課，Thai 只是 I was quite tempted（有點心動），兩個都在 But 之前。But 之後才是她的決定。",
+      "quote": "But what I really want to learn is how to make bread, so I think I'll go for that one."
+    },
+    {
+      "no": 2,
+      "answers": [
+        "Thursday"
+      ],
+      "explain": "答案是 <b>Thursday</b>。她說 I work most Saturdays... so it'll have to be Thursday。<br><b>陷阱</b>：Saturday mornings 是另一個時段，但她星期六要上班，被自己否定。題目印的是 evenings，也可以用來確認：星期四才是晚上的班。",
+      "quote": "I work most Saturdays, I'm afraid, so it'll have to be Thursday."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "7",
+        "7th",
+        "seventh"
+      ],
+      "explain": "答案是 <b>7</b>。接待員說 This year it starts on the 7th of October。<br><b>陷阱</b>：他先說 9th of October，馬上道歉說看錯成去年的行事曆。說話者自己更正時，以更正後的為準。",
+      "quote": "Oh, I'm so sorry, I'm looking at last year's calendar. This year it starts on the 7th of October."
+    },
+    {
+      "no": 4,
+      "answers": [
+        "six",
+        "6"
+      ],
+      "explain": "答案是 <b>six</b>（寫 6 也可以）。接待員說 we've cut it down to six。<br><b>陷阱</b>：eight weeks 接在 It used to be 後面，是「以前」的長度。used to 表示現在已經不是這樣。",
+      "quote": "It used to be eight weeks, but we've cut it down to six."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "135"
+      ],
+      "explain": "答案是 <b>135</b>。題目問的是 With the discount（折扣後）的費用，接待員說本週內報名 you'd pay 135。<br><b>陷阱</b>：150 是 full price（原價）。聽到兩個價格時，要回頭看題目問的是哪一個。",
+      "quote": "The full price is 150 pounds. But if you book before the end of this week, there's a discount for booking early, so you'd pay 135."
+    },
+    {
+      "no": 6,
+      "answers": [
+        "apron"
+      ],
+      "explain": "答案是 <b>apron</b>（圍裙）。接待員說 The one thing we ask you to bring is an apron。<br><b>陷阱</b>：ingredients 和 equipment 都由學校提供；containers 是「以前」學員會帶的，現在學校會給盒子。",
+      "quote": "The one thing we ask you to bring is an apron."
+    },
+    {
+      "no": 7,
+      "answers": [
+        "library"
+      ],
+      "explain": "答案是 <b>library</b>。接待員說 We're now on Mill Lane, directly opposite the library，和題目的 opposite the 完全對應。<br><b>陷阱</b>：station 是她猜的地點，但那是 our old address（舊址）；supermarket 後面的是停車場，不是學校。",
+      "quote": "That was our old address. We moved in the spring. We're now on Mill Lane, directly opposite the library."
+    },
+    {
+      "no": 8,
+      "answers": [
+        "Benetti"
+      ],
+      "explain": "答案是 <b>Benetti</b>。接待員逐字拼出 B-E-N-E-T-T-I。<br><b>提醒</b>：注意 double T。人名拼字題要邊聽邊寫，寫完再數一次字母數；首字母記得大寫。",
+      "quote": "The bread course is taught by Marco Benetti. I'll spell the surname for you. It's B-E-N-E-T-T-I."
+    },
+    {
+      "no": 9,
+      "answers": [
+        "nuts"
+      ],
+      "explain": "答案是 <b>nuts</b>。她說 I can't eat nuts，最後又強調 It's just nuts。<br><b>陷阱</b>：seeds 和 milk 都有提到，但她說 Seeds are fine, and so is milk，兩者都可以吃。",
+      "quote": "Seeds are fine, and so is milk. It's just nuts."
+    },
+    {
+      "no": 10,
+      "answers": [
+        "transfer"
+      ],
+      "explain": "答案是 <b>transfer</b>。她問 Could I pay by bank transfer?，題目已印出 bank。<br><b>陷阱</b>：card 和 cash 是接待員提供的兩個選項，但她不想帶現金、卡也不在身上，兩個都被否定。",
+      "quote": "I'd rather not carry that much cash around, and I haven't got my card with me. Could I pay by bank transfer?"
+    }
+  ]
+}

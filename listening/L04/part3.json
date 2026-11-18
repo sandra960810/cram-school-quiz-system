@@ -1,0 +1,214 @@
+{
+  "no": 3,
+  "context": "Two education students discussing their research on a vocabulary-learning app",
+  "audio": "L04_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two education students, Emma and Josh, discussing a research project on the use of a vocabulary-learning app in a secondary school. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Hi Josh. Shall we get on with the vocabulary app project? Dr Ahmed wants to see an outline on Thursday." },
+    { "v": "m1", "t": "Yes, let's. She'll ask why we picked this topic, you know. And I can hardly say it's because I love these apps. I've never used one in my life." },
+    { "v": "f2", "t": "Nor can we say the school asked us to do it. They only agreed after we'd written to them three times. No, the honest answer is that nearly all the published studies are about adults or university students. There's hardly anything on teenagers, and that's the gap we wanted to fill." },
+    { "v": "m1", "t": "Good, that sounds convincing. Now, the practical side. Before we started, I was worried about the pupils who didn't have a phone." },
+    { "v": "f2", "t": "So was I, but the school lent them tablets, and the wifi was fine the whole time. What really caused trouble was Mr Grant changing the timetable. Our sessions were moved from the morning to the last lesson of the day, when the class was tired and restless." },
+    { "v": "m1", "t": "We'll have to mention that. Now, the results. Straight after the six weeks, the two groups had learned about the same number of words." },
+    { "v": "f2", "t": "Yes, there was nothing between them at that stage. But when we tested them again four weeks later, the app group still knew most of the words, while the other group had forgotten nearly half." },
+    { "v": "m1", "t": "So the app didn't help them learn more. It helped them remember for longer. Why do you think they liked it so much? The points and the levels? It does feel a bit like a game." },
+    { "v": "f2", "t": "That's what I'd assumed. But in the interviews, hardly anybody mentioned points. And nobody talked about using it on the bus or at home, because most of them only opened it in class. What they kept saying was that they knew straight away whether an answer was right or wrong." },
+    { "v": "m1", "t": "Instant feedback. Interesting. So what's left to do before we start writing?" },
+    { "v": "f2", "t": "The parents' consent forms were all collected at the start, and I finished analysing the questionnaires last week. The one thing we haven't done is talk to Mr Grant properly. We need to interview him and get his view of how it went." },
+    { "v": "m1", "t": "I'll ask him for half an hour next week." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "While we're here, can we decide which of the sources are worth keeping? Let's start with Baxter's article." },
+    { "v": "f2", "t": "It's very clearly written, I'll give it that. But it came out in two thousand and nine, before most teenagers had a smartphone. The technology it describes doesn't exist any more." },
+    { "v": "m1", "t": "So it's too old to be much use. And the study by Chen?" },
+    { "v": "f2", "t": "The design is clever, and the learners were teenagers, which is what we want. The trouble is, there were only twelve of them. You can't draw conclusions from a group that size." },
+    { "v": "m1", "t": "No. What about the government report? You said you'd read it." },
+    { "v": "f2", "t": "Three times, and I'm still not sure what it concludes. Every sentence is forty words long and full of technical terms. It's very hard to follow." },
+    { "v": "m1", "t": "I gave up after ten pages. Okoro's chapter, then. I liked that one." },
+    { "v": "f2", "t": "So did I, and it's the one we should quote most. She found exactly the pattern we did: no real difference at the end of the course, and a big difference a month later." },
+    { "v": "m1", "t": "It backs up our results, then. Last one: the research published by the app company itself." },
+    { "v": "f2", "t": "Well, they're hardly going to say their own product doesn't work, are they? Every result they report is positive. I don't think we can treat it as a neutral source." },
+    { "v": "m1", "t": "Agreed. We'll mention it, but with a warning." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students decide to research vocabulary apps?",
+          "options": {
+            "A": "Josh regularly uses one himself.",
+            "B": "A school asked them to do it.",
+            "C": "There is little research on teenagers."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What caused a problem during the study?",
+          "options": {
+            "A": "The teacher changed the lesson times.",
+            "B": "Some pupils did not have a phone.",
+            "C": "The internet connection was unreliable."
+          }
+        },
+        {
+          "no": 23,
+          "stem": "What did the tests show about the pupils who used the app?",
+          "options": {
+            "A": "They learned more words than the others.",
+            "B": "They remembered the words for longer.",
+            "C": "They performed the same as the others in both tests."
+          }
+        },
+        {
+          "no": 24,
+          "stem": "According to Emma, the pupils liked the app mainly because",
+          "options": {
+            "A": "it felt like a game.",
+            "B": "they could use it anywhere.",
+            "C": "it told them immediately if they were right."
+          }
+        },
+        {
+          "no": 25,
+          "stem": "What do the students still need to do?",
+          "options": {
+            "A": "interview the teacher",
+            "B": "collect the parents' consent forms",
+            "C": "analyse the questionnaires"
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students say about each of the following sources?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Opinions",
+      "options": {
+        "A": "It is one-sided.",
+        "B": "It is too old to be useful.",
+        "C": "It is not about the right age group.",
+        "D": "It agrees with their own findings.",
+        "E": "It is difficult to understand.",
+        "F": "It is based on too few learners."
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "Baxter's article"
+        },
+        {
+          "no": 27,
+          "text": "Chen's study"
+        },
+        {
+          "no": 28,
+          "text": "The government report"
+        },
+        {
+          "no": 29,
+          "text": "Okoro's chapter"
+        },
+        {
+          "no": 30,
+          "text": "The app company's research"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Emma 說 nearly all the published studies are about adults or university students. There's hardly anything on teenagers。<br><b>陷阱</b>：A 被 Josh 自己否定（I've never used one in my life）；B 也不對，學校是他們寫了三次信才答應的。the honest answer is 之後才是真正的原因。",
+      "quote": "No, the honest answer is that nearly all the published studies are about adults or university students. There's hardly anything on teenagers, and that's the gap we wanted to fill."
+    },
+    {
+      "no": 22,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Emma 說 What really caused trouble was Mr Grant changing the timetable，課被移到一天的最後一節。<br><b>陷阱</b>：B 是 Josh「事前擔心」的事，但學校借了平板；C 錯在 the wifi was fine the whole time。擔心的事沒發生，沒料到的事才是問題。",
+      "quote": "What really caused trouble was Mr Grant changing the timetable."
+    },
+    {
+      "no": 23,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。四週後再測，app 組 still knew most of the words，Josh 總結 It helped them remember for longer。<br><b>陷阱</b>：A 錯在六週結束時兩組學到的字數差不多（Josh 也說 the app didn't help them learn more）；C 錯在第二次測驗兩組差很多。這題要分清楚「學得多」和「記得久」。",
+      "quote": "So the app didn't help them learn more. It helped them remember for longer."
+    },
+    {
+      "no": 24,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Emma 說學生一直提到 they knew straight away whether an answer was right or wrong。<br><b>同義轉換</b>：straight away ＝ immediately。<b>陷阱</b>：A 是 Josh 的猜測，Emma 原本也這麼想（That's what I'd assumed），但訪談中 hardly anybody mentioned points；B 錯在大多數人只在課堂上用。",
+      "quote": "What they kept saying was that they knew straight away whether an answer was right or wrong."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Emma 說 The one thing we haven't done is talk to Mr Grant properly. We need to interview him。<br><b>陷阱</b>：B 的同意書一開始就收齊了；C 的問卷上週已經分析完。題目的 still need to do 對應 The one thing we haven't done。",
+      "quote": "The one thing we haven't done is talk to Mr Grant properly. We need to interview him and get his view of how it went."
+    },
+    {
+      "no": 26,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>（太舊）。這篇文章 2009 年發表，The technology it describes doesn't exist any more，Josh 總結 it's too old to be much use。<br><b>陷阱</b>：Emma 先稱讚 It's very clearly written，所以不是 E（難懂）。",
+      "quote": "But it came out in two thousand and nine, before most teenagers had a smartphone. The technology it describes doesn't exist any more."
+    },
+    {
+      "no": 27,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>（樣本太少）。Emma 說 there were only twelve of them. You can't draw conclusions from a group that size。<br><b>陷阱</b>：她先說 the learners were teenagers, which is what we want，所以 C（年齡層不對）是錯的——這也是沒用到的選項。",
+      "quote": "The trouble is, there were only twelve of them. You can't draw conclusions from a group that size."
+    },
+    {
+      "no": 28,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>（難以理解）。Emma 讀了三遍還不確定結論，It's very hard to follow。<br><b>同義轉換</b>：hard to follow ＝ difficult to understand。follow 在這裡是「看懂、跟上」的意思。",
+      "quote": "Every sentence is forty words long and full of technical terms. It's very hard to follow."
+    },
+    {
+      "no": 29,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>（和他們的結果一致）。Emma 說 She found exactly the pattern we did，Josh 說 It backs up our results。<br><b>同義轉換</b>：backs up our results ＝ agrees with their own findings。",
+      "quote": "She found exactly the pattern we did: no real difference at the end of the course, and a big difference a month later."
+    },
+    {
+      "no": 30,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>（立場偏頗）。Emma 說 Every result they report is positive. I don't think we can treat it as a neutral source。<br><b>同義轉換</b>：not a neutral source ＝ one-sided。公司研究自家產品，只報好的結果。",
+      "quote": "Every result they report is positive. I don't think we can treat it as a neutral source."
+    }
+  ]
+}

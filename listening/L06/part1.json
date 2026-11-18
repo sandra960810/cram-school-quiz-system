@@ -1,0 +1,180 @@
+{
+  "no": 1,
+  "context": "Telephone booking at a campsite",
+  "audio": "L06_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a woman telephoning a campsite to book a pitch for her family. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "m3", "t": "Good afternoon, Pinewood Campsite. Sam speaking." },
+    { "v": "f1", "t": "Hello. I'd like to book a pitch for a tent in August, if you still have any." },
+    { "v": "m3", "t": "We do have a few left. Could I take your surname first?" },
+    { "v": "f1", "t": "Yes, it's Dawson. D-A-W-S-O-N." },
+    { "v": "narrator", "t": "The woman's surname is Dawson, so Dawson has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Good afternoon, Pinewood Campsite. Sam speaking." },
+    { "v": "f1", "t": "Hello. I'd like to book a pitch for a tent in August, if you still have any." },
+    { "v": "m3", "t": "We do have a few left. Could I take your surname first?" },
+    { "v": "f1", "t": "Yes, it's Dawson. D-A-W-S-O-N." },
+    { "v": "m3", "t": "Thank you, Mrs Dawson. And when were you hoping to arrive?" },
+    { "v": "f1", "t": "Well, the children finish school on the 9th, so we thought about the 11th of August. But my husband's working that day, so we can't get away until the 12th." },
+    { "v": "m3", "t": "The 12th of August. That's fine. And how long would you like to stay?" },
+    { "v": "f1", "t": "We were planning on five nights." },
+    { "v": "m3", "t": "Let me look. Ah. I can give you a pitch from the 12th, but there's a large group arriving later that week, and it takes up most of the site. So I'm afraid I can only offer you four nights." },
+    { "v": "f1", "t": "Oh, that's a shame. Never mind, four nights it is." },
+    { "v": "m3", "t": "Now, where would you like to be? There are pitches near the playground, which families often ask for." },
+    { "v": "f1", "t": "Actually, the children are teenagers now, so they'd find that rather noisy. Is there anything quieter? Not too close to the road, though." },
+    { "v": "m3", "t": "Then I'd suggest one of the pitches down beside the river. They're the furthest from the road, and it's very peaceful down there." },
+    { "v": "f1", "t": "Beside the river sounds perfect. Do those pitches have water?" },
+    { "v": "m3", "t": "There isn't a tap on each pitch, I'm afraid. You fetch water from the washrooms. But every riverside pitch does have electricity, which the standard pitches don't." },
+    { "v": "f1", "t": "Electricity. Oh good, we can charge our phones. And how much is that a night?" },
+    { "v": "m3", "t": "A standard pitch is 22 pounds a night. The riverside ones are 28, and that covers the tent and up to five people." },
+    { "v": "f1", "t": "28 pounds. That's fine. Are there any rules I should tell the children about?" },
+    { "v": "m3", "t": "Only a couple. Ball games are fine anywhere on the site, and dogs are welcome as long as they're on a lead. The one thing we're strict about is that people can get to sleep. There's no music after ten o'clock in the evening." },
+    { "v": "f1", "t": "No music after ten. They'll cope. Are we allowed to have a campfire?" },
+    { "v": "m3", "t": "You are, as long as you use the metal fire bowl. There's one on every pitch. Our shop used to sell gas bottles for cooking, but we stopped that last year. It does sell firewood, though, so there's no need to bring your own." },
+    { "v": "f1", "t": "Firewood from the shop. Lovely. My son was hoping to do some cycling. Can we hire bikes at reception?" },
+    { "v": "m3", "t": "Not from us, no. But the farm next door hires them out by the day, and they've got helmets as well. Just walk through the gate at the top of the field." },
+    { "v": "f1", "t": "The farm next door. Great. What time can we arrive?" },
+    { "v": "m3", "t": "The office opens at nine in the morning, but the pitches aren't ready until the afternoon. Check-in is from two o'clock." },
+    { "v": "f1", "t": "Two o'clock. Right. And is the site easy to find?" },
+    { "v": "m3", "t": "It can be tricky, because we're not on the main road. You need to turn off at a village called Aldwick. That's A-L-D-W-I-C-K. There's a brown sign for the campsite just after the church." },
+    { "v": "f1", "t": "Aldwick. I've got that." },
+    { "v": "m3", "t": "And one last thing. We'll send you an email today, and we'd ask you to pay within a week to keep the booking." },
+    { "v": "f1", "t": "I'll do it this evening. Thanks very much for your help, Sam." },
+    { "v": "m3", "t": "You're welcome, Mrs Dawson. See you on the 12th." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Pinewood Campsite",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Booking",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Dawson}",
+            "The family will arrive on {1} August",
+            "They will stay for {2} nights"
+          ]
+        },
+        {
+          "heading": "The pitch",
+          "lines": [
+            "Their pitch will be beside the {3}",
+            "Unlike a standard pitch, it has {4}",
+            "It costs £{5} a night"
+          ]
+        },
+        {
+          "heading": "Rules and facilities",
+          "lines": [
+            "No {6} is allowed after 10 p.m.",
+            "The site shop sells {7} for campfires",
+            "Bicycles can be hired from the {8} next door"
+          ]
+        },
+        {
+          "heading": "Arriving",
+          "lines": [
+            "Check-in starts at {9} o'clock in the afternoon",
+            "Leave the main road at the village of {10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "12",
+        "12th",
+        "twelfth"
+      ],
+      "explain": "答案是 <b>12</b>。Mrs Dawson 說 we can't get away until the 12th，Sam 也確認 The 12th of August。<br><b>陷阱</b>：9 號是孩子放假的日子，11 號是他們「原本想」出發的日子（we thought about the 11th），但先生那天要上班。But 之後才是最後的決定。",
+      "quote": "But my husband's working that day, so we can't get away until the 12th."
+    },
+    {
+      "no": 2,
+      "answers": [
+        "four",
+        "4"
+      ],
+      "explain": "答案是 <b>four</b>（寫 4 也可以）。Sam 說 I can only offer you four nights，Mrs Dawson 接受：four nights it is。<br><b>陷阱</b>：她原本計畫住 five nights（We were planning on），但後面幾天有大團體包場。過去進行式 were planning 常暗示計畫會改變。",
+      "quote": "So I'm afraid I can only offer you four nights."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "river"
+      ],
+      "explain": "答案是 <b>river</b>。Sam 建議 one of the pitches down beside the river，Mrs Dawson 說 Beside the river sounds perfect。<br><b>陷阱</b>：playground 旁邊是 Sam 先提的，但她嫌吵；road 是她「不想靠近」的地方。兩個地點都被排除。",
+      "quote": "Then I'd suggest one of the pitches down beside the river."
+    },
+    {
+      "no": 4,
+      "answers": [
+        "electricity"
+      ],
+      "explain": "答案是 <b>electricity</b>。Sam 說 every riverside pitch does have electricity, which the standard pitches don't，對應題目的 Unlike a standard pitch。<br><b>陷阱</b>：她問的是 water，但 There isn't a tap on each pitch（營位上沒有水龍頭）。她問的東西沒有，沒問的反而有。",
+      "quote": "But every riverside pitch does have electricity, which the standard pitches don't."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "28"
+      ],
+      "explain": "答案是 <b>28</b>。Sam 說 The riverside ones are 28，Mrs Dawson 重複 28 pounds。<br><b>陷阱</b>：22 是 standard pitch 的價格，她訂的是河邊營位。句子裡的 five people 是人數上限，不是價錢。",
+      "quote": "A standard pitch is 22 pounds a night. The riverside ones are 28, and that covers the tent and up to five people."
+    },
+    {
+      "no": 6,
+      "answers": [
+        "music"
+      ],
+      "explain": "答案是 <b>music</b>。Sam 說 There's no music after ten o'clock in the evening。<br><b>陷阱</b>：ball games 和 dogs 都先被提到，但兩個都是「可以」的（fine anywhere、welcome）。The one thing we're strict about 才是真正的規定。",
+      "quote": "There's no music after ten o'clock in the evening."
+    },
+    {
+      "no": 7,
+      "answers": [
+        "firewood"
+      ],
+      "explain": "答案是 <b>firewood</b>（一個字，不要分開寫）。Sam 說 It does sell firewood, though。<br><b>陷阱</b>：gas bottles 是商店「以前」賣的（used to sell），去年已經停賣。used to 後面的資訊通常是過時的。",
+      "quote": "It does sell firewood, though, so there's no need to bring your own."
+    },
+    {
+      "no": 8,
+      "answers": [
+        "farm"
+      ],
+      "explain": "答案是 <b>farm</b>。Sam 說 the farm next door hires them out by the day，和題目的 next door 直接對應。<br><b>陷阱</b>：她問能不能在 reception 租，Sam 回答 Not from us, no。問句裡的地點被否定。",
+      "quote": "But the farm next door hires them out by the day."
+    },
+    {
+      "no": 9,
+      "answers": [
+        "two",
+        "2"
+      ],
+      "explain": "答案是 <b>two</b>（寫 2 也可以）。Sam 說 Check-in is from two o'clock。<br><b>陷阱</b>：nine 是辦公室開門的時間，但營位 aren't ready until the afternoon。題目也寫明 in the afternoon，早上九點不可能是答案。",
+      "quote": "The office opens at nine in the morning, but the pitches aren't ready until the afternoon. Check-in is from two o'clock."
+    },
+    {
+      "no": 10,
+      "answers": [
+        "Aldwick"
+      ],
+      "explain": "答案是 <b>Aldwick</b>。Sam 說 You need to turn off at a village called Aldwick，並拼出 A-L-D-W-I-C-K。<br><b>技巧</b>：地名一定會逐字母拼出來，邊聽邊寫，字首要大寫。題目的 Leave the main road 對應錄音的 turn off。",
+      "quote": "You need to turn off at a village called Aldwick. That's A-L-D-W-I-C-K."
+    }
+  ]
+}

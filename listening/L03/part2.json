@@ -1,0 +1,206 @@
+{
+  "no": 2,
+  "context": "A talk about the reopening of Northfield Leisure Centre",
+  "audio": "L03_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear the manager of a leisure centre talking to local residents about its reopening. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Good evening, everybody, and thank you for coming. I'm Karen, the manager of Northfield Leisure Centre, and after eight months of building work I'm delighted to say that we reopen on Monday." },
+    { "v": "f1", "t": "Let me begin with why we had to close at all, because there have been plenty of rumours. Many of you thought we were closing in order to make the swimming pool bigger. That was discussed, but it would simply have cost too much. It wasn't the heating either, which was replaced only two years ago. The real reason was the roof. It had been leaking for years, and in the end it had to be completely replaced." },
+    { "v": "f1", "t": "Now, membership. I'm afraid the family rate has stayed exactly the same, so there's no saving there, and exercise classes still have to be booked and paid for separately. What we have introduced is the option of paying month by month, instead of paying for the whole year at once. A lot of you asked for that." },
+    { "v": "f1", "t": "A word about the pool timetable. Local schools use the pool on Monday mornings, but two lanes are always kept open for the public, so you can still swim then. Friday evenings used to be reserved for the swimming club, but they've moved to Sundays. In fact, the only time you won't be able to swim at all is Wednesday afternoon, when the pool is closed for cleaning." },
+    { "v": "f1", "t": "The feature I'm most excited about is the new climbing wall. I should say that it isn't suitable for very young children, because the minimum age is eight. And if you're a serious climber, you may find it rather low. But if you've never tried climbing before, it's ideal, because there's an instructor with you the whole time." },
+    { "v": "f1", "t": "One last thing. If you lose something in the building, people naturally go to reception, but the staff there no longer keep lost items. There used to be an online form as well, but hardly anybody checked it. Everything that's handed in is now kept behind the counter in the café, so that's where you should ask." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Now, the layout has changed quite a lot, so let me take you through the plan of the ground floor. You come in through the main entrance, at the bottom of the plan, and the main corridor runs straight ahead of you." },
+    { "v": "f1", "t": "The café used to be on the right as you came in, but it's moved. It's now the first door on your left, just inside the entrance, with windows looking out over the car park." },
+    { "v": "f1", "t": "Carry on up the corridor until you reach the point where it crosses a second corridor. The swimming pool is ahead of you on the left, and the changing rooms are right beside it, between the pool and the main corridor, so you can walk straight from one to the other." },
+    { "v": "f1", "t": "For the gym, turn right where the two corridors cross. You'll pass the dance studio first, on your left, and the gym is the next door along on the same side, in the far corner of the building." },
+    { "v": "f1", "t": "The climbing wall couldn't be easier to find. Don't turn at all. Just keep going to the very end of the main corridor, and it's straight in front of you." },
+    { "v": "f1", "t": "And finally, the first-aid room. Again, turn right where the corridors cross, but this time look to your right. It's not the first door, which is only a store room, but the one after it, right at the end." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "The main reason the leisure centre had to close was to",
+          "options": {
+            "A": "replace the roof.",
+            "B": "enlarge the swimming pool.",
+            "C": "install a new heating system."
+          }
+        },
+        {
+          "no": 12,
+          "stem": "What is new about membership?",
+          "options": {
+            "A": "The family rate has been reduced.",
+            "B": "Members can now pay monthly.",
+            "C": "Exercise classes are now included."
+          }
+        },
+        {
+          "no": 13,
+          "stem": "When will the pool be completely closed to the public?",
+          "options": {
+            "A": "on Monday mornings",
+            "B": "on Friday evenings",
+            "C": "on Wednesday afternoons"
+          }
+        },
+        {
+          "no": 14,
+          "stem": "The manager says the climbing wall is most suitable for",
+          "options": {
+            "A": "people who are new to climbing.",
+            "B": "experienced climbers.",
+            "C": "children under eight."
+          }
+        },
+        {
+          "no": 15,
+          "stem": "Someone who has lost something in the building should",
+          "options": {
+            "A": "go to reception.",
+            "B": "ask in the café.",
+            "C": "fill in a form online."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L03_part2_map.svg",
+      "imageAlt": "Northfield Leisure Centre 一樓平面圖，入口在下方，標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Café"
+        },
+        {
+          "no": 17,
+          "text": "Changing rooms"
+        },
+        {
+          "no": 18,
+          "text": "Gym"
+        },
+        {
+          "no": 19,
+          "text": "Climbing wall"
+        },
+        {
+          "no": 20,
+          "text": "First-aid room"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>（replace the roof）。經理說 The real reason was the roof... it had to be completely replaced。<br><b>陷阱</b>：B 的擴建泳池 was discussed（討論過）但太貴沒做；C 的暖氣兩年前才換過（It wasn't the heating either）。The real reason was 之後才是答案。",
+      "quote": "The real reason was the roof. It had been leaking for years, and in the end it had to be completely replaced."
+    },
+    {
+      "no": 12,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。經理說 What we have introduced is the option of paying month by month。<br><b>同義轉換</b>：month by month ＝ monthly。<b>陷阱</b>：A 錯在 the family rate has stayed exactly the same；C 錯在課程 still have to be booked and paid for separately。",
+      "quote": "What we have introduced is the option of paying month by month, instead of paying for the whole year at once."
+    },
+    {
+      "no": 13,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>（Wednesday afternoons）。經理說 the only time you won't be able to swim at all is Wednesday afternoon。<br><b>陷阱</b>：A 的星期一早上學校在用，但 two lanes are always kept open for the public，還是可以游；B 的星期五晚上 used to be 保留給泳隊，現在已改到星期日。題目的 completely closed 是關鍵。",
+      "quote": "In fact, the only time you won't be able to swim at all is Wednesday afternoon, when the pool is closed for cleaning."
+    },
+    {
+      "no": 14,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。經理說 if you've never tried climbing before, it's ideal。<br><b>同義轉換</b>：never tried climbing before ＝ new to climbing。<b>陷阱</b>：B 錯在 serious climber 會覺得 rather low（太矮）；C 錯在 minimum age is eight，八歲以下不能玩。",
+      "quote": "But if you've never tried climbing before, it's ideal, because there's an instructor with you the whole time."
+    },
+    {
+      "no": 15,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>（ask in the café）。經理說撿到的東西 is now kept behind the counter in the café, so that's where you should ask。<br><b>陷阱</b>：A 是大家「自然會去」的地方，但櫃台 no longer keep lost items；C 的線上表單是 There used to be（以前有），而且沒人看。",
+      "quote": "Everything that's handed in is now kept behind the counter in the café, so that's where you should ask."
+    },
+    {
+      "no": 16,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。經理說 It's now the first door on your left, just inside the entrance。從平面圖下方的入口往上走，左手邊第一間就是 B。<br><b>陷阱</b>：她先說 used to be on the right（以前在右邊，也就是 C），但 it's moved。",
+      "quote": "The café used to be on the right as you came in, but it's moved. It's now the first door on your left, just inside the entrance."
+    },
+    {
+      "no": 17,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。經理說 the changing rooms are right beside it, between the pool and the main corridor。it 指泳池；夾在泳池和主走廊中間的是 E。<br><b>技巧</b>：先找到圖上已標示的 SWIMMING POOL，再找它和走廊之間的那一格。",
+      "quote": "The swimming pool is ahead of you on the left, and the changing rooms are right beside it, between the pool and the main corridor."
+    },
+    {
+      "no": 18,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。在兩條走廊交叉處右轉，左手邊先經過 dance studio（F），the gym is the next door along on the same side, in the far corner，也就是右上角的 G。<br><b>陷阱</b>：F 是左手邊第一間，很容易誤選；要聽到 next door along 和 far corner。",
+      "quote": "You'll pass the dance studio first, on your left, and the gym is the next door along on the same side, in the far corner of the building."
+    },
+    {
+      "no": 19,
+      "answers": [
+        "H"
+      ],
+      "explain": "答案是 <b>H</b>。經理說 Don't turn at all. Just keep going to the very end of the main corridor，主走廊最底端就是 H。<br><b>提醒</b>：the very end of、straight in front of you 都是「走到底、正前方」的意思。",
+      "quote": "Don't turn at all. Just keep going to the very end of the main corridor, and it's straight in front of you."
+    },
+    {
+      "no": 20,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。在交叉處右轉後看右手邊：It's not the first door, which is only a store room, but the one after it, right at the end，所以是右下角的 D。<br><b>陷阱</b>：C 是右手邊第一間，但那是 store room，被直接否定。和第 18 題一樣右轉，只是這次看的是另一側。",
+      "quote": "It's not the first door, which is only a store room, but the one after it, right at the end."
+    }
+  ]
+}

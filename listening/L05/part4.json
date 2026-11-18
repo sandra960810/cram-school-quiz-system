@@ -1,0 +1,150 @@
+{
+  "no": 4,
+  "context": "A lecture on how city noise affects birdsong",
+  "audio": "L05_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a lecture about the effects of noise in cities on birds. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "f3", "t": "Good afternoon. In this lecture I'm going to look at a kind of pollution we can't see: noise. In particular, I want to ask what the constant noise of our cities is doing to the birds that live in them." },
+    { "v": "f3", "t": "It's a subject that was hardly studied until about twenty years ago. Biologists had assumed that city birds simply got used to the sound around them, in the same way that people who live beside a railway stop noticing the trains. As we'll see, that assumption turned out to be wrong." },
+    { "v": "f3", "t": "Let's start with the noise itself. People tend to complain about building work or aircraft, but those come and go. The sound that is present almost all the time, and which accounts for most of the noise in a city, is traffic. And traffic noise has one important feature: it is mainly low in pitch, a continuous deep rumble." },
+    { "v": "f3", "t": "Why should that matter to a bird? Because song is not decoration. A male bird sings for two reasons: to keep rivals out of his territory, and to attract a mate. If his song can't be heard, he may fail at both." },
+    { "v": "f3", "t": "So how do birds respond? The best-known study was carried out in the Netherlands on a small bird called the great tit. Researchers recorded males in noisy and quiet parts of the same city, and found that the birds in the noisy districts sang at a higher pitch. By moving their songs above the rumble of the traffic, they could make themselves heard." },
+    { "v": "f3", "t": "Other species have found different solutions. In British cities, robins are often heard singing at night. For years this was blamed on street lighting, which was thought to confuse them. But when researchers measured both light and sound, they found that it was daytime noise, not light, that best explained which birds sang after dark. The robins had simply shifted to a quieter time. And in Berlin, nightingales were found to sing louder on weekday mornings, during the rush hour, than they did at weekends." },
+    { "v": "f3", "t": "These changes are not free. First, singing more loudly uses more energy, and a small bird has very little to spare. Second, a higher song may carry further in a city, but there is evidence that it is less attractive to females, who in some species prefer males with deep voices. So a male may have to choose between being heard and being chosen." },
+    { "v": "f3", "t": "There are effects on family life as well. When chicks are hungry they call for food, and in noisy places those calls are harder for the parents to hear. Some studies have found that chicks raised beside busy roads are lighter than those raised in quiet areas." },
+    { "v": "f3", "t": "And some birds cannot adapt at all. Owls, for example, find their prey by listening for it, and experiments show that their hunting becomes much less successful as noise increases." },
+    { "v": "f3", "t": "So what can be done? You might think the answer is fewer vehicles. In fact, halving the amount of traffic on a road makes surprisingly little difference to the noise. What makes a much bigger difference is reducing its speed, since most of the noise at higher speeds comes from the tyres on the road. Lower speeds, together with quieter road surfaces, would benefit the birds, and of course the people who live there too." },
+    { "v": "f3", "t": "That seems a hopeful note to end on. Next week, we'll turn to a related problem, which is the effect of noise under the sea." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "CITY NOISE AND BIRDSONG",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The problem",
+          "lines": [
+            "Most of the noise in cities comes from {31}",
+            "A male bird sings to defend his territory and to attract a {32}"
+          ]
+        },
+        {
+          "heading": "How birds have adapted",
+          "lines": [
+            "Great tits in noisy districts sing at a higher {33}",
+            "Robins sing at {34} to avoid daytime noise",
+            "Nightingales in Berlin sing {35} on weekday mornings"
+          ]
+        },
+        {
+          "heading": "The costs",
+          "lines": [
+            "Singing loudly requires more {36}",
+            "Higher songs may be less attractive to {37}",
+            "Chicks' calls for food are harder for their {38} to hear",
+            "{39} hunt less successfully in noisy places"
+          ]
+        },
+        {
+          "heading": "Possible solutions",
+          "lines": [
+            "Reducing the {40} of vehicles is more effective than reducing their number"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "traffic"
+      ],
+      "explain": "答案是 <b>traffic</b>。講者說 The sound... which accounts for most of the noise in a city, is traffic。<br><b>陷阱</b>：building work 和 aircraft 是大家「常抱怨」的，但 those come and go（時有時無），不是主要來源。",
+      "quote": "The sound that is present almost all the time, and which accounts for most of the noise in a city, is traffic."
+    },
+    {
+      "no": 32,
+      "answers": [
+        "mate"
+      ],
+      "explain": "答案是 <b>mate</b>（配偶）。講者說雄鳥唱歌的兩個目的：to keep rivals out of his territory, and to attract a mate。<br><b>同義轉換</b>：keep rivals out of his territory ＝ defend his territory。題目把第一個目的換句話說，第二個目的留給你填。",
+      "quote": "A male bird sings for two reasons: to keep rivals out of his territory, and to attract a mate."
+    },
+    {
+      "no": 33,
+      "answers": [
+        "pitch"
+      ],
+      "explain": "答案是 <b>pitch</b>（音高）。講者說吵雜區域的鳥 sang at a higher pitch。<br><b>提醒</b>：pitch 在前一段已經出現過一次（low in pitch，形容車流噪音），這裡是 higher pitch（形容鳥鳴）。一低一高的對比就是這項研究的重點。",
+      "quote": "Researchers recorded males in noisy and quiet parts of the same city, and found that the birds in the noisy districts sang at a higher pitch."
+    },
+    {
+      "no": 34,
+      "answers": [
+        "night"
+      ],
+      "explain": "答案是 <b>night</b>。講者說 robins are often heard singing at night，原因是 daytime noise。<br><b>陷阱</b>：多年來大家把這件事歸咎於 street lighting（路燈），但研究發現是 daytime noise, not light。題目的 to avoid daytime noise 對應 shifted to a quieter time。",
+      "quote": "In British cities, robins are often heard singing at night."
+    },
+    {
+      "no": 35,
+      "answers": [
+        "louder"
+      ],
+      "explain": "答案是 <b>louder</b>。講者說 nightingales were found to sing louder on weekday mornings... than they did at weekends。<br><b>陷阱</b>：前一個例子是唱得「更高」（higher），這個例子是唱得「更大聲」（louder）。不同的鳥用不同的方法，不要混在一起。",
+      "quote": "And in Berlin, nightingales were found to sing louder on weekday mornings, during the rush hour, than they did at weekends."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "energy"
+      ],
+      "explain": "答案是 <b>energy</b>。講者說 singing more loudly uses more energy。<br><b>同義轉換</b>：uses more ＝ requires more。These changes are not free 這句話預告接下來要講「代價」。",
+      "quote": "First, singing more loudly uses more energy, and a small bird has very little to spare."
+    },
+    {
+      "no": 37,
+      "answers": [
+        "females"
+      ],
+      "explain": "答案是 <b>females</b>。講者說較高的歌聲 is less attractive to females，因為有些鳥種的雌鳥偏好聲音低沉的雄鳥。<br><b>陷阱</b>：males 也有出現（prefer males with deep voices），但被吸引的對象是 females。複數 s 不可漏。",
+      "quote": "Second, a higher song may carry further in a city, but there is evidence that it is less attractive to females, who in some species prefer males with deep voices."
+    },
+    {
+      "no": 38,
+      "answers": [
+        "parents"
+      ],
+      "explain": "答案是 <b>parents</b>。講者說 those calls are harder for the parents to hear，和題目幾乎逐字對應。<br><b>提醒</b>：題目的 calls for food 對應錄音的 When chicks are hungry they call for food。",
+      "quote": "When chicks are hungry they call for food, and in noisy places those calls are harder for the parents to hear."
+    },
+    {
+      "no": 39,
+      "answers": [
+        "Owls",
+        "owls"
+      ],
+      "explain": "答案是 <b>Owls</b>（貓頭鷹）。講者說 Owls... find their prey by listening for it，噪音越大，their hunting becomes much less successful。<br><b>提醒</b>：空格在句首，是主詞，要填複數名詞。some birds cannot adapt at all 是引出這個例子的訊號。",
+      "quote": "Owls, for example, find their prey by listening for it, and experiments show that their hunting becomes much less successful as noise increases."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "speed"
+      ],
+      "explain": "答案是 <b>speed</b>。講者說 What makes a much bigger difference is reducing its speed。<br><b>陷阱</b>：You might think the answer is fewer vehicles——減少車輛數是「你以為」的答案，但把車流減半 makes surprisingly little difference。題目正是在比較這兩種做法。",
+      "quote": "In fact, halving the amount of traffic on a road makes surprisingly little difference to the noise. What makes a much bigger difference is reducing its speed."
+    }
+  ]
+}

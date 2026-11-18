@@ -1,0 +1,216 @@
+{
+  "no": 3,
+  "context": "Two geography students discussing their fieldwork report on coastal erosion",
+  "audio": "L03_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two geography students, Hannah and Dan, discussing a report on their fieldwork at Holbeck Bay. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Dan, have you got time to go through the Holbeck Bay report? Dr Reyes wants a draft by the end of next week." },
+    { "v": "m3", "t": "Sure. Shall we start with why we went there? I remember we argued about it." },
+    { "v": "f2", "t": "We did. It certainly wasn't the nearest place we could have chosen. Sandy Point is only twenty minutes from the university." },
+    { "v": "m3", "t": "And Dr Reyes didn't know anybody at Holbeck, so there was no help from that side. No, the reason was that there are surveys of that coast going back to the nineteen fifties, so we had something to compare our own measurements with." },
+    { "v": "f2", "t": "Exactly. I'll put that in the first paragraph. Now, the cliff itself. Were you shocked by how quickly it's disappearing?" },
+    { "v": "m3", "t": "Not really. I knew from the reading that it loses about a metre a year, and there's only the one farm anywhere near the edge. What I hadn't expected was how little has been done to protect it. There's no sea wall, just a few rocks at one end." },
+    { "v": "f2", "t": "Yes, that struck me too. Right, we need to be honest about the limits of our data. What do you think the main weakness is?" },
+    { "v": "m3", "t": "The weather?" },
+    { "v": "f2", "t": "No, it was calm, which was ideal. And we covered six sites, which is plenty for a project this size. To my mind, the real problem is that everything was collected on a single day. It tells us nothing about how the beach changes through the year." },
+    { "v": "m3", "t": "Fair point. What about the introduction? I thought we could open with a history of the village, with the old photographs." },
+    { "v": "f2", "t": "It's a nice idea, but there isn't room, and the map of the coastline belongs in the method section. I think the introduction just needs a short summary of what earlier studies found." },
+    { "v": "m3", "t": "All right, a summary of the previous research, then. I can live with that. And who's doing what before we meet again?" },
+    { "v": "f2", "t": "I've already emailed Dr Reyes about the deadline, and I'll draw the graphs, because I've got the software on my laptop." },
+    { "v": "m3", "t": "Then I'll go through the calculations again. I think there's a mistake in the figures for site four." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "f2", "t": "Let's go through the methods one at a time and say how each one went. The beach profile first." },
+    { "v": "m3", "t": "The equipment worked perfectly, which I wasn't expecting. But we'd allowed an hour for it and it took nearly three. We should say that it needed far more time than we'd planned." },
+    { "v": "f2", "t": "Agreed. Then the pebble measurements." },
+    { "v": "m3", "t": "I'm not happy with those. You were measuring the longest side of each stone and I was measuring across the middle, so the two sets of figures don't match. I don't think we can trust them." },
+    { "v": "f2", "t": "No, we'll have to say the results aren't reliable. What about the wave counts?" },
+    { "v": "m3", "t": "The counting itself was easy enough. The trouble was that we did it at low tide, in the morning. For it to mean anything, it should have been done at high tide, in the afternoon." },
+    { "v": "f2", "t": "So the timing was wrong. Now, the cliff photographs. I thought those would be a waste of an afternoon." },
+    { "v": "m3", "t": "So did I. But when we put them next to the pictures from the old surveys, you can see exactly where the edge has moved. Honestly, we got more out of those than out of anything else we did." },
+    { "v": "f2", "t": "I'll say so in the report. And finally, the questionnaire for local residents." },
+    { "v": "m3", "t": "People were friendly, and it didn't take long. But Dr Reyes pointed out that the project is about physical processes, not about opinions. Looking back, there was no need to do it at all." },
+    { "v": "f2", "t": "Then we'll mention it briefly and move on. Good, I think that's everything." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose Holbeck Bay for their fieldwork?",
+          "options": {
+            "A": "It was the closest site to the university.",
+            "B": "Earlier surveys of the area were available.",
+            "C": "Their tutor had contacts there."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What surprised Dan about the cliff?",
+          "options": {
+            "A": "how fast it was retreating",
+            "B": "how many buildings were close to the edge",
+            "C": "how little protection it had"
+          }
+        },
+        {
+          "no": 23,
+          "stem": "Hannah thinks the main weakness of their data is that",
+          "options": {
+            "A": "it was all collected on one day.",
+            "B": "too few sites were included.",
+            "C": "the weather conditions were poor."
+          }
+        },
+        {
+          "no": 24,
+          "stem": "What do the students agree to include in the introduction?",
+          "options": {
+            "A": "a summary of previous studies",
+            "B": "a history of the village",
+            "C": "a map of the coastline"
+          }
+        },
+        {
+          "no": 25,
+          "stem": "What will Dan do before their next meeting?",
+          "options": {
+            "A": "draw the graphs",
+            "B": "email their tutor",
+            "C": "check the calculations"
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What comment do the students make about each of the following methods?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "It was carried out at the wrong time.",
+        "B": "It did not need to be done.",
+        "C": "It took longer than expected.",
+        "D": "The equipment did not work properly.",
+        "E": "Its results cannot be trusted.",
+        "F": "It provided the most useful information."
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "Beach profile"
+        },
+        {
+          "no": 27,
+          "text": "Pebble measurements"
+        },
+        {
+          "no": 28,
+          "text": "Wave counts"
+        },
+        {
+          "no": 29,
+          "text": "Cliff photographs"
+        },
+        {
+          "no": 30,
+          "text": "Questionnaire for residents"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Dan 說 there are surveys of that coast going back to the nineteen fifties，所以有資料可以比較。<br><b>陷阱</b>：A 被 Hannah 否定（It certainly wasn't the nearest place，Sandy Point 更近）；C 被 Dan 否定（Dr Reyes didn't know anybody at Holbeck）。兩個人各否定一個選項，剩下的才是答案。",
+      "quote": "No, the reason was that there are surveys of that coast going back to the nineteen fifties, so we had something to compare our own measurements with."
+    },
+    {
+      "no": 22,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Dan 說 What I hadn't expected was how little has been done to protect it，沒有海堤，只有幾塊石頭。<br><b>陷阱</b>：A 錯在他回答 Not really，侵蝕速度他早就從文獻知道了；B 錯在崖邊 only the one farm。題目問 surprised，對應 What I hadn't expected。",
+      "quote": "What I hadn't expected was how little has been done to protect it. There's no sea wall, just a few rocks at one end."
+    },
+    {
+      "no": 23,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Hannah 說 the real problem is that everything was collected on a single day。<br><b>陷阱</b>：C 是 Dan 猜的，被 Hannah 否定（it was calm, which was ideal）；B 也被否定（six sites, which is plenty）。注意題目問的是 Hannah 的看法，不是 Dan 的。",
+      "quote": "To my mind, the real problem is that everything was collected on a single day."
+    },
+    {
+      "no": 24,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Hannah 說 the introduction just needs a short summary of what earlier studies found，Dan 回答 All right, a summary of the previous research, then。<br><b>陷阱</b>：B 是 Dan 的提議，但 there isn't room；C 的地圖 belongs in the method section，不放在前言。題目問 agree，要找兩人都同意的。",
+      "quote": "I think the introduction just needs a short summary of what earlier studies found."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Dan 說 Then I'll go through the calculations again。<br><b>同義轉換</b>：go through... again ＝ check。<b>陷阱</b>：A 和 B 都是 Hannah 的事——她已經寄信給老師（I've already emailed），圖表也是她畫。題目問的是 Dan。",
+      "quote": "Then I'll go through the calculations again. I think there's a mistake in the figures for site four."
+    },
+    {
+      "no": 26,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>（花的時間比預期長）。Dan 說預留一小時卻花了快三小時，it needed far more time than we'd planned。<br><b>陷阱</b>：他一開始說 The equipment worked perfectly，所以 D（器材有問題）是錯的——這也是本題組沒用到的選項。",
+      "quote": "But we'd allowed an hour for it and it took nearly three. We should say that it needed far more time than we'd planned."
+    },
+    {
+      "no": 27,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>（結果不可信）。兩人量石頭的方式不同，Dan 說 I don't think we can trust them，Hannah 也說 the results aren't reliable。<br><b>同義轉換</b>：aren't reliable ＝ cannot be trusted。",
+      "quote": "You were measuring the longest side of each stone and I was measuring across the middle, so the two sets of figures don't match. I don't think we can trust them."
+    },
+    {
+      "no": 28,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>（進行的時間不對）。他們在退潮時做，但 it should have been done at high tide，Hannah 總結 So the timing was wrong。<br><b>陷阱</b>：Dan 先說 The counting itself was easy enough，重點在 The trouble was 之後。should have done 表示「當初應該…卻沒有」。",
+      "quote": "The trouble was that we did it at low tide, in the morning. For it to mean anything, it should have been done at high tide, in the afternoon."
+    },
+    {
+      "no": 29,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>（提供最有用的資訊）。Dan 說 we got more out of those than out of anything else we did。<br><b>陷阱</b>：Hannah 原本以為拍照是 a waste of an afternoon，容易誤選 B（不需要做）。But 之後態度完全反轉。",
+      "quote": "Honestly, we got more out of those than out of anything else we did."
+    },
+    {
+      "no": 30,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>（不需要做）。Dan 說 Looking back, there was no need to do it at all，因為研究主題是自然過程，不是居民意見。<br><b>陷阱</b>：他先說 it didn't take long，所以不是 C（花太久）。",
+      "quote": "Looking back, there was no need to do it at all."
+    }
+  ]
+}

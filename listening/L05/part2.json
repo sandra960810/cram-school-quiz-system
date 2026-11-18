@@ -1,0 +1,206 @@
+{
+  "no": 2,
+  "context": "An introductory talk for new volunteer guides at Castlegate Museum",
+  "audio": "L05_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear the volunteer organiser at a museum giving a talk to a group of new volunteer guides. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Good morning, and welcome to Castlegate Museum. My name's Alan, I look after our volunteers, and I'm delighted that so many of you have signed up as guides." },
+    { "v": "m1", "t": "I'll start with the building, because visitors will ask you about it. With the clock over the door, many people take it for an old railway station, and others think it must have been the town hall. In fact, the town hall stood on the other side of the square. This building went up in the eighteen sixties as a warehouse for storing wool, which was the town's main business at that time." },
+    { "v": "m1", "t": "Now, what we ask of you. We used to expect volunteers to come in one day every week, but that put a lot of people off. So the minimum now is two days a month, and they can be any days you like. Weekends are our busiest time, but nobody is obliged to work them." },
+    { "v": "m1", "t": "You may be wondering how soon you'll be showing people round. There's one day of training, next Tuesday, and that's the only training session you have to attend. Nobody leads a tour alone until their third month. For your first four weeks, you'll simply go round with one of our experienced guides, watching how it's done." },
+    { "v": "m1", "t": "Visitors ask the same things again and again. You'd think the commonest question would be where the toilets are, but those are well signposted. And the age of the building is given on a panel by the door. No, the question you'll hear all day long is whether people are allowed to take photographs. The answer is yes, as long as they don't use a flash." },
+    { "v": "m1", "t": "And one serious point. If the fire alarm sounds, don't go back to check that the galleries are empty. That's the job of the staff. And don't stop to pick anything up. Simply walk the visitors who are with you out of the building and round to the car park, which is where everybody gathers." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Right, let's look at the plan of the ground floor. Notice that the entrance is on the east side of the building, on the right of your plan, so when you walk in you're heading west, towards the main hall." },
+    { "v": "m1", "t": "The cloakroom is the first door on your left as you come in. Visitors can leave their coats and bags there, and so can you." },
+    { "v": "m1", "t": "The room that matters most to you is the volunteers' room. It's on the same side as the cloakroom, the very next door along, just before you reach the main hall. That's where you sign in each morning." },
+    { "v": "m1", "t": "From the main hall, doors lead off in every direction. The Roman gallery, which is where most tours begin, opens off the north side of the hall. Don't confuse it with the Victorian gallery, which is on the south side." },
+    { "v": "m1", "t": "The gift shop used to be by the entrance, but it has moved. It's now on the far side of the main hall from the entrance. Walk straight across the hall, and you'll find it in the middle of the three rooms along the west wall." },
+    { "v": "m1", "t": "And finally, the education room, where school groups have their lunch. That's in the north-west corner of the building, next door to the gift shop." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "The museum building was originally",
+          "options": {
+            "A": "a railway station.",
+            "B": "a warehouse.",
+            "C": "the town hall."
+          }
+        },
+        {
+          "no": 12,
+          "stem": "What is the minimum amount of time volunteers must give?",
+          "options": {
+            "A": "one day a week",
+            "B": "one weekend a month",
+            "C": "two days a month"
+          }
+        },
+        {
+          "no": 13,
+          "stem": "During their first month, new volunteers will",
+          "options": {
+            "A": "lead tours on their own.",
+            "B": "accompany an experienced guide.",
+            "C": "attend a training session every week."
+          }
+        },
+        {
+          "no": 14,
+          "stem": "Which question do visitors ask most often?",
+          "options": {
+            "A": "where the toilets are",
+            "B": "how old the building is",
+            "C": "whether they can take photographs"
+          }
+        },
+        {
+          "no": 15,
+          "stem": "If the fire alarm sounds, volunteers should",
+          "options": {
+            "A": "take their visitors to the car park.",
+            "B": "check that the galleries are empty.",
+            "C": "collect their belongings."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L05_part2_map.svg",
+      "imageAlt": "Castlegate Museum 一樓平面圖，入口在右側（東側），標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Cloakroom"
+        },
+        {
+          "no": 17,
+          "text": "Volunteers' room"
+        },
+        {
+          "no": 18,
+          "text": "Roman gallery"
+        },
+        {
+          "no": 19,
+          "text": "Gift shop"
+        },
+        {
+          "no": 20,
+          "text": "Education room"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Alan 說 This building went up in the eighteen sixties as a warehouse for storing wool。<br><b>陷阱</b>：A 是很多人因為門上的鐘而「誤以為」的（take it for an old railway station）；C 的市政廳其實在廣場另一邊。In fact 之後才是事實。",
+      "quote": "This building went up in the eighteen sixties as a warehouse for storing wool."
+    },
+    {
+      "no": 12,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Alan 說 the minimum now is two days a month。<br><b>陷阱</b>：A 接在 We used to expect 後面，是以前的規定；B 錯在週末雖然最忙，但 nobody is obliged to work them（沒有人必須排週末）。",
+      "quote": "So the minimum now is two days a month, and they can be any days you like."
+    },
+    {
+      "no": 13,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Alan 說 For your first four weeks, you'll simply go round with one of our experienced guides。<br><b>同義轉換</b>：first four weeks ＝ first month；go round with ＝ accompany。<b>陷阱</b>：A 要到第三個月才可以；C 錯在訓練只有一天（the only training session）。",
+      "quote": "For your first four weeks, you'll simply go round with one of our experienced guides, watching how it's done."
+    },
+    {
+      "no": 14,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Alan 說 the question you'll hear all day long is whether people are allowed to take photographs。<br><b>陷阱</b>：A 接在 You'd think 後面，是「你以為」的答案，但廁所標示很清楚；B 的建築年代門邊的牌子就有寫。",
+      "quote": "No, the question you'll hear all day long is whether people are allowed to take photographs."
+    },
+    {
+      "no": 15,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Alan 說 Simply walk the visitors who are with you out of the building and round to the car park。<br><b>陷阱</b>：B 被否定（don't go back to check... That's the job of the staff）；C 也被否定（don't stop to pick anything up）。兩個 don't 排除兩個選項。",
+      "quote": "Simply walk the visitors who are with you out of the building and round to the car park, which is where everybody gathers."
+    },
+    {
+      "no": 16,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Alan 說 The cloakroom is the first door on your left as you come in。<br><b>陷阱</b>：這張圖的入口在<b>右側（東側）</b>，走進去是面向西方，所以「左手邊」是南邊，也就是圖的<b>下方</b>。左手邊第一間是 B，不是上方的 A。他一開始說 you're heading west 就是在提醒方向。",
+      "quote": "The cloakroom is the first door on your left as you come in."
+    },
+    {
+      "no": 17,
+      "answers": [
+        "H"
+      ],
+      "explain": "答案是 <b>H</b>。Alan 說志工室 on the same side as the cloakroom, the very next door along, just before you reach the main hall，所以是 B 旁邊、緊鄰大廳的 H。<br><b>技巧</b>：這題要靠上一題的答案當參考點。地圖題的描述常常環環相扣，前一題錯了後一題也容易錯。",
+      "quote": "It's on the same side as the cloakroom, the very next door along, just before you reach the main hall."
+    },
+    {
+      "no": 18,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Alan 說 The Roman gallery... opens off the north side of the hall，大廳北側（上方）是 C。<br><b>陷阱</b>：他提醒 Don't confuse it with the Victorian gallery, which is on the south side——南側的 D 是維多利亞展廳，是刻意放進來的干擾。",
+      "quote": "Don't confuse it with the Victorian gallery, which is on the south side."
+    },
+    {
+      "no": 19,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。Alan 說穿過大廳後 you'll find it in the middle of the three rooms along the west wall，西側三間的中間是 F。<br><b>陷阱</b>：The gift shop used to be by the entrance——以前在入口旁，現在搬到離入口最遠的那一側。",
+      "quote": "Walk straight across the hall, and you'll find it in the middle of the three rooms along the west wall."
+    },
+    {
+      "no": 20,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。Alan 說 That's in the north-west corner of the building, next door to the gift shop，左上角、緊鄰 F 的是 E。<br><b>陷阱</b>：G 也在禮品店隔壁，但那是西南角；要同時符合 north-west 和 next door 兩個條件。",
+      "quote": "That's in the north-west corner of the building, next door to the gift shop."
+    }
+  ]
+}

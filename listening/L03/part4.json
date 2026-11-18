@@ -1,0 +1,147 @@
+{
+  "no": 4,
+  "context": "A lecture on spider silk and attempts to copy it",
+  "audio": "L03_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a lecture about spider silk and the attempts to produce it artificially. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Good afternoon. Today I'm going to talk about a material that engineers have envied for more than a century: spider silk. Weight for weight, the toughest kinds of spider silk can absorb more energy before they break than almost any fibre we know how to make, including those used in protective vests for the police." },
+    { "v": "m4", "t": "Let's begin with how a spider actually makes it. Inside the spider, silk isn't a thread at all. It's kept in glands in the abdomen as a liquid, a very concentrated solution of protein. People often assume that it hardens when it meets the air, rather like glue drying. But that isn't what happens. The silk only becomes solid as it is pulled out of the body. As the spider draws it through narrow tubes called spinnerets, the protein molecules line up and lock together." },
+    { "v": "m4", "t": "A single spider may produce as many as seven kinds of silk, each from a different gland. Take the familiar round web you see in the garden. The frame and the spokes are made of what's called dragline silk, which is the strongest type. But the spiral that actually catches the insects is quite different. It's extremely elastic, so that it stretches rather than snaps when a fly hits it, and it's covered in tiny drops of glue." },
+    { "v": "m4", "t": "Silk isn't only used for webs. Spiders wrap their eggs in it, and young spiders use it to travel. A spiderling climbs to a high point, lets out a thread, and is lifted by the breeze. They can travel enormous distances in this way. Sailors have reported spiders landing on ships hundreds of kilometres from land." },
+    { "v": "m4", "t": "Humans have been making use of spider silk for a very long time. It was never woven into cloth on any scale, but the ancient Greeks placed spider webs on wounds to stop them bleeding. And until the middle of the twentieth century, the fine cross-hairs that you look through in telescopes were made of spider silk, because it was thinner and more even than any wire." },
+    { "v": "m4", "t": "So why don't we simply farm spiders, as we have farmed silkworms for thousands of years? People have tried. The most famous attempt was in Madagascar, where over a million spiders were collected to make a single golden cape. But it took several years, and it's not a practical industry. The basic problem is that spiders are cannibals. If you keep them close together, they eat one another." },
+    { "v": "m4", "t": "Scientists have therefore tried to get other organisms to make the protein instead. The genes for spider silk have been put into bacteria, into yeast, and, most famously, into goats, which then produced the silk protein in their milk. Making the protein, though, turns out to be the easy part. The real difficulty lies in copying the spinning process, and so far artificial fibres have been weaker than the natural ones." },
+    { "v": "m4", "t": "Even so, there is great interest in the material. Clothing companies have experimented with it, but the most promising work is in medicine. Silk is not rejected by the body, and it breaks down slowly. Researchers have used silk tubes to help damaged nerves grow back together, and early results have been encouraging." },
+    { "v": "m4", "t": "Next time, we'll look at another natural material that engineers would like to copy, which is the shell of the sea snail." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "SPIDER SILK",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "How spiders make silk",
+          "lines": [
+            "Silk is stored inside the spider as a {31}",
+            "It becomes solid when it is {32} out of the body"
+          ]
+        },
+        {
+          "heading": "Types and uses of silk",
+          "lines": [
+            "The spiral of a web is elastic and covered in {33}",
+            "Young spiders carried by the breeze have landed on {34} far from land"
+          ]
+        },
+        {
+          "heading": "Human uses in the past",
+          "lines": [
+            "Ancient Greeks put webs on {35}",
+            "Cross-hairs in {36} were made of silk"
+          ]
+        },
+        {
+          "heading": "Producing silk",
+          "lines": [
+            "Spiders cannot be farmed because they are {37}",
+            "Goats have produced silk protein in their {38}",
+            "The main problem is copying the {39} process",
+            "Future use: helping damaged {40} to repair"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "liquid"
+      ],
+      "explain": "答案是 <b>liquid</b>（液體）。講者說 It's kept in glands in the abdomen as a liquid。<br><b>同義轉換</b>：kept ＝ stored。<b>提醒</b>：Inside the spider, silk isn't a thread at all 是預告：在體內不是絲，是液體。",
+      "quote": "It's kept in glands in the abdomen as a liquid, a very concentrated solution of protein."
+    },
+    {
+      "no": 32,
+      "answers": [
+        "pulled"
+      ],
+      "explain": "答案是 <b>pulled</b>。講者說 The silk only becomes solid as it is pulled out of the body。<br><b>陷阱</b>：People often assume that it hardens when it meets the air——「遇到空氣變硬」是一般人的誤解，But that isn't what happens。題目的 out of the body 也提示要填動詞過去分詞。",
+      "quote": "The silk only becomes solid as it is pulled out of the body."
+    },
+    {
+      "no": 33,
+      "answers": [
+        "glue"
+      ],
+      "explain": "答案是 <b>glue</b>。講者說捕蟲的螺旋絲 is extremely elastic... and it's covered in tiny drops of glue。<br><b>陷阱</b>：dragline silk 是框架和輻射線用的、最強韌的絲，不是螺旋絲。glue 在前一段也出現過（rather like glue drying），但那是在講錯誤的說法，這裡才是答案。",
+      "quote": "It's extremely elastic, so that it stretches rather than snaps when a fly hits it, and it's covered in tiny drops of glue."
+    },
+    {
+      "no": 34,
+      "answers": [
+        "ships"
+      ],
+      "explain": "答案是 <b>ships</b>。講者說 Sailors have reported spiders landing on ships hundreds of kilometres from land。<br><b>同義轉換</b>：hundreds of kilometres from land ＝ far from land；breeze 對應題目的 carried by the breeze。<b>提醒</b>：要寫複數 ships。",
+      "quote": "Sailors have reported spiders landing on ships hundreds of kilometres from land."
+    },
+    {
+      "no": 35,
+      "answers": [
+        "wounds"
+      ],
+      "explain": "答案是 <b>wounds</b>（傷口）。講者說 the ancient Greeks placed spider webs on wounds to stop them bleeding。<br><b>陷阱</b>：It was never woven into cloth on any scale——蜘蛛絲從來沒有大量織成布料，cloth 是被否定的干擾。",
+      "quote": "It was never woven into cloth on any scale, but the ancient Greeks placed spider webs on wounds to stop them bleeding."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "telescopes"
+      ],
+      "explain": "答案是 <b>telescopes</b>（望遠鏡）。講者說 the fine cross-hairs that you look through in telescopes were made of spider silk。<br><b>提醒</b>：wire 是被比較的對象（比任何金屬線都細），不是答案。複數 s 不可漏。",
+      "quote": "the fine cross-hairs that you look through in telescopes were made of spider silk, because it was thinner and more even than any wire."
+    },
+    {
+      "no": 37,
+      "answers": [
+        "cannibals"
+      ],
+      "explain": "答案是 <b>cannibals</b>（同類相食者）。講者說 The basic problem is that spiders are cannibals. If you keep them close together, they eat one another。<br><b>陷阱</b>：馬達加斯加的例子說花了好幾年、不實際，但那只是例子，The basic problem 之後才是根本原因。",
+      "quote": "The basic problem is that spiders are cannibals. If you keep them close together, they eat one another."
+    },
+    {
+      "no": 38,
+      "answers": [
+        "milk"
+      ],
+      "explain": "答案是 <b>milk</b>。講者說 goats, which then produced the silk protein in their milk。<br><b>陷阱</b>：bacteria 和 yeast 也被植入過基因，但題目問的是山羊，要聽 most famously 後面的那一個。",
+      "quote": "into goats, which then produced the silk protein in their milk."
+    },
+    {
+      "no": 39,
+      "answers": [
+        "spinning"
+      ],
+      "explain": "答案是 <b>spinning</b>（紡絲）。講者說 The real difficulty lies in copying the spinning process。<br><b>陷阱</b>：Making the protein, though, turns out to be the easy part——製造蛋白質反而是簡單的部分。題目的 main problem 對應 The real difficulty。",
+      "quote": "Making the protein, though, turns out to be the easy part. The real difficulty lies in copying the spinning process."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "nerves"
+      ],
+      "explain": "答案是 <b>nerves</b>（神經）。講者說 Researchers have used silk tubes to help damaged nerves grow back together。<br><b>陷阱</b>：Clothing companies 也試過，但 the most promising work is in medicine。but 後面才是講者強調的未來用途。",
+      "quote": "Researchers have used silk tubes to help damaged nerves grow back together, and early results have been encouraging."
+    }
+  ]
+}
