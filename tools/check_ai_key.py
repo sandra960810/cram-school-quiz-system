@@ -14,12 +14,12 @@ print('偵測到的 AI 老師：' + writing_bank.ai_label())
 
 if provider == 'gemini':
     try:
-        from google import genai
+        from google import genai  # noqa: F401  確認有安裝
         from google.genai import errors
     except ImportError:
         print('還沒安裝 google-genai 套件，請先雙擊 run.bat 一次。')
         sys.exit(1)
-    client = genai.Client(api_key=key)
+    client = writing_bank.gemini_client(key)   # 和實際批改用同一個 API 版本
     for model in writing_bank.gemini_models():
         try:
             client.models.generate_content(model=model, contents='Reply with the single word OK.')

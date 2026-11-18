@@ -359,6 +359,15 @@ def _ask_claude(key, task, essay):
     return next((b.text for b in resp.content if b.type == 'text'), ''), CLAUDE_MODEL
 
 
+def gemini_client(key):
+    """建立 Gemini 連線。一定要指定 v1beta：google-genai 套件新版把預設改成 v1，
+    但 v1 不接受評分規則（system_instruction），會回「Developer instruction is not enabled for api version v1」，
+    寫作和口說的 AI 批改就全部失敗（run.bat 每次都會更新套件，所以櫃台電腦會自動升到新版）。"""
+    from google import genai
+    from google.genai import types
+    return genai.Client(api_key=key, http_options=types.HttpOptions(api_version='v1beta'))
+
+
 def gemini_models():
     forced = os.environ.get('GEMINI_MODEL', '').strip()
     return [forced] if forced else list(GEMINI_MODELS)
@@ -384,7 +393,7 @@ def _ask_gemini(key, task, essay):
     """用 Gemini 批改，回傳 (JSON 文字, 模型名稱)。"""
     from google import genai
     from google.genai import errors, types
-    client = genai.Client(api_key=key)
+    client = gemini_client(key)
     config = types.GenerateContentConfig(
         system_instruction=SYSTEM_PROMPT,
         response_mime_type='application/json',

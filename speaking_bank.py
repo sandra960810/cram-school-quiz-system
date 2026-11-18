@@ -18,7 +18,7 @@ import re
 
 import bank_store
 import writing_bank
-from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_models, _gemini_error
+from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_client, gemini_models, _gemini_error
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BANK_DIR = os.path.join(BASE, 'speaking')
@@ -205,7 +205,7 @@ def _blank_answers(answers):
 def _ask_gemini(key, test, answers):
     from google import genai
     from google.genai import errors, types
-    client = genai.Client(api_key=key)
+    client = gemini_client(key)   # 指定 v1beta，原因見 writing_bank.gemini_client
     total = sum(os.path.getsize(a['path']) for a in answers if a.get('path'))
     contents = [types.Part.from_text(text=(
         f"IELTS Speaking practice test: {test['title']}. Below is each examiner question followed by the candidate's "
