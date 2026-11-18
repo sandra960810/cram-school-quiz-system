@@ -60,7 +60,8 @@
         /* 還沒學：灰色 */
         .dex-card.new { background: var(--line); border-top: 4px solid var(--muted-2); color: var(--muted); }
         .dex-card.new .word { color: var(--muted); }
-        .dex-card.new .meaning { filter: blur(4px); user-select: none; }
+        .dex-card.new .meaning { color: var(--muted); }
+        .dex-card.new .tag { background: var(--surface-2); color: var(--muted); }
         .fav-mark { color: var(--star); font-size: 16px; line-height: 1; margin-left: 4px; }
         .empty-msg { text-align: center; color: var(--muted); padding: 40px; }
     </style>
@@ -124,21 +125,14 @@
     {% if cards %}
     <div class="dex-grid ui-stagger" id="dexGrid">
         {% for item in cards %}
-            {% if item.is_unlocked %}
-                <a class="dex-card {{ item.status }}" data-status="{{ item.status }}"
-                   href="{{ url_for('learn_word', student_id=student.id, theme_key=theme.key, vocab_id=item.id) }}" title="打開單字卡">
-                    <div class="number"><span># {{ item.number }}{% if item.is_favorite %}<span class="fav-mark" title="已收藏">★</span>{% endif %}</span>
-                        <span class="tag">{{ '熟' if item.status == 'familiar' else '不熟' }}</span></div>
-                    <div class="word">{{ item.word }}</div>
-                    <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
-                </a>
-            {% else %}
-                <div class="dex-card new" data-status="new" data-sound="error" title="還沒學過，先用滑卡學">
-                    <div class="number"># {{ item.number }}</div>
-                    <div class="word">???</div>
-                    <div class="meaning">還沒學過</div>
-                </div>
-            {% endif %}
+            {# 熟（綠）、不熟（橘）、還沒學（灰）都直接顯示單字和意思 #}
+            <a class="dex-card {{ item.status }}" data-status="{{ item.status }}"
+               href="{{ url_for('learn_word', student_id=student.id, theme_key=theme.key, vocab_id=item.id) }}" title="打開單字卡">
+                <div class="number"><span># {{ item.number }}{% if item.is_favorite %}<span class="fav-mark" title="已收藏">★</span>{% endif %}</span>
+                    <span class="tag">{{ {'familiar': '熟', 'unfamiliar': '不熟'}.get(item.status, '還沒學') }}</span></div>
+                <div class="word">{{ item.word }}</div>
+                <div class="meaning">{% if item.pos %}<i>{{ item.pos }}</i> {% endif %}{{ item.meaning }}</div>
+            </a>
         {% endfor %}
     </div>
     {% endif %}
