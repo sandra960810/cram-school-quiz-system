@@ -76,6 +76,8 @@
         .feedback .ans { font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; color: var(--ink); }
         .feedback .yours { text-decoration: line-through; opacity: 0.8; font-family: Arial, sans-serif; }
         .feedback .meta { color: var(--ink-2); font-size: 14px; }
+        .feedback .fb-sentence { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); color: var(--ink); font-size: 15px; }
+        .feedback .fb-sentence span { flex: 1; }
         .next { display: block; width: 100%; margin-top: 14px; padding: 15px; font-size: 18px; }
         .keys { text-align: center; color: var(--line-strong); font-size: 12px; margin-top: 10px; }
 
@@ -272,6 +274,8 @@
         UI.play(ok ? 'right' : 'error');
         const yours = (!ok && q.type !== 'meaning' && q.type !== 'word') ? `<div>你寫的：<span class="yours">${esc(given)}</span></div>` : '';
         const shownAnswer = q.type === 'cloze' ? q.answer : q.word;
+        // 例句填空：作答後才顯示完整例句和播放鍵（作答前播放會洩漏答案）
+        const fullSentence = q.type === 'cloze' ? `${q.before}${q.answer}${q.after}` : '';
         document.getElementById('fb').innerHTML = `
             <div class="feedback ${ok ? 'right' : 'wrong'}">
                 <div class="big">${ok ? '✓ 答對了！' : '✗ 答錯了'}</div>
@@ -279,9 +283,13 @@
                 <div><span class="ans">${esc(shownAnswer)}</span>
                     <button class="play-sm" id="fb-play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="meta">${q.type === 'cloze' && q.form_differs ? '原形 ' + esc(q.word) + '・' : ''}${esc(q.pos)} ${esc(q.meaning)}</div>
+                ${fullSentence ? `<div class="fb-sentence"><span>${esc(fullSentence)}</span>
+                    <button class="play-sm" id="fb-sent-play" data-sound="none" aria-label="播放整句">{{ icon('volume') }}</button></div>` : ''}
             </div>
             <button class="btn next" id="next-btn">${idx + 1 < QUESTIONS.length ? '下一題 →' : '看成績 →'}</button>`;
         document.getElementById('fb-play').addEventListener('click', () => say(shownAnswer));
+        const sentPlay = document.getElementById('fb-sent-play');
+        if (sentPlay) sentPlay.addEventListener('click', () => say(fullSentence));
         document.getElementById('next-btn').addEventListener('click', next);
         // 答錯時自動唸一次正確答案，加深印象
         if (!ok) setTimeout(() => say(shownAnswer), 350);
