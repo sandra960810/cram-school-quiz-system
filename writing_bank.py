@@ -389,6 +389,20 @@ def _gemini_error(e):
     return f'Gemini 回報錯誤（{code}）：{msg[:120]}'
 
 
+def _try_next_model(e):
+    """這個錯誤換一個模型可能就好：404 是模型下架或不存在；500 以上是那個模型暫時故障或太忙
+    （gemini-flash-latest 尖峰時段常回 503「high demand」，同一時間 gemini-2.5-flash 是正常的）。"""
+    code = getattr(e, 'code', None) or 0
+    return code == 404 or code >= 500
+
+
+def _no_model_error(last):
+    """每個模型都試過還是不行時的訊息。"""
+    if last is not None and (getattr(last, 'code', None) or 0) >= 500:
+        return _gemini_error(last)     # 全部都在忙：請學生稍後再按一次
+    return '找不到可用的 Gemini 模型，請通知維護人員更新 GEMINI_MODELS。' + (f'（{last}）' if last else '')
+
+
 def _ask_gemini(key, task, essay):
     """用 Gemini 批改，回傳 (JSON 文字, 模型名稱)。"""
     from google import genai
@@ -405,7 +419,7 @@ def _ask_gemini(key, task, essay):
         try:
             resp = client.models.generate_content(model=model, contents=_user_message(task, essay), config=config)
         except errors.APIError as e:
-            if e.code == 404:          # 這個模型已經下架或不存在，換下一個
+            if _try_next_model(e):     # 這個模型下架了或暫時太忙，換下一個
                 last = e
                 continue
             raise RuntimeError(_gemini_error(e))
@@ -420,8 +434,7 @@ def _ask_gemini(key, task, essay):
                 raise RuntimeError('AI 回覆太長被截斷，請再按一次批改。')
             raise RuntimeError('Gemini 沒有回覆批改內容（可能被安全機制擋下），請再按一次批改。')
         return text, model
-    raise RuntimeError('找不到可用的 Gemini 模型，請通知維護人員更新 GEMINI_MODELS。'
-                       + (f'（{last}）' if last else ''))
+    raise RuntimeError(_no_model_error(last))
 
 
 def grade_task(task, essay):

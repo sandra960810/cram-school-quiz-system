@@ -24,8 +24,8 @@ if provider == 'gemini':
         try:
             client.models.generate_content(model=model, contents='Reply with the single word OK.')
         except errors.APIError as e:
-            if e.code == 404:
-                print(f'模型 {model} 不存在，換下一個試試…')
+            if writing_bank._try_next_model(e):
+                print(f'模型 {model} 不存在或暫時太忙，換下一個試試…')
                 continue
             print(writing_bank._gemini_error(e))
             sys.exit(1)
