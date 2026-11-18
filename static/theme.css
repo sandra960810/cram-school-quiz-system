@@ -33,7 +33,8 @@
     --edge-hero: 0 0 0 1px var(--primary-300), 6px 6px 0 var(--primary-100);   /* 標題橫幅 */
     --edge-pop: 0 0 0 1px var(--line-strong), 5px 5px 0 var(--primary-100);    /* 浮動面板、提示 */
 
-    --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+    /* 中文字型沒有韓文字，韓文會自動改用後面的韓文字型（Windows 的 Malgun Gothic、Mac/iPhone 的 Apple SD Gothic Neo） */
+    --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 /* 多益（TOEIC）：藍色。只覆寫主色與帶紫調的中性色，狀態色（對／錯／提醒／收藏）沿用。
    樣板的 <html data-exam="…"> 由 exams.py 決定；新增考試照這個格式加一組 */
@@ -84,11 +85,28 @@
     --bg: #f2f8f7;
     --surface-2: #eaf3f2;
 }
+/* 韓檢（TOPIK）：莓果紅 */
+:root[data-exam="topik"] {
+    --primary: #9d174d;
+    --primary-600: #831843;
+    --primary-300: #f0a5c4;
+    --primary-50: #fdedf3;
+    --primary-100: #fad5e3;
+    --ink: #2a1c22;
+    --ink-2: #554049;
+    --muted: #7a6670;
+    --muted-2: #a8959e;
+    --line: #eee0e6;
+    --line-strong: #d9c3cd;
+    --bg: #fbf5f7;
+    --surface-2: #f7edf1;
+}
 /* 考試選擇頁的卡片：各自顯示自己考試的主色（不受整頁色系影響） */
 .exam-tone-ielts { --tone: #4a2d7f; --tone-50: #f1ecf8; --tone-300: #b7a3db; --tone-100: #e3d9f2; }
 .exam-tone-toeic { --tone: #1d4ed8; --tone-50: #eaf1fd; --tone-300: #9db8ec; --tone-100: #d4e2fa; }
 .exam-tone-basic { --tone: #c2410c; --tone-50: #fff1e8; --tone-300: #f4b48a; --tone-100: #fde0cc; }
 .exam-tone-general { --tone: #0f766e; --tone-50: #e7f6f4; --tone-300: #8fd0c7; --tone-100: #cdeee9; }
+.exam-tone-topik { --tone: #9d174d; --tone-50: #fdedf3; --tone-300: #f0a5c4; --tone-100: #fad5e3; }
 
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }

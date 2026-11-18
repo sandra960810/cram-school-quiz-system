@@ -56,6 +56,8 @@
         .sentence { display: flex; align-items: center; gap: 10px; text-align: left; font-size: 16px; color: var(--ink); background: var(--surface-2); padding: 14px; border-radius: 8px; border-left: 4px solid var(--line-strong); }
         .sentence-body { flex: 1; }
         #sentence-text { font-style: italic; }
+        /* 韓文沒有斜體字型，瀏覽器硬斜會很難看 */
+        :root[data-exam="topik"] #sentence-text, :root[data-exam="topik"] .pos { font-style: normal; }
         .sentence-zh { display: block; font-style: normal; color: var(--muted); font-size: 14px; margin-top: 6px; }
 
         .fav-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: var(--line-strong); cursor: pointer; padding: 0; z-index: 2; }
@@ -114,7 +116,7 @@
                 <button class="fav-btn" id="fav-btn" data-sound="none" onclick="toggleFavorite()" title="加入收藏" aria-label="加入收藏" aria-pressed="false">☆</button>
                 <div id="status-chip" class="status-chip"></div>
                 <div class="word-row">
-                    <span id="word-display" class="word">載入中...</span>
+                    <span id="word-display" class="word"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}>載入中...</span>
                     <button class="play-btn" data-sound="none" onclick="playWord()" title="播放單字" aria-label="播放單字">{{ PLAY_ICON }}</button>
                 </div>
                 <div id="pos-display" class="pos"></div>
@@ -382,7 +384,7 @@
     }
 
     // ---------- 發音 ----------
-    const speak = (text) => UI.speak(text);   // 自動挑最像真人的英文語音（見 static/ui.js）
+    const speak = (text) => UI.speak(text);   // 自動挑最像真人的語音（韓檢唸韓文，其他唸英文；見 static/ui.js）
     function playWord() { if (currentWord) speak(currentWord.word); }
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 

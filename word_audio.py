@@ -4,7 +4,7 @@
 還有已知問題（連續按下一個字，唸出來的卻一直是同一個字）。改成由伺服器產生音檔，
 不管學生或主管用什麼裝置，聽到的都是正確的字，而且是同一個自然的聲音。
 
-- 網址 /tts?text=...&accent=GB|US，同一段文字只產生一次，存在 instance/tts_cache/
+- 網址 /tts?text=...&accent=GB|US|KR（KR 是韓文，韓檢用），同一段文字只產生一次，存在 instance/tts_cache/
 - 產生失敗（例如沒裝 edge-tts 或沒網路）回 503，前端（static/ui.js）會改用瀏覽器語音
 """
 import asyncio
@@ -16,7 +16,7 @@ from flask import Blueprint, abort, request, send_file
 
 bp = Blueprint('word_audio', __name__)
 
-VOICES = {'GB': 'en-GB-SoniaNeural', 'US': 'en-US-AriaNeural'}
+VOICES = {'GB': 'en-GB-SoniaNeural', 'US': 'en-US-AriaNeural', 'KR': 'ko-KR-SunHiNeural'}   # KR：韓檢
 MAX_CHARS = 400
 CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance', 'tts_cache')
 _locks = {}
