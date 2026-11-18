@@ -20,11 +20,13 @@
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 
         /* 選單卡片 */
-        .menu-card { background: white; padding: 25px; border-radius: 15px; box-shadow: var(--edge); text-align: center; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
+        .menu-card { position: relative; background: white; padding: 25px; border-radius: 15px; box-shadow: var(--edge); text-align: center; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px; }
         .menu-card:hover { transform: translateY(-5px); box-shadow: var(--edge-raised); }
         .menu-icon { font-size: 40px; margin-bottom: 15px; }
         .menu-title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
-        .menu-desc { font-size: 14px; color: var(--muted); }
+        .menu-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+        /* 建議順序：卡片左上角的 1、2、3 */
+        .step { position: absolute; top: 14px; left: 14px; width: 28px; height: 28px; border-radius: 50%; background: var(--primary-50); color: var(--primary); font-weight: bold; font-size: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px var(--primary-300); }
     </style>
 </head>
 <body>
@@ -37,40 +39,46 @@
     <div class="welcome-banner">
         <div class="exam-chip">{{ icon(exam.icon) }} {{ exam.name }} {{ exam.en }}</div>
         <h1>歡迎回來，{{ student.name }}</h1>
-        <p>已熟 {{ unlocked_count }} 字</p>
+        <p>照 1、2、3 的順序練習就對了。</p>
     </div>
 
-    <!-- 功能選單：依考試開放的功能顯示（exams.py 的 features） -->
+    <!-- 功能選單：依考試開放的功能顯示（exams.py 的 features）。
+         標題用白話動詞、卡片上標 1、2、3 告訴學生建議的順序 -->
+    {% set ns = namespace(n=0) %}
     <div class="menu-grid ui-stagger">
-        {% if 'phonics' in features %}
+        {% if 'phonics' in features %}{% set ns.n = ns.n + 1 %}
         <a href="/phonics/{{ student.id }}" class="menu-card">
+            <span class="step">{{ ns.n }}</span>
             <div class="menu-icon">{{ icon('volume') }}</div>
-            <div class="menu-title">單字發音教學<span class="go-arrow">→</span></div>
-            <div class="menu-desc">音標、音節、重音、慢速示範<br>跟讀單字，電腦幫你打分</div>
+            <div class="menu-title">學發音<span class="go-arrow">→</span></div>
+            <div class="menu-desc">聽電腦唸，再跟著唸</div>
         </a>
         {% endif %}
 
-        {% if 'learn' in features %}
+        {% if 'learn' in features %}{% set ns.n = ns.n + 1 %}
         <a href="/learn/{{ student.id }}" class="menu-card">
+            <span class="step">{{ ns.n }}</span>
             <div class="menu-icon">{{ icon('library') }}</div>
-            <div class="menu-title">單字學習與圖鑑<span class="go-arrow">→</span></div>
-            <div class="menu-desc">依主題滑卡背單字<br>✓ 熟 {{ unlocked_count }} / {{ total_count }} 字</div>
+            <div class="menu-title">背單字<span class="go-arrow">→</span></div>
+            <div class="menu-desc">一張一張滑卡背<br>已熟 {{ unlocked_count }} / {{ total_count }} 字</div>
         </a>
         {% endif %}
 
-        {% if 'vocab_quiz' in features %}
+        {% if 'vocab_quiz' in features %}{% set ns.n = ns.n + 1 %}
         <a href="/vocab-quiz/{{ student.id }}" class="menu-card">
+            <span class="step">{{ ns.n }}</span>
             <div class="menu-icon">{{ icon('quiz') }}</div>
-            <div class="menu-title">單字測驗區<span class="go-arrow">→</span></div>
-            <div class="menu-desc">考學過的字，答錯回不熟區</div>
+            <div class="menu-title">單字測驗<span class="go-arrow">→</span></div>
+            <div class="menu-desc">考考看背過的字</div>
         </a>
         {% endif %}
 
-        {% if 'exam' in features %}
+        {% if 'exam' in features %}{% set ns.n = ns.n + 1 %}
         <a href="/exam/{{ student.id }}" class="menu-card">
+            <span class="step">{{ ns.n }}</span>
             <div class="menu-icon">{{ icon('exam') }}</div>
-            <div class="menu-title">模擬測驗區<span class="go-arrow">→</span></div>
-            <div class="menu-desc">聽・讀・寫・說，自動批改附解析</div>
+            <div class="menu-title">模擬考<span class="go-arrow">→</span></div>
+            <div class="menu-desc">聽、讀、寫、說，交卷自動改</div>
         </a>
         {% endif %}
     </div>

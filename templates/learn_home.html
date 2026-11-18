@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字學習與圖鑑</title>
+    <title>背單字</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
@@ -31,12 +31,6 @@
         .mini-bar { background: var(--line); border-radius: 6px; height: 8px; overflow: hidden; display: flex; }
         .mini-bar > .weak { background: var(--warn) !important; }
         .mini-bar > div { background: var(--ok); height: 100%; }
-.fav-card { display: flex; align-items: center; background: var(--star-50); border: 2px solid var(--star); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; text-decoration: none; color: inherit; transition: 0.2s; }
-        .fav-card:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
-        .fav-card .theme-desc { margin-bottom: 0; }
-        .fav-count { font-size: 28px; font-weight: bold; color: var(--star-ink); margin-left: 15px; }
-        .quiz-card { background: var(--primary-50); border-color: var(--primary-300); }
-        .quiz-count { color: var(--primary); }
                 .back-btn { display: inline-block; margin-top: 30px; color: var(--primary); text-decoration: none; font-weight: bold; }
         .search-box { margin-bottom: 24px; }
         .search-bar { width: 100%; padding: 14px 16px; font-size: 17px; border: 2px solid var(--line-strong); border-radius: 10px; box-sizing: border-box; font-family: inherit; background: #fff; color: var(--ink); }
@@ -53,45 +47,39 @@
         .s-tag { font-weight: bold; white-space: nowrap; }
         .s-card.familiar .s-tag { color: var(--ok); }
         .s-card.unfamiliar .s-tag { color: var(--warn); }
+        .side-links { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+        .side-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 999px; background: #fff; box-shadow: var(--edge); text-decoration: none; color: var(--ink); font-weight: bold; font-size: 15px; }
+        .side-link:hover { background: var(--primary-50); color: var(--primary); }
+        .side-link.fav { color: var(--star-ink); }
+        .side-link b { background: var(--star-50); border-radius: 999px; padding: 0 8px; font-size: 13px; }
+        .pick { font-size: 18px; color: var(--ink); margin: 0 0 12px; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="nav-row">
         <a href="/dashboard/{{ student.id }}/{{ exam.key }}" class="nav-back"><span class="arrow">←</span>主介面</a>
-        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="nav-next">{{ icon('star') }} 我的收藏<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>{{ icon('library') }} {{ exam.name }}單字學習與圖鑑</h1>
-        <p>右滑＝熟、左滑＝不熟。✓ 熟 {{ unlocked_count }}・✗ 不熟 {{ weak_count }}／共 {{ total_count }} 字</p>
+        <h1>{{ icon('library') }} 背單字</h1>
+        <p>選下面一個主題，按「開始」就能背。已熟 {{ unlocked_count }} / {{ total_count }} 字</p>
         <div class="bar"><div style="width: {{ (unlocked_count * 100 / total_count) if total_count else 0 }}%"></div><div class="weak" style="width: {{ (weak_count * 100 / total_count) if total_count else 0 }}%"></div></div>
     </div>
 
     <div class="search-box">
         <input type="search" id="searchInput" class="search-bar" autocomplete="off"
-               placeholder="搜尋單字或中文意思（所有主題一起找，打錯字也找得到相近的字）">
+               placeholder="找單字：打英文或中文都可以">
         <p class="search-info" id="searchInfo" hidden></p>
         <div class="search-results" id="searchResults"></div>
     </div>
 
-    <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="fav-card">
-        <div class="theme-icon">{{ icon('star') }}</div>
-        <div class="theme-content">
-            <div class="theme-title">我的收藏</div>
-            <div class="theme-desc">{% if favorite_count %}{{ favorite_count }} 個單字{% else %}按單字卡上的 ☆ 收藏{% endif %}</div>
-        </div>
-        <div class="fav-count">{{ favorite_count }}<span class="go-arrow">→</span></div>
-    </a>
+    {# 收藏和單字測驗：以前是兩條大橫幅擋在主題前面，改成一排小按鈕 #}
+    <div class="side-links">
+        <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="side-link fav">{{ icon('star') }} 我的收藏<b>{{ favorite_count }}</b></a>
+        <a href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id) }}" class="side-link">{{ icon('quiz') }} 單字測驗<span class="go-arrow">→</span></a>
+    </div>
 
-    <a href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id) }}" class="fav-card quiz-card">
-        <div class="theme-icon">{{ icon('quiz') }}</div>
-        <div class="theme-content">
-            <div class="theme-title">單字測驗區</div>
-            <div class="theme-desc">{% if unlocked_count + weak_count %}考學過的 {{ unlocked_count + weak_count }} 個字{% else %}先滑卡學幾個字再來考{% endif %}</div>
-        </div>
-        <div class="fav-count quiz-count"><span class="go-arrow">→</span></div>
-    </a>
-
+    <h2 class="pick">選一個主題</h2>
     <div class="theme-grid ui-stagger">
         {% for t in themes %}
             {% set clickable = t.total and not t.locked %}
@@ -110,7 +98,7 @@
                     {% if t.locked %}
                         <div class="theme-progress">{{ icon('lock') }} 尚未開通{% if t.total %}・共 {{ t.total }} 字{% endif %}</div>
                     {% elif t.total %}
-                        <div class="theme-progress">✓ 熟 {{ t.unlocked }}・✗ 不熟 {{ t.weak }}／{{ t.total }} 字{% if t.unlocked == t.total %} {{ icon('check-circle') }} 全部熟了{% endif %}</div>
+                        <div class="theme-progress">已熟 {{ t.unlocked }} / {{ t.total }} 字{% if t.unlocked == t.total %} {{ icon('check-circle') }} 全部熟了{% endif %}</div>
                         <div class="mini-bar"><div style="width: {{ t.unlocked * 100 / t.total }}%"></div><div class="weak" style="width: {{ t.weak * 100 / t.total }}%"></div></div>
                     {% else %}
                         <div class="theme-progress">字庫建置中</div>

@@ -28,17 +28,13 @@ a[href], button { transition: transform 0.12s ease, box-shadow 0.2s, background 
 .go-arrow { display: inline-block; margin-left: 6px; transition: transform 0.2s; }
 a:hover .go-arrow { transform: translateX(4px); }
 
-/* 右下角音效開關 */
-.ui-sound-toggle {
-    position: fixed; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; border: none;
-    background: white; box-shadow: var(--edge); font-size: 20px; cursor: pointer; z-index: 1000;
-}
-
-/* 發音設定 */
+/* 右下角「聲音」設定鈕（音效開關＋發音設定都在裡面） */
 .ui-voice-toggle {
-    position: fixed; right: 68px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; border: none;
-    background: white; box-shadow: var(--edge); font-size: 20px; cursor: pointer; z-index: 1000;
+    position: fixed; right: 16px; bottom: 16px; height: 40px; padding: 0 14px; border-radius: 999px; border: none;
+    display: inline-flex; align-items: center; gap: 6px; background: white; color: var(--ink); box-shadow: var(--edge);
+    font-size: 14px; font-weight: bold; font-family: inherit; cursor: pointer; z-index: 1000;
 }
+.ui-voice-toggle:hover { background: var(--primary-50); color: var(--primary); }
 .ui-voice-panel {
     position: fixed; right: 16px; bottom: 70px; width: 290px; max-width: calc(100vw - 32px); background: white; border-radius: 14px;
     box-shadow: var(--edge-pop); padding: 16px; z-index: 1001; font-size: 14px; color: var(--ink);

@@ -108,7 +108,7 @@
 <body>
 <div class="page">
     <div class="nav-row">
-        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>測驗區</a>
+        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>單字測驗</a>
         <a href="{{ learn_url }}" class="nav-next">{{ icon('library') }} 回去滑卡<span class="arrow">→</span></a>
     </div>
     <div class="scope"><span>{{ icon('quiz') }} {{ scope_label }}</span></div>
@@ -117,7 +117,7 @@
     <div class="card">
         <h2 style="margin-top:0">這個範圍還沒有學過的字</h2>
         <p style="color:var(--muted); line-height:1.7">只考滑卡學過的字，先去滑卡吧。</p>
-        <a href="{{ learn_url }}" class="big-btn primary">{{ icon('library') }} 去單字學習區</a>
+        <a href="{{ learn_url }}" class="big-btn primary">{{ icon('library') }} 去背單字</a>
         <a href="{{ back_url }}" class="big-btn secondary">← 換一個範圍</a>
     </div>
     {% else %}

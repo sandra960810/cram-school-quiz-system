@@ -140,12 +140,12 @@ select.pick:focus { outline: none; border-color: var(--primary); }
     .audio-hint { display: none; }
 }
 /* 測驗頁下方有交卷列：把右下角的音效／發音按鈕往上移，避免蓋住「交卷」 */
-body:has(.submit-bar) .ui-sound-toggle,
 body:has(.submit-bar) .ui-voice-toggle { bottom: 90px; }
 body:has(.submit-bar) .ui-voice-panel { bottom: 144px; }
 @media (max-width: 640px) {
-    body:has(.submit-bar) .ui-sound-toggle,
-    body:has(.submit-bar) .ui-voice-toggle { bottom: 76px; width: 38px; height: 38px; font-size: 17px; opacity: .9; }
-    body:has(.submit-bar) .ui-voice-toggle { right: 60px; }
+    body:has(.submit-bar) .ui-voice-toggle { bottom: 76px; height: 36px; opacity: .9; }
     body:has(.submit-bar) .ui-voice-panel { bottom: 124px; }
 }
+
+/* 題庫首頁：還沒做好的回數只用一行字帶過，不再排一整片灰色卡片 */
+.soon-note { color: var(--muted); font-size: 14px; text-align: center; margin: 4px 0 22px; }

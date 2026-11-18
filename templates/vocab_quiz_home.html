@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字測驗區</title>
+    <title>單字測驗</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
@@ -34,6 +34,12 @@
         .size-row .opt { flex: 1; }
         .size-row .box { justify-content: center; font-weight: bold; font-size: 17px; }
 
+        .quick { text-align: center; }
+        .quick-what { margin: 0 0 14px; font-size: 16px; color: var(--ink-2); }
+        .quick-what b { color: var(--primary); }
+        .custom { margin-bottom: 18px; }
+        .custom > summary { cursor: pointer; color: var(--primary); font-weight: bold; font-size: 15px; padding: 10px 4px; list-style-position: inside; }
+        .custom[open] > summary { margin-bottom: 10px; }
         .start { display: block; width: 100%; padding: 16px; font-size: 19px; font-weight: bold; color: white; background: var(--primary); border: none; border-radius: 14px; cursor: pointer; font-family: inherit; box-shadow: var(--edge-raised); }
         .start:hover { filter: brightness(1.06); }
         .start:disabled { background: var(--line-strong); box-shadow: none; cursor: not-allowed; }
@@ -65,29 +71,38 @@
 <div class="container">
     <div class="nav-row">
         <a href="/dashboard/{{ student.id }}/{{ exam.key }}" class="nav-back"><span class="arrow">←</span>主介面</a>
-        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-next">{{ icon('library') }} 單字學習區<span class="arrow">→</span></a>
+        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-next">{{ icon('library') }} 背單字<span class="arrow">→</span></a>
     </div>
     <div class="summary">
-        <h1>{{ icon('quiz') }} 單字測驗區</h1>
-        <p>考滑卡學過的字，不熟的優先；答錯會移回不熟區。</p>
+        <h1>{{ icon('quiz') }} 單字測驗</h1>
+        <p>考你背過的字。答錯的字會放回「不熟」，下次背單字時會先出現。</p>
     </div>
 
     {% set learned = scopes[0].count %}
     {% if not learned %}
     <div class="panel empty">
-        還沒有學過的字。先到 <a href="{{ url_for('learn_home', student_id=student.id) }}">{{ icon('library') }} 單字學習區</a> 滑卡。
+        還沒有學過的字。先到 <a href="{{ url_for('learn_home', student_id=student.id) }}">{{ icon('library') }} 背單字</a> 滑卡。
     </div>
     {% else %}
     <form id="quiz-form" action="{{ url_for('vocab_quiz.quiz_start', student_id=student.id) }}" method="get">
+        {# 大部分學生不用設定，直接按開始；範圍、題型、題數收進下面的「自訂」 #}
+        <div class="panel quick">
+            <p class="quick-what">要考：<b id="sum-scope"></b>・<b id="sum-n"></b> 題</p>
+            <button type="submit" class="start" id="start-btn">開始測驗<span class="go-arrow">→</span></button>
+            <p class="warn" id="warn"></p>
+        </div>
+
+        <details class="custom" id="custom">
+        <summary>想換考的範圍、題型或題數？點這裡</summary>
         <div class="panel">
             <h2>① 考哪些字</h2>
-            <p class="sub">數字＝學過的字數</p>
+            <p class="sub">右邊的數字是背過幾個字</p>
             <div class="scope-grid">
                 {% for s in scopes %}
                 <label class="opt {% if not s.count %}off{% endif %}">
                     <input type="radio" name="scope" value="{{ s.key }}" {% if not s.count %}disabled{% endif %}
                            {% if s.key == pre_scope and s.count %}checked{% endif %}>
-                    <span class="box"><span class="ic">{{ icon(s.icon) }}</span><span class="tx"><span class="nm">{{ s.label }}</span></span><span class="ct">{{ s.count }}</span></span>
+                    <span class="box"><span class="ic">{{ icon(s.icon) }}</span><span class="tx"><span class="nm" data-label>{{ s.label }}</span></span><span class="ct">{{ s.count }}</span></span>
                 </label>
                 {% endfor %}
             </div>
@@ -95,7 +110,7 @@
 
         <div class="panel">
             <h2>② 題型</h2>
-            <p class="sub">可複選</p>
+            <p class="sub">可以選好幾種</p>
             <div class="type-grid">
                 {% for t in types %}
                 <label class="opt">
@@ -116,8 +131,7 @@
             </div>
         </div>
 
-        <button type="submit" class="start" id="start-btn">開始測驗<span class="go-arrow">→</span></button>
-        <p class="warn" id="warn"></p>
+        </details>
     </form>
     {% endif %}
 
@@ -149,7 +163,12 @@
         const check = () => {
             const ok = form.querySelectorAll('input[name=type]:checked').length > 0;
             btn.disabled = !ok;
-            warn.innerText = ok ? '' : '至少要選一種題型';
+            warn.innerText = ok ? '' : '至少要選一種題型（在下面的「自訂」裡）';
+            // 開始按鈕上方的一句話跟著選項變
+            const sc = form.querySelector('input[name=scope]:checked');
+            document.getElementById('sum-scope').innerText = sc ? sc.closest('label').querySelector('[data-label]').textContent.trim() : '';
+            const n = form.querySelector('input[name=n]:checked');
+            document.getElementById('sum-n').innerText = n ? n.value : '';
         };
         form.addEventListener('change', check);
         check();
