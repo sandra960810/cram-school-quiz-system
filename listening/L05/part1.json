@@ -1,0 +1,173 @@
+{
+  "no": 1,
+  "context": "Telephone call to a van hire company",
+  "audio": "L05_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a woman telephoning a van hire company because she is moving house. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "m4", "t": "Good morning, Citywide Van Hire. Greg speaking." },
+    { "v": "f4", "t": "Oh, hi. I'm moving house next month, and I need to hire a van for the day." },
+    { "v": "m4", "t": "No problem at all. Can I start with your surname?" },
+    { "v": "f4", "t": "It's Whitlock. W-H-I-T-L-O-C-K." },
+    { "v": "narrator", "t": "The woman's surname is Whitlock, so Whitlock has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Good morning, Citywide Van Hire. Greg speaking." },
+    { "v": "f4", "t": "Oh, hi. I'm moving house next month, and I need to hire a van for the day." },
+    { "v": "m4", "t": "No problem at all. Can I start with your surname?" },
+    { "v": "f4", "t": "It's Whitlock. W-H-I-T-L-O-C-K." },
+    { "v": "m4", "t": "Thanks, Ms Whitlock. Now, what size of van are you after? We do small, medium and large." },
+    { "v": "f4", "t": "Well, I was going to ask for a small one, to keep the cost down. But I've measured the sofa, and it won't fit." },
+    { "v": "m4", "t": "How about the large one, then? You'd get everything in on one trip." },
+    { "v": "f4", "t": "I looked at that on your website, but it says you need a special licence to drive it. So I think it'll have to be the medium." },
+    { "v": "m4", "t": "Medium it is. And what date did you have in mind?" },
+    { "v": "f4", "t": "I was hoping for Saturday the 16th of March." },
+    { "v": "m4", "t": "Let me check. I'm sorry, all our medium vans are out on the 16th. I could do the following Saturday, the 23rd." },
+    { "v": "f4", "t": "Hmm. I'll have to ring my landlord, but yes, put me down for the 23rd." },
+    { "v": "m4", "t": "Done. You can pick the van up from eight in the morning." },
+    { "v": "f4", "t": "And when does it need to be back? Your website says eight in the evening." },
+    { "v": "m4", "t": "That's only in the summer. At this time of year the depot closes at six, so we need it back by six o'clock." },
+    { "v": "f4", "t": "Six. I'll have to get a move on, then. How much is it for the day?" },
+    { "v": "m4", "t": "From Monday to Friday it's 55 pounds a day. But at weekends it goes up to 65." },
+    { "v": "f4", "t": "65 pounds. All right. Is there a limit on how far I can drive?" },
+    { "v": "m4", "t": "The first 100 miles are included in the price. After that, it's 20 pence a mile." },
+    { "v": "f4", "t": "Oh, that's plenty. I'm only moving across town. Do you hire out anything for packing? I've got lots of boxes already, but I'm worried about the furniture getting scratched." },
+    { "v": "m4", "t": "We do. Most people take a few blankets to wrap round the furniture. They're two pounds each." },
+    { "v": "f4", "t": "Good idea. I'll take some blankets, please. Half a dozen should do." },
+    { "v": "m4", "t": "I'll add those. Now, when you come in, we'll need to see your driving licence, and we also need proof of your address. A bank statement or an electricity bill is fine." },
+    { "v": "f4", "t": "Not my passport?" },
+    { "v": "m4", "t": "No, we don't need a passport. Just something with your address on it. And there's a deposit of 200 pounds, which has to be paid by credit card. We can't take a debit card or cash for the deposit, I'm afraid." },
+    { "v": "f4", "t": "Credit card. Okay. And what about fuel?" },
+    { "v": "m4", "t": "The van will have a full tank when you collect it, and we ask you to bring it back full as well. Otherwise we have to charge you for the fuel, plus a fee." },
+    { "v": "f4", "t": "Fair enough. And where exactly is the depot? Is it the one by the bus station?" },
+    { "v": "m4", "t": "No, that branch closed last year. We're on Station Road now, just behind the cinema. You'll see our sign from the road." },
+    { "v": "f4", "t": "Behind the cinema. Lovely. Thanks very much for your help." },
+    { "v": "m4", "t": "You're welcome. We'll see you on the 23rd." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Citywide Van Hire",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Booking",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Whitlock}",
+            "She needs a {1} van",
+            "Date of hire: Saturday {2} March",
+            "The van must be returned by {3} p.m."
+          ]
+        },
+        {
+          "heading": "Costs",
+          "lines": [
+            "The price at weekends is £{4} a day",
+            "The first {5} miles are free",
+            "She will also hire some {6} to protect her furniture"
+          ]
+        },
+        {
+          "heading": "On the day",
+          "lines": [
+            "She must bring her driving licence and proof of {7}",
+            "The deposit has to be paid by {8} card",
+            "The van must be returned with a {9} tank",
+            "The depot is behind the {10} on Station Road"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "medium"
+      ],
+      "explain": "答案是 <b>medium</b>。她說 So I think it'll have to be the medium。<br><b>陷阱</b>：small 是她「原本想要」的（I was going to ask for），但沙發放不下；large 是店員建議的，但需要特殊駕照。兩個尺寸分別被否定，剩下中間的。",
+      "quote": "I looked at that on your website, but it says you need a special licence to drive it. So I think it'll have to be the medium."
+    },
+    {
+      "no": 2,
+      "answers": [
+        "23",
+        "23rd"
+      ],
+      "explain": "答案是 <b>23</b>。店員說 16 號的車都租出去了，I could do the following Saturday, the 23rd，她回答 put me down for the 23rd。<br><b>陷阱</b>：16th 是她「希望」的日期（I was hoping for），但沒有車。hope、was going to 這類字常引出後來沒成真的資訊。",
+      "quote": "I'm sorry, all our medium vans are out on the 16th. I could do the following Saturday, the 23rd."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "6",
+        "six"
+      ],
+      "explain": "答案是 <b>6</b>。店員說這個季節 the depot closes at six, so we need it back by six o'clock。<br><b>陷阱</b>：eight 出現兩次——早上八點是「取車」時間，晚上八點是網站上寫的還車時間，但 That's only in the summer。題目問的是 returned by。",
+      "quote": "At this time of year the depot closes at six, so we need it back by six o'clock."
+    },
+    {
+      "no": 4,
+      "answers": [
+        "65"
+      ],
+      "explain": "答案是 <b>65</b>。店員說 at weekends it goes up to 65，她搬家那天是星期六。<br><b>陷阱</b>：55 是星期一到五的價格。題目已印出 at weekends，要對準這個條件。fifty-five 和 sixty-five 只差一個音節，要聽仔細。",
+      "quote": "From Monday to Friday it's 55 pounds a day. But at weekends it goes up to 65."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "100"
+      ],
+      "explain": "答案是 <b>100</b>。店員說 The first 100 miles are included in the price。<br><b>同義轉換</b>：included in the price ＝ free。<b>陷阱</b>：20 是超過之後每英里的便士數，不是里程數；後面的 200 則是押金。",
+      "quote": "The first 100 miles are included in the price. After that, it's 20 pence a mile."
+    },
+    {
+      "no": 6,
+      "answers": [
+        "blankets"
+      ],
+      "explain": "答案是 <b>blankets</b>（毯子）。店員說 Most people take a few blankets to wrap round the furniture，她說 I'll take some blankets。<br><b>陷阱</b>：boxes 她已經有很多了（I've got lots of boxes already），不需要再租。題目的 protect her furniture 對應她擔心的 furniture getting scratched。",
+      "quote": "Most people take a few blankets to wrap round the furniture."
+    },
+    {
+      "no": 7,
+      "answers": [
+        "address"
+      ],
+      "explain": "答案是 <b>address</b>。店員說 we also need proof of your address，銀行對帳單或電費帳單都可以。<br><b>陷阱</b>：passport 是她問的，但店員說 we don't need a passport。bank statement、electricity bill 是「例子」，題目要的是它們證明的東西。",
+      "quote": "We'll need to see your driving licence, and we also need proof of your address."
+    },
+    {
+      "no": 8,
+      "answers": [
+        "credit"
+      ],
+      "explain": "答案是 <b>credit</b>。店員說押金 has to be paid by credit card。<br><b>陷阱</b>：debit card 和 cash 緊接著被否定（We can't take a debit card or cash for the deposit）。credit 和 debit 發音相近，是常見的混淆點。",
+      "quote": "And there's a deposit of 200 pounds, which has to be paid by credit card. We can't take a debit card or cash for the deposit, I'm afraid."
+    },
+    {
+      "no": 9,
+      "answers": [
+        "full"
+      ],
+      "explain": "答案是 <b>full</b>。店員說取車時油箱是滿的，we ask you to bring it back full as well。<br><b>提醒</b>：題目的 returned with a ___ tank 需要形容詞。錄音先說 a full tank（取車時），再說 bring it back full（還車時），兩處都是同一個字。",
+      "quote": "The van will have a full tank when you collect it, and we ask you to bring it back full as well."
+    },
+    {
+      "no": 10,
+      "answers": [
+        "cinema"
+      ],
+      "explain": "答案是 <b>cinema</b>。店員說 We're on Station Road now, just behind the cinema。<br><b>陷阱</b>：bus station 是她猜的地點，但 that branch closed last year。另外 Station Road 是路名，題目已經印出來，不要因為聽到 station 就填它。",
+      "quote": "No, that branch closed last year. We're on Station Road now, just behind the cinema."
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "no": 1,
+  "context": "Telephone call to a railway lost property office",
+  "audio": "L04_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    { "v": "narrator", "t": "Part 1. You will hear a man telephoning a railway company to report a bag he has lost. First you have some time to look at questions 1 to 10." },
+    { "v": "pause", "t": "20" },
+    { "v": "narrator", "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first." },
+    { "v": "f1", "t": "Good afternoon, Northern Rail lost property. How can I help?" },
+    { "v": "m2", "t": "Hello. I left a bag on one of your trains this morning, and I'd like to report it." },
+    { "v": "f1", "t": "I'm sorry to hear that. Let me take some details. What's your surname, please?" },
+    { "v": "m2", "t": "It's Brennan. B-R-E-N-N-A-N." },
+    { "v": "narrator", "t": "The man's surname is Brennan, so Brennan has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10." },
+    { "v": "pause", "t": "3" },
+    { "v": "f1", "t": "Good afternoon, Northern Rail lost property. How can I help?" },
+    { "v": "m2", "t": "Hello. I left a bag on one of your trains this morning, and I'd like to report it." },
+    { "v": "f1", "t": "I'm sorry to hear that. Let me take some details. What's your surname, please?" },
+    { "v": "m2", "t": "It's Brennan. B-R-E-N-N-A-N." },
+    { "v": "f1", "t": "Thank you, Mr Brennan. And which journey was this?" },
+    { "v": "m2", "t": "I was travelling from Leeds this morning, and I got off at Thornby." },
+    { "v": "f1", "t": "Could you spell that for me? We've got a Thornton on that line as well." },
+    { "v": "m2", "t": "Of course. T-H-O-R-N-B-Y." },
+    { "v": "f1", "t": "Thornby. And do you know which train it was?" },
+    { "v": "m2", "t": "I'd booked a seat on the 7:15, but I missed that one, so I ended up on the 7:45." },
+    { "v": "f1", "t": "The 7:45. Right. And do you remember which coach you were sitting in?" },
+    { "v": "m2", "t": "Not the letter, I'm afraid. It was near the front of the train, I think, and it was the quiet coach." },
+    { "v": "f1", "t": "That's helpful. The cleaning staff make a note of where things are found. Now, what kind of bag is it?" },
+    { "v": "m2", "t": "It's a rucksack, a medium-sized one." },
+    { "v": "f1", "t": "And the colour? Black?" },
+    { "v": "m2", "t": "Everyone thinks it's black, but it's actually dark green. You can see it properly in daylight." },
+    { "v": "f1", "t": "Dark green. And whereabouts did you leave it? Under the seat?" },
+    { "v": "m2", "t": "No, I never put anything on the floor. And the table was covered in somebody else's coffee cups. I put it up on the rack above my seat, and that's exactly why I forgot it." },
+    { "v": "f1", "t": "That happens a lot. Is there anything about the bag that would help us to identify it?" },
+    { "v": "m2", "t": "Let me think. The strap used to be torn, but I had that repaired last year. Oh, I know. The zip on the front pocket is broken, so the pocket won't close." },
+    { "v": "f1", "t": "A broken zip. And what was inside? A laptop?" },
+    { "v": "m2", "t": "Luckily not. I was carrying the laptop under my arm. But my glasses were in there, in a brown case. I can hardly read without them." },
+    { "v": "f1", "t": "A pair of glasses. Anything else?" },
+    { "v": "m2", "t": "Yes, and this is what really worries me. There's a blue folder in there, with all the documents for a meeting tomorrow." },
+    { "v": "f1", "t": "A blue folder. I've noted that. Now, how should we contact you if it's handed in? By phone?" },
+    { "v": "m2", "t": "I'm in meetings most of the day and I can't take calls. And there's no point sending a text, because there's hardly any signal in our building. Email is the best way to reach me." },
+    { "v": "f1", "t": "Email it is. I'll take the address in a moment. If the bag turns up, you can collect it from our office at Leeds station. It's beside platform 12." },
+    { "v": "m2", "t": "Platform 2?" },
+    { "v": "f1", "t": "No, 12. It's at the far end of the station, past the ticket barriers." },
+    { "v": "m2", "t": "Got it. Is there a charge?" },
+    { "v": "f1", "t": "There is, I'm afraid. It's two pounds for small things like umbrellas, but for a bag it's five pounds. And please bring some identification with you." },
+    { "v": "m2", "t": "Five pounds is fine. I'd happily pay ten times that to get those documents back." },
+    { "v": "f1", "t": "I understand. Most bags are handed in within a day or two, so try not to worry." },
+    { "v": "m2", "t": "I hope you're right. Should I ring again tomorrow if I haven't heard anything?" },
+    { "v": "f1", "t": "There's no need. We'll get in touch the moment anything matching your description arrives." },
+    { "v": "m2", "t": "Thank you. That's very kind of you." },
+    { "v": "narrator", "t": "That is the end of Part 1. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Lost Property Report",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The journey",
+          "lines": [
+            "The passenger's surname is",
+            "- {ex:Brennan}",
+            "He travelled from Leeds to {1}",
+            "He caught the {2} train"
+          ]
+        },
+        {
+          "heading": "The bag",
+          "lines": [
+            "It is a rucksack, dark {3} in colour",
+            "He left it on the {4} above his seat",
+            "The {5} on the front pocket is broken",
+            "It contains a pair of {6} in a brown case",
+            "- and a blue {7} with documents"
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "lines": [
+            "He would like to be contacted by {8}",
+            "The office is beside platform {9} at Leeds station",
+            "The charge for collecting a bag is £{10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "Thornby"
+      ],
+      "explain": "答案是 <b>Thornby</b>。他逐字拼出 T-H-O-R-N-B-Y。<br><b>陷阱</b>：承辦人提到同一條路線上還有 Thornton，兩個站名開頭一樣，結尾不同（-by／-ton）。Leeds 是出發站，題目已經印出來了。",
+      "quote": "I was travelling from Leeds this morning, and I got off at Thornby."
+    },
+    {
+      "no": 2,
+      "answers": [
+        "7.45",
+        "7:45",
+        "745"
+      ],
+      "explain": "答案是 <b>7.45</b>。他說 I ended up on the 7:45。<br><b>陷阱</b>：7:15 是他「訂位」的班次（I'd booked a seat on），但 I missed that one。過去完成式 I'd booked 加上 but，表示計畫沒有實現。",
+      "quote": "I'd booked a seat on the 7:15, but I missed that one, so I ended up on the 7:45."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "green"
+      ],
+      "explain": "答案是 <b>green</b>。他說 it's actually dark green，題目已印出 dark。<br><b>陷阱</b>：Black 是承辦人猜的，他也說 Everyone thinks it's black，但 but it's actually 之後才是真正的顏色。",
+      "quote": "Everyone thinks it's black, but it's actually dark green."
+    },
+    {
+      "no": 4,
+      "answers": [
+        "rack"
+      ],
+      "explain": "答案是 <b>rack</b>（行李架）。他說 I put it up on the rack above my seat，和題目的 above his seat 完全對應。<br><b>陷阱</b>：seat 底下（floor）和 table 都被他否定——他從不把東西放地上，桌上又擺滿別人的咖啡杯。",
+      "quote": "I put it up on the rack above my seat, and that's exactly why I forgot it."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "zip",
+        "zipper"
+      ],
+      "explain": "答案是 <b>zip</b>（拉鍊）。他說 The zip on the front pocket is broken。<br><b>陷阱</b>：strap（背帶）used to be torn，但去年已經修好了（I had that repaired），不是現在的特徵。",
+      "quote": "The strap used to be torn, but I had that repaired last year. Oh, I know. The zip on the front pocket is broken, so the pocket won't close."
+    },
+    {
+      "no": 6,
+      "answers": [
+        "glasses"
+      ],
+      "explain": "答案是 <b>glasses</b>。他說 my glasses were in there, in a brown case，承辦人複述 A pair of glasses。<br><b>陷阱</b>：laptop 是承辦人猜的，但他回答 Luckily not，筆電夾在手臂下，不在包包裡。",
+      "quote": "Luckily not. I was carrying the laptop under my arm. But my glasses were in there, in a brown case."
+    },
+    {
+      "no": 7,
+      "answers": [
+        "folder"
+      ],
+      "explain": "答案是 <b>folder</b>（資料夾）。他說 There's a blue folder in there, with all the documents，題目已印出 blue 和 documents。<br><b>提醒</b>：題目的空格前後已經給了顏色和內容物，只需填「容器」這個名詞。",
+      "quote": "There's a blue folder in there, with all the documents for a meeting tomorrow."
+    },
+    {
+      "no": 8,
+      "answers": [
+        "email",
+        "e-mail"
+      ],
+      "explain": "答案是 <b>email</b>。他說 Email is the best way to reach me。<br><b>陷阱</b>：phone 不行（整天開會不能接電話），text 也不行（大樓收訊差）。三種聯絡方式都提到，前兩個都被否定。",
+      "quote": "I'm in meetings most of the day and I can't take calls. And there's no point sending a text, because there's hardly any signal in our building. Email is the best way to reach me."
+    },
+    {
+      "no": 9,
+      "answers": [
+        "12",
+        "twelve"
+      ],
+      "explain": "答案是 <b>12</b>。承辦人說 It's beside platform 12，他聽成 Platform 2，承辦人更正 No, 12。<br><b>陷阱</b>：twelve 和 two 聽起來相近，這裡刻意安排一次聽錯再更正。數字題聽到 No 之後要重新確認。",
+      "quote": "It's beside platform 12."
+    },
+    {
+      "no": 10,
+      "answers": [
+        "5",
+        "five"
+      ],
+      "explain": "答案是 <b>5</b>。承辦人說 for a bag it's five pounds。<br><b>陷阱</b>：two pounds 是雨傘這類小東西的費用，不是包包的。題目問的是 collecting a bag，要對準類別。他後來說的 ten times 只是誇飾。",
+      "quote": "It's two pounds for small things like umbrellas, but for a bag it's five pounds."
+    }
+  ]
+}

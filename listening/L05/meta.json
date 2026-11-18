@@ -1,0 +1,10 @@
+{
+  "title": "Listening Test 5",
+  "subtitle": "Parts 1–4，共 40 題，約 30 分鐘",
+  "parts": [
+    { "no": 1, "context": "貨車出租公司詢問電話", "types": "筆記填空" },
+    { "no": 2, "context": "博物館新進志工說明會", "types": "單選題 ・ 地圖題" },
+    { "no": 3, "context": "學生討論竹建築簡報", "types": "單選題 ・ 配對題" },
+    { "no": 4, "context": "城市噪音對鳥類的影響講座", "types": "筆記填空" }
+  ]
+}

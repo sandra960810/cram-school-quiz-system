@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 580" width="100%" style="max-width:700px;font-family:Arial,Helvetica,sans-serif">
+  <rect width="700" height="580" fill="#ffffff"/>
+
+  <!-- 建築外框與走廊 -->
+  <rect x="60" y="60" width="580" height="460" fill="#e9e4d8" stroke="#333" stroke-width="3"/>
+
+  <!-- 北側房間 -->
+  <rect x="60" y="60" width="190" height="190" fill="#cfe4f5" stroke="#555" stroke-width="2"/>
+  <text x="155" y="215" text-anchor="middle" font-size="14" font-weight="bold" fill="#2f6a9c">SWIMMING POOL</text>
+  <path d="M85 120 q12 -10 24 0 t24 0 t24 0 t24 0 t24 0 M85 145 q12 -10 24 0 t24 0 t24 0 t24 0 t24 0" fill="none" stroke="#6ba3d0" stroke-width="2"/>
+  <rect x="250" y="60" width="70" height="190" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+  <rect x="320" y="60" width="60" height="70" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+  <rect x="380" y="60" width="130" height="190" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+  <rect x="510" y="60" width="130" height="190" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+
+  <!-- 南側房間 -->
+  <rect x="60" y="290" width="130" height="230" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+  <rect x="190" y="290" width="130" height="230" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+  <rect x="380" y="290" width="130" height="230" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+  <rect x="510" y="290" width="130" height="230" fill="#f4f1ea" stroke="#555" stroke-width="2"/>
+
+  <!-- 走廊文字 -->
+  <text x="350" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#777" transform="rotate(-90 350 400)">MAIN CORRIDOR</text>
+  <text x="500" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#777">CORRIDOR</text>
+  <text x="190" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#777">CORRIDOR</text>
+
+  <!-- 入口與停車場 -->
+  <rect x="322" y="508" width="56" height="24" fill="#ffffff" stroke="#333" stroke-width="2"/>
+  <text x="350" y="552" text-anchor="middle" font-size="14" font-weight="bold" fill="#222">MAIN ENTRANCE</text>
+  <text x="150" y="552" text-anchor="middle" font-size="13" fill="#666" font-style="italic">car park</text>
+
+  <!-- 指北針 -->
+  <g transform="translate(672,95)">
+    <line x1="0" y1="28" x2="0" y2="-18" stroke="#333" stroke-width="2.5"/>
+    <polygon points="0,-28 -7,-12 7,-12" fill="#333"/>
+    <text x="0" y="46" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">N</text>
+  </g>
+
+  <!-- 位置標記 A–H -->
+  <g font-size="19" font-weight="bold" text-anchor="middle">
+    <g><circle cx="125" cy="405" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="125" y="412" fill="#c0392b">A</text></g>
+    <g><circle cx="255" cy="405" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="255" y="412" fill="#c0392b">B</text></g>
+    <g><circle cx="445" cy="405" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="445" y="412" fill="#c0392b">C</text></g>
+    <g><circle cx="575" cy="405" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="575" y="412" fill="#c0392b">D</text></g>
+    <g><circle cx="285" cy="155" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="285" y="162" fill="#c0392b">E</text></g>
+    <g><circle cx="445" cy="155" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="445" y="162" fill="#c0392b">F</text></g>
+    <g><circle cx="575" cy="155" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="575" y="162" fill="#c0392b">G</text></g>
+    <g><circle cx="350" cy="95" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="350" y="102" fill="#c0392b">H</text></g>
+  </g>
+
+  <text x="350" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">NORTHFIELD LEISURE CENTRE – GROUND FLOOR</text>
+</svg>

@@ -1,0 +1,206 @@
+{
+  "no": 2,
+  "context": "A radio talk about the Ashbourne Summer Festival",
+  "audio": "L04_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear the organiser of a town's summer festival talking on local radio about this year's event. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "f4", "t": "Hello, and welcome to this week's Community Hour. I'm Moana Reid, and as chair of the organising committee I'm here to tell you about this year's Ashbourne Summer Festival." },
+    { "v": "f4", "t": "The first thing to say is that the festival is growing. For the last five years it has run over two days, the Saturday and the Sunday. We did think about adding the Thursday as well, which would have made four days, but the stallholders weren't keen. So what we're doing instead is opening on the Friday, which gives us three days in all." },
+    { "v": "f4", "t": "You'll also notice that we've moved from June to July. People have assumed that's for the weather, but in fact June is usually drier here. And it has nothing to do with the school holidays, which don't begin until the end of the month. It's simply that the county show has moved to our usual weekend, and we didn't want to be competing with it for visitors." },
+    { "v": "f4", "t": "Tickets, then. A day ticket costs ten pounds, and that's the price whether you buy it online beforehand or at the gate on the day. I'm afraid we can't give refunds. But there is one good reason to book ahead: an advance ticket lets you use the car park without paying the usual three pounds." },
+    { "v": "f4", "t": "So what's on? The children's circus workshop is back for the third year running, and it's as popular as ever. We had hoped to offer an open-air cinema, but the licence didn't come through in time, so that will have to wait until next year. What is completely new is a tasting tent, where you can try cheese, bread and honey from more than twenty local producers." },
+    { "v": "f4", "t": "Finally, an appeal. We have plenty of people to sell programmes, thank you, and the traffic is being managed by a professional company this year. Where we're still short is on the Monday morning, when the whole field has to be cleared of litter. If you can spare a couple of hours then, please get in touch." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "f4", "t": "Let me finish by describing the site, because it's been reorganised. There's a plan on our website, and you might like to have it in front of you. The main entrance is on the north side of the field this year, at the top of the plan, so you'll be facing south as you walk in." },
+    { "v": "f4", "t": "The information point is the first thing you come to. As you walk through the main entrance, it's immediately on your left. That's where you can pick up a programme and ask about lost children." },
+    { "v": "f4", "t": "The main stage is right in the middle of the field, as always. The first-aid post is beside the stage, on its eastern side, so that help is close by wherever you are." },
+    { "v": "f4", "t": "The craft stalls have been moved away from the stage this year. You'll find them along the western edge of the field, about halfway down, which also happens to be the side nearest the car park." },
+    { "v": "f4", "t": "All the food is now together in one big tent. It used to be next to the entrance, but the queues kept blocking the gate. So this year, walk right past the stage and keep going to the far end of the field. The food tent is in the south-east corner, beside the stream." },
+    { "v": "f4", "t": "And lastly, the children's area. We wanted it well away from the noise of the stage, so we've put it in the south-west corner, in the shade of the big oak tree." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "How long will the festival last this year?",
+          "options": {
+            "A": "two days",
+            "B": "three days",
+            "C": "four days"
+          }
+        },
+        {
+          "no": 12,
+          "stem": "The festival has been moved to July in order to",
+          "options": {
+            "A": "avoid another local event.",
+            "B": "get better weather.",
+            "C": "fit in with the school holidays."
+          }
+        },
+        {
+          "no": 13,
+          "stem": "What is the advantage of buying a ticket in advance?",
+          "options": {
+            "A": "It costs less than at the gate.",
+            "B": "It includes free parking.",
+            "C": "It can be refunded."
+          }
+        },
+        {
+          "no": 14,
+          "stem": "Which attraction is new this year?",
+          "options": {
+            "A": "a food-tasting tent",
+            "B": "an open-air cinema",
+            "C": "a children's circus workshop"
+          }
+        },
+        {
+          "no": 15,
+          "stem": "Volunteers are still needed to",
+          "options": {
+            "A": "sell programmes.",
+            "B": "direct the traffic.",
+            "C": "clear up after the festival."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L04_part2_map.svg",
+      "imageAlt": "Ashbourne Summer Festival 場地圖，主要入口在上方（北側），標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Information point"
+        },
+        {
+          "no": 17,
+          "text": "First-aid post"
+        },
+        {
+          "no": 18,
+          "text": "Craft stalls"
+        },
+        {
+          "no": 19,
+          "text": "Food tent"
+        },
+        {
+          "no": 20,
+          "text": "Children's area"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>（three days）。她說今年改從星期五開始，which gives us three days in all。<br><b>陷阱</b>：A 的兩天是「過去五年」的做法；C 的四天是 We did think about（考慮過）加星期四，但攤商不願意。三個數字都出現，只有一個是今年的。",
+      "quote": "So what we're doing instead is opening on the Friday, which gives us three days in all."
+    },
+    {
+      "no": 12,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。她說 the county show has moved to our usual weekend, and we didn't want to be competing with it。<br><b>同義轉換</b>：didn't want to be competing with it ＝ avoid another local event。<b>陷阱</b>：B 錯在六月其實比較乾（June is usually drier）；C 錯在 it has nothing to do with the school holidays。",
+      "quote": "It's simply that the county show has moved to our usual weekend, and we didn't want to be competing with it for visitors."
+    },
+    {
+      "no": 13,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。她說 an advance ticket lets you use the car park without paying the usual three pounds。<br><b>同義轉換</b>：without paying ＝ free parking。<b>陷阱</b>：A 錯在線上買和現場買都是十英鎊；C 錯在 we can't give refunds。",
+      "quote": "But there is one good reason to book ahead: an advance ticket lets you use the car park without paying the usual three pounds."
+    },
+    {
+      "no": 14,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。她說 What is completely new is a tasting tent。<br><b>陷阱</b>：C 的馬戲工作坊 is back for the third year running（已經第三年），不是新的；B 的露天電影 We had hoped to offer，但執照沒下來，要等明年。",
+      "quote": "What is completely new is a tasting tent, where you can try cheese, bread and honey from more than twenty local producers."
+    },
+    {
+      "no": 15,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。她說 Where we're still short is on the Monday morning, when the whole field has to be cleared of litter。<br><b>同義轉換</b>：cleared of litter ＝ clear up。<b>陷阱</b>：A 的賣節目單 We have plenty of people；B 的交通今年交給專業公司。",
+      "quote": "Where we're still short is on the Monday morning, when the whole field has to be cleared of litter."
+    },
+    {
+      "no": 16,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。她說 As you walk through the main entrance, it's immediately on your left。<br><b>陷阱</b>：這張圖的入口在<b>上方（北側）</b>，走進去是面向南方，所以「你的左手邊」是東邊，也就是圖上入口的<b>右側</b> A，不是 B。她特別說了 you'll be facing south as you walk in，就是在提醒這一點。",
+      "quote": "As you walk through the main entrance, it's immediately on your left."
+    },
+    {
+      "no": 17,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。她說 The first-aid post is beside the stage, on its eastern side。先找到圖中央的 MAIN STAGE，它的東側（右邊）就是 D。<br><b>技巧</b>：用東西南北描述時不必管自己面向哪裡，直接看指北針。",
+      "quote": "The first-aid post is beside the stage, on its eastern side, so that help is close by wherever you are."
+    },
+    {
+      "no": 18,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。她說 You'll find them along the western edge of the field, about halfway down，西側邊緣的中段就是 C，也正好靠近圖上的停車場。<br><b>陷阱</b>：H 和 F 也在西側，但分別在角落；halfway down 指的是中間。",
+      "quote": "You'll find them along the western edge of the field, about halfway down, which also happens to be the side nearest the car park."
+    },
+    {
+      "no": 19,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。她說 The food tent is in the south-east corner, beside the stream，右下角、小溪旁邊就是 G。<br><b>陷阱</b>：It used to be next to the entrance——以前在入口旁（B 的位置），因為排隊擋住大門才搬走。",
+      "quote": "The food tent is in the south-east corner, beside the stream."
+    },
+    {
+      "no": 20,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。她說 we've put it in the south-west corner, in the shade of the big oak tree，左下角橡樹旁就是 F。<br><b>提醒</b>：圖上畫出的 oak tree 和 stream 都是定位用的線索，聽之前先看清楚它們在哪裡。",
+      "quote": "We wanted it well away from the noise of the stage, so we've put it in the south-west corner, in the shade of the big oak tree."
+    }
+  ]
+}

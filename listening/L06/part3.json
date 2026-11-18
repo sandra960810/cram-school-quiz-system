@@ -1,0 +1,223 @@
+{
+  "no": 3,
+  "context": "Two biology students discussing their report on an experiment with plants and coloured light",
+  "audio": "L06_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    { "v": "narrator", "t": "Part 3. You will hear two biology students, Zoe and Adam, discussing the report on their experiment growing plants under coloured light. First you have some time to look at questions 21 to 25." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 21 to 25." },
+    { "v": "pause", "t": "3" },
+    { "v": "f3", "t": "Adam, have you got time to go through the light experiment? Dr Novak wants the report by Friday week." },
+    { "v": "m1", "t": "Yes, let's. I suppose we should start with the method. Do we need to say why we used tomato plants?" },
+    { "v": "f3", "t": "I think so. It wasn't the price, was it? Lettuce seeds would have been cheaper." },
+    { "v": "m1", "t": "No, and Dr Novak actually suggested we use beans. We went for tomatoes because the seeds come up so fast. We only had four weeks, and they'd germinated within five days." },
+    { "v": "f3", "t": "Right, I'll put that in. And we ought to be honest about the first week. Do you remember how slowly everything grew?" },
+    { "v": "m1", "t": "I do. I thought at first that we'd given them too much water." },
+    { "v": "f3", "t": "So did I. But it turned out that the heating in the lab had been switched off over the holiday, and the temperature had dropped to twelve degrees. Once the heating was back on, they shot up." },
+    { "v": "m1", "t": "At least the lamps kept working. Now, the results. I expected the plants under red light to have the most leaves, and they did." },
+    { "v": "f3", "t": "And the ones under blue light were the shortest, just as the textbook says. What I can't get over is the green group. Everything I'd read said green light is almost useless to plants, and yet those were the tallest of all." },
+    { "v": "m1", "t": "Tall, but thin and pale. I think they were stretching to look for better light." },
+    { "v": "f3", "t": "That would make sense. We'll need to discuss it. Now, weaknesses. Dr Novak is bound to ask." },
+    { "v": "m1", "t": "Well, we only had ten plants in each group. And four weeks isn't long." },
+    { "v": "f3", "t": "True, but that's the same for everyone in the class. What really worries me is the window. The blinds didn't close properly, so all the plants were getting some daylight as well as the coloured light. That could even explain the green result." },
+    { "v": "m1", "t": "Good point. I hadn't thought of that. And what about day nine? Neither of us came in, so there are no measurements." },
+    { "v": "f3", "t": "Could we just work out roughly what they would have been, from day eight and day ten?" },
+    { "v": "m1", "t": "I'd rather not invent figures. And there's no time to run the whole thing again. Let's leave that day blank and put a note underneath saying why." },
+    { "v": "f3", "t": "Yes, you're right. That's the honest way to do it." },
+    { "v": "narrator", "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 26 to 30." },
+    { "v": "pause", "t": "3" },
+    { "v": "m1", "t": "Now, we've collected far more material than we can use. Shall we decide what goes where?" },
+    { "v": "f3", "t": "Okay. The line graph of plant height first." },
+    { "v": "m1", "t": "That's our key result. It shows the green group overtaking the others in week three. It has to go in the main report, in the results section." },
+    { "v": "f3", "t": "Agreed. What about the table of leaf numbers? It runs to two pages." },
+    { "v": "m1", "t": "It's far too long for the results section. But someone may want to check the figures, so I wouldn't throw it away. Let's put it in the appendix at the back, and just refer to it." },
+    { "v": "f3", "t": "Fine. Then there are the photographs. I took one every day." },
+    { "v": "m1", "t": "Honestly, Zoe, I've looked through them, and under the coloured lamps you can hardly tell one plant from another. I don't think they add anything." },
+    { "v": "f3", "t": "I was going to suggest putting them in the appendix as well. But you're right, they're no good. We'll drop them." },
+    { "v": "m1", "t": "The bar chart of the final weights is more useful." },
+    { "v": "f3", "t": "It is, but I showed it to my flatmate, and she couldn't work out which bar was which group. The axes aren't named, either. I think it needs doing again, with proper labels." },
+    { "v": "m1", "t": "I'll do that tonight. I did wonder about asking Dr Novak whether we need it at all, but it's obviously worth keeping." },
+    { "v": "f3", "t": "And lastly, your time-lapse video. It's lovely, but we can't put a video in a written report." },
+    { "v": "m1", "t": "No. But we've got the ten-minute talk the week after. I could show it then, and nowhere else." },
+    { "v": "f3", "t": "Perfect. People will remember that." },
+    { "v": "m1", "t": "Right. I think that's everything decided." },
+    { "v": "narrator", "t": "That is the end of Part 3. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose tomato plants for the experiment?",
+          "options": {
+            "A": "The seeds were the cheapest.",
+            "B": "The seeds germinate quickly.",
+            "C": "Their tutor recommended them."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What caused the slow growth in the first week?",
+          "options": {
+            "A": "The plants were given too much water.",
+            "B": "One of the lamps stopped working.",
+            "C": "The laboratory was too cold."
+          }
+        },
+        {
+          "no": 23,
+          "stem": "Which result did Zoe not expect?",
+          "options": {
+            "A": "The plants under green light grew tallest.",
+            "B": "The plants under red light had most leaves.",
+            "C": "The plants under blue light were shortest."
+          }
+        },
+        {
+          "no": 24,
+          "stem": "What does Zoe think is the main weakness of the experiment?",
+          "options": {
+            "A": "There were too few plants.",
+            "B": "It did not last long enough.",
+            "C": "Daylight reached the plants."
+          }
+        },
+        {
+          "no": 25,
+          "stem": "What will the students do about the missing measurements?",
+          "options": {
+            "A": "estimate the figures",
+            "B": "leave a gap and explain it",
+            "C": "repeat the experiment"
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students decide to do with each of the following?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Decisions",
+      "options": {
+        "A": "redraw it with clearer labels",
+        "B": "include it in the main report",
+        "C": "ask the tutor about it",
+        "D": "use it only in the presentation",
+        "E": "move it to the appendix",
+        "F": "leave it out completely"
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "Line graph of plant height"
+        },
+        {
+          "no": 27,
+          "text": "Table of leaf numbers"
+        },
+        {
+          "no": 28,
+          "text": "Photographs"
+        },
+        {
+          "no": 29,
+          "text": "Bar chart of final weights"
+        },
+        {
+          "no": 30,
+          "text": "Time-lapse video"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Adam 說 We went for tomatoes because the seeds come up so fast，五天內就發芽。<br><b>同義轉換</b>：come up so fast ＝ germinate quickly。<b>陷阱</b>：A 錯在生菜種子更便宜（It wasn't the price）；C 錯在老師建議的其實是豆子（suggested we use beans）。",
+      "quote": "We went for tomatoes because the seeds come up so fast."
+    },
+    {
+      "no": 22,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Zoe 說實驗室暖氣在假期被關掉，the temperature had dropped to twelve degrees。<br><b>陷阱</b>：A 是兩人「一開始以為」的原因（I thought at first），but it turned out 之後才是真正的原因；B 錯在 Adam 說 At least the lamps kept working。",
+      "quote": "But it turned out that the heating in the lab had been switched off over the holiday, and the temperature had dropped to twelve degrees."
+    },
+    {
+      "no": 23,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Zoe 說 What I can't get over is the green group... those were the tallest of all，和她讀到的完全相反。<br><b>陷阱</b>：B 是 Adam 預期中的結果（I expected... and they did）；C 則是 just as the textbook says。兩個都「符合預期」，題目問的是 not expect。",
+      "quote": "Everything I'd read said green light is almost useless to plants, and yet those were the tallest of all."
+    },
+    {
+      "no": 24,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Zoe 說 What really worries me is the window，百葉窗關不緊，all the plants were getting some daylight。<br><b>陷阱</b>：A 和 B 是 Adam 提出的弱點，Zoe 回答 True, but that's the same for everyone in the class，表示她不認為那是最主要的問題。",
+      "quote": "The blinds didn't close properly, so all the plants were getting some daylight as well as the coloured light."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Adam 說 Let's leave that day blank and put a note underneath saying why，Zoe 同意。<br><b>同義轉換</b>：leave blank ＝ leave a gap；put a note saying why ＝ explain it。<b>陷阱</b>：A 是 Zoe 的提議，被 Adam 拒絕（I'd rather not invent figures）；C 錯在 there's no time。",
+      "quote": "Let's leave that day blank and put a note underneath saying why."
+    },
+    {
+      "no": 26,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>（放進正文）。Adam 說這是 our key result，It has to go in the main report, in the results section。<br><b>技巧</b>：配對題的第一題通常最直接，選項的字（main report）幾乎原樣出現，先穩穩拿下。",
+      "quote": "It has to go in the main report, in the results section."
+    },
+    {
+      "no": 27,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>（移到附錄）。Adam 說 Let's put it in the appendix at the back, and just refer to it。<br><b>陷阱</b>：It's far too long for the results section 排除 B；I wouldn't throw it away 排除 F。兩個否定之後才說出決定。",
+      "quote": "Let's put it in the appendix at the back, and just refer to it."
+    },
+    {
+      "no": 28,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>（完全不用）。Zoe 說 they're no good. We'll drop them。<br><b>同義轉換</b>：drop ＝ leave out。<b>陷阱</b>：Zoe 本來想放進 appendix（I was going to suggest），但被 Adam 說服後放棄，所以不是 E。",
+      "quote": "But you're right, they're no good. We'll drop them."
+    },
+    {
+      "no": 29,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>（重畫並標清楚）。Zoe 說 I think it needs doing again, with proper labels，Adam 答應今晚重做。<br><b>陷阱</b>：Adam 提到 I did wonder about asking Dr Novak，但那只是「曾經想過」，馬上自己否定（it's obviously worth keeping），所以不是 C。C 是本題組沒用到的選項。",
+      "quote": "I think it needs doing again, with proper labels."
+    },
+    {
+      "no": 30,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>（只在口頭報告使用）。Adam 說 I could show it then, and nowhere else，then 指的是下下週的 ten-minute talk。<br><b>同義轉換</b>：talk ＝ presentation；nowhere else ＝ only。影片放不進書面報告，所以不是 B 或 E。",
+      "quote": "But we've got the ten-minute talk the week after. I could show it then, and nowhere else."
+    }
+  ]
+}

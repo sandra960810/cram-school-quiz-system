@@ -1,0 +1,10 @@
+{
+  "title": "Listening Test 6",
+  "subtitle": "Parts 1–4，共 40 題，約 30 分鐘",
+  "parts": [
+    { "no": 1, "context": "露營區訂位電話", "types": "筆記填空" },
+    { "no": 2, "context": "前往小島的遊船導覽", "types": "單選題 ・ 地圖題" },
+    { "no": 3, "context": "學生討論植物光照實驗報告", "types": "單選題 ・ 配對題" },
+    { "no": 4, "context": "沙資源短缺講座", "types": "筆記填空" }
+  ]
+}

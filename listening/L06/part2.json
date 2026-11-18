@@ -1,0 +1,206 @@
+{
+  "no": 2,
+  "context": "A talk by a guide on a boat trip to Skerry Island",
+  "audio": "L06_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    { "v": "narrator", "t": "Part 2. You will hear a guide talking to a group of visitors on a boat trip to a small island. First you have some time to look at questions 11 to 15." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 11 to 15." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Good morning, everyone, and welcome aboard the Sea Lark. My name's Jack, and I'll be your guide on today's trip to Skerry Island. Before we set off, there are a few things you need to know." },
+    { "v": "m4", "t": "First, the crossing. It normally takes about forty minutes, but today it will be nearer an hour. That's not because of the weather, which couldn't be calmer, and there's nothing wrong with the engine, you'll be glad to hear. The harbour entrance is being repaired, so we have to go the long way round, on the far side of the sandbank." },
+    { "v": "m4", "t": "Now, Skerry is a nature reserve, so there are rules. People always ask me whether they're allowed to take photographs, and of course you are. You're also welcome to take a picnic ashore. What we do insist on is that you keep to the marked paths. Many of the birds here nest on the ground, and a single careless step can destroy a nest." },
+    { "v": "m4", "t": "I know many of you have come for the puffins. If you'd been here in early spring, you'd have seen none at all, because they spend the winter far out at sea. Right now, in June, there are thousands of them. They'll stay through July, and then, in August, they all leave within a few days of each other." },
+    { "v": "m4", "t": "A word about food. There's no café on the island. There was one in the visitor centre, but it closed two years ago, and you can't buy so much as a bottle of water there now. And we won't be back in the harbour until this evening, which is a long time to go hungry. So if you haven't brought any lunch, get something from the snack bar on the lower deck before we land. It sells sandwiches and hot drinks." },
+    { "v": "m4", "t": "And finally, timing. The timetable in your leaflet says the boat leaves the island at half past four. Please ignore that. Because of the tide, we have to be away at four o'clock today. I'd like you back at the jetty by ten to four, because the boat can't wait." },
+    { "v": "narrator", "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20." },
+    { "v": "pause", "t": "25" },
+    { "v": "narrator", "t": "Now listen and answer questions 16 to 20." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Now, if you look at the map in your leaflet, I'll show you where everything is. We land at the jetty, which is at the southern end of the island, at the bottom of your map. From there, a single path runs north." },
+    { "v": "m4", "t": "After a couple of hundred metres, that path divides into three, and the visitor centre is right at the junction. It's worth calling in there first, as there's a display about the island's wildlife." },
+    { "v": "m4", "t": "Most people want to see the lighthouse. Now, you might expect it to be on the hill in the middle of the island, but it isn't. It stands at the very northern tip, right at the top of your map. Take the middle path, and allow forty minutes each way." },
+    { "v": "m4", "t": "What you will find on the hill is the ruined chapel. It's about eight hundred years old, and you pass it on your way to the lighthouse, roughly halfway up the island." },
+    { "v": "m4", "t": "For the puffins, you need the viewing platform. From the visitor centre, take the left-hand path, which brings you out on top of the cliffs. The platform is right on the cliff edge, halfway up the west coast." },
+    { "v": "m4", "t": "And lastly, the seal beach. Take the right-hand path from the visitor centre. The first bay you come to, on the east coast, is very pretty, but you won't see any seals there. Carry on along the coast until you reach the north-east corner of the island. That's where the seals come ashore." },
+    { "v": "narrator", "t": "That is the end of Part 2. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "Today's crossing will take longer than usual because",
+          "options": {
+            "A": "the sea is rough.",
+            "B": "the boat has to take a different route.",
+            "C": "there is a problem with the engine."
+          }
+        },
+        {
+          "no": 12,
+          "stem": "What are visitors to the island required to do?",
+          "options": {
+            "A": "stay on the paths",
+            "B": "leave their food on the boat",
+            "C": "avoid taking photographs"
+          }
+        },
+        {
+          "no": 13,
+          "stem": "When do the puffins leave the island?",
+          "options": {
+            "A": "in early spring",
+            "B": "in June",
+            "C": "in August"
+          }
+        },
+        {
+          "no": 14,
+          "stem": "Visitors who have not brought lunch should",
+          "options": {
+            "A": "buy something on the boat.",
+            "B": "go to the café in the visitor centre.",
+            "C": "wait until they return to the harbour."
+          }
+        },
+        {
+          "no": 15,
+          "stem": "What time will the boat leave the island today?",
+          "options": {
+            "A": "3.50",
+            "B": "4.00",
+            "C": "4.30"
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L06_part2_map.svg",
+      "imageAlt": "Skerry Island 地圖，碼頭在南端，標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Visitor centre"
+        },
+        {
+          "no": 17,
+          "text": "Lighthouse"
+        },
+        {
+          "no": 18,
+          "text": "Ruined chapel"
+        },
+        {
+          "no": 19,
+          "text": "Viewing platform"
+        },
+        {
+          "no": 20,
+          "text": "Seal beach"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Jack 說港口入口在整修，so we have to go the long way round。<br><b>同義轉換</b>：go the long way round ＝ take a different route。<b>陷阱</b>：A 被否定（That's not because of the weather, which couldn't be calmer）；C 也被否定（there's nothing wrong with the engine）。",
+      "quote": "The harbour entrance is being repaired, so we have to go the long way round, on the far side of the sandbank."
+    },
+    {
+      "no": 12,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Jack 說 What we do insist on is that you keep to the marked paths。<br><b>同義轉換</b>：insist on ＝ required；keep to ＝ stay on。<b>陷阱</b>：C 錯在拍照 of course you are（當然可以）；B 錯在野餐可以帶上岸（welcome to take a picnic ashore）。",
+      "quote": "What we do insist on is that you keep to the marked paths."
+    },
+    {
+      "no": 13,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Jack 說 in August, they all leave within a few days of each other。<br><b>陷阱</b>：A 的 early spring 是「還看不到」海鸚的時候（牠們在海上過冬）；B 的 June 是「現在」，數量最多的時候。三個時間都有出現，只有 August 配上 leave。",
+      "quote": "They'll stay through July, and then, in August, they all leave within a few days of each other."
+    },
+    {
+      "no": 14,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Jack 說 get something from the snack bar on the lower deck before we land，snack bar 在船上。<br><b>陷阱</b>：B 的咖啡店兩年前就關了（it closed two years ago）；C 錯在回到港口要等到傍晚，Jack 說那是 a long time to go hungry。",
+      "quote": "So if you haven't brought any lunch, get something from the snack bar on the lower deck before we land."
+    },
+    {
+      "no": 15,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Jack 說 Because of the tide, we have to be away at four o'clock today。<br><b>陷阱</b>：C 的四點半是時刻表上寫的，但他說 Please ignore that；A 的三點五十（ten to four）是請大家「回到碼頭」的時間，不是開船時間。",
+      "quote": "Because of the tide, we have to be away at four o'clock today."
+    },
+    {
+      "no": 16,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。Jack 說從碼頭往北的小路 divides into three, and the visitor centre is right at the junction，三條路分岔的地方是 D。<br><b>技巧</b>：先找到起點（南端的碼頭），再跟著路線走。遊客中心是後面三題的出發點，這題一定要先定位。",
+      "quote": "After a couple of hundred metres, that path divides into three, and the visitor centre is right at the junction."
+    },
+    {
+      "no": 17,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Jack 說燈塔 stands at the very northern tip, right at the top of your map。<br><b>陷阱</b>：you might expect it to be on the hill in the middle of the island, but it isn't——山丘上的 E 不是燈塔。you might expect 後面的內容通常會被否定。",
+      "quote": "It stands at the very northern tip, right at the top of your map."
+    },
+    {
+      "no": 18,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。Jack 說 What you will find on the hill is the ruined chapel，位置在往燈塔的路上、roughly halfway up the island，也就是島中央的山丘。<br><b>提醒</b>：這題和上一題是一組，上一題排除了山丘，這一題才告訴你山丘上是什麼。",
+      "quote": "What you will find on the hill is the ruined chapel."
+    },
+    {
+      "no": 19,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。Jack 說走 left-hand path 會到懸崖上，The platform is right on the cliff edge, halfway up the west coast。<br><b>陷阱</b>：面向北方時左手邊是西邊。F 也在西側，但在西南角、靠近碼頭，不是西岸的「中段」（halfway up）。",
+      "quote": "The platform is right on the cliff edge, halfway up the west coast."
+    },
+    {
+      "no": 20,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Jack 說要一直走到 the north-east corner of the island，That's where the seals come ashore。<br><b>陷阱</b>：右邊小路先到的東岸海灣 C 很漂亮，but you won't see any seals there。先出現的地點是干擾，Carry on 之後才是答案。",
+      "quote": "Carry on along the coast until you reach the north-east corner of the island."
+    }
+  ]
+}

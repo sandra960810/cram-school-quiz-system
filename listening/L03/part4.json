@@ -1,0 +1,148 @@
+{
+  "no": 4,
+  "context": "A biology lecture on how honeybee swarms choose a new home",
+  "audio": "L03_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a biology lecture about how a swarm of honeybees chooses a new home. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m4", "t": "Good afternoon. In today's lecture I want to look at one of the most remarkable examples of group decision-making in the animal world: the way a swarm of honeybees chooses a new home." },
+    { "v": "m4", "t": "First, some background. When a colony grows too large for its nest, it divides. The old queen leaves with roughly two-thirds of the workers, and a new queen takes over what remains. People often assume this happens in summer, when bees are most visible. In fact, swarming usually takes place in late spring, because the swarm needs the whole summer to build up its food stores before the cold weather arrives." },
+    { "v": "m4", "t": "The bees don't fly directly to a new home. Instead, the swarm settles nearby, hanging in a cluster from the branch of a tree, usually only a short distance from the old nest. It may stay there for several days, and during that time it has no shelter at all, so the pressure to find a home quickly is intense." },
+    { "v": "m4", "t": "The search is carried out by a few hundred scouts. You might expect these to be the youngest and strongest bees. They are actually the oldest bees in the swarm, the ones with the most experience of flying long distances to collect food." },
+    { "v": "m4", "t": "So what is a scout looking for? Research has shown that honeybees have very clear preferences. The space needs to be large enough to hold honey for the winter. The entrance should be small, so that it can be defended, and ideally it should face south, which keeps the nest warmer. And the bees prefer a site several metres above the ground, where the colony is safer from predators." },
+    { "v": "m4", "t": "How does a bee, which is about fifteen millimetres long, measure a dark space? It can't do it by flying, because there is no light. Instead, the scout measures the space by walking around the inside of it, and it seems to work out the size from how far it has travelled." },
+    { "v": "m4", "t": "When the scout returns to the swarm, she reports what she has found by performing a dance on the surface of the cluster. The angle of the dance tells the other bees the direction of the site, and the length of each run shows how far away it is. But the important thing is how many times she repeats it. The number of repetitions doesn't indicate distance. It indicates the quality of the site. An excellent site may be advertised with a hundred circuits, and a poor one with only a dozen." },
+    { "v": "m4", "t": "Other scouts then fly out to inspect the sites being advertised, and return to dance for them themselves. Gradually, support builds for the best one. Now, you might think the swarm waits until every scout agrees. It doesn't. Complete agreement would take far too long. What happens is that the decision is triggered as soon as a certain number of scouts, roughly twenty or thirty, are present at one site at the same moment." },
+    { "v": "m4", "t": "Once that has happened, the scouts go back and prepare the swarm for flight. Bees can't fly when they are cold, so the scouts push through the cluster making a high-pitched signal, which tells the others to warm up their flight muscles. Within an hour the whole swarm, perhaps ten thousand bees, takes off and flies to its new home." },
+    { "v": "m4", "t": "What I find striking is that this system very rarely makes a mistake. And, as we'll see next week, it has a good deal to teach us about how human committees ought to work." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "HOW HONEYBEES CHOOSE A NEW HOME",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Background",
+          "lines": [
+            "Swarming usually takes place in late {31}",
+            "The swarm first hangs from a {32} close to the old nest"
+          ]
+        },
+        {
+          "heading": "The search",
+          "lines": [
+            "The scouts are the {33} bees in the swarm",
+            "An ideal site has a small entrance that faces {34}",
+            "A site high above the ground is safer from {35}",
+            "A scout measures a space by {36} around inside it"
+          ]
+        },
+        {
+          "heading": "Reporting back",
+          "lines": [
+            "A scout performs a {37} on the surface of the swarm",
+            "The number of repetitions shows the {38} of the site"
+          ]
+        },
+        {
+          "heading": "The decision",
+          "lines": [
+            "It is made when enough scouts gather at one site; complete {39} is not needed",
+            "Before take-off, the bees warm up their flight {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "spring"
+      ],
+      "explain": "答案是 <b>spring</b>。講者說 swarming usually takes place in late spring，和題目幾乎逐字對應。<br><b>陷阱</b>：People often assume this happens in summer——summer 是「一般人以為」的答案，In fact 之後才是事實。",
+      "quote": "People often assume this happens in summer, when bees are most visible. In fact, swarming usually takes place in late spring."
+    },
+    {
+      "no": 32,
+      "answers": [
+        "branch"
+      ],
+      "explain": "答案是 <b>branch</b>。講者說 hanging in a cluster from the branch of a tree。<br><b>同義轉換</b>：題目的 close to the old nest ＝ 錄音的 only a short distance from the old nest。限 ONE WORD，不能寫 tree branch。",
+      "quote": "Instead, the swarm settles nearby, hanging in a cluster from the branch of a tree, usually only a short distance from the old nest."
+    },
+    {
+      "no": 33,
+      "answers": [
+        "oldest"
+      ],
+      "explain": "答案是 <b>oldest</b>。講者說 They are actually the oldest bees in the swarm。<br><b>陷阱</b>：You might expect these to be the youngest and strongest bees——youngest、strongest 都是「你可能以為」的答案，actually 之後才推翻。",
+      "quote": "You might expect these to be the youngest and strongest bees. They are actually the oldest bees in the swarm."
+    },
+    {
+      "no": 34,
+      "answers": [
+        "south"
+      ],
+      "explain": "答案是 <b>south</b>。講者說入口 should be small... and ideally it should face south。<br><b>提醒</b>：題目把兩個條件（small、faces ___）合成一句，聽到 small 就要準備好寫下一個資訊。",
+      "quote": "The entrance should be small, so that it can be defended, and ideally it should face south, which keeps the nest warmer."
+    },
+    {
+      "no": 35,
+      "answers": [
+        "predators"
+      ],
+      "explain": "答案是 <b>predators</b>（掠食者）。講者說 where the colony is safer from predators。<br><b>同義轉換</b>：題目的 high above the ground ＝ 錄音的 several metres above the ground。注意複數 s。",
+      "quote": "And the bees prefer a site several metres above the ground, where the colony is safer from predators."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "walking"
+      ],
+      "explain": "答案是 <b>walking</b>。講者說 the scout measures the space by walking around the inside of it。<br><b>陷阱</b>：flying 先出現，但 It can't do it by flying, because there is no light，被直接否定。by 後面要接 -ing 形式。",
+      "quote": "It can't do it by flying, because there is no light. Instead, the scout measures the space by walking around the inside of it."
+    },
+    {
+      "no": 37,
+      "answers": [
+        "dance"
+      ],
+      "explain": "答案是 <b>dance</b>。講者說 by performing a dance on the surface of the cluster。<br><b>同義轉換</b>：題目的 surface of the swarm ＝ 錄音的 surface of the cluster。",
+      "quote": "When the scout returns to the swarm, she reports what she has found by performing a dance on the surface of the cluster."
+    },
+    {
+      "no": 38,
+      "answers": [
+        "quality"
+      ],
+      "explain": "答案是 <b>quality</b>。講者說 The number of repetitions doesn't indicate distance. It indicates the quality of the site。<br><b>陷阱</b>：direction（由角度表示）和 distance（由每一趟的長度表示）都有提到，而且 distance 被明確否定。三個名詞各對應不同的東西，要聽清楚。",
+      "quote": "The number of repetitions doesn't indicate distance. It indicates the quality of the site."
+    },
+    {
+      "no": 39,
+      "answers": [
+        "agreement"
+      ],
+      "explain": "答案是 <b>agreement</b>。講者說 Complete agreement would take far too long，和題目的 complete ___ is not needed 對應。<br><b>陷阱</b>：you might think the swarm waits until every scout agrees. It doesn't——先說出常見的誤解再否定。錄音先出現動詞 agrees，題目需要的是名詞。",
+      "quote": "Now, you might think the swarm waits until every scout agrees. It doesn't. Complete agreement would take far too long."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "muscles"
+      ],
+      "explain": "答案是 <b>muscles</b>。講者說 tells the others to warm up their flight muscles，和題目幾乎逐字對應。<br><b>提醒</b>：複數 s 不可漏；拼字注意 muscle 的 sc。",
+      "quote": "Bees can't fly when they are cold, so the scouts push through the cluster making a high-pitched signal, which tells the others to warm up their flight muscles."
+    }
+  ]
+}

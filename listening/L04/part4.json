@@ -1,0 +1,151 @@
+{
+  "no": 4,
+  "context": "A history lecture on the invention and spread of paper",
+  "audio": "L04_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    { "v": "narrator", "t": "Part 4. You will hear part of a history lecture about the invention and spread of paper. First you have some time to look at questions 31 to 40." },
+    { "v": "pause", "t": "45" },
+    { "v": "narrator", "t": "Now listen carefully and answer questions 31 to 40." },
+    { "v": "pause", "t": "3" },
+    { "v": "m3", "t": "Good morning. Today we continue our series on technologies that changed the world, and the subject is one you probably have in front of you: paper." },
+    { "v": "m3", "t": "Let's begin in China, about two thousand years ago. Before paper, official documents were written on strips of bamboo tied together with string. Bamboo was cheap, but it was heavy, and a single report could fill a cart. The alternative was silk, which was light but far too expensive for everyday use. What was needed was something that was both light and cheap." },
+    { "v": "m3", "t": "According to tradition, the solution was presented to the emperor in the year one hundred and five by a court official called Cai Lun. His paper was made from materials that would otherwise have been thrown away: tree bark, scraps of old cloth, and worn-out fishing nets. These were boiled and beaten into a pulp. A thin layer of the pulp was then lifted out of the water on a screen, a frame with fine cloth stretched across it, and when the water had drained away, the sheet that remained was left to dry." },
+    { "v": "m3", "t": "The new material was quickly taken up, and not only for writing. Within a few hundred years, paper in China was being used for wrapping goods, for umbrellas and lanterns, and eventually for money." },
+    { "v": "m3", "t": "For several centuries, the method was kept within East Asia. It reached the Arab world in the eighth century, and the story usually told is that it wasn't brought by merchants. It was passed on by prisoners, Chinese papermakers captured after a battle in Central Asia and taken to the city of Samarkand." },
+    { "v": "m3", "t": "From there, papermaking spread westwards, and it arrived in Europe through Spain and Italy. Italian papermakers made an important improvement. Until then, the pulp had been beaten by hand, or with hammers worked by animals. In thirteenth-century Italy, the hammers were driven by water, in mills built beside fast-flowing rivers, and paper could be produced in far greater quantities." },
+    { "v": "m3", "t": "Even so, paper was not welcomed at first. Europeans were used to writing on parchment, which is made from animal skin, and which lasts far longer. For a long time, paper was regarded as a poor substitute. What changed everything was the invention of printing in the fifteenth century. A printed book needed hundreds of identical sheets, and parchment simply could not be supplied in that quantity." },
+    { "v": "m3", "t": "The problem now was raw material. European paper was made almost entirely from linen and cotton rags, and by the eighteenth century there were simply not enough rags to go round. Papermakers experimented with straw, with cabbage stalks, even with seaweed." },
+    { "v": "m3", "t": "The answer came from an unexpected direction. A French scientist, watching wasps building a nest, noticed that they chewed wood into a kind of paste that dried into something very like paper. It took more than a century to turn that observation into an industrial process, but by the second half of the nineteenth century paper was being made from wood, and its price fell dramatically." },
+    { "v": "m3", "t": "There was, however, a cost. Paper made from wood pulp contains acid, and over the decades this turns the pages yellow and makes them so fragile that they crumble. Libraries today spend enormous sums treating books printed in the last hundred and fifty years, while books printed on rag paper five centuries ago are still in perfect condition." },
+    { "v": "m3", "t": "So the history of paper is not a simple story of progress. Each step made paper cheaper and more plentiful, but the last one also made it less durable. That is worth remembering the next time you are told that a new technology is better in every way." },
+    { "v": "narrator", "t": "That is the end of Part 4. You now have half a minute to check your answers." },
+    { "v": "pause", "t": "30" }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE HISTORY OF PAPER",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Before paper (China)",
+          "lines": [
+            "Bamboo strips were cheap but {31}",
+            "Silk was light but too expensive"
+          ]
+        },
+        {
+          "heading": "The first paper",
+          "lines": [
+            "It was made from bark, old cloth and fishing {32}",
+            "The pulp was spread on a {33} and left to drain"
+          ]
+        },
+        {
+          "heading": "Spread to the west",
+          "lines": [
+            "The method reached the Arab world through {34} taken after a battle",
+            "In Italy, the hammers in the mills were driven by {35}",
+            "Europeans at first preferred parchment, made from animal {36}",
+            "Demand increased greatly after the invention of {37}"
+          ]
+        },
+        {
+          "heading": "New raw materials",
+          "lines": [
+            "By the 18th century there was a shortage of {38}",
+            "The idea of using wood came from watching {39}",
+            "Paper made from wood contains {40}, which damages it over time"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "heavy"
+      ],
+      "explain": "答案是 <b>heavy</b>。講者說 Bamboo was cheap, but it was heavy，和題目的 cheap but ___ 完全對應。<br><b>陷阱</b>：expensive 形容的是絲綢，不是竹簡；light 也是絲綢的優點。兩種材料各有一組形容詞，不要配錯。",
+      "quote": "Bamboo was cheap, but it was heavy, and a single report could fill a cart."
+    },
+    {
+      "no": 32,
+      "answers": [
+        "nets"
+      ],
+      "explain": "答案是 <b>nets</b>。講者列出三種原料：tree bark, scraps of old cloth, and worn-out fishing nets，題目已印出前兩種和 fishing。<br><b>提醒</b>：列舉題的答案常在最後一項；複數 s 不可漏。",
+      "quote": "His paper was made from materials that would otherwise have been thrown away: tree bark, scraps of old cloth, and worn-out fishing nets."
+    },
+    {
+      "no": 33,
+      "answers": [
+        "screen"
+      ],
+      "explain": "答案是 <b>screen</b>（篩網）。講者說 lifted out of the water on a screen，接著解釋那是繃著細布的框。<br><b>陷阱</b>：frame 和 cloth 是用來「解釋」screen 的字，不是答案；題目只能填一個字，要填被解釋的那個名詞。",
+      "quote": "A thin layer of the pulp was then lifted out of the water on a screen, a frame with fine cloth stretched across it."
+    },
+    {
+      "no": 34,
+      "answers": [
+        "prisoners"
+      ],
+      "explain": "答案是 <b>prisoners</b>（戰俘）。講者說 It was passed on by prisoners，是戰役後被俘的中國造紙工匠。<br><b>陷阱</b>：merchants（商人）先出現，但 it wasn't brought by merchants，被直接否定。<b>同義轉換</b>：captured after a battle ＝ taken after a battle。",
+      "quote": "The story usually told is that it wasn't brought by merchants. It was passed on by prisoners, Chinese papermakers captured after a battle in Central Asia."
+    },
+    {
+      "no": 35,
+      "answers": [
+        "water"
+      ],
+      "explain": "答案是 <b>water</b>。講者說 In thirteenth-century Italy, the hammers were driven by water。<br><b>陷阱</b>：by hand 和 hammers worked by animals 是 Until then（在那之前）的做法。題目的 driven by 和錄音用字相同，但前面先出現兩個舊方法。",
+      "quote": "Until then, the pulp had been beaten by hand, or with hammers worked by animals. In thirteenth-century Italy, the hammers were driven by water."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "skin",
+        "skins"
+      ],
+      "explain": "答案是 <b>skin</b>。講者說 parchment, which is made from animal skin。<br><b>提醒</b>：parchment（羊皮紙）這個字不認識也沒關係，後面的 which is made from 就是在解釋它，答案緊接在 animal 後面。",
+      "quote": "Europeans were used to writing on parchment, which is made from animal skin, and which lasts far longer."
+    },
+    {
+      "no": 37,
+      "answers": [
+        "printing"
+      ],
+      "explain": "答案是 <b>printing</b>。講者說 What changed everything was the invention of printing in the fifteenth century。<br><b>同義轉換</b>：題目的 Demand increased greatly 對應錄音的 A printed book needed hundreds of identical sheets。What changed everything was 是強調重點的句型。",
+      "quote": "What changed everything was the invention of printing in the fifteenth century."
+    },
+    {
+      "no": 38,
+      "answers": [
+        "rags"
+      ],
+      "explain": "答案是 <b>rags</b>（破布）。講者說 there were simply not enough rags to go round。<br><b>同義轉換</b>：not enough ＝ a shortage of。<b>陷阱</b>：straw、cabbage stalks、seaweed 是造紙商「試過的替代品」，不是短缺的東西。",
+      "quote": "European paper was made almost entirely from linen and cotton rags, and by the eighteenth century there were simply not enough rags to go round."
+    },
+    {
+      "no": 39,
+      "answers": [
+        "wasps"
+      ],
+      "explain": "答案是 <b>wasps</b>（黃蜂）。講者說一位法國科學家 watching wasps building a nest，發現牠們把木頭嚼成糊狀。<br><b>提醒</b>：題目的 came from watching 和錄音的 watching 用字相同，答案就是下一個字。複數 s 不可漏。",
+      "quote": "A French scientist, watching wasps building a nest, noticed that they chewed wood into a kind of paste that dried into something very like paper."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "acid"
+      ],
+      "explain": "答案是 <b>acid</b>（酸）。講者說 Paper made from wood pulp contains acid。<br><b>同義轉換</b>：題目的 damages it over time ＝ 錄音的 over the decades this turns the pages yellow and makes them so fragile that they crumble。",
+      "quote": "Paper made from wood pulp contains acid, and over the decades this turns the pages yellow and makes them so fragile that they crumble."
+    }
+  ]
+}
