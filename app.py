@@ -2,6 +2,7 @@ import difflib
 import json
 import os
 import random
+import re
 from datetime import datetime, timedelta, timezone
 
 from flask import Flask, request, render_template, redirect, jsonify, url_for, abort, send_from_directory
@@ -630,8 +631,8 @@ def learn_word(student_id, theme_key, vocab_id):
     if from_fav:
         back_url = url_for('learn_favorites', student_id=student_id)
     status = status_of(student_id)
-    # 不在這個主題、或還沒學過（也沒收藏）的字不給看，維持圖鑑的收集感
-    if not word or (word.id not in status and word.word.lower() not in fav):
+    # 不在這個主題的字不給看；還沒學過的字也能打開（圖鑑改成直接顯示，灰色卡片）
+    if not word:
         return redirect(back_url)
     return render_template('ielts.html', words=[word_payload(word, theme["label"], fav, status)],
                            back_label='返回我的收藏' if from_fav else '返回主題圖鑑',
@@ -644,6 +645,11 @@ def learn_word(student_id, theme_key, vocab_id):
 SEARCH_LIMIT = 40          # 搜尋最多列出幾個字
 
 
+def is_subsequence(q, text):
+    it = iter(text)
+    return all(c in it for c in q)
+
+
 def search_score(q, word, meaning):
     """單字和搜尋字有多像：0 代表不像。完全一樣 > 開頭一樣 > 包含 > 中文意思包含 > 拼法相近（打錯字也找得到）。"""
     w = word.lower()
@@ -654,7 +660,12 @@ def search_score(q, word, meaning):
     if q in w:
         return 80 - min(len(w) - len(q), 20) * 0.1
     if meaning and q in meaning.lower():
-        return 70
+        # 中文意思剛好就是搜尋字（「學校」），排在只是包含的（「放假（學校）」）前面
+        parts = [x.strip() for x in re.split(r'[；;，,、/]', meaning.lower())]
+        return 75 if q in parts else 70
+    if meaning and len(q) >= 2 and not q.isascii() and is_subsequence(q, meaning):
+        # 中文意思字不連在一起也算（打「環保」找得到「環境保護」）
+        return 50
     if len(q) >= 3:
         # 拼法相近：先用便宜的 real_quick_ratio 篩掉差很多的，再算精確相似度
         m = difflib.SequenceMatcher(None, q, w)
@@ -674,7 +685,6 @@ def learn_search(student_id):
         return jsonify({"results": []})
     locked = locked_theme_ids(student)
     status = status_of(student_id)
-    fav = favorite_words(student)
     scored = {}
     for w in Vocabulary.query.filter(Vocabulary.category == exams.course_of(student)).all():
         if official_id_of(w.theme) in locked:
@@ -691,12 +701,10 @@ def learn_search(student_id):
     results = []
     for sc, w, st in top:
         tkey = theme_key_of(w)
-        theme_url = url_for('learn_theme', student_id=student_id, theme_key=tkey, letter=first_letter(w.word))
-        seen = st != 'new' or w.word.lower() in fav
         results.append({
             "word": w.word, "pos": w.pos or '', "meaning": w.meaning or '',
             "theme": theme_label_of(w), "status": st,
-            "url": url_for('learn_word', student_id=student_id, theme_key=tkey, vocab_id=w.id) if seen else theme_url,
+            "url": url_for('learn_word', student_id=student_id, theme_key=tkey, vocab_id=w.id),
         })
     return jsonify({"results": results})
 
