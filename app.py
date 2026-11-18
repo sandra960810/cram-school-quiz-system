@@ -619,27 +619,46 @@ def toggle_favorite():
 
 @app.route('/learn/<int:student_id>/theme/<path:theme_key>/word/<int:vocab_id>')
 def learn_word(student_id, theme_key, vocab_id):
-    """圖鑑裡學過的單字卡：跟滑卡畫面一樣，但不用滑；可以手動移到熟區／不熟區。"""
+    """單字卡：從圖鑑、收藏、搜尋點進來都一樣，可以左右滑或按「上一個／下一個」看同一份清單的其他字，
+    也可以手動移到熟區／不熟區。清單順序跟來源頁面一樣（from=favorites／search，預設是主題圖鑑）。"""
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
-    word = next((w for w in theme_words(student, theme_key, dedupe=False) if w.id == vocab_id), None)
-    letter = first_letter(word.word) if word else None
-    back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
-                       letter=letter if letter and theme["total"] > LETTER_PAGING_MIN else None)
-    fav = favorite_words(student)
-    from_fav = request.args.get('from') == 'favorites'
-    if from_fav:
-        back_url = url_for('learn_favorites', student_id=student_id)
     status = status_of(student_id)
-    # 不在這個主題的字不給看；還沒學過的字也能打開（圖鑑改成直接顯示，灰色卡片）
-    if not word:
+    fav = favorite_words(student)
+    source = request.args.get('from')
+    home_url = url_for('learn_home', student_id=student_id)
+
+    if source == 'favorites':
+        rows = favorite_rows(student)
+        back_url, back_label = url_for('learn_favorites', student_id=student_id), '返回我的收藏'
+    elif source == 'search':
+        q = (request.args.get('q') or '').strip()
+        rows = [w for _, w, _ in search_words(student, q)]
+        back_url, back_label = url_for('learn_home', student_id=student_id, q=q or None), '返回搜尋'
+    else:
+        rows = theme_words(student, theme_key)
+        word = next((w for w in theme_words(student, theme_key, dedupe=False) if w.id == vocab_id), None)
+        letter = first_letter(word.word) if word else None
+        paged = theme["total"] > LETTER_PAGING_MIN
+        if paged and letter:
+            # 大主題依字首分頁：清單就是那一頁（跟圖鑑看到的一樣）
+            rows = [w for w in rows if first_letter(w.word) == letter]
+        if word and word.id not in {w.id for w in rows}:
+            # 同拼字重複的那筆被藏起來了：換成清單裡同拼字的那張
+            word = next((w for w in rows if w.word.lower() == word.word.lower()), word)
+            vocab_id = word.id
+        back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
+                           letter=letter if paged and letter else None)
+        back_label = '返回主題'
+
+    start = next((i for i, w in enumerate(rows) if w.id == vocab_id), None)
+    if start is None:
         return redirect(back_url)
-    return render_template('ielts.html', words=[word_payload(word, theme["label"], fav, status)],
-                           back_label='返回我的收藏' if from_fav else '返回主題',
-                           student_id=student_id,
+    words = [word_payload(w, theme_label_of(w), fav, status) for w in rows]
+    return render_template('ielts.html', words=words, start_index=start,
+                           back_label=back_label, student_id=student_id,
                            theme=theme, mode='view', letter=None,
-                           back_url=back_url, again_url=back_url,
-                           home_url=url_for('learn_home', student_id=student_id))
+                           back_url=back_url, again_url=back_url, home_url=home_url)
 
 
 SEARCH_LIMIT = 40          # 搜尋最多列出幾個字
@@ -676,15 +695,13 @@ def search_score(q, word, meaning):
     return 0
 
 
-@app.route('/learn/<int:student_id>/search')
-def learn_search(student_id):
-    """單字學習區首頁的搜尋：跨所有主題找相似的單字（拼字或中文意思），邊打邊回傳結果。"""
-    student = get_student(student_id)
-    q = (request.args.get('q') or '').strip().lower()
+def search_words(student, q):
+    """跨主題搜尋：回傳 [(分數, 單字, 狀態)]，依相似度排序。首頁搜尋和單字卡的「下一個」共用，順序才會一致。"""
+    q = (q or '').strip().lower()
     if not q:
-        return jsonify({"results": []})
+        return []
     locked = locked_theme_ids(student)
-    status = status_of(student_id)
+    status = status_of(student.id)
     scored = {}
     for w in Vocabulary.query.filter(Vocabulary.category == exams.course_of(student)).all():
         if official_id_of(w.theme) in locked:
@@ -697,14 +714,23 @@ def learn_search(student_id):
         # 同拼字只列一次，優先留學過的那筆
         if key not in scored or (sc, st != 'new') > (scored[key][0], scored[key][2] != 'new'):
             scored[key] = (sc, w, st)
-    top = sorted(scored.values(), key=lambda t: (-t[0], t[1].word.lower()))[:SEARCH_LIMIT]
+    return sorted(scored.values(), key=lambda t: (-t[0], t[1].word.lower()))[:SEARCH_LIMIT]
+
+
+@app.route('/learn/<int:student_id>/search')
+def learn_search(student_id):
+    """單字學習區首頁的搜尋：跨所有主題找相似的單字（拼字或中文意思），邊打邊回傳結果。"""
+    student = get_student(student_id)
+    q = (request.args.get('q') or '').strip()
+    top = search_words(student, q)
     results = []
     for sc, w, st in top:
         tkey = theme_key_of(w)
         results.append({
             "word": w.word, "pos": w.pos or '', "meaning": w.meaning or '',
             "theme": theme_label_of(w), "status": st,
-            "url": url_for('learn_word', student_id=student_id, theme_key=tkey, vocab_id=w.id),
+            "url": url_for('learn_word', student_id=student_id, theme_key=tkey, vocab_id=w.id,
+                           **{"from": "search", "q": q}),
         })
     return jsonify({"results": results})
 

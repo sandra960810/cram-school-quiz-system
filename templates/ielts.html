@@ -72,6 +72,12 @@
         .swipe-btn:hover { filter: brightness(1.05); box-shadow: var(--edge-raised); }
         .swipe-btn:disabled { opacity: 0.5; cursor: wait; }
         .swipe-btn.current { outline: 3px solid rgba(0,0,0,0.15); }
+        /* 單字卡（view）：上一個／下一個 */
+        .browse { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+        .browse-btn { flex: 1; padding: 12px 10px; font-size: 16px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; background: #fff; color: var(--ink); box-shadow: var(--edge); font-family: inherit; }
+        .browse-btn:hover:not(:disabled) { box-shadow: var(--edge-raised); }
+        .browse-btn:disabled { opacity: 0.4; cursor: default; }
+        .browse-count { flex: none; min-width: 64px; text-align: center; color: var(--muted); font-size: 14px; font-weight: bold; }
         .hint { text-align: center; color: var(--muted); font-size: 15px; margin-top: 12px; }
         .error { color: var(--bad); font-size: 14px; text-align: center; min-height: 1em; margin-top: 8px; }
 
@@ -107,7 +113,7 @@
     {% endif %}
 
     <div id="stage">
-        <div class="deck {% if mode != 'view' %}swipeable{% endif %}">
+        <div class="deck swipeable">
             {% if mode != 'view' %}<div class="card-ghost" id="ghost"></div>{% endif %}
             <div class="card" id="card">
                 <div class="stamp know">熟 ✓</div>
@@ -137,8 +143,17 @@
                 {{ '移到熟區' if mode == 'view' else '熟' }} <span>→</span>
             </button>
         </div>
+        {% if mode == 'view' %}
+        <div class="browse">
+            <button class="browse-btn" id="btn-prev" data-sound="none" onclick="go(-1)">← 上一個</button>
+            <span class="browse-count" id="browse-count"></span>
+            <button class="browse-btn" id="btn-next" data-sound="none" onclick="go(1)">下一個 →</button>
+        </div>
+        {% endif %}
         <div class="error" id="error-display"></div>
-        {% if mode != 'view' %}
+        {% if mode == 'view' %}
+        <div class="hint">卡片往左滑看下一個、往右滑看上一個。</div>
+        {% else %}
         <div class="hint">會的按「熟」，不會的按「不熟」。卡片也可以左右滑。</div>
         {% endif %}
     </div>
@@ -157,6 +172,8 @@
                                scope=('fav' if mode == 'fav' else ('theme:' ~ theme.key if theme.key else 'all'))) | tojson }};
     const backLabel = {{ (back_label or '返回主題') | tojson }};
     const isView = mode === 'view';
+    const allWords = isView ? wordsQueue.slice() : [];   // 單字卡：整份清單，可以前後翻
+    let viewIndex = {{ (start_index or 0) | tojson }};
     const totalWords = wordsQueue.length;
     const STATUS_TEXT = { familiar: '✓ 熟區', unfamiliar: '上次標記：不熟', new: '新單字' };
     let currentWord = null;
@@ -207,7 +224,7 @@
         } else {
             box.style.display = 'none';
         }
-        if (mode === 'fav') document.getElementById('theme-display').innerHTML = `{{ icon('tag') }} ${String(w.theme).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}`;
+        if (mode === 'fav' || isView) document.getElementById('theme-display').innerHTML = `{{ icon('tag') }} ${String(w.theme).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}`;
         document.getElementById('fav-toast').innerText = '';
         renderFavorite();
         renderStatus();
@@ -306,8 +323,31 @@
         nextWord();
     }
 
+    // ---------- 單字卡：上一個／下一個 ----------
+    function renderBrowse() {
+        document.getElementById('browse-count').innerText = `${viewIndex + 1} / ${allWords.length}`;
+        document.getElementById('btn-prev').disabled = viewIndex <= 0;
+        document.getElementById('btn-next').disabled = viewIndex >= allWords.length - 1;
+    }
+    function go(step) {
+        const to = viewIndex + step;
+        if (busy || to < 0 || to >= allWords.length) {
+            card.classList.add('back'); card.style.transform = ''; card.style.opacity = '';
+            return;
+        }
+        viewIndex = to;
+        UI.play('tap');
+        card.classList.remove('fly', 'back', 'enter');
+        card.style.transform = ''; card.style.opacity = '';
+        void card.offsetWidth; card.classList.add('enter');
+        showWord(allWords[viewIndex]);
+        document.getElementById('error-display').innerText = '';
+        renderBrowse();
+    }
+
     // ---------- 拖曳滑動 ----------
-    if (!isView) {
+    // 滑卡：右滑＝熟、左滑＝不熟；單字卡：左滑＝下一個、右滑＝上一個
+    {
         let startX = 0, startY = 0, dx = 0, dragging = false, pid = null;
         const THRESHOLD = 100;
 
@@ -323,6 +363,7 @@
             dx = e.clientX - startX;
             const dy = (e.clientY - startY) * 0.15;
             card.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx / 18}deg)`;
+            if (isView) return;
             stampKnow.style.opacity = Math.max(0, Math.min(1, dx / THRESHOLD));
             stampDont.style.opacity = Math.max(0, Math.min(1, -dx / THRESHOLD));
         });
@@ -331,6 +372,12 @@
             dragging = false;
             if (e.type === 'pointerup') dx = e.clientX - startX;   // 以放開的位置為準
             card.classList.remove('dragging');
+            if (isView) {
+                if (dx < -THRESHOLD) return go(1);
+                if (dx > THRESHOLD) return go(-1);
+                card.classList.add('back'); card.style.transform = '';
+                return;
+            }
             if (dx > THRESHOLD) return decide('familiar');
             if (dx < -THRESHOLD) return decide('unfamiliar');
             card.classList.add('back');
@@ -341,6 +388,11 @@
         card.addEventListener('pointercancel', end);
 
         document.addEventListener('keydown', (e) => {
+            if (isView) {
+                if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+                return;
+            }
             if (e.key === 'ArrowRight') { e.preventDefault(); decide('familiar'); }
             if (e.key === 'ArrowLeft') { e.preventDefault(); decide('unfamiliar'); }
         });
@@ -387,7 +439,10 @@
     function playWord() { if (currentWord) speak(currentWord.word); }
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
-    window.addEventListener('load', () => totalWords ? nextWord() : finish());
+    window.addEventListener('load', () => {
+        if (isView) { showWord(allWords[viewIndex]); renderBrowse(); return; }
+        totalWords ? nextWord() : finish();
+    });
 </script>
 </body>
 </html>
