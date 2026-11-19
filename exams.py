@@ -3,7 +3,8 @@
 網站會涵蓋多種考試，每種考試是 EXAMS 裡的一筆：
 - course   對應單字資料的「課程」（Vocabulary.category），單字學習與單字測驗只看這個課程的字
 - features 這個考試開放哪些功能：learn（單字學習與圖鑑）、vocab_quiz（單字測驗區）、exam（模擬測驗區）、
-            phonics（ABC 與自然發音教學，零基礎用）、mock（日檢模擬考）
+            phonics（ABC 與自然發音教學，零基礎用）、mock（日檢模擬考）、
+            mock1／mock2（韓檢 TOPIK I／TOPIK II 模擬考，見 topik_mock.py）
 - ready    False 代表還在準備，選擇頁顯示「即將開放」
 - 色系在 static/theme.css 用 :root[data-exam="…"] 覆寫，每個樣板的 <html> 都帶 data-exam
 
@@ -23,8 +24,8 @@ EXAMS = [
      "desc": "職場情境單字學習與單字測驗",
      "features": ["learn", "vocab_quiz"]},
     {"key": "topik", "name": "韓檢", "en": "TOPIK", "course": "TOPIK", "icon": "letter", "ready": True,
-     "desc": "韓國語文能力測驗：1～6 級分級單字學習與單字測驗", "lang": "ko",
-     "features": ["learn", "vocab_quiz"],
+     "desc": "韓國語文能力測驗：1～6 級分級單字學習、單字測驗與 TOPIK I／II 模擬考", "lang": "ko",
+     "features": ["learn", "vocab_quiz", "mock1", "mock2"],
      # 分級字庫：每一級是一個主題（K1～K6，見 app.py 的 OFFICIAL_THEMES），可以逐級對學生開放
      "levels": [1, 2, 3, 4, 5, 6]},
     {"key": "jlpt", "name": "日檢", "en": "JLPT", "course": "JLPT", "icon": "letter", "ready": True,
@@ -43,7 +44,7 @@ EXAM_BY_KEY = {e["key"]: e for e in EXAMS}
 DEFAULT_EXAM = "ielts"
 
 # 這些網址只屬於某個考試：進到這裡一律算那個考試（例如模擬測驗區是雅思的）
-PATH_EXAM = [("/exam/", "ielts"), ("/phonics/", "basic"), ("/jlpt-mock/", "jlpt")]
+PATH_EXAM = [("/exam/", "ielts"), ("/phonics/", "basic"), ("/jlpt-mock/", "jlpt"), ("/topik-mock/", "topik")]
 
 
 # ---------------------------------------------------------------------------
@@ -52,7 +53,8 @@ PATH_EXAM = [("/exam/", "ielts"), ("/phonics/", "basic"), ("/jlpt-mock/", "jlpt"
 # Student.access 是 JSON，每個考試一筆，例如：
 #   {"jlpt": {"on": true, "features": ["learn", "vocab_quiz", "mock"], "levels": [5, 4],
 #             "open_from": "2026-11-20", "course_start": "2026-11-20", "course_end": "2027-05-20"}}
-# - features：開了哪些功能（learn、vocab_quiz、exam、phonics；mock 是日檢模擬考，見 jlpt_mock.py）
+# - features：開了哪些功能（learn、vocab_quiz、exam、phonics；mock 是日檢模擬考，見 jlpt_mock.py；
+#             mock1、mock2 是韓檢 TOPIK I、TOPIK II 模擬考，見 topik_mock.py）
 # - levels：分級考試（韓檢、日檢）開了哪幾級
 # - open_from：開通日期，這天以前還不能用；course_end：課程結束日，過了就不能用（空的＝不限）
 # Student.status：pending（等審核）、active（已開通）、rejected（退回）、disabled（停用）、

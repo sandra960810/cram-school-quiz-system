@@ -82,6 +82,15 @@
         </a>
         {% endif %}
 
+        {% if 'mock1' in features or 'mock2' in features %}{% set ns.n = ns.n + 1 %}
+        <a href="/topik-mock/{{ student.id }}" class="menu-card">
+            <span class="step">{{ ns.n }}</span>
+            <div class="menu-icon">{{ icon('exam') }}</div>
+            <div class="menu-title">模擬考<span class="go-arrow">→</span></div>
+            <div class="menu-desc">TOPIK I・TOPIK II 各一回<br>交卷看正解、算出級數</div>
+        </a>
+        {% endif %}
+
         {% if 'exam' in features %}{% set ns.n = ns.n + 1 %}
         <a href="/exam/{{ student.id }}" class="menu-card">
             <span class="step">{{ ns.n }}</span>

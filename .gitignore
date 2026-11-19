@@ -40,4 +40,6 @@ instance/admin.json
 instance/bank_edits/
 instance/secret_key.txt
 static/audio/jlpt_mock/
+static/audio/topik_mock/
 jlpt_audio_log.txt
+topik_audio_log.txt
