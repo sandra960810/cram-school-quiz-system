@@ -40,7 +40,7 @@ COURSES = [
 COURSE_BY_KEY = {c["key"]: c for c in COURSES}
 
 # 後台每個考試可以開的項目：(項目代碼, 名稱, 對應的功能, 說明)。
-# 日檢照櫃台的說法分成 A 單字學習與測驗、B 模考（jlpt_mock.py，N5～N1 各一回，只看得到有開通的等級）
+# 日檢照櫃台的說法分成 A 單字學習與測驗、B 模考（jlpt_mock.py，N5～N1 每級多回，開哪幾回逐回勾選，存在 mock_open）
 OPTIONS = {
     "ielts": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], ""),
               ("exam", "聽說讀寫模擬考", ["exam"], "")],
@@ -50,7 +50,7 @@ OPTIONS = {
               ("mock1", "TOPIK I 模考", ["mock1"], "初級（1～2 級）：聽力＋閱讀，滿分 200"),
               ("mock2", "TOPIK II 模考", ["mock2"], "中高級（3～6 級）：聽力＋寫作＋閱讀，滿分 300；寫作由 AI 老師批改")],
     "jlpt": [("vocab", "A 單字學習與測驗", ["learn", "vocab_quiz"], ""),
-             ("mock", "B 模考", ["mock"], "N5～N1 模擬考各一回，學生只看得到下面有勾的等級")],
+             ("mock", "B 模考", ["mock"], "N5～N1 模擬考，在下面「模考開放的回數」逐回勾選，和單字等級分開設定")],
     "basic": [("phonics", "學發音", ["phonics"], ""), ("learn", "單字學習", ["learn"], ""),
               ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
     "general": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
@@ -434,6 +434,33 @@ def students():
     return render_template('admin/students.html', items=items, tab=tab, tabs=TABS, counts=counts, q=q)
 
 
+def _mock_tests(exam):
+    """日檢模擬考每一級有哪幾回（看題庫檔），例如 [(5, ["N5", "N5-2", "N5-3"]), …]。其他考試回傳空清單。"""
+    if exam["key"] != "jlpt":
+        return []
+    import jlpt_mock
+    return [(lv, [jlpt_mock.tid(lv, r) for r in jlpt_mock.rounds(lv)]) for lv in exam["levels"]]
+
+
+def _mock_rows(exam, entry, fresh):
+    """審核頁「B 模考」底下逐回勾選的表格。還沒逐回設定過的，照舊依單字等級預先勾（和學生現在看到的一樣）。"""
+    chosen = entry.get("mock_open")
+    rows = []
+    for lv, ids in _mock_tests(exam):
+        cells = []
+        for i, t in enumerate(ids, 1):
+            if fresh:
+                on = True
+            elif isinstance(chosen, list):
+                on = t in chosen
+            else:
+                on = "mock" in (entry.get("features") or []) and lv in (entry.get("levels") or [])
+            cells.append(dict(id=t, label=f"第 {i} 回", checked=on))
+        if cells:
+            rows.append(dict(label=LEVEL_LABELS["jlpt"](lv), cells=cells))
+    return rows
+
+
 def _exam_sections(student, form_access=None):
     """審核頁每個考試的區塊：要開哪些項目、等級、日期。還沒設定過的申請，依報名課程先幫忙勾好。"""
     exams = _['exams']
@@ -455,7 +482,8 @@ def _exam_sections(student, form_access=None):
         levels = [dict(n=n, label=LEVEL_LABELS[e["key"]](n), checked=n in (entry.get("levels") or []))
                   for n in (e.get("levels") or [])]
         sections.append(dict(exam=e, on=bool(entry.get("on")), wanted=e["key"] in wanted, options=options,
-                             levels=levels, open_from=entry.get("open_from", ''),
+                             levels=levels, mock=_mock_rows(e, entry, fresh and e["key"] in wanted),
+                             open_from=entry.get("open_from", ''),
                              course_start=entry.get("course_start", ''), course_end=entry.get("course_end", ''),
                              state=exams.entry_state(entry)))
     return sections
@@ -488,8 +516,14 @@ def _access_from_form(form):
             errors.append(f"{e['name']}要至少勾一個等級")
         if dates['course_start'] and dates['course_end'] and dates['course_end'] < dates['course_start']:
             errors.append(f"{e['name']}的課程結束日比開始日還早")
+        tests = _mock_tests(e)
+        mock_open = [t for _lv, ids in tests for t in ids if form.get(f'{key}__mock__{t}')]
+        if on and tests and 'mock' in feats and not mock_open:
+            errors.append(f"{e['name']}的模考要至少勾一回")
         if on or feats or any(dates.values()):
             access[key] = dict(on=on, features=feats, levels=levels, **dates)
+            if tests:
+                access[key]['mock_open'] = mock_open
     return access, errors
 
 

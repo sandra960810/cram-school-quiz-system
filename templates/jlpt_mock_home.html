@@ -55,11 +55,11 @@
     <div class="lv{% if c.locked or not c.ready %} off{% endif %}">
         <h2>{{ c.name }}</h2>
         {% if c.locked %}
-            <div class="sub">{{ icon('lock') }} 尚未開通這個等級</div>
+            <div class="sub">{{ icon('lock') }} 尚未開通這個等級的模擬考</div>
         {% elif not c.ready %}
             <div class="sub">題目準備中</div>
         {% else %}
-            <div class="sub">共 {{ c.rounds|length }} 回，每回 {{ c.rounds[0].sections|length }} 節，可以分開考</div>
+            <div class="sub">共 {{ c.rounds|length }} 回，每回 {{ c.rounds[0].sections|length }} 節，可以分開考{% if c.hidden_rounds %}（另有 {{ c.hidden_rounds }} 回尚未開通）{% endif %}</div>
             {% for r in c.rounds %}
             <details class="round"{% if r.open %} open{% endif %}>
                 <summary>第 {{ r.round }} 回

@@ -7,7 +7,8 @@
 聽解的音檔由題庫裡的台詞產生（tools/make_jlpt_audio.py，edge-tts 的日語神經語音），
 所以音檔內容和題目一定一致。音檔放在 static/audio/jlpt_mock/N5.mp3（第 2 回 N5-2.mp3），不進 git。
 
-權限：功能代碼是 mock（後台「B 模考」），等級看 exams.open_levels()（後台勾的 N5～N1）。
+權限：功能代碼是 mock（後台「B 模考」），開哪幾回看 exams.open_mock_tests()（後台在「B 模考」底下逐回勾選）；
+沒有逐回設定過的學生照舊看 exams.open_levels()（單字等級），有開的等級每一回都能考。
 """
 import json
 import os
@@ -233,10 +234,17 @@ def estimate(level, kinds):
 # ---------------------------------------------------------------------------
 
 def _context(student_id):
+    """回傳 (學生, allowed)。allowed(level, rnd) 判斷這一回有沒有開通：
+    後台有逐回勾選（mock_open）就照勾的；沒有就照舊看單字等級（open_levels），該級每一回都開。"""
     student = _['get_student'](student_id)
     exams = _['exams']
     exam = exams.use_exam('jlpt')
-    return student, set(exams.open_levels(student, exam) or [])
+    levels = set(exams.open_levels(student, exam) or [])
+    tests = exams.open_mock_tests(student, exam)
+
+    def allowed(level, rnd=1):
+        return tid(level, rnd) in tests if tests is not None else level in levels
+    return student, allowed
 
 
 def _latest(student_id, level, rnd):
@@ -251,13 +259,15 @@ def _latest(student_id, level, rnd):
 
 @bp.route('/<int:student_id>')
 def home(student_id):
-    student, opened = _context(student_id)
+    student, allowed = _context(student_id)
     cards = []
     for level in LEVELS:
         nums = rounds(level)
-        card = {'level': level, 'name': LEVEL_NAMES[level], 'ready': bool(nums), 'locked': level not in opened,
-                'rounds': []}
-        for rnd in ([] if card['locked'] else nums):
+        usable = [r for r in nums if allowed(level, r)]
+        # 題目還沒出的等級顯示「準備中」；有題目但一回都沒開通才顯示「尚未開通」
+        card = {'level': level, 'name': LEVEL_NAMES[level], 'ready': bool(nums),
+                'locked': bool(nums) and not usable, 'hidden_rounds': len(nums) - len(usable), 'rounds': []}
+        for rnd in usable:
             test = load(level, rnd)
             latest = _latest(student.id, level, rnd)
             kinds = {}
@@ -282,11 +292,11 @@ def home(student_id):
     return render_template('jlpt_mock_home.html', student=student, cards=cards)
 
 
-def _section(level, rnd, key, opened):
+def _section(level, rnd, key, allowed):
     if level not in LEVELS:
         abort(404)
-    if level not in opened:
-        abort(403, description='這個等級還沒開通')
+    if not allowed(level, rnd):
+        abort(403, description='這一回模擬考還沒開通')
     test = load(level, rnd)
     section = next((s for s in (test or {}).get('sections', []) if s['key'] == key), None)
     if not section:
@@ -298,8 +308,8 @@ def _section(level, rnd, key, opened):
 @bp.route('/<int:student_id>/N<int:level>/<key>', defaults={'rnd': 1})
 @bp.route('/<int:student_id>/N<int:level>-<int:rnd>/<key>')
 def take(student_id, level, rnd, key):
-    student, opened = _context(student_id)
-    test, section = _section(level, rnd, key, opened)
+    student, allowed = _context(student_id)
+    test, section = _section(level, rnd, key, allowed)
     audio = None
     if key == 'listening' and os.path.exists(audio_file(level, rnd)):
         audio = url_for('static', filename=f'audio/jlpt_mock/{tid(level, rnd)}.mp3',
@@ -311,8 +321,8 @@ def take(student_id, level, rnd, key):
 @bp.route('/<int:student_id>/N<int:level>/<key>', methods=['POST'], defaults={'rnd': 1})
 @bp.route('/<int:student_id>/N<int:level>-<int:rnd>/<key>', methods=['POST'])
 def submit(student_id, level, rnd, key):
-    student, opened = _context(student_id)
-    test, section = _section(level, rnd, key, opened)
+    student, allowed = _context(student_id)
+    test, section = _section(level, rnd, key, allowed)
     answers, kinds = grade(section, request.form)
     a = _['Attempt'](student_id=student.id, level=level, rnd=rnd, section=key, answers=json.dumps(answers),
                      kinds=json.dumps(kinds), correct=sum(v[0] for v in kinds.values()), total=section['total'])
@@ -323,11 +333,11 @@ def submit(student_id, level, rnd, key):
 
 @bp.route('/<int:student_id>/result/<int:attempt_id>')
 def result(student_id, attempt_id):
-    student, opened = _context(student_id)
+    student, allowed = _context(student_id)
     a = _['db'].session.get(_['Attempt'], attempt_id)
     if not a or a.student_id != student.id:
         abort(404)
-    test, section = _section(a.level, a.rnd or 1, a.section, opened)
+    test, section = _section(a.level, a.rnd or 1, a.section, allowed)
     review = {'answers': {int(k): v for k, v in json.loads(a.answers).items()}, 'attempt': a}
     return render_template('jlpt_mock_test.html', student=student, test=test, section=section, review=review,
                            audio=None, is_listening=a.section == 'listening', mk=markup)

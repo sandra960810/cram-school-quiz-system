@@ -78,6 +78,7 @@ reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設
 topik/              韓檢 1～6 級單字 CSV 與來源說明（README.md）
 static/hangul_keyboard.js  韓文鍵盤：韓檢單字測驗的打字題用（沒有韓文輸入法的電腦也能打）
 jlpt/               日檢 N5～N1 單字 CSV（含「讀音」欄）與來源說明（README.md）
+jp_verbs.py         日文動詞變化（日檢單字卡的「動詞變化」）
 static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十音鍵盤（日檢打字題、單字搜尋用）
 ```
 
@@ -119,6 +120,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
     播放單字唸讀音（`say_text`，語音唸漢字可能唸錯）；伺服器音檔 `/tts?accent=JP` 用 `ja-JP-NanamiNeural`
   - 圖鑑依讀音五十音排序，分頁是「あ行、か行…」（`first_letter(word, reading)`，濁音併到清音那行）
   - 搜尋比對讀音：平假名、片假名、羅馬拼音（前端用 `KanaKeyboard.romajiToKana` 轉）都找得到；中文意思照常
+  - **動詞變化**：單字卡（滑卡和點開的單字卡）上，動詞與する動詞有「動詞變化」可展開（ます形、ない形、た形、なかった形、て形、
+    可能、意向、ば形、被動、使役、命令），寫法和讀音一起變、點一下會唸；由 `jp_verbs.conjugations()` 依「詞性」欄判斷種類
+    （第一類＝五段、第二類＝一段、第三類＝する／来る；名詞・する動詞顯示「〇〇する」的變化），不靠字尾猜。展開與否記在 localStorage
   - 日文頁面元素加 `lang="ja"`，`theme.css` 的 `:lang(ja)` 換成日文字型（同一個漢字中日字形不同）
   - 單字測驗：例句裡用 `[寫法|讀音]` 標出填空處（`vocab_quiz.find_cloze_ja`），**漢字或假名都算對**（題目 JSON 的 `accept`），
     比對用 `normalize_ja`（片假名＝平假名、全半形統一；不能用 `normalize`，它會把濁音點去掉）；
@@ -139,7 +143,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 
 - 每級可以有多回（目標各 3 回），題目原創；一回一個檔：第 1 回 `jlpt_mock/N5.txt`，第 2 回起 `N5-2.txt`、`N5-3.txt`（`jlpt_mock.rounds()` 看有哪些檔；格式、題數、計分見 `jlpt_mock/README.md`）。
   網址第 1 回是 `/jlpt-mock/<id>/N5/<節>`，第 2 回起 `/N5-2/<節>`；作答紀錄 `JlptMockAttempt.rnd` 記第幾回。新增一回只要加題庫檔、跑檢查、產生音檔
-- 入口在日檢功能選單的「模擬考」；要後台開通「B 模考」（功能代號 `mock`）而且該等級有開（`exams.open_levels`），沒開的等級回 403
+- 入口在日檢功能選單的「模擬考」；要後台開通「B 模考」（功能代號 `mock`），開哪幾回在審核頁「模考開放的回數」逐回勾選
+  （存在 access 的 `mock_open`，例如 `["N5", "N5-2"]`，判斷用 `exams.open_mock_tests`），和單字等級分開；
+  沒有逐回設定過的學生照舊看單字等級（`exams.open_levels`），該級每回都開。沒開的回數回 403、首頁顯示「另有 N 回尚未開通」
 - 一個科目交一次卷（`JlptMockAttempt` 一筆），交卷後同一頁變成檢討：正解、學生選的、中文解析、聽解台詞；
   全部科目都交過才顯示 180 分的估計分數與是否達合格標準（標明是估計）
 - 聽解音檔由題庫台詞用 edge-tts 產生（`tools/make_jlpt_audio.py`，一回一個 mp3：`N5.mp3`、`N5-2.mp3`，不進 git）；沒有音檔時頁面會提示雙擊 `jlpt_audio.bat`
