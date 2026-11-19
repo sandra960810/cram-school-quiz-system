@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <title>{% block title %}管理員後台{% endblock %}｜測驗系統</title>
+    <title>{% block title %}工作人員後台{% endblock %}｜測驗系統</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
@@ -32,7 +32,7 @@
         label.f { display: block; font-weight: bold; font-size: 14px; margin: 14px 0 6px; }
         label.f .req { color: var(--bad); }
         label.f .tip { font-weight: normal; color: var(--muted); font-size: 12px; margin-left: 6px; }
-        input[type=text], input[type=password], input[type=search], select, textarea {
+        input[type=text], input[type=password], input[type=search], input[type=email], input[type=tel], input[type=date], select, textarea {
             width: 100%; box-sizing: border-box; padding: 10px 12px; border: 2px solid var(--line); border-radius: 10px;
             font: inherit; font-size: 15px; background: #fff; color: var(--ink); }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
@@ -46,9 +46,8 @@
 <div class="wrap">
     {% if session.get('admin') %}
     <div class="topbar">
-        <a class="brand" href="{{ url_for('admin.home') }}">{{ icon('key') }} 管理員後台</a>
-        <a href="{{ url_for('admin.home') }}">單字</a>
-        <a href="{{ url_for('admin.bank_home') }}">題庫</a>
+        <a class="brand" href="{{ url_for('admin.home') }}">{{ icon('key') }} 工作人員後台</a>
+        <a href="{{ url_for('admin.students') }}">學生審核開通</a>
         <span class="sp"></span>
         <a href="{{ url_for('admin.change_password') }}">改密碼</a>
         <form method="post" action="{{ url_for('admin.logout') }}" style="margin:0"><button class="linkbtn">登出</button></form>

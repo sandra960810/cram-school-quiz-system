@@ -1,0 +1,20 @@
+{% extends 'account_base.html' %}
+{% block title %}帳號狀態{% endblock %}
+{% block body %}
+{% if me.status == 'pending' %}
+<div class="hero"><h1>{{ icon('hourglass') }} 申請已送出</h1><p>{{ me.name }} 你好，工作人員確認你的課程後就會幫你開通，開通後重新整理這一頁就能開始使用。</p></div>
+{% elif me.status == 'rejected' %}
+<div class="hero"><h1>{{ icon('alert') }} 申請沒有通過</h1><p>工作人員對不到你的報名資料，請洽櫃台，或確認電子郵件後重新註冊。</p></div>
+{% else %}
+<div class="hero"><h1>{{ icon('lock') }} 帳號已停用</h1><p>如果課程還在進行，請洽櫃台。</p></div>
+{% endif %}
+<div class="panel">
+    <p style="margin:0 0 6px"><b>學號</b>　{{ me.student_no }}</p>
+    <p style="margin:0 0 6px"><b>電子郵件</b>　{{ me.email }}</p>
+    <p style="margin:0 0 6px"><b>校區</b>　{{ me.campus }}</p>
+    <p style="margin:0"><b>報名課程</b>　{{ courses | join('、') }}</p>
+    {% if me.status == 'pending' %}<a class="btn" href="{{ url_for('accounts.status') }}">{{ icon('refresh') }} 重新整理</a>{% endif %}
+    {% if me.status == 'rejected' %}<a class="btn" href="{{ url_for('accounts.register_page') }}">重新註冊</a>{% endif %}
+    <form method="post" action="{{ url_for('accounts.logout') }}"><button class="btn ghost">登出</button></form>
+</div>
+{% endblock %}

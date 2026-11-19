@@ -80,9 +80,16 @@ def client_ip():
     return request.headers.get('Cf-Connecting-Ip') or request.remote_addr or '?'
 
 
+STAFF_SESSION_SECONDS = 8 * 3600   # 工作人員登入 8 小時後要重新輸入密碼（學生的登入可以維持較久）
+# 原本編輯單字、題庫的後台先暫停（2026-11 改成學生審核開通）。程式與資料都保留，改成 True 就恢復
+EDITOR_ENABLED = False
+
+
 def logged_in():
     v = _load_admin().get('version')
-    return bool(v) and session.get('admin') == v
+    if not v or session.get('admin') != v:
+        return False
+    return time.time() - session.get('admin_at', 0) < STAFF_SESSION_SECONDS
 
 
 def login_required(view):
@@ -97,9 +104,12 @@ def login_required(view):
 
 
 def _start_session(version):
-    session.clear()
+    # 只換掉工作人員的登入資料，同一個瀏覽器裡學生的登入不受影響
+    for k in ('admin', 'admin_csrf', 'admin_at'):
+        session.pop(k, None)
     session.permanent = True
     session['admin'] = version
+    session['admin_at'] = time.time()
     session['admin_csrf'] = secrets.token_hex(16)
 
 
@@ -131,7 +141,8 @@ def login():
     if not has_password():
         return redirect(url_for('admin.setup'))
     nxt = request.args.get('next') or ''
-    if not nxt.startswith('/admin'):
+    # 回到原本要去的頁面（後台，或工作人員要預覽的學生頁面）；不接受外部網址
+    if not nxt.startswith('/') or nxt.startswith('//'):
         nxt = url_for('admin.home')
     error = None
     if request.method == 'POST':
@@ -152,7 +163,8 @@ def login():
 
 @bp.route('/logout', methods=['POST'])
 def logout():
-    session.clear()
+    for k in ('admin', 'admin_csrf', 'admin_at'):
+        session.pop(k, None)
     return redirect(url_for('admin.login'))
 
 
@@ -191,6 +203,22 @@ def course_name(code):
 @bp.route('/')
 @login_required
 def home():
+    """後台首頁＝學生審核開通（accounts.py）。"""
+    return redirect(url_for('admin.students'))
+
+
+@bp.before_request
+def _editor_paused():
+    """單字、題庫編輯先暫停：進去一律回到學生審核頁。"""
+    ep = request.endpoint or ''
+    if not EDITOR_ENABLED and (ep.startswith('admin.vocab') or ep.startswith('admin.bank')):
+        flash('編輯單字、題目的後台目前暫停使用，後台改成學生審核開通。', 'warn')
+        return redirect(url_for('admin.students'))
+
+
+@bp.route('/vocab/')
+@login_required
+def vocab_home():
     V = _['Vocabulary']
     counts = dict(_['db'].session.query(V.category, func.count(V.id)).group_by(V.category).all())
     cards = [{'course': c, 'name': n, 'exam': k, 'count': counts.get(c, 0),
@@ -472,8 +500,10 @@ def register(app, db, deps):
             with open(path, 'w', encoding='utf-8') as f:
                 f.write(key)
         app.secret_key = key
-    app.config.setdefault('PERMANENT_SESSION_LIFETIME', 8 * 3600)   # 登入 8 小時後要重新輸入密碼
+    # 學生登入維持 30 天；工作人員另外在 logged_in() 限 8 小時
+    app.config.setdefault('PERMANENT_SESSION_LIFETIME', 30 * 24 * 3600)
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     import admin_bank  # noqa: F401  題庫編輯的路由掛在同一個 bp 上，要在註冊前載入
+    import accounts  # noqa: F401  學生審核開通的路由也掛在同一個 bp 上
     app.register_blueprint(bp)

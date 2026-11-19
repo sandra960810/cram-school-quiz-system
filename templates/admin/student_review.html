@@ -1,0 +1,124 @@
+{% extends 'admin/base.html' %}
+{% block title %}審核：{{ st.name }}{% endblock %}
+{% block head %}<style>
+.st-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tag { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: bold; background: var(--surface-2); color: var(--ink-2); }
+.tag.pending { background: var(--warn-50); color: var(--warn-ink); }
+.tag.active { background: var(--ok-50); color: var(--ok-ink); }
+.tag.rejected, .tag.disabled { background: var(--bad-50); color: var(--bad-ink); }
+.err { background: var(--bad-50); color: var(--bad-ink); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; line-height: 1.6; }
+.err ul { margin: 0; padding-left: 20px; }
+.checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.checks label { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 2px solid var(--line); border-radius: 10px; cursor: pointer; font-size: 14px; background: #fff; }
+.checks label:has(input:checked) { border-color: var(--primary); background: var(--primary-50); color: var(--primary); font-weight: bold; }
+.checks input { width: 17px; height: 17px; accent-color: var(--primary); margin: 0; }
+.exam { border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px var(--line); border-left: 6px solid var(--tone); padding: 16px 18px; margin-bottom: 12px; }
+.exam.off { opacity: .75; }
+.exam .top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.exam .nm { font-size: 18px; font-weight: bold; color: var(--tone); }
+.exam .want { font-size: 12px; font-weight: bold; color: var(--warn-ink); background: var(--warn-50); padding: 2px 8px; border-radius: 999px; }
+.exam .state { font-size: 12px; color: var(--muted); }
+.switch { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; font-weight: bold; cursor: pointer; }
+.switch input { width: 20px; height: 20px; accent-color: var(--ok); }
+.exam .body { margin-top: 12px; }
+.exam .body[hidden] { display: none; }
+.sub { font-size: 13px; font-weight: bold; color: var(--muted); margin: 12px 0 6px; }
+.dates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.dates label { font-size: 13px; color: var(--muted); font-weight: bold; display: block; margin-bottom: 4px; }
+.opt-desc { font-size: 12px; color: var(--muted); margin: 4px 0 0; }
+.actions { position: sticky; bottom: 0; background: var(--bg); padding: 12px 0; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; border-top: 1px solid var(--line); }
+.actions .sp { flex: 1; }
+@media (max-width: 600px) { .dates { grid-template-columns: 1fr; } }
+</style>{% endblock %}
+{% block body %}
+<p><a href="{{ url_for('admin.students', tab=('pending' if st.status == 'pending' else ('active' if st.status == 'active' else 'other'))) }}" style="color:var(--primary);font-weight:bold;text-decoration:none">← 回學生列表</a></p>
+<div class="hero">
+    <div class="st-head"><h1 style="margin:0">{{ icon('user') }} {{ st.name }}</h1><span class="tag {{ st.status }}">{{ status }}</span></div>
+    <p style="margin-top:8px">{% if st.status == 'pending' %}請先核對學生填的電子郵件和報名選課系統裡的資料一樣，再依照學生買的課程勾選要開的項目。下面已經依報名課程先勾好，可以再調整。
+    {% elif st.status == 'demo' %}這是示範帳號：不用登入、所有內容都開放（給主管看的分享連結用的就是這個帳號）。{% else %}可以隨時調整開通的內容與日期，學生重新整理頁面就會套用。{% endif %}</p>
+</div>
+{% if errors %}<div class="err"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+
+<form method="post">
+<input type="hidden" name="csrf" value="{{ admin_csrf }}">
+{% if st.status != 'demo' %}
+<div class="panel">
+    <h2>學生資料</h2>
+    <p class="muted" style="margin:0">學生填的資料，打錯可以直接改。申請時間：{{ st.applied_at | twtime('%Y/%m/%d %H:%M') if st.applied_at else '—' }}</p>
+    <div class="row2">
+        <div><label class="f">學號</label><input type="text" name="student_no" value="{{ v.student_no }}" required></div>
+        <div><label class="f">名字</label><input type="text" name="name" value="{{ v.name }}" required></div>
+        <div><label class="f">電子郵件 <span class="tip">要和報名選課系統的一樣</span></label><input type="email" name="email" value="{{ v.email }}" required></div>
+        <div><label class="f">電話</label><input type="tel" name="phone" value="{{ v.phone }}" required></div>
+        <div><label class="f">校區</label><select name="campus">{% for c in campuses %}<option {% if v.campus == c %}selected{% endif %}>{{ c }}</option>{% endfor %}</select></div>
+        <div><label class="f">重設密碼 <span class="tip">學生忘記密碼時填，不改就留空</span></label><input type="text" name="new_password" autocomplete="off" placeholder="至少 6 個字"></div>
+    </div>
+    <label class="f">報名課程</label>
+    <div class="checks">{% for c in course_list %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {% if c.key in v.courses %}checked{% endif %}> {{ c.name }}</label>{% endfor %}</div>
+    {% if wanted_soon %}<p class="muted" style="margin:8px 0 0">{{ icon('alert') }} {{ wanted_soon | join('、') }}的網站內容還沒開發，先記錄就好；可以先加開下面的「一般英文」或「英文零基礎」給學生用。</p>{% endif %}
+</div>
+{% endif %}
+
+{% if st.status != 'demo' %}
+<h2 style="font-size:18px;margin:22px 0 10px">開通內容</h2>
+{% for s in sections %}{% set k = s.exam.key %}
+<div class="exam exam-tone-{{ k }} {{ '' if s.on else 'off' }}">
+    <div class="top">
+        <span class="nm">{{ s.exam.name }}</span>
+        {% if s.wanted %}<span class="want">學生有報名</span>{% endif %}
+        {% if s.on %}<span class="state">{{ {'open': '使用中', 'not_yet': '還沒到開通日期', 'expired': '課程已結束'}.get(s.state, '') }}</span>{% endif %}
+        <label class="switch"><input type="checkbox" name="{{ k }}__on" value="1" {% if s.on %}checked{% endif %} data-toggle="{{ k }}"> 開通</label>
+    </div>
+    <div class="body" id="body-{{ k }}" {% if not s.on %}hidden{% endif %}>
+        <div class="sub">開放的功能</div>
+        <div class="checks">{% for o in s.options %}<label><input type="checkbox" name="{{ k }}__opt__{{ o.key }}" value="1" {% if o.checked %}checked{% endif %}> {{ o.name }}</label>{% endfor %}</div>
+        {% for o in s.options if o.desc %}<p class="opt-desc">{{ o.name }}：{{ o.desc }}</p>{% endfor %}
+        {% if s.levels %}
+        <div class="sub">單字學習區開放的等級</div>
+        <div class="checks">{% for lv in s.levels %}<label><input type="checkbox" name="{{ k }}__lv__{{ lv.n }}" value="1" {% if lv.checked %}checked{% endif %}> {{ lv.label }}</label>{% endfor %}</div>
+        {% endif %}
+        <div class="sub">日期 <span style="font-weight:normal">（空白＝不限）</span></div>
+        <div class="dates">
+            <div><label>開通日期（這天起可以用）</label><input type="date" name="{{ k }}__open_from" value="{{ s.open_from }}"></div>
+            <div><label>課程開始日</label><input type="date" name="{{ k }}__course_start" value="{{ s.course_start }}"></div>
+            <div><label>課程結束日（過了就關閉）</label><input type="date" name="{{ k }}__course_end" value="{{ s.course_end }}"></div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="panel">
+    <label class="f" style="margin-top:0">工作人員備註 <span class="tip">學生看不到，例如：已核對選課系統、付款方式</span></label>
+    <textarea name="staff_note">{{ st.staff_note or '' }}</textarea>
+</div>
+
+<div class="actions">
+    {% if st.status == 'pending' %}
+        <button class="btn" name="action" value="approve">{{ icon('check-circle') }} 開通</button>
+        <button class="btn ghost" name="action" value="save">先儲存</button>
+        <span class="sp"></span>
+        <button class="btn danger" name="action" value="reject" formnovalidate onclick="return confirm('確定退回這個申請？學生會看到「申請沒有通過」。')">退回申請</button>
+    {% elif st.status == 'active' %}
+        <button class="btn" name="action" value="save">{{ icon('check-circle') }} 儲存</button>
+        <a class="btn ghost" href="{{ url_for('dashboard', student_id=st.id) }}" target="_blank">{{ icon('eye') }} 預覽學生畫面</a>
+        <span class="sp"></span>
+        <button class="btn danger" name="action" value="disable" formnovalidate onclick="return confirm('確定停用？學生會不能登入使用。')">停用帳號</button>
+    {% elif st.status == 'demo' %}
+        <a class="btn ghost" href="{{ url_for('dashboard', student_id=st.id) }}" target="_blank">{{ icon('eye') }} 打開示範畫面</a>
+        <button class="btn" name="action" value="save">儲存備註</button>
+        <span class="sp"></span>
+        <button class="btn danger" name="action" value="demo_off" formnovalidate onclick="return confirm('停用後，給主管的分享連結會看不到內容。確定停用？')">停用示範帳號</button>
+    {% else %}
+        <button class="btn" name="action" value="reopen" formnovalidate>{{ icon('refresh') }} 恢復</button>
+        <button class="btn ghost" name="action" value="save">儲存</button>
+    {% endif %}
+</div>
+</form>
+{% endblock %}
+{% block scripts %}<script>
+document.querySelectorAll('[data-toggle]').forEach(cb => cb.addEventListener('change', () => {
+    document.getElementById('body-' + cb.dataset.toggle).hidden = !cb.checked;
+    cb.closest('.exam').classList.toggle('off', !cb.checked);
+}));
+</script>{% endblock %}

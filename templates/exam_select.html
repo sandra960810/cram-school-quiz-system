@@ -32,6 +32,11 @@
         .admin-entry a { color: var(--muted-2); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
         .admin-entry a:hover { color: var(--primary); }
         .soon-line { text-align: center; color: var(--muted); font-size: 14px; margin: 26px 0 0; display: flex; justify-content: center; align-items: center; gap: 6px; }
+        .exam-period { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+        .empty-box { background: #fff; border-radius: 15px; padding: 26px; box-shadow: var(--edge); color: var(--muted); line-height: 1.7; display: flex; gap: 8px; }
+        .locked-msg { margin-top: 10px !important; font-size: 14px !important; color: var(--warn-ink); background: var(--warn-50); border-radius: 8px; padding: 6px 10px; display: inline-flex; gap: 6px; align-items: center; }
+        .link-out { background: none; border: none; color: var(--muted-2); cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; }
+        .link-out:hover { color: var(--primary); }
         h2.sec { font-size: 15px; color: var(--muted); margin: 30px 0 12px; font-weight: normal; }
     </style>
 </head>
@@ -39,6 +44,7 @@
 <div class="wrap">
     <div class="welcome-banner">
         <h1>歡迎回來，{{ student.name }}</h1>
+        {% if request.args.get('locked') %}<p class="locked-msg">{{ icon('lock') }} {{ request.args.get('locked') }}的這個功能還沒開通，請洽櫃台。</p>{% endif %}
         <p>你要練習哪一種？點一下就開始。</p>
     </div>
 
@@ -49,16 +55,24 @@
             <div class="exam-name"><span class="nm">{{ c.name }}</span><span class="exam-en">{{ c.en }}</span><span class="go-arrow">→</span></div>
             <div class="exam-desc">{{ c.desc }}</div>
             <div class="exam-meta">✓ 已熟 {{ c.unlocked }} / {{ c.total }} 字</div>
+            {% if periods.get(c.key) %}<div class="exam-period">{{ icon('clock') }} {{ periods[c.key] }}</div>{% endif %}
         </a>
         {% endfor %}
     </div>
 
-    {% set soon = cards | rejectattr('allowed') | list %}
-    {% if soon %}
-    {# 還沒開放的考試只用一行字帶過，不再放一張灰色大卡片 #}
-    <p class="soon-line">{{ icon('lock') }} 準備中：{% for c in soon %}{{ c.name }}{% if not loop.last %}、{% endif %}{% endfor %}（之後開放）</p>
+    {% if not (cards | selectattr('allowed') | list) %}
+    <div class="empty-box">{{ icon('lock') }} 目前還沒有開通的課程。課程開通後，這裡就會出現可以練習的項目；有問題請洽櫃台。</div>
     {% endif %}
-    <p class="admin-entry"><a href="{{ url_for('admin.home') }}">{{ icon('key') }} 管理員後台</a></p>
+    {# 還沒開通、還沒到開通日、課程已結束的，只用一行字帶過 #}
+    {% for n in notes %}<p class="soon-line">{{ icon('lock') }} {{ n }}</p>{% endfor %}
+    <div class="admin-entry">
+        {% set me = login_student() %}
+        {% if me and me.id == student.id %}
+        <form method="post" action="{{ url_for('accounts.logout') }}" style="display:inline"><button class="link-out">{{ icon('user') }} 登出</button></form>
+        {% else %}
+        <a href="{{ url_for('admin.home') }}">{{ icon('key') }} 工作人員後台</a>
+        {% endif %}
+    </div>
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
 </body>

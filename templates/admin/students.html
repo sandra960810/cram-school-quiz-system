@@ -1,0 +1,50 @@
+{% extends 'admin/base.html' %}
+{% block title %}學生審核開通{% endblock %}
+{% block head %}<style>
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs a { padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: bold; font-size: 14px; color: var(--ink-2); background: #fff; box-shadow: 0 0 0 1px var(--line); }
+.tabs a.on { background: var(--primary); color: #fff; box-shadow: none; }
+.tabs a b { display: inline-block; min-width: 18px; margin-left: 4px; padding: 0 6px; border-radius: 999px; background: var(--warn-50); color: var(--warn-ink); font-size: 12px; }
+.tabs a.on b { background: #fff; color: var(--primary); }
+.search { display: flex; gap: 8px; margin-bottom: 14px; }
+.search input { flex: 1; }
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: var(--edge); font-size: 14px; }
+th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { background: var(--surface-2); color: var(--muted); font-weight: bold; font-size: 13px; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: bold; background: var(--surface-2); color: var(--ink-2); margin: 1px 0; }
+.tag.pending { background: var(--warn-50); color: var(--warn-ink); }
+.tag.active { background: var(--ok-50); color: var(--ok-ink); }
+.tag.rejected, .tag.disabled { background: var(--bad-50); color: var(--bad-ink); }
+.empty { text-align: center; color: var(--muted); padding: 30px; }
+@media (max-width: 700px) { .hide-sm { display: none; } th, td { padding: 9px 8px; } }
+</style>{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('users') }} 學生審核開通</h1>
+<p>學生註冊後會出現在「等待審核」。點「審核」核對學生的報名資料，勾選要開的課程、功能與等級，設定開通日期和課程日期，按「開通」學生就能登入使用。</p></div>
+<div class="tabs">
+    {% for k, label in tabs %}<a href="{{ url_for('admin.students', tab=k) }}" class="{{ 'on' if tab == k }}">{{ label }}{% if counts[k] %}<b>{{ counts[k] }}</b>{% endif %}</a>{% endfor %}
+</div>
+<form class="search" method="get">
+    <input type="hidden" name="tab" value="{{ tab }}">
+    <input type="search" name="q" value="{{ q }}" placeholder="找學生：名字、學號、電子郵件或電話">
+    <button class="btn">{{ icon('search') }} 找</button>
+</form>
+<table>
+    <tr><th>學號</th><th>名字</th><th class="hide-sm">校區</th><th>報名課程</th><th class="hide-sm">已開通</th><th class="hide-sm">申請時間</th><th>狀態</th><th></th></tr>
+    {% for it in items %}{% set st = it.st %}
+    <tr>
+        <td>{{ st.student_no or '—' }}</td>
+        <td><b>{{ st.name }}</b><br><span class="muted">{{ st.email or '' }}</span></td>
+        <td class="hide-sm">{{ st.campus or '—' }}</td>
+        <td>{% for c in it.courses %}<span class="tag">{{ c }}</span> {% else %}—{% endfor %}</td>
+        <td class="hide-sm">{{ it.opened | join('、') or '—' }}</td>
+        <td class="hide-sm">{{ st.applied_at | twtime if st.applied_at else '—' }}</td>
+        <td><span class="tag {{ st.status }}">{{ it.status }}</span></td>
+        <td><a class="btn small" href="{{ url_for('admin.student_review', sid=st.id) }}">{{ '審核' if st.status == 'pending' else '調整' }}</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8" class="empty">{{ '目前沒有要審核的申請' if tab == 'pending' else '沒有符合的學生' }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
