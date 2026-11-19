@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 6",
+  "part1": [
+    {
+      "topic": "Your neighbourhood",
+      "questions": [
+        "What is the area where you live like?",
+        "What do you like most about your neighbourhood?",
+        "Are there enough shops and services near your home?",
+        "How could your neighbourhood be improved?"
+      ]
+    },
+    {
+      "topic": "Food",
+      "questions": [
+        "What do you usually eat for breakfast?",
+        "Is there any food you did not like as a child but enjoy now?",
+        "Do you prefer eating at home or eating out?",
+        "What is a traditional dish from your country?"
+      ]
+    },
+    {
+      "topic": "Social media",
+      "questions": [
+        "Which social media apps do you use?",
+        "How much time do you spend on social media each day?",
+        "Have you ever stopped using social media for a while?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "An important decision",
+    "cue": "Describe an important decision you made.",
+    "points": [
+      "what the decision was",
+      "when you made it",
+      "how you made the decision"
+    ],
+    "final": "and explain how you felt about the decision afterwards.",
+    "followups": [
+      "Do you usually ask other people for advice before you decide?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Young people's choices",
+      "questions": [
+        "At what age should young people be allowed to make important decisions for themselves?",
+        "Who should decide what subject a student studies at university, the student or the parents?",
+        "Why do some people find it hard to make decisions?"
+      ]
+    },
+    {
+      "theme": "Too many choices",
+      "questions": [
+        "Do people today have more choices in daily life than people in the past?",
+        "Can having too many choices make people less happy?",
+        "Some people say that big decisions should be based on feelings rather than careful reasoning. What is your opinion?"
+      ]
+    }
+  ]
+}

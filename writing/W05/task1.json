@@ -1,0 +1,43 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The graph below shows the average age at which men and women in one country married for the first time between 1980 and 2020.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "line",
+    "title": "Average age at first marriage, 1980–2020",
+    "x": [
+      "1980",
+      "1990",
+      "2000",
+      "2010",
+      "2020"
+    ],
+    "y_label": "Age (years)",
+    "y_max": 36,
+    "y_step": 4,
+    "series": [
+      {
+        "name": "Men",
+        "values": [
+          27,
+          28,
+          30,
+          32,
+          33
+        ]
+      },
+      {
+        "name": "Women",
+        "values": [
+          23,
+          25,
+          27,
+          29,
+          31
+        ]
+      }
+    ]
+  }
+}

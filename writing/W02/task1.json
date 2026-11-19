@@ -1,0 +1,43 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The chart below shows the percentage of average monthly household spending on five categories in one country in 2004 and 2024.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "bar",
+    "title": "Share of monthly household spending, 2004 and 2024",
+    "x": [
+      "Housing",
+      "Food",
+      "Transport",
+      "Leisure",
+      "Health"
+    ],
+    "y_label": "Percentage of spending (%)",
+    "y_max": 40,
+    "y_step": 5,
+    "series": [
+      {
+        "name": "2004",
+        "values": [
+          24,
+          30,
+          15,
+          12,
+          6
+        ]
+      },
+      {
+        "name": "2024",
+        "values": [
+          36,
+          21,
+          13,
+          9,
+          11
+        ]
+      }
+    ]
+  }
+}

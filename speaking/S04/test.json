@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 4",
+  "part1": [
+    {
+      "topic": "Your home",
+      "questions": [
+        "Do you live in a house or a flat?",
+        "Which room in your home do you like the most?",
+        "Is there anything you would like to change about your home?",
+        "Do you plan to live there for a long time?"
+      ]
+    },
+    {
+      "topic": "Music",
+      "questions": [
+        "What kind of music do you usually listen to?",
+        "When do you listen to music most during the day?",
+        "Did you learn to play a musical instrument as a child?",
+        "Has your taste in music changed as you have grown older?"
+      ]
+    },
+    {
+      "topic": "Shopping",
+      "questions": [
+        "Do you enjoy going shopping?",
+        "Do you prefer shopping online or in shops?",
+        "What was the last thing you bought for yourself?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "A memorable journey",
+    "cue": "Describe a journey you went on that you remember well.",
+    "points": [
+      "where you went",
+      "who you travelled with",
+      "how you travelled there"
+    ],
+    "final": "and explain why this journey was memorable for you.",
+    "followups": [
+      "Do you usually enjoy long journeys?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Travel and tourism",
+      "questions": [
+        "Why do you think more people travel abroad nowadays than in the past?",
+        "What problems can large numbers of tourists cause for local residents?",
+        "Do you think people learn more from travelling or from reading about other places?"
+      ]
+    },
+    {
+      "theme": "Transport in the future",
+      "questions": [
+        "How do you think people will travel in twenty years' time?",
+        "Should governments spend more money on public transport or on roads?",
+        "Some people say that air travel should be more expensive to protect the environment. What is your view?"
+      ]
+    }
+  ]
+}
