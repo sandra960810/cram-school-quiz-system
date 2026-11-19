@@ -142,10 +142,10 @@
 
         <div class="swipe-actions">
             <button class="swipe-btn dont" id="btn-dont" data-sound="none" onclick="decide('unfamiliar')">
-                <span>←</span> {{ '移到不熟區' if mode == 'view' else '不熟' }}
+                <span>←</span> 不熟
             </button>
             <button class="swipe-btn know" id="btn-know" data-sound="none" onclick="decide('familiar')">
-                {{ '移到熟區' if mode == 'view' else '熟' }} <span>→</span>
+                熟 <span>→</span>
             </button>
         </div>
         {% if mode == 'view' %}
@@ -157,7 +157,7 @@
         {% endif %}
         <div class="error" id="error-display"></div>
         {% if mode == 'view' %}
-        <div class="hint">卡片往左滑看下一個、往右滑看上一個。</div>
+        <div class="hint">右滑＝熟、左滑＝不熟，滑完自動換下一張。只想翻翻看就按「上一個／下一個」。</div>
         {% else %}
         <div class="hint">會的按「熟」，不會的按「不熟」。卡片也可以左右滑。</div>
         {% endif %}
@@ -238,7 +238,7 @@
         renderStatus();
         updateProgress();
         const ghost = document.getElementById('ghost');
-        if (ghost) ghost.style.display = wordsQueue.length ? '' : 'none';
+        if (ghost) ghost.style.display = (isView ? viewIndex < allWords.length - 1 : wordsQueue.length) ? '' : 'none';
     }
 
     function nextWord() {
@@ -294,20 +294,6 @@
         const know = status === 'familiar';
         UI.play(know ? 'right' : 'left');
 
-        if (isView) {
-            try {
-                await saveStatus(status);
-                currentWord.status = status;
-                renderStatus();
-                card.classList.remove('ui-pop'); void card.offsetWidth; card.classList.add('ui-pop');
-                document.getElementById('fav-toast').innerText = know ? '已移到熟區' : '已移到不熟區';
-            } catch (e) {
-                UI.play('error'); err.innerText = '沒有存到，請再按一次。';
-            }
-            busy = false;
-            return;
-        }
-
         // 飛出動畫和存檔同時進行
         (know ? stampKnow : stampDont).style.opacity = 1;
         card.classList.remove('back', 'enter');
@@ -328,6 +314,17 @@
         if (know) knowCount++; else dontCount++;
         doneCount++;
         busy = false;
+        if (isView) {
+            // 單字卡：跟滑卡一樣標完就換下一張；最後一張就停在原地，顯示新的狀態
+            currentWord.status = status;
+            if (viewIndex < allWords.length - 1) return go(1, true);
+            card.classList.remove('fly'); card.style.transform = ''; card.style.opacity = '';
+            stampKnow.style.opacity = 0; stampDont.style.opacity = 0;
+            void card.offsetWidth; card.classList.add('enter');
+            showWord(currentWord);
+            document.getElementById('fav-toast').innerText = (know ? '已移到熟區' : '已移到不熟區') + '，這是最後一張了';
+            return;
+        }
         nextWord();
     }
 
@@ -337,16 +334,17 @@
         document.getElementById('btn-prev').disabled = viewIndex <= 0;
         document.getElementById('btn-next').disabled = viewIndex >= allWords.length - 1;
     }
-    function go(step) {
+    function go(step, quiet) {
         const to = viewIndex + step;
         if (busy || to < 0 || to >= allWords.length) {
             card.classList.add('back'); card.style.transform = ''; card.style.opacity = '';
             return;
         }
         viewIndex = to;
-        UI.play('tap');
+        if (!quiet) UI.play('tap');
         card.classList.remove('fly', 'back', 'enter');
         card.style.transform = ''; card.style.opacity = '';
+        stampKnow.style.opacity = 0; stampDont.style.opacity = 0;
         void card.offsetWidth; card.classList.add('enter');
         showWord(allWords[viewIndex]);
         document.getElementById('error-display').innerText = '';
@@ -354,7 +352,7 @@
     }
 
     // ---------- 拖曳滑動 ----------
-    // 滑卡：右滑＝熟、左滑＝不熟；單字卡：左滑＝下一個、右滑＝上一個
+    // 右滑＝熟、左滑＝不熟（滑卡和點開的單字卡都一樣；單字卡另有上一個／下一個按鈕）
     {
         let startX = 0, startY = 0, dx = 0, dragging = false, pid = null;
         const THRESHOLD = 100;
@@ -371,7 +369,6 @@
             dx = e.clientX - startX;
             const dy = (e.clientY - startY) * 0.15;
             card.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx / 18}deg)`;
-            if (isView) return;
             stampKnow.style.opacity = Math.max(0, Math.min(1, dx / THRESHOLD));
             stampDont.style.opacity = Math.max(0, Math.min(1, -dx / THRESHOLD));
         });
@@ -380,12 +377,6 @@
             dragging = false;
             if (e.type === 'pointerup') dx = e.clientX - startX;   // 以放開的位置為準
             card.classList.remove('dragging');
-            if (isView) {
-                if (dx < -THRESHOLD) return go(1);
-                if (dx > THRESHOLD) return go(-1);
-                card.classList.add('back'); card.style.transform = '';
-                return;
-            }
             if (dx > THRESHOLD) return decide('familiar');
             if (dx < -THRESHOLD) return decide('unfamiliar');
             card.classList.add('back');
@@ -396,11 +387,6 @@
         card.addEventListener('pointercancel', end);
 
         document.addEventListener('keydown', (e) => {
-            if (isView) {
-                if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
-                if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
-                return;
-            }
             if (e.key === 'ArrowRight') { e.preventDefault(); decide('familiar'); }
             if (e.key === 'ArrowLeft') { e.preventDefault(); decide('unfamiliar'); }
         });
