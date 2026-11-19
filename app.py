@@ -683,8 +683,8 @@ def toggle_favorite():
 
 @app.route('/learn/<int:student_id>/theme/<path:theme_key>/word/<int:vocab_id>')
 def learn_word(student_id, theme_key, vocab_id):
-    """單字卡：從圖鑑、收藏、搜尋點進來都一樣，可以左右滑或按「上一個／下一個」看同一份清單的其他字，
-    也可以手動移到熟區／不熟區。清單順序跟來源頁面一樣（from=favorites／search，預設是主題圖鑑）。"""
+    """單字卡：從圖鑑、收藏、搜尋點進來都一樣，可以直接滑卡（右滑熟、左滑不熟，滑完換下一張），
+    也可以按「上一個／下一個」只翻不標。清單順序跟來源頁面一樣（from=favorites／search，預設是主題圖鑑）。"""
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
     status = status_of(student_id)
