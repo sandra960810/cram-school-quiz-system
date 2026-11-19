@@ -65,7 +65,23 @@
         .w-reading { display: block; font-size: 16px; font-weight: normal; color: var(--muted); margin-top: 2px; }
         .answer-row input.right { border-color: var(--ok); background: var(--ok-50); }
         .answer-row input.wrong { border-color: var(--bad); background: var(--bad-50); }
+        .answer-row input.retry { border-color: var(--warn); background: var(--warn-50); }
+        /* 英文打字題的底線提示：一個字母一格，邊打邊填進去 */
+        .slots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 5px; margin: 4px 0 12px; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; color: var(--ink); }
+        .slots .slot { display: inline-block; width: 0.85em; min-height: 1.2em; line-height: 1.2em; border-bottom: 3px solid var(--line-strong); text-align: center; }
+        .slots .slot.filled { border-bottom-color: var(--primary); color: var(--primary); }
+        .slots .slot.given { border-bottom-color: var(--primary); }
+        .slots .sym { display: inline-block; min-width: 0.4em; line-height: 1.2em; text-align: center; color: var(--muted); }
+        .slots .gap { display: inline-block; width: 0.8em; }
+        .slots .sw { display: inline-flex; gap: 5px; white-space: nowrap; }
+        .slots.over .slot { border-bottom-color: var(--bad); }
+        .sentence .blank .slots { display: inline-flex; margin: 0; font-size: 17px; gap: 3px; vertical-align: bottom; }
+        .sentence .blank:has(.slots) { min-width: 0; border-bottom: none; }
+        .giveup { display: block; margin: 10px auto 0; border: none; background: none; color: var(--muted); font-family: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
+        .giveup[hidden] { display: none; }
+        .retry-tip { margin-top: 8px; font-size: 14px; font-weight: bold; color: var(--warn-ink); }
         .btn { padding: 12px 18px; font-size: 17px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; color: white; background: var(--primary); }
+        .btn.skip { background: var(--surface-2); color: var(--ink); font-size: 15px; padding: 12px; }
         .btn:disabled { opacity: 0.5; cursor: default; }
 
         .choices { display: grid; gap: 10px; margin-top: 8px; }
@@ -77,7 +93,7 @@
         .choice.wrong { border-color: var(--bad); background: var(--bad-50); }
         .choice .k { display: inline-block; width: 22px; color: var(--muted-2); font-weight: bold; font-family: Arial, sans-serif; }
 
-        .feedback { margin-top: 16px; border-radius: 12px; padding: 14px 16px; text-align: left; line-height: 1.6; }
+        .feedback { margin: 16px 0 12px; border-radius: 12px; padding: 14px 16px; text-align: left; line-height: 1.6; }
         .feedback.right { background: var(--ok-50); color: var(--ok); }
         .feedback.wrong { background: var(--bad-50); color: var(--bad-ink); }
         .feedback .big { font-size: 18px; font-weight: bold; }
@@ -112,6 +128,8 @@
             .prompt-word { font-size: 30px; }
             .sentence { font-size: 16px; padding: 12px; }
             .answer-row input { font-size: 20px; }
+            .slots { font-size: 20px; }
+            .slots .sw { gap: 3px; }
         }
     </style>
 </head>
@@ -157,7 +175,7 @@
     const stage = document.getElementById('stage');
     const answers = new Array(QUESTIONS.length).fill('');
     const results = new Array(QUESTIONS.length).fill(null);
-    let idx = -1, answered = false, nRight = 0, nWrong = 0;
+    let idx = -1, answered = false, retrying = false, nRight = 0, nWrong = 0;
 
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     // 和 vocab_quiz.normalize() 一樣的規則：不分大小寫、彎引號當直引號、多個空白算一個、
@@ -170,6 +188,33 @@
     const say = (text, slow) => UI.speak(text, slow ? { rate: 0.6 } : undefined);
     const sayOf = (q) => q.say || q.word;   // 日文唸假名讀音
     const readingOf = (q) => q.reading ? `<span class="w-reading" lang="ja">${esc(q.reading)}</span>` : '';
+
+    // 底線提示：mask 是 "a____ ___-__" 這種格式，_ 是要打的字母，其他（第一個字母、空白、連字號）照原樣顯示
+    function slotsHtml(q) {
+        if (!q.mask) return '';
+        // 每個字包成一組，手機換行時不會把一個字從中間切開
+        let i = 0;
+        const words = q.mask.split(' ').map((w, k) => (i += k ? 1 : 0, `<span class="sw">${[...w].map(c => {
+            const at = i++;
+            return c === '_' ? `<span class="slot" data-i="${at}"></span>`
+                : /[A-Za-zÀ-ÿ]/.test(c) ? `<span class="slot given" data-i="${at}">${esc(c)}</span>`
+                : `<span class="sym">${esc(c)}</span>`;
+        }).join('')}</span>`));
+        return `<span class="slots" aria-hidden="true">${words.join('<span class="gap"></span>')}</span>`;
+    }
+    // 邊打邊把字母填進底線：第 i 個字元對到第 i 格
+    function fillSlots(q, typed) {
+        const box = stage.querySelector('.slots');
+        if (!box || !q.mask) return;
+        const t = [...String(typed || '')];
+        box.querySelectorAll('.slot').forEach(el => {
+            const i = +el.dataset.i, m = q.mask[i];
+            const c = t[i] && t[i] !== ' ' ? t[i] : '';
+            el.textContent = c || (m === '_' ? '' : m);
+            el.classList.toggle('filled', !!c);
+        });
+        box.classList.toggle('over', t.length > q.mask.length);
+    }
 
     // ---------- 開始畫面：按一下才開始，瀏覽器才肯播放發音 ----------
     function intro() {
@@ -200,6 +245,7 @@
     function next() {
         idx += 1;
         answered = false;
+        retrying = false;
         if (idx >= QUESTIONS.length) return finish();
         const q = QUESTIONS[idx];
         updateProgress();
@@ -208,21 +254,22 @@
         const input = `<div class="answer-row">
                 <input id="ans" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
                        enterkeyhint="done" placeholder="{{ {'ko': '輸入韓文', 'ja': '輸入假名或漢字'}.get(exam.lang, '輸入英文') }}" aria-label="輸入答案">
-                <button class="btn" id="ok-btn" data-sound="none">確定</button></div>`;
+                <button class="btn" id="ok-btn" data-sound="none">確定</button></div>
+                <button class="giveup" id="giveup" data-sound="none">打不出來？看答案</button>`;
         let body = '';
         if (q.type === 'spell') {
             body = `<div class="${meaningCls}">${esc(q.meaning)}</div>
                 <div class="pos">${esc(q.pos)}</div>
-                <div class="hint">開頭是 <b>${esc(q.first)}</b>・${esc(q.hint)}</div>${input}`;
+                <div class="hint">開頭是 <b>${esc(q.first)}</b>・${esc(q.hint)}</div>${slotsHtml(q)}<div id="fb"></div>${input}`;
         } else if (q.type === 'dictate') {
             body = `<div class="listen-row">
                     <button class="listen-btn" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                     <button class="listen-btn slow" id="play-slow" data-sound="none" aria-label="慢速播放">{{ icon('slow') }}</button></div>
-                <div class="hint">${q.ja ? '聽發音打出這個字' : '聽發音拼字'}・${esc(q.hint)}</div>${input}`;
+                <div class="hint">${q.ja ? '聽發音打出這個字' : '聽發音拼字'}・${esc(q.hint)}</div>${slotsHtml(q)}<div id="fb"></div>${input}`;
         } else if (q.type === 'cloze') {
-            body = `<div class="sentence"${q.ja ? ' lang="ja"' : ''}>${esc(q.before)}<span class="blank">${esc(q.hint)}</span>${esc(q.after)}</div>
+            body = `<div class="sentence"${q.ja ? ' lang="ja"' : ''}>${esc(q.before)}<span class="blank">${q.mask ? slotsHtml(q) : esc(q.hint)}</span>${esc(q.after)}</div>
                 ${q.sentence_zh ? `<div class="sentence-zh">${esc(q.sentence_zh)}</div>` : ''}
-                <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? (q.ja ? '・<b>注意活用變化</b>' : '・<b>注意詞形變化</b>') : ''}</div>${input}`;
+                <div class="hint">提示：${esc(q.meaning)}${q.pos ? '（' + esc(q.pos) + '）' : ''}${q.form_differs ? (q.ja ? '・<b>注意活用變化</b>' : '・<b>注意詞形變化</b>') : ''}${q.mask ? `・${[...q.mask].filter(c => c !== ' ' && c !== '-' && c !== "'").length} 個字母` : ''}</div><div id="fb"></div>${input}`;
         } else if (q.type === 'meaning') {
             body = `<div class="prompt-word"><span class="w-text"${q.ja ? ' lang="ja"' : ''}>${esc(q.word)}${readingOf(q)}</span><button class="play-sm" id="play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="pos">${esc(q.pos)}</div>
@@ -231,7 +278,8 @@
             body = `<div class="${meaningCls}">${esc(q.meaning)}</div><div class="pos">${esc(q.pos)}</div>
                 <div class="choices">${q.choices.map((c, i) => `<button class="choice en" data-sound="none" data-i="${i}"${q.ja ? ' lang="ja"' : ''}>${esc(c)}</button>`).join('')}</div>`;
         }
-        stage.innerHTML = `<div class="card enter">${tag}${body}<div id="fb"></div></div>
+        // 打字題的回饋放在輸入框上面：答錯時看著正確答案直接在下面再打一次
+        stage.innerHTML = `<div class="card enter">${tag}${body}${q.choices ? '<div id="fb"></div>' : ''}<div id="nav"></div></div>
             <div class="keys">${q.choices ? '可按 1–4 或 A–D' : 'Enter 送出'}，Enter 下一題</div>`;
 
         const wText = stage.querySelector('.prompt-word .w-text');
@@ -246,7 +294,9 @@
         if (ans) {
             // 手機上自動跳出鍵盤會擋住題目，只有電腦才自動聚焦
             if (window.matchMedia('(pointer: fine)').matches) ans.focus();
-            document.getElementById('ok-btn').addEventListener('click', () => submitTyped());
+            document.getElementById('ok-btn').addEventListener('click', () => answered ? (retrying && submitRetry()) : submitTyped());
+            document.getElementById('giveup').addEventListener('click', () => giveUp());
+            if (q.mask) ans.addEventListener('input', () => fillSlots(q, ans.value));
             if (window.HangulKeyboard) HangulKeyboard.attach(ans);   // 韓檢：沒有韓文輸入法也能打字
             if (window.KanaKeyboard) KanaKeyboard.attach(ans);       // 日檢：羅馬拼音自動轉假名、五十音鍵盤
         }
@@ -260,11 +310,59 @@
         if (window.KanaKeyboard) KanaKeyboard.flush(ans);   // 最後的 n 轉成ん
         if (!ans.value.trim()) { ans.classList.add('ui-shake'); setTimeout(() => ans.classList.remove('ui-shake'), 300); ans.focus(); return; }
         const ok = isRight(q, ans.value);
+        ans.blur();
+        if (ok) {
+            ans.readOnly = true;
+            ans.classList.add('right');
+            document.getElementById('ok-btn').disabled = true;
+        }
+        record(ok, ans.value);
+    }
+
+    // 打不出來：直接看答案（算答錯），再照著打一次
+    function giveUp() {
+        if (answered) return;
+        const ans = document.getElementById('ans');
+        if (window.KanaKeyboard) KanaKeyboard.flush(ans);
+        record(false, '');
+    }
+
+    // 答錯或看答案之後：清空輸入框，照著正確答案再打一次，打對了自動下一題（成績照第一次算）
+    function startRetry() {
+        const q = QUESTIONS[idx];
+        const ans = document.getElementById('ans');
+        retrying = true;
+        ans.value = '';
+        ans.readOnly = false;
+        ans.classList.remove('wrong', 'right');
+        ans.classList.add('retry');
+        ans.placeholder = '照著再打一次';
+        fillSlots(q, '');
+        document.getElementById('ok-btn').textContent = '再打一次';
+        document.getElementById('giveup').hidden = true;
+        if (window.matchMedia('(pointer: fine)').matches) ans.focus();
+    }
+
+    function submitRetry() {
+        const ans = document.getElementById('ans');
+        const q = QUESTIONS[idx];
+        if (window.KanaKeyboard) KanaKeyboard.flush(ans);
+        const tip = document.getElementById('retry-tip');
+        if (!ans.value.trim() || !isRight(q, ans.value)) {
+            ans.classList.add('ui-shake'); setTimeout(() => ans.classList.remove('ui-shake'), 300);
+            if (ans.value.trim()) { UI.play('error'); tip.textContent = '還不太對，對照上面的答案再試一次'; }
+            ans.focus();
+            return;
+        }
+        retrying = false;
         ans.readOnly = true;
         ans.blur();
-        ans.classList.add(ok ? 'right' : 'wrong');
+        ans.classList.remove('retry');
+        ans.classList.add('right');
         document.getElementById('ok-btn').disabled = true;
-        record(ok, ans.value);
+        tip.textContent = '✓ 打對了！換下一題';
+        UI.play('right');
+        setTimeout(() => { if (QUESTIONS[idx] === q) next(); }, 800);
     }
 
     function submitChoice(i) {
@@ -288,7 +386,8 @@
         ok ? nRight++ : nWrong++;
         updateProgress();
         UI.play(ok ? 'right' : 'error');
-        const yours = (!ok && q.type !== 'meaning' && q.type !== 'word') ? `<div>你寫的：<span class="yours">${esc(given)}</span></div>` : '';
+        const typed = !q.choices;
+        const yours = (!ok && typed) ? (given ? `<div>你寫的：<span class="yours">${esc(given)}</span></div>` : '<div>正確答案是：</div>') : '';
         const shownAnswer = q.type === 'cloze' ? q.answer : q.word;
         // 日文：答案旁邊附讀音（填空題是例句裡那一段的讀音）
         const shownReading = !q.ja ? '' : q.type === 'cloze' ? (normJa(q.say) !== normJa(q.answer) ? q.say : '') : q.reading;
@@ -297,23 +396,26 @@
         const fullSentence = q.type === 'cloze' ? `${q.before}${q.answer}${q.after}` : '';
         document.getElementById('fb').innerHTML = `
             <div class="feedback ${ok ? 'right' : 'wrong'}">
-                <div class="big">${ok ? '✓ 答對了！' : '✗ 答錯了'}</div>
+                <div class="big">${ok ? '✓ 答對了！' : given || !typed ? '✗ 答錯了' : '看答案（這題算答錯）'}</div>
                 ${yours}
                 <div><span class="ans"${q.ja ? ' lang="ja"' : ''}>${esc(shownAnswer)}</span>${shownReading ? `<span class="m" lang="ja">（${esc(shownReading)}）</span>` : ''}
                     <button class="play-sm" id="fb-play" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button></div>
                 <div class="meta">${q.type === 'cloze' && q.form_differs ? (q.ja ? '辭書形 ' : '原形 ') + esc(q.word) + (q.ja && q.reading ? '（' + esc(q.reading) + '）' : '') + '・' : ''}${esc(q.pos)} ${esc(q.meaning)}</div>
                 ${fullSentence ? `<div class="fb-sentence"><span${q.ja ? ' lang="ja"' : ''}>${esc(fullSentence)}</span>
                     <button class="play-sm" id="fb-sent-play" data-sound="none" aria-label="播放整句">{{ icon('volume') }}</button></div>` : ''}
-            </div>
-            <button class="btn next" id="next-btn">${idx + 1 < QUESTIONS.length ? '下一題 →' : '看成績 →'}</button>`;
+                ${!ok && typed ? '<div class="retry-tip" id="retry-tip">在下面的框框照著再打一次，打對了就換下一題</div>' : ''}
+            </div>`;
+        const nextLabel = idx + 1 < QUESTIONS.length ? '下一題 →' : '看成績 →';
+        document.getElementById('nav').innerHTML = `<button class="btn next${!ok && typed ? ' skip' : ''}" id="next-btn">${!ok && typed ? '跳過，' + nextLabel : nextLabel}</button>`;
         document.getElementById('fb-play').addEventListener('click', () => say(sayAnswer));
         const sentPlay = document.getElementById('fb-sent-play');
         if (sentPlay) sentPlay.addEventListener('click', () => say(fullSentence));
         document.getElementById('next-btn').addEventListener('click', next);
         // 答錯時自動唸一次正確答案，加深印象
         if (!ok) setTimeout(() => say(sayAnswer), 350);
+        if (!ok && typed) startRetry();
         // 打字題：手機鍵盤收起後，把「下一題」捲進畫面
-        document.getElementById('next-btn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        else document.getElementById('next-btn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     document.addEventListener('keydown', (e) => {
@@ -321,7 +423,8 @@
         if (e.key === 'Enter') {
             if (e.isComposing || e.keyCode === 229) return;   // 韓文輸入法還在組字，這個 Enter 是確認組字
             e.preventDefault();
-            if (answered) next();
+            if (retrying) submitRetry();
+            else if (answered) next();
             else if (document.getElementById('ans')) submitTyped();
             return;
         }
@@ -352,7 +455,7 @@
                         <button class="play-sm" data-say="${esc(q.type === 'cloze' && q.ja ? (q.reading || q.word).split('／')[0] : sayOf(q))}" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                         <div class="body"><div class="w"${q.ja ? ' lang="ja"' : ''}>${esc(q.word)}${q.reading ? ' <span class="m">' + esc(q.reading) + '</span>' : ''} <span class="m">${esc(q.pos)}</span></div>
                             <div class="m">${esc(q.meaning)}</div>
-                            <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（空白）'}</div></div>
+                            <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（看答案）'}</div></div>
                     </div>`).join('')}</div>` : ''}
                 <div class="error" id="err"></div>
                 <a href="${RETRY_URL}" class="big-btn primary">再考一次</a>
