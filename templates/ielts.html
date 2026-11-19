@@ -62,6 +62,18 @@
         /* 日檢：單字下面的假名讀音 */
         .reading { font-size: 18px; color: var(--primary); margin: -4px 0 6px; letter-spacing: 1px; min-height: 0; }
         .reading:empty { display: none; }
+        /* 日文動詞變化（可展開） */
+        .conj { margin-top: 14px; text-align: left; }
+        .conj-toggle { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-strong); background: #fff; color: var(--primary); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; }
+        .conj-toggle .caret { transition: transform 0.15s; }
+        .conj.open .conj-toggle .caret { transform: rotate(180deg); }
+        .conj-table { display: none; width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15px; }
+        .conj.open .conj-table { display: table; }
+        .conj-table td { padding: 6px 4px; border-top: 1px solid var(--line); vertical-align: middle; }
+        .conj-table td.lbl { color: var(--muted); font-size: 13px; width: 42%; }
+        .conj-table td.form { color: var(--ink); font-weight: bold; cursor: pointer; }
+        .conj-table td.form small { display: block; font-weight: normal; color: var(--primary); font-size: 12px; }
+        .conj-table tr:hover td.form { color: var(--primary); }
         .sentence-zh { display: block; font-style: normal; color: var(--muted); font-size: 14px; margin-top: 6px; }
 
         .fav-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: var(--line-strong); cursor: pointer; padding: 0; z-index: 2; }
@@ -136,6 +148,12 @@
                     <div class="sentence-body"><span id="sentence-text"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}></span><span id="sentence-zh" class="sentence-zh"></span></div>
                     <button class="play-btn small" data-sound="none" onclick="playSentence()" title="播放例句" aria-label="播放例句">{{ PLAY_ICON }}</button>
                 </div>
+                {% if exam.lang == 'ja' %}
+                <div class="conj" id="conj-box" style="display:none">
+                    <button class="conj-toggle" data-sound="none" onclick="toggleConj()"><span id="conj-title">動詞變化</span><span class="caret">▾</span></button>
+                    <table class="conj-table" lang="ja"><tbody id="conj-body"></tbody></table>
+                </div>
+                {% endif %}
                 <div id="fav-toast" class="toast"></div>
             </div>
         </div>
@@ -224,6 +242,7 @@
         document.getElementById('pos-display').innerText = w.pos || '';
         document.getElementById('meaning-display').innerText = w.meaning;
         document.getElementById('meaning-en-display').innerText = w.meaning_en || '';
+        renderConj(w);
         const box = document.getElementById('sentence-display');
         if (w.sentence) {
             document.getElementById('sentence-text').innerText = w.sentence;
@@ -358,7 +377,7 @@
         const THRESHOLD = 100;
 
         card.addEventListener('pointerdown', (e) => {
-            if (busy || e.target.closest('button')) return;
+            if (busy || e.target.closest('button, .conj')) return;
             dragging = true; pid = e.pointerId; startX = e.clientX; startY = e.clientY; dx = 0;
             card.setPointerCapture(pid);
             card.classList.remove('back', 'enter');
@@ -431,6 +450,34 @@
     // ---------- 發音 ----------
     const speak = (text) => UI.speak(text);   // 自動挑最像真人的語音（韓檢唸韓文，其他唸英文；見 static/ui.js）
     function playWord() { if (currentWord) speak(currentWord.say || currentWord.word); }   // 日文唸假名讀音
+    // ---------- 日文動詞變化 ----------
+    const CONJ_KEY = 'jpConjOpen';
+    function renderConj(w) {
+        const box = document.getElementById('conj-box');
+        if (!box) return;
+        const c = w.conj;
+        box.style.display = c ? '' : 'none';
+        if (!c) return;
+        let open = false;
+        try { open = localStorage.getItem(CONJ_KEY) === '1'; } catch (e) {}
+        box.classList.toggle('open', open);
+        document.getElementById('conj-title').innerText =
+            c.base === w.word ? '動詞變化' : `「${c.base}」的變化`;
+        const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+        document.getElementById('conj-body').innerHTML = c.forms.map(f => `
+            <tr><td class="lbl">${esc(f.label)}</td>
+                <td class="form" data-say="${esc(f.reading || f.word)}" title="點一下聽發音">${esc(f.word)}${f.reading ? `<small>${esc(f.reading)}</small>` : ''}</td></tr>`).join('');
+        document.querySelectorAll('#conj-body td.form').forEach(td =>
+            td.addEventListener('click', () => speak(td.dataset.say)));
+    }
+    function toggleConj() {
+        const box = document.getElementById('conj-box');
+        const open = !box.classList.contains('open');
+        box.classList.toggle('open', open);
+        try { localStorage.setItem(CONJ_KEY, open ? '1' : '0'); } catch (e) {}   // 記住要不要展開，下一張照樣
+        UI.play('tap');
+    }
+
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
     window.addEventListener('load', () => {
