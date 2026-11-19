@@ -78,6 +78,7 @@ reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設
 topik/              韓檢 1～6 級單字 CSV 與來源說明（README.md）
 static/hangul_keyboard.js  韓文鍵盤：韓檢單字測驗的打字題用（沒有韓文輸入法的電腦也能打）
 jlpt/               日檢 N5～N1 單字 CSV（含「讀音」欄）與來源說明（README.md）
+jp_verbs.py         日文動詞變化（日檢單字卡的「動詞變化」）
 static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十音鍵盤（日檢打字題、單字搜尋用）
 ```
 
@@ -119,6 +120,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
     播放單字唸讀音（`say_text`，語音唸漢字可能唸錯）；伺服器音檔 `/tts?accent=JP` 用 `ja-JP-NanamiNeural`
   - 圖鑑依讀音五十音排序，分頁是「あ行、か行…」（`first_letter(word, reading)`，濁音併到清音那行）
   - 搜尋比對讀音：平假名、片假名、羅馬拼音（前端用 `KanaKeyboard.romajiToKana` 轉）都找得到；中文意思照常
+  - **動詞變化**：單字卡（滑卡和點開的單字卡）上，動詞與する動詞有「動詞變化」可展開（ます形、ない形、た形、なかった形、て形、
+    可能、意向、ば形、被動、使役、命令），寫法和讀音一起變、點一下會唸；由 `jp_verbs.conjugations()` 依「詞性」欄判斷種類
+    （第一類＝五段、第二類＝一段、第三類＝する／来る；名詞・する動詞顯示「〇〇する」的變化），不靠字尾猜。展開與否記在 localStorage
   - 日文頁面元素加 `lang="ja"`，`theme.css` 的 `:lang(ja)` 換成日文字型（同一個漢字中日字形不同）
   - 單字測驗：例句裡用 `[寫法|讀音]` 標出填空處（`vocab_quiz.find_cloze_ja`），**漢字或假名都算對**（題目 JSON 的 `accept`），
     比對用 `normalize_ja`（片假名＝平假名、全半形統一；不能用 `normalize`，它會把濁音點去掉）；

@@ -13,6 +13,7 @@ import reading_bank
 import writing_bank
 import speaking_bank
 import exams
+import jp_verbs
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
@@ -593,6 +594,8 @@ def word_payload(w, theme_label, fav_words=(), status=None):
             "meaning_en": w.meaning_en if w.meaning_en and w.meaning_en != w.meaning else '',
             "sentence": clean_sentence(w.sentence), "sentence_zh": w.sentence_zh or '',
             "is_favorite": w.word.lower() in fav_words,
+            # 日檢的動詞（含する動詞）附上動詞變化，單字卡上可以展開看
+            "conj": jp_verbs.conjugations(w.word, w.reading, w.pos) if w.category == 'JLPT' else None,
             "status": (status or {}).get(w.id, 'new')}
 
 
