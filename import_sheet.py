@@ -7,7 +7,8 @@
 
 規則：
 - 有「編號」的列：更新資料庫裡那個字（可以改主題、拼字、意思…）
-- 沒有編號的列：找同課程、同主題、同拼字的字更新；找不到就新增
+- 沒有編號的列：找同課程、同主題、同拼字的字更新；找不到時，若這個課程只有一筆同拼字的字，
+  就當成換主題（例如日檢單字換等級），更新那筆、學習紀錄跟著走；都找不到才新增
 - 不會刪除資料庫裡的字，也不會動學生的學習進度
 - 管理員在後台（/admin）改過、新增或刪除的字會跳過，不會被這份檔案蓋回去或重新加回來
 - 匯入後，同一個字若出現在多個主題，學生學過的會兩邊同步解鎖
@@ -74,6 +75,17 @@ def run(path, dry_run=False):
                 c, t, w = v.src_key.split('|', 2)
                 by_src[(c, t, w)] = v
 
+        # 換主題（例如日檢單字換等級）：檔案裡和資料庫裡這個課程都只有一筆這個拼字時，
+        # 視為同一個字搬家，更新原本那筆，學生的學習紀錄、收藏跟著走，不會多出一筆重複字
+        file_count = {}
+        for _, r in rows:
+            k = ((r.get('category') or 'IELTS'), r.get('word', '').lower())
+            file_count[k] = file_count.get(k, 0) + 1
+        db_words = {}
+        for v in by_id.values():
+            db_words.setdefault((v.category, v.word.lower()), []).append(v)
+        by_word = {k: vs[0] for k, vs in db_words.items() if len(vs) == 1 and file_count.get(k) == 1}
+
         for line_no, r in rows:
             word = r.get('word', '')
             theme = normalize_theme(r.get('theme', ''))
@@ -108,6 +120,8 @@ def run(path, dry_run=False):
                     problems.append(f"第 {line_no} 列（{word}）：編號 {raw_id} 不存在，改用單字比對")
             if vocab is None:
                 vocab = by_src.get((category, theme, word.lower())) or by_key.get((category, theme, word.lower()))
+            if vocab is None:
+                vocab = by_word.get((category, word.lower()))
 
             if vocab is not None and vocab.admin_locked:
                 kept += 1      # 管理員在後台改過：以後台為準
