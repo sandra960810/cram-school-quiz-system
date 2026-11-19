@@ -95,7 +95,7 @@
     </div>
     {% endif %}
 
-    <form method="post" id="examForm" action="{{ url_for('topik_mock.submit', student_id=student.id, test_no=test.no, key='writing') }}">
+    <form method="post" id="examForm" action="{{ url_for('topik_mock.submit', student_id=student.id, test_no=test.no, rnd=test.round, key='writing') }}">
     {% for g in section.groups %}{% for it in g['items'] if it.type == 'w' %}
     {% set res = ai['q' ~ it.n] if ai else none %}
     <div class="sheet">
@@ -173,7 +173,7 @@
 (function () {
     var form = document.getElementById('examForm'), done = document.getElementById('done');
     var fields = Array.prototype.slice.call(form.querySelectorAll('textarea.ans'));
-    var KEY = 'topik-write-{{ student.id }}-{{ test.no }}', sent = false;
+    var KEY = 'topik-write-{{ student.id }}-{{ test.id }}', sent = false;
     // 草稿暫存在這台電腦的瀏覽器（不小心關掉頁面還找得回來）
     try { var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
           fields.forEach(function (f) { if (!f.value && saved[f.dataset.f]) { f.value = saved[f.dataset.f]; f.dispatchEvent(new Event('input')); } }); } catch (e) {}

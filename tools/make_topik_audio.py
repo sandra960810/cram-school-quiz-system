@@ -1,12 +1,12 @@
 """把韓檢模擬考的聽力台詞轉成 mp3（edge-tts 的韓語神經語音，免註冊、免金鑰）。
 
-音檔直接由題庫（topik_mock/TOPIK1.txt、TOPIK2.txt）裡的台詞產生，所以音檔內容與題目必定一致。
-一回一個檔：static/audio/topik_mock/TOPIK1.mp3（不進 git）。題庫改過（台詞不一樣）會自動重新產生。
+音檔直接由題庫（topik_mock/TOPIK1.txt、TOPIK1-2.txt…）裡的台詞產生，所以音檔內容與題目必定一致。
+一回一個檔：static/audio/topik_mock/TOPIK1.mp3、TOPIK1-2.mp3…（不進 git）。題庫改過（台詞不一樣）會自動重新產生。
 比照正式考試：TOPIK I 每題播兩次；TOPIK II 1～20 題播一次、21～50 題播兩次（topik_mock.repeats）。
 
 用法：
     python tools/make_topik_audio.py          產生缺少或題庫改過的音檔
-    python tools/make_topik_audio.py TOPIK1   只產生 TOPIK I
+    python tools/make_topik_audio.py TOPIK1-2 只產生 TOPIK I 第 2 回
     python tools/make_topik_audio.py --force  全部重新產生
 """
 import asyncio
@@ -88,7 +88,7 @@ async def build(level, test):
             out += SILENCE * int(cue['t'])
             continue
         if cue['v'] not in VOICES:
-            sys.exit(f'TOPIK{level}：台詞裡有沒定義的說話者代號 {cue["v"]}')
+            sys.exit(f'{test["id"]}：台詞裡有沒定義的說話者代號 {cue["v"]}')
         voice, rate, pitch = VOICES[cue['v']]
         out += await say(cue['t'], voice, shift(rate, delta), pitch)
         out += SILENCE[:len(SILENCE) // 2]
@@ -102,26 +102,29 @@ async def main():
     force = '--force' in sys.argv
     OUT.mkdir(parents=True, exist_ok=True)
     checked = False
-    for no in topik_mock.TESTS:
-        if args and f'TOPIK{no}' not in args:
+    jobs = [(no, rnd) for no in topik_mock.TESTS for rnd in topik_mock.rounds(no)]
+    for no, rnd in jobs:
+        key = topik_mock.tid(no, rnd)
+        if args and key not in args:
             continue
-        test = topik_mock.load(no)
+        test = topik_mock.load(no, rnd)
         if not test:
             continue
+        label = f'TOPIK {topik_mock.ROMAN[no]} 第 {rnd} 回'
         cues = topik_mock.listening_cues(test)
         stamp = hashlib.sha1(json.dumps([cues, VOICES, LEVEL_RATE[no]], ensure_ascii=False).encode()).hexdigest()
-        mp3, mark = OUT / f'TOPIK{no}.mp3', OUT / f'TOPIK{no}.sha'
+        mp3, mark = OUT / f'{key}.mp3', OUT / f'{key}.sha'
         if mp3.exists() and mark.exists() and mark.read_text() == stamp and not force:
-            print(f'TOPIK {topik_mock.ROMAN[no]}：音檔已經是最新的，略過')
+            print(f'{label}：音檔已經是最新的，略過')
             continue
         if not checked:
             await check_voices()
             checked = True
-        print(f'TOPIK {topik_mock.ROMAN[no]}：產生聽力音檔（{sum(1 for c in cues if c["v"] != "pause")} 句）…', flush=True)
+        print(f'{label}：產生聽力音檔（{sum(1 for c in cues if c["v"] != "pause")} 句）…', flush=True)
         data = await build(no, test)
         mp3.write_bytes(data)
         mark.write_text(stamp)
-        print(f'TOPIK {topik_mock.ROMAN[no]}：完成，{len(data) / 1e6:.1f} MB')
+        print(f'{label}：完成，{len(data) / 1e6:.1f} MB')
 
 
 if __name__ == '__main__':
