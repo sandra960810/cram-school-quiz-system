@@ -34,6 +34,13 @@
         .note { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 6px; }
         .floors { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 0; }
         .floors span { font-size: 12.5px; padding: 2px 10px; border-radius: 10px; background: var(--surface-2); color: var(--muted); }
+        .round { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 4px; }
+        .round > summary { cursor: pointer; font-weight: bold; font-size: 16px; color: var(--deep); padding: 10px 0;
+                           display: flex; align-items: center; gap: 10px; list-style: none; }
+        .round > summary::-webkit-details-marker { display: none; }
+        .round > summary::before { content: '▸'; color: var(--primary); }
+        .round[open] > summary::before { content: '▾'; }
+        .pill.none { background: var(--surface-2); color: var(--muted); }
         .floors span.hit { background: var(--ok-50); color: var(--ok-ink); font-weight: bold; }
     </style>
 </head>
@@ -44,50 +51,59 @@
     </div>
     <div class="banner">
         <h1>{{ icon('exam') }} 韓檢模擬考</h1>
-        <p>比照正式 TOPIK 的題型、題數、配分與時間，TOPIK I、TOPIK II 各一回。一節一節作答，交卷馬上看正解與中文解析；
+        <p>比照正式 TOPIK 的題型、題數、配分與時間，TOPIK I、TOPIK II 各有多回，每回題目都不一樣。一節一節作答，交卷馬上看正解與中文解析；
             全部考完會算出總分和級數。</p>
     </div>
 
     {% for c in cards %}
     <div class="lv{% if c.locked or not c.ready %} off{% endif %}">
-        <h2>{{ c.name }} 模擬考 第 1 回</h2>
+        <h2>{{ c.name }} 模擬考</h2>
         {% if c.locked %}
             <div class="sub">{{ icon('lock') }} 尚未開通，請洽櫃台</div>
         {% elif not c.ready %}
             <div class="sub">題目準備中</div>
         {% else %}
-            <div class="sub">滿分 {{ c.full }} 分：{% for f, l in c.floors %}{{ f }} 分以上 {{ l }} 級{% if not loop.last %}、{% endif %}{% endfor %}。
+            <div class="sub">共 {{ c.rounds|length }} 回{% if c.hidden_rounds %}（另有 {{ c.hidden_rounds }} 回尚未開通）{% endif %}。滿分 {{ c.full }} 分：{% for f, l in c.floors %}{{ f }} 分以上 {{ l }} 級{% if not loop.last %}、{% endif %}{% endfor %}。
                 {% if c.no == 2 %}正式考試第 1 節是聽力＋寫作、第 2 節是閱讀，這裡可以分開考。{% else %}正式考試聽力和閱讀連著考，這裡可以分開考。{% endif %}</div>
-            {% for s in c.sections %}
-            <div class="sec">
-                <div class="nm"><span lang="ko">{{ s.name }}</span>
-                    <small>{{ s.total }} 題・{{ s.full }} 分・{{ s.minutes }} 分鐘</small></div>
-                {% if s.needs_audio %}<span class="pill warn">音檔待產生</span>{% endif %}
-                {% if s.attempt %}
-                    {% if s.attempt.score is none %}<span class="pill warn">寫作待批改</span>
-                    {% else %}<span class="pill">上次 {{ s.attempt.score }} / {{ s.full }} 分</span>{% endif %}
-                    <a class="btn ghost" href="{{ url_for('topik_mock.result', student_id=student.id, attempt_id=s.attempt.id) }}">{{ '看批改' if s.key == 'writing' else '看正解' }}</a>
-                    <a class="btn" href="{{ url_for('topik_mock.take', student_id=student.id, test_no=c.no, key=s.key) }}">再考一次</a>
-                {% else %}
-                    <a class="btn" href="{{ url_for('topik_mock.take', student_id=student.id, test_no=c.no, key=s.key) }}">開始作答</a>
+            {% for r in c.rounds %}
+            {% set sm = r.summary %}
+            <details class="round"{% if r.open %} open{% endif %}>
+                <summary>第 {{ r.round }} 回
+                    {% if sm and not sm.pending %}<span class="pill{{ '' if sm.level else ' warn' }}">{{ sm.total }} 分・{{ (sm.level ~ ' 級') if sm.level else '未達級數' }}</span>
+                    {% elif r.started %}<span class="pill">作答中</span>
+                    {% else %}<span class="pill none">還沒考</span>{% endif %}
+                </summary>
+                {% for s in r.sections %}
+                <div class="sec">
+                    <div class="nm"><span lang="ko">{{ s.name }}</span>
+                        <small>{{ s.total }} 題・{{ s.full }} 分・{{ s.minutes }} 分鐘</small></div>
+                    {% if s.needs_audio %}<span class="pill warn">音檔待產生</span>{% endif %}
+                    {% if s.attempt %}
+                        {% if s.attempt.score is none %}<span class="pill warn">寫作待批改</span>
+                        {% else %}<span class="pill">上次 {{ s.attempt.score }} / {{ s.full }} 分</span>{% endif %}
+                        <a class="btn ghost" href="{{ url_for('topik_mock.result', student_id=student.id, attempt_id=s.attempt.id) }}">{{ '看批改' if s.key == 'writing' else '看正解' }}</a>
+                        <a class="btn" href="{{ url_for('topik_mock.take', student_id=student.id, test_no=c.no, rnd=r.round, key=s.key) }}">再考一次</a>
+                    {% else %}
+                        <a class="btn" href="{{ url_for('topik_mock.take', student_id=student.id, test_no=c.no, rnd=r.round, key=s.key) }}">開始作答</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% if sm %}
+                <div class="score">
+                    {% if sm.pending %}
+                    <span class="big">目前 {{ sm.total }} / {{ sm.full }} 分（還沒加上寫作）</span><br>
+                    寫作還沒請 AI 老師批改，按上面的「看批改」就能批改並算出級數。
+                    {% else %}
+                    <span class="big {{ 'ok' if sm.level else 'bad' }}">總分 {{ sm.total }} / {{ sm.full }} 分・{% if sm.level %}{{ sm.level }} 級{% else %}未達 {{ sm.floors[0][1] }} 級{% endif %}</span>
+                    {% if sm.next %}（再 {{ sm.next[0] - sm.total }} 分就到 {{ sm.next[1] }} 級）{% endif %}
+                    {% endif %}<br>
+                    {% for p in sm.parts %}<span lang="ko">{{ p.name }}</span>：<b>{{ '—' if p.score is none else p.score }}</b> / {{ p.full }}{% if not loop.last %}　{% endif %}{% endfor %}
+                    <div class="floors">{% for f, l in sm.floors %}<span class="{{ 'hit' if sm.level and l <= sm.level and not sm.pending }}">{{ l }} 級 {{ f }} 分</span>{% endfor %}</div>
+                    <div class="note">級數依正式 TOPIK 的分數標準判定（不分科門檻）。{% if c.no == 2 %}寫作分數是 AI 老師的評分，不等於真實考試，只是模擬。{% endif %}</div>
+                </div>
                 {% endif %}
-            </div>
+            </details>
             {% endfor %}
-            {% set sm = c.summary %}
-            {% if sm %}
-            <div class="score">
-                {% if sm.pending %}
-                <span class="big">目前 {{ sm.total }} / {{ sm.full }} 分（還沒加上寫作）</span><br>
-                寫作還沒請 AI 老師批改，按上面的「看批改」就能批改並算出級數。
-                {% else %}
-                <span class="big {{ 'ok' if sm.level else 'bad' }}">總分 {{ sm.total }} / {{ sm.full }} 分・{% if sm.level %}{{ sm.level }} 級{% else %}未達 {{ sm.floors[0][1] }} 級{% endif %}</span>
-                {% if sm.next %}（再 {{ sm.next[0] - sm.total }} 分就到 {{ sm.next[1] }} 級）{% endif %}
-                {% endif %}<br>
-                {% for p in sm.parts %}<span lang="ko">{{ p.name }}</span>：<b>{{ '—' if p.score is none else p.score }}</b> / {{ p.full }}{% if not loop.last %}　{% endif %}{% endfor %}
-                <div class="floors">{% for f, l in sm.floors %}<span class="{{ 'hit' if sm.level and l <= sm.level and not sm.pending }}">{{ l }} 級 {{ f }} 分</span>{% endfor %}</div>
-                <div class="note">級數依正式 TOPIK 的分數標準判定（不分科門檻）。{% if c.no == 2 %}寫作分數是 AI 老師的評分，不等於真實考試，只是模擬。{% endif %}</div>
-            </div>
-            {% endif %}
         {% endif %}
     </div>
     {% endfor %}

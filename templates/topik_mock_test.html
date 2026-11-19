@@ -87,7 +87,7 @@
         {% endif %}
     {% endif %}
 
-    <form method="post" id="examForm" action="{{ url_for('topik_mock.submit', student_id=student.id, test_no=test.no, key=section.key) }}">
+    <form method="post" id="examForm" action="{{ url_for('topik_mock.submit', student_id=student.id, test_no=test.no, rnd=test.round, key=section.key) }}">
     {% for g in section.groups %}
     <div class="sheet">
         <p class="qtitle ko" lang="ko">{{ mk(g.title) }}</p>

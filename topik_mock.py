@@ -1,6 +1,7 @@
-"""韓檢 TOPIK 模擬考（TOPIK I、TOPIK II 各一回）：題庫載入、作答頁、批改、級數判定、寫作 AI 批改。
+"""韓檢 TOPIK 模擬考（TOPIK I、TOPIK II 各有多回）：題庫載入、作答頁、批改、級數判定、寫作 AI 批改。
 
-題庫是純文字檔 topik_mock/TOPIK1.txt、TOPIK2.txt（格式見 topik_mock/README.md）。
+題庫是純文字檔（格式見 topik_mock/README.md），一回一個檔：TOPIK I 第 1 回是 topik_mock/TOPIK1.txt，
+第 2 回起 TOPIK1-2.txt、TOPIK1-3.txt…；TOPIK II 是 TOPIK2.txt、TOPIK2-2.txt…
 比照正式 TOPIK：
 - TOPIK I：듣기 30 題（40 分鐘）＋읽기 40 題（60 分鐘），各 100 分，總分 200；80 分以上 1 級、140 分以上 2 級
 - TOPIK II：듣기 50 題（60 分鐘）＋쓰기 4 題（50 分鐘）＋읽기 50 題（70 分鐘），各 100 分，總分 300；
@@ -11,9 +12,12 @@
 
 和日檢模擬考（jlpt_mock.py）一樣：一節交一次卷，交卷後同一頁變成檢討，看得到正解、自己選的和中文解析、聽力台詞。
 
-聽力音檔由題庫台詞產生（tools/make_topik_audio.py，edge-tts 的韓語神經語音），放在 static/audio/topik_mock/，不進 git。
+聽力音檔由題庫台詞產生（tools/make_topik_audio.py，edge-tts 的韓語神經語音），放在 static/audio/topik_mock/
+（TOPIK1.mp3、TOPIK1-2.mp3…），不進 git。
 
-權限：TOPIK I 是功能 mock1、TOPIK II 是 mock2（後台審核頁「TOPIK I 模考」「TOPIK II 模考」）。
+權限：TOPIK I 是功能 mock1、TOPIK II 是 mock2（後台審核頁「TOPIK I 模考」「TOPIK II 模考」）；
+開哪幾回在審核頁「模考開放的回數」逐回勾選（access 的 mock_open，和日檢共用 exams.open_mock_tests），
+沒有逐回設定過的學生，有開 mock1／mock2 就是該級每一回都能考。
 """
 import json
 import os
@@ -174,20 +178,38 @@ def parse(text):
 _cache = {}
 
 
-def load(test_no):
-    """讀某一回模擬考；沒有題庫檔回傳 None。檔案改過會重新讀。"""
-    path = os.path.join(BANK_DIR, f'TOPIK{test_no}.txt')
+def tid(test_no, rnd=1):
+    """一回測驗的代號，也是題庫檔與音檔的檔名：第 1 回 TOPIK1，第 2 回起 TOPIK1-2、TOPIK1-3。"""
+    return f'TOPIK{test_no}' if rnd == 1 else f'TOPIK{test_no}-{rnd}'
+
+
+def rounds(test_no):
+    """TOPIK I（1）或 TOPIK II（2）有哪幾回（看 topik_mock/ 裡有哪些檔），由小到大。"""
+    found = []
+    for name in os.listdir(BANK_DIR):
+        m = re.fullmatch(rf'TOPIK{test_no}(?:-(\d+))?\.txt', name)
+        if m:
+            found.append(int(m.group(1) or 1))
+    return sorted(found)
+
+
+def load(test_no, rnd=1):
+    """讀某一級某一回的模擬考；沒有題庫檔回傳 None。檔案改過會重新讀。"""
+    key = tid(test_no, rnd)
+    path = os.path.join(BANK_DIR, key + '.txt')
     if not os.path.exists(path):
         return None
     mtime = os.path.getmtime(path)
-    if _cache.get(test_no, (0, None))[0] != mtime:
+    if _cache.get(key, (0, None))[0] != mtime:
         with open(path, encoding='utf-8') as f:
-            _cache[test_no] = (mtime, parse(f.read()))
-    return _cache[test_no][1]
+            test = parse(f.read())
+        test['round'], test['id'] = rnd, key
+        _cache[key] = (mtime, test)
+    return _cache[key][1]
 
 
-def audio_file(test_no):
-    return os.path.join(AUDIO_DIR, f'TOPIK{test_no}.mp3')
+def audio_file(test_no, rnd=1):
+    return os.path.join(AUDIO_DIR, tid(test_no, rnd) + '.mp3')
 
 
 def _range_words(title):
@@ -207,7 +229,9 @@ def listening_cues(test):
     """把聽力那一節展開成整段音檔的台詞（說話者代號＋文字，'pause' 是停頓秒數）。"""
     no = test['no']
     name = '토픽 원' if no == 1 else '토픽 투'
-    cues = [{'v': 'n', 't': f'한국어능력시험 모의고사, {name} 듣기 시험을 시작하겠습니다.'}, {'v': 'pause', 't': 2}]
+    rnd = test.get('round', 1)
+    title = f'한국어능력시험 모의고사 제{rnd}회' if rnd > 1 else '한국어능력시험 모의고사'
+    cues = [{'v': 'n', 't': f'{title}, {name} 듣기 시험을 시작하겠습니다.'}, {'v': 'pause', 't': 2}]
     for s in test['sections']:
         if s['key'] != 'listening':
             continue
@@ -393,15 +417,22 @@ def grade_writing(section, essays):
 # ---------------------------------------------------------------------------
 
 def _context(student_id):
+    """回傳 (學生, feats, allowed)。allowed(test_no, rnd) 判斷這一回有沒有開通：
+    要開了 mock1／mock2，而且後台有逐回勾選（mock_open）時要勾到這一回；沒逐回設定過就是該級每一回都開。"""
     student = _['get_student'](student_id)
     exams = _['exams']
     exam = exams.use_exam('topik')
-    return student, set(exams.features_for(student, exam))
+    feats = set(exams.features_for(student, exam))
+    tests = exams.open_mock_tests(student, exam)
+
+    def allowed(test_no, rnd=1):
+        return feature_of(test_no) in feats and (tests is None or tid(test_no, rnd) in tests)
+    return student, feats, allowed
 
 
-def _latest(student_id, test_no):
+def _latest(student_id, test_no, rnd=1):
     Attempt = _['Attempt']
-    rows = Attempt.query.filter_by(student_id=student_id, test=test_no).order_by(Attempt.id.desc()).all()
+    rows = Attempt.query.filter_by(student_id=student_id, test=test_no, rnd=rnd).order_by(Attempt.id.desc()).all()
     latest = {}
     for r in rows:
         latest.setdefault(r.section, r)
@@ -429,29 +460,39 @@ def summary(test, latest):
 
 @bp.route('/<int:student_id>')
 def home(student_id):
-    student, feats = _context(student_id)
+    student, feats, allowed = _context(student_id)
     cards = []
     for no in TESTS:
-        test = load(no)
-        card = {'no': no, 'name': TEST_NAMES[no], 'roman': ROMAN[no], 'ready': bool(test),
-                'locked': feature_of(no) not in feats, 'full': FULL[no], 'floors': list(reversed(LEVELS[no]))}
-        if test and not card['locked']:
-            latest = _latest(student.id, no)
-            card['sections'] = [{'key': s['key'], 'name': s['name'], 'minutes': s['minutes'], 'total': s['total'],
-                                 'full': s['full'], 'attempt': latest.get(s['key']),
-                                 'needs_audio': s['key'] == 'listening' and not os.path.exists(audio_file(no))}
-                                for s in test['sections']]
-            card['summary'] = summary(test, latest)
+        nums = rounds(no)
+        usable = [r for r in nums if allowed(no, r)]
+        # 題目還沒出顯示「準備中」；有題目但一回都沒開通才顯示「尚未開通」
+        card = {'no': no, 'name': TEST_NAMES[no], 'roman': ROMAN[no], 'ready': bool(nums),
+                'locked': bool(nums) and not usable, 'hidden_rounds': len(nums) - len(usable), 'rounds': [],
+                'full': FULL[no], 'floors': list(reversed(LEVELS[no]))}
+        for rnd in usable:
+            test = load(no, rnd)
+            latest = _latest(student.id, no, rnd)
+            r = {'round': rnd, 'started': bool(latest),
+                 'sections': [{'key': s['key'], 'name': s['name'], 'minutes': s['minutes'], 'total': s['total'],
+                               'full': s['full'], 'attempt': latest.get(s['key']),
+                               'needs_audio': s['key'] == 'listening' and not os.path.exists(audio_file(no, rnd))}
+                              for s in test['sections']],
+                 'summary': summary(test, latest)}
+            card['rounds'].append(r)
+        # 預設展開：第一個還沒考完的那一回（都考完就展開第 1 回）
+        todo = next((r for r in card['rounds'] if not r['summary']), card['rounds'][0] if card['rounds'] else None)
+        if todo:
+            todo['open'] = True
         cards.append(card)
     return render_template('topik_mock_home.html', student=student, cards=cards)
 
 
-def _section(test_no, key, feats):
+def _section(test_no, rnd, key, allowed):
     if test_no not in TESTS:
         abort(404)
-    if feature_of(test_no) not in feats:
+    if not allowed(test_no, rnd):
         abort(403, description='這一回模擬考還沒開通')
-    test = load(test_no)
+    test = load(test_no, rnd)
     section = next((s for s in (test or {}).get('sections', []) if s['key'] == key), None)
     if not section:
         abort(404)
@@ -469,33 +510,38 @@ def _render(student, test, section, review=None, attempt=None):
                                ai_ready=writing_bank.ai_ready(), ai_label=writing_bank.ai_label())
     audio = None
     no = test['no']
-    if section['key'] == 'listening' and not review and os.path.exists(audio_file(no)):
-        audio = url_for('static', filename=f'audio/topik_mock/TOPIK{no}.mp3', v=int(os.path.getmtime(audio_file(no))))
+    rnd = test['round']
+    if section['key'] == 'listening' and not review and os.path.exists(audio_file(no, rnd)):
+        audio = url_for('static', filename=f'audio/topik_mock/{tid(no, rnd)}.mp3',
+                        v=int(os.path.getmtime(audio_file(no, rnd))))
     import writing_bank
     return render_template('topik_mock_test.html', student=student, test=test, section=section, review=review,
                            audio=audio, is_listening=section['key'] == 'listening', mk=mk,
                            chart=writing_bank.chart_svg, repeats=repeats)
 
 
-@bp.route('/<int:student_id>/t<int:test_no>/<key>')
-def take(student_id, test_no, key):
-    student, feats = _context(student_id)
-    test, section = _section(test_no, key, feats)
+# 第 1 回的網址是 /t1/listening（和只有一回時一樣），第 2 回起是 /t1-2/listening
+@bp.route('/<int:student_id>/t<int:test_no>/<key>', defaults={'rnd': 1})
+@bp.route('/<int:student_id>/t<int:test_no>-<int:rnd>/<key>')
+def take(student_id, test_no, rnd, key):
+    student, feats, allowed = _context(student_id)
+    test, section = _section(test_no, rnd, key, allowed)
     return _render(student, test, section)
 
 
-@bp.route('/<int:student_id>/t<int:test_no>/<key>', methods=['POST'])
-def submit(student_id, test_no, key):
-    student, feats = _context(student_id)
-    test, section = _section(test_no, key, feats)
+@bp.route('/<int:student_id>/t<int:test_no>/<key>', methods=['POST'], defaults={'rnd': 1})
+@bp.route('/<int:student_id>/t<int:test_no>-<int:rnd>/<key>', methods=['POST'])
+def submit(student_id, test_no, rnd, key):
+    student, feats, allowed = _context(student_id)
+    test, section = _section(test_no, rnd, key, allowed)
     Attempt = _['Attempt']
     if key == 'writing':
         essays = {f: (request.form.get(f'w{f}') or '')[:5000] for f in writing_fields(section)}
-        a = Attempt(student_id=student.id, test=test_no, section=key, answers=json.dumps(essays, ensure_ascii=False),
+        a = Attempt(student_id=student.id, test=test_no, rnd=rnd, section=key, answers=json.dumps(essays, ensure_ascii=False),
                     correct=0, total=section['total'], score=None, full=section['full'])
     else:
         answers, correct, score = grade(section, request.form)
-        a = Attempt(student_id=student.id, test=test_no, section=key, answers=json.dumps(answers), correct=correct,
+        a = Attempt(student_id=student.id, test=test_no, rnd=rnd, section=key, answers=json.dumps(answers), correct=correct,
                     total=section['total'], score=score, full=section['full'])
     _['db'].session.add(a)
     _['db'].session.commit()
@@ -511,9 +557,9 @@ def _attempt(student, attempt_id):
 
 @bp.route('/<int:student_id>/result/<int:attempt_id>')
 def result(student_id, attempt_id):
-    student, feats = _context(student_id)
+    student, feats, allowed = _context(student_id)
     a = _attempt(student, attempt_id)
-    test, section = _section(a.test, a.section, feats)
+    test, section = _section(a.test, a.rnd or 1, a.section, allowed)
     review = {'answers': {int(k): v for k, v in json.loads(a.answers).items()}, 'attempt': a} \
         if a.section != 'writing' else None
     return _render(student, test, section, review=review, attempt=a)
@@ -522,9 +568,9 @@ def result(student_id, attempt_id):
 @bp.route('/<int:student_id>/grade/<int:attempt_id>', methods=['POST'])
 def grade_ai(student_id, attempt_id):
     """寫作交卷後請 AI 老師批改（結果存進資料庫，重開頁面不會重複扣費）。"""
-    student, feats = _context(student_id)
+    student, feats, allowed = _context(student_id)
     a = _attempt(student, attempt_id)
-    test, section = _section(a.test, a.section, feats)
+    test, section = _section(a.test, a.rnd or 1, a.section, allowed)
     if a.section != 'writing':
         abort(400)
     if a.ai:
@@ -548,6 +594,7 @@ def register(app, db, deps):
         id = db.Column(db.Integer, primary_key=True)
         student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
         test = db.Column(db.Integer, nullable=False)         # 1＝TOPIK I、2＝TOPIK II
+        rnd = db.Column(db.Integer, default=1)               # 第幾回
         section = db.Column(db.String(20), nullable=False)   # listening / reading / writing
         answers = db.Column(db.Text)                         # 選擇題 {題號: 選項}（0 是沒作答）；寫作 {欄位: 內容}
         correct = db.Column(db.Integer, default=0)
@@ -560,4 +607,10 @@ def register(app, db, deps):
     _['Attempt'] = TopikMockAttempt
     with app.app_context():
         db.create_all()
+        # 原本每級只有一回，舊資料表沒有 rnd 欄：補上，舊紀錄都算第 1 回
+        from sqlalchemy import text
+        cols = {row[1] for row in db.session.execute(text('PRAGMA table_info(topik_mock_attempt)'))}
+        if 'rnd' not in cols:
+            db.session.execute(text('ALTER TABLE topik_mock_attempt ADD COLUMN rnd INTEGER DEFAULT 1'))
+            db.session.commit()
     app.register_blueprint(bp)

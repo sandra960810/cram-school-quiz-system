@@ -434,19 +434,32 @@ def students():
     return render_template('admin/students.html', items=items, tab=tab, tabs=TABS, counts=counts, q=q)
 
 
+# 模擬考逐回勾選：每列的名稱、這一列要搭配哪個功能、審核頁的提示
+MOCK_HINT = {"jlpt": "有勾「B 模考」才有用；和上面的單字等級分開設定",
+             "topik": "TOPIK I 要勾「TOPIK I 模考」、TOPIK II 要勾「TOPIK II 模考」才有用；和上面的單字等級無關"}
+
+
 def _mock_tests(exam):
-    """日檢模擬考每一級有哪幾回（看題庫檔），例如 [(5, ["N5", "N5-2", "N5-3"]), …]。其他考試回傳空清單。"""
-    if exam["key"] != "jlpt":
-        return []
-    import jlpt_mock
-    return [(lv, [jlpt_mock.tid(lv, r) for r in jlpt_mock.rounds(lv)]) for lv in exam["levels"]]
+    """模擬考每一列有哪幾回（看題庫檔）：[(列名, 搭配的功能, 等級或 None, ["N5", "N5-2", …]), …]。
+    日檢一級一列（功能 mock，沒逐回設定過時照單字等級）；韓檢 TOPIK I、II 各一列（功能 mock1、mock2）。其他考試回傳空清單。"""
+    if exam["key"] == "jlpt":
+        import jlpt_mock
+        return [(LEVEL_LABELS["jlpt"](lv), "mock", lv, [jlpt_mock.tid(lv, r) for r in jlpt_mock.rounds(lv)])
+                for lv in exam["levels"]]
+    if exam["key"] == "topik":
+        import topik_mock
+        return [(f"TOPIK {topik_mock.ROMAN[no]}", topik_mock.feature_of(no), None,
+                 [topik_mock.tid(no, r) for r in topik_mock.rounds(no)]) for no in topik_mock.TESTS]
+    return []
 
 
 def _mock_rows(exam, entry, fresh):
-    """審核頁「B 模考」底下逐回勾選的表格。還沒逐回設定過的，照舊依單字等級預先勾（和學生現在看到的一樣）。"""
+    """審核頁「模考開放的回數」逐回勾選的表格。還沒逐回設定過的，照舊預先勾（和學生現在看到的一樣）：
+    日檢依單字等級，韓檢是有開 TOPIK I／II 模考就全部回數。"""
     chosen = entry.get("mock_open")
+    feats = entry.get("features") or []
     rows = []
-    for lv, ids in _mock_tests(exam):
+    for label, feat, lv, ids in _mock_tests(exam):
         cells = []
         for i, t in enumerate(ids, 1):
             if fresh:
@@ -454,10 +467,10 @@ def _mock_rows(exam, entry, fresh):
             elif isinstance(chosen, list):
                 on = t in chosen
             else:
-                on = "mock" in (entry.get("features") or []) and lv in (entry.get("levels") or [])
+                on = feat in feats and (lv is None or lv in (entry.get("levels") or []))
             cells.append(dict(id=t, label=f"第 {i} 回", checked=on))
         if cells:
-            rows.append(dict(label=LEVEL_LABELS["jlpt"](lv), cells=cells))
+            rows.append(dict(label=label, cells=cells))
     return rows
 
 
@@ -483,6 +496,7 @@ def _exam_sections(student, form_access=None):
                   for n in (e.get("levels") or [])]
         sections.append(dict(exam=e, on=bool(entry.get("on")), wanted=e["key"] in wanted, options=options,
                              levels=levels, mock=_mock_rows(e, entry, fresh and e["key"] in wanted),
+                             mock_hint=MOCK_HINT.get(e["key"], ''),
                              open_from=entry.get("open_from", ''),
                              course_start=entry.get("course_start", ''), course_end=entry.get("course_end", ''),
                              state=exams.entry_state(entry)))
@@ -517,8 +531,12 @@ def _access_from_form(form):
         if dates['course_start'] and dates['course_end'] and dates['course_end'] < dates['course_start']:
             errors.append(f"{e['name']}的課程結束日比開始日還早")
         tests = _mock_tests(e)
-        mock_open = [t for _lv, ids in tests for t in ids if form.get(f'{key}__mock__{t}')]
-        if on and tests and 'mock' in feats and not mock_open:
+        mock_open = [t for _l, _f, _lv, ids in tests for t in ids if form.get(f'{key}__mock__{t}')]
+        if key == 'topik':      # TOPIK I、II 分開開通，各自要至少勾一回
+            for label, feat, _lv, ids in tests:
+                if on and ids and feat in feats and not any(t in mock_open for t in ids):
+                    errors.append(f"{e['name']}的 {label} 模考要至少勾一回")
+        elif on and tests and 'mock' in feats and not mock_open:
             errors.append(f"{e['name']}的模考要至少勾一回")
         if on or feats or any(dates.values()):
             access[key] = dict(on=on, features=feats, levels=levels, **dates)

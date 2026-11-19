@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-rem 產生韓檢模擬考（TOPIK I、II）的聽力音檔：雙擊即可。題目沒改過的會略過。
+rem 產生韓檢模擬考（TOPIK I、II 每一回）的聽力音檔：雙擊即可。題目沒改過的會略過。
 rem 結果寫在 topik_audio_log.txt。
 cd /d "%~dp0"
 set PY=python
