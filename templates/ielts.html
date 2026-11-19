@@ -44,7 +44,7 @@
         .status-chip.familiar { background: var(--ok-50); color: var(--ok); }
         .status-chip.new { background: var(--primary-50); color: var(--primary); }
 
-        .word-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .word-row { max-width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 8px; }
         .word { font-size: 36px; font-weight: bold; color: var(--ink); white-space: nowrap; }   /* 長單字由 UI.fitText 縮小字級，不從中間斷開 */
         .play-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--primary-50); color: var(--primary); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
         .play-btn:hover { background: var(--primary); color: white; }
@@ -95,6 +95,11 @@
         .browse-btn:disabled { opacity: 0.4; cursor: default; }
         .browse-count { flex: none; min-width: 64px; text-align: center; color: var(--muted); font-size: 14px; font-weight: bold; }
         .hint { text-align: center; color: var(--muted); font-size: 15px; margin-top: 12px; }
+        /* 右下角浮動的「聲音」鈕不能蓋住提示：底部留出按鈕的高度，窄螢幕時提示也讓出按鈕的寬度 */
+        body { padding-bottom: 76px; }
+        /* 手機上收藏星星縮小靠角落、單字往下一點，兩者不重疊，字就不用為了讓位而縮小 */
+        @media (max-width: 480px) { .card { padding-top: 44px; } .fav-btn { top: 4px; right: 4px; } }
+        @media (max-width: 600px) { .hint { text-align: left; padding-right: 104px; font-size: 14px; } }
         .error { color: var(--bad); font-size: 14px; text-align: center; min-height: 1em; margin-top: 8px; }
 
         /* 結算 */
@@ -236,7 +241,7 @@
         currentWord = w;
         document.getElementById('word-display').innerText = w.word;
         // 舊版 ui.js 還在瀏覽器快取時沒有 fitText：跳過就好，不能讓整個滑卡停擺
-        if (UI.fitText) UI.fitText(document.getElementById('word-display'));
+        if (UI.fitText) UI.fitText(document.getElementById('word-display'), { avoid: [document.getElementById('fav-btn')] });   // 不讓收藏星星蓋到字
         const rd = document.getElementById('reading-display');
         if (rd) rd.innerText = w.reading || '';
         document.getElementById('pos-display').innerText = w.pos || '';

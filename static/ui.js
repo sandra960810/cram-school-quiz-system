@@ -346,35 +346,67 @@
 
     // 長單字（administrative、authorization…）在手機上會被硬切成兩行。
     // fitText 讓文字維持一行、依可用寬度自動縮小字級；縮到 min 還放不下才在空白處換行（片語），
-    // 絕不從單字中間斷開。可用寬度＝外層寬度扣掉旁邊的按鈕等元素。視窗大小改變時自動重算。
-    const fitted = new Set();
-    function fitText(el, min = 18) {
+    // 再放不下（沒有空白的超長字）才允許字中斷行，總之絕不超出卡片。
+    // 可用寬度＝外層寬度扣掉旁邊的按鈕；opts.avoid 是疊在上面的浮動元素（例如收藏星星），
+    // 和這一行上下重疊時兩邊各讓出它佔的寬度，文字維持置中。
+    // 量寬度時扣掉卡片進場動畫的縮放，而且反覆縮到真的放得下：
+    // Android 手機把「字型大小」調大時，瀏覽器會再放大字級，只算一次會不夠小（2026-11 長單字跑出卡片）。
+    // 視窗大小、外層寬度改變、字型載入完成時都會自動重算。
+    const fitted = new Map();
+    function fitText(el, opts) {
         if (!el || !el.parentElement) return;
-        fitted.add(el);
-        Object.assign(el.style, { fontSize: '', whiteSpace: 'nowrap', wordBreak: 'normal', overflowWrap: 'normal', flexShrink: '0', minWidth: '' });
+        if (typeof opts === 'number') opts = { min: opts };
+        opts = Object.assign({ min: 18, avoid: [] }, fitted.get(el), opts || {});
+        fitted.set(el, opts);
+        watchBox(el);
+        Object.assign(el.style, { fontSize: '', whiteSpace: 'nowrap', wordBreak: 'normal', overflowWrap: 'normal', flexShrink: '0', minWidth: '', maxWidth: '' });
         const box = el.parentElement, cs = getComputedStyle(box);
         const gap = parseFloat(cs.columnGap) || 0;
         let avail = box.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+        // 卡片進場動畫有縮放：量到的寬度除以外層的縮放比例，換回排版寬度
+        const br = box.getBoundingClientRect();
+        const k = (box.offsetWidth && br.width / box.offsetWidth) || 1;
+        const widthOf = (n) => n.getBoundingClientRect().width / k;
         for (const c of box.children) {
-            if (c !== el && getComputedStyle(c).position !== 'absolute') avail -= c.getBoundingClientRect().width + (gap || 8);
+            if (c !== el && getComputedStyle(c).position !== 'absolute') avail -= widthOf(c) + (gap || 8);
+        }
+        // 浮動按鈕（收藏星星）和這一行上下重疊時，兩邊各讓出它伸進來的寬度
+        for (const a of opts.avoid) {
+            if (!a || !a.isConnected || a.offsetParent === null) continue;
+            const r = a.getBoundingClientRect();
+            if (r.bottom <= br.top || r.top >= br.bottom) continue;
+            const into = Math.max(0, Math.min(br.right, r.right) - Math.max(br.left, r.left));
+            const fromEdge = Math.min(r.right - br.left, br.right - r.left);   // 靠哪一邊就從哪一邊算
+            if (into > 0) avail -= (2 * Math.min(fromEdge, br.width / 2)) / k + 4;
         }
         if (avail <= 0) return;   // 還沒排版（隱藏中），之後再算
-        const width = el.getBoundingClientRect().width;
         let size = parseFloat(getComputedStyle(el).fontSize);
-        if (width > avail) {
-            size = Math.max(min, Math.floor(size * avail / width));
-            el.style.fontSize = size + 'px';
-        }
-        if (el.getBoundingClientRect().width > avail + 1) {
-            // 最小字級還放不下（很長的片語）：只在空白處換行
-            Object.assign(el.style, { whiteSpace: 'normal', flexShrink: '1', minWidth: '0' });
+        const shrinkTo = (min) => {
+            for (let i = 0; i < 8 && widthOf(el) > avail && size > min; i++) {
+                size = Math.max(min, Math.floor(size * avail / widthOf(el) * 100) / 100 - 0.5);
+                el.style.fontSize = size + 'px';
+            }
+        };
+        shrinkTo(opts.min);
+        // 片語到最小字級就在空白處換行；沒有空白的超長單字再縮小一點
+        if (!/\s/.test(el.textContent.trim())) shrinkTo(Math.min(opts.min, 13));
+        if (widthOf(el) > avail + 1) {
+            // 最小字級還放不下（很長的片語）：先只在空白處換行，真的不行才讓字斷開
+            Object.assign(el.style, { whiteSpace: 'normal', flexShrink: '1', minWidth: '0', maxWidth: avail + 'px' });
+            if (el.scrollWidth > el.clientWidth + 1) el.style.overflowWrap = 'anywhere';
         }
     }
+    function refitAll() { fitted.forEach((o, el) => el.isConnected ? fitText(el) : fitted.delete(el)); }
+    // 外層寬度改變（版面晚一步排好、手機轉向、字型放大）時重算
+    const ro = window.ResizeObserver ? new ResizeObserver(() => { clearTimeout(fitTimer); fitTimer = setTimeout(refitAll, 60); }) : null;
+    const watched = new WeakSet();
+    function watchBox(el) {
+        const box = el.parentElement;
+        if (ro && box && !watched.has(box)) { watched.add(box); ro.observe(box); }
+    }
     let fitTimer = null;
-    window.addEventListener('resize', () => {
-        clearTimeout(fitTimer);
-        fitTimer = setTimeout(() => fitted.forEach(el => el.isConnected ? fitText(el) : fitted.delete(el)), 100);
-    });
+    window.addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(refitAll, 100); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refitAll);
 
     window.UI = { icon, play, ripple, speak, voiceScore, voiceQuality, voiceTier, fitText };
 })();
