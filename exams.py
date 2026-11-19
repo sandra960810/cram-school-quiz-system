@@ -56,6 +56,7 @@ PATH_EXAM = [("/exam/", "ielts"), ("/phonics/", "basic"), ("/jlpt-mock/", "jlpt"
 # - features：開了哪些功能（learn、vocab_quiz、exam、phonics；mock 是日檢模擬考，見 jlpt_mock.py；
 #             mock1、mock2 是韓檢 TOPIK I、TOPIK II 模擬考，見 topik_mock.py）
 # - levels：分級考試（韓檢、日檢）開了哪幾級
+# - mock_open：日檢模擬考開了哪幾回（例如 ["N5", "N5-2", "N4"]），見 open_mock_tests()；沒有這個欄位＝照 levels 全部回數
 # - open_from：開通日期，這天以前還不能用；course_end：課程結束日，過了就不能用（空的＝不限）
 # Student.status：pending（等審核）、active（已開通）、rejected（退回）、disabled（停用）、
 #                 demo（示範帳號：不用登入、全部開放，原本的測試學生是這種）
@@ -138,6 +139,18 @@ def open_levels(student, exam):
     if not isinstance(chosen, list):
         return list(levels)
     return [n for n in levels if n in chosen]
+
+
+def open_mock_tests(student, exam):
+    """日檢模擬考開放了哪幾回：測驗代號的集合，例如 {"N5", "N5-2", "N4"}（第 1 回 N5，第 2 回起 N5-2…）。
+
+    工作人員在後台「B 模考」底下逐回勾選，存在 Student.access 該考試的 mock_open。
+    回傳 None＝沒有另外設定（示範帳號，或這個功能出來前就開通的學生），照舊依 open_levels() 的等級開放全部回數。"""
+    access = access_of(student)
+    if access is None:
+        return None
+    chosen = (access.get(exam["key"]) or {}).get('mock_open')
+    return set(chosen) if isinstance(chosen, list) else None
 
 
 def can_use(student, exam_key):

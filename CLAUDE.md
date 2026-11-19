@@ -143,7 +143,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 
 - 每級可以有多回（目標各 3 回），題目原創；一回一個檔：第 1 回 `jlpt_mock/N5.txt`，第 2 回起 `N5-2.txt`、`N5-3.txt`（`jlpt_mock.rounds()` 看有哪些檔；格式、題數、計分見 `jlpt_mock/README.md`）。
   網址第 1 回是 `/jlpt-mock/<id>/N5/<節>`，第 2 回起 `/N5-2/<節>`；作答紀錄 `JlptMockAttempt.rnd` 記第幾回。新增一回只要加題庫檔、跑檢查、產生音檔
-- 入口在日檢功能選單的「模擬考」；要後台開通「B 模考」（功能代號 `mock`）而且該等級有開（`exams.open_levels`），沒開的等級回 403
+- 入口在日檢功能選單的「模擬考」；要後台開通「B 模考」（功能代號 `mock`），開哪幾回在審核頁「模考開放的回數」逐回勾選
+  （存在 access 的 `mock_open`，例如 `["N5", "N5-2"]`，判斷用 `exams.open_mock_tests`），和單字等級分開；
+  沒有逐回設定過的學生照舊看單字等級（`exams.open_levels`），該級每回都開。沒開的回數回 403、首頁顯示「另有 N 回尚未開通」
 - 一個科目交一次卷（`JlptMockAttempt` 一筆），交卷後同一頁變成檢討：正解、學生選的、中文解析、聽解台詞；
   全部科目都交過才顯示 180 分的估計分數與是否達合格標準（標明是估計）
 - 聽解音檔由題庫台詞用 edge-tts 產生（`tools/make_jlpt_audio.py`，一回一個 mp3：`N5.mp3`、`N5-2.mp3`，不進 git）；沒有音檔時頁面會提示雙擊 `jlpt_audio.bat`

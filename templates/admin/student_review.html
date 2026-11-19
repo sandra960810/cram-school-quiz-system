@@ -25,6 +25,10 @@
 .sub { font-size: 13px; font-weight: bold; color: var(--muted); margin: 12px 0 6px; }
 .dates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .dates label { font-size: 13px; color: var(--muted); font-weight: bold; display: block; margin-bottom: 4px; }
+.mock-grid { display: grid; gap: 6px; }
+.mock-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.mock-lv { width: 34px; font-weight: bold; color: var(--tone); }
+.mock-all { font-weight: normal; color: var(--primary); margin-left: 8px; }
 .opt-desc { font-size: 12px; color: var(--muted); margin: 4px 0 0; }
 .actions { position: sticky; bottom: 0; background: var(--bg); padding: 12px 0; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; border-top: 1px solid var(--line); }
 .actions .sp { flex: 1; }
@@ -77,6 +81,15 @@
         <div class="sub">單字學習區開放的等級</div>
         <div class="checks">{% for lv in s.levels %}<label><input type="checkbox" name="{{ k }}__lv__{{ lv.n }}" value="1" {% if lv.checked %}checked{% endif %}> {{ lv.label }}</label>{% endfor %}</div>
         {% endif %}
+        {% if s.mock %}
+        <div class="sub">模考開放的回數 <span style="font-weight:normal">（有勾「B 模考」才有用；和上面的單字等級分開設定）</span>
+            <a href="#" class="mock-all" data-on="1">全部勾選</a>・<a href="#" class="mock-all" data-on="">全部取消</a></div>
+        <div class="mock-grid">{% for row in s.mock %}
+            <div class="mock-row"><span class="mock-lv">{{ row.label }}</span>
+                <div class="checks">{% for c in row.cells %}<label><input type="checkbox" name="{{ k }}__mock__{{ c.id }}" value="1" {% if c.checked %}checked{% endif %}> {{ c.label }}</label>{% endfor %}</div>
+            </div>{% endfor %}
+        </div>
+        {% endif %}
         <div class="sub">日期 <span style="font-weight:normal">（空白＝不限）</span></div>
         <div class="dates">
             <div><label>開通日期（這天起可以用）</label><input type="date" name="{{ k }}__open_from" value="{{ s.open_from }}"></div>
@@ -120,5 +133,9 @@
 document.querySelectorAll('[data-toggle]').forEach(cb => cb.addEventListener('change', () => {
     document.getElementById('body-' + cb.dataset.toggle).hidden = !cb.checked;
     cb.closest('.exam').classList.toggle('off', !cb.checked);
+}));
+document.querySelectorAll('.mock-all').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    a.closest('.body').querySelectorAll('.mock-grid input').forEach(cb => { cb.checked = !!a.dataset.on; });
 }));
 </script>{% endblock %}
