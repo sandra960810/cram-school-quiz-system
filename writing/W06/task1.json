@@ -1,0 +1,49 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The chart below shows the proportion of water used for agriculture, industry and households in four regions of the world.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "bar",
+    "title": "Water use by sector in four regions",
+    "x": [
+      "Region A",
+      "Region B",
+      "Region C",
+      "Region D"
+    ],
+    "y_label": "Percentage of total water use (%)",
+    "y_max": 90,
+    "y_step": 10,
+    "series": [
+      {
+        "name": "Agriculture",
+        "values": [
+          82,
+          45,
+          20,
+          64
+        ]
+      },
+      {
+        "name": "Industry",
+        "values": [
+          8,
+          37,
+          55,
+          18
+        ]
+      },
+      {
+        "name": "Households",
+        "values": [
+          10,
+          18,
+          25,
+          18
+        ]
+      }
+    ]
+  }
+}

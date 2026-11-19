@@ -1,0 +1,40 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The chart below shows the average number of hours per week that teenagers and adults in one country spent on four activities in 2024.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "bar",
+    "title": "Average weekly hours spent on activities, 2024",
+    "x": [
+      "Screen time",
+      "Exercise",
+      "Reading",
+      "Seeing friends"
+    ],
+    "y_label": "Hours per week",
+    "y_max": 30,
+    "y_step": 5,
+    "series": [
+      {
+        "name": "Teenagers (13–19)",
+        "values": [
+          27,
+          6,
+          3,
+          9
+        ]
+      },
+      {
+        "name": "Adults (20–64)",
+        "values": [
+          19,
+          4,
+          5,
+          6
+        ]
+      }
+    ]
+  }
+}

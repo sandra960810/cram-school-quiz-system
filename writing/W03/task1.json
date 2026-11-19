@@ -1,0 +1,57 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The graph below shows the amount of electricity generated from three different sources in one country between 2000 and 2025.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "line",
+    "title": "Electricity generation by source, 2000–2025",
+    "x": [
+      "2000",
+      "2005",
+      "2010",
+      "2015",
+      "2020",
+      "2025"
+    ],
+    "y_label": "Terawatt hours (TWh)",
+    "y_max": 180,
+    "y_step": 20,
+    "series": [
+      {
+        "name": "Coal",
+        "values": [
+          150,
+          160,
+          135,
+          100,
+          60,
+          35
+        ]
+      },
+      {
+        "name": "Natural gas",
+        "values": [
+          40,
+          55,
+          80,
+          95,
+          90,
+          70
+        ]
+      },
+      {
+        "name": "Wind and solar",
+        "values": [
+          5,
+          10,
+          25,
+          55,
+          100,
+          140
+        ]
+      }
+    ]
+  }
+}

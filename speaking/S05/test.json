@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 5",
+  "part1": [
+    {
+      "topic": "Work or studies",
+      "questions": [
+        "What do you do? Do you work or are you a student?",
+        "What do you find most difficult about your work or studies?",
+        "How do you usually get to your workplace or school?",
+        "What would you like to do in the future?"
+      ]
+    },
+    {
+      "topic": "Sport",
+      "questions": [
+        "Do you play any sports?",
+        "Which sports are popular in your country?",
+        "Did you do much sport at school?",
+        "Do you prefer watching sport or taking part in it?"
+      ]
+    },
+    {
+      "topic": "Colours",
+      "questions": [
+        "What is your favourite colour?",
+        "Are there any colours you never wear?",
+        "Do colours have special meanings in your culture?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "A person who influenced you",
+    "cue": "Describe a person who has had an important influence on your life.",
+    "points": [
+      "who this person is",
+      "how you know this person",
+      "what this person has done for you"
+    ],
+    "final": "and explain why this person has been so important to you.",
+    "followups": [
+      "Do you still keep in touch with this person?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Role models and celebrities",
+      "questions": [
+        "What kinds of people do young people admire most today?",
+        "Do you think famous people have a responsibility to behave well in public?",
+        "Are role models more important for children or for adults?"
+      ]
+    },
+    {
+      "theme": "Family and generations",
+      "questions": [
+        "In what ways do parents influence their children's choices?",
+        "Do grandparents play a different role in families now compared with the past?",
+        "Some people think young people today have very different values from their parents. Do you agree?"
+      ]
+    }
+  ]
+}
