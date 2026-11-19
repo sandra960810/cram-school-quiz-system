@@ -39,3 +39,5 @@ instance/admin.json
 # 管理員在後台改的題庫（只存在本機，git pull 不會蓋掉）
 instance/bank_edits/
 instance/secret_key.txt
+static/audio/jlpt_mock/
+jlpt_audio_log.txt
