@@ -201,8 +201,19 @@ def initials(text):
 
 def length_hint(word):
     if ' ' in word:
-        return f'{len(word.split())} 個字'
+        if is_korean(word):
+            return f'{len(word.split())} 個字'
+        return f'{len(word.split())} 個字、{sum(c.isalpha() for c in word)} 個字母'
     return f'{len(word)} 個字' if is_korean(word) else f'{len(word)} 個字母'
+
+
+def letter_mask(word, show_first=False):
+    """英文打字題的底線提示：一個字母一條底線，空白、連字號、撇號照原樣顯示。
+    例如 ice-cream → _ _ _ - _ _ _ _ _；show_first 時第一個字母直接給（apple → a _ _ _ _）。"""
+    out = []
+    for i, c in enumerate(word or ''):
+        out.append(c if (not c.isalpha() or (show_first and i == 0)) else '_')
+    return ''.join(out)
 
 
 def check_answer(qtype, given, answer, accept=None):
@@ -318,6 +329,9 @@ def build_questions(words, types, size, distractor_pool, rng=random):
                     choices = [v.word] + [d.word for d in opts]
                 rng.shuffle(choices)
                 q["choices"] = choices
+        # 英文打字題：有幾個字母就幾條底線（日文、韓文不用，假名數與子音提示另外給）
+        if q["type"] in TYPED and not readings and not is_korean(q["answer"]):
+            q["mask"] = letter_mask(q["answer"], show_first=q["type"] != 'dictate')
         questions.append(q)
     rng.shuffle(questions)   # 不熟的字雖然優先選進來，出題順序還是打散
     return questions
