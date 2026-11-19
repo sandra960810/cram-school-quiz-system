@@ -51,7 +51,7 @@ writing/            寫作題庫資料：tests.json、W01/meta.json、W01/task1~
 speaking_bank.py    口說題庫的載入、考官台詞流程與 AI 老師評分（沿用寫作的金鑰設定）
 speaking/           口說題庫資料：tests.json、S01/test.json…
 jlpt_mock.py        日檢模擬考 /jlpt-mock/<學生id>：題庫解析、作答、交卷顯示正解、估計分數（Blueprint）
-jlpt_mock/          日檢模擬考題庫 N5.txt～N1.txt（純文字格式，見 README.md）
+jlpt_mock/          日檢模擬考題庫 N5.txt～N1.txt、第 2 回起 N5-2.txt…（純文字格式，見 README.md）
 jlpt_audio.bat      在櫃台電腦產生日檢模擬考聽解音檔（雙擊）
 topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各一回，作答、交卷顯示正解、算總分與級數、寫作 AI 批改（Blueprint）
 topik_mock/         韓檢模擬考題庫 TOPIK1.txt、TOPIK2.txt（純文字格式，見 README.md）
@@ -137,11 +137,12 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 
 ## 日檢模擬考（jlpt_mock.py）
 
-- N5～N1 各一回，題目原創；題庫是 `jlpt_mock/N5.txt`…（格式、題數、計分見 `jlpt_mock/README.md`）
+- 每級可以有多回（目標各 3 回），題目原創；一回一個檔：第 1 回 `jlpt_mock/N5.txt`，第 2 回起 `N5-2.txt`、`N5-3.txt`（`jlpt_mock.rounds()` 看有哪些檔；格式、題數、計分見 `jlpt_mock/README.md`）。
+  網址第 1 回是 `/jlpt-mock/<id>/N5/<節>`，第 2 回起 `/N5-2/<節>`；作答紀錄 `JlptMockAttempt.rnd` 記第幾回。新增一回只要加題庫檔、跑檢查、產生音檔
 - 入口在日檢功能選單的「模擬考」；要後台開通「B 模考」（功能代號 `mock`）而且該等級有開（`exams.open_levels`），沒開的等級回 403
 - 一個科目交一次卷（`JlptMockAttempt` 一筆），交卷後同一頁變成檢討：正解、學生選的、中文解析、聽解台詞；
   全部科目都交過才顯示 180 分的估計分數與是否達合格標準（標明是估計）
-- 聽解音檔由題庫台詞用 edge-tts 產生（`tools/make_jlpt_audio.py`，一級一個 mp3，不進 git）；沒有音檔時頁面會提示雙擊 `jlpt_audio.bat`
+- 聽解音檔由題庫台詞用 edge-tts 產生（`tools/make_jlpt_audio.py`，一回一個 mp3：`N5.mp3`、`N5-2.mp3`，不進 git）；沒有音檔時頁面會提示雙擊 `jlpt_audio.bat`
 - 改題目後一定要跑 `python tools/check_jlpt_mock.py`
 
 ## 韓檢模擬考（topik_mock.py）
@@ -358,7 +359,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
     換等級只要改 CSV 的「主題」，`import_sheet.py` 會把同課程唯一的同拼字搬過去，不會多出重複字
 - ✅ 學生註冊／登入與工作人員審核開通（依課程開功能、等級、開通與課程日期）；原本的單字、題庫編輯後台暫停
 - ✅ 韓檢模擬考 TOPIK I、TOPIK II 各一回（70／104 題；交卷顯示正解與解析、總分與級數；寫作 AI 批改；聽力音檔在櫃台電腦雙擊 `topik_audio.bat` 產生）
-- ✅ 日檢模擬考 N5～N1 各一回（67／85／102／105／107 題；交卷顯示正解與解析、估計分數；聽解音檔在櫃台電腦雙擊 `jlpt_audio.bat` 產生）
+- ✅ 日檢模擬考 N5～N1 各一回（67／85／102／105／107 題），N5、N4 已有 3 回，N3～N1 的第 2、3 回製作中（交卷顯示正解與解析、估計分數；聽解音檔在櫃台電腦雙擊 `jlpt_audio.bat` 產生）
 - ⬜ 托福（後台已有開關，內容還沒開發）
 - ✅ 聽力題庫 **6 / 10 回**（L01–L06 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L07–L10

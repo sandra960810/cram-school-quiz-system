@@ -10,17 +10,18 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 import jlpt_mock  # noqa: E402
 
 problems = []
-for level in jlpt_mock.LEVELS:
+for level, rnd in [(lv, r) for lv in jlpt_mock.LEVELS for r in jlpt_mock.rounds(lv)]:
+    name = jlpt_mock.tid(level, rnd)
     try:
-        test = jlpt_mock.load(level)
+        test = jlpt_mock.load(level, rnd)
     except Exception as e:
-        problems.append(f'N{level}：讀不進來：{e}')
+        problems.append(f'{name}：讀不進來：{e}')
         continue
     if not test:
-        print(f'N{level}：還沒有題庫')
+        print(f'{name}：還沒有題庫')
         continue
     if test.get('level') != level:
-        problems.append(f'N{level}：@test 的等級寫錯')
+        problems.append(f'{name}：@test 的等級寫錯')
     kinds = set()
     summary = []
     for s in test['sections']:
@@ -29,9 +30,9 @@ for level in jlpt_mock.LEVELS:
             kinds.add(g['kind'])
             qs = [it for it in g['items'] if it['type'] == 'q']
             if not qs:
-                problems.append(f"N{level} {g['title']}：沒有題目")
+                problems.append(f"{name} {g['title']}：沒有題目")
             for q in qs:
-                where = f"N{level} {s['key']} {g['title']} {q['label']}"
+                where = f"{name} {s['key']} {g['title']} {q['label']}"
                 n = len(q['options'])
                 if n not in (3, 4):
                     problems.append(f'{where}：選項要 3 或 4 個（現在 {n} 個）')
@@ -49,11 +50,11 @@ for level in jlpt_mock.LEVELS:
                     if c['v'] not in ('n', 'f1', 'f2', 'm1', 'm2'):
                         problems.append(f"{where}：說話者代號 {c['v']} 不存在")
     if kinds != {'lang', 'read', 'listen'}:
-        problems.append(f'N{level}：要有言語知識、読解、聴解三種題組')
+        problems.append(f'{name}：要有言語知識、読解、聴解三種題組')
     # 正解位置不要太偏（四個選項大致平均）
     answers = [q['answer'] for s in test['sections'] for g in s['groups'] for q in g['items'] if q['type'] == 'q']
     spread = {i: answers.count(i) for i in (1, 2, 3, 4)}
-    print(f"N{level}：{'、'.join(summary)}；正解分布 {spread}")
+    print(f"{name}：{'、'.join(summary)}；正解分布 {spread}")
 
 for p in problems:
     print('✗', p)

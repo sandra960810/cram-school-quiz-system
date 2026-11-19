@@ -1,11 +1,11 @@
 """把日檢模擬考的聽解台詞轉成 mp3（edge-tts 的日語神經語音，免註冊、免金鑰）。
 
 音檔直接由題庫（jlpt_mock/N5.txt…）裡的台詞產生，所以音檔內容與題目必定一致。
-一級一個檔：static/audio/jlpt_mock/N5.mp3（不進 git）。題庫改過（台詞不一樣）會自動重新產生。
+一回一個檔：static/audio/jlpt_mock/N5.mp3、N5-2.mp3（不進 git）。題庫改過（台詞不一樣）會自動重新產生。
 
 用法：
     python tools/make_jlpt_audio.py          產生缺少或題庫改過的音檔
-    python tools/make_jlpt_audio.py N5       只產生 N5
+    python tools/make_jlpt_audio.py N5 N5-2  只產生 N5 第 1、2 回
     python tools/make_jlpt_audio.py --force  全部重新產生
 """
 import asyncio
@@ -93,22 +93,22 @@ async def main():
     force = '--force' in sys.argv
     OUT.mkdir(parents=True, exist_ok=True)
     for level in jlpt_mock.LEVELS:
-        if args and f'N{level}' not in args:
-            continue
-        test = jlpt_mock.load(level)
-        if not test:
-            continue
-        cues = jlpt_mock.listening_cues(test)
-        stamp = hashlib.sha1(json.dumps([cues, VOICES, LEVEL_RATE[level]], ensure_ascii=False).encode()).hexdigest()
-        mp3, mark = OUT / f'N{level}.mp3', OUT / f'N{level}.sha'
-        if mp3.exists() and mark.exists() and mark.read_text() == stamp and not force:
-            print(f'N{level}：音檔已經是最新的，略過')
-            continue
-        print(f'N{level}：產生聽解音檔（{sum(1 for c in cues if c["v"] != "pause")} 句）…', flush=True)
-        data = await build(level, test)
-        mp3.write_bytes(data)
-        mark.write_text(stamp)
-        print(f'N{level}：完成，{len(data) / 1e6:.1f} MB')
+        for rnd in jlpt_mock.rounds(level):
+            name = jlpt_mock.tid(level, rnd)
+            if args and name not in args:
+                continue
+            test = jlpt_mock.load(level, rnd)
+            cues = jlpt_mock.listening_cues(test)
+            stamp = hashlib.sha1(json.dumps([cues, VOICES, LEVEL_RATE[level]], ensure_ascii=False).encode()).hexdigest()
+            mp3, mark = OUT / f'{name}.mp3', OUT / f'{name}.sha'
+            if mp3.exists() and mark.exists() and mark.read_text() == stamp and not force:
+                print(f'{name}：音檔已經是最新的，略過')
+                continue
+            print(f'{name}：產生聽解音檔（{sum(1 for c in cues if c["v"] != "pause")} 句）…', flush=True)
+            data = await build(level, test)
+            mp3.write_bytes(data)
+            mark.write_text(stamp)
+            print(f'{name}：完成，{len(data) / 1e6:.1f} MB')
 
 
 if __name__ == '__main__':
