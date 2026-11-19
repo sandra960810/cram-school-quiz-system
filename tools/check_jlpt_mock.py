@@ -31,7 +31,7 @@ for level in jlpt_mock.LEVELS:
             if not qs:
                 problems.append(f"N{level} {g['title']}：沒有題目")
             for q in qs:
-                where = f"N{level} {s['key']} {g['title']} 第 {q['ban']} 題"
+                where = f"N{level} {s['key']} {g['title']} {q['label']}"
                 n = len(q['options'])
                 if n not in (3, 4):
                     problems.append(f'{where}：選項要 3 或 4 個（現在 {n} 個）')

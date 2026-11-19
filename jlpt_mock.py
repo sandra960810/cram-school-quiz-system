@@ -68,7 +68,8 @@ def parse(text):
         elif head == '#':
             parts = [x.strip() for x in rest.split('｜')]
             flags = parts[2].split() if len(parts) > 2 else []
-            group = {'title': parts[0], 'kind': parts[1], 'spoken': 'spoken' in flags, 'instr': '', 'items': []}
+            group = {'title': parts[0], 'kind': parts[1], 'spoken': 'spoken' in flags, 'cont': 'cont' in flags,
+                     'instr': '', 'items': []}
             if group['kind'] not in ('lang', 'read', 'listen'):
                 raise ValueError(f'第 {ln} 行：題組種類要是 lang、read 或 listen')
             section['groups'].append(group)
@@ -98,16 +99,22 @@ def parse(text):
             q['explain'].append(rest)
         else:
             raise ValueError(f'第 {ln} 行看不懂：{line[:30]}')
-    # 編號：每一節從 1 開始連號（表單欄位用）；聽解另外有「幾ばん」（每個問題從 1 開始）
+    # 編號：每一節從 1 開始連號（表單欄位用）；聽解另外有「幾番」（每個問題從 1 開始）。
+    # 題組標 cont 的接著上一個題組往下數（N2、N1 聽解問題５的３番：一段話問兩題，
+    # 第二題的台詞用「質問２」開頭，和前一題同一個「番」）
     for s in test['sections']:
-        n = 0
+        n = k = 0
         for g in s['groups']:
-            k = 0
+            if not g['cont']:
+                k = 0
             for it in g['items']:
                 if it['type'] == 'q':
                     n += 1
-                    k += 1
-                    it['n'], it['ban'] = n, k
+                    follow = bool(it['cues']) and it['cues'][0]['t'].startswith('質問２')
+                    if not follow:
+                        k += 1
+                    it['n'], it['ban'], it['follow'] = n, k, follow
+                    it['label'] = f'{k}番' + ('（質問２）' if follow else '')
         s['total'] = n
     return test
 
@@ -140,15 +147,17 @@ def listening_cues(test):
         for g in s['groups']:
             if g['kind'] != 'listen':
                 continue
-            cues.append({'v': 'n', 't': plain(g['title']) + '。'})
+            if not g['cont']:
+                cues.append({'v': 'n', 't': plain(g['title']) + '。'})
             if g['instr']:
                 cues.append({'v': 'n', 't': plain(g['instr'])})
             cues.append({'v': 'pause', 't': 2})
             for it in g['items']:
                 if it['type'] != 'q':
                     continue
-                cues.append({'v': 'n', 't': f"{it['ban']}番"})
-                cues.append({'v': 'pause', 't': 1})
+                if not it['follow']:
+                    cues.append({'v': 'n', 't': f"{it['ban']}番"})
+                    cues.append({'v': 'pause', 't': 1})
                 for c in it['cues']:
                     cues.append({'v': c['v'], 't': plain(c['t'])})
                 if g['spoken']:

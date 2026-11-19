@@ -20,7 +20,7 @@
         .passage td, .passage th { border: 1px solid var(--line-strong); padding: 6px 10px; text-align: left; }
         .q { margin-bottom: 22px; }
         .q .stem { display: flex; gap: 10px; }
-        .q .no { flex: none; font-weight: bold; min-width: 30px; }
+        .q .no { flex: none; font-weight: bold; min-width: 30px; white-space: nowrap; }
         .oplist { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; margin: 6px 0 0 40px; }
         .oplist.one { grid-template-columns: 1fr; }
         .oplist.nums { grid-template-columns: repeat(4, auto); justify-content: start; gap: 10px; }
@@ -93,7 +93,7 @@
             {% set hide = g.spoken and not review %}
             <div class="q" id="q{{ it.n }}">
                 <div class="stem jp" lang="ja">
-                    <span class="no">{% if is_listening %}{{ it.ban }}番{% else %}{{ it.n }}{% endif %}</span>
+                    <span class="no">{% if is_listening %}{{ it.label }}{% else %}{{ it.n }}{% endif %}</span>
                     <span>{{ mk(it.stem) }}</span>
                 </div>
                 {% if review and it.cues %}
