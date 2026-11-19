@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-exam="{{ exam.key }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ test.title }}｜{{ section.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .ko { font-size: 17px; line-height: 1.9; word-break: keep-all; }
+        .ginstr { background: var(--surface-2); border-left: 4px solid var(--primary); padding: 10px 14px;
+                  border-radius: 6px; line-height: 1.9; margin: 0 0 16px; font-size: 14px; color: var(--muted); }
+        .passage { border: 1px solid var(--ink-2); border-radius: 4px; padding: 16px 20px; margin: 6px 0 18px;
+                   background: #fff; line-height: 2; font-size: 17px; }
+        .passage p { margin: 0 0 8px; }
+        .passage table, .stem table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 15px; }
+        .passage td, .passage th { border: 1px solid var(--line-strong); padding: 6px 10px; text-align: left; vertical-align: top; }
+        .notice-box { border: 2px solid var(--ink-2); border-radius: 8px; padding: 12px 16px; line-height: 1.9; background: #fff; }
+        .notice-box.ad { text-align: center; border-style: dashed; margin-top: 4px; }
+        .task-chart { width: 100%; max-width: 560px; display: block; margin: 6px auto; border: 1px solid var(--line); }
+        .q { margin-bottom: 24px; }
+        .q .stem { display: flex; gap: 10px; }
+        .q .stem > span:last-child { flex: 1; min-width: 0; }
+        .q .no { flex: none; font-weight: bold; min-width: 30px; white-space: nowrap; }
+        .oplist { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; margin: 6px 0 0 40px; }
+        .oplist.one { grid-template-columns: 1fr; }
+        .op { display: flex; align-items: baseline; gap: 8px; padding: 5px 8px; border-radius: 6px; cursor: pointer; }
+        .op:hover { background: var(--primary-50); }
+        .op .num { font-weight: bold; flex: none; }
+        .op .pic { border: 2px dashed var(--line-strong); border-radius: 8px; padding: 8px 12px; font-size: 15px; line-height: 1.7; background: #fff; }
+        .op .pic small { display: block; color: var(--muted); font-size: 12px; }
+        .op .chartopt { flex: 1; min-width: 0; }
+        .oplist.charts .op { align-items: flex-start; }
+        .oplist.charts .task-chart { max-width: 100%; margin: 0; }
+        .op.right { background: var(--ok-50); color: var(--ok-ink); font-weight: bold; }
+        .op.wrong { background: var(--bad-50); color: var(--bad-ink); text-decoration: line-through; }
+        .op.right .pic, .op.wrong .pic { font-weight: normal; }
+        .mark { font-weight: bold; margin-left: 40px; font-size: 14px; }
+        .mark.ok { color: var(--ok); } .mark.bad { color: var(--bad); }
+        .pts { color: var(--muted); font-weight: normal; font-size: 13px; }
+        .explain { margin: 8px 0 0 40px; background: var(--warn-50); color: var(--warn-ink); border-radius: 8px;
+                   padding: 10px 14px; font-size: 14px; line-height: 1.8; }
+        .script { margin: 8px 0 14px 40px; background: var(--surface-2); border-radius: 8px; padding: 10px 14px;
+                  font-size: 15px; line-height: 1.9; }
+        .script .who { color: var(--muted); font-size: 13px; margin-right: 6px; }
+        .summary { background: var(--hero); color: var(--hero-ink); border-radius: 12px; padding: 18px 22px;
+                   box-shadow: var(--edge-hero); margin-bottom: 18px; line-height: 1.8; }
+        .summary b { font-size: 22px; }
+        .no-audio { background: var(--warn-50); color: var(--warn-ink); border-radius: 8px; padding: 12px 16px;
+                    font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+        .sticky-audio { position: sticky; top: 0; z-index: 5; }
+        @media (max-width: 640px) { .oplist { grid-template-columns: 1fr; margin-left: 8px; }
+            .explain, .script, .mark { margin-left: 8px; } .sheet { padding: 18px 16px; } }
+    </style>
+</head>
+<body>
+{% set home = url_for('topik_mock.home', student_id=student.id) %}
+{% set who = {'n': '旁白', 'f1': '여자', 'f2': '여자 2', 'm1': '남자', 'm2': '남자 2'} %}
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ home }}" class="nav-back"><span class="arrow">←</span>韓檢模擬考</a>
+        {% if not review and not is_listening %}<span class="timer" id="timer" data-limit="{{ section.minutes }}">{{ section.minutes }}:00</span>{% endif %}
+    </div>
+
+    <div class="exam-head">
+        <span class="exam-tag">{{ test.title }}</span>
+        <span class="exam-part" lang="ko">{{ section.name }}（{{ section.total }} 題・{{ section.full }} 分・{{ section.minutes }} 分鐘）</span>
+    </div>
+
+    {% if review %}
+    <div class="summary">
+        這一節得分 <b>{{ review.attempt.score }} / {{ section.full }}</b> 分（答對 {{ review.attempt.correct }} / {{ review.attempt.total }} 題）。
+        下面每一題都標出正解（綠色）和你選的答案，並附中文解析{% if is_listening %}與聽力原文{% endif %}。
+        <a href="{{ home }}">回模擬考首頁</a>看其他科目與總分級數。
+    </div>
+    {% elif is_listening %}
+        {% if audio %}
+        <div class="audio-bar sticky-audio">
+            <div class="audio-bar-label">{{ icon('headphones') }} 듣기 音檔</div>
+            <audio controls preload="none" class="audio-player" src="{{ audio }}"></audio>
+            <p class="audio-hint">按播放後一路聽到最後，邊聽邊作答，中途不要暫停或倒帶。
+                {% if test.no == 1 %}比照正式考試，每一題都播兩次。{% else %}比照正式考試，1～20 題播一次，21～50 題播兩次。{% endif %}</p>
+        </div>
+        {% else %}
+        <div class="no-audio">{{ icon('alert') }} 聽力音檔還沒產生，現在沒有聲音。請在櫃台電腦雙擊 <b>topik_audio.bat</b>。</div>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" id="examForm" action="{{ url_for('topik_mock.submit', student_id=student.id, test_no=test.no, key=section.key) }}">
+    {% for g in section.groups %}
+    <div class="sheet">
+        <p class="qtitle ko" lang="ko">{{ mk(g.title) }}</p>
+        {% if g.instr %}<p class="ginstr">{{ mk(g.instr) }}</p>{% endif %}
+        {% if g.pic and not review %}<p class="ginstr">正式考卷這裡是圖片，本模擬考用文字描述每張圖的畫面。</p>{% endif %}
+        {% for it in g['items'] %}
+            {% if it.type == 'passage' %}
+            <div class="passage ko" lang="ko">
+                {% for line in it.lines %}{% if line is mapping %}{{ chart(line) }}{% else %}<p>{{ mk(line) }}</p>{% endif %}{% endfor %}
+            </div>
+            {% else %}
+            {% set given = review.answers.get(it.n, 0) if review else 0 %}
+            <div class="q" id="q{{ it.n }}">
+                <div class="stem ko" lang="ko">
+                    <span class="no">{{ it.n }}.</span>
+                    <span>{{ mk(it.stem) }} <span class="pts">（{{ it.points }}점）</span></span>
+                </div>
+                {% if review and it.cues %}
+                <div class="script" lang="ko">
+                    {% if repeats(test.no, it.n) == 2 %}<div class="who">（這段錄音播兩次）</div>{% endif %}
+                    {% for c in it.cues %}<div><span class="who">{{ who.get(c.v, c.v) }}</span>{{ mk(c.t) }}</div>{% endfor %}
+                </div>
+                {% endif %}
+                {% set texts = it.options|reject('mapping')|list %}
+                {% set charts = it.options|select('mapping')|list %}
+                {% set long = g.pic or (texts and texts|map('length')|max > 16) %}
+                <div class="oplist{% if charts %} charts{% elif long %} one{% endif %}">
+                    {% for o in it.options %}
+                    <label class="op ko{% if review and loop.index == it.answer %} right{% elif review and loop.index == given %} wrong{% endif %}" lang="ko">
+                        {% if not review %}<input type="radio" name="q{{ it.n }}" value="{{ loop.index }}">{% endif %}
+                        <span class="num">{{ '①②③④'[loop.index0] }}</span>
+                        {% if o is mapping %}<span class="chartopt">{{ chart(o) }}</span>
+                        {% elif o.startswith('[그림]') %}<span class="pic"><small>그림 {{ loop.index }}</small>{{ o[4:].strip() }}</span>
+                        {% else %}<span>{{ mk(o) }}</span>{% endif %}
+                    </label>
+                    {% endfor %}
+                </div>
+                {% if review %}
+                    {% if given == it.answer %}<div class="mark ok">✓ 答對了（+{{ it.points }} 分）</div>
+                    {% elif given %}<div class="mark bad">✗ 你選 {{ '①②③④'[given - 1] }}，正解是 {{ '①②③④'[it.answer - 1] }}</div>
+                    {% else %}<div class="mark bad">✗ 沒有作答，正解是 {{ '①②③④'[it.answer - 1] }}</div>{% endif %}
+                    {% if it.explain %}<div class="explain">{{ mk(it.explain|join('<br>')) }}</div>{% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    {% if not review %}
+    <div class="submit-bar">
+        <span class="count">已作答 <b id="done">0</b> / {{ section.total }} 題</span>
+        <button type="submit" class="btn-submit" id="submitBtn">交卷看正解</button>
+    </div>
+    {% else %}
+    <div class="submit-bar">
+        <span class="count">得分 <b>{{ review.attempt.score }}</b> / {{ section.full }}</span>
+        <a class="btn-submit" style="text-decoration:none" href="{{ home }}">回模擬考首頁</a>
+    </div>
+    {% endif %}
+    </form>
+</div>
+
+{% if not review %}
+<script>
+(function () {
+    var form = document.getElementById('examForm'), done = document.getElementById('done');
+    var total = {{ section.total }}, sent = false;
+    function count() { done.textContent = form.querySelectorAll('input[type=radio]:checked').length; }
+    form.addEventListener('change', count);
+    form.addEventListener('submit', function (e) {
+        if (sent) return;
+        var left = total - form.querySelectorAll('input[type=radio]:checked').length;
+        if (left > 0 && !form.dataset.timeup && !confirm('還有 ' + left + ' 題沒作答，確定要交卷嗎？')) { e.preventDefault(); return; }
+        sent = true;
+    });
+    // 倒數計時：時間到自動交卷（聽力跟著音檔走，不計時）
+    var timer = document.getElementById('timer');
+    if (timer) {
+        var end = Date.now() + parseInt(timer.dataset.limit, 10) * 60000;
+        var tick = setInterval(function () {
+            var s = Math.max(0, Math.round((end - Date.now()) / 1000));
+            timer.textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2);
+            if (s <= 300) timer.classList.add('over');
+            if (s === 0) { clearInterval(tick); form.dataset.timeup = '1'; sent = false; form.requestSubmit ? form.requestSubmit() : form.submit(); }
+        }, 1000);
+    }
+    window.addEventListener('beforeunload', function (e) {
+        if (!sent && form.querySelector('input[type=radio]:checked')) { e.preventDefault(); e.returnValue = ''; }
+    });
+})();
+</script>
+{% endif %}
+</body>
+</html>

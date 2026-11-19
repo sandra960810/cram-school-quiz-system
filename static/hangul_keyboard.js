@@ -3,7 +3,8 @@
 // - 「韓文鍵盤」打開時，實體鍵盤照韓文 2 벌식（標準）鍵位打字：r=ㄱ、k=ㅏ… 自動組成 가；
 //   Shift+r=ㄲ。已經裝了韓文輸入法的電腦或手機，關掉這個就能用自己的輸入法
 // - 下方也有螢幕鍵盤可以用滑鼠或手指點
-// - 用法：HangulKeyboard.attach(input)，每一題換新的輸入框時再 attach 一次
+// - 用法：HangulKeyboard.attach(input)，每一題換新的輸入框時再 attach 一次；
+//   一頁有好幾個輸入框時用 HangulKeyboard.attachAll([框…], 放鍵盤的元素)
 (function () {
     const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
     const JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ';
@@ -73,24 +74,36 @@
     const STORE = 'quiz-hangul-keyboard';
     let on = true;
     try { on = localStorage.getItem(STORE) !== '0'; } catch (e) { /* ignore */ }
-    let input = null, keys = [], panel = null, shift = false;
+    let input = null, panel = null, shift = false;
 
-    function sync() {
-        if (compose(keys) !== input.value) keys = decompose(input.value);
-    }
+    // 在游標位置打字：只把游標前面那一個韓文字拆開重組（ㄱ＋ㅏ→가、간＋ㅏ→가나），
+    // 所以長篇作文（韓檢寫作）也能在中間插字；游標在最後時和以前整串重組的結果一樣
     function type(k) {
         if (!input || input.readOnly) return;
-        sync();
-        if (k === 'back') keys.pop(); else keys.push(k);
-        input.value = compose(keys);
+        const v = input.value;
+        const s = input.selectionStart == null ? v.length : input.selectionStart;
+        const e = input.selectionEnd == null ? s : input.selectionEnd;
+        let before = v.slice(0, s);
+        const after = v.slice(e);
+        let ks = [];
+        if (s === e && /[ㄱ-ㅣ가-힣]$/.test(before)) { ks = decompose(before.slice(-1)); before = before.slice(0, -1); }
+        if (k === 'back') {
+            if (ks.length) ks.pop();
+            else if (s === e) before = before.slice(0, -1);
+        } else ks.push(k);
+        const mid = compose(ks);
+        input.value = before + mid + after;
+        const pos = before.length + mid.length;
+        try { input.setSelectionRange(pos, pos); } catch (err) { /* ignore */ }
         input.dispatchEvent(new Event('input', { bubbles: true }));
     }
 
     function onKey(e) {
+        input = e.target;
         if (!on || e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
         if (e.key === 'Backspace') {
-            sync();
-            if (keys.length && /[ㄱ-ㅣ가-힣]$/.test(input.value)) { e.preventDefault(); type('back'); }
+            const s = input.selectionStart, end = input.selectionEnd;
+            if (s === end && /[ㄱ-ㅣ가-힣]$/.test(input.value.slice(0, s))) { e.preventDefault(); type('back'); }
             return;
         }
         const j = KEYMAP[e.key] || (e.shiftKey ? null : KEYMAP[e.key.toLowerCase()]);
@@ -128,16 +141,30 @@
         });
     }
 
-    function attach(el) {
-        input = el;
-        keys = decompose(el.value || '');
+    function listen(el) {
         el.setAttribute('lang', 'ko');
         el.addEventListener('keydown', onKey);
+        el.addEventListener('focus', () => { input = el; render(); });
+    }
+
+    function attach(el) {
+        input = el;
+        listen(el);
         panel = document.createElement('div');
         panel.className = 'hk-panel';
         el.closest('.answer-row').after(panel);
         render();
     }
 
-    window.HangulKeyboard = { attach, compose, decompose };
+    // 一頁好幾個輸入框共用一個螢幕鍵盤（韓檢寫作）：按鍵打進目前游標所在的框
+    function attachAll(els, holder) {
+        els.forEach(listen);
+        input = els[0] || null;
+        panel = document.createElement('div');
+        panel.className = 'hk-panel';
+        holder.appendChild(panel);
+        render();
+    }
+
+    window.HangulKeyboard = { attach, attachAll, compose, decompose };
 })();

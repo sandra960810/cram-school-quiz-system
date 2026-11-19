@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-exam="{{ exam.key }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ test.title }}｜쓰기</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <style>
+        .ko { font-size: 17px; line-height: 1.9; word-break: keep-all; }
+        .qtitle .pts { color: var(--muted); font-weight: normal; font-size: 14px; }
+        .prompt { border: 1px solid var(--ink-2); border-radius: 4px; padding: 16px 20px; margin: 6px 0 16px; background: #fff; }
+        .prompt p { margin: 0 0 8px; }
+        .prompt table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 15px; }
+        .prompt td, .prompt th { border: 1px solid var(--line-strong); padding: 6px 10px; text-align: left; vertical-align: top; }
+        .notice-box { border: 2px solid var(--ink-2); border-radius: 8px; padding: 12px 16px; line-height: 1.9; background: #fff; }
+        .task-chart { width: 100%; max-width: 600px; display: block; margin: 6px auto; border: 1px solid var(--line); }
+        .blank { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+        .blank .mk { font-size: 20px; font-weight: bold; color: var(--primary); padding-top: 6px; flex: none; }
+        textarea.ans { width: 100%; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 6px; padding: 10px 12px;
+                       font-size: 17px; line-height: 1.8; font-family: inherit; resize: vertical; color: var(--ink); }
+        textarea.ans:focus { outline: 2px solid var(--primary); outline-offset: -1px; }
+        textarea.ans[readonly] { background: var(--surface-2); }
+        textarea.one { min-height: 54px; }
+        textarea.mid { min-height: 190px; }
+        textarea.big { min-height: 380px; }
+        .cc { text-align: right; font-size: 13px; color: var(--muted); margin-top: 4px; }
+        .cc b { font-variant-numeric: tabular-nums; color: var(--ink); }
+        .cc.out b { color: var(--bad); }
+        .model { margin-top: 12px; background: var(--ok-50); color: var(--ok-ink); border-radius: 8px; padding: 12px 16px; line-height: 1.9; }
+        .model h4, .ai h4 { margin: 0 0 6px; font-size: 14px; }
+        .model p { margin: 0 0 6px; }
+        .explain { margin-top: 10px; background: var(--warn-50); color: var(--warn-ink); border-radius: 8px; padding: 10px 14px; font-size: 14px; line-height: 1.8; }
+        .ai { margin-top: 10px; background: var(--primary-50); border-radius: 8px; padding: 12px 16px; font-size: 14px; line-height: 1.8; }
+        .ai .sc { font-weight: bold; color: var(--deep); }
+        .summary { background: var(--hero); color: var(--hero-ink); border-radius: 12px; padding: 18px 22px;
+                   box-shadow: var(--edge-hero); margin-bottom: 18px; line-height: 1.8; }
+        .summary b.big { font-size: 22px; }
+        .summary button { font: inherit; font-weight: bold; background: var(--primary); color: #fff; border: none; border-radius: 8px;
+                          padding: 8px 18px; cursor: pointer; margin-top: 6px; }
+        .summary button[disabled] { opacity: .6; cursor: wait; }
+        .errbox { background: var(--bad-50); color: var(--bad-ink); border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 14px; }
+        .fix { border-top: 1px solid var(--line); padding: 6px 0; }
+        .fix s { color: var(--bad); }
+        .kbd-holder { position: sticky; bottom: 64px; background: #fff; box-shadow: var(--edge-pop); border-radius: 12px;
+                      padding: 8px 12px; margin: 0 0 12px; z-index: 4; }
+        .hk-panel { margin-top: 0; }
+        .hk-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+        .hk-switch { display: inline-flex; align-items: center; gap: 4px; font-weight: bold; color: var(--primary); cursor: pointer; }
+        .hk-keys { margin-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+        .hk-row { display: flex; justify-content: center; gap: 4px; }
+        .hk-key { flex: 1 1 0; max-width: 44px; min-width: 0; height: 36px; border: none; border-radius: 8px; background: var(--surface-2); box-shadow: var(--edge); font-size: 17px; color: var(--ink); cursor: pointer; font-family: inherit; padding: 0; }
+        .hk-key:hover { background: var(--primary-50); }
+        .hk-key.wide { max-width: 66px; flex-grow: 1.5; font-size: 14px; }
+        .hk-key.on { background: var(--primary); color: #fff; }
+        .hk-key.space { max-width: 220px; font-size: 14px; }
+        .ai-note { font-size: 12.5px; opacity: .85; }
+        @media (max-width: 640px) { .sheet { padding: 18px 16px; } }
+    </style>
+</head>
+<body>
+{% set home = url_for('topik_mock.home', student_id=student.id) %}
+{% set review = attempt is not none %}
+<div class="exam-wrap">
+    <div class="nav-row">
+        <a href="{{ home }}" class="nav-back"><span class="arrow">←</span>韓檢模擬考</a>
+        {% if not review %}<span class="timer" id="timer" data-limit="{{ section.minutes }}">{{ section.minutes }}:00</span>{% endif %}
+    </div>
+    <div class="exam-head">
+        <span class="exam-tag">{{ test.title }}</span>
+        <span class="exam-part" lang="ko">쓰기（4 題・100 分・{{ section.minutes }} 分鐘）</span>
+    </div>
+
+    {% if review %}
+    <div class="summary" id="aiBox">
+        {% if ai %}
+        AI 老師批改：寫作 <b class="big">{{ ai.total }} / 100</b> 分
+        （51 번 {{ ai.q51.total }}／10、52 번 {{ ai.q52.total }}／10、53 번 {{ ai.q53.total }}／30、54 번 {{ ai.q54.total }}／50）<br>
+        {{ ai.summary }}
+        {% if ai.next_steps %}<br><b>接下來先改：</b>{% for s in ai.next_steps %}{{ loop.index }}. {{ s }}{% if not loop.last %}　{% endif %}{% endfor %}{% endif %}
+        <div class="ai-note">AI 老師的評分不等於真實考試，只是模擬。{% if ai.model %}（{{ ai.model }}）{% endif %} <a href="{{ home }}">回模擬考首頁</a>看總分與級數。</div>
+        {% else %}
+        已交卷。下面有每一題的參考答案與說明；按下面的按鈕請 AI 老師（{{ ai_label }}）依 TOPIK 評分標準批改，算出寫作分數。
+        <br><button type="button" id="gradeBtn"{% if not ai_ready %} disabled{% endif %}>請 AI 老師批改</button>
+        {% if not ai_ready %}<div class="errbox">AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。</div>{% endif %}
+        <div class="errbox" id="gradeErr" hidden></div>
+        <div class="ai-note">批改約需 30 秒到 1 分鐘。AI 老師的評分不等於真實考試，只是模擬。</div>
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="summary">
+        比照正式 TOPIK II 寫作：51、52 題各填兩句（各 10 分）、53 題 200～300 字（30 分）、54 題 600～700 字（50 分），共 50 分鐘，時間到自動交卷。
+        字數含空格。請用書面語作答（51 題用「-습니다」，52～54 題用「-ㄴ다／-다」）。交卷後看參考答案，並由 AI 老師批改。
+    </div>
+    {% endif %}
+
+    <form method="post" id="examForm" action="{{ url_for('topik_mock.submit', student_id=student.id, test_no=test.no, key='writing') }}">
+    {% for g in section.groups %}{% for it in g['items'] if it.type == 'w' %}
+    {% set res = ai['q' ~ it.n] if ai else none %}
+    <div class="sheet">
+        {% if loop.first %}<p class="ko" lang="ko" style="margin:0 0 6px;color:var(--muted)">{{ mk(g.title) }}</p>{% endif %}
+        <p class="qtitle ko" lang="ko">{{ it.n }}. <span class="pts">（{{ it.points }}점）</span></p>
+        <div class="prompt ko" lang="ko">
+            {% for p in it.prompt %}{% if p is mapping %}{{ chart(p) }}{% else %}<p>{{ mk(p) }}</p>{% endif %}{% endfor %}
+        </div>
+        {% if it.wtype == 'blanks' %}
+            {% for k, mark, m in parts.blanks %}
+            {% set f = it.n ~ k %}
+            <div class="blank">
+                <span class="mk">{{ mark }}</span>
+                <div style="flex:1">
+                    <textarea class="ans one ko" lang="ko" name="w{{ f }}" data-f="{{ f }}" rows="1" spellcheck="false" {% if review %}readonly{% endif %}>{{ essays.get(f, '') }}</textarea>
+                    {% if res %}<div class="ai"><span class="sc">{{ mark }} {{ res[k].score }} / {{ m }} 分</span>　{{ res[k].comment }}</div>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% set f = it.n|string %}
+            {% set lo, hi = lengths[it.wtype] %}
+            <textarea class="ans {{ 'mid' if it.wtype == 'graph' else 'big' }} ko" lang="ko" name="w{{ f }}" data-f="{{ f }}" data-lo="{{ lo }}" data-hi="{{ hi }}" spellcheck="false" {% if review %}readonly{% endif %}>{{ essays.get(f, '') }}</textarea>
+            <div class="cc">字數（含空格）<b class="n">{{ count_chars(essays.get(f, '')) }}</b>／建議 {{ lo }}～{{ hi }} 字</div>
+            {% if res %}<div class="ai">
+                {% for k, name, m in parts[it.wtype] %}<span class="sc">{{ name }} {{ res[k] }} / {{ m }}</span>{% if not loop.last %}　{% endif %}{% endfor %}
+                　小計 <b>{{ res.total }} / {{ it.points }}</b><br>{{ res.comment }}</div>{% endif %}
+        {% endif %}
+        {% if review %}
+        <div class="model ko" lang="ko">
+            <h4>參考答案</h4>
+            {% for m in it.models %}<p>{{ m }}</p>{% endfor %}
+        </div>
+        <div class="explain">{{ mk(it.explain|join('<br>')) }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}{% endfor %}
+
+    {% if review and ai and ai.errors %}
+    <div class="sheet">
+        <p class="qtitle">AI 老師挑出的語言錯誤</p>
+        {% for e in ai.errors %}<div class="fix ko" lang="ko"><s>{{ e.original }}</s> → <b>{{ e.correction }}</b><br><small>{{ e.explain }}</small></div>{% endfor %}
+    </div>
+    {% endif %}
+
+    {% if not review %}
+    <div class="kbd-holder" id="kbd"></div>
+    <div class="submit-bar">
+        <span class="count">寫完的題目 <b id="done">0</b> / 4</span>
+        <button type="submit" class="btn-submit" id="submitBtn">交卷</button>
+    </div>
+    {% else %}
+    <div class="submit-bar">
+        <span class="count">{% if ai %}寫作 <b>{{ ai.total }}</b> / 100{% else %}還沒批改{% endif %}</span>
+        <a class="btn-submit" style="text-decoration:none" href="{{ home }}">回模擬考首頁</a>
+    </div>
+    {% endif %}
+    </form>
+</div>
+
+<script>
+(function () {
+    // 字數（含空格、不含換行）：要和 topik_mock.count_chars 一致
+    function chars(t) { return t.replace(/[\r\n]/g, '').length; }
+    document.querySelectorAll('textarea[data-lo]').forEach(function (ta) {
+        var box = ta.nextElementSibling, n = box.querySelector('.n');
+        function upd() { var c = chars(ta.value); n.textContent = c; box.classList.toggle('out', c < +ta.dataset.lo || c > +ta.dataset.hi); }
+        ta.addEventListener('input', upd); upd();
+    });
+})();
+</script>
+{% if not review %}
+<script src="{{ url_for('static', filename='hangul_keyboard.js') }}"></script>
+<script>
+(function () {
+    var form = document.getElementById('examForm'), done = document.getElementById('done');
+    var fields = Array.prototype.slice.call(form.querySelectorAll('textarea.ans'));
+    var KEY = 'topik-write-{{ student.id }}-{{ test.no }}', sent = false;
+    // 草稿暫存在這台電腦的瀏覽器（不小心關掉頁面還找得回來）
+    try { var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+          fields.forEach(function (f) { if (!f.value && saved[f.dataset.f]) { f.value = saved[f.dataset.f]; f.dispatchEvent(new Event('input')); } }); } catch (e) {}
+    function count() {
+        var qs = {};
+        fields.forEach(function (f) { if (f.value.trim()) qs[f.dataset.f.slice(0, 2)] = 1; });
+        done.textContent = Object.keys(qs).length;
+        var data = {}; fields.forEach(function (f) { data[f.dataset.f] = f.value; });
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    }
+    form.addEventListener('input', count); count();
+    if (window.HangulKeyboard) HangulKeyboard.attachAll(fields, document.getElementById('kbd'));
+    form.addEventListener('submit', function (e) {
+        if (sent) return;
+        var empty = fields.filter(function (f) { return !f.value.trim(); }).length;
+        if (empty && !form.dataset.timeup && !confirm('還有 ' + empty + ' 格沒寫，確定要交卷嗎？')) { e.preventDefault(); return; }
+        sent = true;
+        try { localStorage.removeItem(KEY); } catch (err) {}
+    });
+    var timer = document.getElementById('timer');
+    var end = Date.now() + parseInt(timer.dataset.limit, 10) * 60000;
+    var tick = setInterval(function () {
+        var s = Math.max(0, Math.round((end - Date.now()) / 1000));
+        timer.textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2);
+        if (s <= 300) timer.classList.add('over');
+        if (s === 0) { clearInterval(tick); form.dataset.timeup = '1'; sent = false; form.requestSubmit ? form.requestSubmit() : form.submit(); }
+    }, 1000);
+    window.addEventListener('beforeunload', function (e) {
+        if (!sent && fields.some(function (f) { return f.value.trim(); })) { e.preventDefault(); e.returnValue = ''; }
+    });
+})();
+</script>
+{% elif not ai %}
+<script>
+(function () {
+    var btn = document.getElementById('gradeBtn'), err = document.getElementById('gradeErr');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+        btn.disabled = true; btn.textContent = 'AI 老師批改中…'; err.hidden = true;
+        fetch('{{ url_for("topik_mock.grade_ai", student_id=student.id, attempt_id=attempt.id) }}', { method: 'POST' })
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+                if (d.ok) { location.reload(); return; }
+                throw new Error(d.error || '批改失敗');
+            })
+            .catch(function (e) { err.textContent = e.message || '連線失敗，請再試一次。'; err.hidden = false;
+                                  btn.disabled = false; btn.textContent = '再試一次'; });
+    });
+})();
+</script>
+{% endif %}
+</body>
+</html>

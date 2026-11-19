@@ -328,7 +328,13 @@ def _blank_result(task):
 
 
 def _ask_claude(key, task, essay):
-    """用 Claude 批改，回傳 (JSON 文字, 模型名稱)。"""
+    """用 Claude 批改雅思寫作，回傳 (JSON 文字, 模型名稱)。"""
+    return _claude_json(key, SYSTEM_PROMPT, _user_message(task, essay), _schema(task['no']))
+
+
+def _claude_json(key, system, message, schema):
+    """用 Claude 依評分規則 system 批改 message，照 schema 回 JSON，回傳 (JSON 文字, 模型名稱)。
+    雅思寫作與韓檢寫作（topik_mock.py）共用。"""
     import anthropic
     client = anthropic.Anthropic(api_key=key, timeout=300)
     try:
@@ -337,10 +343,10 @@ def _ask_claude(key, task, essay):
             max_tokens=16000,
             betas=['server-side-fallback-2026-07-01'],
             fallbacks='default',
-            system=SYSTEM_PROMPT,
+            system=system,
             output_config={'effort': 'high',
-                           'format': {'type': 'json_schema', 'schema': _schema(task['no'])}},
-            messages=[{'role': 'user', 'content': _user_message(task, essay)}],
+                           'format': {'type': 'json_schema', 'schema': schema}},
+            messages=[{'role': 'user', 'content': message}],
         )
     except anthropic.AuthenticationError:
         raise RuntimeError('API 金鑰無效，請重新雙擊 set_ai_key.bat 設定正確的金鑰。')
@@ -404,20 +410,25 @@ def _no_model_error(last):
 
 
 def _ask_gemini(key, task, essay):
-    """用 Gemini 批改，回傳 (JSON 文字, 模型名稱)。"""
+    """用 Gemini 批改雅思寫作，回傳 (JSON 文字, 模型名稱)。"""
+    return _gemini_json(key, SYSTEM_PROMPT, _user_message(task, essay), _schema(task['no']))
+
+
+def _gemini_json(key, system, message, schema):
+    """用 Gemini 依評分規則 system 批改 message，照 schema 回 JSON，回傳 (JSON 文字, 模型名稱)。"""
     from google import genai
     from google.genai import errors, types
     client = gemini_client(key)
     config = types.GenerateContentConfig(
-        system_instruction=SYSTEM_PROMPT,
+        system_instruction=system,
         response_mime_type='application/json',
-        response_json_schema=_schema(task['no']),
+        response_json_schema=schema,
         max_output_tokens=16000,
     )
     last = None
     for model in gemini_models():
         try:
-            resp = client.models.generate_content(model=model, contents=_user_message(task, essay), config=config)
+            resp = client.models.generate_content(model=model, contents=message, config=config)
         except errors.APIError as e:
             if _try_next_model(e):     # 這個模型下架了或暫時太忙，換下一個
                 last = e
@@ -435,6 +446,19 @@ def _ask_gemini(key, task, essay):
             raise RuntimeError('Gemini 沒有回覆批改內容（可能被安全機制擋下），請再按一次批改。')
         return text, model
     raise RuntimeError(_no_model_error(last))
+
+
+def ask_json(system, message, schema):
+    """依目前設定的 AI 老師（Gemini 或 Claude）批改，回傳 (解析好的 dict, 模型名稱)。失敗丟 RuntimeError。"""
+    provider, key = ai_config()
+    if not key:
+        raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
+    ask = _gemini_json if provider == 'gemini' else _claude_json
+    text, model = ask(key, system, message, schema)
+    try:
+        return json.loads(text), model
+    except ValueError:
+        raise RuntimeError('AI 回覆的格式不正確，請再按一次批改。')
 
 
 def grade_task(task, essay):

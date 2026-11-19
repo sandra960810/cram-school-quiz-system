@@ -45,7 +45,10 @@ OPTIONS = {
     "ielts": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], ""),
               ("exam", "聽說讀寫模擬考", ["exam"], "")],
     "toeic": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
-    "topik": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
+    # 韓檢模考：TOPIK I（初級 1～2 級）、TOPIK II（中高級 3～6 級）分開開通，和下面勾的單字等級無關
+    "topik": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], ""),
+              ("mock1", "TOPIK I 模考", ["mock1"], "初級（1～2 級）：聽力＋閱讀，滿分 200"),
+              ("mock2", "TOPIK II 模考", ["mock2"], "中高級（3～6 級）：聽力＋寫作＋閱讀，滿分 300；寫作由 AI 老師批改")],
     "jlpt": [("vocab", "A 單字學習與測驗", ["learn", "vocab_quiz"], ""),
              ("mock", "B 模考", ["mock"], "N5～N1 模擬考各一回，學生只看得到下面有勾的等級")],
     "basic": [("phonics", "學發音", ["phonics"], ""), ("learn", "單字學習", ["learn"], ""),
@@ -60,7 +63,8 @@ STATUS_LABELS = {'pending': '等待審核', 'active': '已開通', 'rejected': '
 # 網址開頭 → 功能。進這些頁面前會檢查目前的考試有沒有開這個功能
 FEATURE_PATHS = [('/learn/', 'learn'), ('/vocab/', 'learn'), ('/vocab_themes/', 'learn'), ('/profile/', 'learn'),
                  ('/vocab-quiz/', 'vocab_quiz'), ('/api/vocab-quiz/', 'vocab_quiz'),
-                 ('/exam/', 'exam'), ('/phonics/', 'phonics'), ('/jlpt-mock/', 'mock')]
+                 ('/exam/', 'exam'), ('/phonics/', 'phonics'), ('/jlpt-mock/', 'mock'),
+                 ('/topik-mock/', ('mock1', 'mock2'))]   # 功能是一組時，開了其中一個就能進（細節在 topik_mock.py 判斷）
 
 MAX_FAILS, LOCK_SECONDS = 8, 600
 _fails = {}
@@ -191,7 +195,9 @@ def guard():
     if feature:
         exams = _['exams']
         exam = exams.current_exam()
-        if feature not in exams.features_for(student, exam):
+        allowed = exams.features_for(student, exam)
+        wanted = feature if isinstance(feature, tuple) else (feature,)
+        if not any(f in allowed for f in wanted):
             return _deny('這個功能還沒開通', api, url_for('dashboard', student_id=student.id, locked=exam["name"]))
     return None
 
