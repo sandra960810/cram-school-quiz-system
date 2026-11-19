@@ -1,0 +1,19 @@
+{% extends 'account_base.html' %}
+{% block body %}
+<div class="hero"><h1>{{ icon('user') }} 學生登入</h1><p>用註冊時填的學號或電子郵件登入。</p></div>
+<div class="panel">
+    {% if error %}<div class="err">{{ error }}</div>{% endif %}
+    <form method="post" action="{{ url_for('accounts.login') }}">
+        <input type="hidden" name="csrf" value="{{ csrf }}">
+        <input type="hidden" name="next" value="{{ next }}">
+        <label class="f">學號或電子郵件</label>
+        <input type="text" name="account" value="{{ account }}" autocomplete="username" required autofocus>
+        <label class="f">密碼</label>
+        <input type="password" name="password" autocomplete="current-password" required>
+        <button class="btn">登入</button>
+    </form>
+    <p class="links">還沒有帳號？<a href="{{ url_for('accounts.register_page') }}">註冊</a></p>
+    <p class="tip" style="text-align:center">忘記密碼請洽櫃台，工作人員會幫你重設。</p>
+</div>
+<p class="small-links"><a href="{{ url_for('admin.login', next='/admin/students') }}">{{ icon('key') }} 工作人員登入</a></p>
+{% endblock %}

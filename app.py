@@ -40,7 +40,21 @@ class Student(db.Model):
     name = db.Column(db.String(50), nullable=False)
     enrolled_course = db.Column(db.String(50))
     # 分級考試（韓檢…）開通了哪幾級，JSON，例如 {"topik": [1, 2]}；空的＝全部開放（見 exams.open_levels）
+    # 只有示範帳號看這欄；註冊的學生看 access 裡的 levels
     unlocked_levels = db.Column(db.Text)
+    # ---- 學生自己註冊的帳號（accounts.py）----
+    student_no = db.Column(db.String(30))      # 學號
+    email = db.Column(db.String(120))          # 和原本選課報名系統用的同一個電子郵件
+    phone = db.Column(db.String(30))
+    campus = db.Column(db.String(10))          # 台北、桃園、中壢、南崁、新竹
+    courses = db.Column(db.Text)               # 報名的課程，JSON，例如 ["japanese", "korean"]
+    password_hash = db.Column(db.String(300))
+    # pending 等審核、active 已開通、rejected 退回、disabled 停用、demo 示範帳號（不用登入、全部開放）
+    status = db.Column(db.String(20))
+    access = db.Column(db.Text)                # 工作人員開通的內容，JSON，格式見 exams.py 的說明
+    applied_at = db.Column(db.DateTime)
+    approved_at = db.Column(db.DateTime)
+    staff_note = db.Column(db.Text)            # 工作人員備註（學生看不到）
 
 
 class Vocabulary(db.Model):
@@ -158,6 +172,10 @@ class Favorite(db.Model):
 
 
 # 舊版資料庫沒有的欄位：啟動時自動補上（SQLite 的 create_all 不會幫既有的表加欄位）
+NEW_STUDENT_COLUMNS = [("unlocked_levels", "TEXT"), ("student_no", "VARCHAR(30)"), ("email", "VARCHAR(120)"),
+                       ("phone", "VARCHAR(30)"), ("campus", "VARCHAR(10)"), ("courses", "TEXT"),
+                       ("password_hash", "VARCHAR(300)"), ("status", "VARCHAR(20)"), ("access", "TEXT"),
+                       ("applied_at", "DATETIME"), ("approved_at", "DATETIME"), ("staff_note", "TEXT")]
 NEW_VOCAB_COLUMNS = [("pos", "VARCHAR(20)"), ("meaning_en", "VARCHAR(500)"), ("sentence_zh", "VARCHAR(500)"),
                      ("admin_locked", "BOOLEAN DEFAULT 0"), ("src_key", "VARCHAR(200)"), ("reading", "VARCHAR(100)")]
 
@@ -168,8 +186,12 @@ with app.app_context():
         if col not in existing_cols:
             db.session.execute(text(f"ALTER TABLE vocabulary ADD COLUMN {col} {ddl}"))
     student_cols = {row[1] for row in db.session.execute(text("PRAGMA table_info(student)"))}
-    if 'unlocked_levels' not in student_cols:
-        db.session.execute(text("ALTER TABLE student ADD COLUMN unlocked_levels TEXT"))
+    for col, ddl in NEW_STUDENT_COLUMNS:
+        if col not in student_cols:
+            db.session.execute(text(f"ALTER TABLE student ADD COLUMN {col} {ddl}"))
+    # 加上註冊功能之前就有的學生（測試用的王小明）當示範帳號：不用登入、全部開放，
+    # 給主管的分享連結 /dashboard/1 才不會中斷。工作人員可以在後台停用
+    db.session.execute(text("UPDATE student SET status='demo' WHERE status IS NULL"))
     db.session.commit()
 
 
@@ -434,15 +456,6 @@ def say_text(w):
 # 頁面
 # ---------------------------------------------------------------------------
 
-@app.route('/login')
-def login_redirect():
-    token = request.args.get('token')
-    student = Student.query.filter_by(token=token).first()
-    if student:
-        return redirect(f'/dashboard/{student.id}')
-    return "無效的帳號或 Token，請從補習班系統重新進入。"
-
-
 @app.route('/dashboard/<int:student_id>')
 def dashboard(student_id):
     """主介面：先選考試類型（雅思、多益…），再進到該考試的功能選單。"""
@@ -459,7 +472,9 @@ def dashboard(student_id):
                           total=sum(t["total"] for t in themes if not t["locked"])))
     # 選擇頁本身用雅思的色系（紫色學院風）；卡片各自帶自己的主色
     exams.use_exam(exams.DEFAULT_EXAM)
-    return render_template('exam_select.html', student=student, cards=cards)
+    import accounts
+    return render_template('exam_select.html', student=student, cards=cards,
+                           notes=accounts.course_notes(student), periods=accounts.course_periods(student))
 
 
 @app.route('/dashboard/<int:student_id>/<exam_key>')
@@ -472,7 +487,7 @@ def exam_dashboard(student_id, exam_key):
     themes = build_theme_list(student)
     unlocked_count = sum(t["unlocked"] for t in themes if not t["locked"])
     total_count = sum(t["total"] for t in themes if not t["locked"])
-    return render_template('dashboard.html', student=student, features=exam["features"],
+    return render_template('dashboard.html', student=student, features=exams.features_for(student, exam),
                            unlocked_count=unlocked_count, total_count=total_count)
 
 
@@ -1524,6 +1539,10 @@ app.register_blueprint(word_audio.bp)
 import phonics  # noqa: E402
 phonics.register(app, get_student, Vocabulary, theme_condition, OFFICIAL_THEMES)
 
+
+# 學生註冊、登入，與每個頁面的權限檢查（程式在 accounts.py；工作人員審核頁也在裡面，掛在後台底下）
+import accounts  # noqa: E402
+accounts.register(app, db, dict(Student=Student, get_student=get_student, exams=exams))
 
 # 管理員後台（程式在 admin.py）：新增、編輯、刪除單字，要先輸入管理員密碼
 import admin  # noqa: E402

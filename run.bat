@@ -18,7 +18,7 @@ if not "%RC%"=="0" ( echo. & echo 準備步驟失敗，請看上面的訊息 & p
 echo.
 rem 如果舊的網站還開著，先把它關掉（連同 debug 模式的子程式；不會動到分享連結的 cloudflared）
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0tools\stop_site.ps1"
-echo [5/5] 啟動網站：http://127.0.0.1:5000/dashboard/1
+echo [5/5] 啟動網站：http://127.0.0.1:5000/dashboard/1  （學生登入頁 /login、工作人員後台 /admin）
 echo     （要關閉網站，直接關掉這個視窗）
 rem 用 Edge 開啟：Edge 內建微軟神經語音（Natural），單字與例句發音最接近真人。
 rem 找不到 Edge 時才用系統預設瀏覽器。

@@ -1,0 +1,38 @@
+{% extends 'account_base.html' %}
+{% block title %}學生註冊{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('user') }} 學生註冊</h1><p>填好資料送出後，工作人員會依照你報名的課程幫你開通，開通後就能登入使用。</p></div>
+<div class="panel">
+    {% if errors %}<div class="err"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+    <form method="post" action="{{ url_for('accounts.register_page') }}">
+        <input type="hidden" name="csrf" value="{{ csrf }}">
+        <label class="f">學號 <span class="req">*</span></label>
+        <input type="text" name="student_no" value="{{ v.student_no }}" required maxlength="30" autocomplete="off">
+        <label class="f">名字 <span class="req">*</span></label>
+        <input type="text" name="name" value="{{ v.name }}" required maxlength="50" autocomplete="name">
+        <label class="f">電子郵件 <span class="req">*</span></label>
+        <input type="email" name="email" value="{{ v.email }}" required maxlength="120" autocomplete="email"
+               placeholder="請填報名選課時用的電子郵件">
+        <p class="tip key">{{ icon('alert') }} 請填和當初「報名選課系統」一樣的電子郵件，工作人員才對得到你買的課程。</p>
+        <label class="f">電話 <span class="req">*</span></label>
+        <input type="tel" name="phone" value="{{ v.phone }}" required maxlength="20" autocomplete="tel" placeholder="例如 0912345678">
+        <label class="f">校區 <span class="req">*</span></label>
+        <select name="campus" required>
+            <option value="">請選擇校區</option>
+            {% for c in campuses %}<option value="{{ c }}" {% if v.campus == c %}selected{% endif %}>{{ c }}</option>{% endfor %}
+        </select>
+        <label class="f">報名課程 <span class="req">*</span> <span class="tip" style="display:inline">可以複選</span></label>
+        <div class="checks">
+            {% for c in course_list %}
+            <label><input type="checkbox" name="courses" value="{{ c.key }}" {% if c.key in v.courses %}checked{% endif %}> {{ c.name }}</label>
+            {% endfor %}
+        </div>
+        <label class="f">設定密碼 <span class="req">*</span></label>
+        <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="至少 6 個字">
+        <label class="f">再輸入一次密碼 <span class="req">*</span></label>
+        <input type="password" name="password2" required minlength="6" autocomplete="new-password">
+        <button class="btn">送出申請</button>
+    </form>
+    <p class="links">已經有帳號了？<a href="{{ url_for('accounts.login') }}">登入</a></p>
+</div>
+{% endblock %}

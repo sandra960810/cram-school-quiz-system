@@ -64,7 +64,8 @@ vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由
 phonics.py          英文零基礎的單字發音教學頁 /phonics/<學生id>：單字發音（主角）、發音規則、聽音選字、ABC 字母
 pronunciation/      單字 KK 音標 kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生，見 README）
 basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
-admin.py            管理員後台 /admin：登入、新增、編輯、刪除單字（要密碼；樣板在 templates/admin/）
+accounts.py         學生註冊／登入（/register、/login）、每個請求前的權限檢查 guard()、工作人員審核開通頁 /admin/students
+admin.py            工作人員後台 /admin：登入（管理員密碼）；單字編輯目前暫停（EDITOR_ENABLED=False，程式保留）
 admin_bank.py       管理員後台 /admin/bank：聽說讀寫題庫的新增、編輯、刪除（編輯頁的前端在 static/admin_bank.js）
 bank_store.py       題庫存取層：原始題庫＋後台改動（instance/bank_edits/，不進 git）
 reset_admin_password.bat  忘記管理員密碼時清掉，回到本機重新設定
@@ -127,7 +128,27 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   同音字表 `SAME` 算對）；同時用 MediaRecorder 錄音讓學生重聽，錄音與星星都只存在瀏覽器（localStorage），不上傳。
   單字來源：零基礎與一般英文主題（`/phonics/<id>/words?theme=B01`，附音標）、各發音規則課、ABC 代表字
 
-## 後台題庫編輯（admin_bank.py、bank_store.py）
+## 學生帳號與開通權限（accounts.py、exams.py）
+
+- 學生在 `/register` 填學號、名字、電子郵件（和原本報名選課系統同一個，表單有提示）、電話、校區（台北・桃園・中壢・南崁・新竹）、
+  報名課程（多益全方位、雅思全方位、托福全方位、韓文、日文，可複選）、密碼。送出後 `Student.status='pending'`，什麼都不能用
+- 工作人員用管理員密碼登入後台，`/admin`（＝`/admin/students`）是審核開通頁：依學生買的課，每個考試勾「開通」、功能、等級
+  （韓檢 1～6 級、日檢 N5～N1）、開通日期、課程開始日、課程結束日。日檢的項目是「A 單字學習與測驗」與「B 模考」（模考還沒開發，勾了沒內容）。
+  托福網站內容還沒開發，只記錄報名；可以加開一般英文、零基礎給學生。也能改學生資料、重設密碼、退回、停用
+- 開通內容存在 `Student.access`（JSON，格式見 `exams.py`），判斷都在 `exams.py`：`access_of`、`entry_state`（台灣日期）、
+  `features_for`、`exams_for`、`open_levels`。**頁面要判斷權限一律走這幾個函式**
+- `accounts.guard()` 在每個請求前檢查：網址（或 API 的 JSON）帶的學生編號要是登入的那個學生；`FEATURE_PATHS` 列出網址開頭對應的功能，
+  沒開通就導回選擇考試頁（`?locked=考試名`）。新增帶學生編號的功能頁時，記得把網址開頭加進 `FEATURE_PATHS`。
+  樣板用 `has_feature('vocab_quiz')` 藏起沒開通的按鈕
+- **示範帳號**（`status='demo'`）：不用登入、全部開放。加上註冊功能前就有的學生（王小明，編號 1）自動變成示範帳號，
+  給主管的分享連結 `/dashboard/1` 才不會中斷；後台「退回／停用／示範」分頁可以停用
+- 工作人員登入時可以預覽任何學生的畫面；工作人員登入 8 小時失效，學生登入維持 30 天，重設密碼後學生其他裝置的登入失效
+- 舊的 `/login?token=…` 照樣可以用（會順便記住登入）
+
+## 後台題庫編輯（admin_bank.py、bank_store.py）—— 目前暫停
+
+- 2026-11 起後台改成學生審核開通，單字與題庫編輯的網址會導回審核頁（`admin.EDITOR_ENABLED = False`）。程式與 `instance/bank_edits/` 都保留，改成 True 就恢復
+
 
 - **所有讀題庫的程式都要走 `bank_store`**，不要直接開 `listening/`、`reading/` 的檔案，否則讀不到後台改的內容
 - 後台存檔寫到 `instance/bank_edits/<技能>/<測驗>/`，原始題庫檔不動，所以 `run.bat` 的 `git pull` 不會衝突；
@@ -140,7 +161,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 
 ## 管理員後台（admin.py）
 
-- 網址 `/admin`，入口在選擇考試頁最下面。單字（四個課程）與聽說讀寫題庫都能管理
+- 網址 `/admin`，入口在登入頁最下面「工作人員登入」。目前只開學生審核開通（單字、題庫編輯暫停）
 - **一定要密碼**：網站會用公開連結分享、學生靠網址編號辨識，不能讓拿到連結的人改資料。
   第一次設定密碼只能在櫃台電腦本機（看 `Cf-Connecting-Ip` 等標頭分辨是不是經過 Cloudflare 通道）；
   密碼雜湊存 `instance/admin.json`、session 金鑰存 `instance/secret_key.txt`（都不進 git）；
@@ -306,7 +327,8 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 - ✅ 日檢（抹茶綠）：N5～N1 分級字庫＋單字學習＋單字測驗（讀音、日語發音、羅馬拼音輸入、逐級開通）
   - N5～N1 完成，共 10,097 字（682＋774＋2,420＋3,260＋2,961）：Waller 字表 7,430 字＋JMdict 常用字補充 2,667 字；2026-11 依常用度與漢字難度重新分級，1,240 字換等級（見 `jlpt/README.md`）。
     換等級只要改 CSV 的「主題」，`import_sheet.py` 會把同課程唯一的同拼字搬過去，不會多出重複字
-- ⬜ 學生登入與後台開通權限（韓檢、日檢逐級開通已有 `Student.unlocked_levels`，等後台寫入）
+- ✅ 學生註冊／登入與工作人員審核開通（依課程開功能、等級、開通與課程日期）；原本的單字、題庫編輯後台暫停
+- ⬜ 日檢模考、托福（後台已有開關，內容還沒開發）
 - ✅ 聽力題庫 **6 / 10 回**（L01–L06 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L07–L10
 - ✅ 閱讀題庫 **6 / 10 回**（R01–R06 完成，各 3 篇 40 題含解析；主題不重複，也避開聽力題庫的主題）

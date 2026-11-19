@@ -77,7 +77,7 @@
     {# 收藏和單字測驗：以前是兩條大橫幅擋在主題前面，改成一排小按鈕 #}
     <div class="side-links">
         <a href="{{ url_for('learn_favorites', student_id=student.id) }}" class="side-link fav">{{ icon('star') }} 我的收藏<b>{{ favorite_count }}</b></a>
-        <a href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id) }}" class="side-link">{{ icon('quiz') }} 單字測驗<span class="go-arrow">→</span></a>
+        {% if has_feature('vocab_quiz') %}<a href="{{ url_for('vocab_quiz.quiz_home', student_id=student.id) }}" class="side-link">{{ icon('quiz') }} 單字測驗<span class="go-arrow">→</span></a>{% endif %}
     </div>
 
     <h2 class="pick">選一個主題</h2>
