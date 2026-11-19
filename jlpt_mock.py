@@ -1,11 +1,11 @@
-"""日檢模擬考（N5～N1 各一回）：題庫載入、作答頁、批改與交卷後的正解解析。
+"""日檢模擬考（N5～N1 每級可以有多回）：題庫載入、作答頁、批改與交卷後的正解解析。
 
-題庫是純文字檔 jlpt_mock/N5.txt…N1.txt（格式見 jlpt_mock/README.md），一級一個檔。
+題庫是純文字檔（格式見 jlpt_mock/README.md），一回一個檔：第 1 回是 jlpt_mock/N5.txt，第 2 回 N5-2.txt，第 3 回 N5-3.txt…
 每回比照正式日檢分成三節（N1、N2 是兩節）：言語知識（文字・語彙）、言語知識（文法）・読解、聴解。
 學生一節一節作答，交卷馬上看到那一節的正解與解析；三節都考過後，首頁顯示推估的總分與合格與否。
 
 聽解的音檔由題庫裡的台詞產生（tools/make_jlpt_audio.py，edge-tts 的日語神經語音），
-所以音檔內容和題目一定一致。音檔放在 static/audio/jlpt_mock/N5.mp3，不進 git。
+所以音檔內容和題目一定一致。音檔放在 static/audio/jlpt_mock/N5.mp3（第 2 回 N5-2.mp3），不進 git。
 
 權限：功能代碼是 mock（後台「B 模考」），等級看 exams.open_levels()（後台勾的 N5～N1）。
 """
@@ -122,20 +122,38 @@ def parse(text):
 _cache = {}
 
 
-def load(level):
-    """讀某一級的模擬考；沒有題庫檔回傳 None。檔案改過會重新讀。"""
-    path = os.path.join(BANK_DIR, f'N{level}.txt')
+def tid(level, rnd=1):
+    """一回測驗的代號，也是題庫檔與音檔的檔名：第 1 回 N5，第 2 回起 N5-2、N5-3。"""
+    return f'N{level}' if rnd == 1 else f'N{level}-{rnd}'
+
+
+def rounds(level):
+    """這一級有哪幾回（看 jlpt_mock/ 裡有哪些檔），由小到大。"""
+    found = []
+    for name in os.listdir(BANK_DIR):
+        m = re.fullmatch(rf'N{level}(?:-(\d+))?\.txt', name)
+        if m:
+            found.append(int(m.group(1) or 1))
+    return sorted(found)
+
+
+def load(level, rnd=1):
+    """讀某一級某一回的模擬考；沒有題庫檔回傳 None。檔案改過會重新讀。"""
+    key = tid(level, rnd)
+    path = os.path.join(BANK_DIR, key + '.txt')
     if not os.path.exists(path):
         return None
     mtime = os.path.getmtime(path)
-    if _cache.get(level, (0, None))[0] != mtime:
+    if _cache.get(key, (0, None))[0] != mtime:
         with open(path, encoding='utf-8') as f:
-            _cache[level] = (mtime, parse(f.read()))
-    return _cache[level][1]
+            test = parse(f.read())
+        test['round'], test['id'] = rnd, key
+        _cache[key] = (mtime, test)
+    return _cache[key][1]
 
 
-def audio_file(level):
-    return os.path.join(AUDIO_DIR, f'N{level}.mp3')
+def audio_file(level, rnd=1):
+    return os.path.join(AUDIO_DIR, tid(level, rnd) + '.mp3')
 
 
 def listening_cues(test):
@@ -221,10 +239,10 @@ def _context(student_id):
     return student, set(exams.open_levels(student, exam) or [])
 
 
-def _latest(student_id, level):
-    """這個學生在這一級每一節最近一次的作答紀錄。"""
+def _latest(student_id, level, rnd):
+    """這個學生在這一回每一節最近一次的作答紀錄。"""
     Attempt = _['Attempt']
-    rows = Attempt.query.filter_by(student_id=student_id, level=level).order_by(Attempt.id.desc()).all()
+    rows = Attempt.query.filter_by(student_id=student_id, level=level, rnd=rnd).order_by(Attempt.id.desc()).all()
     latest = {}
     for r in rows:
         latest.setdefault(r.section, r)
@@ -236,56 +254,67 @@ def home(student_id):
     student, opened = _context(student_id)
     cards = []
     for level in LEVELS:
-        test = load(level)
-        card = {'level': level, 'name': LEVEL_NAMES[level], 'ready': bool(test), 'locked': level not in opened}
-        if test and not card['locked']:
-            latest = _latest(student.id, level)
+        nums = rounds(level)
+        card = {'level': level, 'name': LEVEL_NAMES[level], 'ready': bool(nums), 'locked': level not in opened,
+                'rounds': []}
+        for rnd in ([] if card['locked'] else nums):
+            test = load(level, rnd)
+            latest = _latest(student.id, level, rnd)
             kinds = {}
-            card['sections'] = []
+            r = {'round': rnd, 'sections': [], 'started': bool(latest)}
             for s in test['sections']:
                 a = latest.get(s['key'])
-                card['sections'].append({'key': s['key'], 'name': s['name'], 'minutes': s['minutes'],
-                                         'total': s['total'], 'attempt': a,
-                                         'needs_audio': s['key'] == 'listening'
-                                         and not os.path.exists(audio_file(level))})
+                r['sections'].append({'key': s['key'], 'name': s['name'], 'minutes': s['minutes'],
+                                      'total': s['total'], 'attempt': a,
+                                      'needs_audio': s['key'] == 'listening'
+                                      and not os.path.exists(audio_file(level, rnd))})
                 if a:
                     for k, v in json.loads(a.kinds or '{}').items():
                         kinds[k] = v
-            card['estimate'] = estimate(level, kinds) if len(latest) >= len(test['sections']) else None
+            r['done'] = len(latest) >= len(test['sections'])
+            r['estimate'] = estimate(level, kinds) if r['done'] else None
+            card['rounds'].append(r)
+        # 預設展開：第一個還沒考完的那一回（都考完就展開第 1 回）
+        todo = next((r for r in card['rounds'] if not r['done']), card['rounds'][0] if card['rounds'] else None)
+        if todo:
+            todo['open'] = True
         cards.append(card)
     return render_template('jlpt_mock_home.html', student=student, cards=cards)
 
 
-def _section(level, key, opened):
+def _section(level, rnd, key, opened):
     if level not in LEVELS:
         abort(404)
     if level not in opened:
         abort(403, description='這個等級還沒開通')
-    test = load(level)
+    test = load(level, rnd)
     section = next((s for s in (test or {}).get('sections', []) if s['key'] == key), None)
     if not section:
         abort(404)
     return test, section
 
 
-@bp.route('/<int:student_id>/N<int:level>/<key>')
-def take(student_id, level, key):
+# 第 1 回的網址是 /N5/vocab（和只有一回時一樣），第 2 回起是 /N5-2/vocab
+@bp.route('/<int:student_id>/N<int:level>/<key>', defaults={'rnd': 1})
+@bp.route('/<int:student_id>/N<int:level>-<int:rnd>/<key>')
+def take(student_id, level, rnd, key):
     student, opened = _context(student_id)
-    test, section = _section(level, key, opened)
+    test, section = _section(level, rnd, key, opened)
     audio = None
-    if key == 'listening' and os.path.exists(audio_file(level)):
-        audio = url_for('static', filename=f'audio/jlpt_mock/N{level}.mp3',
-                        v=int(os.path.getmtime(audio_file(level))))
+    if key == 'listening' and os.path.exists(audio_file(level, rnd)):
+        audio = url_for('static', filename=f'audio/jlpt_mock/{tid(level, rnd)}.mp3',
+                        v=int(os.path.getmtime(audio_file(level, rnd))))
     return render_template('jlpt_mock_test.html', student=student, test=test, section=section, review=None,
                            audio=audio, is_listening=key == 'listening', mk=markup)
 
 
-@bp.route('/<int:student_id>/N<int:level>/<key>', methods=['POST'])
-def submit(student_id, level, key):
+@bp.route('/<int:student_id>/N<int:level>/<key>', methods=['POST'], defaults={'rnd': 1})
+@bp.route('/<int:student_id>/N<int:level>-<int:rnd>/<key>', methods=['POST'])
+def submit(student_id, level, rnd, key):
     student, opened = _context(student_id)
-    test, section = _section(level, key, opened)
+    test, section = _section(level, rnd, key, opened)
     answers, kinds = grade(section, request.form)
-    a = _['Attempt'](student_id=student.id, level=level, section=key, answers=json.dumps(answers),
+    a = _['Attempt'](student_id=student.id, level=level, rnd=rnd, section=key, answers=json.dumps(answers),
                      kinds=json.dumps(kinds), correct=sum(v[0] for v in kinds.values()), total=section['total'])
     _['db'].session.add(a)
     _['db'].session.commit()
@@ -298,7 +327,7 @@ def result(student_id, attempt_id):
     a = _['db'].session.get(_['Attempt'], attempt_id)
     if not a or a.student_id != student.id:
         abort(404)
-    test, section = _section(a.level, a.section, opened)
+    test, section = _section(a.level, a.rnd or 1, a.section, opened)
     review = {'answers': {int(k): v for k, v in json.loads(a.answers).items()}, 'attempt': a}
     return render_template('jlpt_mock_test.html', student=student, test=test, section=section, review=review,
                            audio=None, is_listening=a.section == 'listening', mk=markup)
@@ -313,6 +342,7 @@ def register(app, db, deps):
         id = db.Column(db.Integer, primary_key=True)
         student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
         level = db.Column(db.Integer, nullable=False)        # 5～1
+        rnd = db.Column(db.Integer, default=1)               # 第幾回
         section = db.Column(db.String(20), nullable=False)   # vocab / grammar / listening…
         answers = db.Column(db.Text)                         # {題號: 選的選項}，0 是沒作答
         kinds = db.Column(db.Text)                           # {科目: [答對, 題數]}，算總分用
@@ -323,4 +353,10 @@ def register(app, db, deps):
     _['Attempt'] = JlptMockAttempt
     with app.app_context():
         db.create_all()
+        # 原本每級只有一回，舊資料表沒有 rnd 欄：補上，舊紀錄都算第 1 回
+        from sqlalchemy import text
+        cols = {row[1] for row in db.session.execute(text('PRAGMA table_info(jlpt_mock_attempt)'))}
+        if 'rnd' not in cols:
+            db.session.execute(text('ALTER TABLE jlpt_mock_attempt ADD COLUMN rnd INTEGER DEFAULT 1'))
+            db.session.commit()
     app.register_blueprint(bp)

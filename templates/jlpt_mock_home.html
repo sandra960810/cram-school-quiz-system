@@ -31,6 +31,13 @@
                  line-height: 1.9; font-size: 14px; }
         .score .big { font-size: 20px; font-weight: bold; }
         .score .ok { color: var(--ok); } .score .bad { color: var(--bad); }
+        .round { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 4px; }
+        .round > summary { cursor: pointer; font-weight: bold; font-size: 16px; color: var(--deep); padding: 10px 0;
+                           display: flex; align-items: center; gap: 10px; list-style: none; }
+        .round > summary::-webkit-details-marker { display: none; }
+        .round > summary::before { content: '▸'; color: var(--primary); }
+        .round[open] > summary::before { content: '▾'; }
+        .pill.none { background: var(--surface-2); color: var(--muted); }
         .note { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 6px; }
     </style>
 </head>
@@ -41,42 +48,51 @@
     </div>
     <div class="banner">
         <h1>{{ icon('exam') }} 日檢模擬考</h1>
-        <p>比照正式日檢的題型與時間，N5～N1 各一回。一節一節作答，交卷馬上看正解與中文解析。</p>
+        <p>比照正式日檢的題型與時間，每一級有多回可以練習。一節一節作答，交卷馬上看正解與中文解析。</p>
     </div>
 
     {% for c in cards %}
     <div class="lv{% if c.locked or not c.ready %} off{% endif %}">
-        <h2>{{ c.name }} 模擬考 第 1 回</h2>
+        <h2>{{ c.name }}</h2>
         {% if c.locked %}
             <div class="sub">{{ icon('lock') }} 尚未開通這個等級</div>
         {% elif not c.ready %}
             <div class="sub">題目準備中</div>
         {% else %}
-            <div class="sub">共 {{ c.sections|length }} 節，可以分開考</div>
-            {% for s in c.sections %}
-            <div class="sec">
-                <div class="nm"><span lang="ja">{{ s.name }}</span>
-                    <small>{{ s.total }} 題・{{ s.minutes }} 分鐘</small></div>
-                {% if s.needs_audio %}<span class="pill warn">音檔待產生</span>{% endif %}
-                {% if s.attempt %}
-                    <span class="pill">上次 {{ s.attempt.correct }} / {{ s.attempt.total }}</span>
-                    <a class="btn ghost" href="{{ url_for('jlpt_mock.result', student_id=student.id, attempt_id=s.attempt.id) }}">看正解</a>
-                    <a class="btn" href="{{ url_for('jlpt_mock.take', student_id=student.id, level=c.level, key=s.key) }}">再考一次</a>
-                {% else %}
-                    <a class="btn" href="{{ url_for('jlpt_mock.take', student_id=student.id, level=c.level, key=s.key) }}">開始作答</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-            {% if c.estimate %}
-            <div class="score">
-                <span class="big {{ 'ok' if c.estimate.passed else 'bad' }}">推估 {{ c.estimate.total }} / 180 分・{{ '達到合格標準' if c.estimate.passed else '還沒達到合格標準' }}</span>
-                （合格 {{ c.estimate.pass_total }} 分，而且每一科都要過門檻）<br>
-                {% for p in c.estimate.parts %}
-                <span lang="ja">{{ p.name }}</span>：<b class="{{ 'ok' if p.ok else 'bad' }}">{{ p.score }}</b> / {{ p.full }}（門檻 {{ p.floor }}）{% if not loop.last %}<br>{% endif %}
+            <div class="sub">共 {{ c.rounds|length }} 回，每回 {{ c.rounds[0].sections|length }} 節，可以分開考</div>
+            {% for r in c.rounds %}
+            <details class="round"{% if r.open %} open{% endif %}>
+                <summary>第 {{ r.round }} 回
+                    {% if r.estimate %}<span class="pill{{ '' if r.estimate.passed else ' warn' }}">推估 {{ r.estimate.total }} 分</span>
+                    {% elif r.started %}<span class="pill">作答中</span>
+                    {% else %}<span class="pill none">還沒考</span>{% endif %}
+                </summary>
+                {% for s in r.sections %}
+                <div class="sec">
+                    <div class="nm"><span lang="ja">{{ s.name }}</span>
+                        <small>{{ s.total }} 題・{{ s.minutes }} 分鐘</small></div>
+                    {% if s.needs_audio %}<span class="pill warn">音檔待產生</span>{% endif %}
+                    {% if s.attempt %}
+                        <span class="pill">上次 {{ s.attempt.correct }} / {{ s.attempt.total }}</span>
+                        <a class="btn ghost" href="{{ url_for('jlpt_mock.result', student_id=student.id, attempt_id=s.attempt.id) }}">看正解</a>
+                        <a class="btn" href="{{ url_for('jlpt_mock.take', student_id=student.id, level=c.level, rnd=r.round, key=s.key) }}">再考一次</a>
+                    {% else %}
+                        <a class="btn" href="{{ url_for('jlpt_mock.take', student_id=student.id, level=c.level, rnd=r.round, key=s.key) }}">開始作答</a>
+                    {% endif %}
+                </div>
                 {% endfor %}
-                <div class="note">分數是依答對比例換算的推估。正式日檢用等化計分，實際分數會有出入，這只是模擬。</div>
-            </div>
-            {% endif %}
+                {% if r.estimate %}
+                <div class="score">
+                    <span class="big {{ 'ok' if r.estimate.passed else 'bad' }}">推估 {{ r.estimate.total }} / 180 分・{{ '達到合格標準' if r.estimate.passed else '還沒達到合格標準' }}</span>
+                    （合格 {{ r.estimate.pass_total }} 分，而且每一科都要過門檻）<br>
+                    {% for p in r.estimate.parts %}
+                    <span lang="ja">{{ p.name }}</span>：<b class="{{ 'ok' if p.ok else 'bad' }}">{{ p.score }}</b> / {{ p.full }}（門檻 {{ p.floor }}）{% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                    <div class="note">分數是依答對比例換算的推估。正式日檢用等化計分，實際分數會有出入，這只是模擬。</div>
+                </div>
+                {% endif %}
+            </details>
+            {% endfor %}
         {% endif %}
     </div>
     {% endfor %}
