@@ -73,6 +73,15 @@
         </a>
         {% endif %}
 
+        {% if 'mock' in features %}{% set ns.n = ns.n + 1 %}
+        <a href="/jlpt-mock/{{ student.id }}" class="menu-card">
+            <span class="step">{{ ns.n }}</span>
+            <div class="menu-icon">{{ icon('exam') }}</div>
+            <div class="menu-title">模擬考<span class="go-arrow">→</span></div>
+            <div class="menu-desc">N5～N1 各一回<br>交卷馬上看正解</div>
+        </a>
+        {% endif %}
+
         {% if 'exam' in features %}{% set ns.n = ns.n + 1 %}
         <a href="/exam/{{ student.id }}" class="menu-card">
             <span class="step">{{ ns.n }}</span>

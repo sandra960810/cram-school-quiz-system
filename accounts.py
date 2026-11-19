@@ -40,14 +40,14 @@ COURSES = [
 COURSE_BY_KEY = {c["key"]: c for c in COURSES}
 
 # 後台每個考試可以開的項目：(項目代碼, 名稱, 對應的功能, 說明)。
-# 日檢照櫃台的說法分成 A 單字學習與測驗、B 模考（日檢模考還沒開發，先可以勾，但學生端還沒有內容）
+# 日檢照櫃台的說法分成 A 單字學習與測驗、B 模考（jlpt_mock.py，N5～N1 各一回，只看得到有開通的等級）
 OPTIONS = {
     "ielts": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], ""),
               ("exam", "聽說讀寫模擬考", ["exam"], "")],
     "toeic": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
     "topik": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
     "jlpt": [("vocab", "A 單字學習與測驗", ["learn", "vocab_quiz"], ""),
-             ("mock", "B 模考", ["mock"], "日檢模考還沒開發，先勾起來，做好後學生就會看到")],
+             ("mock", "B 模考", ["mock"], "N5～N1 模擬考各一回，學生只看得到下面有勾的等級")],
     "basic": [("phonics", "學發音", ["phonics"], ""), ("learn", "單字學習", ["learn"], ""),
               ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
     "general": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
@@ -60,7 +60,7 @@ STATUS_LABELS = {'pending': '等待審核', 'active': '已開通', 'rejected': '
 # 網址開頭 → 功能。進這些頁面前會檢查目前的考試有沒有開這個功能
 FEATURE_PATHS = [('/learn/', 'learn'), ('/vocab/', 'learn'), ('/vocab_themes/', 'learn'), ('/profile/', 'learn'),
                  ('/vocab-quiz/', 'vocab_quiz'), ('/api/vocab-quiz/', 'vocab_quiz'),
-                 ('/exam/', 'exam'), ('/phonics/', 'phonics')]
+                 ('/exam/', 'exam'), ('/phonics/', 'phonics'), ('/jlpt-mock/', 'mock')]
 
 MAX_FAILS, LOCK_SECONDS = 8, 600
 _fails = {}

@@ -1540,6 +1540,11 @@ import phonics  # noqa: E402
 phonics.register(app, get_student, Vocabulary, theme_condition, OFFICIAL_THEMES)
 
 
+# 日檢模擬考（程式在 jlpt_mock.py，題庫在 jlpt_mock/）
+import jlpt_mock  # noqa: E402
+jlpt_mock.register(app, db, dict(get_student=get_student, exams=exams))
+
+
 # 學生註冊、登入，與每個頁面的權限檢查（程式在 accounts.py；工作人員審核頁也在裡面，掛在後台底下）
 import accounts  # noqa: E402
 accounts.register(app, db, dict(Student=Student, get_student=get_student, exams=exams))

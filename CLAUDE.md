@@ -50,6 +50,9 @@ writing_bank.py     寫作題庫的載入、圖表繪製（SVG）與 AI 老師�
 writing/            寫作題庫資料：tests.json、W01/meta.json、W01/task1~2.json
 speaking_bank.py    口說題庫的載入、考官台詞流程與 AI 老師評分（沿用寫作的金鑰設定）
 speaking/           口說題庫資料：tests.json、S01/test.json…
+jlpt_mock.py        日檢模擬考 /jlpt-mock/<學生id>：題庫解析、作答、交卷顯示正解、估計分數（Blueprint）
+jlpt_mock/          日檢模擬考題庫 N5.txt～N1.txt（純文字格式，見 README.md）
+jlpt_audio.bat      在櫃台電腦產生日檢模擬考聽解音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
@@ -128,12 +131,21 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   同音字表 `SAME` 算對）；同時用 MediaRecorder 錄音讓學生重聽，錄音與星星都只存在瀏覽器（localStorage），不上傳。
   單字來源：零基礎與一般英文主題（`/phonics/<id>/words?theme=B01`，附音標）、各發音規則課、ABC 代表字
 
+## 日檢模擬考（jlpt_mock.py）
+
+- N5～N1 各一回，題目原創；題庫是 `jlpt_mock/N5.txt`…（格式、題數、計分見 `jlpt_mock/README.md`）
+- 入口在日檢功能選單的「模擬考」；要後台開通「B 模考」（功能代號 `mock`）而且該等級有開（`exams.open_levels`），沒開的等級回 403
+- 一個科目交一次卷（`JlptMockAttempt` 一筆），交卷後同一頁變成檢討：正解、學生選的、中文解析、聽解台詞；
+  全部科目都交過才顯示 180 分的估計分數與是否達合格標準（標明是估計）
+- 聽解音檔由題庫台詞用 edge-tts 產生（`tools/make_jlpt_audio.py`，一級一個 mp3，不進 git）；沒有音檔時頁面會提示雙擊 `jlpt_audio.bat`
+- 改題目後一定要跑 `python tools/check_jlpt_mock.py`
+
 ## 學生帳號與開通權限（accounts.py、exams.py）
 
 - 學生在 `/register` 填學號、名字、電子郵件（和原本報名選課系統同一個，表單有提示）、電話、校區（台北・桃園・中壢・南崁・新竹）、
   報名課程（多益全方位、雅思全方位、托福全方位、韓文、日文，可複選）、密碼。送出後 `Student.status='pending'`，什麼都不能用
 - 工作人員用管理員密碼登入後台，`/admin`（＝`/admin/students`）是審核開通頁：依學生買的課，每個考試勾「開通」、功能、等級
-  （韓檢 1～6 級、日檢 N5～N1）、開通日期、課程開始日、課程結束日。日檢的項目是「A 單字學習與測驗」與「B 模考」（模考還沒開發，勾了沒內容）。
+  （韓檢 1～6 級、日檢 N5～N1）、開通日期、課程開始日、課程結束日。日檢的項目是「A 單字學習與測驗」與「B 模考」（日檢模擬考）。
   托福網站內容還沒開發，只記錄報名；可以加開一般英文、零基礎給學生。也能改學生資料、重設密碼、退回、停用
 - 開通內容存在 `Student.access`（JSON，格式見 `exams.py`），判斷都在 `exams.py`：`access_of`、`entry_state`（台灣日期）、
   `features_for`、`exams_for`、`open_levels`。**頁面要判斷權限一律走這幾個函式**
@@ -328,7 +340,8 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   - N5～N1 完成，共 10,097 字（682＋774＋2,420＋3,260＋2,961）：Waller 字表 7,430 字＋JMdict 常用字補充 2,667 字；2026-11 依常用度與漢字難度重新分級，1,240 字換等級（見 `jlpt/README.md`）。
     換等級只要改 CSV 的「主題」，`import_sheet.py` 會把同課程唯一的同拼字搬過去，不會多出重複字
 - ✅ 學生註冊／登入與工作人員審核開通（依課程開功能、等級、開通與課程日期）；原本的單字、題庫編輯後台暫停
-- ⬜ 日檢模考、托福（後台已有開關，內容還沒開發）
+- ✅ 日檢模擬考 N5～N1 各一回（67／85／102／105／107 題；交卷顯示正解與解析、估計分數；聽解音檔在櫃台電腦雙擊 `jlpt_audio.bat` 產生）
+- ⬜ 托福（後台已有開關，內容還沒開發）
 - ✅ 聽力題庫 **6 / 10 回**（L01–L06 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
 - ⬜ 聽力 L07–L10
 - ✅ 閱讀題庫 **6 / 10 回**（R01–R06 完成，各 3 篇 40 題含解析；主題不重複，也避開聽力題庫的主題）
@@ -344,5 +357,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 python tools/check_listening.py          # 檢查題庫一致性（改完題目必跑）
 python tools/make_listening_audio.py L01 # 產生某回音檔
 python tools/make_listening_audio.py --voices   # 列出可用語音
+python tools/check_jlpt_mock.py          # 檢查日檢模擬考題庫（改完題目必跑）
+python tools/make_jlpt_audio.py          # 產生日檢模擬考聽解音檔
 python app.py                            # 直接起 server（平常用 run.bat）
 ```
