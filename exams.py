@@ -18,18 +18,18 @@ COOKIE = 'exam'
 
 EXAMS = [
     {"key": "ielts", "name": "雅思", "en": "IELTS", "course": "IELTS", "icon": "globe", "ready": True,
-     "desc": "單字學習、單字測驗、聽說讀寫模擬測驗",
+     "desc": "背單字神器、單字闖關神器、聽說讀寫模擬測驗",
      "features": ["learn", "vocab_quiz", "exam"]},
     {"key": "toeic", "name": "多益", "en": "TOEIC", "course": "TOEIC", "icon": "briefcase", "ready": True,
-     "desc": "職場情境單字學習與單字測驗",
+     "desc": "職場情境單字：背單字神器與單字闖關神器",
      "features": ["learn", "vocab_quiz"]},
     {"key": "topik", "name": "韓檢", "en": "TOPIK", "course": "TOPIK", "icon": "letter", "ready": True,
-     "desc": "韓國語文能力測驗：1～6 級分級單字學習、單字測驗與 TOPIK I／II 模擬考", "lang": "ko",
+     "desc": "韓國語文能力測驗：1～6 級分級背單字神器、單字闖關神器與 TOPIK I／II 模擬考", "lang": "ko",
      "features": ["learn", "vocab_quiz", "mock1", "mock2"],
      # 分級字庫：每一級是一個主題（K1～K6，見 app.py 的 OFFICIAL_THEMES），可以逐級對學生開放
      "levels": [1, 2, 3, 4, 5, 6]},
     {"key": "jlpt", "name": "日檢", "en": "JLPT", "course": "JLPT", "icon": "letter", "ready": True,
-     "desc": "日本語能力試驗：N5～N1 分級單字學習、單字測驗與模擬考", "lang": "ja",
+     "desc": "日本語能力試驗：N5～N1 分級背單字神器、單字闖關神器與模擬考", "lang": "ja",
      "features": ["learn", "vocab_quiz", "mock"],
      # 分級字庫：N5～N1 各是一個主題（app.py 的 OFFICIAL_THEMES），level 用 5～1，可以逐級對學生開放
      "levels": [5, 4, 3, 2, 1]},

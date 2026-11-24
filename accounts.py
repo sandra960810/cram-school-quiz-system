@@ -40,20 +40,20 @@ COURSES = [
 COURSE_BY_KEY = {c["key"]: c for c in COURSES}
 
 # 後台每個考試可以開的項目：(項目代碼, 名稱, 對應的功能, 說明)。
-# 日檢照櫃台的說法分成 A 單字學習與測驗、B 模考（jlpt_mock.py，N5～N1 每級多回，開哪幾回逐回勾選，存在 mock_open）
+# 日檢照櫃台的說法分成 A 背單字神器與單字闖關神器、B 模考（jlpt_mock.py，N5～N1 每級多回，開哪幾回逐回勾選，存在 mock_open）
 OPTIONS = {
-    "ielts": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], ""),
+    "ielts": [("learn", "背單字神器", ["learn"], ""), ("vocab_quiz", "單字闖關神器", ["vocab_quiz"], ""),
               ("exam", "聽說讀寫模擬考", ["exam"], "")],
-    "toeic": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
+    "toeic": [("learn", "背單字神器", ["learn"], ""), ("vocab_quiz", "單字闖關神器", ["vocab_quiz"], "")],
     # 韓檢模考：TOPIK I（初級 1～2 級）、TOPIK II（中高級 3～6 級）分開開通，和下面勾的單字等級無關
-    "topik": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], ""),
+    "topik": [("learn", "背單字神器", ["learn"], ""), ("vocab_quiz", "單字闖關神器", ["vocab_quiz"], ""),
               ("mock1", "TOPIK I 模考", ["mock1"], "初級（1～2 級）：聽力＋閱讀，滿分 200"),
               ("mock2", "TOPIK II 模考", ["mock2"], "中高級（3～6 級）：聽力＋寫作＋閱讀，滿分 300；寫作由 AI 老師批改")],
-    "jlpt": [("vocab", "A 單字學習與測驗", ["learn", "vocab_quiz"], ""),
+    "jlpt": [("vocab", "A 背單字神器與單字闖關神器", ["learn", "vocab_quiz"], ""),
              ("mock", "B 模考", ["mock"], "N5～N1 模擬考，在下面「模考開放的回數」逐回勾選，和單字等級分開設定")],
-    "basic": [("phonics", "學發音", ["phonics"], ""), ("learn", "單字學習", ["learn"], ""),
-              ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
-    "general": [("learn", "單字學習", ["learn"], ""), ("vocab_quiz", "單字測驗", ["vocab_quiz"], "")],
+    "basic": [("phonics", "學發音", ["phonics"], ""), ("learn", "背單字神器", ["learn"], ""),
+              ("vocab_quiz", "單字闖關神器", ["vocab_quiz"], "")],
+    "general": [("learn", "背單字神器", ["learn"], ""), ("vocab_quiz", "單字闖關神器", ["vocab_quiz"], "")],
 }
 LEVEL_LABELS = {"topik": lambda n: f"{n}級", "jlpt": lambda n: f"N{n}"}
 

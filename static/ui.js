@@ -100,9 +100,11 @@
 
 
     // ------------------------------------------------------------------
-    // 英文發音：從瀏覽器的語音裡挑最像真人的（Natural / Neural / Google 等）
+    // 發音：一律自動挑最像真人的語音（Natural / Neural 神經語音優先），不讓學生自己選語音
     // ------------------------------------------------------------------
-    // 韓檢頁面（<html data-exam="topik">）唸韓文、日檢（jlpt）唸日文，其他頁面唸英文；各語言的發音設定分開存
+    // 2026-11 起拿掉「口音、語音」選單：學生選到機械語音反而唸得更差，所以統一自動挑；
+    // 英文固定英國腔（雅思常用，伺服器音檔也是 en-GB-SoniaNeural），只留語速可以調。
+    // 韓檢頁面（<html data-exam="topik">）唸韓文、日檢（jlpt）唸日文，其他頁面唸英文；各語言的語速設定分開存
     const FOREIGN = {
         topik: { name: '韓文', re: /^ko[-_]/i, store: '-ko', bcp: 'ko-KR', accent: 'KR', test: '안녕하세요? 한국어 공부를 시작해 볼까요?' },
         jlpt: { name: '日文', re: /^ja[-_]/i, store: '-ja', bcp: 'ja-JP', accent: 'JP', test: 'こんにちは。日本語の勉強を始めましょう。' },
@@ -111,6 +113,14 @@
     const VOICE_KEY = 'quiz-voice-settings' + (FOREIGN ? FOREIGN.store : '');
     let voiceSettings = { accent: 'GB', rate: 'normal', voiceName: '' };
     try { Object.assign(voiceSettings, JSON.parse(localStorage.getItem(VOICE_KEY) || '{}')); } catch (e) { /* ignore */ }
+    // 以前存下來的語音與口音選擇一律不再採用，改成自動挑
+    voiceSettings.voiceName = '';
+    voiceSettings.accent = 'GB';
+    // 同樣是神經語音時，優先挑發音清楚的成人標準聲（Maisie、Ana 是兒童聲，不適合當單字示範）
+    const PREFERRED = FOREIGN
+        ? { KR: ['sunhi', 'injoon', 'hyunsu'], JP: ['nanami', 'keita', 'aoi'] }[FOREIGN.accent]
+        : ['sonia', 'ryan', 'libby', 'thomas', 'aria', 'jenny', 'guy', 'andrew', 'emma', 'ava', 'brian', 'natasha', 'william'];
+    const CHILD_VOICES = /\b(maisie|ana)\b/;
     const RATES = { slow: 0.75, normal: 0.95 };
 
     // 分數越高越像真人；accent 是 'GB'（英國，雅思常用）或 'US'
@@ -125,6 +135,9 @@
         if (n.includes('premium') || n.includes('enhanced')) score += 45;
         if (n.includes('siri')) score += 35;
         if (/(desktop|espeak|robot|compact)/.test(n)) score -= 30;
+        if (CHILD_VOICES.test(n)) score -= 60;
+        const pref = PREFERRED.findIndex(p => n.includes(p));
+        if (pref >= 0) score += 20 - pref;          // 名單越前面越優先（只在同等級語音之間分高下）
         const lang = v.lang.replace('_', '-').toUpperCase();
         if (FOREIGN) score += 0;
         else if (lang === 'EN-' + accent) score += 25;
@@ -140,10 +153,6 @@
 
     function pickVoice() {
         const voices = englishVoices();
-        if (voiceSettings.voiceName) {
-            const chosen = voices.find(v => v.name === voiceSettings.voiceName);
-            if (chosen) return chosen;
-        }
         return voices.sort((a, b) => voiceScore(b, voiceSettings.accent) - voiceScore(a, voiceSettings.accent))[0] || null;
     }
 
@@ -163,7 +172,6 @@
     function useServerAudio() {
         if (!serverTtsOk || !window.Audio) return false;
         if (IS_ANDROID) return true;
-        if (voiceSettings.voiceName) return false;          // 自己在發音設定選了語音，就照選的
         return voiceQuality() !== 'neural';
     }
 
@@ -283,10 +291,11 @@
         document.body.append(btn, panel);
 
         function render() {
-            const voices = englishVoices().sort((a, b) => voiceScore(b, voiceSettings.accent) - voiceScore(a, voiceSettings.accent));
+            const voices = englishVoices();
             const current = pickVoice();
-            const mark = { neural: '★ ', good: '☆ ', poor: '' };
-            const opt = (v) => `<option value="${v.name.replace(/"/g, '&quot;')}" ${current && v.name === current.name ? 'selected' : ''}>${mark[voiceTier(v)]}${v.name.replace(/</g, '&lt;')}</option>`;
+            // 實際會用到的聲音：瀏覽器沒有神經語音時改播伺服器的真人級音檔
+            const server = useServerAudio();
+            const shortName = (v) => v.name.replace(/^Microsoft\s+/i, '').replace(/\s*-\s*.*$/, '').replace(/</g, '&lt;');
             panel.innerHTML = `
                 <div class="vp-title">${icon('volume')} 聲音設定</div>
                 <label>按鈕音效
@@ -294,28 +303,15 @@
                         <option value="1" ${soundOn ? 'selected' : ''}>開</option>
                         <option value="0" ${soundOn ? '' : 'selected'}>關</option>
                     </select></label>
-                ${FOREIGN ? '' : `<label>口音
-                    <select data-k="accent">
-                        <option value="GB" ${voiceSettings.accent === 'GB' ? 'selected' : ''}>英國腔（雅思常用）</option>
-                        <option value="US" ${voiceSettings.accent === 'US' ? 'selected' : ''}>美國腔</option>
-                    </select></label>`}
                 <label>語速
                     <select data-k="rate">
                         <option value="normal" ${voiceSettings.rate === 'normal' ? 'selected' : ''}>正常</option>
                         <option value="slow" ${voiceSettings.rate === 'slow' ? 'selected' : ''}>慢速</option>
                     </select></label>
-                <label>語音 ${voices.length ? '' : `<span class="vp-bad">（找不到${FOREIGN ? FOREIGN.name : '英文'}語音）</span>`}
-                    <select data-k="voiceName" ${voices.length ? '' : 'disabled'}>
-                        <option value="">自動挑最像真人的</option>${voices.map(opt).join('')}
-                    </select></label>
-                <div class="vp-note">${voices.length ? ({
-                        neural: icon('check-circle') + ' 真人級語音：' + (current ? current.name.replace(/</g, '&lt;') : ''),
-                        good: icon('smile') + ' 品質不錯：' + (current ? current.name.replace(/</g, '&lt;') : '')
-                              + '<br>改用 <b>Edge</b> 更自然。',
-                        poor: icon('alert') + ' 目前是機械式語音：' + (current ? current.name.replace(/</g, '&lt;') : '')
-                              + '<br>改用 <b>Edge</b> 發音更自然。'
-                    }[voiceTier(current)])
-                    : `沒有${FOREIGN ? FOREIGN.name : '英文'}語音，請改用 <b>Edge</b> 開啟。`}</div>
+                <div class="vp-note">${icon('check-circle')} 發音已自動選用最接近真人的聲音${
+                    server ? '（線上真人級語音）'
+                    : current ? '：' + shortName(current)
+                    : voices.length ? '' : `<br><span class="vp-bad">這個瀏覽器沒有${FOREIGN ? FOREIGN.name : '英文'}語音，請改用 <b>Edge</b> 開啟。</span>`}</div>
                 <button class="vp-test" data-sound="none">${icon('volume')} 試聽</button>`;
             panel.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
                 if (sel.dataset.k === 'sfx') {
@@ -325,7 +321,6 @@
                     return;
                 }
                 voiceSettings[sel.dataset.k] = sel.value;
-                if (sel.dataset.k === 'accent') voiceSettings.voiceName = '';
                 saveVoiceSettings();
                 render();
             }));
