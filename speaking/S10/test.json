@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 10",
+  "part1": [
+    {
+      "topic": "Where you live",
+      "questions": [
+        "Do you live in a city, a town or the countryside?",
+        "What is the best thing about living there?",
+        "How do you usually travel around the area where you live?",
+        "Is there anything you dislike about where you live?"
+      ]
+    },
+    {
+      "topic": "Friends",
+      "questions": [
+        "How often do you see your friends?",
+        "Do you prefer to have a few close friends or many friends?",
+        "Where do you usually meet your friends?",
+        "Are your friends now the same as your friends at school?"
+      ]
+    },
+    {
+      "topic": "Clothes",
+      "questions": [
+        "What kind of clothes do you usually wear?",
+        "Do you wear different clothes at weekends?",
+        "Have you ever bought clothes that you never wore?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "A goal for the future",
+    "cue": "Describe a goal you hope to achieve in the next few years.",
+    "points": [
+      "what the goal is",
+      "when you first decided on it",
+      "what you are doing to achieve it"
+    ],
+    "final": "and explain why this goal is important to you.",
+    "followups": [
+      "Have you told your family about this goal?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Ambition and success",
+      "questions": [
+        "Is it important for young people to have clear goals?",
+        "How do people in your country usually define success?",
+        "Can a person be too ambitious?"
+      ]
+    },
+    {
+      "theme": "Work and free time",
+      "questions": [
+        "Why do so many people find it hard to balance work and free time?",
+        "Should employers be responsible for their workers' well-being?",
+        "Do you think people will work fewer hours in the future?"
+      ]
+    }
+  ]
+}

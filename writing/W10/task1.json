@@ -1,0 +1,19 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The chart below shows the number of visits made to five types of attraction in one country in 2005 and 2025.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "bar",
+    "title": "Visits to attractions, 2005 and 2025",
+    "x": ["Museums", "Theme parks", "National parks", "Historic houses", "Zoos"],
+    "y_label": "Visits (millions)",
+    "y_max": 50,
+    "y_step": 5,
+    "series": [
+      {"name": "2005", "values": [28, 21, 15, 12, 9]},
+      {"name": "2025", "values": [34, 19, 31, 11, 9]}
+    ]
+  }
+}
