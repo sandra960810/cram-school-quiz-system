@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 9",
+  "part1": [
+    {
+      "topic": "Your home town",
+      "questions": [
+        "Is your home town a good place for young people to live?",
+        "What do visitors usually do when they come to your home town?",
+        "How has your home town changed since you were a child?",
+        "Would you like to live in your home town in the future?"
+      ]
+    },
+    {
+      "topic": "Films",
+      "questions": [
+        "What kind of films do you enjoy watching?",
+        "Do you prefer to watch films at the cinema or at home?",
+        "Is there a film you have watched more than once?",
+        "Who do you usually watch films with?"
+      ]
+    },
+    {
+      "topic": "Noise",
+      "questions": [
+        "Is the place where you live usually quiet or noisy?",
+        "What kinds of noise do you find annoying?",
+        "Do you find it easy to study when there is noise around you?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "A useful piece of technology",
+    "cue": "Describe a piece of technology, apart from your phone, that you find useful.",
+    "points": [
+      "what it is",
+      "when you started using it",
+      "how often you use it"
+    ],
+    "final": "and explain why it is useful to you.",
+    "followups": [
+      "Is it easy for older people to use this piece of technology?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Technology and older people",
+      "questions": [
+        "Why do some older people find new technology difficult to use?",
+        "Who should be responsible for teaching older people to use technology?",
+        "In what ways can technology make life easier for elderly people?"
+      ]
+    },
+    {
+      "theme": "Machines and jobs",
+      "questions": [
+        "Which jobs do you think machines will do instead of people in the future?",
+        "Are there any jobs that machines will never be able to do well?",
+        "How should governments help workers whose jobs are replaced by machines?"
+      ]
+    }
+  ]
+}
