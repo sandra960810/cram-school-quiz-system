@@ -1,0 +1,238 @@
+{
+ "no": 3,
+ "title": "The Illusion of Understanding",
+ "context": "以為自己懂的錯覺",
+ "instructions": "You should spend about 20 minutes on <b>Questions 27–40</b>, which are based on Reading Passage 3 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "Most people believe that they understand how a zip works, or a flush toilet, or a bicycle. Asked to rate their understanding on a scale from one to seven, they typically place themselves somewhere in the middle or towards the top. In a series of studies published in 2002, two psychologists at Yale University then asked their participants to do something more demanding: to write out, step by step, a detailed explanation of how the device actually works. Most found that they could not. When they were asked to rate their understanding a second time, their scores fell sharply. The researchers called this the 'illusion of explanatory depth': the tendency to believe that we understand the world in far greater detail than we really do."
+  },
+  {
+   "label": "",
+   "text": "Similar results have since been found many times. In one British study, people were asked to draw a bicycle, adding the frame, pedals and chain to a sketch that showed only the wheels and handlebars. A large proportion produced bicycles that could not possibly have worked, with chains connecting the front and back wheels or frames that would have prevented the steering from turning. Remarkably, regular cyclists performed only slightly better than people who never rode."
+  },
+  {
+   "label": "",
+   "text": "Why should people be so poor at judging their own understanding? One explanation is that we mistake familiarity for knowledge. We see bicycles every day, we know what they look like and how to use them, and this familiarity creates a feeling of understanding that is not tested until someone asks us to explain the mechanism. Another is that many devices show their workings, at least partly, so that we can always look again; the knowledge we feel we have is really stored in the world around us, not in our heads. Interestingly, the illusion appears to be much weaker for other kinds of knowledge. People are reasonably accurate in judging how well they know facts, such as the capital cities of countries, or the plots of films they have seen. It is explanations of how things work, and why, that we overestimate."
+  },
+  {
+   "label": "",
+   "text": "Some researchers argue that the illusion is less a flaw than a side effect of the way human knowledge is organised. No individual could possibly understand all the technology and institutions on which modern life depends. Instead, knowledge is shared across a community: the engineer understands the bridge, the doctor the medicine, the mechanic the car. We rely on this division of cognitive labour constantly, and on the whole it serves us well. The illusion arises because we do not always keep track of where our own knowledge ends and other people's begins. Knowing that someone understands something, we feel as though we understand it ourselves."
+  },
+  {
+   "label": "",
+   "text": "The consequences become more serious when the subject is not a toilet but a public policy. In a study published in 2013, American participants were asked for their views on several political issues, such as a proposal to set a single rate of income tax for everyone, and asked how well they understood them. Some were then asked to explain, in as much detail as possible, how each policy would work. After trying to do so, these participants not only rated their understanding lower but also expressed less extreme opinions. A second group, who were asked instead to give reasons for their position, showed no such moderation; if anything, setting out their reasons made them more confident. The difference appears to be that explaining a mechanism exposes the limits of one's knowledge, while listing reasons merely rehearses what one already believes."
+  },
+  {
+   "label": "",
+   "text": "The modern information environment may make matters worse. In experiments at Yale, people who had used an internet search engine to answer questions later rated their ability to answer unrelated questions more highly than people who had not, as though knowledge that was available online had become part of their own minds. When information is always a few seconds away, the line between what we know and what we could look up becomes very easy to blur."
+  },
+  {
+   "label": "",
+   "text": "None of this suggests that people should feel embarrassed about not knowing how their toilets work. The illusion is a feature of everyone's thinking, including that of experts outside their own fields. But it does suggest a simple habit that may be worth cultivating. Before arguing strongly about a complex question, it is worth asking ourselves not 'Why do I believe this?' but 'Could I explain how it would actually work?' The answer is often humbling, and humility, in this case, is the beginning of understanding rather than its end."
+  }
+ ],
+ "groups": [
+  {
+   "type": "mcq",
+   "range": "Questions 27–30",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 27,
+     "stem": "In the 2002 studies, what made participants lower their ratings of their own understanding?",
+     "options": {
+      "A": "comparing their answers with those of experts",
+      "B": "being shown how the devices really worked",
+      "C": "attempting to write a detailed explanation",
+      "D": "being told that most people overestimate themselves"
+     }
+    },
+    {
+     "no": 28,
+     "stem": "What was surprising about the bicycle study?",
+     "options": {
+      "A": "Experienced cyclists did not do much better than non-cyclists.",
+      "B": "Most people refused to complete the drawing.",
+      "C": "People drew the wheels in the wrong positions.",
+      "D": "Women performed better than men."
+     }
+    },
+    {
+     "no": 29,
+     "stem": "According to the third paragraph, the illusion of explanatory depth is weakest when people judge their knowledge of",
+     "options": {
+      "A": "how machines operate.",
+      "B": "stories and simple facts.",
+      "C": "causes of natural events.",
+      "D": "everyday objects they use often."
+     }
+    },
+    {
+     "no": 30,
+     "stem": "What does the writer suggest about the division of cognitive labour?",
+     "options": {
+      "A": "It has made people less intelligent than in the past.",
+      "B": "It is generally a useful arrangement.",
+      "C": "It applies mainly to experts.",
+      "D": "It is the main cause of political disagreement."
+     }
+    }
+   ]
+  },
+  {
+   "type": "ynng",
+   "range": "Questions 31–35",
+   "instruction": "Do the following statements agree with the claims of the writer in Reading Passage 3?",
+   "limit": "Write<br><b>YES</b> if the statement agrees with the claims of the writer<br><b>NO</b> if the statement contradicts the claims of the writer<br><b>NOT GIVEN</b> if it is impossible to say what the writer thinks about this",
+   "items": [
+    {
+     "no": 31,
+     "text": "The illusion of explanatory depth is a sign of low intelligence."
+    },
+    {
+     "no": 32,
+     "text": "Explaining how a policy works tends to make people's opinions less extreme."
+    },
+    {
+     "no": 33,
+     "text": "Giving reasons for a political opinion has the same effect as explaining how a policy works."
+    },
+    {
+     "no": 34,
+     "text": "Search engines provide less reliable information than books."
+    },
+    {
+     "no": 35,
+     "text": "Experts are not affected by the illusion when they consider subjects outside their own speciality."
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 36–40",
+   "instruction": "Complete the summary below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Why we think we know more than we do",
+   "rows": [
+    {
+     "text": "One reason for the illusion is that people confuse {36} with real knowledge. Another is that much of what we seem to know is actually stored in the {37} rather than in our heads. Knowledge is also shared within a {38}, and people do not always keep {39} of the boundary between their own knowledge and that of others. Using the internet can make this boundary even easier to {40}."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 27,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。研究者請受試者 write out, step by step, a detailed explanation，大多寫不出來，再評一次分數就大幅下降。<br><b>陷阱</b>：B 是很自然的想法，但文章沒說有給他們看正確原理；分數下降是因為自己試著解釋。",
+   "quote": "to write out, step by step, a detailed explanation of how the device actually works"
+  },
+  {
+   "no": 28,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。原文 Remarkably, regular cyclists performed only slightly better than people who never rode。<br><b>解題關鍵</b>：Remarkably（值得注意的是）就是題目問的 surprising。<b>陷阱</b>：C 錯在輪子是題目原本就畫好的。",
+   "quote": "Remarkably, regular cyclists performed only slightly better than people who never rode."
+  },
+  {
+   "no": 29,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。錯覺對 facts（首都）和 the plots of films 比較弱，人們判斷得 reasonably accurate。<br><b>同義轉換</b>：plots of films ＝ stories；capital cities ＝ simple facts。<b>陷阱</b>：A、D 正是錯覺最強的地方。",
+   "quote": "People are reasonably accurate in judging how well they know facts"
+  },
+  {
+   "no": 30,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。作者說我們隨時依賴認知分工，and on the whole it serves us well。<br><b>同義轉換</b>：serves us well ＝ a useful arrangement。<b>陷阱</b>：D 把第五段的政治研究硬接到這裡，作者沒說分工是政治分歧的主因。",
+   "quote": "We rely on this division of cognitive labour constantly, and on the whole it serves us well."
+  },
+  {
+   "no": 31,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。作者說 The illusion is a feature of everyone's thinking，也說人不必為此尷尬，並把它看成知識分工的副作用，不是聰明與否的問題。<br><b>陷阱</b>：文章沒用 intelligence 這個字，但作者的立場（人人都有）和「低智力的徵兆」矛盾。",
+   "quote": "The illusion is a feature of everyone's thinking, including that of experts outside their own fields."
+  },
+  {
+   "no": 32,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。試著解釋政策如何運作的人 also expressed less extreme opinions，作者並說明原因是解釋機制會暴露知識的極限。",
+   "quote": "not only rated their understanding lower but also expressed less extreme opinions"
+  },
+  {
+   "no": 33,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。只列理由的那組 showed no such moderation，甚至更有自信。<br><b>解題關鍵</b>：The difference appears to be... 作者明確說兩者效果不同。",
+   "quote": "showed no such moderation"
+  },
+  {
+   "no": 34,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。作者談的是搜尋讓人高估自己知道多少，完全沒比較網路與書本資料的可靠度。<br><b>陷阱</b>：作者對網路的態度偏負面，但「資訊不可靠」是另一回事。"
+  },
+  {
+   "no": 35,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。原文 including that of experts outside their own fields——專家在自己領域以外一樣會有這種錯覺。<br><b>同義轉換</b>：outside their own fields ＝ outside their own speciality。",
+   "quote": "including that of experts outside their own fields"
+  },
+  {
+   "no": 36,
+   "answers": [
+    "familiarity"
+   ],
+   "explain": "答案是 <b>familiarity</b>（熟悉感）。原文 we mistake familiarity for knowledge。<br><b>同義轉換</b>：mistake A for B ＝ confuse A with B。",
+   "quote": "we mistake familiarity for knowledge"
+  },
+  {
+   "no": 37,
+   "answers": [
+    "world"
+   ],
+   "explain": "答案是 <b>world</b>。原文 the knowledge we feel we have is really stored in the world around us, not in our heads。<br><b>提醒</b>：題目是 stored in the ___，填 world 一個字。",
+   "quote": "is really stored in the world around us, not in our heads"
+  },
+  {
+   "no": 38,
+   "answers": [
+    "community"
+   ],
+   "explain": "答案是 <b>community</b>。原文 knowledge is shared across a community。<br><b>同義轉換</b>：across ＝ within。",
+   "quote": "knowledge is shared across a community"
+  },
+  {
+   "no": 39,
+   "answers": [
+    "track"
+   ],
+   "explain": "答案是 <b>track</b>。原文 we do not always keep track of where our own knowledge ends and other people's begins。<br><b>解題關鍵</b>：keep track of 是固定片語，題目只挖掉 track。",
+   "quote": "we do not always keep track of where our own knowledge ends and other people's begins"
+  },
+  {
+   "no": 40,
+   "answers": [
+    "blur"
+   ],
+   "explain": "答案是 <b>blur</b>（模糊）。原文 the line between what we know and what we could look up becomes very easy to blur。<br><b>同義轉換</b>：line ＝ boundary。",
+   "quote": "becomes very easy to blur"
+  }
+ ]
+}

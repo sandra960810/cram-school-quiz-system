@@ -1,0 +1,251 @@
+{
+ "no": 2,
+ "title": "Banking Seeds for the Future",
+ "context": "種子銀行",
+ "instructions": "You should spend about 20 minutes on <b>Questions 14–26</b>, which are based on Reading Passage 2 below.",
+ "paragraphs": [
+  {
+   "label": "A",
+   "text": "Over the past century, the variety of crops grown by the world's farmers has narrowed dramatically. Where farmers once planted dozens of local varieties of wheat, rice or potatoes, each adapted to particular soils and climates, many now grow a handful of high-yielding varieties bred for modern agriculture. According to one widely quoted estimate by the United Nations Food and Agriculture Organization, around three quarters of the genetic diversity of crops was lost during the twentieth century. This matters because diversity is insurance. A variety that seems useless today may carry a gene for resistance to a disease that has not yet appeared, or for tolerance of a hotter, drier climate."
+  },
+  {
+   "label": "B",
+   "text": "The idea of collecting seeds to preserve this diversity is usually traced to the Russian botanist Nikolai Vavilov, who in the 1920s and 1930s organised expeditions across five continents and built up the largest seed collection in the world at his institute in Leningrad. The collection's history is a remarkable one. During the siege of the city in the Second World War, scientists at the institute guarded it through months of starvation, and several of them died of hunger rather than eat the seeds and potatoes in their care. Vavilov himself did not live to see the war's end; he had been arrested on political grounds and died in prison in 1943."
+  },
+  {
+   "label": "C",
+   "text": "Today there are more than 1,700 seed banks, or genebanks, around the world. The basic method of storage is simple. Seeds are cleaned, dried until they contain only a small percentage of water, sealed in airtight packets and kept at about minus eighteen degrees Celsius. Under these conditions, the seeds of many crops will remain alive for decades, and some for far longer. Not every plant cooperates, however. The seeds of some important tropical crops, including cocoa and mango, die if they are dried, and these must be kept as living plants in fields or greenhouses, or stored in liquid nitrogen at much lower temperatures, which is technically demanding and expensive."
+  },
+  {
+   "label": "D",
+   "text": "The best-known genebank is not really a genebank at all, but a backup for others. The Svalbard Global Seed Vault, which opened in 2008, is cut into a mountain on a Norwegian island far inside the Arctic Circle. The surrounding rock is permanently frozen, so that even if the cooling equipment failed, the seeds would stay cold. Institutions around the world send duplicate samples there, which remain their property: the vault's managers do not open the boxes. The site has not been free of problems. In 2017, water from melting permafrost entered the entrance tunnel after unusually warm weather. No seeds were affected, but the incident led to expensive improvements and served as a reminder that the Arctic is warming faster than most of the planet."
+  },
+  {
+   "label": "E",
+   "text": "The vault proved its value sooner than expected. In 2015, an international research centre that had kept a major genebank near Aleppo in Syria became the first institution to withdraw seeds from Svalbard. The civil war had made its original collection impossible to manage, and the centre had moved its work to Lebanon and Morocco. Using the samples it had previously sent to the Arctic, it was able to grow new plants, collect fresh seed from them, and eventually return a new set of duplicates to the vault."
+  },
+  {
+   "label": "F",
+   "text": "Not everyone believes that freezers are the answer. Critics point out that seeds stored at low temperatures stop evolving, while the pests, diseases and climate they will eventually have to face continue to change. A wheat variety collected in 1970 may be perfectly preserved, but it has had no chance to adapt to anything that has happened since. Supporters of so-called in situ conservation argue that diversity is best maintained in farmers' fields, where crops continue to evolve under real conditions. In the Andes of Peru, for example, a group of indigenous communities manage a large protected area in which hundreds of traditional potato varieties are grown and exchanged."
+  },
+  {
+   "label": "G",
+   "text": "In practice, most experts see the two approaches as complementary rather than competing. Genebanks preserve material that might otherwise disappear entirely, while farmers keep crops adapting. Both, however, face the same basic difficulty: money. Many national genebanks in poorer countries struggle to pay for electricity, equipment and trained staff, and samples are sometimes lost when freezers break down. An international fund now provides long-term support to some of the most important collections, but the director of one African genebank, Grace Mwangi, describes the situation bluntly. 'A seed bank is only as safe as its next electricity bill,' she says."
+  }
+ ],
+ "groups": [
+  {
+   "type": "matching",
+   "range": "Questions 14–18",
+   "instruction": "Reading Passage 2 has seven paragraphs, <b>A–G</b>.<br>Which paragraph contains the following information?",
+   "limit": "Write the correct letter, <b>A–G</b>, next to Questions 14–18.<br><b>NB</b> You may use any letter more than once.",
+   "optionsTitle": "",
+   "options": {
+    "A": "Paragraph A",
+    "B": "Paragraph B",
+    "C": "Paragraph C",
+    "D": "Paragraph D",
+    "E": "Paragraph E",
+    "F": "Paragraph F",
+    "G": "Paragraph G"
+   },
+   "items": [
+    {
+     "no": 14,
+     "text": "an example of people who sacrificed their lives to protect a collection"
+    },
+    {
+     "no": 15,
+     "text": "the reason why some seeds cannot be stored in the usual way"
+    },
+    {
+     "no": 16,
+     "text": "a description of how a collection was rebuilt after being lost"
+    },
+    {
+     "no": 17,
+     "text": "an explanation of why apparently unimportant varieties should be kept"
+    },
+    {
+     "no": 18,
+     "text": "a disadvantage of keeping seeds frozen for a long time"
+    }
+   ]
+  },
+  {
+   "type": "mcq",
+   "range": "Questions 19–22",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 19,
+     "stem": "What is said about the Svalbard Global Seed Vault?",
+     "options": {
+      "A": "It stores the only copies of many seed varieties.",
+      "B": "Its managers check the condition of the seeds regularly.",
+      "C": "It would remain cold without its cooling machinery.",
+      "D": "It was built to replace a genebank in Syria."
+     }
+    },
+    {
+     "no": 20,
+     "stem": "What happened at the vault in 2017?",
+     "options": {
+      "A": "Some seeds were damaged by water.",
+      "B": "Water got into part of the building.",
+      "C": "The vault was closed to new deposits.",
+      "D": "The cooling equipment stopped working."
+     }
+    },
+    {
+     "no": 21,
+     "stem": "According to paragraph F, critics of genebanks argue that stored seeds",
+     "options": {
+      "A": "may lose their ability to grow.",
+      "B": "are difficult for farmers to obtain.",
+      "C": "cannot adapt to changing conditions.",
+      "D": "are often wrongly identified."
+     }
+    },
+    {
+     "no": 22,
+     "stem": "What point is Grace Mwangi making?",
+     "options": {
+      "A": "The safety of a seed bank depends on reliable funding.",
+      "B": "Seed banks waste too much money on electricity.",
+      "C": "African seed banks are better managed than others.",
+      "D": "Seed banks should rely on renewable energy."
+     }
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 23–26",
+   "instruction": "Complete the sentences below.",
+   "limit": "Choose <b>NO MORE THAN TWO WORDS</b> from the passage for each answer.",
+   "rows": [
+    {
+     "text": "Before storage, seeds are dried and then sealed in {23}."
+    },
+    {
+     "text": "Seeds that cannot be dried may be preserved in {24} at very low temperatures."
+    },
+    {
+     "text": "Samples sent to Svalbard continue to be the {25} of the institutions that send them."
+    },
+    {
+     "text": "In Peru, indigenous communities grow hundreds of traditional varieties of {26}."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 14,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。列寧格勒被圍城時，研究所的科學家 died of hunger rather than eat the seeds and potatoes in their care。<br><b>同義轉換</b>：died... rather than eat ＝ sacrificed their lives to protect。",
+   "quote": "several of them died of hunger rather than eat the seeds and potatoes in their care"
+  },
+  {
+   "no": 15,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。可可、芒果等熱帶作物的種子 die if they are dried，所以不能用一般的乾燥冷凍法。<br><b>解題關鍵</b>：Not every plant cooperates 是這段轉折的訊號。",
+   "quote": "die if they are dried"
+  },
+  {
+   "no": 16,
+   "answers": [
+    "E"
+   ],
+   "explain": "答案是 <b>E</b>。敘利亞的研究中心用存在北極的備份 grow new plants, collect fresh seed，最後再存回去。<br><b>陷阱</b>：D 段介紹的是種子庫本身，重建收藏的過程在 E 段。",
+   "quote": "it was able to grow new plants, collect fresh seed from them"
+  },
+  {
+   "no": 17,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。A 段說 A variety that seems useless today may carry a gene for resistance to a disease。<br><b>同義轉換</b>：seems useless ＝ apparently unimportant；diversity is insurance 是這段的理由。",
+   "quote": "A variety that seems useless today may carry a gene for resistance to a disease that has not yet appeared"
+  },
+  {
+   "no": 18,
+   "answers": [
+    "F"
+   ],
+   "explain": "答案是 <b>F</b>。批評者說 seeds stored at low temperatures stop evolving，但病蟲害和氣候持續改變。<br><b>同義轉換</b>：stop evolving ＝ a disadvantage。",
+   "quote": "seeds stored at low temperatures stop evolving"
+  },
+  {
+   "no": 19,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。周圍岩石永久凍結，even if the cooling equipment failed, the seeds would stay cold。<br><b>陷阱</b>：A 錯在它是 backup（備份），存的是 duplicate samples；B 錯在 managers do not open the boxes；D 是倒果為因，敘利亞是後來從這裡取回種子。",
+   "quote": "even if the cooling equipment failed, the seeds would stay cold"
+  },
+  {
+   "no": 20,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。融化的永凍土的水 entered the entrance tunnel。<br><b>陷阱</b>：A 被明確否定（No seeds were affected）；文章沒說冷卻設備故障或停止收件。",
+   "quote": "water from melting permafrost entered the entrance tunnel"
+  },
+  {
+   "no": 21,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。冷凍種子 has had no chance to adapt to anything that has happened since。<br><b>同義轉換</b>：no chance to adapt ＝ cannot adapt。<b>陷阱</b>：A（失去發芽能力）文章說的是 perfectly preserved，剛好相反。",
+   "quote": "it has had no chance to adapt to anything that has happened since"
+  },
+  {
+   "no": 22,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。她說 A seed bank is only as safe as its next electricity bill（種子庫的安全取決於付不付得出下一期電費）。前一句也說問題是 money。<br><b>陷阱</b>：B 誤解了電費的意思，她不是說電費浪費，而是怕付不出來。",
+   "quote": "A seed bank is only as safe as its next electricity bill"
+  },
+  {
+   "no": 23,
+   "answers": [
+    "airtight packets",
+    "packets"
+   ],
+   "explain": "答案是 <b>airtight packets</b>（寫 packets 也可以）。原文 sealed in airtight packets。<br><b>提醒</b>：題目已經有 sealed in，直接接後面的名詞。",
+   "quote": "sealed in airtight packets"
+  },
+  {
+   "no": 24,
+   "answers": [
+    "liquid nitrogen"
+   ],
+   "explain": "答案是 <b>liquid nitrogen</b>（液態氮）。原文 stored in liquid nitrogen at much lower temperatures。<br><b>陷阱</b>：fields or greenhouses 是另一種保存方式（種成活的植物），題目說 at very low temperatures 才是液態氮。",
+   "quote": "stored in liquid nitrogen at much lower temperatures"
+  },
+  {
+   "no": 25,
+   "answers": [
+    "property"
+   ],
+   "explain": "答案是 <b>property</b>。送去的備份樣本 which remain their property。<br><b>同義轉換</b>：remain ＝ continue to be。",
+   "quote": "which remain their property"
+  },
+  {
+   "no": 26,
+   "answers": [
+    "potato",
+    "potatoes"
+   ],
+   "explain": "答案是 <b>potato</b>（varieties of potato；寫 potatoes 也算對）。原文 hundreds of traditional potato varieties are grown。<br><b>提醒</b>：原文是 potato varieties，題目改寫成 varieties of ___。",
+   "quote": "hundreds of traditional potato varieties are grown and exchanged"
+  }
+ ]
+}

@@ -1,0 +1,211 @@
+{
+ "no": 1,
+ "title": "The Glassmakers of Murano",
+ "context": "威尼斯穆拉諾島的玻璃工藝",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "For several centuries, the finest glass in Europe came from a cluster of small islands in the Venetian lagoon. Documents mention glassmakers working in Venice by the end of the tenth century, and by the thirteenth century the industry was important enough to be regulated by the state, which laid down rules on everything from apprenticeships to the size of furnaces. Its products ranged from simple bottles and window panes to the coloured pieces used in church mosaics and the glass beads that Venetian merchants carried to markets as far away as West Africa and India."
+  },
+  {
+   "label": "",
+   "text": "In 1291 the city's Great Council ordered that glass furnaces be moved out of Venice itself and onto the nearby island of Murano. The official reason was fire. Venice was densely built, much of it from wood, and a furnace that had to be kept burning day and night was a constant danger. Some historians have argued that the move had a second purpose: by concentrating the glassmakers on a single island, the authorities could keep a closer watch on them and protect the secrets of their trade. The evidence for this is mostly indirect, but it is certainly true that the Republic went to great lengths to keep its skilled workers at home."
+  },
+  {
+   "label": "",
+   "text": "Those lengths combined generous rewards with severe restrictions. Master glassmakers enjoyed a social standing unusual for craftsmen; by the fourteenth century they were permitted to wear swords, and their daughters could marry into noble families without their children losing noble rank. At the same time, glassmakers were forbidden to leave the Republic. Those who did so risked having their property confiscated and their relatives imprisoned, and there are accounts of agents being sent to bring them back or even to kill them, although how often such threats were carried out is unclear."
+  },
+  {
+   "label": "",
+   "text": "Murano's greatest technical achievement came in the middle of the fifteenth century, when the glassmaker Angelo Barovier is credited with developing cristallo, a glass so clear and colourless that it resembled rock crystal. Ordinary glass of the period had a greenish or brownish tint caused by impurities in its ingredients. Barovier's method relied on purifying the ash of certain plants, which supplied the soda that helped the sand to melt, and on adding small quantities of manganese to remove the remaining colour. The new glass was thin, light and could be shaped into extremely delicate forms, and it was sold at high prices to wealthy buyers across Europe."
+  },
+  {
+   "label": "",
+   "text": "In the sixteenth century, Murano also became famous for mirrors, which were made by backing sheets of glass with a thin layer of tin and mercury. The process was dangerous for the workers, since the mercury gave off poisonous fumes, but the results were far clearer than the polished metal mirrors that most people had used until then. Large Venetian mirrors were among the most expensive luxury goods of the age, and for a time the islands held a near-monopoly. That monopoly was eventually broken by France. In the 1660s, the French government persuaded a number of Murano craftsmen to come to Paris, where a royal mirror-making company was established. Within a few decades French workshops were producing mirrors in larger sizes than the Venetians could manage, and it was French glass that lined the walls of the famous Hall of Mirrors at Versailles."
+  },
+  {
+   "label": "",
+   "text": "Competition came from other directions too. In England in the 1670s, George Ravenscroft developed a glass that contained lead oxide. It was heavier than cristallo, but it had a brilliant sparkle and was soft enough to be cut into patterns, a style that became highly fashionable. Glassmakers in Bohemia, meanwhile, produced a hard, clear glass well suited to engraving. By the eighteenth century, Murano had lost its leading position, and after the fall of the Venetian Republic in 1797 its industry declined sharply."
+  },
+  {
+   "label": "",
+   "text": "A revival began in the second half of the nineteenth century, helped by renewed interest in historic techniques and by the founding of a glass museum on the island. Today Murano's furnaces depend heavily on tourism, and they face problems of their own. Cheap imitations, many of them made abroad, are sold in Venetian shops as local glass, which led to the creation of an official trademark to identify genuine Murano work. The furnaces are also expensive to run: because they must be kept hot continuously, sharp rises in the price of gas have forced some workshops to close."
+  }
+ ],
+ "groups": [
+  {
+   "type": "gapfill",
+   "range": "Questions 1–7",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Glassmaking on Murano",
+   "sections": [
+    {
+     "heading": "The move to Murano (1291)",
+     "lines": [
+      "official reason: the danger of {1} in a crowded city"
+     ]
+    },
+    {
+     "heading": "Treatment of glassmakers",
+     "lines": [
+      "masters were allowed to carry {2}",
+      "those who left the Republic could lose their {3}"
+     ]
+    },
+    {
+     "heading": "Cristallo (fifteenth century)",
+     "lines": [
+      "the ash of plants provided {4}, which helped the sand to melt",
+      "{5} was added to take away any colour that remained"
+     ]
+    },
+    {
+     "heading": "Competition",
+     "lines": [
+      "Ravenscroft's glass could be {6} into patterns",
+      "Bohemian glass was suitable for {7}"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "tfng",
+   "range": "Questions 8–13",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {
+     "no": 8,
+     "text": "There is strong evidence that the 1291 move was intended to protect trade secrets."
+    },
+    {
+     "no": 9,
+     "text": "Glassmakers were the only craftsmen in Venice whose daughters could marry nobles."
+    },
+    {
+     "no": 10,
+     "text": "It is known that many glassmakers who left the Republic were killed."
+    },
+    {
+     "no": 11,
+     "text": "Before cristallo was developed, most glass was slightly coloured."
+    },
+    {
+     "no": 12,
+     "text": "French mirror-makers were eventually able to make larger mirrors than those of Murano."
+    },
+    {
+     "no": 13,
+     "text": "Ravenscroft's lead glass was lighter than cristallo."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 1,
+   "answers": [
+    "fire"
+   ],
+   "explain": "答案是 <b>fire</b>。原文 The official reason was fire，威尼斯房子密集又多木造，日夜燒著的窯爐很危險。<br><b>陷阱</b>：保護商業機密是「有些歷史學家」的看法，題目問的是 official reason。",
+   "quote": "The official reason was fire."
+  },
+  {
+   "no": 2,
+   "answers": [
+    "swords"
+   ],
+   "explain": "答案是 <b>swords</b>。原文 they were permitted to wear swords。<br><b>同義轉換</b>：permitted to wear ＝ allowed to carry。複數 s 不能漏。",
+   "quote": "they were permitted to wear swords"
+  },
+  {
+   "no": 3,
+   "answers": [
+    "property"
+   ],
+   "explain": "答案是 <b>property</b>（財產）。離開共和國的人 risked having their property confiscated。<br><b>陷阱</b>：relatives 是「被關」，不是「失去」；題目說 lose their，對應 confiscated（沒收）。",
+   "quote": "risked having their property confiscated"
+  },
+  {
+   "no": 4,
+   "answers": [
+    "soda"
+   ],
+   "explain": "答案是 <b>soda</b>（蘇打）。原文 the ash of certain plants, which supplied the soda that helped the sand to melt。<br><b>同義轉換</b>：supplied ＝ provided。",
+   "quote": "which supplied the soda that helped the sand to melt"
+  },
+  {
+   "no": 5,
+   "answers": [
+    "manganese"
+   ],
+   "explain": "答案是 <b>manganese</b>（錳）。原文 adding small quantities of manganese to remove the remaining colour。<br><b>同義轉換</b>：remove ＝ take away；remaining ＝ that remained。",
+   "quote": "adding small quantities of manganese to remove the remaining colour"
+  },
+  {
+   "no": 6,
+   "answers": [
+    "cut"
+   ],
+   "explain": "答案是 <b>cut</b>。鉛玻璃 was soft enough to be cut into patterns。<br><b>陷阱</b>：engraving 是波希米亞玻璃的特色，不要混在一起。",
+   "quote": "soft enough to be cut into patterns"
+  },
+  {
+   "no": 7,
+   "answers": [
+    "engraving"
+   ],
+   "explain": "答案是 <b>engraving</b>（雕刻）。原文 a hard, clear glass well suited to engraving。<br><b>同義轉換</b>：well suited to ＝ suitable for。",
+   "quote": "a hard, clear glass well suited to engraving"
+  },
+  {
+   "no": 8,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。文章說保護機密的說法 The evidence for this is mostly indirect（證據大多是間接的）。<br><b>解題關鍵</b>：mostly indirect 和 strong evidence 相互矛盾。只寫「有人這樣主張」不等於證據充分。",
+   "quote": "The evidence for this is mostly indirect"
+  },
+  {
+   "no": 9,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章說玻璃師傅的女兒可以嫁入貴族，也說這種地位 unusual for craftsmen，但沒有說其他工匠「都不行」。<br><b>陷阱</b>：the only（唯一）是常見的 NOT GIVEN 陷阱——文章沒有和其他行業逐一比較。"
+  },
+  {
+   "no": 10,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。原文 how often such threats were carried out is unclear（這些威脅實際執行了多少次並不清楚）。<br><b>解題關鍵</b>：題目說 It is known that many，文章說 unclear，兩者矛盾。",
+   "quote": "although how often such threats were carried out is unclear"
+  },
+  {
+   "no": 11,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。原文 Ordinary glass of the period had a greenish or brownish tint。<br><b>同義轉換</b>：tint ＝ slightly coloured；ordinary glass ＝ most glass。",
+   "quote": "Ordinary glass of the period had a greenish or brownish tint caused by impurities in its ingredients."
+  },
+  {
+   "no": 12,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。原文 French workshops were producing mirrors in larger sizes than the Venetians could manage。<br><b>同義轉換</b>：Within a few decades ＝ eventually。",
+   "quote": "French workshops were producing mirrors in larger sizes than the Venetians could manage"
+  },
+  {
+   "no": 13,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。原文 It was heavier than cristallo。<br><b>陷阱</b>：cristallo 被形容 thin, light，鉛玻璃剛好相反，題目把比較方向倒過來了。",
+   "quote": "It was heavier than cristallo"
+  }
+ ]
+}
