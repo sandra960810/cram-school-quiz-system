@@ -1,0 +1,192 @@
+{
+  "no": 4,
+  "context": "A lecture on the intelligence of octopuses",
+  "audio": "L10_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 4. You will hear part of a lecture about the intelligence of octopuses. First you have some time to look at questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "45"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m1",
+      "t": "Good afternoon. In today's lecture I want to look at one of the most puzzling animals on the planet. Octopuses are molluscs, which makes them close relatives of snails and clams. Yet they show a level of intelligence we would normally associate with mammals or birds. They're unusual in other ways too. They have three hearts and blue blood, which carries oxygen efficiently in cold water. But it's their behaviour that I want to focus on today."
+    },
+    {
+      "v": "m1",
+      "t": "Let's begin with the nervous system. A common octopus has around five hundred million nerve cells, which is roughly the same as a dog. But where those cells are is quite unexpected. You might assume most of them are in the brain. In fact, about two-thirds of them are found in the arms. Each arm can carry out quite complicated movements without instructions from the brain at all."
+    },
+    {
+      "v": "m1",
+      "t": "The arms are also extraordinary sense organs. The suckers don't only grip; they can detect chemicals. So when an octopus reaches into a gap in the rocks, it is, in a sense, tasting what's inside before it ever sees it."
+    },
+    {
+      "v": "m1",
+      "t": "There are many stories about octopuses in captivity. In one well-known case, an aquarium kept losing animals overnight. They suspected staff at first, but it turned out that an octopus was leaving its own tank after dark, climbing into a neighbouring tank to eat the crabs, and then returning before morning."
+    },
+    {
+      "v": "m1",
+      "t": "Laboratory studies support these stories. Octopuses quickly learn to open jars with screw-top lids to reach food inside, and some learn faster after watching another octopus do it. They also seem to get bored. Octopuses kept in bare tanks with nothing to explore often start taking things apart, and one in Germany repeatedly put out the lamp above its tank by squirting water at it. They also seem able to tell individual people apart. At one research centre, an octopus regularly squirted water at one particular researcher, while ignoring everyone else, even when they all wore identical uniforms."
+    },
+    {
+      "v": "m1",
+      "t": "In the wild, there's evidence of tool use. Divers in Indonesia filmed veined octopuses picking up coconut shells from the sea floor, carrying them some distance, and later putting them together to make a shelter. Carrying something now in order to use it later is considered a sign of planning. A few researchers argue that this isn't true tool use, because the shells aren't used to act on anything else, but most biologists now accept it."
+    },
+    {
+      "v": "m1",
+      "t": "Then there's camouflage. An octopus can change the colour and texture of its skin in less than a second, using thousands of tiny bags of colour. What's puzzling is that octopuses appear to be colour-blind. One possible explanation is that their skin contains light-sensitive proteins, similar to those found in eyes, so the skin itself may be detecting light."
+    },
+    {
+      "v": "m1",
+      "t": "This raises an interesting question. Intelligence usually develops in animals that live a long time and learn from their parents. Octopuses do neither. Most species live only a year or two, and the mother dies soon after her eggs hatch. So young octopuses never meet their parents. Everything they know, they must work out for themselves. One theory is that intelligence developed after their ancestors lost the protective outer covering that snails still have, so they had to rely on their wits to survive."
+    },
+    {
+      "v": "m1",
+      "t": "Finally, this research has practical consequences. In 2022, following a government review, the law in the United Kingdom was changed to recognise octopuses as sentient beings, meaning they can experience pain and distress. This has major implications for how they are treated in research and in the food industry, which is what we'll turn to next week."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 4. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE INTELLIGENCE OF OCTOPUSES",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Nervous system",
+          "lines": [
+            "About two-thirds of the nerve cells are located in the {31}",
+            "Suckers are able to detect {32}"
+          ]
+        },
+        {
+          "heading": "Evidence of intelligence",
+          "lines": [
+            "Aquarium: an octopus left its tank at night to eat {33}",
+            "Laboratory: octopuses learn to open {34} to get food",
+            "They can recognise individual {35}",
+            "Wild: octopuses carry coconut {36} to make a shelter"
+          ]
+        },
+        {
+          "heading": "Camouflage",
+          "lines": [
+            "Skin colour can change in less than a {37}",
+            "Skin may contain light-sensitive {38}"
+          ]
+        },
+        {
+          "heading": "A puzzle",
+          "lines": [
+            "Young octopuses never meet their {39}",
+            "UK law recognises octopuses as {40} beings"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "arms"
+      ],
+      "explain": "答案是 <b>arms</b>。You might assume most of them are in the brain. In fact, about two-thirds of them are found in the arms。<br><b>陷阱</b>：brain 是一般人的假設，In fact 後面才是答案。",
+      "quote": "about two-thirds of them are found in the arms"
+    },
+    {
+      "no": 32,
+      "answers": [
+        "chemicals"
+      ],
+      "explain": "答案是 <b>chemicals</b>（化學物質）。原文 The suckers don't only grip; they can detect chemicals，所以章魚等於用手臂「嚐」東西。",
+      "quote": "they can detect chemicals"
+    },
+    {
+      "no": 33,
+      "answers": [
+        "crabs"
+      ],
+      "explain": "答案是 <b>crabs</b>（螃蟹）。章魚晚上爬出自己的缸，climbing into a neighbouring tank to eat the crabs。<br><b>陷阱</b>：一開始懷疑是 staff（員工）偷的，but it turned out 後面才是真相。",
+      "quote": "climbing into a neighbouring tank to eat the crabs"
+    },
+    {
+      "no": 34,
+      "answers": [
+        "jars"
+      ],
+      "explain": "答案是 <b>jars</b>（罐子）。原文 Octopuses quickly learn to open jars with screw-top lids。<br><b>提醒</b>：lids 是蓋子，題目問的是打開什麼，填 jars。",
+      "quote": "Octopuses quickly learn to open jars with screw-top lids"
+    },
+    {
+      "no": 35,
+      "answers": [
+        "people"
+      ],
+      "explain": "答案是 <b>people</b>。原文 They also seem able to tell individual people apart，例如只對某一位研究員噴水。<br><b>同義轉換</b>：tell... apart ＝ recognise。",
+      "quote": "They also seem able to tell individual people apart."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "shells"
+      ],
+      "explain": "答案是 <b>shells</b>。印尼潛水員拍到章魚 picking up coconut shells from the sea floor，帶著走，之後組成藏身處。",
+      "quote": "picking up coconut shells from the sea floor"
+    },
+    {
+      "no": 37,
+      "answers": [
+        "second"
+      ],
+      "explain": "答案是 <b>second</b>。原文 An octopus can change the colour and texture of its skin in less than a second。",
+      "quote": "in less than a second"
+    },
+    {
+      "no": 38,
+      "answers": [
+        "proteins"
+      ],
+      "explain": "答案是 <b>proteins</b>（蛋白質）。章魚似乎是色盲，One possible explanation is that their skin contains light-sensitive proteins。",
+      "quote": "their skin contains light-sensitive proteins"
+    },
+    {
+      "no": 39,
+      "answers": [
+        "parents"
+      ],
+      "explain": "答案是 <b>parents</b>。母章魚在卵孵化後不久就死了，So young octopuses never meet their parents。<br><b>提醒</b>：這正是謎題所在：一般聰明的動物會向父母學習，章魚卻都要自己摸索。",
+      "quote": "So young octopuses never meet their parents."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "sentient"
+      ],
+      "explain": "答案是 <b>sentient</b>（有感知能力的）。2022 年英國法律 recognise octopuses as sentient beings，meaning they can experience pain and distress。",
+      "quote": "recognise octopuses as sentient beings"
+    }
+  ]
+}

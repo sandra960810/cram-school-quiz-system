@@ -1,0 +1,329 @@
+{
+  "no": 3,
+  "context": "Two students discussing a playground observation study",
+  "audio": "L10_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 3. You will hear two education students, Maya and Josh, discussing an observation study they carried out at a children's playground. First you have some time to look at questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f3",
+      "t": "Josh, have you got a minute to go over the playground study before we write it up?"
+    },
+    {
+      "v": "m3",
+      "t": "Sure. I've typed up all our observation sheets, so we can look at those."
+    },
+    {
+      "v": "f3",
+      "t": "Great. I think we should start by explaining why we chose Ridley Park. Dr Patel originally suggested the playground by the river, didn't she?"
+    },
+    {
+      "v": "m3",
+      "t": "She did, but that was closed for repairs the whole month. And Ridley isn't the biggest playground in the city, that's the one in Castle Park. The reason we went for Ridley was that it was completely rebuilt last year, with logs, rocks and sand instead of the usual metal equipment. That made it really interesting to study."
+    },
+    {
+      "v": "f3",
+      "t": "Right. Then the methods section. Should we mention the difficulties we had?"
+    },
+    {
+      "v": "m3",
+      "t": "Definitely. I was expecting parents to object to us sitting there with clipboards, but once we explained, almost all of them were fine."
+    },
+    {
+      "v": "f3",
+      "t": "And we were lucky with the weather. The real headache was keeping track of the children. They moved so fast between different areas that I'm sure we counted some of them twice."
+    },
+    {
+      "v": "m3",
+      "t": "We'll have to admit that. So what about the findings? What surprised you most?"
+    },
+    {
+      "v": "f3",
+      "t": "I'd assumed the swings would be the most popular thing, and there were queues for them at times. But what really struck me was how long children spent in the corner with the sand and the loose sticks. Some of them stayed there for over an hour."
+    },
+    {
+      "v": "m3",
+      "t": "Yes, that was striking. Now, Dr Patel wants a section on the limitations of the study. Six visits seems like enough to me."
+    },
+    {
+      "v": "f3",
+      "t": "I agree. And we couldn't interview the children because we didn't get ethics approval in time, but that's understandable."
+    },
+    {
+      "v": "m3",
+      "t": "The real weakness, I think, is that we only ever went on weekday afternoons. We completely missed families who come at weekends, and they might use the playground quite differently."
+    },
+    {
+      "v": "f3",
+      "t": "That's fair. And how are we presenting it? I'd love to do a talk with slides."
+    },
+    {
+      "v": "m3",
+      "t": "So would I, but Dr Patel wants everyone to make a poster this year, because they'll be displayed at the department open day."
+    },
+    {
+      "v": "f3",
+      "t": "A poster it is, then. And no photos of the children, so we'll need diagrams."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m3",
+      "t": "Let's go through the main features of the playground and what we noticed about each one. The water pump first."
+    },
+    {
+      "v": "f3",
+      "t": "It was certainly busy, but the main thing I wrote down was how often it led to fights. There was only one handle, so children were constantly arguing about whose turn it was."
+    },
+    {
+      "v": "m3",
+      "t": "Yes, I saw a few tears there. What about the climbing wall?"
+    },
+    {
+      "v": "f3",
+      "t": "Older children loved it. But what struck me was how many parents kept calling their children down, or standing underneath with their arms out. They obviously thought it wasn't safe, although nobody actually got hurt while we were there."
+    },
+    {
+      "v": "m3",
+      "t": "Then there's the wooden boat. I thought that was the most fascinating."
+    },
+    {
+      "v": "f3",
+      "t": "Me too. It was meant to be something to climb on, but the children used it as a stage. They were putting on little plays, or pretending it was a shop. The designers can't have expected that."
+    },
+    {
+      "v": "m3",
+      "t": "And the tunnel?"
+    },
+    {
+      "v": "f3",
+      "t": "I thought older children would use it for hide and seek, but it was almost all toddlers, two or three years old. The bigger ones just ran past it."
+    },
+    {
+      "v": "m3",
+      "t": "Finally, the benches."
+    },
+    {
+      "v": "f3",
+      "t": "There are twelve of them, but most of the time they were empty. Parents preferred to stand next to their children rather than sit down."
+    },
+    {
+      "v": "m3",
+      "t": "That might be a useful point for the designers. Shall we write it up this weekend?"
+    },
+    {
+      "v": "f3",
+      "t": "Let's aim to finish a draft by Sunday evening."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 3. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose Ridley Park for their study?",
+          "options": {
+            "A": "Its playground had recently been rebuilt.",
+            "B": "It has the largest playground in the city.",
+            "C": "Their tutor recommended it."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What was the main difficulty during the observations?",
+          "options": {
+            "A": "Some parents did not want to be watched.",
+            "B": "The weather was often poor.",
+            "C": "It was hard to keep count of the children."
+          }
+        },
+        {
+          "no": 23,
+          "stem": "What surprised Maya most?",
+          "options": {
+            "A": "the time children spent in the area with loose materials",
+            "B": "the popularity of the swings",
+            "C": "how few children played on their own"
+          }
+        },
+        {
+          "no": 24,
+          "stem": "Josh thinks the main limitation of the study is that",
+          "options": {
+            "A": "they only visited on weekdays.",
+            "B": "they made too few visits.",
+            "C": "they did not interview the children."
+          }
+        },
+        {
+          "no": 25,
+          "stem": "How will the students present their findings?",
+          "options": {
+            "A": "as a poster",
+            "B": "as a talk with slides",
+            "C": "as a written report with photographs"
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What did the students observe about each of the following features of the playground?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Observations",
+      "options": {
+        "A": "It was mainly used by very young children.",
+        "B": "It often caused disagreements.",
+        "C": "It was rarely used.",
+        "D": "It was used in ways the designers did not intend.",
+        "E": "It needed repairing.",
+        "F": "Parents seemed to think it was dangerous."
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "water pump"
+        },
+        {
+          "no": 27,
+          "text": "climbing wall"
+        },
+        {
+          "no": 28,
+          "text": "wooden boat"
+        },
+        {
+          "no": 29,
+          "text": "tunnel"
+        },
+        {
+          "no": 30,
+          "text": "benches"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。原文 The reason we went for Ridley was that it was completely rebuilt last year。<br><b>陷阱</b>：C 老師建議的是河邊那座（但關閉整修）；B 最大的是 Castle Park。The reason... was 是答案訊號。",
+      "quote": "The reason we went for Ridley was that it was completely rebuilt last year"
+    },
+    {
+      "no": 22,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。原文 The real headache was keeping track of the children，有些小孩可能算了兩次。<br><b>陷阱</b>：A 原本擔心家長反對，但 almost all of them were fine；B 天氣 we were lucky。",
+      "quote": "The real headache was keeping track of the children."
+    },
+    {
+      "no": 23,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。她以為鞦韆最受歡迎，But what really struck me was how long children spent in the corner with the sand and the loose sticks。<br><b>同義轉換</b>：sand and loose sticks ＝ loose materials。<br><b>陷阱</b>：B 是她原本的假設。",
+      "quote": "But what really struck me was how long children spent in the corner with the sand and the loose sticks."
+    },
+    {
+      "no": 24,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Josh 說 The real weakness, I think, is that we only ever went on weekday afternoons。<br><b>陷阱</b>：B 六次 seems like enough；C 沒訪問小孩 that's understandable，兩個都被說成不是問題。",
+      "quote": "The real weakness, I think, is that we only ever went on weekday afternoons."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。兩人都想用投影片，but Dr Patel wants everyone to make a poster this year，最後 A poster it is, then。<br><b>陷阱</b>：B 是他們「想要」的；C 小孩照片不能用。",
+      "quote": "A poster it is, then."
+    },
+    {
+      "no": 26,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。抽水機 It was certainly busy, but the main thing... was how often it led to fights，小孩一直吵輪到誰。<br><b>同義轉換</b>：fights、arguing ＝ disagreements。",
+      "quote": "the main thing I wrote down was how often it led to fights"
+    },
+    {
+      "no": 27,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。家長一直叫小孩下來或在底下張開手，They obviously thought it wasn't safe。<br><b>同義轉換</b>：wasn't safe ＝ dangerous。<br><b>陷阱</b>：Older children loved it 不是選項的重點；nobody actually got hurt 也不代表需要修理（E）。",
+      "quote": "They obviously thought it wasn't safe"
+    },
+    {
+      "no": 28,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。木船 was meant to be something to climb on, but the children used it as a stage，The designers can't have expected that。<br><b>同義轉換</b>：can't have expected ＝ did not intend。",
+      "quote": "the children used it as a stage"
+    },
+    {
+      "no": 29,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。隧道她以為大孩子會拿來玩捉迷藏，but it was almost all toddlers, two or three years old。<br><b>同義轉換</b>：toddlers ＝ very young children。",
+      "quote": "it was almost all toddlers"
+    },
+    {
+      "no": 30,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。長椅有十二張，but most of the time they were empty，家長寧願站在小孩旁邊。<br><b>同義轉換</b>：most of the time they were empty ＝ rarely used。E（需要修理）全篇沒有用到。",
+      "quote": "most of the time they were empty"
+    }
+  ]
+}
