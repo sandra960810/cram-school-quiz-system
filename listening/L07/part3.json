@@ -1,0 +1,325 @@
+{
+  "no": 3,
+  "context": "Two students discussing a survey on how shoppers use food labels",
+  "audio": "L07_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 3. You will hear two nutrition students, Lucy and Tom, discussing a survey they carried out on how shoppers use food labels. First you have some time to look at questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f4",
+      "t": "Tom, shall we go through the label survey before we start writing it up?"
+    },
+    {
+      "v": "m4",
+      "t": "Good idea. I think we should begin by explaining why we interviewed people outside the supermarket instead of doing it online."
+    },
+    {
+      "v": "f4",
+      "t": "Dr Price did suggest an online questionnaire, didn't she? It would have been much quicker."
+    },
+    {
+      "v": "m4",
+      "t": "She did, and it wouldn't have cost anything. But we wanted to catch people straight after they'd done their shopping, while they could still remember what they'd actually looked at. With an online survey, people tend to say what they think they ought to do."
+    },
+    {
+      "v": "f4",
+      "t": "That's the point to make, then. We expected the answers to be more accurate. What about the problems we had? I was worried that nobody would want to stop and talk."
+    },
+    {
+      "v": "m4",
+      "t": "So was I, but most people were happy to help. And the rain on the second day didn't matter, because we were under the entrance canopy. The real difficulty was the manager. She only let us stay for two hours each morning, so it took us twice as many days as we'd planned."
+    },
+    {
+      "v": "f4",
+      "t": "True. Now, the results. I'll be honest, one thing really surprised me. I'd assumed that young people wouldn't bother with labels at all. But the under-thirties actually checked them more often than the over-sixties."
+    },
+    {
+      "v": "m4",
+      "t": "I wasn't so surprised by that. A lot of the younger ones are on fitness programmes and count everything. What I found interesting was why people don't read labels."
+    },
+    {
+      "v": "f4",
+      "t": "I'd have said it was because the print is so tiny. I can hardly read some of them."
+    },
+    {
+      "v": "m4",
+      "t": "A few people mentioned that, but far more said they were simply in a hurry. They had children with them, or they'd come in on their lunch break. Not having time was the main reason by a long way."
+    },
+    {
+      "v": "f4",
+      "t": "Fair enough. Then there's question twelve, about the traffic-light labels, the red, amber and green ones."
+    },
+    {
+      "v": "m4",
+      "t": "Ah, yes. I've been thinking about that. When I read through the answers, it was obvious that lots of people thought we were asking about the colour of the packaging, not the labels. The answers just don't make sense."
+    },
+    {
+      "v": "f4",
+      "t": "We could ask Dr Price what to do, or go back and collect more answers."
+    },
+    {
+      "v": "m4",
+      "t": "There isn't time to collect more, and I don't think we need to ask her. Let's just leave that question out of the analysis and explain why in the report."
+    },
+    {
+      "v": "f4",
+      "t": "Agreed."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m4",
+      "t": "Next, the different kinds of information on the labels. Let's go through what people told us about each one. Calories first."
+    },
+    {
+      "v": "f4",
+      "t": "Most people knew roughly how many calories they wanted, but they didn't check every product. What they did was look at the calories on two similar products, say two brands of yoghurt, and pick the lower one."
+    },
+    {
+      "v": "m4",
+      "t": "So they used it to choose between brands. Then sugar."
+    },
+    {
+      "v": "f4",
+      "t": "That was interesting. Hardly anyone looked at sugar for their own food. But parents said they always checked it when they were buying something for their children, especially breakfast cereals and drinks."
+    },
+    {
+      "v": "m4",
+      "t": "Right. And the use-by date?"
+    },
+    {
+      "v": "f4",
+      "t": "That was the one almost everybody looked at, on nearly everything they bought, particularly meat and milk. I'd expected that, to be honest."
+    },
+    {
+      "v": "m4",
+      "t": "What about where the food comes from, the country of origin?"
+    },
+    {
+      "v": "f4",
+      "t": "I thought people would care about that, because of all the talk about food miles. But when we asked about it, most of them said they'd never even realised it was on the label."
+    },
+    {
+      "v": "m4",
+      "t": "And finally, the health claims, like 'low fat' or 'good source of fibre'."
+    },
+    {
+      "v": "f4",
+      "t": "People certainly noticed those, because they're printed in big letters on the front. But a lot of them said they didn't believe them. One man said 'low fat' usually means 'full of sugar'."
+    },
+    {
+      "v": "m4",
+      "t": "Ha. I think that's everything. Shall we start on the charts?"
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 3. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students interview shoppers instead of using an online questionnaire?",
+          "options": {
+            "A": "They thought the answers would be more accurate.",
+            "B": "Their tutor recommended face-to-face interviews.",
+            "C": "An online questionnaire would have been too expensive."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What problem did the students have while doing the survey?",
+          "options": {
+            "A": "Many shoppers refused to take part.",
+            "B": "The weather made interviewing difficult.",
+            "C": "The time they were allowed to spend there was limited."
+          }
+        },
+        {
+          "no": 23,
+          "stem": "What surprised Lucy about the results?",
+          "options": {
+            "A": "Younger shoppers checked labels more than older shoppers.",
+            "B": "Most shoppers ignored the information on sugar.",
+            "C": "Men read labels more often than women."
+          }
+        },
+        {
+          "no": 24,
+          "stem": "According to Tom, the main reason shoppers do not read labels is that",
+          "options": {
+            "A": "the print is too small.",
+            "B": "they do not have enough time.",
+            "C": "they do not understand the figures."
+          }
+        },
+        {
+          "no": 25,
+          "stem": "What do the students decide to do about the question on traffic-light labels?",
+          "options": {
+            "A": "collect more answers",
+            "B": "ask their tutor for advice",
+            "C": "exclude it from their analysis"
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What did shoppers say about each type of information on food labels?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "They checked it on almost every product.",
+        "B": "They found it confusing.",
+        "C": "They checked it only when buying for children.",
+        "D": "They did not trust it.",
+        "E": "They used it to compare brands.",
+        "F": "They had not noticed it."
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "Calories"
+        },
+        {
+          "no": 27,
+          "text": "Sugar"
+        },
+        {
+          "no": 28,
+          "text": "Use-by date"
+        },
+        {
+          "no": 29,
+          "text": "Country of origin"
+        },
+        {
+          "no": 30,
+          "text": "Health claims"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Tom 說要趁剛買完東西、還記得看了什麼時訪問，Lucy 總結 We expected the answers to be more accurate。<br><b>陷阱</b>：B 剛好相反，老師建議的是 online questionnaire；C 錯在線上問卷 wouldn't have cost anything。",
+      "quote": "We expected the answers to be more accurate."
+    },
+    {
+      "no": 22,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。原文 The real difficulty was the manager. She only let us stay for two hours each morning。<br><b>陷阱</b>：A 被否定（most people were happy to help）；B 被否定（the rain... didn't matter）。The real difficulty 才是答案訊號。",
+      "quote": "She only let us stay for two hours each morning"
+    },
+    {
+      "no": 23,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Lucy 原以為年輕人不看標示，But the under-thirties actually checked them more often than the over-sixties。<br><b>同義轉換</b>：under-thirties ＝ younger shoppers；over-sixties ＝ older shoppers。",
+      "quote": "But the under-thirties actually checked them more often than the over-sixties."
+    },
+    {
+      "no": 24,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Tom 說 far more said they were simply in a hurry，Not having time was the main reason by a long way。<br><b>陷阱</b>：A 是 Lucy 的猜測，Tom 說只有 A few people 這樣講。題目問的是 Tom 的看法。",
+      "quote": "Not having time was the main reason by a long way."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Tom 說 Let's just leave that question out of the analysis，Lucy 說 Agreed。<br><b>陷阱</b>：A 和 B 都是 Lucy 提出的選項，但 Tom 一一否定（There isn't time... I don't think we need to ask her）。",
+      "quote": "Let's just leave that question out of the analysis and explain why in the report."
+    },
+    {
+      "no": 26,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。大家看兩個類似產品的熱量，挑低的那個，Tom 說 So they used it to choose between brands。<br><b>陷阱</b>：they didn't check every product 排除 A。",
+      "quote": "So they used it to choose between brands."
+    },
+    {
+      "no": 27,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。幾乎沒人看自己吃的東西的糖，But parents said they always checked it when they were buying something for their children。<br><b>陷阱</b>：always 容易讓人選 A，但限定在幫孩子買的時候。",
+      "quote": "But parents said they always checked it when they were buying something for their children"
+    },
+    {
+      "no": 28,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。保存期限 was the one almost everybody looked at, on nearly everything they bought。<br><b>同義轉換</b>：nearly everything ＝ almost every product。",
+      "quote": "That was the one almost everybody looked at, on nearly everything they bought"
+    },
+    {
+      "no": 29,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。原產地 most of them said they'd never even realised it was on the label。<br><b>同義轉換</b>：never realised ＝ had not noticed。<b>陷阱</b>：Lucy 以為大家會在意 food miles，那是她的預期，不是結果。",
+      "quote": "most of them said they'd never even realised it was on the label"
+    },
+    {
+      "no": 30,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。健康標語大家都注意到，But a lot of them said they didn't believe them。<br><b>同義轉換</b>：didn't believe ＝ did not trust。<b>陷阱</b>：People certainly noticed those 排除 F。B（看不懂）沒有用到，是多出來的干擾選項。",
+      "quote": "But a lot of them said they didn't believe them."
+    }
+  ]
+}

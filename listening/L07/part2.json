@@ -1,0 +1,276 @@
+{
+  "no": 2,
+  "context": "A guided walking tour of a market town",
+  "audio": "L07_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 2. You will hear a guide talking to a group of visitors at the start of a walking tour of a small market town. First you have some time to look at questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f3",
+      "t": "Good morning, everyone, and welcome to Ashbury. My name's Helen, and I'll be taking you round the old part of the town this morning. Before we set off, let me give you a few practical details."
+    },
+    {
+      "v": "f3",
+      "t": "The tour normally takes about an hour and a half, but today it'll be nearer two hours. I know we're quite a large group, but that won't slow us down. And it's not because of the market, either, which only takes place on Thursdays. It's because the old watermill by the river has just reopened after its restoration, and we'll be going inside for a short visit at the end."
+    },
+    {
+      "v": "f3",
+      "t": "Now, a few of the streets we'll walk along are very narrow and have no pavement at all, so when I raise my umbrella, please walk in single file behind me. You're very welcome to take photographs of anything you like, including the houses, but please don't step into people's front gardens to do it. And if you have heavy bags, you can leave them here at the information centre, though most people don't bother."
+    },
+    {
+      "v": "f3",
+      "t": "A little history first. Many people assume that Ashbury grew rich because of its market, and the market certainly brought people in. But the real money came from wool. For about three hundred years, sheep from the surrounding hills supplied wool that was sold all over Europe, and the merchants who traded in it paid for most of the fine buildings you'll see today. The river, by the way, was never much use for trade. It's far too shallow for anything bigger than a rowing boat."
+    },
+    {
+      "v": "f3",
+      "t": "Right in front of us is the market cross, which looks as though it hasn't moved for six hundred years. In fact, in 1968 a delivery lorry reversed straight into it. Luckily the townspeople collected all the pieces, and it was rebuilt using almost entirely the original stone. A lot of visitors think it's a modern copy, but it isn't."
+    },
+    {
+      "v": "f3",
+      "t": "And one last thing. Your tour ticket gets you ten per cent off at the café in the watermill, so do stop there afterwards. The town museum is free to everyone anyway, and I'm afraid the bookshop on the square stopped giving discounts to tour groups last year."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f3",
+      "t": "Now, if you look at the map in your leaflet, I'll show you the places we'll visit. We're standing at the information centre, which is marked START, on the south-west corner of the Market Square."
+    },
+    {
+      "v": "f3",
+      "t": "Our first stop is the Guildhall, where the wool merchants held their meetings. You'll find it on the north side of the square, at the corner where the High Street carries on towards the east. It's the building with the clock."
+    },
+    {
+      "v": "f3",
+      "t": "From there we'll go up Church Lane, the narrow street that leads north towards St Mary's Church. About halfway up, on your left, is the Wool Merchant's House, which is now a small museum. Don't confuse it with the timber building opposite, on the right, which is a modern café built to look old."
+    },
+    {
+      "v": "f3",
+      "t": "Next we'll come back down to the square and walk all the way along the High Street to the east. People often expect the almshouses, where poor elderly people were given homes, to be next to the church, but in fact they're right at the far end of the High Street, on the south side."
+    },
+    {
+      "v": "f3",
+      "t": "Then we'll head down Bridge Street, towards the river. Just before you reach the bridge, on your right, is the Old Grammar School. It was founded in 1540, and it still has its original schoolroom."
+    },
+    {
+      "v": "f3",
+      "t": "Finally, the watermill. When we get to the bridge, we won't cross it. Instead, we'll turn left and follow the path along the riverbank for a couple of hundred metres, and the mill is there beside the water. The area on the other side of Bridge Street, to the west along the river, is where the old tannery used to be, but there's nothing left of it now except a car park."
+    },
+    {
+      "v": "f3",
+      "t": "Right, has everyone got their leaflet? Then let's begin."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 2. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "Why will today's tour take longer than usual?",
+          "options": {
+            "A": "The streets will be crowded with shoppers.",
+            "B": "The group is larger than usual.",
+            "C": "An extra visit has been included."
+          }
+        },
+        {
+          "no": 12,
+          "stem": "What does the guide ask the group to do?",
+          "options": {
+            "A": "walk in single file on narrow streets",
+            "B": "avoid photographing private houses",
+            "C": "leave their bags at the information centre"
+          }
+        },
+        {
+          "no": 13,
+          "stem": "According to the guide, Ashbury became wealthy mainly because of",
+          "options": {
+            "A": "the wool trade.",
+            "B": "its river port.",
+            "C": "its weekly market."
+          }
+        },
+        {
+          "no": 14,
+          "stem": "What does the guide say about the market cross?",
+          "options": {
+            "A": "It was moved to a different position.",
+            "B": "It was rebuilt after an accident.",
+            "C": "It was replaced by a copy."
+          }
+        },
+        {
+          "no": 15,
+          "stem": "Tour members can get a discount at",
+          "options": {
+            "A": "the café in the watermill.",
+            "B": "the town museum.",
+            "C": "the bookshop on the square."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L07_part2_map.svg",
+      "imageAlt": "Ashbury 舊城區地圖，起點在市集廣場西南角，標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Guildhall"
+        },
+        {
+          "no": 17,
+          "text": "Wool Merchant's House"
+        },
+        {
+          "no": 18,
+          "text": "Almshouses"
+        },
+        {
+          "no": 19,
+          "text": "Old Grammar School"
+        },
+        {
+          "no": 20,
+          "text": "Watermill"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Helen 說延長的原因是水車磨坊 has just reopened，we'll be going inside for a short visit at the end。<br><b>陷阱</b>：B 被否定（that won't slow us down）；A 也被否定，市集只在星期四。",
+      "quote": "It's because the old watermill by the river has just reopened after its restoration"
+    },
+    {
+      "no": 12,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。有些街道沒有人行道，please walk in single file behind me。<br><b>陷阱</b>：B 錯在拍照 very welcome，只是不要踩進前院；C 是「可以」寄放，不是被要求，而且 most people don't bother。",
+      "quote": "please walk in single file behind me"
+    },
+    {
+      "no": 13,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。原文 But the real money came from wool。<br><b>陷阱</b>：Many people assume... market 是大家的誤解；河太淺（far too shallow），從來不是貿易用的。But the real... 是答案訊號。",
+      "quote": "But the real money came from wool."
+    },
+    {
+      "no": 14,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。1968 年貨車倒車撞上它，it was rebuilt using almost entirely the original stone。<br><b>同義轉換</b>：a delivery lorry reversed straight into it ＝ an accident。<b>陷阱</b>：C 被否定（A lot of visitors think it's a modern copy, but it isn't）。",
+      "quote": "it was rebuilt using almost entirely the original stone"
+    },
+    {
+      "no": 15,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Your tour ticket gets you ten per cent off at the café in the watermill。<br><b>陷阱</b>：博物館本來就免費（free to everyone anyway）；書店 stopped giving discounts last year。",
+      "quote": "Your tour ticket gets you ten per cent off at the café in the watermill"
+    },
+    {
+      "no": 16,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。Guildhall 在 the north side of the square, at the corner where the High Street carries on towards the east，也就是廣場東北角。<br><b>技巧</b>：先找到起點 START（廣場西南角），再找 north 與 east 兩個方向的交會。",
+      "quote": "You'll find it on the north side of the square, at the corner where the High Street carries on towards the east."
+    },
+    {
+      "no": 17,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。沿 Church Lane 往北走，About halfway up, on your left。往北走時左手邊是西側，所以是 B。<br><b>陷阱</b>：對面右手邊（C 那一側）是新蓋的仿古咖啡館。",
+      "quote": "About halfway up, on your left, is the Wool Merchant's House"
+    },
+    {
+      "no": 18,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。原文 they're right at the far end of the High Street, on the south side。<br><b>陷阱</b>：People often expect... next to the church——教堂旁的 C 是大家以為的位置，but in fact 之後才是答案。",
+      "quote": "they're right at the far end of the High Street, on the south side"
+    },
+    {
+      "no": 19,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。沿 Bridge Street 往南走向河邊，Just before you reach the bridge, on your right。往南走時右手邊是西側，所以是 F。<br><b>技巧</b>：方向題要先想像自己面向哪裡，左右才不會弄反。",
+      "quote": "Just before you reach the bridge, on your right, is the Old Grammar School."
+    },
+    {
+      "no": 20,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。到了橋不過河，turn left and follow the path along the riverbank。往南走到橋頭時左轉是往東，所以是 G。<br><b>陷阱</b>：西邊沿河的 H 是舊皮革廠的位置，現在只剩停車場。",
+      "quote": "we'll turn left and follow the path along the riverbank for a couple of hundred metres"
+    }
+  ]
+}
