@@ -1,0 +1,21 @@
+{
+ "title": "Reading Test 8",
+ "subtitle": "Academic Reading，3 篇文章共 40 題，60 分鐘",
+ "passages": [
+  {
+   "no": 1,
+   "context": "沙漠蝗蟲",
+   "types": "筆記填空 ・ 是非題（TRUE/FALSE/NOT GIVEN）"
+  },
+  {
+   "no": 2,
+   "context": "抗震建築",
+   "types": "段落資訊配對 ・ 方法配對 ・ 摘要填空"
+  },
+  {
+   "no": 3,
+   "context": "學音樂會讓孩子更聰明嗎",
+   "types": "單選題 ・ 觀點判斷（YES/NO/NOT GIVEN）・ 句子結尾配對"
+  }
+ ]
+}

@@ -1,0 +1,264 @@
+{
+ "no": 3,
+ "title": "Does Music Make Children Smarter?",
+ "context": "學音樂會讓孩子更聰明嗎",
+ "instructions": "You should spend about 20 minutes on <b>Questions 27–40</b>, which are based on Reading Passage 3 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "In 1993 a short paper in a leading scientific journal reported that university students who had listened to ten minutes of a Mozart sonata performed better on a test of spatial reasoning than students who had sat in silence or listened to relaxation instructions. The improvement was modest, and it disappeared within about a quarter of an hour. Nevertheless, the finding was soon transformed in newspapers and advertisements into the claim that listening to Mozart makes children more intelligent. Recordings of classical music for babies sold in large numbers, and in 1998 the governor of one American state proposed that every newborn child should be given a classical music CD at public expense."
+  },
+  {
+   "label": "",
+   "text": "The so-called 'Mozart effect' did not survive careful scrutiny. Many later studies failed to reproduce it, and those that did found that it had little to do with Mozart. Listening to any music that people enjoyed, or even to an exciting story, produced a similar brief improvement, apparently because it left them more alert and in a better mood. A temporary rise in arousal, in other words, rather than any special property of classical music, explained the results. By the end of the decade, most researchers regarded the effect as real but trivial."
+  },
+  {
+   "label": "",
+   "text": "Attention then turned from listening to music to learning to play it, which seemed a more plausible route to lasting change. Playing an instrument involves reading notation, coordinating both hands, memorising long sequences and concentrating for extended periods, and it is not unreasonable to suppose that such training might strengthen general mental abilities. Studies repeatedly found that children who take music lessons do better at school and score higher on intelligence tests than those who do not. The difficulty is that these studies cannot show which comes first. Children who have music lessons tend to come from families with higher incomes and better-educated parents, and they may differ in personality, too: the kind of child who practises an instrument every day may also be the kind who does homework without being told."
+  },
+  {
+   "label": "",
+   "text": "The only way around this problem is to assign children to lessons at random. In one well-known experiment in Canada, 144 six-year-olds were divided into four groups: two received a year of music lessons, on either keyboard or voice, a third had drama lessons, and a fourth had no lessons during the study. At the end of the year, all the children's IQ scores had risen, as is usual when children start school, but those in the music groups had risen by a few points more. Interestingly, the drama group showed the greatest improvement in social behaviour, a benefit the music groups did not share."
+  },
+  {
+   "label": "",
+   "text": "Results like these seemed encouraging, but as the number of studies grew, so did doubts. When researchers reviewed dozens of experiments together, they found that the more carefully a study had been designed, the smaller the benefit it tended to report. In studies where children were assigned to groups at random, and where the comparison group took part in some other engaging activity rather than simply doing nothing, the effect of music training on intelligence and on school subjects such as mathematics and reading was close to zero. The positive results of earlier, weaker studies could largely be explained by the factors that those studies had failed to control."
+  },
+  {
+   "label": "",
+   "text": "None of this means that music training has no effects beyond music. It reliably improves musical skills, of course, and there is some evidence that it sharpens closely related abilities, such as distinguishing small differences in pitch. Psychologists call this 'near transfer', and it is well established in many fields. What the evidence does not support is 'far transfer' – the idea that practising scales will make a child better at algebra or at remembering historical dates. Similar hopes have been raised and disappointed for chess, for brain-training computer games and for learning Latin, which suggests that the mind is less like a muscle that grows stronger with any exercise than like a collection of specific skills."
+  },
+  {
+   "label": "",
+   "text": "It would be a mistake, though, to conclude that the time and money spent on music lessons are wasted. The search for hidden intellectual benefits has, if anything, distracted attention from the obvious ones. Learning an instrument gives children a skill that can bring pleasure for the rest of their lives, a way of expressing themselves, and the experience of making something together with other people. There is also a practical danger in defending music education on the grounds that it raises test scores. If that is the main argument offered to schools and governments, then the music budget becomes easy to cut as soon as the evidence weakens. Music deserves a place in the curriculum for the same reason as literature or art: because it is worth knowing for its own sake."
+  }
+ ],
+ "groups": [
+  {
+   "type": "mcq",
+   "range": "Questions 27–30",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 27,
+     "stem": "What does the writer say about the original 1993 study?",
+     "options": {
+      "A": "It was carried out with very young children.",
+      "B": "Its results were exaggerated when reported to the public.",
+      "C": "It compared different kinds of classical music.",
+      "D": "Its findings were immediately questioned by other scientists."
+     }
+    },
+    {
+     "no": 28,
+     "stem": "According to the second paragraph, later research suggested that the improvement in test scores was caused by",
+     "options": {
+      "A": "the particular structure of Mozart's music.",
+      "B": "the length of time spent listening.",
+      "C": "the participants becoming more alert.",
+      "D": "the participants being familiar with the music."
+     }
+    },
+    {
+     "no": 29,
+     "stem": "What problem with many studies of music lessons is described in the third paragraph?",
+     "options": {
+      "A": "They used intelligence tests that were too simple.",
+      "B": "They did not follow children for long enough.",
+      "C": "They included too few children to be reliable.",
+      "D": "They could not separate the effect of lessons from other differences."
+     }
+    },
+    {
+     "no": 30,
+     "stem": "What was found in the Canadian experiment?",
+     "options": {
+      "A": "Only the children who had music lessons showed higher IQ scores.",
+      "B": "The music groups improved slightly more in IQ than the other groups.",
+      "C": "The drama lessons had no measurable effect on the children.",
+      "D": "Keyboard lessons were more effective than singing lessons."
+     }
+    }
+   ]
+  },
+  {
+   "type": "ynng",
+   "range": "Questions 31–35",
+   "instruction": "Do the following statements agree with the claims of the writer in Reading Passage 3?",
+   "limit": "Write<br><b>YES</b> if the statement agrees with the claims of the writer<br><b>NO</b> if the statement contradicts the claims of the writer<br><b>NOT GIVEN</b> if it is impossible to say what the writer thinks about this",
+   "items": [
+    {
+     "no": 31,
+     "text": "The researchers who carried out the 1993 study intended their findings to be used to sell recordings."
+    },
+    {
+     "no": 32,
+     "text": "Studies of music training with better designs have generally reported smaller benefits."
+    },
+    {
+     "no": 33,
+     "text": "Learning chess is more likely than learning music to improve general intelligence."
+    },
+    {
+     "no": 34,
+     "text": "The mind is best understood as a set of separate skills rather than a single general ability."
+    },
+    {
+     "no": 35,
+     "text": "Arguing that music raises test scores could put music education at risk."
+    }
+   ]
+  },
+  {
+   "type": "matching",
+   "range": "Questions 36–40",
+   "instruction": "Complete each sentence with the correct ending, <b>A–G</b>, below.",
+   "limit": "Write the correct letter, <b>A–G</b>, next to Questions 36–40.",
+   "optionsTitle": "",
+   "options": {
+    "A": "because they had been chosen at random.",
+    "B": "because they were in a better mood.",
+    "C": "because they come from more advantaged homes.",
+    "D": "because they had just started school.",
+    "E": "because it is enjoyable and valuable in itself.",
+    "F": "because it improves skills that are closely linked to it.",
+    "G": "because it was shown to raise mathematics scores."
+   },
+   "items": [
+    {
+     "no": 36,
+     "text": "People who listened to music they liked did slightly better on tests"
+    },
+    {
+     "no": 37,
+     "text": "Children who have music lessons may perform better at school partly"
+    },
+    {
+     "no": 38,
+     "text": "All the children in the Canadian study showed an increase in IQ, probably"
+    },
+    {
+     "no": 39,
+     "text": "Music training does produce 'near transfer'"
+    },
+    {
+     "no": 40,
+     "text": "In the writer's view, music should be taught in schools"
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 27,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。研究結果 modest、十五分鐘內就消失，卻 was soon transformed in newspapers and advertisements into the claim that... makes children more intelligent。<br><b>陷阱</b>：A 錯在受試者是 university students，不是幼兒；D 錯在質疑是後來的事（第二段），不是 immediately。",
+   "quote": "the finding was soon transformed in newspapers and advertisements into the claim that listening to Mozart makes children more intelligent"
+  },
+  {
+   "no": 28,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。原文 apparently because it left them more alert and in a better mood，並總結是 A temporary rise in arousal。<br><b>陷阱</b>：A 被明確否定（rather than any special property of classical music）。",
+   "quote": "apparently because it left them more alert and in a better mood"
+  },
+  {
+   "no": 29,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>。原文 these studies cannot show which comes first，接著說學音樂的孩子家庭收入、父母教育、個性都不同。<br><b>同義轉換</b>：cannot show which comes first ＝ could not separate the effect of lessons from other differences。",
+   "quote": "The difficulty is that these studies cannot show which comes first."
+  },
+  {
+   "no": 30,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。所有孩子 IQ 都上升，but those in the music groups had risen by a few points more。<br><b>陷阱</b>：A 錯在 all the children's IQ scores had risen；C 錯在戲劇組社交行為進步最多；D 文章沒比較鍵盤和聲樂。",
+   "quote": "those in the music groups had risen by a few points more"
+  },
+  {
+   "no": 31,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。作者說報紙和廣告把結果誇大，但沒有說原研究者的意圖。<br><b>陷阱</b>：把結果拿去賣唱片的是別人，作者沒評論研究者本人想不想這樣。"
+  },
+  {
+   "no": 32,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。原文 the more carefully a study had been designed, the smaller the benefit it tended to report。<br><b>同義轉換</b>：more carefully designed ＝ better designs；tended to ＝ generally。",
+   "quote": "the more carefully a study had been designed, the smaller the benefit it tended to report"
+  },
+  {
+   "no": 33,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。作者說對西洋棋、腦力遊戲、拉丁文的類似期望也 raised and disappointed——它們和音樂一樣沒有遠遷移效果，不是比較有效。<br><b>陷阱</b>：看到 chess 出現在文中就選 YES 是常見錯誤，要看作者怎麼評價它。",
+   "quote": "Similar hopes have been raised and disappointed for chess"
+  },
+  {
+   "no": 34,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。作者說 the mind is less like a muscle... than like a collection of specific skills。<br><b>同義轉換</b>：a collection of specific skills ＝ a set of separate skills。",
+   "quote": "the mind is less like a muscle that grows stronger with any exercise than like a collection of specific skills"
+  },
+  {
+   "no": 35,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。作者說用「提高分數」來辯護音樂教育有 a practical danger：證據一變弱，預算就 easy to cut。<br><b>同義轉換</b>：danger ＝ put... at risk。",
+   "quote": "There is also a practical danger in defending music education on the grounds that it raises test scores."
+  },
+  {
+   "no": 36,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。聽自己喜歡的音樂也有短暫進步，because it left them more alert and in a better mood。<br><b>陷阱</b>：A（隨機分組）是第四段的實驗設計，和聽音樂無關。",
+   "quote": "Listening to any music that people enjoyed"
+  },
+  {
+   "no": 37,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。學音樂的孩子 tend to come from families with higher incomes and better-educated parents。<br><b>同義轉換</b>：higher incomes and better-educated parents ＝ more advantaged homes。題目的 partly 也對應文章說個性也可能不同。",
+   "quote": "Children who have music lessons tend to come from families with higher incomes and better-educated parents"
+  },
+  {
+   "no": 38,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>。原文 all the children's IQ scores had risen, as is usual when children start school。<br><b>陷阱</b>：A 是實驗的分組方式，不是 IQ 上升的原因。",
+   "quote": "all the children's IQ scores had risen, as is usual when children start school"
+  },
+  {
+   "no": 39,
+   "answers": [
+    "F"
+   ],
+   "explain": "答案是 <b>F</b>。near transfer 指的是 sharpens closely related abilities, such as distinguishing small differences in pitch。<br><b>陷阱</b>：G 剛好是作者說證據不支持的 far transfer（數學進步）。",
+   "quote": "it sharpens closely related abilities"
+  },
+  {
+   "no": 40,
+   "answers": [
+    "E"
+   ],
+   "explain": "答案是 <b>E</b>。最後一句 Music deserves a place in the curriculum... because it is worth knowing for its own sake，前面也說它帶來一輩子的樂趣。<br><b>同義轉換</b>：for its own sake ＝ valuable in itself。",
+   "quote": "because it is worth knowing for its own sake"
+  }
+ ]
+}
