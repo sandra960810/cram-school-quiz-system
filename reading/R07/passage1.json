@@ -1,0 +1,213 @@
+{
+ "no": 1,
+ "title": "The Story of the Umbrella",
+ "context": "雨傘的歷史",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "Few everyday objects have changed as little in principle, or as much in reputation, as the umbrella. Its basic design – a circle of fabric stretched over a set of hinged ribs that open from a central shaft – has existed for thousands of years. Yet for much of that time it was not used against rain at all, and in some places carrying one could expose a man to ridicule."
+  },
+  {
+   "label": "",
+   "text": "The earliest examples, depicted in sculptures and paintings from ancient Egypt and Assyria, were parasols, intended to shield their owners from the sun. They were also marks of rank. Servants held them over the heads of kings and nobles, and the size of the canopy and the number of tiers often indicated the importance of the person beneath it. In ancient Greece and Rome, parasols were carried chiefly by women, and a man seen holding one could expect to be thought effeminate – an association that would prove remarkably long-lived."
+  },
+  {
+   "label": "",
+   "text": "China is generally credited with the first umbrella intended for rain. By around the fourth century, Chinese makers were covering bamboo frames with paper or silk that had been coated with oil or lacquer, which made the canopy waterproof. Collapsible frames using sliding joints also appear to have been developed there early on, although historians disagree about the exact date. From China, the oiled-paper umbrella spread to Japan and Korea, where it became an object of considerable craftsmanship."
+  },
+  {
+   "label": "",
+   "text": "In Europe, the umbrella re-emerged in the sixteenth and seventeenth centuries, first in Italy and France, again largely as a fashionable accessory for women. Men in rainy northern Europe generally relied on hats, heavy coats and, if they could afford them, hired carriages. The man usually credited with changing this in Britain is Jonas Hanway, a merchant and philanthropist who had travelled widely in Persia, where he had seen umbrellas in common use. On returning to London in the 1750s, he began carrying one through the streets, and he is said to have continued doing so for some thirty years. He was often jeered at, particularly by the drivers of hackney coaches, who earned much of their living by carrying people through the rain and saw the umbrella as a threat to their trade. By the time of Hanway's death in 1786, however, umbrellas were becoming a familiar sight on British streets, and for a time they were even known as 'Hanways'."
+  },
+  {
+   "label": "",
+   "text": "These early umbrellas were far from convenient. Their ribs were made of whalebone or cane, and their covers of oiled silk or cotton, so a large one could weigh several kilograms. They were awkward to open, they tended to leak once the oil had worn off, and the ribs could snap in a strong wind. The decisive improvement came in 1852, when Samuel Fox, a manufacturer in Yorkshire, introduced a frame with ribs of thin, U-shaped steel. Fox's company had been producing steel wire for corsets, and as fashions changed he had large stocks of it left over. His frame, which he named the 'Paragon', was lighter and stronger than whalebone, and also cheaper to produce, and it quickly became the standard design. Fox grew rich from it, and the basic structure of most umbrellas sold today still follows his pattern."
+  },
+  {
+   "label": "",
+   "text": "The next important change made the umbrella small enough to carry when it was not needed. In 1928 Hans Haupt, an Austrian who had been injured in the First World War and needed a stick to walk, designed a telescopic umbrella whose shaft and ribs folded down to a fraction of their open length. His design was patented and eventually manufactured on a large scale, and compact umbrellas that fit into a bag or a coat pocket now account for a large proportion of sales in many countries."
+  },
+  {
+   "label": "",
+   "text": "Ironically, the success of the cheap, folding umbrella has created a problem of its own. Hundreds of millions are sold worldwide every year, many for very low prices, and many are abandoned after a single storm has bent their ribs out of shape. Because they combine steel, aluminium, plastic and fabric in one small object, the mix of materials makes them very difficult to recycle, and most end up in landfill. Some designers have responded with umbrellas that can be easily taken apart and repaired, while a few cities have experimented with umbrella-sharing schemes. Whether these ideas will catch on remains to be seen; the umbrella's history suggests that public attitudes towards it can change, but rarely quickly."
+  }
+ ],
+ "groups": [
+  {
+   "type": "tfng",
+   "range": "Questions 1–7",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {
+     "no": 1,
+     "text": "The first parasols were mainly used to provide protection from rain."
+    },
+    {
+     "no": 2,
+     "text": "Egyptian parasols were usually made from palm leaves."
+    },
+    {
+     "no": 3,
+     "text": "Historians agree about when collapsible umbrella frames were first made in China."
+    },
+    {
+     "no": 4,
+     "text": "Hanway first came across umbrellas being used in Persia."
+    },
+    {
+     "no": 5,
+     "text": "Hanway made money by selling umbrellas to the public."
+    },
+    {
+     "no": 6,
+     "text": "Coach drivers disliked umbrellas because they feared losing customers."
+    },
+    {
+     "no": 7,
+     "text": "Fox's steel frame was more expensive to manufacture than the older whalebone frames."
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 8–13",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "The development of the umbrella in Europe",
+   "sections": [
+    {
+     "heading": "Eighteenth-century umbrellas",
+     "lines": [
+      "ribs were made of whalebone or {8}",
+      "covers often let in water once the {9} had worn off"
+     ]
+    },
+    {
+     "heading": "Samuel Fox's frame (1852)",
+     "lines": [
+      "ribs were made of steel originally intended for {10}",
+      "the design was given the name {11}"
+     ]
+    },
+    {
+     "heading": "Hans Haupt's umbrella (1928)",
+     "lines": [
+      "a {12} design that could be folded down to a small size"
+     ]
+    },
+    {
+     "heading": "Umbrellas today",
+     "lines": [
+      "difficult to recycle because of the combination of {13} used"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 1,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。最早的是 parasols，intended to shield their owners from the sun（遮太陽）。<br><b>陷阱</b>：題目把 sun 換成 rain；文章說用來擋雨的傘要到第三段的中國才出現。",
+   "quote": "were parasols, intended to shield their owners from the sun"
+  },
+  {
+   "no": 2,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。第二段只說埃及的陽傘出現在雕刻與繪畫中、象徵地位，完全沒提材料。<br><b>陷阱</b>：棕櫚葉聽起來合理，但文章沒寫就是 NOT GIVEN；不要用常識補。"
+  },
+  {
+   "no": 3,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。原文 historians disagree about the exact date（歷史學家對確切年代意見不一）。<br><b>解題關鍵</b>：disagree 和題目的 agree 正好相反。appear to have been 也表示並不確定。",
+   "quote": "although historians disagree about the exact date"
+  },
+  {
+   "no": 4,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。Hanway had travelled widely in Persia, where he had seen umbrellas in common use。<br><b>同義轉換</b>：had seen... in common use ＝ came across... being used。",
+   "quote": "had travelled widely in Persia, where he had seen umbrellas in common use"
+  },
+  {
+   "no": 5,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章說 Hanway 是 merchant and philanthropist，也說他帶傘上街三十年，但沒說他賣傘。<br><b>陷阱</b>：merchant（商人）讓人聯想到賣東西，傘甚至一度被叫做 Hanways，但都不等於「他靠賣傘賺錢」。"
+  },
+  {
+   "no": 6,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。出租馬車的車夫靠雨天載客維生，saw the umbrella as a threat to their trade。<br><b>同義轉換</b>：a threat to their trade ＝ feared losing customers。",
+   "quote": "who earned much of their living by carrying people through the rain and saw the umbrella as a threat to their trade"
+  },
+  {
+   "no": 7,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。Fox 的鋼骨 was lighter and stronger than whalebone, and also cheaper to produce。<br><b>陷阱</b>：新技術常讓人以為比較貴，但原文明說 cheaper，和題目的 more expensive 相反。",
+   "quote": "was lighter and stronger than whalebone, and also cheaper to produce"
+  },
+  {
+   "no": 8,
+   "answers": [
+    "cane"
+   ],
+   "explain": "答案是 <b>cane</b>（藤條）。原文 Their ribs were made of whalebone or cane。<br><b>解題關鍵</b>：題目已經印出 whalebone or，空格就是 or 後面那個字。",
+   "quote": "Their ribs were made of whalebone or cane"
+  },
+  {
+   "no": 9,
+   "answers": [
+    "oil"
+   ],
+   "explain": "答案是 <b>oil</b>。原文 they tended to leak once the oil had worn off。<br><b>同義轉換</b>：leak ＝ let in water。<b>陷阱</b>：silk 和 cotton 是傘面的布料，不是會磨掉的東西。",
+   "quote": "they tended to leak once the oil had worn off"
+  },
+  {
+   "no": 10,
+   "answers": [
+    "corsets"
+   ],
+   "explain": "答案是 <b>corsets</b>（馬甲）。Fox 的公司原本 producing steel wire for corsets，流行改變後剩下大量庫存。<br><b>提醒</b>：複數 s 不能漏。Yorkshire 是地名，不是用途。",
+   "quote": "Fox's company had been producing steel wire for corsets"
+  },
+  {
+   "no": 11,
+   "answers": [
+    "Paragon"
+   ],
+   "explain": "答案是 <b>Paragon</b>。原文 His frame, which he named the 'Paragon'。<br><b>同義轉換</b>：named ＝ was given the name。",
+   "quote": "His frame, which he named the 'Paragon'"
+  },
+  {
+   "no": 12,
+   "answers": [
+    "telescopic"
+   ],
+   "explain": "答案是 <b>telescopic</b>（可伸縮的）。Haupt designed a telescopic umbrella，傘柄和傘骨可以縮到很短。<br><b>陷阱</b>：compact 和 folding 也出現在文章裡，但它們描述的是今天的折傘或在別的句子，題目問的是 Haupt 的設計，原文形容它的字是 telescopic。",
+   "quote": "designed a telescopic umbrella whose shaft and ribs folded down to a fraction of their open length"
+  },
+  {
+   "no": 13,
+   "answers": [
+    "materials"
+   ],
+   "explain": "答案是 <b>materials</b>。原文 the mix of materials makes them very difficult to recycle。<br><b>同義轉換</b>：mix ＝ combination。不要填 steel 或 plastic，那只是其中一種材料。",
+   "quote": "the mix of materials makes them very difficult to recycle"
+  }
+ ]
+}
