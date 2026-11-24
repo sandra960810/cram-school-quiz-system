@@ -1,0 +1,297 @@
+{
+  "no": 1,
+  "context": "Telephone call to book a room at a community centre",
+  "audio": "L10_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 1. You will hear a woman telephoning a community centre to book a room for a party. First you have some time to look at questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "20"
+    },
+    {
+      "v": "narrator",
+      "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first."
+    },
+    {
+      "v": "m2",
+      "t": "Hello, Ferndale Community Centre, Owen speaking. How can I help?"
+    },
+    {
+      "v": "f2",
+      "t": "Hi there. I'm hoping to book a room for a family party."
+    },
+    {
+      "v": "m2",
+      "t": "Of course. Could I start with your surname?"
+    },
+    {
+      "v": "f2",
+      "t": "It's Tregarthen. That's T-R-E-G-A-R-T-H-E-N."
+    },
+    {
+      "v": "narrator",
+      "t": "The woman's surname is Tregarthen, so Tregarthen has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m2",
+      "t": "Hello, Ferndale Community Centre, Owen speaking. How can I help?"
+    },
+    {
+      "v": "f2",
+      "t": "Hi there. I'm hoping to book a room for a family party."
+    },
+    {
+      "v": "m2",
+      "t": "Of course. Could I start with your surname?"
+    },
+    {
+      "v": "f2",
+      "t": "It's Tregarthen. That's T-R-E-G-A-R-T-H-E-N."
+    },
+    {
+      "v": "m2",
+      "t": "Lovely, thanks. And what's the occasion?"
+    },
+    {
+      "v": "f2",
+      "t": "It's for my mum. It was originally going to be her sixtieth birthday party, but she's finishing work at the hospital the same month, so we've decided to turn it into a retirement party instead. She'd rather celebrate that than her age, to be honest."
+    },
+    {
+      "v": "m2",
+      "t": "I don't blame her. A retirement party, then. Did you have a date in mind?"
+    },
+    {
+      "v": "f2",
+      "t": "We were hoping for Saturday the 16th of March."
+    },
+    {
+      "v": "m2",
+      "t": "Let me check. Oh dear, both rooms are taken that day. There's a wedding reception in one and a dance competition in the other. What about the following Saturday, the 23rd?"
+    },
+    {
+      "v": "f2",
+      "t": "The 23rd. That should be fine. Most of the family can't travel until the end of the month anyway."
+    },
+    {
+      "v": "m2",
+      "t": "Great. Now, we've got two rooms for hire. The Main Hall holds two hundred people, and the Garden Room holds eighty. How many guests are you expecting?"
+    },
+    {
+      "v": "f2",
+      "t": "We've sent invitations to sixty people. My sister thinks a few more might turn up with partners, so let's say sixty-five, just to be safe."
+    },
+    {
+      "v": "m2",
+      "t": "Then the Main Hall would feel rather empty. I'd suggest the Garden Room. It's got doors opening onto the lawn, which people love in the evening."
+    },
+    {
+      "v": "f2",
+      "t": "The Garden Room sounds perfect."
+    },
+    {
+      "v": "m2",
+      "t": "The party would start at what time?"
+    },
+    {
+      "v": "f2",
+      "t": "Guests are coming at seven. But we'll need a few hours beforehand to put up decorations and set out the food. Could we get in at three?"
+    },
+    {
+      "v": "m2",
+      "t": "There's a yoga class in the Garden Room until half past two, so three o'clock is no problem."
+    },
+    {
+      "v": "f2",
+      "t": "Wonderful. And how much does the room cost?"
+    },
+    {
+      "v": "m2",
+      "t": "During the week it's 30 pounds an hour, but at weekends the rate goes up to 35 pounds an hour."
+    },
+    {
+      "v": "f2",
+      "t": "So 35 for a Saturday. And is there a deposit?"
+    },
+    {
+      "v": "m2",
+      "t": "Yes, we ask for a deposit of 100 pounds when you book. You get it back after the event, as long as the room's left clean and nothing's damaged."
+    },
+    {
+      "v": "f2",
+      "t": "That's reasonable. Can we use the kitchen?"
+    },
+    {
+      "v": "m2",
+      "t": "Yes, there's a fridge, an oven and a dishwasher. We provide plates, bowls and cutlery for up to a hundred people. But you'll need to bring your own glasses, I'm afraid. We used to provide them, but too many got broken."
+    },
+    {
+      "v": "f2",
+      "t": "Glasses. I'll ask my brother, he runs a café. What about parking? A lot of the guests are older relatives."
+    },
+    {
+      "v": "m2",
+      "t": "Our own car park only has ten spaces. People often try the supermarket next door, but they'll get a fine because it's for customers only. The best option is the car park behind the church, across the road. It's free after six in the evening."
+    },
+    {
+      "v": "f2",
+      "t": "Behind the church. I'll put that on the invitations. One last thing: is there a time the music has to stop? Some of my cousins are planning to stay up all night."
+    },
+    {
+      "v": "m2",
+      "t": "Lots of people assume it's midnight, but our licence only allows music until eleven. After that you can stay and chat, but everyone has to be out by half past."
+    },
+    {
+      "v": "f2",
+      "t": "Eleven. I'll warn them. Oh, and do I pay the deposit online?"
+    },
+    {
+      "v": "m2",
+      "t": "Either online or in person at reception, which is open until five on weekdays. I'll email the booking form this afternoon."
+    },
+    {
+      "v": "f2",
+      "t": "Lovely. Thanks so much, Owen."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 1. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Ferndale Community Centre – Room Booking",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Booking details",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Tregarthen}",
+            "Type of event: {1} party",
+            "Date: Saturday {2} March",
+            "Number of guests: about {3}",
+            "Room: the {4} Room",
+            "Access to the room from {5} p.m."
+          ]
+        },
+        {
+          "heading": "Costs",
+          "lines": [
+            "Weekend rate: £{6} per hour",
+            "Deposit: £{7} (returned after the event)"
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "Customer must bring her own {8}",
+            "Parking: use the car park behind the {9}",
+            "Music must finish by {10} p.m."
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "retirement"
+      ],
+      "explain": "答案是 <b>retirement</b>（退休）。原本 was originally going to be her sixtieth birthday party，but... we've decided to turn it into a retirement party instead。<br><b>陷阱</b>：birthday 是原本的計畫，instead 後面才是最後決定。",
+      "quote": "we've decided to turn it into a retirement party instead"
+    },
+    {
+      "no": 2,
+      "answers": [
+        "23",
+        "23rd"
+      ],
+      "explain": "答案是 <b>23</b>。她想要 16 號，但 both rooms are taken that day，Owen 建議 the following Saturday, the 23rd，她說 That should be fine。<br><b>陷阱</b>：16th 是先說的日期，被否定了。",
+      "quote": "The 23rd. That should be fine."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "65",
+        "sixty-five"
+      ],
+      "explain": "答案是 <b>65</b>。邀請了 sixty people，但姊姊覺得會多幾個人，so let's say sixty-five, just to be safe。<br><b>陷阱</b>：60 是寄出的邀請數；80、200 是兩個場地的容量。",
+      "quote": "so let's say sixty-five, just to be safe"
+    },
+    {
+      "no": 4,
+      "answers": [
+        "Garden"
+      ],
+      "explain": "答案是 <b>Garden</b>。Main Hall 可容納兩百人，Owen 說人這麼少 would feel rather empty，建議 Garden Room，她說 The Garden Room sounds perfect。",
+      "quote": "The Garden Room sounds perfect."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "3",
+        "three"
+      ],
+      "explain": "答案是 <b>3</b>。客人七點到，但她要先佈置，Could we get in at three?，Owen 說 three o'clock is no problem。<br><b>陷阱</b>：7 是派對開始時間；2:30 是瑜伽課結束時間。題目問的是可以進場的時間。",
+      "quote": "so three o'clock is no problem"
+    },
+    {
+      "no": 6,
+      "answers": [
+        "35"
+      ],
+      "explain": "答案是 <b>35</b>。平日 30 pounds an hour，but at weekends the rate goes up to 35 pounds an hour。<br><b>陷阱</b>：30 是平日價，題目是週末（Saturday）。",
+      "quote": "at weekends the rate goes up to 35 pounds an hour"
+    },
+    {
+      "no": 7,
+      "answers": [
+        "100"
+      ],
+      "explain": "答案是 <b>100</b>。原文 a deposit of 100 pounds when you book，活動後場地乾淨沒損壞就退還。",
+      "quote": "a deposit of 100 pounds"
+    },
+    {
+      "no": 8,
+      "answers": [
+        "glasses"
+      ],
+      "explain": "答案是 <b>glasses</b>（玻璃杯）。中心提供盤子、碗和餐具，But you'll need to bring your own glasses。<br><b>陷阱</b>：plates、cutlery 是中心有提供的；used to provide them 是以前的事。",
+      "quote": "you'll need to bring your own glasses"
+    },
+    {
+      "no": 9,
+      "answers": [
+        "church"
+      ],
+      "explain": "答案是 <b>church</b>。中心停車場只有十個位子，隔壁超市停了會被罰款，The best option is the car park behind the church。<br><b>陷阱</b>：supermarket 是會被罰款、不能停的。",
+      "quote": "The best option is the car park behind the church"
+    },
+    {
+      "no": 10,
+      "answers": [
+        "11",
+        "eleven"
+      ],
+      "explain": "答案是 <b>11</b>。Lots of people assume it's midnight, but our licence only allows music until eleven。<br><b>陷阱</b>：midnight 是一般人的誤解；half past (eleven) 是所有人要離開的時間，不是音樂停止的時間。",
+      "quote": "our licence only allows music until eleven"
+    }
+  ]
+}

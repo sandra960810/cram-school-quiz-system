@@ -1,0 +1,276 @@
+{
+  "no": 2,
+  "context": "A welcome talk for new students at a university",
+  "audio": "L10_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 2. You will hear a student services officer welcoming new students to a university. First you have some time to look at questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f1",
+      "t": "Good morning, everyone, and welcome to Northgate University. I'm Clare, and I work in the Student Services team. Over the next twenty minutes I'm going to give you some practical information to help you settle in, and then I'll show you where the main buildings are."
+    },
+    {
+      "v": "f1",
+      "t": "Let's start with the question everyone asks: what should I do first? Many of you will be thinking about opening a bank account, and you will need one. But the bank will ask to see your student card, so the very first thing to do is collect that card. You can pick it up from the library, and you'll need your passport or another photo ID."
+    },
+    {
+      "v": "f1",
+      "t": "Next, getting around. The university runs a free shuttle bus between the campus and the city centre. Some of you may have read that it also goes to the railway station, but that route was dropped last year, so you'll need an ordinary bus for that. The good news is that the shuttle runs all year round, holidays included. It comes every twenty minutes, though it can be a bit less frequent late in the evening."
+    },
+    {
+      "v": "f1",
+      "t": "If you're interested in keeping fit, the sports centre is excellent. Annual membership is normally 120 pounds, but anyone who signs up before Friday this week gets a quarter off that price. Please be aware that the swimming pool is run separately by the city council, so you'll pay for that each time you go."
+    },
+    {
+      "v": "f1",
+      "t": "I'd also like to mention the Language Support Centre. Because of its name, people tend to think it's only for international students, but in fact it's open to everyone. What it mainly does is give one-to-one help with academic writing, so if you're struggling with your first essay or report, do go along. And you don't need to book weeks in advance. Most students get an appointment within a few days."
+    },
+    {
+      "v": "f1",
+      "t": "Finally, if you lose your student card, please don't go to the security office. They'll be sympathetic, but they can't print new cards. Instead, fill in the request form on the student website. Your first replacement is free; after that there's a charge of ten pounds."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f1",
+      "t": "Now, let's look at the campus map. We're at the main entrance, at the bottom of the map, and the wide path in front of you is University Avenue, which runs north through the middle of the campus."
+    },
+    {
+      "v": "f1",
+      "t": "As you come in through the main entrance, the first building on your left is the health centre, right next to the car park. I strongly recommend registering with the doctor there in your first week, rather than waiting until you're ill."
+    },
+    {
+      "v": "f1",
+      "t": "If you walk straight up the avenue, you'll reach the clock tower in the centre of the campus. Carry on past it, and the library is the first building on your right. It's open twenty-four hours a day during exams."
+    },
+    {
+      "v": "f1",
+      "t": "Directly opposite the library, on the other side of the avenue, is the Language Support Centre that I mentioned earlier."
+    },
+    {
+      "v": "f1",
+      "t": "A lot of new students go looking for the sports centre over by the sports field, in the north-east corner, but you won't find it there. It's actually right at the far end of the avenue, at the very top of the map."
+    },
+    {
+      "v": "f1",
+      "t": "And the students' union. When you get to the clock tower, turn left along the path and follow it all the way to the end. The union is the last building, on the north side of the path. There's a welcome party there tonight from eight, and everyone's invited."
+    },
+    {
+      "v": "f1",
+      "t": "Right, that's everything from me. If you have any questions, I'll be at the information desk by the main entrance all week."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 2. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "What should new students do first?",
+          "options": {
+            "A": "collect their student card",
+            "B": "open a bank account",
+            "C": "register with a doctor"
+          }
+        },
+        {
+          "no": 12,
+          "stem": "What does the speaker say about the free shuttle bus?",
+          "options": {
+            "A": "It runs throughout the year.",
+            "B": "It stops at the railway station.",
+            "C": "It comes every ten minutes."
+          }
+        },
+        {
+          "no": 13,
+          "stem": "What does the speaker say about the sports centre?",
+          "options": {
+            "A": "Membership includes use of the swimming pool.",
+            "B": "Students who join this week pay less.",
+            "C": "The first month of membership is free."
+          }
+        },
+        {
+          "no": 14,
+          "stem": "The Language Support Centre",
+          "options": {
+            "A": "is only for international students.",
+            "B": "mainly helps students with academic writing.",
+            "C": "must be booked several weeks in advance."
+          }
+        },
+        {
+          "no": 15,
+          "stem": "Students who lose their card should",
+          "options": {
+            "A": "go to the security office.",
+            "B": "pay a fee of ten pounds.",
+            "C": "complete a form online."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L10_part2_map.svg",
+      "imageAlt": "Northgate 大學校園地圖，正門在南邊，大學大道往北，中央是鐘塔，標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Health centre"
+        },
+        {
+          "no": 17,
+          "text": "Library"
+        },
+        {
+          "no": 18,
+          "text": "Language Support Centre"
+        },
+        {
+          "no": 19,
+          "text": "Sports centre"
+        },
+        {
+          "no": 20,
+          "text": "Students' union"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。很多人想先開銀行帳戶，But the bank will ask to see your student card, so the very first thing to do is collect that card。<br><b>陷阱</b>：B 開帳戶「需要」但不是第一件；C 看醫生是後面地圖段才講的建議。",
+      "quote": "so the very first thing to do is collect that card"
+    },
+    {
+      "no": 12,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。原文 the shuttle runs all year round, holidays included。<br><b>陷阱</b>：B 火車站路線 was dropped last year；C 是 every twenty minutes，不是十分鐘。",
+      "quote": "the shuttle runs all year round"
+    },
+    {
+      "no": 13,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。年費 120 英鎊，but anyone who signs up before Friday this week gets a quarter off。<br><b>陷阱</b>：A 游泳池是市政府經營、每次另外付費；C 沒有提到免費試用。",
+      "quote": "anyone who signs up before Friday this week gets a quarter off that price"
+    },
+    {
+      "no": 14,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 What it mainly does is give one-to-one help with academic writing。<br><b>陷阱</b>：A 是大家因名字產生的誤解（in fact it's open to everyone）；C 被 you don't need to book weeks in advance 否定。",
+      "quote": "What it mainly does is give one-to-one help with academic writing"
+    },
+    {
+      "no": 15,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。原文 please don't go to the security office... Instead, fill in the request form on the student website。<br><b>陷阱</b>：A 被明確否定；B 十英鎊是第二次補辦才收，第一次免費。",
+      "quote": "fill in the request form on the student website"
+    },
+    {
+      "no": 16,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。從正門進來 the first building on your left is the health centre, right next to the car park。面向北走，左手是西邊，停車場旁的是 E。",
+      "quote": "the first building on your left is the health centre, right next to the car park"
+    },
+    {
+      "no": 17,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。沿大道走到鐘塔，Carry on past it, and the library is the first building on your right。過了鐘塔往北，右手（東邊）第一棟是 B。<br><b>陷阱</b>：D 也在大道右邊，但在鐘塔之前（南邊）。",
+      "quote": "Carry on past it, and the library is the first building on your right."
+    },
+    {
+      "no": 18,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Directly opposite the library, on the other side of the avenue。圖書館是 B，大道另一側正對面是 A。",
+      "quote": "Directly opposite the library, on the other side of the avenue"
+    },
+    {
+      "no": 19,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。很多人去東北角的運動場找，but you won't find it there. It's actually right at the far end of the avenue, at the very top of the map。<br><b>陷阱</b>：sports field（運動場）在東北角，不是 sports centre。",
+      "quote": "It's actually right at the far end of the avenue, at the very top of the map."
+    },
+    {
+      "no": 20,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。到鐘塔 turn left along the path and follow it all the way to the end，在小路北側。面向北左轉是往西，走到底北側的是 F。<br><b>技巧</b>：地圖題要記住自己面向哪個方向，left／right 才不會弄反。",
+      "quote": "The union is the last building, on the north side of the path."
+    }
+  ]
+}
