@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 7",
+  "part1": [
+    {
+      "topic": "Work or studies",
+      "questions": [
+        "Are you working or studying at the moment?",
+        "Why did you choose that job or subject?",
+        "What is the most difficult part of your work or studies?",
+        "Do you prefer to work or study in the morning or in the evening?"
+      ]
+    },
+    {
+      "topic": "Weekends",
+      "questions": [
+        "What did you do last weekend?",
+        "Do you usually plan your weekends in advance?",
+        "Are your weekends different now from when you were a child?",
+        "Do you think weekends should be longer?"
+      ]
+    },
+    {
+      "topic": "Plants",
+      "questions": [
+        "Do you keep any plants at home?",
+        "Did you learn about plants when you were at school?",
+        "Is there a plant or flower that is special in your country?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "An interesting book",
+    "cue": "Describe a book you have read that you found interesting.",
+    "points": [
+      "what the book was about",
+      "when and why you read it",
+      "what you learned from it"
+    ],
+    "final": "and explain why you found this book interesting.",
+    "followups": [
+      "Would you recommend this book to your friends?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Children and reading",
+      "questions": [
+        "Why do some children enjoy reading while others do not?",
+        "What can parents do to encourage their children to read more?",
+        "Should schools let children choose the books they read in class?"
+      ]
+    },
+    {
+      "theme": "Books in the digital age",
+      "questions": [
+        "Do you think printed books will disappear in the future?",
+        "What are the advantages of reading on a screen compared with reading on paper?",
+        "Some people say that watching a film of a story is as valuable as reading the book. Do you agree?"
+      ]
+    }
+  ]
+}
