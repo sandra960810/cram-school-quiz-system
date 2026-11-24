@@ -1,0 +1,21 @@
+{
+ "title": "Reading Test 10",
+ "subtitle": "Academic Reading，3 篇文章共 40 題，60 分鐘",
+ "passages": [
+  {
+   "no": 1,
+   "context": "一便士郵政改革",
+   "types": "筆記填空 ・ 是非題（TRUE/FALSE/NOT GIVEN）"
+  },
+  {
+   "no": 2,
+   "context": "紅樹林",
+   "types": "段落標題配對 ・ 單選題 ・ 句子填空"
+  },
+  {
+   "no": 3,
+   "context": "目擊證人的記憶可靠嗎",
+   "types": "單選題 ・ 觀點判斷（YES/NO/NOT GIVEN）・ 摘要選詞填空"
+  }
+ ]
+}

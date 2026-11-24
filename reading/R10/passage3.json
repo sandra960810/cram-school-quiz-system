@@ -1,0 +1,259 @@
+{
+ "no": 3,
+ "title": "Can We Trust What Witnesses Remember?",
+ "context": "目擊證人的記憶可靠嗎",
+ "instructions": "You should spend about 20 minutes on <b>Questions 27–40</b>, which are based on Reading Passage 3 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "Few kinds of evidence are as persuasive in a courtroom as a witness who points at the defendant and says, 'That is the person I saw.' Juries find such testimony compelling, and for most of legal history it has been treated as among the strongest evidence available. Yet since the 1970s, psychologists have built up a large body of research showing that human memory is far less reliable than either witnesses or juries tend to assume – and in recent decades, the courts have begun to take notice."
+  },
+  {
+   "label": "",
+   "text": "The central finding is that memory does not work like a video recording. We do not store a complete copy of an event and then play it back. Instead, we store fragments, and when we remember, we rebuild the event from those fragments, filling the gaps with what we expect, what we have learned since and what others have suggested to us. In most of daily life this reconstruction works well enough. The trouble is that it happens without our awareness, so that a memory which has been altered feels exactly as vivid and certain as one which has not."
+  },
+  {
+   "label": "",
+   "text": "A classic experiment from 1974 showed how easily this can happen. Participants watched short films of traffic accidents and were then asked to estimate how fast the cars had been travelling. The question was worded in different ways for different groups. Those asked how fast the cars were going when they 'smashed into' each other gave higher estimates than those asked about the cars that 'hit' each other. A week later, the participants were asked whether they had seen any broken glass. There had been none in the film, but those who had heard the word 'smashed' were more than twice as likely to say that they had. A single word, in other words, had changed not only how they judged the event but what they believed they had seen."
+  },
+  {
+   "label": "",
+   "text": "Real crimes create conditions that make accurate memory even harder. Witnesses are often frightened, the events are brief, the light may be poor, and attention may be drawn away from the offender's face; when a weapon is present, for example, witnesses tend to look at the weapon rather than at the person holding it. People are also generally better at recognising faces from their own ethnic group than faces from other groups, an effect that has been found in many countries. And between the crime and the trial, a witness may talk to police officers, other witnesses and journalists, look at photographs and read news reports, any of which can introduce new details into memory."
+  },
+  {
+   "label": "",
+   "text": "The consequences have become clear through cases in which people convicted of serious crimes were later shown to be innocent by DNA evidence. In the United States, mistaken identification by eyewitnesses played a part in a large majority of the first several hundred such cases – far more than any other factor. In many of them, the witnesses had been honest and entirely confident. That confidence turns out to be part of the problem. Research has shown that a witness's certainty can grow considerably between the first identification and the trial, especially if the witness receives encouraging feedback. A police officer who says 'Good, you picked our suspect' may be trying to be kind, but the remark can turn a hesitant identification into a confident one that juries find difficult to doubt."
+  },
+  {
+   "label": "",
+   "text": "This research has led to practical changes in how identifications are carried out. Many police forces now recommend that a line-up should be run by an officer who does not know which person is the suspect, so that he or she cannot give clues, whether deliberately or not. Witnesses are told that the offender may not be present at all, which reduces the pressure to choose someone. The other people in the line-up are selected to match the witness's description, so that the suspect does not stand out. And the witness's level of confidence is recorded immediately, in his or her own words, before anything can influence it."
+  },
+  {
+   "label": "",
+   "text": "Interestingly, more recent research suggests that eyewitness memory is not as hopeless as some early studies implied. When identifications are made under these careful conditions, the confidence a witness expresses at the very first test turns out to be a reasonably good guide to accuracy: highly confident first identifications are usually correct. The danger lies not so much in memory itself as in what happens to it afterwards. In this respect, a memory resembles other kinds of physical evidence, such as fingerprints or blood samples. It is valuable if it is collected promptly and handled with care; once it has been contaminated, no amount of later testing can restore it."
+  }
+ ],
+ "groups": [
+  {
+   "type": "mcq",
+   "range": "Questions 27–31",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 27,
+     "stem": "According to the second paragraph, why are altered memories a problem?",
+     "options": {
+      "A": "They are usually less detailed than original memories.",
+      "B": "They are impossible to distinguish from accurate memories.",
+      "C": "They tend to fade more quickly than other memories.",
+      "D": "They only occur in stressful situations."
+     }
+    },
+    {
+     "no": 28,
+     "stem": "What did the 1974 experiment show?",
+     "options": {
+      "A": "People are poor at estimating speed.",
+      "B": "Films of accidents are remembered better than real accidents.",
+      "C": "The wording of a question could change what people remembered seeing.",
+      "D": "Participants who saw broken glass gave higher estimates of speed."
+     }
+    },
+    {
+     "no": 29,
+     "stem": "What does the writer say about witnesses when a weapon is present?",
+     "options": {
+      "A": "They are more likely to remember the offender's face.",
+      "B": "They pay less attention to the person committing the crime.",
+      "C": "They tend to exaggerate the danger they were in.",
+      "D": "They are often unwilling to give evidence."
+     }
+    },
+    {
+     "no": 30,
+     "stem": "In the cases overturned by DNA evidence, many of the eyewitnesses",
+     "options": {
+      "A": "had deliberately given false evidence.",
+      "B": "had been unsure about their identification.",
+      "C": "were sincere and certain they were right.",
+      "D": "had not seen the crime clearly at all."
+     }
+    },
+    {
+     "no": 31,
+     "stem": "Why is a line-up run by an officer who does not know the suspect?",
+     "options": {
+      "A": "to prevent the officer from influencing the witness",
+      "B": "to make sure the witness feels less nervous",
+      "C": "to allow more people to be included in the line-up",
+      "D": "to save time for the officers investigating the case"
+     }
+    }
+   ]
+  },
+  {
+   "type": "ynng",
+   "range": "Questions 32–36",
+   "instruction": "Do the following statements agree with the claims of the writer in Reading Passage 3?",
+   "limit": "Write<br><b>YES</b> if the statement agrees with the claims of the writer<br><b>NO</b> if the statement contradicts the claims of the writer<br><b>NOT GIVEN</b> if it is impossible to say what the writer thinks about this",
+   "items": [
+    {
+     "no": 32,
+     "text": "Juries should no longer be allowed to hear evidence from eyewitnesses."
+    },
+    {
+     "no": 33,
+     "text": "The process of reconstructing memories is usually adequate in everyday situations."
+    },
+    {
+     "no": 34,
+     "text": "Witnesses who are frightened always remember less than those who are calm."
+    },
+    {
+     "no": 35,
+     "text": "Telling witnesses that the offender may not be in the line-up reduces the pressure on them."
+    },
+    {
+     "no": 36,
+     "text": "Early research may have given too negative a view of eyewitness memory."
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 37–40",
+   "instruction": "Complete the summary using the list of words, <b>A–H</b>, below.",
+   "limit": "Write the correct letter, <b>A–H</b>, next to Questions 37–40.",
+   "title": "Memory as evidence",
+   "optionsTitle": "",
+   "options": {
+    "A": "feedback",
+    "B": "fragments",
+    "C": "contaminated",
+    "D": "promptly",
+    "E": "recordings",
+    "F": "description",
+    "G": "confidence",
+    "H": "photographs"
+   },
+   "rows": [
+    {
+     "text": "Memories are not like {37}: they are rebuilt from {38} each time we remember. A witness's certainty may increase after receiving positive {39}, but under careful conditions, first identifications made with high {40} are usually accurate. Like physical evidence, a memory must be handled with care."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 27,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。被改變的記憶 feels exactly as vivid and certain as one which has not，而且重建過程 happens without our awareness。<br><b>同義轉換</b>：feels exactly as... as ＝ impossible to distinguish。<b>陷阱</b>：A、C 文章沒說；D 錯在日常生活也會重建。",
+   "quote": "a memory which has been altered feels exactly as vivid and certain as one which has not"
+  },
+  {
+   "no": 28,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。聽到 smashed 的人一週後說看到碎玻璃的機率高出一倍多，A single word... had changed... what they believed they had seen。<br><b>陷阱</b>：D 把因果倒過來；是先聽到 smashed 才「記得」碎玻璃，而影片裡根本沒有碎玻璃。",
+   "quote": "A single word, in other words, had changed not only how they judged the event but what they believed they had seen."
+  },
+  {
+   "no": 29,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。有武器時 witnesses tend to look at the weapon rather than at the person holding it。<br><b>同義轉換</b>：rather than at the person ＝ pay less attention to the person。<b>陷阱</b>：A 剛好相反。",
+   "quote": "witnesses tend to look at the weapon rather than at the person holding it"
+  },
+  {
+   "no": 30,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。原文 In many of them, the witnesses had been honest and entirely confident。<br><b>同義轉換</b>：honest ＝ sincere；entirely confident ＝ certain they were right。<b>陷阱</b>：A（故意作偽證）和 honest 矛盾。",
+   "quote": "In many of them, the witnesses had been honest and entirely confident."
+  },
+  {
+   "no": 31,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。由不知道誰是嫌犯的警員主持，so that he or she cannot give clues, whether deliberately or not。<br><b>同義轉換</b>：give clues ＝ influencing the witness。",
+   "quote": "so that he or she cannot give clues, whether deliberately or not"
+  },
+  {
+   "no": 32,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。作者最後說在謹慎的條件下，高信心的第一次指認 usually correct，並把記憶比作需要妥善保存的證據——不是主張禁止目擊證詞。<br><b>陷阱</b>：前幾段一直講記憶不可靠，容易誤以為作者要全盤否定。",
+   "quote": "highly confident first identifications are usually correct"
+  },
+  {
+   "no": 33,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。原文 In most of daily life this reconstruction works well enough。<br><b>同義轉換</b>：works well enough ＝ adequate；daily life ＝ everyday situations。",
+   "quote": "In most of daily life this reconstruction works well enough."
+  },
+  {
+   "no": 34,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。作者說證人 often frightened，是讓記憶更困難的條件之一，但沒有比較害怕與冷靜的證人誰記得多。<br><b>陷阱</b>：always 這種絕對字眼，要找到原文明確支持或反駁才能選 YES 或 NO。"
+  },
+  {
+   "no": 35,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。原文 Witnesses are told that the offender may not be present at all, which reduces the pressure to choose someone。",
+   "quote": "which reduces the pressure to choose someone"
+  },
+  {
+   "no": 36,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。原文 eyewitness memory is not as hopeless as some early studies implied。<br><b>同義轉換</b>：not as hopeless as... implied ＝ early research may have given too negative a view。",
+   "quote": "eyewitness memory is not as hopeless as some early studies implied"
+  },
+  {
+   "no": 37,
+   "answers": [
+    "E"
+   ],
+   "explain": "答案是 <b>E</b>（recordings）。原文 memory does not work like a video recording。",
+   "quote": "memory does not work like a video recording"
+  },
+  {
+   "no": 38,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>（fragments）。原文 we rebuild the event from those fragments。<br><b>陷阱</b>：H（photographs）是證人後來可能看到、會汙染記憶的東西。",
+   "quote": "we rebuild the event from those fragments"
+  },
+  {
+   "no": 39,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>（feedback）。原文 a witness's certainty can grow considerably... especially if the witness receives encouraging feedback。<br><b>同義轉換</b>：encouraging ＝ positive；certainty can grow ＝ may increase。",
+   "quote": "especially if the witness receives encouraging feedback"
+  },
+  {
+   "no": 40,
+   "answers": [
+    "G"
+   ],
+   "explain": "答案是 <b>G</b>（confidence）。原文 highly confident first identifications are usually correct。<br><b>陷阱</b>：D（promptly）是蒐集證據要「及時」，不是指認時的狀態；with high ___ 要接名詞 confidence。",
+   "quote": "highly confident first identifications are usually correct"
+  }
+ ]
+}

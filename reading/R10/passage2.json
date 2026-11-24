@@ -1,0 +1,247 @@
+{
+ "no": 2,
+ "title": "Forests Between the Tides",
+ "context": "紅樹林",
+ "instructions": "You should spend about 20 minutes on <b>Questions 14–26</b>, which are based on Reading Passage 2 below.",
+ "paragraphs": [
+  {
+   "label": "A",
+   "text": "Along the sheltered coasts of the tropics and subtropics, in the zone between high and low tide, grow forests unlike any others. Mangroves are not a single species but a group of around seventy species of trees and shrubs, from several unrelated plant families, that share an unusual ability: they can survive with their roots in salt water that would kill most land plants. Some species prevent most of the salt from entering at the roots, which act as extremely fine filters. Others take in the salt and then get rid of it through their leaves, which on a dry day can be seen glittering with tiny crystals."
+  },
+  {
+   "label": "B",
+   "text": "Salt is not the only problem the trees have solved. The mud in which they grow is waterlogged and contains almost no oxygen, so roots buried in it cannot breathe. Many mangroves overcome this with roots that grow upwards out of the mud, rising like rows of pencils around the base of the tree, and that take in air through small openings when the tide is low. Others stand on arching prop roots that hold the trunk above the water. Their method of reproduction is equally specialised. In several species, the seed begins to grow while it is still attached to the parent tree, producing a long, pointed seedling that drops into the water and may float for months before lodging in mud and putting down roots."
+  },
+  {
+   "label": "C",
+   "text": "For people living along tropical coasts, mangroves have long been a source of timber, fuel, fish and shellfish, and their value extends far beyond the forest itself. The calm, shallow water among the roots, protected from strong currents and from larger predators, provides a nursery for young fish, many of which later move out to coral reefs or the open sea. In some regions, a large proportion of the fish caught by commercial fleets depend on mangroves at an early stage of their lives. The forests also shelter a remarkable range of other animals, from crabs and mudskippers to monkeys, and in the vast Sundarbans forest of India and Bangladesh, tigers."
+  },
+  {
+   "label": "D",
+   "text": "Mangroves also protect the coast. A belt of trees several hundred metres wide can greatly reduce the height and force of waves driven by storms, and the roots trap sediment, helping to build up the land and slow erosion. After the Indian Ocean tsunami of 2004, a number of studies reported that villages behind healthy mangroves had suffered less damage than those that were exposed. Scientists have since cautioned that a very large tsunami can overwhelm any forest, and that other factors, such as the height and shape of the coast, also played a part. The evidence that mangroves reduce the damage from ordinary storm waves, however, is strong."
+  },
+  {
+   "label": "E",
+   "text": "More recently, mangroves have attracted attention for their role in climate change. Like all forests, they take carbon dioxide from the air as they grow. But because their waterlogged soils contain so little oxygen, the dead leaves and roots that fall into them decay extremely slowly, and the carbon they contain can remain buried for centuries. As a result, an area of mangrove forest may store several times as much carbon as the same area of tropical rainforest, most of it below ground. When mangroves are cleared and the soil is exposed to the air, much of this stored carbon is released."
+  },
+  {
+   "label": "F",
+   "text": "Despite their value, mangroves have been destroyed on a vast scale. During the second half of the twentieth century, large areas were cleared for rice fields, for ports, hotels and housing, and above all for ponds to farm shrimp for export. In parts of Southeast Asia, more than half of the original forest disappeared. The rate of loss has slowed considerably in recent decades, partly because governments have recognised the forests' importance, but clearing continues in many countries."
+  },
+  {
+   "label": "G",
+   "text": "Efforts to replace lost mangroves have produced mixed results. Many early projects simply planted large numbers of seedlings, often of a single species, on open mudflats where mangroves had never grown, and most of the young trees died. According to the coastal ecologist Daniel Ferreira, the lesson is that planting is rarely the main problem. 'Mangroves produce enormous numbers of seeds,' he says. 'If the tides can reach an area in the right way, the trees will usually return by themselves. What we have to restore is the water, not the forest.' Projects that reopen blocked channels and involve local communities in deciding where restoration takes place have proved far more successful, and far cheaper, than mass planting."
+  }
+ ],
+ "groups": [
+  {
+   "type": "headings",
+   "range": "Questions 14–20",
+   "instruction": "Reading Passage 2 has seven paragraphs, <b>A–G</b>.<br>Choose the correct heading for each paragraph from the list of headings below.",
+   "limit": "Write the correct number, <b>i–x</b>, next to Questions 14–20.",
+   "optionsTitle": "List of Headings",
+   "options": {
+    "i": "A natural defence against the sea",
+    "ii": "Why planting trees is not always the answer",
+    "iii": "Coping with a lack of air below ground",
+    "iv": "The tourist value of mangrove forests",
+    "v": "Plants that tolerate salt in different ways",
+    "vi": "A hidden store of carbon",
+    "vii": "Benefits for wildlife and fishing",
+    "viii": "The main causes of a long decline",
+    "ix": "New species discovered in mangrove forests",
+    "x": "Laws that protect mangroves in every country"
+   },
+   "items": [
+    {
+     "no": 14,
+     "text": "Paragraph A"
+    },
+    {
+     "no": 15,
+     "text": "Paragraph B"
+    },
+    {
+     "no": 16,
+     "text": "Paragraph C"
+    },
+    {
+     "no": 17,
+     "text": "Paragraph D"
+    },
+    {
+     "no": 18,
+     "text": "Paragraph E"
+    },
+    {
+     "no": 19,
+     "text": "Paragraph F"
+    },
+    {
+     "no": 20,
+     "text": "Paragraph G"
+    }
+   ]
+  },
+  {
+   "type": "mcq",
+   "range": "Questions 21–23",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 21,
+     "stem": "What does the writer say about the 2004 tsunami?",
+     "options": {
+      "A": "Mangroves had no effect on the damage it caused.",
+      "B": "The protection given by mangroves may have been overstated at first.",
+      "C": "It destroyed most of the mangroves in the region.",
+      "D": "It led to new laws protecting mangroves."
+     }
+    },
+    {
+     "no": 22,
+     "stem": "Why can mangrove soils hold carbon for a long time?",
+     "options": {
+      "A": "The trees grow faster than rainforest trees.",
+      "B": "The soil is regularly covered with fresh sediment.",
+      "C": "Lack of oxygen slows the decay of plant material.",
+      "D": "The roots absorb carbon from the sea water."
+     }
+    },
+    {
+     "no": 23,
+     "stem": "What is the main point made by Daniel Ferreira?",
+     "options": {
+      "A": "More seeds need to be collected for planting.",
+      "B": "Local people should be paid to plant trees.",
+      "C": "Restoring the natural flow of water is the key to success.",
+      "D": "Only a few species of mangrove are suitable for restoration."
+     }
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 24–26",
+   "instruction": "Complete the sentences below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "rows": [
+    {
+     "text": "Some mangroves remove salt from their bodies through their {24}."
+    },
+    {
+     "text": "Young fish use the water among mangrove roots as a {25}."
+    },
+    {
+     "text": "The most important single reason for clearing mangroves was to create ponds for farming {26}."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 14,
+   "answers": [
+    "v"
+   ],
+   "explain": "答案是 <b>v</b>。A 段說紅樹林能在鹹水中生存，有的在根部把鹽擋掉，有的從葉子排出。<br><b>同義轉換</b>：tolerate salt in different ways ＝ Some species... Others...",
+   "quote": "Some species prevent most of the salt from entering at the roots"
+  },
+  {
+   "no": 15,
+   "answers": [
+    "iii"
+   ],
+   "explain": "答案是 <b>iii</b>。B 段說泥裡幾乎沒有氧氣，根無法呼吸，所以長出向上的呼吸根。<br><b>同義轉換</b>：almost no oxygen ＝ a lack of air；below ground ＝ in the mud。<b>陷阱</b>：這段後半講繁殖，但只是補充，主旨是缺氧。",
+   "quote": "The mud in which they grow is waterlogged and contains almost no oxygen"
+  },
+  {
+   "no": 16,
+   "answers": [
+    "vii"
+   ],
+   "explain": "答案是 <b>vii</b>。C 段講幼魚的育苗場、商業漁獲、蟹、彈塗魚、猴子和老虎。<br><b>陷阱</b>：iv（觀光價值）文章完全沒提。",
+   "quote": "provides a nursery for young fish"
+  },
+  {
+   "no": 17,
+   "answers": [
+    "i"
+   ],
+   "explain": "答案是 <b>i</b>。D 段第一句 Mangroves also protect the coast，接著講減弱暴潮的浪。<br><b>同義轉換</b>：protect the coast ＝ a natural defence against the sea。",
+   "quote": "Mangroves also protect the coast."
+  },
+  {
+   "no": 18,
+   "answers": [
+    "vi"
+   ],
+   "explain": "答案是 <b>vi</b>。E 段說紅樹林每單位面積的碳儲量是雨林的數倍，most of it below ground。<br><b>同義轉換</b>：below ground ＝ hidden。",
+   "quote": "most of it below ground"
+  },
+  {
+   "no": 19,
+   "answers": [
+    "viii"
+   ],
+   "explain": "答案是 <b>viii</b>。F 段列出被砍伐的原因：稻田、港口、旅館、住宅，above all 養蝦池。<br><b>陷阱</b>：x（每個國家都有保護法）錯在 clearing continues in many countries。",
+   "quote": "above all for ponds to farm shrimp for export"
+  },
+  {
+   "no": 20,
+   "answers": [
+    "ii"
+   ],
+   "explain": "答案是 <b>ii</b>。G 段說早期大量種苗的計畫大多失敗，專家說 planting is rarely the main problem。<br><b>同義轉換</b>：planting... is not always the answer ＝ most of the young trees died。",
+   "quote": "planting is rarely the main problem"
+  },
+  {
+   "no": 21,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。海嘯後的研究說紅樹林後面的村莊受損較少，但 Scientists have since cautioned... a very large tsunami can overwhelm any forest，也有其他因素。<br><b>陷阱</b>：A 太絕對，研究並沒說完全沒效；C、D 文章沒提。",
+   "quote": "Scientists have since cautioned that a very large tsunami can overwhelm any forest"
+  },
+  {
+   "no": 22,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。土壤含氧極少，落葉和根 decay extremely slowly，碳可以埋藏數百年。<br><b>陷阱</b>：B 的沉積物出現在 D 段（roots trap sediment），和碳儲存的原因無關。",
+   "quote": "the dead leaves and roots that fall into them decay extremely slowly"
+  },
+  {
+   "no": 23,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。Ferreira 說 What we have to restore is the water, not the forest。<br><b>陷阱</b>：A 剛好相反，他說紅樹林 produce enormous numbers of seeds，不缺種子。",
+   "quote": "What we have to restore is the water, not the forest."
+  },
+  {
+   "no": 24,
+   "answers": [
+    "leaves"
+   ],
+   "explain": "答案是 <b>leaves</b>。原文 Others take in the salt and then get rid of it through their leaves。<br><b>同義轉換</b>：get rid of ＝ remove。<b>陷阱</b>：roots 是「擋鹽」的那一類，不是「排鹽」。",
+   "quote": "get rid of it through their leaves"
+  },
+  {
+   "no": 25,
+   "answers": [
+    "nursery"
+   ],
+   "explain": "答案是 <b>nursery</b>（育苗場）。原文 provides a nursery for young fish。",
+   "quote": "provides a nursery for young fish"
+  },
+  {
+   "no": 26,
+   "answers": [
+    "shrimp"
+   ],
+   "explain": "答案是 <b>shrimp</b>（蝦）。原文 above all for ponds to farm shrimp for export。<br><b>解題關鍵</b>：above all ＝ the most important single reason。rice 雖然也列出，但不是 above all 那一項。",
+   "quote": "above all for ponds to farm shrimp for export"
+  }
+ ]
+}
