@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字測驗｜{{ scope_label }}</title>
+    <title>單字闖關神器｜{{ scope_label }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <style>
@@ -136,7 +136,7 @@
 <body>
 <div class="page">
     <div class="nav-row">
-        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>單字測驗</a>
+        <a href="{{ back_url }}" class="nav-back"><span class="arrow">←</span>單字闖關神器</a>
         <a href="{{ learn_url }}" class="nav-next">{{ icon('library') }} 回去滑卡<span class="arrow">→</span></a>
     </div>
     <div class="scope"><span>{{ icon('quiz') }} {{ scope_label }}</span></div>
@@ -145,7 +145,7 @@
     <div class="card">
         <h2 style="margin-top:0">這個範圍還沒有學過的字</h2>
         <p style="color:var(--muted); line-height:1.7">只考滑卡學過的字，先去滑卡吧。</p>
-        <a href="{{ learn_url }}" class="big-btn primary">{{ icon('library') }} 去背單字</a>
+        <a href="{{ learn_url }}" class="big-btn primary">{{ icon('library') }} 去背單字神器</a>
         <a href="{{ back_url }}" class="big-btn secondary">← 換一個範圍</a>
     </div>
     {% else %}
@@ -461,7 +461,7 @@
                 <a href="${RETRY_URL}" class="big-btn primary">再考一次</a>
                 ${wrong.length ? `<a href="${WEAK_URL}" class="big-btn orange">{{ icon('dot') }} 只考不熟區</a>` : ''}
                 <a href="${LEARN_URL}" class="big-btn secondary">{{ icon('library') }} 回去滑卡</a>
-                <a href="${BACK_URL}" class="big-btn secondary">← 回測驗區</a>
+                <a href="${BACK_URL}" class="big-btn secondary">← 回闖關首頁</a>
             </div>`;
         stage.querySelectorAll('[data-say]').forEach(b => b.addEventListener('click', () => say(b.dataset.say)));
         try {

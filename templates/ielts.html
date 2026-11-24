@@ -292,7 +292,7 @@
                 <h2>${title}</h2>
                 ${totalWords ? `<div class="stats"><div class="stat k"><span class="n">${knowCount}</span>熟</div><div class="stat u"><span class="n">${dontCount}</span>不熟</div></div>` : ''}
                 ${again}
-                ${QUIZ_OK && !isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">{{ icon('quiz') }} 考考剛學的字 <span class="go-arrow">→</span></a>` : ''}
+                ${QUIZ_OK && !isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">{{ icon('quiz') }} 馬上闖關考剛學的字 <span class="go-arrow">→</span></a>` : ''}
                 <a href="${backUrl}" class="big-btn secondary"><span>←</span> ${backLabel.replace('返回', '回到')}</a>
                 <a href="${homeUrl}" class="big-btn secondary"><span>←</span> 選擇其他主題</a>
             </div>`;
