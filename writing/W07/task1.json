@@ -1,0 +1,20 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The graph below shows the number of journeys made by bus, train and tram in one city between 2000 and 2025.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "line",
+    "title": "Public transport journeys in one city, 2000–2025",
+    "x": ["2000", "2005", "2010", "2015", "2020", "2025"],
+    "y_label": "Journeys (millions per year)",
+    "y_max": 140,
+    "y_step": 20,
+    "series": [
+      {"name": "Bus", "values": [120, 115, 104, 96, 70, 88]},
+      {"name": "Train", "values": [45, 52, 60, 71, 48, 79]},
+      {"name": "Tram", "values": [0, 0, 18, 30, 25, 41]}
+    ]
+  }
+}
