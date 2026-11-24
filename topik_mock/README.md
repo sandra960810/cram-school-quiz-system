@@ -1,6 +1,6 @@
 # 韓檢模擬考題庫
 
-TOPIK I、TOPIK II 各三回，一回一個純文字檔（第 1 回 `TOPIK1.txt`、`TOPIK2.txt`，第 2 回起 `TOPIK1-2.txt`、`TOPIK2-3.txt`…），由 `topik_mock.py` 讀進來。
+TOPIK I、TOPIK II 各十回，一回一個純文字檔（第 1 回 `TOPIK1.txt`、`TOPIK2.txt`，第 2 回起 `TOPIK1-2.txt`～`TOPIK1-10.txt`、`TOPIK2-2.txt`～`TOPIK2-10.txt`），由 `topik_mock.py` 讀進來。
 新增一回只要加一個檔（`@test` 標題要寫「제N회」）、跑檢查、產生音檔，後台審核頁就會多一個可以勾的回數。
 題目**全部原創**，比照韓國語文能力測驗（TOPIK）的科目、題型、題數、配分與時間編寫，沒有轉錄任何市售教材或考古題；
 文中的機構、人名、數據是為了出題虛構的。

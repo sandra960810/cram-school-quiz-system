@@ -53,7 +53,7 @@ speaking/           口說題庫資料：tests.json、S01/test.json…
 jlpt_mock.py        日檢模擬考 /jlpt-mock/<學生id>：題庫解析、作答、交卷顯示正解、估計分數（Blueprint）
 jlpt_mock/          日檢模擬考題庫 N5.txt～N1.txt、第 2 回起 N5-2.txt…（純文字格式，見 README.md）
 jlpt_audio.bat      在櫃台電腦產生日檢模擬考聽解音檔（雙擊）
-topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各三回，作答、交卷顯示正解、算總分與級數、寫作 AI 批改（Blueprint）
+topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各十回，作答、交卷顯示正解、算總分與級數、寫作 AI 批改（Blueprint）
 topik_mock/         韓檢模擬考題庫 TOPIK1.txt、TOPIK2.txt，第 2 回起 TOPIK1-2.txt…（純文字格式，見 README.md）
 topik_audio.bat     在櫃台電腦產生韓檢模擬考聽力音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
@@ -153,11 +153,11 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 
 ## 韓檢模擬考（topik_mock.py）
 
-- TOPIK I（聽力 30＋閱讀 40 題，200 分）、TOPIK II（聽力 50＋寫作 4＋閱讀 50 題，300 分）各三回，題目原創；
+- TOPIK I（聽力 30＋閱讀 40 題，200 分）、TOPIK II（聽力 50＋寫作 4＋閱讀 50 題，300 分）各十回，題目原創；
   題型、題號、配分、時間比照正式考試，見 `topik_mock/README.md`
-- 一回一個檔：第 1 回 `topik_mock/TOPIK1.txt`，第 2 回起 `TOPIK1-2.txt`、`TOPIK1-3.txt`（`topik_mock.rounds()` 看有哪些檔）。
+- 一回一個檔：第 1 回 `topik_mock/TOPIK1.txt`，第 2 回起 `TOPIK1-2.txt`～`TOPIK1-10.txt`（`topik_mock.rounds()` 看有哪些檔）。
   網址第 1 回是 `/topik-mock/<id>/t1/<節>`，第 2 回起 `/t1-2/<節>`；作答紀錄 `TopikMockAttempt.rnd` 記第幾回。
-  **各回題目不能重複**：`check_topik_mock.py` 會比對所有回的文章句子、題幹、選項組、台詞與寫作題
+  **各回題目不能重複**：`check_topik_mock.py` 會比對所有回的文章句子、題幹、選項組、台詞與寫作題（短題幹與主題它比不到，出新回前要自己搜尋前幾回避開）
 - 入口在韓檢功能選單的「模擬考」；後台審核頁韓檢的「TOPIK I 模考」（功能 `mock1`）、「TOPIK II 模考」（`mock2`）分開開通，
   和單字的 1～6 級無關。`FEATURE_PATHS` 的 `/topik-mock/` 對應一組功能（開了其中一個就能進首頁），每一回再個別檢查，沒開回 403。
   開哪幾回在審核頁「模考開放的回數」逐回勾選（存在 access 的 `mock_open`，例如 `["TOPIK1", "TOPIK1-2"]`，判斷用 `exams.open_mock_tests`）；
@@ -373,7 +373,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   - N5～N1 完成，共 10,097 字（682＋774＋2,420＋3,260＋2,961）：Waller 字表 7,430 字＋JMdict 常用字補充 2,667 字；2026-11 依常用度與漢字難度重新分級，1,240 字換等級（見 `jlpt/README.md`）。
     換等級只要改 CSV 的「主題」，`import_sheet.py` 會把同課程唯一的同拼字搬過去，不會多出重複字
 - ✅ 學生註冊／登入與工作人員審核開通（依課程開功能、等級、開通與課程日期）；原本的單字、題庫編輯後台暫停
-- ✅ 韓檢模擬考 TOPIK I、TOPIK II 各三回（每回 70／104 題，各回題目不重複；交卷顯示正解與解析、總分與級數；寫作 AI 批改；聽力音檔在櫃台電腦雙擊 `topik_audio.bat` 產生）
+- ✅ 韓檢模擬考 TOPIK I、TOPIK II 各十回（2026-11 從三回逐回補到十回，每回 70／104 題，各回題目不重複；交卷顯示正解與解析、總分與級數；寫作 AI 批改；聽力音檔在櫃台電腦雙擊 `topik_audio.bat` 產生）
 - ✅ 日檢模擬考 N5～N1 各 3 回以上（每回 67／85／102／105／107 題；正在逐回補到各 10 回，寫好一回上線一回）（交卷顯示正解與解析、估計分數；聽解音檔在櫃台電腦雙擊 `jlpt_audio.bat` 產生）
 - ⬜ 托福（後台已有開關，內容還沒開發）
 - ✅ 聽力題庫 **6 / 10 回**（L01–L06 完成，各 40 題解析；音檔在櫃台電腦雙擊 `listening_audio.bat` 產生）
