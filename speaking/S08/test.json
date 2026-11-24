@@ -1,0 +1,62 @@
+{
+  "title": "Speaking Test 8",
+  "part1": [
+    {
+      "topic": "Your home",
+      "questions": [
+        "Which room in your home do you spend the most time in?",
+        "How long have you lived in your present home?",
+        "What can you see from the windows of your home?",
+        "Would you prefer to live in a house or a flat?"
+      ]
+    },
+    {
+      "topic": "Birthdays",
+      "questions": [
+        "How do you usually celebrate your birthday?",
+        "Which birthday do you remember best from your childhood?",
+        "Do you think adults should celebrate their birthdays?"
+      ]
+    },
+    {
+      "topic": "The sky and stars",
+      "questions": [
+        "Do you often look up at the sky?",
+        "Is it easy to see the stars where you live?",
+        "Would you like to learn more about the stars?",
+        "Have you ever watched the sun rise?"
+      ]
+    }
+  ],
+  "part2": {
+    "topic": "A festival or celebration",
+    "cue": "Describe a festival or celebration that is important in your country.",
+    "points": [
+      "what the festival or celebration is",
+      "when it takes place",
+      "what people do during it"
+    ],
+    "final": "and explain why it is important to people in your country.",
+    "followups": [
+      "Did you enjoy this festival more as a child or as an adult?"
+    ]
+  },
+  "part3": [
+    {
+      "theme": "Traditions",
+      "questions": [
+        "Why do people continue to follow traditions that are hundreds of years old?",
+        "Are young people in your country less interested in traditions than older people?",
+        "How do traditional celebrations change when a country becomes more international?"
+      ]
+    },
+    {
+      "theme": "Celebrations and money",
+      "questions": [
+        "Do people spend too much money on celebrations nowadays?",
+        "Why do businesses pay so much attention to festivals?",
+        "Should governments spend public money on large public celebrations?"
+      ]
+    }
+  ]
+}
