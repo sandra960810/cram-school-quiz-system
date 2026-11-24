@@ -1,0 +1,309 @@
+{
+  "no": 1,
+  "context": "Telephone booking at a dog kennels",
+  "audio": "L07_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 1. You will hear a man telephoning a kennels to book a stay for his dog. First you have some time to look at questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "20"
+    },
+    {
+      "v": "narrator",
+      "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first."
+    },
+    {
+      "v": "f2",
+      "t": "Good morning, Oakfield Kennels, Kate speaking. How can I help?"
+    },
+    {
+      "v": "m2",
+      "t": "Hi there. I'd like to book a place for my dog in October, please."
+    },
+    {
+      "v": "f2",
+      "t": "Of course. Can I start with your surname?"
+    },
+    {
+      "v": "m2",
+      "t": "Sure. It's Gallagher. G-A-L-L-A-G-H-E-R."
+    },
+    {
+      "v": "narrator",
+      "t": "The man's surname is Gallagher, so Gallagher has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f2",
+      "t": "Good morning, Oakfield Kennels, Kate speaking. How can I help?"
+    },
+    {
+      "v": "m2",
+      "t": "Hi there. I'd like to book a place for my dog in October, please."
+    },
+    {
+      "v": "f2",
+      "t": "Of course. Can I start with your surname?"
+    },
+    {
+      "v": "m2",
+      "t": "Sure. It's Gallagher. G-A-L-L-A-G-H-E-R."
+    },
+    {
+      "v": "f2",
+      "t": "Thank you, Mr Gallagher. And what's your dog called?"
+    },
+    {
+      "v": "m2",
+      "t": "He's called Rufus. R-U-F-U-S. When we got him from the rescue centre he was called Max, but he didn't answer to it, so we changed it."
+    },
+    {
+      "v": "f2",
+      "t": "Rufus. Lovely. And how old is he?"
+    },
+    {
+      "v": "m2",
+      "t": "He'll be eight in March, so he's seven at the moment."
+    },
+    {
+      "v": "f2",
+      "t": "Seven. And which dates do you need?"
+    },
+    {
+      "v": "m2",
+      "t": "We fly out on the 3rd of October, so I'd drop him off that morning. I was going to say until the 10th, but our return flight lands very late that night, so could we make it the 11th? I'd collect him then."
+    },
+    {
+      "v": "f2",
+      "t": "No problem. From the 3rd to the 11th of October. Now, food. Most owners bring their dog's usual food, so his stomach isn't upset."
+    },
+    {
+      "v": "m2",
+      "t": "Yes, I'll bring a bag of his dry food. The main thing is that he mustn't have any chicken. He's allergic to it, and it gives him a terrible rash. Fish is fine, and so is beef."
+    },
+    {
+      "v": "f2",
+      "t": "No chicken. I'll put that in capitals. Does he have any health problems we should know about?"
+    },
+    {
+      "v": "m2",
+      "t": "He used to get ear infections, but that cleared up last year. These days the only thing is his heart. He has a tablet every morning for it, wrapped in a bit of cheese."
+    },
+    {
+      "v": "f2",
+      "t": "A tablet each morning for his heart. That's fine, our staff do that all the time. We'll also need to see his vaccination certificate when you arrive."
+    },
+    {
+      "v": "m2",
+      "t": "Where would I get that? From the rescue centre?"
+    },
+    {
+      "v": "f2",
+      "t": "No, the certificate from your vet is what we need. It shows the dates of his last injections."
+    },
+    {
+      "v": "m2",
+      "t": "Right, I'll dig it out. What about exercise? He's quite an energetic dog."
+    },
+    {
+      "v": "f2",
+      "t": "All our dogs are walked twice a day. We used to take them down to the beach, but the council has banned dogs there in summer and autumn, so now we go up into the woods behind the kennels. There's plenty of space for them to run."
+    },
+    {
+      "v": "m2",
+      "t": "The woods. He'll love that. And what sort of rooms do you have?"
+    },
+    {
+      "v": "f2",
+      "t": "We have two kinds. A standard room is 18 pounds a night. A deluxe room is a bit bigger, it has a heated floor, and it costs 24 pounds a night."
+    },
+    {
+      "v": "m2",
+      "t": "Hmm. He's getting older, and October can be cold. Let's go for the deluxe one."
+    },
+    {
+      "v": "f2",
+      "t": "That's 24 pounds a night, then. We also offer a few extras. Some owners like us to trim their dog's nails, but we've had to stop that for the moment because our groomer is on leave."
+    },
+    {
+      "v": "m2",
+      "t": "That's okay. Is there anything else?"
+    },
+    {
+      "v": "f2",
+      "t": "We can give him a bath on the day of collection, so he comes home smelling nice. That's 15 pounds."
+    },
+    {
+      "v": "m2",
+      "t": "Oh, yes please. He always comes back from holidays smelling of other dogs."
+    },
+    {
+      "v": "f2",
+      "t": "I'll add a bath, then. And finally, we need an emergency contact, in case we can't reach you while you're abroad."
+    },
+    {
+      "v": "m2",
+      "t": "Normally I'd give you my neighbour's number, but she's going to be away at the same time as us. Can I give you my sister? She lives about ten minutes from you."
+    },
+    {
+      "v": "f2",
+      "t": "Your sister is perfect. Could I take her number?"
+    },
+    {
+      "v": "m2",
+      "t": "Yes, it's 07700 913 482."
+    },
+    {
+      "v": "f2",
+      "t": "Thank you. I'll email you a confirmation this afternoon."
+    },
+    {
+      "v": "m2",
+      "t": "Great. Thanks very much, Kate."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 1. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Oakfield Kennels – Booking",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Owner and dog",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Gallagher}",
+            "Dog's name: {1}",
+            "Age: {2}"
+          ]
+        },
+        {
+          "heading": "Stay",
+          "lines": [
+            "From 3rd October to {3} October"
+          ]
+        },
+        {
+          "heading": "Food and health",
+          "lines": [
+            "Must not be given any {4}",
+            "Takes a tablet every morning for his {5}",
+            "Owner must bring a certificate from the {6}"
+          ]
+        },
+        {
+          "heading": "Care",
+          "lines": [
+            "Dogs are walked twice a day in the {7}",
+            "Deluxe room: £{8} per night",
+            "Extra service: a {9} on the day of collection",
+            "Emergency contact: owner's {10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "Rufus"
+      ],
+      "explain": "答案是 <b>Rufus</b>。Mr Gallagher 拼出 R-U-F-U-S。<br><b>陷阱</b>：Max 是牠在收容所時的舊名字（we changed it），不是現在的名字。",
+      "quote": "He's called Rufus. R-U-F-U-S."
+    },
+    {
+      "no": 2,
+      "answers": [
+        "7",
+        "seven"
+      ],
+      "explain": "答案是 <b>7</b>（寫 seven 也可以）。他說 He'll be eight in March, so he's seven at the moment。<br><b>陷阱</b>：先聽到的 eight 是明年三月才會到的年紀，so 後面才是現在的年紀。",
+      "quote": "He'll be eight in March, so he's seven at the moment."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "11",
+        "11th",
+        "eleventh"
+      ],
+      "explain": "答案是 <b>11</b>。他本來想說 the 10th，但回程班機很晚才落地，so could we make it the 11th?，Kate 也確認 From the 3rd to the 11th。<br><b>陷阱</b>：I was going to say... 是典型的「先說一個答案再更正」。",
+      "quote": "so could we make it the 11th?"
+    },
+    {
+      "no": 4,
+      "answers": [
+        "chicken"
+      ],
+      "explain": "答案是 <b>chicken</b>。他說 he mustn't have any chicken. He's allergic to it。<br><b>陷阱</b>：fish 和 beef 都出現了，但都是 fine（可以吃）。",
+      "quote": "The main thing is that he mustn't have any chicken."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "heart"
+      ],
+      "explain": "答案是 <b>heart</b>。原文 the only thing is his heart. He has a tablet every morning for it。<br><b>陷阱</b>：ear infections 是以前的問題，that cleared up last year（已經好了）。",
+      "quote": "These days the only thing is his heart."
+    },
+    {
+      "no": 6,
+      "answers": [
+        "vet"
+      ],
+      "explain": "答案是 <b>vet</b>（獸醫）。Kate 說 the certificate from your vet is what we need。<br><b>陷阱</b>：他問是不是 rescue centre（收容所），Kate 直接說 No。",
+      "quote": "the certificate from your vet is what we need"
+    },
+    {
+      "no": 7,
+      "answers": [
+        "woods"
+      ],
+      "explain": "答案是 <b>woods</b>。原文 now we go up into the woods behind the kennels。<br><b>陷阱</b>：beach 是 used to（以前），現在狗被禁止進入海灘。",
+      "quote": "now we go up into the woods behind the kennels"
+    },
+    {
+      "no": 8,
+      "answers": [
+        "24"
+      ],
+      "explain": "答案是 <b>24</b>。豪華房 costs 24 pounds a night，他選了 deluxe。<br><b>陷阱</b>：18 是標準房的價格。題目寫 Deluxe room，所以要填 24。",
+      "quote": "A deluxe room is a bit bigger, it has a heated floor, and it costs 24 pounds a night."
+    },
+    {
+      "no": 9,
+      "answers": [
+        "bath"
+      ],
+      "explain": "答案是 <b>bath</b>（洗澡）。原文 We can give him a bath on the day of collection。<br><b>陷阱</b>：剪指甲（trim their dog's nails）目前暫停，因為美容師休假。",
+      "quote": "We can give him a bath on the day of collection"
+    },
+    {
+      "no": 10,
+      "answers": [
+        "sister"
+      ],
+      "explain": "答案是 <b>sister</b>。鄰居同時不在家，所以他改留 my sister，Kate 說 Your sister is perfect。<br><b>陷阱</b>：Normally I'd give you my neighbour's number 是「平常會怎麼做」，but 後面才是這次的答案。",
+      "quote": "Can I give you my sister?"
+    }
+  ]
+}

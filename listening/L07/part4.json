@@ -1,0 +1,210 @@
+{
+  "no": 4,
+  "context": "A lecture on the songs of whales",
+  "audio": "L07_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 4. You will hear part of a lecture about the songs of whales. First you have some time to look at questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "45"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m1",
+      "t": "Good afternoon. Today I'm going to talk about one of the most remarkable sounds in the natural world: the song of the humpback whale."
+    },
+    {
+      "v": "m1",
+      "t": "The first recordings were made by accident. In the 1950s, an engineer working for the United States Navy near Bermuda was using underwater microphones to listen for submarines. Instead, he kept picking up long, strange sounds that turned out to be whales. It wasn't until the late 1960s, though, that two biologists listened carefully to these recordings and realised that the sounds were not random. They were organised into patterns that repeated, just like a song."
+    },
+    {
+      "v": "m1",
+      "t": "Their findings reached a far wider audience than most scientific work. In 1970, a record of humpback whale songs was released, and it sold extremely well. Many historians believe that it helped to build public support for the campaign to end commercial whaling."
+    },
+    {
+      "v": "m1",
+      "t": "So what is a whale song? The basic building block is a single sound, which researchers call a unit. Units are combined into phrases, and a phrase that is repeated several times makes up a theme. A complete song usually contains several themes in a fixed order and lasts between ten and twenty minutes. A whale may then repeat the whole song, again and again, for many hours."
+    },
+    {
+      "v": "m1",
+      "t": "An important point is that only the males sing. And they sing mainly in the winter, in the warm, shallow waters where the whales gather to breed, rather than in the cold feeding grounds where they spend the summer."
+    },
+    {
+      "v": "m1",
+      "t": "The most extraordinary discovery, though, is that all the males in a particular population sing the same song. And that song is not fixed. It changes gradually during the season, with new phrases added and old ones dropped, and somehow every male keeps up with the changes. By the following year, the song may be quite different."
+    },
+    {
+      "v": "m1",
+      "t": "Occasionally, the change is far more sudden. In the late 1990s, researchers off the east coast of Australia noticed that two males were singing a completely different song from everyone else. It turned out to be the song of the whales on the west coast of Australia, on the other side of the continent. Within two years, every male on the east coast had abandoned its old song and adopted the new one. Some scientists have described this as a cultural revolution, because the song was clearly learned from other whales rather than inherited."
+    },
+    {
+      "v": "m1",
+      "t": "Why do humpbacks sing at all? The obvious answer is that the song is meant to attract females, as it is in many birds. The difficulty with this idea is that females rarely seem to approach singing males. Males, on the other hand, often do. So another theory is that the song is mainly a way for males to communicate with each other, perhaps to establish their position before competing for females. At present, nobody is certain."
+    },
+    {
+      "v": "m1",
+      "t": "Humpbacks are not the only whales that sing. Blue whales produce much simpler songs, but at extremely low frequencies, which means the sound can travel enormous distances through the ocean. Curiously, recordings show that the pitch of blue whale songs around the world has been falling steadily for several decades, and the reason for this is still being investigated."
+    },
+    {
+      "v": "m1",
+      "t": "Finally, I want to mention a growing threat. The oceans are becoming much noisier, mainly because of shipping. Ships' engines produce low sounds that overlap with whale songs, and studies have found that whales respond by singing louder, or by making their songs longer, rather like people raising their voices in a busy restaurant. What effect this has on the whales in the long term is something we urgently need to understand."
+    },
+    {
+      "v": "m1",
+      "t": "In the next lecture, we'll look at how dolphins use sound to find their food."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 4. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "THE SONGS OF WHALES",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Discovery",
+          "lines": [
+            "First recorded by a navy engineer who was listening for {31}",
+            "A 1970 record helped to increase support for ending {32}"
+          ]
+        },
+        {
+          "heading": "Structure of humpback songs",
+          "lines": [
+            "The smallest part of a song is called a {33}",
+            "A repeated phrase forms a {34}"
+          ]
+        },
+        {
+          "heading": "Who sings and when",
+          "lines": [
+            "Only males sing, mainly in the {35} season",
+            "All males in a population sing the same song, which changes {36} during the season"
+          ]
+        },
+        {
+          "heading": "Australia in the 1990s",
+          "lines": [
+            "A song from the west coast replaced the old song; it must have been {37} from other whales"
+          ]
+        },
+        {
+          "heading": "Purpose",
+          "lines": [
+            "Females do not often approach singers, but {38} do"
+          ]
+        },
+        {
+          "heading": "Other whales and threats",
+          "lines": [
+            "The {39} of blue whale songs has been falling for decades",
+            "Noise from shipping makes whales sing louder or produce {40} songs"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "submarines"
+      ],
+      "explain": "答案是 <b>submarines</b>（潛艇）。海軍工程師 was using underwater microphones to listen for submarines。<br><b>陷阱</b>：他聽到的是鯨魚，但題目問他「本來在聽什麼」。Instead 前面才是答案。",
+      "quote": "was using underwater microphones to listen for submarines"
+    },
+    {
+      "no": 32,
+      "answers": [
+        "whaling"
+      ],
+      "explain": "答案是 <b>whaling</b>（捕鯨）。原文 helped to build public support for the campaign to end commercial whaling。<br><b>提醒</b>：題目已經有 ending，空格只填 whaling 一個字。",
+      "quote": "helped to build public support for the campaign to end commercial whaling"
+    },
+    {
+      "no": 33,
+      "answers": [
+        "unit"
+      ],
+      "explain": "答案是 <b>unit</b>。原文 The basic building block is a single sound, which researchers call a unit。<br><b>同義轉換</b>：basic building block ＝ smallest part。",
+      "quote": "which researchers call a unit"
+    },
+    {
+      "no": 34,
+      "answers": [
+        "theme"
+      ],
+      "explain": "答案是 <b>theme</b>。原文 a phrase that is repeated several times makes up a theme。<br><b>陷阱</b>：phrase 和 song 都在附近，要對準 repeated phrase「組成」的東西。",
+      "quote": "a phrase that is repeated several times makes up a theme"
+    },
+    {
+      "no": 35,
+      "answers": [
+        "winter"
+      ],
+      "explain": "答案是 <b>winter</b>。原文 they sing mainly in the winter, in the warm, shallow waters where the whales gather to breed。<br><b>陷阱</b>：summer 是牠們在冷水覓食區的季節，不唱歌。",
+      "quote": "they sing mainly in the winter"
+    },
+    {
+      "no": 36,
+      "answers": [
+        "gradually"
+      ],
+      "explain": "答案是 <b>gradually</b>（逐漸地）。原文 It changes gradually during the season。<br><b>陷阱</b>：後面講澳洲的例子 far more sudden，那是「偶爾」才發生的情況。",
+      "quote": "It changes gradually during the season"
+    },
+    {
+      "no": 37,
+      "answers": [
+        "learned"
+      ],
+      "explain": "答案是 <b>learned</b>（學來的）。原文 the song was clearly learned from other whales rather than inherited。<br><b>陷阱</b>：inherited（遺傳）被 rather than 否定；learnt 是英式拼法，但錄音唸的是 learned。",
+      "quote": "the song was clearly learned from other whales rather than inherited"
+    },
+    {
+      "no": 38,
+      "answers": [
+        "males"
+      ],
+      "explain": "答案是 <b>males</b>。原文 females rarely seem to approach singing males. Males, on the other hand, often do。<br><b>陷阱</b>：「吸引雌性」是最直覺的理論，但講者馬上指出問題。on the other hand 後面才是答案。",
+      "quote": "Males, on the other hand, often do."
+    },
+    {
+      "no": 39,
+      "answers": [
+        "pitch"
+      ],
+      "explain": "答案是 <b>pitch</b>（音高）。原文 the pitch of blue whale songs around the world has been falling steadily for several decades。<br><b>陷阱</b>：frequencies 也出現在前一句，但那是說藍鯨的歌頻率很低，不是「一直在下降」的東西。",
+      "quote": "the pitch of blue whale songs around the world has been falling steadily for several decades"
+    },
+    {
+      "no": 40,
+      "answers": [
+        "longer"
+      ],
+      "explain": "答案是 <b>longer</b>。原文 whales respond by singing louder, or by making their songs longer。<br><b>提醒</b>：題目是 produce ___ songs，要填比較級 longer。",
+      "quote": "by making their songs longer"
+    }
+  ]
+}
