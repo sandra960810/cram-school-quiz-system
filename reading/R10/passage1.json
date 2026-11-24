@@ -1,0 +1,206 @@
+{
+ "no": 1,
+ "title": "The Penny Post",
+ "context": "一便士郵政改革",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "In the early nineteenth century, sending a letter in Britain was a complicated and expensive business. Postage was normally paid not by the sender but by the person who received the letter, and the charge depended both on the distance the letter had travelled and on the number of sheets of paper it contained. A single sheet sent from London to Edinburgh cost more than a shilling – a large part of a day's wages for many workers. Because an envelope counted as an extra sheet, most people simply folded their letter and wrote the address on the outside, and to save money they often filled a page and then turned it sideways and wrote across their own lines."
+  },
+  {
+   "label": "",
+   "text": "The system invited cheating. Since the recipient paid, a letter could carry a message without ever being opened: a sender might agree in advance that a particular mark on the outside meant 'all is well', and the recipient would examine the letter and then refuse to accept it. Members of Parliament, meanwhile, enjoyed the right to send letters free of charge simply by signing the outside, a privilege that was widely abused; signed covers were given to friends and even sold. As a result, the Post Office carried an enormous number of letters for which it was never paid."
+  },
+  {
+   "label": "",
+   "text": "The man who proposed a solution was not a postal official at all. Rowland Hill was a former schoolmaster with a wide range of interests, from education to printing machinery. In 1837 he published a pamphlet arguing that the cost of actually transporting a letter was tiny – a small fraction of a penny – and that most of the expense of the postal service came from the complicated business of calculating charges and collecting money on delivery. His conclusion was radical: letters should be charged at a single low rate, regardless of distance, and the postage should be paid in advance by the sender. To show that a letter had been paid for, he suggested 'a bit of paper just large enough to bear the stamp, and covered at the back with a glutinous wash'."
+  },
+  {
+   "label": "",
+   "text": "The Post Office's senior officials were strongly opposed. One described the plan as among the most extraordinary he had ever heard of, and they predicted that the service would be overwhelmed and that its income would collapse. Hill's proposals, however, found enthusiastic support among merchants and bankers, who sent large numbers of letters, and among reformers who believed that cheap postage would help working people stay in contact with their families. Public petitions in favour of the plan reached Parliament in their hundreds, and in 1839 the government agreed to adopt it."
+  },
+  {
+   "label": "",
+   "text": "From January 1840, a letter weighing up to half an ounce could be sent anywhere in Britain for one penny. In May of that year, the first adhesive postage stamp, printed in black and showing a portrait of the young Queen Victoria, went on sale. The Penny Black, as it came to be known, was soon found to have a weakness. It was cancelled with red ink, which could be removed fairly easily, allowing stamps to be used again. Within a year it was replaced by a red stamp, on which black cancellation marks were much harder to clean off."
+  },
+  {
+   "label": "",
+   "text": "The effect on the volume of post was immediate. The number of letters handled in the first year of the new system was more than double that of the year before, and it continued to grow rapidly over the following decades. The financial results were less impressive. Because the price per letter had fallen so sharply, the Post Office's revenue dropped, and it was many years before the service earned as much profit as it had before the reform. Hill himself had a difficult relationship with the officials who were expected to put his ideas into practice, and he was dismissed from his government post in 1842, although he later returned and eventually rose to the top of the Post Office."
+  },
+  {
+   "label": "",
+   "text": "Whatever its short-term costs, the reform transformed communication. Other countries soon followed Britain's example, and within a few decades prepaid postage stamps were in use across much of the world. Cheap, reliable post made it possible for ordinary people to keep in touch over long distances, encouraged the spread of literacy, and gave rise to entirely new habits, from the sending of greetings cards to the collecting of stamps themselves."
+  }
+ ],
+ "groups": [
+  {
+   "type": "gapfill",
+   "range": "Questions 1–7",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Postal reform in Britain",
+   "sections": [
+    {
+     "heading": "Before 1840",
+     "lines": [
+      "cost was based on distance and the number of {1}",
+      "people avoided using an {2} because it increased the charge",
+      "MPs could send letters free simply by {3} the outside"
+     ]
+    },
+    {
+     "heading": "Hill's proposal (1837)",
+     "lines": [
+      "most costs came from working out charges and collecting money on {4}",
+      "one low rate, with payment made in {5} by the sender"
+     ]
+    },
+    {
+     "heading": "The first stamp",
+     "lines": [
+      "showed a {6} of the Queen",
+      "the red marks used to cancel it could be {7} quite easily"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "tfng",
+   "range": "Questions 8–13",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {
+     "no": 8,
+     "text": "Recipients sometimes refused letters after learning their message from the outside."
+    },
+    {
+     "no": 9,
+     "text": "Hill had previously worked for the Post Office."
+    },
+    {
+     "no": 10,
+     "text": "Post Office officials expected Hill's plan to reduce the Post Office's income."
+    },
+    {
+     "no": 11,
+     "text": "Most of the petitions supporting Hill's plan came from merchants."
+    },
+    {
+     "no": 12,
+     "text": "The Post Office became more profitable immediately after the reform."
+    },
+    {
+     "no": 13,
+     "text": "Hill lost his job in government two years after the reform was introduced."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 1,
+   "answers": [
+    "sheets"
+   ],
+   "explain": "答案是 <b>sheets</b>。原文 the charge depended both on the distance... and on the number of sheets of paper it contained。<br><b>提醒</b>：number of 後面要接複數名詞，s 不能漏。",
+   "quote": "on the number of sheets of paper it contained"
+  },
+  {
+   "no": 2,
+   "answers": [
+    "envelope"
+   ],
+   "explain": "答案是 <b>envelope</b>（信封）。原文 Because an envelope counted as an extra sheet，大家直接把信紙摺起來寫地址。<br><b>同義轉換</b>：counted as an extra sheet ＝ increased the charge。",
+   "quote": "Because an envelope counted as an extra sheet"
+  },
+  {
+   "no": 3,
+   "answers": [
+    "signing"
+   ],
+   "explain": "答案是 <b>signing</b>（簽名）。原文 the right to send letters free of charge simply by signing the outside。<br><b>提醒</b>：by 後面要接動名詞，寫 sign 或 signature 文法都不對。",
+   "quote": "simply by signing the outside"
+  },
+  {
+   "no": 4,
+   "answers": [
+    "delivery"
+   ],
+   "explain": "答案是 <b>delivery</b>。原文 calculating charges and collecting money on delivery。<br><b>同義轉換</b>：calculating ＝ working out。",
+   "quote": "collecting money on delivery"
+  },
+  {
+   "no": 5,
+   "answers": [
+    "advance"
+   ],
+   "explain": "答案是 <b>advance</b>。原文 the postage should be paid in advance by the sender。<br><b>陷阱</b>：舊制是收件人付（paid... by the person who received the letter），新制改成寄件人預付。",
+   "quote": "the postage should be paid in advance by the sender"
+  },
+  {
+   "no": 6,
+   "answers": [
+    "portrait"
+   ],
+   "explain": "答案是 <b>portrait</b>（肖像）。原文 showing a portrait of the young Queen Victoria。",
+   "quote": "showing a portrait of the young Queen Victoria"
+  },
+  {
+   "no": 7,
+   "answers": [
+    "removed"
+   ],
+   "explain": "答案是 <b>removed</b>。原文 It was cancelled with red ink, which could be removed fairly easily。<br><b>同義轉換</b>：fairly easily ＝ quite easily。<b>陷阱</b>：black 是後來新郵票的註銷墨水顏色，不要搞混。",
+   "quote": "which could be removed fairly easily"
+  },
+  {
+   "no": 8,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。寄件人事先約好信封外的記號代表「一切平安」，收件人 would examine the letter and then refuse to accept it。<br><b>同義轉換</b>：a message without ever being opened ＝ learning their message from the outside。",
+   "quote": "the recipient would examine the letter and then refuse to accept it"
+  },
+  {
+   "no": 9,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。原文 The man who proposed a solution was not a postal official at all，他是 former schoolmaster（前任教師）。<br><b>解題關鍵</b>：not... at all 直接否定。",
+   "quote": "The man who proposed a solution was not a postal official at all."
+  },
+  {
+   "no": 10,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。郵局高層 predicted that the service would be overwhelmed and that its income would collapse。<br><b>同義轉換</b>：predicted ＝ expected；income would collapse ＝ reduce income。",
+   "quote": "they predicted that the service would be overwhelmed and that its income would collapse"
+  },
+  {
+   "no": 11,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章說商人、銀行家和改革派都支持，請願書 reached Parliament in their hundreds，但沒說請願書主要來自哪一群人。<br><b>陷阱</b>：支持者裡商人排第一個，不代表請願書多數是商人寫的。"
+  },
+  {
+   "no": 12,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。改革後 revenue dropped，it was many years before the service earned as much profit as it had before。<br><b>陷阱</b>：信件量 immediate（立刻）大增，但利潤沒有；題目把 immediate 從信件量偷換到利潤。",
+   "quote": "it was many years before the service earned as much profit as it had before the reform"
+  },
+  {
+   "no": 13,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。改革從 1840 年開始，Hill was dismissed from his government post in 1842。<br><b>同義轉換</b>：dismissed ＝ lost his job；1842 − 1840 ＝ two years。",
+   "quote": "he was dismissed from his government post in 1842"
+  }
+ ]
+}
