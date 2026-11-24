@@ -1,0 +1,203 @@
+{
+ "no": 1,
+ "title": "The Desert Locust",
+ "context": "沙漠蝗蟲",
+ "instructions": "You should spend about 20 minutes on <b>Questions 1–13</b>, which are based on Reading Passage 1 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "For most of its life, the desert locust is an unremarkable insect. In its solitary form it is a shy, greenish grasshopper that lives at low densities across the dry belt stretching from West Africa to India, avoiding other members of its species and attracting little attention. Under certain conditions, however, it undergoes a transformation so complete that, until the 1920s, the two forms were thought to be separate species. It becomes gregarious, changes colour, gathers in vast numbers and, as an adult, takes to the air in swarms that can strip the crops from entire regions."
+  },
+  {
+   "label": "",
+   "text": "The trigger is rain. When heavy rain falls on normally dry land, plants spring up and locusts breed rapidly. As the land dries out again, the vegetation shrinks to scattered patches, and the growing population is forced into ever smaller areas. It is the crowding that matters. Experiments have shown that the critical stimulus is physical contact: when the hairs on a locust's hind legs are repeatedly touched by other locusts, its behaviour changes within a few hours. In 2009 a team of researchers in Britain identified the chemical responsible, showing that crowding causes a sharp rise in the level of serotonin in the insect's nervous system. Locusts given drugs that blocked serotonin did not become gregarious even when crowded."
+  },
+  {
+   "label": "",
+   "text": "The change in behaviour is only the beginning. Young gregarious locusts, which cannot yet fly, develop bright yellow and black markings, quite unlike the green of solitary insects, and they begin to march together in bands. Over successive generations, the adults also change shape, developing larger bodies and longer wings suited to long-distance flight. A swarm may contain tens of millions of insects in every square kilometre, and the largest have covered hundreds of square kilometres. Carried by the wind, swarms can travel more than a hundred kilometres in a day. They can cross seas as well as deserts: in 1988, swarms from West Africa are reported to have reached the islands of the Caribbean, a journey of some 5,000 kilometres across the Atlantic, although very few of the insects could have survived it."
+  },
+  {
+   "label": "",
+   "text": "The damage they can do is enormous. An adult locust eats roughly its own weight in fresh vegetation every day, and according to the United Nations Food and Agriculture Organization (FAO), a swarm of one square kilometre can consume as much food in a day as about 35,000 people. During a major plague, swarms may affect some sixty countries and around a fifth of the world's land surface. Because the worst-affected regions are among the poorest, a single plague can push millions of people into hunger."
+  },
+  {
+   "label": "",
+   "text": "Large plagues have become less frequent since the middle of the twentieth century, largely because of international monitoring. The FAO runs a locust information service that collects reports from field teams in affected countries and combines them with satellite data on rainfall and vegetation. The aim is to find and destroy breeding groups before they become swarms, since a band of young locusts on the ground is far easier to deal with than a swarm in flight. This strategy, known as preventive control, depends on cooperation between countries, and on survey teams being able to reach remote areas."
+  },
+  {
+   "label": "",
+   "text": "When that cooperation breaks down, the consequences can be severe. In 2018, two unusual cyclones brought heavy rain to a remote desert region of the Arabian Peninsula, an area so isolated that no survey teams visited it. Locusts bred there undetected for several generations, and by 2019 swarms were crossing into the Horn of Africa. Conflict in Yemen and Somalia made control operations difficult, and in 2020 Kenya suffered its worst outbreak for seventy years. Large-scale spraying eventually brought the upsurge under control, but not before considerable damage had been done."
+  },
+  {
+   "label": "",
+   "text": "Most control still relies on chemical pesticides sprayed from vehicles or aircraft. These act quickly, but they can also kill bees, birds and other wildlife, and they cannot be used near water or in protected areas. An alternative is a biological pesticide made from a fungus that infects locusts and grasshoppers but appears to be harmless to other animals. Its disadvantage is speed: infected insects may continue to feed for a week or more before dying, which makes farmers reluctant to rely on it when a swarm is already destroying their crops. For this reason it is generally recommended for use against young locusts in sensitive environments, rather than against swarms already on the move."
+  }
+ ],
+ "groups": [
+  {
+   "type": "gapfill",
+   "range": "Questions 1–6",
+   "instruction": "Complete the notes below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "How desert locusts change",
+   "sections": [
+    {
+     "heading": "Causes",
+     "lines": [
+      "after heavy rain, plants grow and locusts {1} quickly",
+      "as the land dries, the key stimulus is physical {2} on the hind legs",
+      "this increases the amount of {3} in the nervous system"
+     ]
+    },
+    {
+     "heading": "Results",
+     "lines": [
+      "young locusts become yellow and black and move together in {4}",
+      "adults develop larger bodies and longer {5}",
+      "swarms are carried long distances by the {6}"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "tfng",
+   "range": "Questions 7–13",
+   "instruction": "Do the following statements agree with the information given in Reading Passage 1?",
+   "limit": "Write<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this",
+   "items": [
+    {
+     "no": 7,
+     "text": "Scientists once believed that solitary and gregarious locusts belonged to different species."
+    },
+    {
+     "no": 8,
+     "text": "Locusts given drugs that blocked serotonin became gregarious more slowly than other locusts."
+    },
+    {
+     "no": 9,
+     "text": "Locust plagues mostly affect wealthy farming regions."
+    },
+    {
+     "no": 10,
+     "text": "The FAO's locust information service was established in the 1970s."
+    },
+    {
+     "no": 11,
+     "text": "Locusts are easier to control before they are able to fly."
+    },
+    {
+     "no": 12,
+     "text": "Survey teams regularly visited the area where the 2018 cyclones brought rain."
+    },
+    {
+     "no": 13,
+     "text": "The fungal pesticide costs less than chemical pesticides."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 1,
+   "answers": [
+    "breed"
+   ],
+   "explain": "答案是 <b>breed</b>（繁殖）。原文 plants spring up and locusts breed rapidly。<br><b>同義轉換</b>：rapidly ＝ quickly；spring up ＝ grow。",
+   "quote": "plants spring up and locusts breed rapidly"
+  },
+  {
+   "no": 2,
+   "answers": [
+    "contact"
+   ],
+   "explain": "答案是 <b>contact</b>。原文 the critical stimulus is physical contact，接著說後腿的毛被其他蝗蟲碰觸。<br><b>陷阱</b>：crowding 也在附近，但題目已經寫了 physical，空格要接 physical 後面的字。",
+   "quote": "the critical stimulus is physical contact"
+  },
+  {
+   "no": 3,
+   "answers": [
+    "serotonin"
+   ],
+   "explain": "答案是 <b>serotonin</b>（血清素）。原文 crowding causes a sharp rise in the level of serotonin in the insect's nervous system。<br><b>同義轉換</b>：a sharp rise in the level ＝ increases the amount。",
+   "quote": "crowding causes a sharp rise in the level of serotonin in the insect's nervous system"
+  },
+  {
+   "no": 4,
+   "answers": [
+    "bands"
+   ],
+   "explain": "答案是 <b>bands</b>（成群的若蟲隊伍）。原文 they begin to march together in bands。<br><b>陷阱</b>：swarms 是會飛的成蟲群；題目講 young locusts（還不會飛），所以是 bands。複數 s 不能漏。",
+   "quote": "they begin to march together in bands"
+  },
+  {
+   "no": 5,
+   "answers": [
+    "wings"
+   ],
+   "explain": "答案是 <b>wings</b>。原文 developing larger bodies and longer wings suited to long-distance flight。<br><b>解題關鍵</b>：題目照抄 larger bodies and longer，空格就是後面那個名詞。",
+   "quote": "developing larger bodies and longer wings"
+  },
+  {
+   "no": 6,
+   "answers": [
+    "wind"
+   ],
+   "explain": "答案是 <b>wind</b>。原文 Carried by the wind, swarms can travel more than a hundred kilometres in a day。",
+   "quote": "Carried by the wind, swarms can travel more than a hundred kilometres in a day."
+  },
+  {
+   "no": 7,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。原文 until the 1920s, the two forms were thought to be separate species。<br><b>同義轉換</b>：were thought to be ＝ scientists once believed；separate ＝ different。",
+   "quote": "until the 1920s, the two forms were thought to be separate species"
+  },
+  {
+   "no": 8,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。原文 did not become gregarious even when crowded——根本沒有變成群居型，不是「變得比較慢」。<br><b>陷阱</b>：more slowly 暗示最後還是變了，和原文的「完全沒變」矛盾。",
+   "quote": "Locusts given drugs that blocked serotonin did not become gregarious even when crowded."
+  },
+  {
+   "no": 9,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。原文 the worst-affected regions are among the poorest（受害最嚴重的是最窮的地區）。<br><b>解題關鍵</b>：poorest 和 wealthy 相反。",
+   "quote": "Because the worst-affected regions are among the poorest"
+  },
+  {
+   "no": 10,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章說 FAO 有蝗蟲資訊服務、說大型蝗災從二十世紀中期變少，但沒說這個服務哪一年成立。<br><b>陷阱</b>：文中出現的年份（1920s、2009、2018…）都和這個服務無關，不要硬套。"
+  },
+  {
+   "no": 11,
+   "answers": [
+    "TRUE"
+   ],
+   "explain": "答案是 <b>TRUE</b>。原文 a band of young locusts on the ground is far easier to deal with than a swarm in flight。<br><b>同義轉換</b>：on the ground ＝ before they are able to fly；deal with ＝ control。",
+   "quote": "a band of young locusts on the ground is far easier to deal with than a swarm in flight"
+  },
+  {
+   "no": 12,
+   "answers": [
+    "FALSE"
+   ],
+   "explain": "答案是 <b>FALSE</b>。那個地區 so isolated that no survey teams visited it。<br><b>解題關鍵</b>：no survey teams visited 和 regularly visited 直接矛盾，所以蝗蟲才能 bred there undetected。",
+   "quote": "an area so isolated that no survey teams visited it"
+  },
+  {
+   "no": 13,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。最後一段比較了兩種農藥的速度與對環境的影響，但完全沒提價格。<br><b>陷阱</b>：文章說真菌農藥的缺點是 speed（慢），學生容易順著想「那優點一定是便宜」，但文章沒寫。"
+  }
+ ]
+}

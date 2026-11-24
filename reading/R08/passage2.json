@@ -1,0 +1,228 @@
+{
+ "no": 2,
+ "title": "Building for Earthquakes",
+ "context": "抗震建築",
+ "instructions": "You should spend about 20 minutes on <b>Questions 14–26</b>, which are based on Reading Passage 2 below.",
+ "paragraphs": [
+  {
+   "label": "A",
+   "text": "Engineers have a saying that earthquakes do not kill people; buildings do. In most major earthquakes, the great majority of deaths are caused not by the shaking of the ground itself but by the collapse of structures on the people inside them. Two buildings standing side by side may experience exactly the same movement, yet one may be left with nothing worse than cracked plaster while the other falls in a heap. The aim of earthquake engineering is therefore not to prevent all damage, which would be prohibitively expensive, but to make sure that a building stays standing long enough for the people inside to get out."
+  },
+  {
+   "label": "B",
+   "text": "Some traditional structures achieved this long before the science was understood. Japan's tall wooden pagodas, some of them more than a thousand years old, have survived centuries of earthquakes that destroyed the buildings around them, and very few are recorded as having collapsed. Each storey rests loosely on the one below rather than being rigidly fixed to it, so that during an earthquake the storeys sway in different directions, in a movement that has been compared to the slithering of a snake. Many pagodas also have a heavy central pillar running through the middle of the structure. Exactly how much this pillar contributes is still debated, but it may act as a kind of spine that stops the storeys from moving too far."
+  },
+  {
+   "label": "C",
+   "text": "The key quality of a modern earthquake-resistant building is ductility – the ability to bend and stretch without breaking. Concrete is strong when it is squeezed but brittle when it is pulled or bent, so in earthquake zones it must be reinforced with enough steel bars, carefully placed, to hold it together as it cracks. Engineers also follow a principle sometimes summarised as 'strong columns, weak beams'. If something has to fail, it should be the horizontal beams, which can be badly damaged without bringing the building down, rather than the vertical columns that hold up every floor above them. When columns fail first, the floors can collapse one on top of another, leaving almost no space for survivors."
+  },
+  {
+   "label": "D",
+   "text": "A more radical approach is to separate the building from the ground altogether. In a technique called base isolation, the structure sits not directly on its foundations but on a set of bearings made from alternating layers of rubber and steel. The bearings are stiff vertically, so they can carry the building's weight, but flexible horizontally, so that when the ground moves sideways the building above moves much more slowly and gently. Base isolation is expensive, and is mostly used for buildings that must continue to function after an earthquake, such as hospitals and emergency control centres. It also works best for low and medium-rise buildings rather than very tall ones."
+  },
+  {
+   "label": "E",
+   "text": "Tall towers often rely instead on a device known as a tuned mass damper. The best-known example hangs near the top of Taipei 101 in Taiwan: a steel sphere weighing around 660 tonnes, suspended from cables. When the tower sways, the sphere swings in the opposite direction, absorbing part of the motion. Although the damper was designed mainly to reduce the swaying caused by typhoon winds, it also helps during earthquakes, and it has become a tourist attraction in its own right, with its own viewing area."
+  },
+  {
+   "label": "F",
+   "text": "Impressive as these technologies are, they do little for the millions of people who live in buildings that already exist. For most cities, the greater challenge is retrofitting – strengthening older buildings that were constructed before modern standards applied. Some of the most dangerous are so-called soft-storey buildings, in which the ground floor consists mainly of open space, such as a car park or a row of shop windows, with the weight of several floors of flats resting on a few thin columns. In 2015 the city of Los Angeles made it compulsory for owners of thousands of such buildings to strengthen them, usually by adding steel frames at ground level. The cost was shared between owners and tenants."
+  },
+  {
+   "label": "G",
+   "text": "In poorer countries, where many houses are built by their owners without engineers, the most effective measures are often the simplest. Researchers working after major earthquakes in South Asia found that the way walls were tied together mattered more than the materials themselves. A continuous horizontal band of reinforced concrete or timber running around the top of a brick or stone wall, for instance, can stop the corners from separating during shaking, at a cost of only a small percentage of the price of the house. The engineer Sunita Rao, who has trained builders in rural Nepal, argues that 'the most important earthquake technology is not a machine but a mason who knows why each detail matters'."
+  }
+ ],
+ "groups": [
+  {
+   "type": "matching",
+   "range": "Questions 14–18",
+   "instruction": "Reading Passage 2 has seven paragraphs, <b>A–G</b>.<br>Which paragraph contains the following information?",
+   "limit": "Write the correct letter, <b>A–G</b>, next to Questions 14–18.<br><b>NB</b> You may use any letter more than once.",
+   "optionsTitle": "",
+   "options": {
+    "A": "Paragraph A",
+    "B": "Paragraph B",
+    "C": "Paragraph C",
+    "D": "Paragraph D",
+    "E": "Paragraph E",
+    "F": "Paragraph F",
+    "G": "Paragraph G"
+   },
+   "items": [
+    {
+     "no": 14,
+     "text": "a reference to how the cost of a safety measure was divided"
+    },
+    {
+     "no": 15,
+     "text": "an explanation of why it is not realistic to prevent all damage"
+    },
+    {
+     "no": 16,
+     "text": "a description of a technique that suits some building heights better than others"
+    },
+    {
+     "no": 17,
+     "text": "an example of a building feature whose purpose is not fully understood"
+    },
+    {
+     "no": 18,
+     "text": "a claim that training people is more important than equipment"
+    }
+   ]
+  },
+  {
+   "type": "matching",
+   "range": "Questions 19–22",
+   "instruction": "Look at the following statements (Questions 19–22) and the list of methods below.<br>Match each statement with the correct method, <b>A–E</b>.",
+   "limit": "Write the correct letter, <b>A–E</b>, next to Questions 19–22.",
+   "optionsTitle": "List of Methods",
+   "options": {
+    "A": "a central pillar",
+    "B": "'strong columns, weak beams'",
+    "C": "base isolation",
+    "D": "a tuned mass damper",
+    "E": "a horizontal band around walls"
+   },
+   "items": [
+    {
+     "no": 19,
+     "text": "was originally intended to deal with a different natural hazard"
+    },
+    {
+     "no": 20,
+     "text": "is chosen mainly for buildings that need to keep operating after an earthquake"
+    },
+    {
+     "no": 21,
+     "text": "prevents the corners of a building from coming apart"
+    },
+    {
+     "no": 22,
+     "text": "aims to control which part of a building is damaged"
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 23–26",
+   "instruction": "Complete the summary below.",
+   "limit": "Choose <b>ONE WORD ONLY</b> from the passage for each answer.",
+   "title": "Making concrete buildings safer",
+   "rows": [
+    {
+     "text": "Concrete performs well under pressure but is {23} when bent, so it needs steel reinforcement. A good earthquake-resistant building has {24}, meaning that it can bend without breaking. If the columns give way before the beams, the floors may fall onto each other and leave little room for {25}. Older buildings with an open ground floor, known as {26} buildings, are particularly at risk."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 14,
+   "answers": [
+    "F"
+   ],
+   "explain": "答案是 <b>F</b>。F 段說洛杉磯強制補強軟層建築，The cost was shared between owners and tenants。<br><b>同義轉換</b>：shared between ＝ divided。",
+   "quote": "The cost was shared between owners and tenants."
+  },
+  {
+   "no": 15,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。A 段說目標不是防止所有損害，which would be prohibitively expensive（貴到不可行）。<br><b>同義轉換</b>：prohibitively expensive ＝ not realistic。",
+   "quote": "which would be prohibitively expensive"
+  },
+  {
+   "no": 16,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>。基礎隔震 works best for low and medium-rise buildings rather than very tall ones。<br><b>陷阱</b>：E 段的調諧質量阻尼器用在高樓，但文章沒說它「比較適合某些高度」；明確比較高度的是 D 段。",
+   "quote": "It also works best for low and medium-rise buildings rather than very tall ones."
+  },
+  {
+   "no": 17,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。五重塔的中心柱 Exactly how much this pillar contributes is still debated。<br><b>同義轉換</b>：still debated ＝ not fully understood。",
+   "quote": "Exactly how much this pillar contributes is still debated"
+  },
+  {
+   "no": 18,
+   "answers": [
+    "G"
+   ],
+   "explain": "答案是 <b>G</b>。Sunita Rao 說最重要的防震技術 is not a machine but a mason who knows why each detail matters。<br><b>同義轉換</b>：machine ＝ equipment；a mason who knows ＝ training people。",
+   "quote": "the most important earthquake technology is not a machine but a mason who knows why each detail matters"
+  },
+  {
+   "no": 19,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>（調諧質量阻尼器）。原文 designed mainly to reduce the swaying caused by typhoon winds。<br><b>同義轉換</b>：typhoon winds ＝ a different natural hazard（不同的天災）。",
+   "quote": "the damper was designed mainly to reduce the swaying caused by typhoon winds"
+  },
+  {
+   "no": 20,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>（基礎隔震）。原文 mostly used for buildings that must continue to function after an earthquake, such as hospitals。<br><b>同義轉換</b>：continue to function ＝ keep operating。",
+   "quote": "mostly used for buildings that must continue to function after an earthquake"
+  },
+  {
+   "no": 21,
+   "answers": [
+    "E"
+   ],
+   "explain": "答案是 <b>E</b>（牆頂的水平圈梁）。原文 can stop the corners from separating during shaking。<br><b>同義轉換</b>：separating ＝ coming apart。",
+   "quote": "can stop the corners from separating during shaking"
+  },
+  {
+   "no": 22,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>（強柱弱梁）。If something has to fail, it should be the horizontal beams... rather than the vertical columns。<br><b>解題關鍵</b>：這個原則不是避免損壞，而是決定「讓哪裡壞」。<b>陷阱</b>：A 的中心柱是限制各層擺動，不是選擇損壞位置。",
+   "quote": "If something has to fail, it should be the horizontal beams"
+  },
+  {
+   "no": 23,
+   "answers": [
+    "brittle"
+   ],
+   "explain": "答案是 <b>brittle</b>（脆）。原文 Concrete is strong when it is squeezed but brittle when it is pulled or bent。<br><b>同義轉換</b>：squeezed ＝ under pressure。",
+   "quote": "Concrete is strong when it is squeezed but brittle when it is pulled or bent"
+  },
+  {
+   "no": 24,
+   "answers": [
+    "ductility"
+   ],
+   "explain": "答案是 <b>ductility</b>（延展性）。原文 The key quality... is ductility – the ability to bend and stretch without breaking。<br><b>提醒</b>：has 後面要接名詞，不要寫成形容詞 ductile。",
+   "quote": "The key quality of a modern earthquake-resistant building is ductility"
+  },
+  {
+   "no": 25,
+   "answers": [
+    "survivors"
+   ],
+   "explain": "答案是 <b>survivors</b>。原文 leaving almost no space for survivors。<br><b>同義轉換</b>：almost no space ＝ little room。",
+   "quote": "leaving almost no space for survivors"
+  },
+  {
+   "no": 26,
+   "answers": [
+    "soft-storey",
+    "soft storey",
+    "soft-story"
+   ],
+   "explain": "答案是 <b>soft-storey</b>（軟層）。原文 so-called soft-storey buildings, in which the ground floor consists mainly of open space。<br><b>提醒</b>：有連字號的 soft-storey 算一個字。",
+   "quote": "Some of the most dangerous are so-called soft-storey buildings"
+  }
+ ]
+}
