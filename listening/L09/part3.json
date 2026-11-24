@@ -1,0 +1,329 @@
+{
+  "no": 3,
+  "context": "Two business students discussing a case study of a bakery",
+  "audio": "L09_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 3. You will hear two business students, Hannah and Liam, discussing a case study they are writing about a local bakery. First you have some time to look at questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f3",
+      "t": "Liam, have you had a chance to read my notes on the bakery?"
+    },
+    {
+      "v": "m2",
+      "t": "I have. They're really good. I was just thinking about how to explain why we chose Crumbs for our case study. Most people in our group picked big companies."
+    },
+    {
+      "v": "f3",
+      "t": "Well, it's not exactly famous, and it's not that close to the university either. The real reason was that the owner, Mrs Doyle, was happy to let us see her sales figures for the last six years. Most businesses won't share that kind of information."
+    },
+    {
+      "v": "m2",
+      "t": "True. That should go in the introduction. Then we need to describe the situation before 2020. I'd assumed the problem was the rent, because it's right on the high street."
+    },
+    {
+      "v": "f3",
+      "t": "So did I. But she told us the rent had hardly changed. Her staff were loyal too. The problem was the new supermarket that opened at the end of the road, with its own bakery counter selling bread at half the price."
+    },
+    {
+      "v": "m2",
+      "t": "Right. So what do you think was the best thing she did in response?"
+    },
+    {
+      "v": "f3",
+      "t": "For me, it was cutting down the number of things she made. She was producing about sixty different products and wasting a lot of them. She reduced it to around twenty, concentrated on the ones that sold best, and her waste dropped dramatically."
+    },
+    {
+      "v": "m2",
+      "t": "I agree that was sensible. She also put her prices up, didn't she?"
+    },
+    {
+      "v": "f3",
+      "t": "Only slightly, and that didn't make much difference either way. Now, the second shop. I think opening it was a mistake."
+    },
+    {
+      "v": "m2",
+      "t": "Really? I don't. It was slow at first, but it's making a profit now."
+    },
+    {
+      "v": "f3",
+      "t": "Only just, though, and it took her three years. And it meant she was spending less time in the original shop. I think she should have waited."
+    },
+    {
+      "v": "m2",
+      "t": "Well, we'll have to present both views. Dr Ellis likes it when we show we've considered different interpretations."
+    },
+    {
+      "v": "f3",
+      "t": "Fine. And what about the conclusion? We could compare Crumbs with another bakery."
+    },
+    {
+      "v": "m2",
+      "t": "There isn't room for that. Dr Ellis said the conclusion should give some recommendations for what the business should do next. So let's focus on that."
+    },
+    {
+      "v": "f3",
+      "t": "Okay. I'll draft some ideas tonight. I was wondering whether she could start selling online, but maybe that's too ambitious for a small business like hers."
+    },
+    {
+      "v": "m2",
+      "t": "Let's talk it through on Friday and decide then."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m2",
+      "t": "Next, we need to go through the marketing actions she took and what happened with each one. The loyalty card first."
+    },
+    {
+      "v": "f3",
+      "t": "Customers got a free loaf after every ten. She was hoping it would bring in more customers, but the figures didn't change at all. As far as I can tell, the regular customers just got free bread."
+    },
+    {
+      "v": "m2",
+      "t": "So it had no real effect. What about the short videos she started posting online?"
+    },
+    {
+      "v": "f3",
+      "t": "Those were a big success with people in their twenties, who'd never really come into the shop before. Her daughter made them, showing how the bread was baked."
+    },
+    {
+      "v": "m2",
+      "t": "Then there were the longer opening hours. She started opening at six instead of eight."
+    },
+    {
+      "v": "f3",
+      "t": "That turned out to be really expensive. She had to pay staff to come in earlier, and the extra electricity cost far more than she'd planned for. She told us she'd underestimated it completely."
+    },
+    {
+      "v": "m2",
+      "t": "And supplying bread to local cafés?"
+    },
+    {
+      "v": "f3",
+      "t": "That was the one that made a difference straight away. Within the first month, her total sales went up by nearly a fifth."
+    },
+    {
+      "v": "m2",
+      "t": "Impressive. Finally, the new packaging."
+    },
+    {
+      "v": "f3",
+      "t": "Ah, that was interesting. She switched to paper bags with a new design, and customers liked them. But she said the main benefit was actually for her team. They'd helped design them, and they felt much prouder of the shop afterwards."
+    },
+    {
+      "v": "m2",
+      "t": "That's a nice point to finish on."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 3. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did the students choose the bakery for their case study?",
+          "options": {
+            "A": "It is a well-known local business.",
+            "B": "The owner agreed to show them her sales figures.",
+            "C": "It is located near the university."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What was the bakery's main problem before 2020?",
+          "options": {
+            "A": "competition from a supermarket",
+            "B": "an increase in rent",
+            "C": "a shortage of staff"
+          }
+        },
+        {
+          "no": 23,
+          "stem": "Hannah thinks the owner's best decision was to",
+          "options": {
+            "A": "reduce the range of products.",
+            "B": "raise her prices.",
+            "C": "open a second shop."
+          }
+        },
+        {
+          "no": 24,
+          "stem": "What do the students disagree about?",
+          "options": {
+            "A": "whether the second shop was a mistake",
+            "B": "whether the bakery's prices were too high",
+            "C": "how reliable the sales figures are"
+          }
+        },
+        {
+          "no": 25,
+          "stem": "In their conclusion, the students will",
+          "options": {
+            "A": "compare the bakery with a similar business.",
+            "B": "make recommendations for the business.",
+            "C": "include quotations from the owner."
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What was the result of each of the following marketing actions?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Results",
+      "options": {
+        "A": "It quickly increased sales.",
+        "B": "It attracted younger customers.",
+        "C": "It cost more than expected.",
+        "D": "It was stopped after complaints.",
+        "E": "It had no noticeable effect.",
+        "F": "It made the staff feel more positive."
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "loyalty card"
+        },
+        {
+          "no": 27,
+          "text": "online videos"
+        },
+        {
+          "no": 28,
+          "text": "longer opening hours"
+        },
+        {
+          "no": 29,
+          "text": "supplying local cafés"
+        },
+        {
+          "no": 30,
+          "text": "new packaging"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 The real reason was that the owner... was happy to let us see her sales figures。<br><b>陷阱</b>：A 和 C 都被 Hannah 否定（it's not exactly famous, and it's not that close）。The real reason 是答案訊號。",
+      "quote": "The real reason was that the owner, Mrs Doyle, was happy to let us see her sales figures for the last six years."
+    },
+    {
+      "no": 22,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。原文 The problem was the new supermarket that opened at the end of the road。<br><b>陷阱</b>：B 是兩人原本的猜測，但 the rent had hardly changed；C 也被 Her staff were loyal 排除。",
+      "quote": "The problem was the new supermarket that opened at the end of the road"
+    },
+    {
+      "no": 23,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Hannah 說 For me, it was cutting down the number of things she made，從六十種減到二十種。<br><b>陷阱</b>：B 漲價 didn't make much difference；C 開第二家店 Hannah 認為是錯的。",
+      "quote": "For me, it was cutting down the number of things she made."
+    },
+    {
+      "no": 24,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。Hannah 說 I think opening it was a mistake，Liam 說 Really? I don't。<br><b>解題關鍵</b>：Really? I don't 是典型的不同意訊號，最後也說 we'll have to present both views。",
+      "quote": "I think opening it was a mistake."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。老師說 the conclusion should give some recommendations for what the business should do next。<br><b>陷阱</b>：A 是 Hannah 的提議，但 There isn't room for that。",
+      "quote": "the conclusion should give some recommendations for what the business should do next"
+    },
+    {
+      "no": 26,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。集點卡希望吸引新客人，but the figures didn't change at all，Liam 總結 it had no real effect。<br><b>同義轉換</b>：no real effect ＝ no noticeable effect。",
+      "quote": "but the figures didn't change at all"
+    },
+    {
+      "no": 27,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。影片 were a big success with people in their twenties, who'd never really come into the shop before。<br><b>同義轉換</b>：people in their twenties ＝ younger customers。",
+      "quote": "Those were a big success with people in their twenties"
+    },
+    {
+      "no": 28,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。提早開門 turned out to be really expensive，電費 cost far more than she'd planned for。<br><b>同義轉換</b>：far more than she'd planned for ＝ more than expected。",
+      "quote": "That turned out to be really expensive."
+    },
+    {
+      "no": 29,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。供貨給咖啡館 made a difference straight away，第一個月總銷售就增加近五分之一。<br><b>同義轉換</b>：straight away ＝ quickly；sales went up ＝ increased sales。",
+      "quote": "That was the one that made a difference straight away."
+    },
+    {
+      "no": 30,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。新包裝客人也喜歡，But she said the main benefit was actually for her team... they felt much prouder of the shop。<br><b>陷阱</b>：customers liked them 是次要的；main benefit 才是答案。D（因投訴停止）沒有用到。",
+      "quote": "they felt much prouder of the shop afterwards"
+    }
+  ]
+}
