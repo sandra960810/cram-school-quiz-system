@@ -133,6 +133,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   上方大卡片顯示單字、KK 音標（`pronunciation/kk.json`，含重音符號 ˈ）、中文，按「聽」（正常速度）或「慢慢聽」（rate 0.55）；
   下方列出整個主題的字（單字＋KK＋中文），點一下就唸。上次練到的主題和位置記在 localStorage。
   原本的 ABC 字母、發音規則課、聽音選字、音節拆解、跟讀評分都已拿掉，不要再加回去，除非使用者要求。
+  同一個選單最下面有「常見字尾」（`phonics.SUFFIXES`：-tion、-sion、-ing、-ed 的三種念法、-es、-er、-or、-ture、-ly、-y、-ful、-less、-ness、-ment、-ous），
+  `/phonics/<id>/words?suffix=tion` 回 `{suffix, words}`；畫面把單字結尾的字尾和 KK 結尾的念法標顏色，所以**例字的 KK 一定要以該念法結尾**
+  （kk.json 沒有的變化形如 jumped、boxes，KK 直接寫在 SUFFIXES 裡）
   加新單字後要重跑 `python tools/make_pronunciation.py cmudict.dict`
 
 ## 日檢模擬考（jlpt_mock.py）

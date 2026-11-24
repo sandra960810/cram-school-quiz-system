@@ -19,6 +19,9 @@
         .btn { border: none; background: var(--primary); color: #fff; border-radius: 10px; padding: 10px 18px; font-size: 16px; font-weight: bold; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; }
         .btn.ghost { background: #fff; color: var(--primary); box-shadow: 0 0 0 1px var(--primary-300); }
         .btn:disabled { opacity: .4; cursor: default; }
+        .suf { color: var(--primary); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+        .suf-box { background: var(--primary-50); color: var(--ink); border-radius: 12px; padding: 12px 18px; line-height: 1.7; margin-bottom: 14px; font-size: 17px; }
+        .suf-box b { color: var(--primary); font-size: 22px; }
         .kk { font-family: "Lucida Sans Unicode", "Segoe UI", Arial, sans-serif; }
 
         /* 目前這個字 */
@@ -64,7 +67,7 @@
     </div>
     <div class="summary">
         <h1>{{ icon('volume') }} 學發音</h1>
-        <p>看單字和 KK 音標，按「聽」學這個字怎麼唸，聽不清楚就按「慢慢聽」。</p>
+        <p>看單字和 KK 音標，按「聽」學這個字怎麼唸，聽不清楚就按「慢慢聽」。選單最下面有「常見字尾」可以練。</p>
     </div>
 
     <div class="pick">
@@ -76,8 +79,13 @@
             <optgroup label="一般英文單字">
                 {% for t in general_themes %}<option value="{{ t.id }}">{{ t.id }} {{ t.name }}</option>{% endfor %}
             </optgroup>
+            <optgroup label="常見字尾">
+                {% for x in suffixes %}<option value="suf:{{ x.key }}">字尾 -{{ x.suf }}　/{{ x.kk }}/</option>{% endfor %}
+            </optgroup>
         </select>
     </div>
+
+    <div class="suf-box" id="suf-box" hidden></div>
 
     <div class="card">
         <div class="progress" id="progress"></div>
@@ -103,11 +111,18 @@
 <script>
 const $ = id => document.getElementById(id);
 const KEY = 'phonics-pos-{{ student.id }}';
-const st = { list: [], idx: 0 };
+const st = { list: [], idx: 0, suffix: null };
 let userActed = false;   // 第一次載入不自動發音（瀏覽器會擋），使用者動過之後換字就自動唸
 document.addEventListener('pointerdown', () => { userActed = true; }, { once: true });
 
 function esc(t) { return String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+// 字尾模式：單字結尾的字尾、KK 結尾的念法標顏色
+function markEnd(text, end) {
+    if (!end || !text.endsWith(end)) return esc(text);
+    return esc(text.slice(0, text.length - end.length)) + `<span class="suf">${esc(end)}</span>`;
+}
+function wordHtml(w) { return markEnd(w.word, st.suffix && st.suffix.suf); }
+function kkHtml(w) { return w.kk ? '/' + markEnd(w.kk, st.suffix && st.suffix.kk) + '/' : ''; }
 function loadPos() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
 function savePos() { try { localStorage.setItem(KEY, JSON.stringify({ theme: $('src').value, idx: st.idx })); } catch (e) {} }
 
@@ -123,8 +138,8 @@ function show(autoPlay) {
     const w = st.list[st.idx];
     if (!w) { $('word').textContent = '這裡還沒有單字'; $('kk').textContent = ''; $('zh').textContent = ''; $('progress').textContent = ''; return; }
     $('progress').textContent = `第 ${st.idx + 1} / ${st.list.length} 個`;
-    $('word').textContent = w.word;
-    $('kk').textContent = w.kk ? '/' + w.kk + '/' : '';
+    $('word').innerHTML = wordHtml(w);
+    $('kk').innerHTML = kkHtml(w);
     $('zh').textContent = w.zh;
     $('prev').disabled = st.idx === 0;
     $('next').disabled = st.idx === st.list.length - 1;
@@ -135,15 +150,20 @@ function show(autoPlay) {
 
 async function load(startIdx) {
     $('word').textContent = '載入單字中…';
+    const v = $('src').value, isSuf = v.startsWith('suf:');
     try {
-        const r = await fetch(`/phonics/{{ student.id }}/words?theme=${encodeURIComponent($('src').value)}`);
-        st.list = await r.json();
-    } catch (e) { st.list = []; }
+        const q = isSuf ? 'suffix=' + encodeURIComponent(v.slice(4)) : 'theme=' + encodeURIComponent(v);
+        const data = await (await fetch(`/phonics/{{ student.id }}/words?${q}`)).json();
+        st.list = isSuf ? data.words : data;
+        st.suffix = isSuf ? data.suffix : null;
+    } catch (e) { st.list = []; st.suffix = null; }
+    $('suf-box').hidden = !st.suffix;
+    if (st.suffix) $('suf-box').innerHTML = `字尾 <b>-${esc(st.suffix.suf)}</b> 念 <b class="kk">/${esc(st.suffix.kk)}/</b>：${esc(st.suffix.hint)}`;
     st.idx = Math.min(Math.max(startIdx || 0, 0), Math.max(st.list.length - 1, 0));
     const opt = $('src').selectedOptions[0];
-    $('list-title').textContent = st.list.length ? `${opt ? opt.textContent : ''}：共 ${st.list.length} 個字，點一下就唸` : '';
+    $('list-title').textContent = st.list.length ? `${opt ? opt.textContent.trim() : ''}：共 ${st.list.length} 個字，點一下就唸` : '';
     $('grid').innerHTML = st.list.map((w, i) =>
-        `<button class="w" data-i="${i}"><b>${esc(w.word)}</b><span class="kk">${w.kk ? '/' + esc(w.kk) + '/' : ''}</span><small>${esc(w.zh)}</small></button>`).join('');
+        `<button class="w" data-i="${i}"><b>${wordHtml(w)}</b><span class="kk">${kkHtml(w)}</span><small>${esc(w.zh)}</small></button>`).join('');
     show(false);
 }
 
