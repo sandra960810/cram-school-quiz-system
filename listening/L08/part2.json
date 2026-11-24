@@ -1,0 +1,276 @@
+{
+  "no": 2,
+  "context": "A guide talking at the start of a backstage tour of a theatre",
+  "audio": "L08_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 2. You will hear a guide talking to a group of visitors at the start of a backstage tour of a theatre. First you have some time to look at questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m2",
+      "t": "Hello, everyone, and welcome to the Royal Crescent Theatre. I'm Owen, and for the next hour I'll be showing you the parts of the building that audiences never normally see."
+    },
+    {
+      "v": "m2",
+      "t": "Let me start with a little history. A lot of people in the town remember this building as a cinema, and it was one, from the 1930s until the late 1960s. But that's not what it was built for. When it opened in 1891, it was a concert hall, mainly for orchestras and choirs. It only became a theatre in 1974, after a long campaign by local people."
+    },
+    {
+      "v": "m2",
+      "t": "Now, a few rules. As we go round, you'll see a lot of costumes hanging on rails. Please don't touch them. That's not because they're valuable; in fact, many of them are quite cheap copies of historical clothes. It's because they've been checked and arranged for tonight's performance, and if anything goes missing, an actor could end up on stage without a vital piece of costume."
+    },
+    {
+      "v": "m2",
+      "t": "When we reach the stage itself, you'll notice something unusual about it. It slopes gently down towards the audience, which was quite common in older theatres, because it helps people at the back to see the actors' feet. There used to be a section in the middle that could turn round, but that was taken out years ago. And it isn't the biggest stage in the region, by the way. That's at the new arts centre in Kingsford."
+    },
+    {
+      "v": "m2",
+      "t": "People are often surprised by how many staff are needed. During a typical show, there are about thirty people working backstage: stage managers, technicians, dressers and so on. If you add the box office, the bar and the ushers, it's nearer forty-five, but they're front of house, not backstage."
+    },
+    {
+      "v": "m2",
+      "t": "And finally, at the end of the tour, everyone will receive a free poster from one of our past productions. Programmes for tonight's show are on sale in the foyer if you'd like one, but I'm afraid we don't offer discounts on tickets for tour groups."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m2",
+      "t": "Right. Could you all look at the plan in your leaflet? We're standing just inside the stage door, on the west side of the building, which is where the actors and staff come in."
+    },
+    {
+      "v": "m2",
+      "t": "As you come in through the stage door and walk along the corridor, the first door on your left is the green room. That's where actors wait and relax when they're not needed on stage. Despite the name, it isn't green. The room opposite, on the right, is the stage manager's office."
+    },
+    {
+      "v": "m2",
+      "t": "The wardrobe department, where all the costumes are made and repaired, is directly behind the stage, in the middle of the back wall. It's in a good position, because costumes can be taken straight from there to either side of the stage."
+    },
+    {
+      "v": "m2",
+      "t": "The scenery workshop is the large room in the north-east corner of the building. It has very wide doors that open onto the side of the stage, so that even large pieces of scenery can be moved straight on. Don't confuse it with the store room in the opposite corner, the north-west, where furniture and props are kept."
+    },
+    {
+      "v": "m2",
+      "t": "Next, the rehearsal room. You might expect it to be close to the stage, but there wasn't enough space there. So it's on the east side of the building, next to the auditorium. It's the same size as the stage, so actors can practise their movements exactly."
+    },
+    {
+      "v": "m2",
+      "t": "And lastly, the lighting control room. Everything is controlled from there during a performance: the lights, the sound and the special effects. It's at the very back of the auditorium, behind the last row of seats, so the operators can see the stage exactly as the audience do."
+    },
+    {
+      "v": "m2",
+      "t": "Right, if you'd like to follow me, we'll start with the green room."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 2. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "When it first opened, the building was used as",
+          "options": {
+            "A": "a cinema.",
+            "B": "a concert hall.",
+            "C": "a theatre."
+          }
+        },
+        {
+          "no": 12,
+          "stem": "Visitors must not touch the costumes because",
+          "options": {
+            "A": "they are very valuable.",
+            "B": "they are easily damaged.",
+            "C": "they are needed for a performance that evening."
+          }
+        },
+        {
+          "no": 13,
+          "stem": "What is unusual about the stage?",
+          "options": {
+            "A": "It slopes towards the audience.",
+            "B": "Part of it can turn round.",
+            "C": "It is the largest in the region."
+          }
+        },
+        {
+          "no": 14,
+          "stem": "How many people work backstage during a typical show?",
+          "options": {
+            "A": "about 12",
+            "B": "about 30",
+            "C": "about 45"
+          }
+        },
+        {
+          "no": 15,
+          "stem": "At the end of the tour, visitors will receive",
+          "options": {
+            "A": "a programme.",
+            "B": "a poster.",
+            "C": "a discount on tickets."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the plan below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L08_part2_map.svg",
+      "imageAlt": "Royal Crescent Theatre 後台平面圖，演員入口在西側，舞台在中間、觀眾席在南邊，標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Green room"
+        },
+        {
+          "no": 17,
+          "text": "Wardrobe department"
+        },
+        {
+          "no": 18,
+          "text": "Scenery workshop"
+        },
+        {
+          "no": 19,
+          "text": "Rehearsal room"
+        },
+        {
+          "no": 20,
+          "text": "Lighting control room"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 When it opened in 1891, it was a concert hall。<br><b>陷阱</b>：A 是很多鎮民記得的用途（1930–60 年代），but that's not what it was built for；C 是 1974 年以後才變成的。",
+      "quote": "When it opened in 1891, it was a concert hall"
+    },
+    {
+      "no": 12,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。原文 It's because they've been checked and arranged for tonight's performance。<br><b>陷阱</b>：A 被直接否定（That's not because they're valuable）；B 文章沒提。",
+      "quote": "It's because they've been checked and arranged for tonight's performance"
+    },
+    {
+      "no": 13,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。原文 It slopes gently down towards the audience。<br><b>陷阱</b>：B 是以前的設計（used to... taken out years ago）；C 被否定，最大的舞台在 Kingsford 的新藝術中心。",
+      "quote": "It slopes gently down towards the audience"
+    },
+    {
+      "no": 14,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 there are about thirty people working backstage。<br><b>陷阱</b>：forty-five 是加上售票處、吧台、帶位員的總數，but they're front of house, not backstage。",
+      "quote": "there are about thirty people working backstage"
+    },
+    {
+      "no": 15,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 everyone will receive a free poster from one of our past productions。<br><b>陷阱</b>：節目單要另外買（on sale）；團體不提供門票折扣。",
+      "quote": "everyone will receive a free poster"
+    },
+    {
+      "no": 16,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。從西側演員入口進來往東走，the first door on your left is the green room。往東走時左手邊是北側，所以是 A。<br><b>陷阱</b>：右手邊（H）是舞台監督辦公室。",
+      "quote": "the first door on your left is the green room"
+    },
+    {
+      "no": 17,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。服裝部 is directly behind the stage, in the middle of the back wall。<br><b>技巧</b>：舞台後方＝離觀眾席最遠的一側（北邊），in the middle 就是正中間的 C。",
+      "quote": "is directly behind the stage, in the middle of the back wall"
+    },
+    {
+      "no": 18,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。布景工坊 is the large room in the north-east corner of the building。<br><b>陷阱</b>：對角的西北角（B）是放家具和道具的倉庫，Don't confuse it。",
+      "quote": "The scenery workshop is the large room in the north-east corner of the building."
+    },
+    {
+      "no": 19,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。排練室 on the east side of the building, next to the auditorium。<br><b>陷阱</b>：You might expect it to be close to the stage——靠近舞台的 E 是大家以為的位置，but 後面才是答案。",
+      "quote": "it's on the east side of the building, next to the auditorium"
+    },
+    {
+      "no": 20,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。燈光控制室 at the very back of the auditorium, behind the last row of seats。<br><b>技巧</b>：觀眾席的「最後面」是離舞台最遠的地方，也就是平面圖最南邊。",
+      "quote": "It's at the very back of the auditorium, behind the last row of seats"
+    }
+  ]
+}

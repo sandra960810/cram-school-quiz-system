@@ -1,0 +1,195 @@
+{
+  "no": 4,
+  "context": "A lecture on fungal networks in forests",
+  "audio": "L08_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 4. You will hear part of a lecture about networks of fungi in forests. First you have some time to look at questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "45"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f4",
+      "t": "Good morning. When we walk through a forest, we tend to think of the trees as separate individuals, each competing with its neighbours for light and water. Today I want to look at research suggesting that, below the ground, things are rather more connected."
+    },
+    {
+      "v": "f4",
+      "t": "The great majority of land plants live in partnership with fungi. The fungi grow on or inside the plants' roots, and they spread out through the soil as a network of extremely fine threads, far thinner than any root. These threads are very good at collecting water and minerals, especially phosphorus, which plants find difficult to obtain on their own. In return, the plant supplies the fungus with sugars that it makes through photosynthesis. It's a partnership that is at least four hundred million years old. In fact, many scientists believe that the earliest land plants could not have survived without it, because they had no proper roots of their own. And the mushrooms that appear on the forest floor every autumn are, in many cases, simply the fruit of these underground fungi, which may stretch for many metres in every direction."
+    },
+    {
+      "v": "f4",
+      "t": "Because a single fungus can be connected to the roots of several trees at once, and even to trees of different species, scientists began to wonder whether the network might carry resources from one tree to another. In a famous experiment published in 1997, a Canadian researcher grew birch and fir trees together in a forest. She exposed the trees to air containing a special form of carbon that could be traced, and then measured where it ended up. Carbon from the birch trees was found in the fir trees, and the amount was greatest when the firs were growing in shade."
+    },
+    {
+      "v": "f4",
+      "t": "The study attracted huge attention, and the journal that published it described the network on its cover as the 'wood wide web'. Later work led to the idea of so-called 'mother trees': large, old trees at the centre of the network which, it was suggested, send resources to the seedlings growing around them, helping them to survive in the dark forest floor."
+    },
+    {
+      "v": "f4",
+      "t": "I should say that this idea has become very popular in books and documentaries, perhaps more popular than the evidence justifies. In 2023, a group of scientists published a review of the field research. They concluded that, although underground networks clearly exist, the evidence that they transfer enough resources to make a real difference to the receiving trees is weak. Many of the studies were small, and the results were not always repeated. So we need to be careful about describing forests as cooperative communities. Trees certainly compete fiercely for light, and the fungi are not acting out of kindness. They may simply be moving carbon to wherever they themselves benefit most."
+    },
+    {
+      "v": "f4",
+      "t": "Even so, the research has practical importance. In farming, for example, ploughing breaks up the fungal networks in the soil, and it may take years for them to recover. The heavy use of fertiliser can also be a problem, because plants that are given plenty of phosphorus stop supporting the fungi, and the partnership breaks down."
+    },
+    {
+      "v": "f4",
+      "t": "In forestry, the findings have encouraged some companies to leave a few large trees standing when an area is cut down, instead of clearing everything. And when new trees are planted, adding a small amount of soil taken from an established forest can help, because it contains the fungi that the young trees need. In several trials, this simple step has clearly helped far more of the seedlings to survive."
+    },
+    {
+      "v": "f4",
+      "t": "Next week, we'll look at fungi that cause disease in trees, which is a much less friendly story."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 4. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "FUNGAL NETWORKS IN FORESTS",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "The partnership",
+          "lines": [
+            "Fungi spread through the soil as a network of very fine {31}",
+            "They help plants to obtain water and minerals, especially {32}",
+            "In return, plants give the fungi {33}"
+          ]
+        },
+        {
+          "heading": "The 1997 experiment",
+          "lines": [
+            "Trees were exposed to a form of {34} that could be traced",
+            "Fir trees received most when they were growing in {35}"
+          ]
+        },
+        {
+          "heading": "'Mother trees'",
+          "lines": [
+            "Old trees were said to send resources to nearby {36}"
+          ]
+        },
+        {
+          "heading": "Criticism",
+          "lines": [
+            "A 2023 review found the evidence of useful transfer was {37}"
+          ]
+        },
+        {
+          "heading": "Practical importance",
+          "lines": [
+            "Farming: {38} damages the networks",
+            "Too much {39} can end the partnership",
+            "Forestry: soil from an established forest helps seedlings to {40}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "threads"
+      ],
+      "explain": "答案是 <b>threads</b>（菌絲）。原文 a network of extremely fine threads, far thinner than any root。<br><b>陷阱</b>：roots 也在句子裡，但是拿來比較的對象，不是網絡本身。",
+      "quote": "as a network of extremely fine threads"
+    },
+    {
+      "no": 32,
+      "answers": [
+        "phosphorus"
+      ],
+      "explain": "答案是 <b>phosphorus</b>（磷）。原文 especially phosphorus, which plants find difficult to obtain on their own。<br><b>提醒</b>：拼字 p-h-o-s-p-h-o-r-u-s 要注意結尾是 -us。",
+      "quote": "especially phosphorus"
+    },
+    {
+      "no": 33,
+      "answers": [
+        "sugars"
+      ],
+      "explain": "答案是 <b>sugars</b>（醣類）。原文 the plant supplies the fungus with sugars that it makes through photosynthesis。<br><b>同義轉換</b>：In return ＝ 原文同一個詞，是答案訊號。",
+      "quote": "the plant supplies the fungus with sugars"
+    },
+    {
+      "no": 34,
+      "answers": [
+        "carbon"
+      ],
+      "explain": "答案是 <b>carbon</b>。原文 air containing a special form of carbon that could be traced。",
+      "quote": "air containing a special form of carbon that could be traced"
+    },
+    {
+      "no": 35,
+      "answers": [
+        "shade"
+      ],
+      "explain": "答案是 <b>shade</b>（樹蔭）。原文 the amount was greatest when the firs were growing in shade。<br><b>同義轉換</b>：the amount was greatest ＝ received most。",
+      "quote": "the amount was greatest when the firs were growing in shade"
+    },
+    {
+      "no": 36,
+      "answers": [
+        "seedlings"
+      ],
+      "explain": "答案是 <b>seedlings</b>（幼苗）。原文 send resources to the seedlings growing around them。<br><b>同義轉換</b>：growing around them ＝ nearby。",
+      "quote": "send resources to the seedlings growing around them"
+    },
+    {
+      "no": 37,
+      "answers": [
+        "weak"
+      ],
+      "explain": "答案是 <b>weak</b>。2023 年的回顧研究說 the evidence that they transfer enough resources to make a real difference... is weak。<br><b>陷阱</b>：although underground networks clearly exist 是讓步，「網絡存在」不等於「有用的傳輸有證據」。",
+      "quote": "the evidence that they transfer enough resources to make a real difference to the receiving trees is weak"
+    },
+    {
+      "no": 38,
+      "answers": [
+        "ploughing",
+        "plowing"
+      ],
+      "explain": "答案是 <b>ploughing</b>（犁田，美式拼法 plowing 也算對）。原文 ploughing breaks up the fungal networks in the soil。<br><b>同義轉換</b>：breaks up ＝ damages。",
+      "quote": "ploughing breaks up the fungal networks in the soil"
+    },
+    {
+      "no": 39,
+      "answers": [
+        "fertiliser",
+        "fertilizer"
+      ],
+      "explain": "答案是 <b>fertiliser</b>（肥料，美式 fertilizer 也算對）。原文 The heavy use of fertiliser can also be a problem... the partnership breaks down。<br><b>同義轉換</b>：heavy use ＝ too much；breaks down ＝ end。",
+      "quote": "The heavy use of fertiliser can also be a problem"
+    },
+    {
+      "no": 40,
+      "answers": [
+        "survive"
+      ],
+      "explain": "答案是 <b>survive</b>（存活）。原文 this simple step has clearly helped far more of the seedlings to survive。<br><b>提醒</b>：help ... to 後面接動詞原形。",
+      "quote": "helped far more of the seedlings to survive"
+    }
+  ]
+}

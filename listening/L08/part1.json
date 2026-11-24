@@ -1,0 +1,316 @@
+{
+  "no": 1,
+  "context": "Telephone call to report an insurance claim",
+  "audio": "L08_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 1. You will hear a woman telephoning her insurance company to report some damage to her flat. First you have some time to look at questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "20"
+    },
+    {
+      "v": "narrator",
+      "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first."
+    },
+    {
+      "v": "m1",
+      "t": "Good morning, Harbour Home Insurance, claims department. This is Daniel. How can I help you?"
+    },
+    {
+      "v": "f3",
+      "t": "Hello. I need to make a claim. There's been some water damage in my flat."
+    },
+    {
+      "v": "m1",
+      "t": "I'm sorry to hear that. Could I have your surname, please?"
+    },
+    {
+      "v": "f3",
+      "t": "Yes, it's Okoro. O-K-O-R-O."
+    },
+    {
+      "v": "narrator",
+      "t": "The woman's surname is Okoro, so Okoro has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m1",
+      "t": "Good morning, Harbour Home Insurance, claims department. This is Daniel. How can I help you?"
+    },
+    {
+      "v": "f3",
+      "t": "Hello. I need to make a claim. There's been some water damage in my flat."
+    },
+    {
+      "v": "m1",
+      "t": "I'm sorry to hear that. Could I have your surname, please?"
+    },
+    {
+      "v": "f3",
+      "t": "Yes, it's Okoro. O-K-O-R-O."
+    },
+    {
+      "v": "m1",
+      "t": "Thank you, Ms Okoro. And can you confirm the address of the property?"
+    },
+    {
+      "v": "f3",
+      "t": "It's Flat 3, 28 Belmont Road. That's B-E-L-M-O-N-T."
+    },
+    {
+      "v": "m1",
+      "t": "Belmont Road. Thank you. And do you own the flat, or are you renting it?"
+    },
+    {
+      "v": "f3",
+      "t": "I own it. I bought it about four years ago."
+    },
+    {
+      "v": "m1",
+      "t": "That's fine. Your policy covers both the building and your belongings, so everything should be included. And when did you discover the damage?"
+    },
+    {
+      "v": "f3",
+      "t": "Well, I was away for a couple of nights, and I thought I'd get back on Friday evening, but my train was cancelled. So I didn't actually get home until Saturday morning, and that's when I found it."
+    },
+    {
+      "v": "m1",
+      "t": "Saturday morning. And do you know what caused it?"
+    },
+    {
+      "v": "f3",
+      "t": "At first I assumed it was my washing machine, because it's quite old. But the plumber came and said it was a burst pipe in the flat above mine. The water came through the ceiling."
+    },
+    {
+      "v": "m1",
+      "t": "A burst pipe in the flat above. Right. Now, what has been damaged?"
+    },
+    {
+      "v": "f3",
+      "t": "The worst thing is the carpet in the living room. It's completely soaked, and it smells awful, so it'll have to be replaced. Luckily I'd moved the sofa against the other wall a few weeks ago, so that's fine."
+    },
+    {
+      "v": "m1",
+      "t": "The living room carpet. Anything else?"
+    },
+    {
+      "v": "f3",
+      "t": "Some books. I had a bookcase near the window, and the bottom two shelves were ruined."
+    },
+    {
+      "v": "m1",
+      "t": "Books. And can you give me an idea of the total value of the things that were damaged?"
+    },
+    {
+      "v": "f3",
+      "t": "I'd say the carpet was about 600 pounds. And then the books, perhaps another 50. So 650 pounds altogether."
+    },
+    {
+      "v": "m1",
+      "t": "650. Thank you. What we'll need from you now is some photos of the damage. Please don't throw anything away until you've sent them to us."
+    },
+    {
+      "v": "f3",
+      "t": "I took some on my phone on Saturday, so I can email those today."
+    },
+    {
+      "v": "m1",
+      "t": "Perfect. And will the ceiling need repairing?"
+    },
+    {
+      "v": "f3",
+      "t": "Yes, there's a big stain, and some of the plaster has come down."
+    },
+    {
+      "v": "m1",
+      "t": "In that case, you'll need to get a quote from a builder for the repair. Just one is enough, as long as it's written down."
+    },
+    {
+      "v": "f3",
+      "t": "A quote. Okay, I know someone who can do that."
+    },
+    {
+      "v": "m1",
+      "t": "Good. We'll also send an assessor to look at the flat. Would Wednesday afternoon suit you?"
+    },
+    {
+      "v": "f3",
+      "t": "I'm afraid I'm working all day on Wednesday. Is Thursday possible?"
+    },
+    {
+      "v": "m1",
+      "t": "Let me check. Yes, Thursday afternoon is fine. The assessor will call you an hour before arriving."
+    },
+    {
+      "v": "f3",
+      "t": "Thursday afternoon. Great. Will I need to find somewhere else to stay in the meantime?"
+    },
+    {
+      "v": "m1",
+      "t": "Not unless the flat becomes unsafe or there's no water or electricity. From what you've said, it sounds as though you can stay there, but do let us know if anything changes."
+    },
+    {
+      "v": "m1",
+      "t": "Just one more thing. You should know that there's an excess on your policy. That's the amount you pay yourself before the insurance covers the rest."
+    },
+    {
+      "v": "f3",
+      "t": "Yes, I think it's 100 pounds, isn't it?"
+    },
+    {
+      "v": "m1",
+      "t": "It was 100 pounds, but when you renewed your policy in March, the excess went up to 250 pounds."
+    },
+    {
+      "v": "f3",
+      "t": "Oh. I didn't realise that. Well, it's still worth claiming."
+    },
+    {
+      "v": "m1",
+      "t": "It certainly is. I'll send you an email with a claim reference number."
+    },
+    {
+      "v": "f3",
+      "t": "Thanks, Daniel. You've been really helpful."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 1. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Home Insurance Claim",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Customer",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Okoro}",
+            "Address: Flat 3, 28 {1} Road"
+          ]
+        },
+        {
+          "heading": "The damage",
+          "lines": [
+            "Discovered on {2} morning",
+            "Cause: a burst {3} in the flat above",
+            "The {4} in the living room must be replaced",
+            "Some {5} were also damaged",
+            "Total value of damaged items: £{6}"
+          ]
+        },
+        {
+          "heading": "What happens next",
+          "lines": [
+            "Customer will email {7} of the damage",
+            "Customer must get a written {8} for repairing the ceiling",
+            "Assessor will visit on {9} afternoon",
+            "Excess: £{10}"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "Belmont"
+      ],
+      "explain": "答案是 <b>Belmont</b>。她拼出 B-E-L-M-O-N-T。<br><b>提醒</b>：地名拼字題一定要逐字母聽清楚，大小寫不影響。",
+      "quote": "That's B-E-L-M-O-N-T."
+    },
+    {
+      "no": 2,
+      "answers": [
+        "Saturday"
+      ],
+      "explain": "答案是 <b>Saturday</b>。她原本以為週五晚上會到家，but my train was cancelled，所以 didn't actually get home until Saturday morning。<br><b>陷阱</b>：Friday 是「原本的計畫」，but 之後才是實際發生的事。",
+      "quote": "So I didn't actually get home until Saturday morning, and that's when I found it."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "pipe"
+      ],
+      "explain": "答案是 <b>pipe</b>（水管）。水電工說 it was a burst pipe in the flat above mine。<br><b>陷阱</b>：At first I assumed it was my washing machine——一開始以為是洗衣機，But 後面才是真正原因。",
+      "quote": "it was a burst pipe in the flat above mine"
+    },
+    {
+      "no": 4,
+      "answers": [
+        "carpet"
+      ],
+      "explain": "答案是 <b>carpet</b>（地毯）。原文 The worst thing is the carpet in the living room... it'll have to be replaced。<br><b>陷阱</b>：sofa 幾週前已經移到另一面牆，so that's fine（沒事）。",
+      "quote": "The worst thing is the carpet in the living room."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "books"
+      ],
+      "explain": "答案是 <b>books</b>。原文 Some books... the bottom two shelves were ruined。<br><b>提醒</b>：題目是 Some ___ were，要填複數 books。bookcase 是書櫃，本身沒有說壞掉。",
+      "quote": "Some books."
+    },
+    {
+      "no": 6,
+      "answers": [
+        "650"
+      ],
+      "explain": "答案是 <b>650</b>。地毯約 600、書約 50，So 650 pounds altogether。<br><b>陷阱</b>：600 只是地毯的金額；題目問 Total value，要等她加總。",
+      "quote": "So 650 pounds altogether."
+    },
+    {
+      "no": 7,
+      "answers": [
+        "photos",
+        "photographs",
+        "pictures"
+      ],
+      "explain": "答案是 <b>photos</b>（寫 photographs 也可以）。Daniel 說 What we'll need from you now is some photos of the damage，她說 I can email those today。",
+      "quote": "What we'll need from you now is some photos of the damage."
+    },
+    {
+      "no": 8,
+      "answers": [
+        "quote",
+        "quotation"
+      ],
+      "explain": "答案是 <b>quote</b>（報價單）。原文 you'll need to get a quote from a builder for the repair... as long as it's written down。<br><b>同義轉換</b>：as long as it's written down ＝ written。",
+      "quote": "you'll need to get a quote from a builder for the repair"
+    },
+    {
+      "no": 9,
+      "answers": [
+        "Thursday"
+      ],
+      "explain": "答案是 <b>Thursday</b>。Daniel 先提 Wednesday，她說 I'm working all day on Wednesday. Is Thursday possible?，Daniel 確認 Thursday afternoon is fine。<br><b>陷阱</b>：第一個提到的日子被否定。",
+      "quote": "Yes, Thursday afternoon is fine."
+    },
+    {
+      "no": 10,
+      "answers": [
+        "250"
+      ],
+      "explain": "答案是 <b>250</b>。她以為是 100 英鎊，Daniel 說 It was 100 pounds, but when you renewed... the excess went up to 250 pounds。<br><b>陷阱</b>：It was（過去式）表示已經不是了。",
+      "quote": "the excess went up to 250 pounds"
+    }
+  ]
+}

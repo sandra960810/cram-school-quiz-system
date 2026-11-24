@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 580" width="100%" style="max-width:700px;font-family:Arial,Helvetica,sans-serif">
+  <rect width="700" height="580" fill="#ffffff"/>
+  <!-- 建築外牆 -->
+  <rect x="60" y="60" width="580" height="490" fill="#f7f5ef" stroke="#555" stroke-width="3"/>
+  <!-- 後方房間 -->
+  <g fill="#fff" stroke="#888" stroke-width="1.5">
+    <rect x="60" y="60" width="160" height="110"/>
+    <rect x="220" y="60" width="260" height="110"/>
+    <rect x="480" y="60" width="160" height="110"/>
+  </g>
+  <!-- 走廊 -->
+  <rect x="60" y="250" width="110" height="34" fill="#e8e2d4" stroke="#aaa"/>
+  <text x="110" y="272" text-anchor="middle" font-size="11" fill="#6b6450">corridor</text>
+  <!-- 舞台 -->
+  <rect x="220" y="190" width="260" height="140" fill="#d9c7a3" stroke="#6b5333" stroke-width="2"/>
+  <text x="350" y="265" text-anchor="middle" font-size="16" font-weight="bold" fill="#4a3a20">STAGE</text>
+  <!-- 觀眾席 -->
+  <path d="M220 345 L480 345 L500 500 L200 500 Z" fill="#ece6f2" stroke="#8a7fa0" stroke-width="2"/>
+  <g stroke="#b8acd0" stroke-width="2">
+    <line x1="235" y1="375" x2="465" y2="375"/><line x1="232" y1="395" x2="468" y2="395"/>
+    <line x1="229" y1="420" x2="471" y2="420"/><line x1="226" y1="445" x2="474" y2="445"/><line x1="223" y1="458" x2="477" y2="458"/>
+  </g>
+  <text x="350" y="362" text-anchor="middle" font-size="13" font-weight="bold" fill="#5a4f73">AUDITORIUM</text>
+  <!-- 側邊房間 -->
+  <g fill="#fff" stroke="#888" stroke-width="1.5">
+    <rect x="520" y="350" width="120" height="150"/>
+    <rect x="60" y="350" width="120" height="150"/>
+  </g>
+  <!-- 演員入口 -->
+  <rect x="40" y="252" width="22" height="30" fill="#222"/>
+  <text x="6" y="302" font-size="11" font-weight="bold" fill="#222">STAGE DOOR</text>
+  <!-- 正門 -->
+  <rect x="320" y="545" width="60" height="14" fill="#222"/>
+  <text x="350" y="575" text-anchor="middle" font-size="11" fill="#222">main entrance (foyer)</text>
+  <!-- 指北針 -->
+  <g transform="translate(668,110)">
+    <line x1="0" y1="24" x2="0" y2="-14" stroke="#333" stroke-width="2.5"/>
+    <polygon points="0,-24 -6,-10 6,-10" fill="#333"/>
+    <text x="0" y="40" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">N</text>
+  </g>
+  <g font-size="19" font-weight="bold" text-anchor="middle">
+    <g><circle cx="120" cy="215" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="120" y="222" fill="#c0392b">A</text></g>
+    <g><circle cx="140" cy="115" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="140" y="122" fill="#c0392b">B</text></g>
+    <g><circle cx="350" cy="115" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="350" y="122" fill="#c0392b">C</text></g>
+    <g><circle cx="560" cy="115" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="560" y="122" fill="#c0392b">D</text></g>
+    <g><circle cx="560" cy="260" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="560" y="267" fill="#c0392b">E</text></g>
+    <g><circle cx="580" cy="425" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="580" y="432" fill="#c0392b">F</text></g>
+    <g><circle cx="350" cy="478" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="350" y="485" fill="#c0392b">G</text></g>
+    <g><circle cx="120" cy="320" r="20" fill="#fff" stroke="#c0392b" stroke-width="2.5"/><text x="120" y="327" fill="#c0392b">H</text></g>
+  </g>
+  <text x="350" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">ROYAL CRESCENT THEATRE – BACKSTAGE</text>
+</svg>

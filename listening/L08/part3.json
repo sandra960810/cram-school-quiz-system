@@ -1,0 +1,329 @@
+{
+  "no": 3,
+  "context": "Two archaeology students discussing a summer excavation",
+  "audio": "L08_part3.mp3",
+  "instructions": "Questions 21–30",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 3. You will hear two archaeology students, Megan and Josh, talking about the excavation they worked on during the summer. First you have some time to look at questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 21 to 25."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f2",
+      "t": "Josh, we should plan our report on the dig. Dr Hayes wants a draft by the end of the month."
+    },
+    {
+      "v": "m3",
+      "t": "Yes, let's. She'll probably ask why we each chose that excavation. I know you went because it was the nearest one to your home."
+    },
+    {
+      "v": "f2",
+      "t": "That was a bonus, but it's not why I applied. Why did you pick it? It's a four-hour drive for you."
+    },
+    {
+      "v": "m3",
+      "t": "Well, my tutor isn't involved with it or anything. It was really the training. It was the only dig on the list that offered proper training in surveying equipment, and I'd never used any."
+    },
+    {
+      "v": "f2",
+      "t": "That makes sense. For me, the first week was the hardest. I thought the digging itself would be exhausting, but I got used to it quite quickly."
+    },
+    {
+      "v": "m3",
+      "t": "And the early starts?"
+    },
+    {
+      "v": "f2",
+      "t": "Six o'clock was fine, honestly. What I found really hard was the recording. Every single find had to be labelled with its exact position and depth, and if you got one number wrong, the information was useless. I was terrified of making mistakes."
+    },
+    {
+      "v": "m3",
+      "t": "I felt the same. Still, I thought the site director was excellent. She was there every single day, which surprised me."
+    },
+    {
+      "v": "f2",
+      "t": "She did expect a lot of us, but I didn't think it was too much. What I liked was that she always explained why she'd made a decision, like why we stopped digging in one trench and moved to another."
+    },
+    {
+      "v": "m3",
+      "t": "Yes, that was really useful. Now, the coins. They're probably the most important result."
+    },
+    {
+      "v": "f2",
+      "t": "Definitely. Before we started, everyone thought the villa had been abandoned around the year 350. But some of the coins we found were made at least forty years after that."
+    },
+    {
+      "v": "m3",
+      "t": "So people were still living there later than anyone believed. I don't think there's any evidence of when it was built, though, or of it being abandoned suddenly."
+    },
+    {
+      "v": "f2",
+      "t": "No. So what should the report focus on? I'd love to write about the pottery."
+    },
+    {
+      "v": "m3",
+      "t": "So would I, but Dr Hayes said very clearly that the report should be about how the excavation was carried out, not about the history of the villa or the finds themselves."
+    },
+    {
+      "v": "f2",
+      "t": "You're right. The methods, then. And I suppose we should compare the techniques we used with the ones we read about in the first-year course."
+    },
+    {
+      "v": "m3",
+      "t": "Good idea. Some of them were quite different in practice. The way we sieved the soil, for instance, was much more thorough than anything in the textbook."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the conversation, you have some time to look at questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 26 to 30."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m3",
+      "t": "We should also mention some of the individual finds. What about the glass bead?"
+    },
+    {
+      "v": "f2",
+      "t": "That's a good one to include. The type of glass shows it was made somewhere in the eastern Mediterranean, so it must have been brought a very long way, probably by merchants."
+    },
+    {
+      "v": "m3",
+      "t": "Then there was the bone comb."
+    },
+    {
+      "v": "f2",
+      "t": "Oh dear, yes. That was the one that one of the new volunteers broke with his trowel while he was digging it out. It snapped right across the middle."
+    },
+    {
+      "v": "m3",
+      "t": "Poor guy. He was so upset. What about that little bronze object, the one shaped like a hook?"
+    },
+    {
+      "v": "f2",
+      "t": "Nobody seems to know what it was for. Dr Hayes thought it might be part of a lock, but the specialist she showed it to didn't agree."
+    },
+    {
+      "v": "m3",
+      "t": "And the burnt grain from the kitchen area."
+    },
+    {
+      "v": "f2",
+      "t": "That's been sent off to a laboratory to find out exactly how old it is, and what kind of wheat it was. We won't get the results until next year."
+    },
+    {
+      "v": "m3",
+      "t": "And finally, the piece of mosaic floor."
+    },
+    {
+      "v": "f2",
+      "t": "That's the most attractive find. The town museum has asked whether it can put it on display next summer, though nothing's been decided yet."
+    },
+    {
+      "v": "m3",
+      "t": "Great. I think that gives us plenty to write about."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 3. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 21–25",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 21,
+          "stem": "Why did Josh choose this excavation?",
+          "options": {
+            "A": "It was close to his home.",
+            "B": "It offered training in using surveying equipment.",
+            "C": "His tutor was working there."
+          }
+        },
+        {
+          "no": 22,
+          "stem": "What did Megan find most difficult in the first week?",
+          "options": {
+            "A": "the physical work",
+            "B": "starting work early",
+            "C": "recording finds accurately"
+          }
+        },
+        {
+          "no": 23,
+          "stem": "What do the students say about the site director?",
+          "options": {
+            "A": "She expected too much of the students.",
+            "B": "She explained the reasons for her decisions.",
+            "C": "She was not often on the site."
+          }
+        },
+        {
+          "no": 24,
+          "stem": "The coins that were found suggest that the villa",
+          "options": {
+            "A": "was occupied later than people had believed.",
+            "B": "was built earlier than people had believed.",
+            "C": "was abandoned suddenly."
+          }
+        },
+        {
+          "no": 25,
+          "stem": "The students agree that their report should focus on",
+          "options": {
+            "A": "the pottery that was found.",
+            "B": "the methods used in the excavation.",
+            "C": "the history of the villa."
+          }
+        }
+      ]
+    },
+    {
+      "type": "matching",
+      "range": "Questions 26–30",
+      "instruction": "What do the students say about each of the following finds?",
+      "limit": "Choose <b>FIVE</b> answers from the box and write the correct letter, <b>A–F</b>, next to Questions 26–30.",
+      "optionsTitle": "Comments",
+      "options": {
+        "A": "It was found by a volunteer.",
+        "B": "It is being tested in a laboratory.",
+        "C": "It may be shown in a museum.",
+        "D": "Its purpose is uncertain.",
+        "E": "It was damaged during the excavation.",
+        "F": "It shows evidence of long-distance trade."
+      },
+      "items": [
+        {
+          "no": 26,
+          "text": "glass bead"
+        },
+        {
+          "no": 27,
+          "text": "bone comb"
+        },
+        {
+          "no": 28,
+          "text": "bronze object"
+        },
+        {
+          "no": 29,
+          "text": "burnt grain"
+        },
+        {
+          "no": 30,
+          "text": "piece of mosaic"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 21,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。Josh 說 It was the only dig on the list that offered proper training in surveying equipment。<br><b>陷阱</b>：A 是 Josh 以為 Megan 的理由，而且他自己要開四小時車；C 被否定（my tutor isn't involved）。",
+      "quote": "It was the only dig on the list that offered proper training in surveying equipment"
+    },
+    {
+      "no": 22,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。Megan 說 What I found really hard was the recording，每個出土物都要標精確位置和深度。<br><b>陷阱</b>：A 她 got used to it quite quickly；B 早起 was fine。",
+      "quote": "What I found really hard was the recording."
+    },
+    {
+      "no": 23,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 she always explained why she'd made a decision。<br><b>陷阱</b>：A 被否定（I didn't think it was too much）；C 剛好相反，她 was there every single day。",
+      "quote": "she always explained why she'd made a decision"
+    },
+    {
+      "no": 24,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。大家原以為別墅在 350 年左右被廢棄，但有些硬幣 were made at least forty years after that，Josh 總結 people were still living there later than anyone believed。<br><b>陷阱</b>：B、C 被 Josh 否定（no evidence）。",
+      "quote": "So people were still living there later than anyone believed."
+    },
+    {
+      "no": 25,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。老師說報告要寫 how the excavation was carried out，Megan 說 The methods, then。<br><b>陷阱</b>：兩人都想寫陶器（A），但被老師的要求排除；C 也被 not about the history 否定。",
+      "quote": "The methods, then."
+    },
+    {
+      "no": 26,
+      "answers": [
+        "F"
+      ],
+      "explain": "答案是 <b>F</b>。玻璃珠產自東地中海，must have been brought a very long way, probably by merchants。<br><b>同義轉換</b>：brought a very long way by merchants ＝ long-distance trade。",
+      "quote": "so it must have been brought a very long way, probably by merchants"
+    },
+    {
+      "no": 27,
+      "answers": [
+        "E"
+      ],
+      "explain": "答案是 <b>E</b>。骨梳被新志工 broke with his trowel while he was digging it out。<br><b>陷阱</b>：volunteer 出現了，容易選 A；但志工是「弄壞」它，不是「發現」它。",
+      "quote": "broke with his trowel while he was digging it out"
+    },
+    {
+      "no": 28,
+      "answers": [
+        "D"
+      ],
+      "explain": "答案是 <b>D</b>。原文 Nobody seems to know what it was for，專家也不同意老師的猜測。<br><b>同義轉換</b>：nobody knows what it was for ＝ its purpose is uncertain。",
+      "quote": "Nobody seems to know what it was for."
+    },
+    {
+      "no": 29,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。燒焦的穀物 has been sent off to a laboratory to find out exactly how old it is。<br><b>同義轉換</b>：sent off to a laboratory ＝ being tested in a laboratory。",
+      "quote": "That's been sent off to a laboratory"
+    },
+    {
+      "no": 30,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。鎮上博物館 asked whether it can put it on display next summer，though nothing's been decided yet。<br><b>提醒</b>：選項用 may（可能），正好對應「還沒決定」。A（志工發現）沒有用到。",
+      "quote": "The town museum has asked whether it can put it on display next summer"
+    }
+  ]
+}
