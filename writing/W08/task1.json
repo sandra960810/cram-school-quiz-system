@@ -1,0 +1,19 @@
+{
+  "no": 1,
+  "minutes": 20,
+  "min_words": 150,
+  "prompt": "The chart below shows the percentage of men and women in different age groups who took part in sport at least once a week in one country in 2024.",
+  "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "chart": {
+    "type": "bar",
+    "title": "Weekly participation in sport by age and gender, 2024",
+    "x": ["16–24", "25–34", "35–44", "45–54", "55–64", "65+"],
+    "y_label": "Percentage taking part (%)",
+    "y_max": 70,
+    "y_step": 10,
+    "series": [
+      {"name": "Men", "values": [63, 55, 47, 41, 34, 22]},
+      {"name": "Women", "values": [51, 44, 45, 42, 37, 26]}
+    ]
+  }
+}
