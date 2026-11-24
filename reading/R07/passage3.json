@@ -1,0 +1,252 @@
+{
+ "no": 3,
+ "title": "Why We Put Things Off",
+ "context": "拖延的心理學",
+ "instructions": "You should spend about 20 minutes on <b>Questions 27–40</b>, which are based on Reading Passage 3 below.",
+ "paragraphs": [
+  {
+   "label": "",
+   "text": "Some two thousand seven hundred years ago, the Greek poet Hesiod advised farmers not to put off their work until tomorrow or the day after. The advice has been repeated in one form or another ever since, apparently with little effect. Surveys in several countries suggest that around one adult in five regards himself or herself as a chronic procrastinator – someone who delays tasks habitually, not just occasionally – and among university students the proportion who admit to regularly putting off coursework is far higher. Yet for most of the twentieth century, procrastination was treated less as a subject for research than as a failing of character, to be cured by willpower, discipline and a well-organised diary."
+  },
+  {
+   "label": "",
+   "text": "That view has been steadily undermined. Researchers now distinguish between delay, which is often perfectly sensible, and procrastination, which they define as voluntarily postponing an intended action despite expecting to be worse off as a result. The second part of that definition is crucial. A person who leaves a task until later because something more urgent has arisen is simply setting priorities. The procrastinator, by contrast, knows that the delay is likely to cause stress, poorer work or missed opportunities, and delays anyway. The behaviour is, in this sense, irrational, and it is the irrationality that has attracted psychologists' interest."
+  },
+  {
+   "label": "",
+   "text": "The most influential explanation of recent years holds that procrastination is not fundamentally a problem of time management at all, but of emotion management. According to this view, people avoid tasks that arouse unpleasant feelings – boredom, anxiety, frustration or self-doubt. Putting the task aside brings immediate relief, and that relief is itself rewarding, so the avoidance is reinforced each time it occurs. The price is paid later, but the brain is poorly equipped to weigh a future cost against a present comfort. This explains why procrastinators so often turn to activities that offer an instant improvement in mood, such as checking messages or tidying a desk, rather than to other useful work. It also explains why the standard advice – make a list, set a timetable, buy a planner – so frequently fails. Such techniques assume that the procrastinator does not know what needs to be done or when. In most cases, he or she knows perfectly well."
+  },
+  {
+   "label": "",
+   "text": "A related line of research concerns the way people think about their own future. Studies in which volunteers' brain activity was recorded while they thought about themselves, about a stranger, and about themselves ten years from now have found that thinking about the future self produces a pattern of activity closer to that produced by thinking about a stranger. To put it crudely, the student who leaves an essay until the night before it is due is handing the problem to someone else – a person who happens to share his or her name. Interventions that make the future self seem more real and familiar appear to help. In one series of experiments, people who were shown digitally aged images of their own faces subsequently chose to put aside more money for retirement, and similar approaches are now being tried with students."
+  },
+  {
+   "label": "",
+   "text": "Perhaps the most surprising finding concerns self-criticism. It might seem that people who are hard on themselves after procrastinating would be motivated to do better next time. The evidence suggests otherwise. In a study at a Canadian university, students were asked shortly after their first set of mid-term examinations how much they had procrastinated in preparing for them, and how far they had forgiven themselves for doing so. Those who had forgiven themselves procrastinated less when preparing for the next set of examinations. The researchers argued that self-forgiveness reduced the negative feelings attached to studying, so that the task became less something to be avoided. Harsh self-blame, by contrast, adds another unpleasant emotion to a task that is already being avoided because of the emotions it arouses."
+  },
+  {
+   "label": "",
+   "text": "None of this means that procrastination is harmless. Chronic procrastinators report higher levels of stress and, in some studies, poorer physical health, partly because they also tend to delay visits to the doctor and other health-related tasks. Nor does it mean that practical strategies are worthless. Breaking a large task into very small first steps, for instance, can work well, not because it organises time more efficiently but because a small step is less likely to provoke the feelings that cause avoidance in the first place. The same is true of the simple commitment to work on a task for just five minutes: once begun, most tasks turn out to be less unpleasant than the procrastinator had imagined."
+  },
+  {
+   "label": "",
+   "text": "What the research does suggest is that the moralising tone in which procrastination has traditionally been discussed is not only unkind but counterproductive. Calling procrastinators lazy misdescribes the problem: many of them are extremely busy, just not with the task that matters. A more useful question to ask is not 'Why can't I organise myself?' but 'What feeling am I trying to escape?' Answering it honestly may not be comfortable – which, of course, is exactly why so many people put it off."
+  }
+ ],
+ "groups": [
+  {
+   "type": "mcq",
+   "range": "Questions 27–30",
+   "instruction": "Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "items": [
+    {
+     "no": 27,
+     "stem": "The writer refers to Hesiod in order to show that",
+     "options": {
+      "A": "procrastination was more common in the ancient world.",
+      "B": "people have recognised the problem of procrastination for a very long time.",
+      "C": "farmers were especially likely to delay their work.",
+      "D": "early advice about procrastination was effective."
+     }
+    },
+    {
+     "no": 28,
+     "stem": "According to the second paragraph, what makes procrastination different from other kinds of delay?",
+     "options": {
+      "A": "It always concerns tasks of great importance.",
+      "B": "It occurs more often among students than other people.",
+      "C": "The person expects the delay to have negative consequences.",
+      "D": "The person has more urgent tasks to deal with first."
+     }
+    },
+    {
+     "no": 29,
+     "stem": "Why, according to the third paragraph, do procrastinators often check messages or tidy their desks?",
+     "options": {
+      "A": "These activities make them feel better straight away.",
+      "B": "They believe these tasks need to be done urgently.",
+      "C": "They want to prepare carefully before beginning work.",
+      "D": "Time-management experts have recommended doing so."
+     }
+    },
+    {
+     "no": 30,
+     "stem": "What is the main point of the fourth paragraph?",
+     "options": {
+      "A": "Older people are less likely to procrastinate than younger people.",
+      "B": "People tend to think of their future selves as if they were someone else.",
+      "C": "Failing to save for retirement is a type of procrastination.",
+      "D": "Brain scans can be used to identify chronic procrastinators."
+     }
+    }
+   ]
+  },
+  {
+   "type": "ynng",
+   "range": "Questions 31–36",
+   "instruction": "Do the following statements agree with the claims of the writer in Reading Passage 3?",
+   "limit": "Write<br><b>YES</b> if the statement agrees with the claims of the writer<br><b>NO</b> if the statement contradicts the claims of the writer<br><b>NOT GIVEN</b> if it is impossible to say what the writer thinks about this",
+   "items": [
+    {
+     "no": 31,
+     "text": "Deciding to postpone a task because a more urgent one has come up is a reasonable choice."
+    },
+    {
+     "no": 32,
+     "text": "Planners and timetables often fail because procrastinators already know what they have to do."
+    },
+    {
+     "no": 33,
+     "text": "Chronic procrastinators tend to be less intelligent than other people."
+    },
+    {
+     "no": 34,
+     "text": "Being strict with oneself after procrastinating is a good way to avoid doing it again."
+    },
+    {
+     "no": 35,
+     "text": "Dividing a large task into small steps works mainly because it saves time."
+    },
+    {
+     "no": 36,
+     "text": "Procrastination has become more common because of mobile phones."
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 37–40",
+   "instruction": "Complete the summary using the list of words, <b>A–H</b>, below.",
+   "limit": "Write the correct letter, <b>A–H</b>, next to Questions 37–40.",
+   "title": "A new view of procrastination",
+   "optionsTitle": "",
+   "options": {
+    "A": "emotions",
+    "B": "relief",
+    "C": "counterproductive",
+    "D": "busy",
+    "E": "discipline",
+    "F": "boredom",
+    "G": "effective",
+    "H": "idle"
+   },
+   "rows": [
+    {
+     "text": "Researchers increasingly see procrastination as a failure to manage {37} rather than time. Avoiding a task produces a sense of {38}, which makes the person more likely to avoid it again. Criticising procrastinators harshly is likely to be {39}, and describing them as lazy is often inaccurate, because many of them are actually very {40}."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 27,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。2,700 年前 Hesiod 就勸農夫別拖延，接著說 The advice has been repeated... ever since，表示這個問題自古就被注意到。<br><b>陷阱</b>：D 錯在 apparently with little effect（看來沒什麼效果）；A、C 文章沒有比較古今或農夫與其他人。",
+   "quote": "The advice has been repeated in one form or another ever since, apparently with little effect."
+  },
+  {
+   "no": 28,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>。拖延的定義是 despite expecting to be worse off as a result（明知結果會更糟還是延後），作者說 The second part of that definition is crucial。<br><b>陷阱</b>：D 剛好是「合理的延後」——有更急的事先做 is simply setting priorities，不算拖延。",
+   "quote": "despite expecting to be worse off as a result"
+  },
+  {
+   "no": 29,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>。原文 activities that offer an instant improvement in mood。<br><b>同義轉換</b>：instant ＝ straight away；improvement in mood ＝ feel better。<b>陷阱</b>：原文特別說是這些事「而不是其他有用的工作」（rather than to other useful work），所以不是因為急迫（B）。",
+   "quote": "activities that offer an instant improvement in mood, such as checking messages or tidying a desk"
+  },
+  {
+   "no": 30,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>。第四段的核心是：想到十年後的自己，大腦反應 closer to that produced by thinking about a stranger。<br><b>陷阱</b>：C 的存退休金只是一個實驗的例子；A 和 D 文章沒說。",
+   "quote": "thinking about the future self produces a pattern of activity closer to that produced by thinking about a stranger"
+  },
+  {
+   "no": 31,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。作者說因為有更急的事而延後 is simply setting priorities（只是在排優先順序），前面也說 delay... is often perfectly sensible。<br><b>同義轉換</b>：sensible ＝ reasonable。",
+   "quote": "A person who leaves a task until later because something more urgent has arisen is simply setting priorities."
+  },
+  {
+   "no": 32,
+   "answers": [
+    "YES"
+   ],
+   "explain": "答案是 <b>YES</b>。作者說列清單、排時間表 so frequently fails，因為這些方法假設拖延者不知道要做什麼，但 he or she knows perfectly well。<br><b>同義轉換</b>：frequently fails ＝ often fail。",
+   "quote": "In most cases, he or she knows perfectly well."
+  },
+  {
+   "no": 33,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章談情緒、壓力、健康，從來沒有提到智力。<br><b>陷阱</b>：文章說拖延 irrational（不理性），但不理性不等於不聰明。"
+  },
+  {
+   "no": 34,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。作者說 It might seem that... would be motivated to do better next time. The evidence suggests otherwise；原諒自己的學生下次反而拖得比較少。<br><b>解題關鍵</b>：It might seem that... 是作者先擺出來再推翻的說法。",
+   "quote": "The evidence suggests otherwise."
+  },
+  {
+   "no": 35,
+   "answers": [
+    "NO"
+   ],
+   "explain": "答案是 <b>NO</b>。原文 not because it organises time more efficiently but because a small step is less likely to provoke the feelings that cause avoidance。<br><b>陷阱</b>：作者同意這個方法有效（can work well），但否定的是「原因」。只看到前半句就會誤選 YES。",
+   "quote": "not because it organises time more efficiently but because a small step is less likely to provoke the feelings that cause avoidance in the first place"
+  },
+  {
+   "no": 36,
+   "answers": [
+    "NOT GIVEN"
+   ],
+   "explain": "答案是 <b>NOT GIVEN</b>。文章提到 checking messages，但沒有說拖延變得比以前更普遍，也沒說原因是手機。<br><b>陷阱</b>：看到 messages 就聯想到手機，但作者沒有做出這個主張。"
+  },
+  {
+   "no": 37,
+   "answers": [
+    "A"
+   ],
+   "explain": "答案是 <b>A</b>（emotions）。原文 not fundamentally a problem of time management at all, but of emotion management。<br><b>陷阱</b>：F（boredom）只是讓人逃避的其中一種情緒，題目的 rather than time 要對應整個「情緒管理」。",
+   "quote": "not fundamentally a problem of time management at all, but of emotion management"
+  },
+  {
+   "no": 38,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>（relief）。原文 Putting the task aside brings immediate relief, and that relief is itself rewarding, so the avoidance is reinforced。<br><b>同義轉換</b>：reinforced ＝ more likely to avoid it again。",
+   "quote": "Putting the task aside brings immediate relief"
+  },
+  {
+   "no": 39,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>（counterproductive，適得其反）。最後一段說道德說教的語氣 is not only unkind but counterproductive。<br><b>陷阱</b>：G（effective）意思相反；E（discipline）是二十世紀的舊觀念。",
+   "quote": "is not only unkind but counterproductive"
+  },
+  {
+   "no": 40,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>（busy）。原文 many of them are extremely busy, just not with the task that matters。<br><b>陷阱</b>：H（idle，閒著）正是作者要推翻的「懶惰」說法。",
+   "quote": "many of them are extremely busy, just not with the task that matters"
+  }
+ ]
+}

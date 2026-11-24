@@ -1,0 +1,238 @@
+{
+ "no": 2,
+ "title": "Vertical Farming",
+ "context": "垂直農場",
+ "instructions": "You should spend about 20 minutes on <b>Questions 14–26</b>, which are based on Reading Passage 2 below.",
+ "paragraphs": [
+  {
+   "label": "A",
+   "text": "In 1999 Dickson Despommier, a professor of public health at Columbia University in New York, set his students a problem: could the rooftops of Manhattan grow enough food to feed the people living below them? The students calculated that, even if every suitable roof were planted, the harvest would feed only about two per cent of the island's population. Despommier's response was to look inwards rather than upwards. If crops could not be spread across roofs, he suggested, perhaps they could be stacked inside buildings, floor upon floor, in what he called a 'vertical farm'. The idea attracted attention far beyond the university, and within two decades it had grown into an industry attracting billions of dollars of investment."
+  },
+  {
+   "label": "B",
+   "text": "A modern vertical farm looks less like a field than a laboratory. Plants grow in trays stacked on shelves that may rise ten metres or more, their roots suspended in water enriched with nutrients rather than in soil. Light comes from LEDs tuned to the red and blue wavelengths that plants use most efficiently, which gives many farms an eerie pink glow. Temperature, humidity and carbon dioxide levels are controlled by computer, and sensors monitor every tray. Because the growing rooms are sealed, pests are rare and pesticides are generally unnecessary, and because water is collected and reused, operators claim to use as little as five per cent of the water needed in a field."
+  },
+  {
+   "label": "C",
+   "text": "Supporters point to a long list of advantages. A vertical farm can be built in the middle of a city, so produce reaches shops within hours of being picked instead of travelling hundreds or thousands of kilometres. Crops can be grown all year round, unaffected by drought, flood or frost, and the yield from each square metre of floor space can be many times higher than that of an outdoor field, since several harvests are possible each year and the crops are stacked in layers. For a crowded city with little farmland, such as Singapore, which imports the great majority of its food, these are significant attractions."
+  },
+  {
+   "label": "D",
+   "text": "The difficulty lies in what a field receives for nothing. Sunlight is free; electric light is not. Even the most efficient LEDs convert only part of the electricity they consume into light that plants can use, and the rest becomes heat, which must then be removed by air conditioning – which uses more electricity still. According to Lena Okafor, an agricultural economist, energy is typically the largest single cost in a vertical farm, and in some cases accounts for close to half of all operating expenses. 'People talk about vertical farms as if they were green by definition,' she says. 'But if the electricity comes from burning coal or gas, a lettuce grown indoors may be responsible for more carbon emissions than one transported across a continent.'"
+  },
+  {
+   "label": "E",
+   "text": "This is why almost all vertical farms grow the same narrow range of crops: lettuce, salad leaves, herbs and, occasionally, strawberries. These plants grow quickly, are almost entirely edible, and fetch high prices per kilogram. Staple crops are a different matter. Wheat, rice and maize need a great deal of light to produce relatively little food by value, and most of the plant – the stalk and leaves – is not eaten. One widely discussed estimate suggested that a loaf of bread made from indoor-grown wheat would cost many times the price of an ordinary loaf in electricity alone. For the foreseeable future, then, the calories that feed the world will continue to come from fields."
+  },
+  {
+   "label": "F",
+   "text": "The economics have proved unforgiving. During the early 2020s, a sharp rise in energy prices pushed several well-funded vertical farming companies in Europe and North America into financial trouble, and a number closed altogether or sold off their operations. Marcus Hale, who manages a small vertical farm supplying restaurants in Rotterdam, believes some of these firms grew too fast. 'They built enormous facilities before they had shown that a small one could make money,' he says. Hale's own business survives, he explains, because his customers are chefs who are willing to pay extra for herbs that are delivered on the day they are cut and that keep their flavour longer than imported ones."
+  },
+  {
+   "label": "G",
+   "text": "None of this means that vertical farming has no future, but its role is likely to be more modest than early enthusiasts imagined. It makes most sense where outdoor farming is especially difficult – in deserts, in the far north, or on crowded islands – and where cheap renewable electricity is available. Research may also improve its prospects. The plant scientist Priya Raman has found that adjusting the colour and timing of LED light can change the taste and nutritional content of some leaves, which may allow indoor growers to offer products that field farmers cannot. Rather than replacing conventional agriculture, vertical farms may end up as a specialised addition to it."
+  }
+ ],
+ "groups": [
+  {
+   "type": "headings",
+   "range": "Questions 14–20",
+   "instruction": "Reading Passage 2 has seven paragraphs, <b>A–G</b>.<br>Choose the correct heading for each paragraph from the list of headings below.",
+   "limit": "Write the correct number, <b>i–x</b>, next to Questions 14–20.",
+   "optionsTitle": "List of Headings",
+   "options": {
+    "i": "The arguments in favour of growing food indoors",
+    "ii": "Government support for farming in cities",
+    "iii": "A classroom exercise that led to a new industry",
+    "iv": "Why only certain plants are worth growing",
+    "v": "A smaller role than was once expected",
+    "vi": "The problem of insects in sealed buildings",
+    "vii": "Business failures and the reasons for one success",
+    "viii": "What a vertical farm consists of",
+    "ix": "Comparing the taste of indoor and outdoor crops",
+    "x": "The energy needed to replace the sun"
+   },
+   "items": [
+    {
+     "no": 14,
+     "text": "Paragraph A"
+    },
+    {
+     "no": 15,
+     "text": "Paragraph B"
+    },
+    {
+     "no": 16,
+     "text": "Paragraph C"
+    },
+    {
+     "no": 17,
+     "text": "Paragraph D"
+    },
+    {
+     "no": 18,
+     "text": "Paragraph E"
+    },
+    {
+     "no": 19,
+     "text": "Paragraph F"
+    },
+    {
+     "no": 20,
+     "text": "Paragraph G"
+    }
+   ]
+  },
+  {
+   "type": "matching",
+   "range": "Questions 21–23",
+   "instruction": "Look at the following statements (Questions 21–23) and the list of people below.<br>Match each statement with the correct person, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   "limit": "<b>NB</b> You may use any letter more than once.",
+   "optionsTitle": "List of People",
+   "options": {
+    "A": "Dickson Despommier",
+    "B": "Lena Okafor",
+    "C": "Marcus Hale",
+    "D": "Priya Raman"
+   },
+   "items": [
+    {
+     "no": 21,
+     "text": "pointed out that growing food indoors is not automatically good for the environment"
+    },
+    {
+     "no": 22,
+     "text": "claimed that some companies expanded before proving that their business could be profitable"
+    },
+    {
+     "no": 23,
+     "text": "discovered a way in which indoor crops might be made different from field crops"
+    }
+   ]
+  },
+  {
+   "type": "gapfill",
+   "range": "Questions 24–26",
+   "instruction": "Complete the sentences below.",
+   "limit": "Choose <b>NO MORE THAN TWO WORDS</b> from the passage for each answer.",
+   "rows": [
+    {
+     "text": "Instead of soil, the roots of plants in a vertical farm hang in water that contains {24}."
+    },
+    {
+     "text": "The heat given off by LEDs has to be taken away by {25}, which increases electricity use."
+    },
+    {
+     "text": "Hale's customers will pay more for herbs that keep their {26} for longer."
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "no": 14,
+   "answers": [
+    "iii"
+   ],
+   "explain": "答案是 <b>iii</b>。A 段講 Despommier 給學生出的一道題（set his students a problem），後來 grown into an industry。<br><b>同義轉換</b>：set his students a problem ＝ a classroom exercise；grown into an industry ＝ led to a new industry。",
+   "quote": "set his students a problem"
+  },
+  {
+   "no": 15,
+   "answers": [
+    "viii"
+   ],
+   "explain": "答案是 <b>viii</b>。B 段描述垂直農場的組成：層架、水耕、LED、電腦控制、感測器。<br><b>陷阱</b>：vi（密閉建築的蟲害問題）剛好相反，原文說 pests are rare（蟲害很少），不是問題。",
+   "quote": "A modern vertical farm looks less like a field than a laboratory."
+  },
+  {
+   "no": 16,
+   "answers": [
+    "i"
+   ],
+   "explain": "答案是 <b>i</b>。C 段第一句 Supporters point to a long list of advantages，接著列出靠近城市、全年生產、產量高。<br><b>解題關鍵</b>：段落第一句就是主旨句。",
+   "quote": "Supporters point to a long list of advantages."
+  },
+  {
+   "no": 17,
+   "answers": [
+    "x"
+   ],
+   "explain": "答案是 <b>x</b>。D 段的重點是 Sunlight is free; electric light is not，以及 LED 與冷氣耗電。<br><b>陷阱</b>：Okafor 談到碳排放，但那是用電問題的延伸，整段核心仍是取代陽光所需的能源。",
+   "quote": "Sunlight is free; electric light is not."
+  },
+  {
+   "no": 18,
+   "answers": [
+    "iv"
+   ],
+   "explain": "答案是 <b>iv</b>。E 段解釋為什麼幾乎只種生菜、香草：長得快、幾乎全部可吃、單價高；小麥稻米不划算。<br><b>同義轉換</b>：narrow range of crops ＝ only certain plants。",
+   "quote": "This is why almost all vertical farms grow the same narrow range of crops"
+  },
+  {
+   "no": 19,
+   "answers": [
+    "vii"
+   ],
+   "explain": "答案是 <b>vii</b>。F 段先講多家公司倒閉（closed altogether），再講 Hale 的農場為什麼撐得下去。<br><b>陷阱</b>：ix（比較口味）只是 Hale 的香草 keep their flavour 這個細節，不是整段主旨。",
+   "quote": "Hale's own business survives, he explains"
+  },
+  {
+   "no": 20,
+   "answers": [
+    "v"
+   ],
+   "explain": "答案是 <b>v</b>。G 段第一句 its role is likely to be more modest than early enthusiasts imagined。<br><b>同義轉換</b>：more modest ＝ smaller；than early enthusiasts imagined ＝ than was once expected。",
+   "quote": "its role is likely to be more modest than early enthusiasts imagined"
+  },
+  {
+   "no": 21,
+   "answers": [
+    "B"
+   ],
+   "explain": "答案是 <b>B</b>（Lena Okafor）。她說人們把垂直農場說成 green by definition，但若用燒煤燒氣的電，碳排可能更高。<br><b>同義轉換</b>：green by definition ＝ automatically good for the environment。",
+   "quote": "People talk about vertical farms as if they were green by definition"
+  },
+  {
+   "no": 22,
+   "answers": [
+    "C"
+   ],
+   "explain": "答案是 <b>C</b>（Marcus Hale）。他說有些公司 built enormous facilities before they had shown that a small one could make money。<br><b>同義轉換</b>：make money ＝ profitable。",
+   "quote": "They built enormous facilities before they had shown that a small one could make money"
+  },
+  {
+   "no": 23,
+   "answers": [
+    "D"
+   ],
+   "explain": "答案是 <b>D</b>（Priya Raman）。她發現調整 LED 光的顏色與時間能改變葉菜的味道和營養，讓室內農場 offer products that field farmers cannot。<br><b>陷阱</b>：A 的 Despommier 是提出垂直農場概念的人，不是做這項研究的人。",
+   "quote": "which may allow indoor growers to offer products that field farmers cannot"
+  },
+  {
+   "no": 24,
+   "answers": [
+    "nutrients"
+   ],
+   "explain": "答案是 <b>nutrients</b>（養分）。原文 their roots suspended in water enriched with nutrients rather than in soil。<br><b>同義轉換</b>：suspended ＝ hang；rather than in soil ＝ instead of soil。",
+   "quote": "their roots suspended in water enriched with nutrients rather than in soil"
+  },
+  {
+   "no": 25,
+   "answers": [
+    "air conditioning"
+   ],
+   "explain": "答案是 <b>air conditioning</b>（冷氣）。原文 the rest becomes heat, which must then be removed by air conditioning。<br><b>提醒</b>：兩個字剛好符合字數限制；which uses more electricity still 對應題目的 increases electricity use。",
+   "quote": "which must then be removed by air conditioning"
+  },
+  {
+   "no": 26,
+   "answers": [
+    "flavour",
+    "flavor"
+   ],
+   "explain": "答案是 <b>flavour</b>（美式拼法 flavor 也算對）。原文 herbs... that keep their flavour longer than imported ones。<br><b>陷阱</b>：delivered on the day they are cut 是另一個理由（新鮮），題目問的是 keep their ___ for longer。",
+   "quote": "that keep their flavour longer than imported ones"
+  }
+ ]
+}
