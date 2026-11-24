@@ -1,0 +1,280 @@
+{
+  "no": 2,
+  "context": "A talk to visitors at a botanic garden",
+  "audio": "L09_part2.mp3",
+  "instructions": "Questions 11–20",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 2. You will hear a guide giving a talk to visitors at a botanic garden. First you have some time to look at questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 11 to 15."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m3",
+      "t": "Good morning, everybody, and welcome to Westmere Botanic Garden. My name's Ben, and I'm one of the volunteer guides here. I'd like to give you a bit of background before you go off and explore. The whole garden covers about eight hectares, so you won't manage to see everything in one morning, but most of the highlights are within ten minutes' walk of where we're standing."
+    },
+    {
+      "v": "m3",
+      "t": "People often assume that the garden was created to show off exotic plants brought back from around the world. Those came later. The garden was actually founded in 1672 by the university, to grow medicinal plants for its medical students, who needed to learn to recognise them. Some of the beds near the entrance still contain plants that were used as medicines at that time."
+    },
+    {
+      "v": "m3",
+      "t": "You'll have heard that we've just opened our new Tropical House. It's not the biggest glasshouse in the country; that title belongs to a garden in the south. And although the frame looks old, it's actually new steel. What makes it special is the way it's heated. Instead of burning oil, as the old glasshouse did, it uses heat drawn from deep underground through a series of pipes. That has cut our energy bills by more than half."
+    },
+    {
+      "v": "m3",
+      "t": "Now, a couple of requests. You're very welcome to have a picnic on any of the lawns, and dogs on leads are allowed in the outer garden. But please don't take cuttings from any of the plants. It's surprising how many visitors think a little piece won't matter, but with thousands of people a week, the damage soon adds up."
+    },
+    {
+      "v": "m3",
+      "t": "Our shop by the main gate sells a wide range of plants, all grown here in our own nursery. We used to sell packets of seed collected by our staff as well, but because of new regulations we've had to stop that."
+    },
+    {
+      "v": "m3",
+      "t": "And finally, today's free talk. It was going to be on plants that eat insects, but I'm afraid the speaker is unwell. Instead, our head gardener will be talking about bees, and how we're trying to attract more of them to the garden. That's at three o'clock in the education centre. The talk on composting is next week."
+    },
+    {
+      "v": "narrator",
+      "t": "Before you hear the rest of the talk, you have some time to look at questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "25"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen and answer questions 16 to 20."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "m3",
+      "t": "Right, let me show you where everything is. If you look at the map, we're standing at the main gate, at the bottom of the map."
+    },
+    {
+      "v": "m3",
+      "t": "The main path runs straight ahead of you, northwards, all the way through the garden. Follow it to the far end and you'll come to the new Tropical House. You really can't miss it."
+    },
+    {
+      "v": "m3",
+      "t": "Just inside the gate, the first path on your left takes you to the herb garden. It's a walled garden in the corner, and it's where those old medicinal plants are."
+    },
+    {
+      "v": "m3",
+      "t": "If you carry on from the herb garden up the west side of the garden, you'll come to the rock garden. It's about halfway up, between the herb garden and the woodland walk."
+    },
+    {
+      "v": "m3",
+      "t": "There are two places to eat. The building you can see just to the right of the main gate used to be our café, but it's now the ticket office and first aid point. The new café is over by the lake, on its northern side, so you can sit on the terrace and look out over the water."
+    },
+    {
+      "v": "m3",
+      "t": "And finally, if you'd like somewhere quiet, try the wildflower meadow. It's right up in the north-west corner of the garden, beyond the woodland walk. It's at its best in early summer, but there's usually something in flower."
+    },
+    {
+      "v": "m3",
+      "t": "Oh, and toilets. There are some next to the ticket office, and another block behind the café, which is usually quieter."
+    },
+    {
+      "v": "m3",
+      "t": "Right. Enjoy your visit, and I'll be at the Tropical House at twelve if you'd like a guided walk."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 2. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "mcq",
+      "range": "Questions 11–15",
+      "instruction": "Choose the correct letter, <b>A</b>, <b>B</b> or <b>C</b>.",
+      "items": [
+        {
+          "no": 11,
+          "stem": "The garden was originally created in order to",
+          "options": {
+            "A": "grow plants for training medical students.",
+            "B": "display plants from other countries.",
+            "C": "supply food to the town."
+          }
+        },
+        {
+          "no": 12,
+          "stem": "What is special about the new Tropical House?",
+          "options": {
+            "A": "It is the largest glasshouse in the country.",
+            "B": "It is heated using energy from underground.",
+            "C": "Its frame was taken from an older building."
+          }
+        },
+        {
+          "no": 13,
+          "stem": "Visitors are asked not to",
+          "options": {
+            "A": "have picnics on the grass.",
+            "B": "bring dogs into the garden.",
+            "C": "take cuttings from the plants."
+          }
+        },
+        {
+          "no": 14,
+          "stem": "What does the garden shop sell?",
+          "options": {
+            "A": "plants from the garden's own nursery",
+            "B": "seeds collected by the staff",
+            "C": "books about medicinal plants"
+          }
+        },
+        {
+          "no": 15,
+          "stem": "Today's free talk will be about",
+          "options": {
+            "A": "plants that eat insects.",
+            "B": "attracting bees.",
+            "C": "making compost."
+          }
+        }
+      ]
+    },
+    {
+      "type": "map",
+      "range": "Questions 16–20",
+      "instruction": "Label the map below.",
+      "limit": "Write the correct letter, <b>A–H</b>, next to Questions 16–20.",
+      "image": "listening/L09_part2_map.svg",
+      "imageAlt": "Westmere 植物園地圖，正門在南邊，主步道往北，湖在東邊，標示 A 到 H 八個位置",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "items": [
+        {
+          "no": 16,
+          "text": "Tropical House"
+        },
+        {
+          "no": 17,
+          "text": "Herb garden"
+        },
+        {
+          "no": 18,
+          "text": "Rock garden"
+        },
+        {
+          "no": 19,
+          "text": "Café"
+        },
+        {
+          "no": 20,
+          "text": "Wildflower meadow"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 11,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。植物園 was actually founded... to grow medicinal plants for its medical students。<br><b>陷阱</b>：B 是 People often assume 的誤解，Those came later。actually 後面才是答案。",
+      "quote": "to grow medicinal plants for its medical students"
+    },
+    {
+      "no": 12,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。原文 it uses heat drawn from deep underground through a series of pipes。<br><b>陷阱</b>：A 被否定（not the biggest）；C 也被否定（the frame looks old, it's actually new steel）。",
+      "quote": "it uses heat drawn from deep underground through a series of pipes"
+    },
+    {
+      "no": 13,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。原文 But please don't take cuttings from any of the plants。<br><b>陷阱</b>：野餐 very welcome；牽繩的狗 allowed in the outer garden。But 後面才是禁止事項。",
+      "quote": "But please don't take cuttings from any of the plants."
+    },
+    {
+      "no": 14,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。原文 sells a wide range of plants, all grown here in our own nursery。<br><b>陷阱</b>：B 是 used to，因為新規定已經停賣；C 沒有提到。",
+      "quote": "all grown here in our own nursery"
+    },
+    {
+      "no": 15,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。食蟲植物的講者生病，Instead, our head gardener will be talking about bees。<br><b>陷阱</b>：A 是原本的題目（It was going to be）；C 是下週的。",
+      "quote": "Instead, our head gardener will be talking about bees"
+    },
+    {
+      "no": 16,
+      "answers": [
+        "B"
+      ],
+      "explain": "答案是 <b>B</b>。主步道從正門往北，Follow it to the far end and you'll come to the new Tropical House。走到最北端的盡頭是 B。",
+      "quote": "Follow it to the far end and you'll come to the new Tropical House."
+    },
+    {
+      "no": 17,
+      "answers": [
+        "H"
+      ],
+      "explain": "答案是 <b>H</b>。進門後 the first path on your left，It's a walled garden in the corner。面向北時左手是西，所以是西南角的 H。",
+      "quote": "the first path on your left takes you to the herb garden"
+    },
+    {
+      "no": 18,
+      "answers": [
+        "G"
+      ],
+      "explain": "答案是 <b>G</b>。從香草園沿西側往北，about halfway up, between the herb garden and the woodland walk。<br><b>技巧</b>：between A and B 這種描述，先確定兩端的位置再找中間點。",
+      "quote": "It's about halfway up, between the herb garden and the woodland walk."
+    },
+    {
+      "no": 19,
+      "answers": [
+        "C"
+      ],
+      "explain": "答案是 <b>C</b>。新咖啡館 is over by the lake, on its northern side。湖在東邊，湖的北岸是 C。<br><b>陷阱</b>：正門右邊的 E 以前是咖啡館，現在是售票處和急救站。",
+      "quote": "The new café is over by the lake, on its northern side"
+    },
+    {
+      "no": 20,
+      "answers": [
+        "A"
+      ],
+      "explain": "答案是 <b>A</b>。野花草地 right up in the north-west corner of the garden, beyond the woodland walk。",
+      "quote": "It's right up in the north-west corner of the garden, beyond the woodland walk."
+    }
+  ]
+}

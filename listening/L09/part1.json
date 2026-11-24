@@ -1,0 +1,315 @@
+{
+  "no": 1,
+  "context": "Telephone call to book driving lessons",
+  "audio": "L09_part1.mp3",
+  "instructions": "Questions 1–10",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 1. You will hear a young man telephoning a driving school to arrange some lessons. First you have some time to look at questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "20"
+    },
+    {
+      "v": "narrator",
+      "t": "You will see that there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first."
+    },
+    {
+      "v": "f4",
+      "t": "Good afternoon, Kingsway Driving School. Molly speaking."
+    },
+    {
+      "v": "m4",
+      "t": "Oh, hi. I'd like to book some driving lessons, please."
+    },
+    {
+      "v": "f4",
+      "t": "Certainly. Can I take your surname first?"
+    },
+    {
+      "v": "m4",
+      "t": "Yes, it's Penhallow. P-E-N-H-A-L-L-O-W."
+    },
+    {
+      "v": "narrator",
+      "t": "The man's surname is Penhallow, so Penhallow has been written in the space. Now we shall begin. You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 10."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f4",
+      "t": "Good afternoon, Kingsway Driving School. Molly speaking."
+    },
+    {
+      "v": "m4",
+      "t": "Oh, hi. I'd like to book some driving lessons, please."
+    },
+    {
+      "v": "f4",
+      "t": "Certainly. Can I take your surname first?"
+    },
+    {
+      "v": "m4",
+      "t": "Yes, it's Penhallow. P-E-N-H-A-L-L-O-W."
+    },
+    {
+      "v": "f4",
+      "t": "Thank you. Now, before we go any further, have you got your provisional licence yet? We can't take you out on the road without one."
+    },
+    {
+      "v": "m4",
+      "t": "Yes, the licence came in the post last week."
+    },
+    {
+      "v": "f4",
+      "t": "Great. And have you done any driving before?"
+    },
+    {
+      "v": "m4",
+      "t": "A little bit. I was hoping my dad would take me out, but he's always too busy. So my uncle has taken me round an empty car park a few times."
+    },
+    {
+      "v": "f4",
+      "t": "That's a good start. Would you like to learn in a manual car or an automatic?"
+    },
+    {
+      "v": "m4",
+      "t": "Well, my friends say an automatic is easier, and I know you can pass more quickly. But our family car is a manual, and I'll want to drive it once I've passed. So a manual, please."
+    },
+    {
+      "v": "f4",
+      "t": "A manual. Now, our standard lesson is sixty minutes, but most learners find that's quite short by the time they've settled in. We also offer ninety-minute lessons."
+    },
+    {
+      "v": "m4",
+      "t": "I think ninety minutes would be better. I'd rather have fewer, longer lessons."
+    },
+    {
+      "v": "f4",
+      "t": "Ninety minutes, then. And which day suits you?"
+    },
+    {
+      "v": "m4",
+      "t": "I've got college until late on Mondays, so that's out. Could I do Tuesday evenings?"
+    },
+    {
+      "v": "f4",
+      "t": "Let me look. Yes, there's a space at six o'clock on Tuesday evenings with one of our instructors."
+    },
+    {
+      "v": "m4",
+      "t": "Six would work. Mind you, the bus from college sometimes runs late. Would there be any chance of a later slot, like seven?"
+    },
+    {
+      "v": "f4",
+      "t": "Not on Tuesdays, sorry. Seven o'clock is fully booked until the spring. But if you're ever held up, just ring the office and the instructor will wait ten minutes or so."
+    },
+    {
+      "v": "m4",
+      "t": "OK, six o'clock is fine then. Can the instructor pick me up from home?"
+    },
+    {
+      "v": "f4",
+      "t": "Where do you live?"
+    },
+    {
+      "v": "m4",
+      "t": "In Fenwick, just outside town."
+    },
+    {
+      "v": "f4",
+      "t": "Ah, I'm afraid Fenwick is outside our area. Is there somewhere in town we could meet you?"
+    },
+    {
+      "v": "m4",
+      "t": "I could get the bus straight from college, but there's nowhere to stop outside the college gates. What about the library on Station Road? The bus stops right outside."
+    },
+    {
+      "v": "f4",
+      "t": "The library is perfect. There's a loading bay where the car can wait."
+    },
+    {
+      "v": "m4",
+      "t": "Great. And how much does it cost?"
+    },
+    {
+      "v": "f4",
+      "t": "A single ninety-minute lesson is 42 pounds. But if you book a block of ten lessons and pay in advance, it's 380 pounds, so you save 40 pounds."
+    },
+    {
+      "v": "m4",
+      "t": "That's quite a lot to pay in one go. Can I split it?"
+    },
+    {
+      "v": "f4",
+      "t": "You can pay half when you book and the rest before your sixth lesson. Most of our students do it that way."
+    },
+    {
+      "v": "m4",
+      "t": "Oh, that's fair. I'll do the block of ten, then."
+    },
+    {
+      "v": "f4",
+      "t": "Good choice. Your instructor will be Mrs Brennan. That's B-R-E-N-N-A-N. She's been with us for fifteen years, and she's very patient."
+    },
+    {
+      "v": "m4",
+      "t": "Brennan. Should I bring anything with me on the first day?"
+    },
+    {
+      "v": "f4",
+      "t": "Just your licence, of course. And please wear flat shoes. We often get people turning up in heavy boots or sandals, and you can't control the pedals properly in them."
+    },
+    {
+      "v": "m4",
+      "t": "Flat shoes. Got it. What about the theory test? I haven't started on that."
+    },
+    {
+      "v": "f4",
+      "t": "We used to run classes on Sunday afternoons, but not many people came, so we've moved them. They're now on Saturday mornings, and they're free for anyone who books a block of lessons."
+    },
+    {
+      "v": "m4",
+      "t": "Saturday mornings. Brilliant. I'll come along this week."
+    },
+    {
+      "v": "f4",
+      "t": "Lovely. I'll send you a confirmation by text."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 1. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 1–10",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD AND/OR A NUMBER</b> for each answer.",
+      "title": "Kingsway Driving School – New Learner",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Learner",
+          "lines": [
+            "The customer's surname is",
+            "- {ex:Penhallow}",
+            "Has received his provisional {1}",
+            "Has driven a few times with his {2}"
+          ]
+        },
+        {
+          "heading": "Lessons",
+          "lines": [
+            "Type of car: {3}",
+            "Length of each lesson: {4} minutes",
+            "Day: {5} evenings at 6 p.m.",
+            "Meeting point: outside the {6}",
+            "Cost of ten lessons: £{7}",
+            "Instructor's name: Mrs {8}"
+          ]
+        },
+        {
+          "heading": "Other information",
+          "lines": [
+            "Learner should wear flat {9}",
+            "Free theory classes on {10} mornings"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 1,
+      "answers": [
+        "licence",
+        "license"
+      ],
+      "explain": "答案是 <b>licence</b>（美式 license 也算對）。Molly 問 have you got your provisional licence yet?，他說 the licence came in the post last week。",
+      "quote": "the licence came in the post last week"
+    },
+    {
+      "no": 2,
+      "answers": [
+        "uncle"
+      ],
+      "explain": "答案是 <b>uncle</b>。原文 my uncle has taken me round an empty car park a few times。<br><b>陷阱</b>：他本來希望爸爸教，but he's always too busy。",
+      "quote": "So my uncle has taken me round an empty car park a few times."
+    },
+    {
+      "no": 3,
+      "answers": [
+        "manual"
+      ],
+      "explain": "答案是 <b>manual</b>（手排）。朋友說自排比較簡單，But our family car is a manual... So a manual, please。<br><b>陷阱</b>：automatic 的優點全是「朋友說」，But 後面才是他的決定。",
+      "quote": "So a manual, please."
+    },
+    {
+      "no": 4,
+      "answers": [
+        "90",
+        "ninety"
+      ],
+      "explain": "答案是 <b>90</b>。標準課是 sixty minutes，他選了 ninety minutes would be better。<br><b>陷阱</b>：60 是標準課長度，不是他選的。",
+      "quote": "I think ninety minutes would be better."
+    },
+    {
+      "no": 5,
+      "answers": [
+        "Tuesday"
+      ],
+      "explain": "答案是 <b>Tuesday</b>。星期一他上課到很晚 so that's out，Could I do Tuesday evenings?，Molly 確認有空位。",
+      "quote": "Could I do Tuesday evenings?"
+    },
+    {
+      "no": 6,
+      "answers": [
+        "library"
+      ],
+      "explain": "答案是 <b>library</b>。他家在服務範圍外，學校門口不能停車，最後選 the library on Station Road，Molly 說 The library is perfect。<br><b>陷阱</b>：home 和 college 兩個地點都被排除。",
+      "quote": "The library is perfect."
+    },
+    {
+      "no": 7,
+      "answers": [
+        "380"
+      ],
+      "explain": "答案是 <b>380</b>。單堂 42 英鎊，but if you book a block of ten lessons... it's 380 pounds。<br><b>陷阱</b>：42 是單堂價格，40 是省下的錢，都不是十堂的總價。",
+      "quote": "it's 380 pounds, so you save 40 pounds"
+    },
+    {
+      "no": 8,
+      "answers": [
+        "Brennan"
+      ],
+      "explain": "答案是 <b>Brennan</b>。Molly 拼出 B-R-E-N-N-A-N。",
+      "quote": "That's B-R-E-N-N-A-N."
+    },
+    {
+      "no": 9,
+      "answers": [
+        "shoes"
+      ],
+      "explain": "答案是 <b>shoes</b>。原文 please wear flat shoes，靴子和涼鞋都不行。<br><b>提醒</b>：題目已經有 flat，空格填 shoes；boots、sandals 是不能穿的。",
+      "quote": "please wear flat shoes"
+    },
+    {
+      "no": 10,
+      "answers": [
+        "Saturday"
+      ],
+      "explain": "答案是 <b>Saturday</b>。筆試課 used to 在星期日下午，but... we've moved them. They're now on Saturday mornings。<br><b>陷阱</b>：used to 後面是舊安排。",
+      "quote": "They're now on Saturday mornings"
+    }
+  ]
+}

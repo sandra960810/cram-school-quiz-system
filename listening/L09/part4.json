@@ -1,0 +1,196 @@
+{
+  "no": 4,
+  "context": "A lecture on the history and science of soap",
+  "audio": "L09_part4.mp3",
+  "instructions": "Questions 31–40",
+  "cues": [
+    {
+      "v": "narrator",
+      "t": "Part 4. You will hear part of a lecture about the history and science of soap. First you have some time to look at questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "45"
+    },
+    {
+      "v": "narrator",
+      "t": "Now listen carefully and answer questions 31 to 40."
+    },
+    {
+      "v": "pause",
+      "t": "3"
+    },
+    {
+      "v": "f1",
+      "t": "Good morning. Today I want to talk about something so ordinary that we hardly notice it, but which has probably saved more lives than almost any medicine: soap."
+    },
+    {
+      "v": "f1",
+      "t": "The earliest evidence of soap-making comes from ancient Mesopotamia, from around 2800 BC. Clay containers found there carry instructions that describe boiling animal fats with ashes. The ashes are important, because they contain chemicals called alkalis, and it's the reaction between fat and an alkali that produces soap. It's worth noting, though, that this early soap seems to have been used mainly for cleaning wool and cloth, rather than people."
+    },
+    {
+      "v": "f1",
+      "t": "In fact, for a long time, soap was not the usual way of washing the body. The Romans, famous for their public baths, generally cleaned themselves with oil. They rubbed it into their skin and then scraped it off, together with the dirt, using a curved metal tool. Interestingly, the Romans did know about soap. The writer Pliny describes it, but he presents it as something people in Gaul used to colour their hair, rather than to keep themselves clean."
+    },
+    {
+      "v": "f1",
+      "t": "In medieval Europe, soap-making became an established trade, and some regions became famous for their soap. In Spain, soap was made from olive oil, which produced a mild, pale soap that was much gentler on the skin than soap made from animal fat. Soap of this kind is still sold today."
+    },
+    {
+      "v": "f1",
+      "t": "So how does soap actually work? A soap molecule has two very different ends. One end is attracted to water. The other end avoids water and is attracted to grease. When you wash your hands, the grease-loving ends attach themselves to oily dirt, and the molecules gather round it, forming tiny balls with the dirt trapped inside. Water can then carry these balls away. That's why water alone is so poor at removing grease."
+    },
+    {
+      "v": "f1",
+      "t": "Soap also destroys certain viruses, including those responsible for flu. These viruses are surrounded by a thin, fatty outer layer, and soap breaks that layer apart, so the virus can no longer function."
+    },
+    {
+      "v": "f1",
+      "t": "For most of history, soap was a luxury. It only became cheap in the nineteenth century, for two main reasons. First, a French chemist found a way of producing alkali from ordinary salt, which was much cheaper than using ashes. Second, in Britain, soap had been heavily taxed for over a century. When that tax was removed in 1853, the price fell sharply, and soap became affordable for ordinary families."
+    },
+    {
+      "v": "f1",
+      "t": "Soap manufacturers also became pioneers of advertising. In the 1930s, American soap companies paid for daily radio dramas aimed at women listening at home. These programmes became known as soap operas, a name that has stayed with television drama ever since."
+    },
+    {
+      "v": "f1",
+      "t": "The link between washing and health was not obvious to everyone. In the 1840s, a doctor in a Vienna hospital noticed that far more women died after giving birth in the ward run by doctors than in the ward run by midwives. He concluded that doctors were carrying infection from the rooms where they had examined dead bodies. When he made the doctors wash their hands before examining patients, the death rate fell dramatically. Many of his colleagues, however, refused to accept his findings."
+    },
+    {
+      "v": "f1",
+      "t": "Finally, a word about soap today. Solid bars of soap, which dominated for centuries, are steadily losing ground to liquid soap, which many people see as more hygienic, although the evidence for that is limited. Liquid soap, however, usually comes in plastic bottles, which raises its own environmental questions. A few companies now sell refills in paper or metal containers, and some shoppers are returning to bars for exactly this reason. We'll look at those next time."
+    },
+    {
+      "v": "narrator",
+      "t": "That is the end of Part 4. You now have half a minute to check your answers."
+    },
+    {
+      "v": "pause",
+      "t": "30"
+    }
+  ],
+  "groups": [
+    {
+      "type": "gapfill",
+      "range": "Questions 31–40",
+      "instruction": "Complete the notes below.",
+      "limit": "Write <b>ONE WORD ONLY</b> for each answer.",
+      "title": "SOAP: HISTORY AND SCIENCE",
+      "layout": "notes",
+      "sections": [
+        {
+          "heading": "Early history",
+          "lines": [
+            "Mesopotamia: fats were boiled with {31}",
+            "Early soap was mainly used for cleaning wool and {32}",
+            "Romans cleaned their bodies with {33}",
+            "Spain: soap made from {34} oil was mild"
+          ]
+        },
+        {
+          "heading": "How soap works",
+          "lines": [
+            "One end of the molecule is attracted to water, the other to {35}",
+            "Soap breaks the fatty outer {36} of some viruses"
+          ]
+        },
+        {
+          "heading": "Soap becomes cheap",
+          "lines": [
+            "Alkali could be produced from {37}",
+            "A British {38} on soap ended in 1853"
+          ]
+        },
+        {
+          "heading": "Later developments",
+          "lines": [
+            "1840s Vienna: deaths fell when {39} washed their hands",
+            "Today, bars are being replaced by {40} soap"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "no": 31,
+      "answers": [
+        "ashes"
+      ],
+      "explain": "答案是 <b>ashes</b>（灰燼）。原文 boiling animal fats with ashes，講者接著說灰燼含有鹼，是製皂的關鍵。",
+      "quote": "describe boiling animal fats with ashes"
+    },
+    {
+      "no": 32,
+      "answers": [
+        "cloth"
+      ],
+      "explain": "答案是 <b>cloth</b>（布料）。原文 used mainly for cleaning wool and cloth, rather than people。<br><b>陷阱</b>：rather than people 表示「不是洗人」，題目已經寫了 wool，空格填 cloth。",
+      "quote": "used mainly for cleaning wool and cloth, rather than people"
+    },
+    {
+      "no": 33,
+      "answers": [
+        "oil"
+      ],
+      "explain": "答案是 <b>oil</b>。原文 The Romans... generally cleaned themselves with oil，抹在皮膚上再用金屬刮板刮掉。<br><b>陷阱</b>：public baths（公共浴場）讓人以為他們用肥皂，但講者說 soap was not the usual way。",
+      "quote": "generally cleaned themselves with oil"
+    },
+    {
+      "no": 34,
+      "answers": [
+        "olive"
+      ],
+      "explain": "答案是 <b>olive</b>（橄欖）。原文 In Spain, soap was made from olive oil。<br><b>陷阱</b>：animal fat 是拿來比較、比較傷皮膚的那種。",
+      "quote": "In Spain, soap was made from olive oil"
+    },
+    {
+      "no": 35,
+      "answers": [
+        "grease"
+      ],
+      "explain": "答案是 <b>grease</b>（油脂）。原文 The other end avoids water and is attracted to grease。",
+      "quote": "The other end avoids water and is attracted to grease."
+    },
+    {
+      "no": 36,
+      "answers": [
+        "layer"
+      ],
+      "explain": "答案是 <b>layer</b>。原文 These viruses are surrounded by a thin, fatty outer layer, and soap breaks that layer apart。",
+      "quote": "soap breaks that layer apart"
+    },
+    {
+      "no": 37,
+      "answers": [
+        "salt"
+      ],
+      "explain": "答案是 <b>salt</b>。法國化學家 found a way of producing alkali from ordinary salt，比用灰燼便宜很多。<br><b>陷阱</b>：ashes 是舊方法。",
+      "quote": "a French chemist found a way of producing alkali from ordinary salt"
+    },
+    {
+      "no": 38,
+      "answers": [
+        "tax"
+      ],
+      "explain": "答案是 <b>tax</b>（稅）。英國的肥皂 had been heavily taxed，When that tax was removed in 1853, the price fell sharply。<br><b>同義轉換</b>：removed ＝ ended。",
+      "quote": "When that tax was removed in 1853"
+    },
+    {
+      "no": 39,
+      "answers": [
+        "doctors"
+      ],
+      "explain": "答案是 <b>doctors</b>。原文 When he made the doctors wash their hands before examining patients, the death rate fell dramatically。<br><b>陷阱</b>：midwives（助產士）管的病房死亡率本來就低，不是洗手的人。",
+      "quote": "When he made the doctors wash their hands before examining patients, the death rate fell dramatically."
+    },
+    {
+      "no": 40,
+      "answers": [
+        "liquid"
+      ],
+      "explain": "答案是 <b>liquid</b>（液體的）。原文 Solid bars of soap... are steadily losing ground to liquid soap。<br><b>同義轉換</b>：losing ground to ＝ being replaced by。",
+      "quote": "are steadily losing ground to liquid soap"
+    }
+  ]
+}
