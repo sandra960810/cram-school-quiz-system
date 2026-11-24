@@ -68,7 +68,7 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 tools/dedupe_vocab.py  合併同課程的重複單字並轉移學生紀錄（run.bat 匯入後會跑）
 word_audio.py       單字／例句發音音檔 /tts（edge-tts 產生、快取在 instance/tts_cache/）
 vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由 app.py 最後面 register 掛上）
-phonics.py          英文零基礎的單字發音教學頁 /phonics/<學生id>：單字發音（主角）、發音規則、聽音選字、ABC 字母
+phonics.py          英文零基礎的「學發音」頁 /phonics/<學生id>：只有單字＋KK 音標＋聽／慢慢聽（2026-11 簡化）
 pronunciation/      單字 KK 音標 kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生，見 README）
 basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
 accounts.py         學生註冊／登入（/register、/login）、每個請求前的權限檢查 guard()、工作人員審核開通頁 /admin/students
@@ -129,16 +129,11 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
     比對用 `normalize_ja`（片假名＝平假名、全半形統一；不能用 `normalize`，它會把濁音點去掉）；
     前端 `normJa()` 要一致。打字題有 `kana_keyboard.js`：鍵盤打羅馬拼音自動變假名、五十音鍵盤可以點，
     鍵盤上方可切換「ひらがな／カタカナ」（片假名模式下點的、羅馬拼音轉的都是片假名，選擇記在 localStorage）
-- 單字發音教學（`phonics.py`）：**重點是教「單字怎麼唸」，不是 ABC**。預設分頁「單字發音」選零基礎／一般英文主題逐字學：
-  拼字拆音節、重音那格加底線、KK 音標（`pronunciation/kk.json`）、正常速度與慢速拆音節（整字放慢、音節依序亮起）、
-  這個字用到的發音規則（`rules_for()`，拼字和 KK 都對上才顯示，點了跳到發音規則課）、例句、跟讀評分。
+- 學發音（`phonics.py`）：**2026-11 使用者要求「不要這麼複雜」，只留 KK 音標和單字怎麼唸**。選零基礎／一般英文主題，
+  上方大卡片顯示單字、KK 音標（`pronunciation/kk.json`，含重音符號 ˈ）、中文，按「聽」（正常速度）或「慢慢聽」（rate 0.55）；
+  下方列出整個主題的字（單字＋KK＋中文），點一下就唸。上次練到的主題和位置記在 localStorage。
+  原本的 ABC 字母、發音規則課、聽音選字、音節拆解、跟讀評分都已拿掉，不要再加回去，除非使用者要求。
   加新單字後要重跑 `python tools/make_pronunciation.py cmudict.dict`
-- 發音規則與 ABC 字母（補充分頁）：電腦語音唸不出單獨的 /k/ 這種音，所以字母的音用「代表單字」示範，
-  加 KK 音標、嘴型（`MOUTHS`）與注音近似音（只當輔助）；單字寫成 `"c.a.t"` 拆格，`*` 開頭的格子不發音（Magic e）
-- 跟讀評分（在「單字發音」分頁裡）：學生按麥克風跟唸，瀏覽器語音辨識（`SpeechRecognition`，Edge 送微軟）
-  回傳最多 5 個候選，`scoreOf()` 給 0–3 顆星（第一候選就對 3、候選裡有 2、長字只差一兩個字母 1，短字差一個字母不給，
-  同音字表 `SAME` 算對）；同時用 MediaRecorder 錄音讓學生重聽，錄音與星星都只存在瀏覽器（localStorage），不上傳。
-  單字來源：零基礎與一般英文主題（`/phonics/<id>/words?theme=B01`，附音標）、各發音規則課、ABC 代表字
 
 ## 日檢模擬考（jlpt_mock.py）
 
@@ -370,7 +365,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   學習紀錄、收藏、測驗作答與題目 JSON 都轉到留下的那筆。**雅思字庫不能有重複字**，換主題改「主題」欄就好
 - ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
 - ✅ 考試類型選擇頁；多益區（藍色）：5,005 字單字學習＋單字測驗（TSL＋BSL＋NGSL）
-- ✅ 英文零基礎（橘色）：單字發音教學（音標、音節、重音、慢速、跟讀評分）、發音規則 6 課、聽音選字、ABC，加上 2,006 字單字學習＋單字測驗
+- ✅ 英文零基礎（橘色）：學發音（單字＋KK 音標＋正常／慢速發音），加上 2,006 字單字學習＋單字測驗
 - ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
 - ✅ 管理員後台：單字新增、編輯、刪除（回收區可救回），密碼保護
 - ✅ 後台編輯題庫（聽說讀寫）：新增、編輯、刪除題目與整份測驗，草稿上架、回收區可救回

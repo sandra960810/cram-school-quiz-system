@@ -3,7 +3,7 @@
 網站會涵蓋多種考試，每種考試是 EXAMS 裡的一筆：
 - course   對應單字資料的「課程」（Vocabulary.category），單字學習與單字測驗只看這個課程的字
 - features 這個考試開放哪些功能：learn（單字學習與圖鑑）、vocab_quiz（單字測驗區）、exam（模擬測驗區）、
-            phonics（ABC 與自然發音教學，零基礎用）、mock（日檢模擬考）、
+            phonics（KK 音標與單字發音，零基礎用）、mock（日檢模擬考）、
             mock1／mock2（韓檢 TOPIK I／TOPIK II 模擬考，見 topik_mock.py）
 - ready    False 代表還在準備，選擇頁顯示「即將開放」
 - 色系在 static/theme.css 用 :root[data-exam="…"] 覆寫，每個樣板的 <html> 都帶 data-exam
@@ -34,7 +34,7 @@ EXAMS = [
      # 分級字庫：N5～N1 各是一個主題（app.py 的 OFFICIAL_THEMES），level 用 5～1，可以逐級對學生開放
      "levels": [5, 4, 3, 2, 1]},
     {"key": "basic", "name": "英文零基礎", "en": "Basic English", "course": "BASIC", "icon": "smile",
-     "ready": True, "desc": "ABC 字母、自然發音，加上國中小程度 2,000 個生活單字",
+     "ready": True, "desc": "KK 音標與單字發音，加上國中小程度 2,000 個生活單字",
      "features": ["phonics", "learn", "vocab_quiz"]},
     {"key": "general", "name": "一般英文", "en": "General English", "course": "GENERAL", "icon": "home",
      "ready": True, "desc": "零基礎之後的下一步：4,000 個日常生活單字",
