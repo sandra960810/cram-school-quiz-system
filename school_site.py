@@ -29,7 +29,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 INFO_PATH = os.path.join(HERE, 'public_site', 'site_info.json')
 TW = timezone(timedelta(hours=8))
 
-# 課程頁：只寫網站上真的有的東西（題庫、字數），上課時間、師資、費用由 site_info.json 填
+# 課程頁：只寫網站上真的有的東西，上課時間、師資、費用由 site_info.json 填
+# points 是學生系統的功能，2026-11 使用者要求官網先不提，課程頁暫不顯示
 COURSES = [
     {"key": "toeic", "name": "多益", "en": "TOEIC", "title": "多益補習班｜多益全方位課程",
      "lead": "從職場情境單字到聽力閱讀，一步步把多益分數往上拉。",
@@ -165,16 +166,13 @@ def page(template, *, title, description, keywords=(), jsonld=(), **kw):
 
 @bp.route('/')
 def home():
-    # 已登入的學生照舊直接進測驗系統
-    me = _['current_student']()
-    if me and me.status == 'active':
-        return redirect(url_for('dashboard', student_id=me.id))
+    # 2026-11 使用者要求：官網（含校區）不連到學生系統，已登入的學生也照樣看官網
     d = info()
     towns = '、'.join(c['name'] for c in d['campuses'])
     return page('site/home.html',
                 title=f"{d['name']}｜{towns}多益、雅思、托福、日文、韓文補習班",
                 description=f"{d['name']}在{towns}設有校區，提供多益、雅思、托福、日檢、韓檢課程，"
-                            f"附線上單字與模擬考練習系統。免費諮詢、加 LINE 了解課程。",
+                            f"專屬學習規劃、免費多益程度測驗。免費諮詢、加 LINE 了解課程。",
                 keywords=[f"{c['name']}{k}" for c in d['campuses'][:5] for k in ('補習班', '多益補習班', '英文補習班')]
                          + ['多益補習班', '雅思補習班', '日文補習班', '韓文補習班', '托福補習班'],
                 jsonld=[org_jsonld()])

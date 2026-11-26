@@ -41,12 +41,5 @@
         <div class="s-consult-btns"><a class="s-btn" href="{{ url_for('site.contact', course=c.key) }}">填表諮詢</a>{{ line_btn(s) }}</div>
     </div>
 </div></section>
-{% if c.points %}
-<section class="s-sec s-band"><div class="wrap">
-    <h2>{{ icon('monitor') }} 學員專屬線上練習系統</h2>
-    <p class="sub">上課之外，學員可以用補習班的線上系統練習：</p>
-    <ul class="s-list">{% for p in c.points %}<li>{{ p }}</li>{% endfor %}</ul>
-</div></section>
-{% endif %}
 
 {% endblock %}

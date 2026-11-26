@@ -31,7 +31,6 @@
             <a href="{{ url_for('site.courses') }}" class="{{ 'on' if request.path.startswith('/courses') }}">課程介紹</a>
             <a href="{{ url_for('site.home') }}#campus">校區</a>
             <a href="{{ url_for('site.contact') }}" class="{{ 'on' if request.path.startswith('/contact') }}">免費諮詢</a>
-            <a href="{{ url_for('accounts.login') }}">學員登入</a>
         </nav>
         <div class="s-actions">
             {{ line_btn(s) }}
@@ -65,8 +64,7 @@
                 <a href="{{ url_for('site.mock_test') }}">免費迷你模考</a>
                 <a href="{{ url_for('site.contact') }}">免費諮詢</a>
                 <a href="{{ url_for('site.privacy') }}">個人資料蒐集說明</a>
-                <a href="{{ url_for('accounts.login') }}">學員登入</a>
-                {% if s.facebook_url %}<a href="{{ s.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+                    {% if s.facebook_url %}<a href="{{ s.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
                 {% if s.instagram_url %}<a href="{{ s.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
             </div>
         </div>
