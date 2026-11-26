@@ -7,6 +7,9 @@
 一套給補習班學生用的雅思練習網站，用 Flask + SQLite 寫成，跑在補習班櫃台那台
 Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），需要給主管或遠端學生看時，
 用 `share.bat` 開 Cloudflare 臨時通道產生公開網址。
+官網的正式網址是 **https://www.trinity413.com**（2026-11 使用者在 Cloudflare 買的；tlc.tw 不動、不放新官網），
+由 `site_tunnel.bat` 開 Cloudflare 具名通道 `trinity-site`（設定在櫃台電腦 `%USERPROFILE%\.cloudflared\config.yml`），
+開機自動執行（啟動資料夾捷徑）。通道程式刻意叫 `site-tunnel.exe`：`share.bat` 會 `taskkill cloudflared.exe`，換名字才不會把官網一起關掉。
 
 兩大功能：
 
@@ -59,6 +62,7 @@ topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各十
 topik_mock/         韓檢模擬考題庫 TOPIK1.txt、TOPIK2.txt，第 2 回起 TOPIK1-2.txt…（純文字格式，見 README.md）
 topik_audio.bat     在櫃台電腦產生韓檢模擬考聽力音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
+site_tunnel.bat     官網固定網址 www.trinity413.com 的 Cloudflare 具名通道（開機自動執行，log 在 site_tunnel_log.txt）
 set_mail.bat        設定官網諮詢通知信的寄件帳號（instance/mail.json，不進 git）
 set_ai_paid_key.bat 設定備用付費金鑰（ai_key_paid.txt，不進 git）：免費 Gemini 額度用完時自動改用
 ai_tutor.py         AI 學習教練（Blueprint）：錯題解釋、弱點練習 /ai/<id>/practice、學習報告 /ai/<id>/report、單字記憶法；前端 static/ai_tutor.js／ai_tutor.css

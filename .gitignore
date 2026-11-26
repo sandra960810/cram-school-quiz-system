@@ -2,6 +2,8 @@ venv/
 __pycache__/
 # 本機產生的檔案
 cloudflared.exe
+site-tunnel.exe
+site_tunnel_log.txt
 backups/
 run_log.txt
 share_log.txt
