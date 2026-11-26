@@ -63,6 +63,7 @@ COURSES = [
 COURSE_MAP = {c['key']: c for c in COURSES}
 # 迷你模考：先只放入口（2026-11 使用者說「模考先不要生」），題目之後再做
 MOCKS = [("toeic", "多益"), ("ielts", "雅思"), ("jlpt", "日檢"), ("topik", "韓檢")]
+MOCKS_READY = {"toeic"}   # 已經有題目的迷你模考（school_mock.py、public_site/mock/<考試>.json）
 IDENTITIES = ['學生', '上班族', '家長（幫孩子詢問）', '其他']
 CONTACT_TIMES = ['都可以', '平日白天', '平日晚上', '週末']
 PUBLIC_PREFIXES = ('/courses', '/campus', '/contact', '/mock-test', '/privacy', '/thanks')
@@ -152,7 +153,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
@@ -272,7 +273,8 @@ def thanks():
 def robots():
     lines = ['User-agent: *', 'Allow: /']
     for p in ('/dashboard/', '/learn/', '/vocab', '/exam/', '/jlpt-mock/', '/topik-mock/', '/ai/',
-              '/phonics/', '/admin', '/login', '/register', '/api/', '/tts', '/thanks'):
+              '/phonics/', '/admin', '/login', '/register', '/api/', '/tts', '/thanks',
+              '/mock-test/result/'):
         lines.append(f'Disallow: {p}')
     lines.append(f'Sitemap: {abs_url("site.sitemap")}')
     return Response('\n'.join(lines) + '\n', mimetype='text/plain')
@@ -284,6 +286,7 @@ def sitemap():
     urls = [(abs_url('site.home'), '1.0'), (abs_url('site.courses'), '0.9')]
     urls += [(abs_url('site.course', key=c['key']), '0.9') for c in COURSES]
     urls += [(abs_url('site.campus', slug=c['slug']), '0.8') for c in info()['campuses']]
+    urls += [(abs_url('site.mock_take', key=k), '0.8') for k, _n in MOCKS if k in MOCKS_READY]
     urls += [(abs_url('site.mock_test'), '0.7'), (abs_url('site.contact'), '0.8'), (abs_url('site.privacy'), '0.2')]
     body = ''.join(f'<url><loc>{u}</loc><lastmod>{today}</lastmod><priority>{p}</priority></url>' for u, p in urls)
     xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{body}</urlset>'
@@ -340,6 +343,9 @@ def conn():
         name TEXT, phone TEXT, email TEXT, line_id TEXT, identity TEXT, courses TEXT, campus TEXT,
         contact_time TEXT, message TEXT, source TEXT, consent INTEGER DEFAULT 0,
         status TEXT DEFAULT 'new', staff_note TEXT DEFAULT '')""")
+    cols = {r[1] for r in c.execute('PRAGMA table_info(leads)')}
+    if 'mock' not in cols:   # 迷你模考的成績摘要（school_mock.py）
+        c.execute("ALTER TABLE leads ADD COLUMN mock TEXT DEFAULT ''")
     return c
 
 
@@ -370,13 +376,14 @@ def validate(form, d):
     return v, errors
 
 
-def save_lead(v):
+def save_lead(v, mock=''):
     with conn() as c:
-        c.execute("""INSERT INTO leads (created_at, name, phone, email, line_id, identity, courses, campus,
-                     contact_time, message, source, consent) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)""",
-                  (datetime.now(TW).strftime('%Y-%m-%d %H:%M'), v['name'], v['phone'], v['email'], v['line_id'],
-                   v['identity'], '、'.join(COURSE_MAP[k]['name'] for k in v['courses']), v['campus'],
-                   v['contact_time'], v['message'], v['source'][:200]))
+        cur = c.execute("""INSERT INTO leads (created_at, name, phone, email, line_id, identity, courses, campus,
+                     contact_time, message, source, consent, mock) VALUES (?,?,?,?,?,?,?,?,?,?,?,1,?)""",
+                        (datetime.now(TW).strftime('%Y-%m-%d %H:%M'), v['name'], v['phone'], v['email'], v['line_id'],
+                         v['identity'], '、'.join(COURSE_MAP[k]['name'] for k in v['courses']), v['campus'],
+                         v['contact_time'], v['message'], v['source'][:200], mock))
+        return cur.lastrowid
 
 
 def lead_rows(status=None):
@@ -417,10 +424,10 @@ def leads_csv():
     out = io.StringIO()
     w = csv.writer(out)
     w.writerow(['編號', '時間', '姓名', '電話', 'Email', 'LINE ID', '身分', '想了解的課程', '校區',
-                '方便聯絡時段', '留言', '從哪一頁來', '狀態', '工作人員備註'])
+                '方便聯絡時段', '留言', '從哪一頁來', '模考成績', '狀態', '工作人員備註'])
     for r in lead_rows('all'):
         w.writerow([_cell(x) for x in [r['id'], r['created_at'], r['name'], r['phone'], r['email'], r['line_id'], r['identity'],
-                    r['courses'], r['campus'], r['contact_time'], r['message'], r['source'],
+                    r['courses'], r['campus'], r['contact_time'], r['message'], r['source'], r['mock'],
                     '已聯絡' if r['status'] == 'done' else '未聯絡', r['staff_note']]])
     # 前面加 BOM，Excel 打開中文才不會亂碼
     return Response('﻿' + out.getvalue(), mimetype='text/csv',
@@ -432,4 +439,5 @@ def register(app, deps):
     """由 app.py 呼叫（要在 admin.register 之前，名單頁掛在後台的 bp 上）。deps：current_student。"""
     _.update(deps, app=app)
     app.after_request(noindex_private)
+    import school_mock  # noqa: F401  迷你模考的路由掛在同一個 bp 上，要在註冊前載入
     app.register_blueprint(bp)

@@ -1,0 +1,126 @@
+{% extends 'site/base.html' %}
+{% block body %}
+<section class="s-hero exam-tone-{{ data.key }}"><div class="wrap">
+    <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › <a href="{{ url_for('site.mock_test') }}">免費迷你模考</a> › {{ data.title }}</div>
+    <h1>免費{{ data.title }}</h1>
+    <p class="lead">聽力＋閱讀共 {{ data.total }} 題，限時 {{ data.minutes }} 分鐘。交卷馬上看正確率，題目全部原創，比照多益題型。</p>
+</div></section>
+
+<section class="s-sec" id="mk-intro"><div class="wrap">
+    <div class="s-card mk-intro">
+        <h2>{{ icon('clipboard') }} 測驗說明</h2>
+        <ul class="s-list">
+            {% for p in data.parts %}<li><b>{{ p.name }}</b>：{{ p.groups|map(attribute='questions')|map('length')|sum }} 題</li>{% endfor %}
+        </ul>
+        <p>{{ icon('headphones') }} 前面有聽力題，請打開喇叭或戴上耳機。每段錄音最多播放 {{ max_plays }} 次。</p>
+        <p>{{ icon('clock') }} 按「開始測驗」後開始計時，時間到會自動交卷。</p>
+        <button type="button" class="s-btn big" id="mk-start">開始測驗</button>
+    </div>
+</div></section>
+
+<form method="post" action="{{ url_for('site.mock_submit', key=data.key) }}" id="mk-form" class="mk-form" hidden>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <div class="mk-bar"><div class="wrap">
+        <b>{{ data.title }}</b>
+        <span>已作答 <b id="mk-done">0</b> / {{ data.total }}</span>
+        <span class="mk-timer">{{ icon('clock') }} <b id="mk-time">{{ data.minutes }}:00</b></span>
+    </div></div>
+    <div class="wrap">
+    {% for p in data.parts %}
+    <section class="mk-part">
+        <h2>{{ p.name }}</h2>
+        <p class="sub">{{ p.intro }}</p>
+        {% for g in p.groups %}
+        <div class="s-card mk-group">
+            {% if g.audio %}
+            <div class="mk-audio">
+                <button type="button" class="s-btn mk-play" data-gi="{{ g.gi }}" data-segs="{{ g.audio|length }}">{{ icon('volume') }} 播放錄音</button>
+                <span class="mk-left">還可以播放 {{ max_plays }} 次</span>
+            </div>
+            {% endif %}
+            {% if g.passage %}<div class="mk-passage">{{ g.passage }}</div>{% endif %}
+            {% for q in g.questions %}
+            <fieldset class="mk-q" id="q{{ q.n }}">
+                <legend><span class="mk-no">{{ q.n }}</span> {{ q.q or '選出最適當的回應' }}</legend>
+                <div class="mk-opts">
+                {% for o in q.options %}{% set L = letters(q)[loop.index0] %}
+                    <label><input type="radio" name="q{{ q.n }}" value="{{ L }}"> <b>({{ L }})</b>{% if q.q %} {{ o }}{% endif %}</label>
+                {% endfor %}
+                </div>
+            </fieldset>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </section>
+    {% endfor %}
+    <div class="mk-submit">
+        <p id="mk-warn" class="mk-warn" hidden></p>
+        <button class="s-btn big" id="mk-send">交卷，看正確率</button>
+    </div>
+    </div>
+</form>
+<script>
+(function () {
+    const form = document.getElementById('mk-form'), intro = document.getElementById('mk-intro');
+    const total = {{ data.total }}, MAX = {{ max_plays }};
+    const audioUrl = (gi, i) => `{{ url_for('site.mock_take', key=data.key) }}/audio/${gi}/${i}`;
+    let left = {{ data.minutes }} * 60, sent = false, playing = null;
+
+    // 先在背景把所有音檔準備好（第一次產生需要幾秒）
+    function warm() {
+        const list = [];
+        document.querySelectorAll('.mk-play').forEach(b => { for (let i = 0; i < +b.dataset.segs; i++) list.push(audioUrl(b.dataset.gi, i)); });
+        (async () => { for (const u of list) { try { await fetch(u); } catch (e) {} } })();
+    }
+    document.getElementById('mk-start').addEventListener('click', () => {
+        intro.hidden = true; form.hidden = false; window.scrollTo(0, 0); warm(); tick();
+        setInterval(tick, 1000);
+    });
+    function tick() {
+        const m = Math.floor(left / 60), s = left % 60;
+        document.getElementById('mk-time').textContent = `${m}:${String(s).padStart(2, '0')}`;
+        if (left <= 60) document.querySelector('.mk-timer').classList.add('low');
+        if (left <= 0 && !sent) { sent = true; form.submit(); }
+        left--;
+    }
+    form.addEventListener('change', () => {
+        document.getElementById('mk-done').textContent = new Set([...form.querySelectorAll('input[type=radio]:checked')].map(r => r.name)).size;
+    });
+    form.addEventListener('submit', e => {
+        if (sent) return;
+        const done = new Set([...form.querySelectorAll('input[type=radio]:checked')].map(r => r.name)).size;
+        const warn = document.getElementById('mk-warn');
+        if (done < total && warn.hidden) {
+            e.preventDefault();
+            warn.hidden = false;
+            warn.textContent = `還有 ${total - done} 題沒作答，確定要交卷就再按一次。`;
+            return;
+        }
+        sent = true;
+    });
+    // 依序播放一段錄音的每一句，句子之間停一下
+    document.querySelectorAll('.mk-play').forEach(btn => {
+        let plays = 0;
+        const label = btn.parentElement.querySelector('.mk-left');
+        btn.addEventListener('click', async () => {
+            if (plays >= MAX || playing) return;
+            plays++; playing = btn; btn.disabled = true;
+            label.textContent = '播放中…';
+            let failed = false;
+            for (let i = 0; i < +btn.dataset.segs && !failed; i++) {
+                failed = !(await new Promise(res => {
+                    const a = new Audio(audioUrl(btn.dataset.gi, i));
+                    a.onended = () => setTimeout(() => res(true), 700);
+                    a.onerror = () => res(false);
+                    a.play().catch(() => res(false));
+                }));
+            }
+            playing = null;
+            if (failed) { plays--; label.textContent = '錄音暫時無法播放，請稍後再按一次'; btn.disabled = false; return; }
+            btn.disabled = plays >= MAX;
+            label.textContent = plays >= MAX ? '已經播放 ' + MAX + ' 次' : `還可以播放 ${MAX - plays} 次`;
+        });
+    });
+})();
+</script>
+{% endblock %}

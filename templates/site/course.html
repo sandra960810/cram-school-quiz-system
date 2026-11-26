@@ -8,8 +8,24 @@
     <div class="s-cta">
         <a class="s-btn big" href="{{ url_for('site.contact', course=c.key) }}">諮詢{{ c.name }}課程</a>
         {{ line_btn(s, 's-btn big line') }}
+        {% if c.key in mocks_ready %}<a class="s-btn big ghost" href="{{ url_for('site.mock_take', key=c.key) }}">{{ icon('target') }} 免費{{ c.name }}模考</a>{% endif %}
     </div>
 </div></section>
+{% if c.key in mocks|map('first')|list %}
+<section class="s-sec"><div class="wrap">
+    <div class="mk-entry exam-tone-{{ c.key }}">
+        <div>
+            <h2>{{ icon('target') }} 免費{{ c.name }}迷你模考</h2>
+            {% if c.key in mocks_ready %}
+            <p>聽力＋閱讀，約 10 分鐘。交卷馬上看正確率和解析，再拿到你的弱點分析。</p>
+            {% else %}
+            <p>約 10 分鐘測出你的程度。<span class="s-badge soon">即將開放</span></p>
+            {% endif %}
+        </div>
+        {% if c.key in mocks_ready %}<a class="s-btn big" href="{{ url_for('site.mock_take', key=c.key) }}">開始測驗</a>{% endif %}
+    </div>
+</div></section>
+{% endif %}
 <section class="s-sec"><div class="wrap">
     <h2>課程資訊</h2>
     {% if extra.schedule or extra.teachers or extra.price or extra.extra %}
@@ -32,10 +48,5 @@
     <ul class="s-list">{% for p in c.points %}<li>{{ p }}</li>{% endfor %}</ul>
 </div></section>
 {% endif %}
-{% if c.key in mocks|map('first')|list %}
-<section class="s-sec"><div class="wrap">
-    <h2>{{ icon('target') }} {{ c.name }}免費迷你模考</h2>
-    <p class="sub">10 分鐘測程度，拿分數、錯題與弱點分析。<span class="s-badge soon">即將開放</span></p>
-</div></section>
-{% endif %}
+
 {% endblock %}

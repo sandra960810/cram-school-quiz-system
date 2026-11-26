@@ -39,7 +39,11 @@
         <p class="sub">大約 10 分鐘，測出你現在的程度，拿到分數、錯題和弱點分析報告。</p>
         <div class="s-grid">
             {% for key, name in mocks %}
+            {% if key in mocks_ready %}
+            <a class="s-card tone exam-tone-{{ key }}" href="{{ url_for('site.mock_take', key=key) }}"><h3>{{ name }}迷你模考</h3><p><span class="s-badge">免費・約 10 分鐘</span></p><span class="more">開始測驗 →</span></a>
+            {% else %}
             <div class="s-card tone exam-tone-{{ key }}"><h3>{{ name }}迷你模考</h3><p><span class="s-badge soon">即將開放</span></p></div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

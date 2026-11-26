@@ -154,7 +154,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱紀錄一定要保留**），新官網直接做在這個網站裡：
 
 - 公開頁：`/` 首頁（已登入的學生照舊轉到選擇考試頁）、`/courses`、`/courses/<toeic|ielts|toefl|jlpt|topik>`、`/campus/<校區>`、
-  `/mock-test`（迷你模考入口，**目前只放「即將開放」，使用者說模考先不要做**）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
+  `/mock-test`（迷你模考總覽；**入口放在各課程頁**（使用者要求，hero 按鈕＋課程資訊上方的卡片），頂端選單不放；**目前只有多益**，雅思、日檢、韓檢顯示「即將開放」，`school_site.MOCKS_READY`）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
 - 樣板在 `templates/site/`、樣式 `static/site.css`；顏色照樣用 `theme.css` 變數（托福 `.exam-tone-toefl`、LINE 綠 `--line-green`）
 - **補習班資料在 `public_site/site_info.json`**（電話、地址、LINE 連結、各課程上課時間／師資／費用…）。空白欄位網頁顯示黃色「待填」，
   結構化資料會略過。**不要自己編課程內容、價格、學員見證**，只寫網站真的有的東西（字數、模考回數）
@@ -163,6 +163,15 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
   新增公開頁要把網址開頭加進 `PUBLIC_PREFIXES` 和 sitemap
 - 諮詢名單是個資：存在 **`instance/leads.db`（獨立檔、不進 git；quiz.db 有進 git 所以不能放那裡）**。表單有 csrf、隱藏欄位擋機器人、
   同 IP 一小時 5 次、必須勾同意個資說明。工作人員後台 `/admin/leads` 看名單、標已聯絡、寫備註、下載 CSV（擋 Excel 公式注入）
+
+### 官網迷你模考（school_mock.py）
+
+- 2026-11 使用者要求先做「多益綜合模擬考」：`/mock-test/toeic`，聽力（應答 5 題＋簡短獨白 3 題）＋閱讀（句子填空 6、段落填空 4、閱讀理解 4），共 22 題、限時 12 分鐘，題目原創，在 `public_site/mock/toeic.json`
+- 聽力音檔：`/mock-test/<考試>/audio/<組>/<句>` 由伺服器用 edge-tts 產生（共用 `word_audio` 快取），**錄音文字不送到前端**；每段最多播 2 次
+- 交卷由伺服器批改，作答存在 `leads.db` 的 `mock_attempts`（代碼 token 當網址）。結果頁 `/mock-test/result/<代碼>`（noindex）
+  **一開始只顯示正確率和前 `free_explains`（3）題解析**，其餘模糊；填姓名、電話、Email（＋同意個資）才解鎖全部解析、各題型正確率、弱點分析（正確率低於 70% 的題型顯示 json 的 `advice`）
+- 解鎖時寫一筆諮詢名單（`source`＝多益迷你模考，`mock` 欄位是成績摘要），工作人員在 `/admin/leads` 看得到、CSV 也有「模考成績」欄
+- 新增其他考試：加 `public_site/mock/<考試>.json`（格式照多益），把 key 加進 `MOCKS_READY`
 
 ## 日檢模擬考（jlpt_mock.py）
 

@@ -29,7 +29,6 @@
         <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="46" height="34"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
         <nav class="s-nav" aria-label="主選單">
             <a href="{{ url_for('site.courses') }}" class="{{ 'on' if request.path.startswith('/courses') }}">課程介紹</a>
-            <a href="{{ url_for('site.mock_test') }}" class="{{ 'on' if request.path.startswith('/mock-test') }}">免費迷你模考</a>
             <a href="{{ url_for('site.home') }}#campus">校區</a>
             <a href="{{ url_for('site.contact') }}" class="{{ 'on' if request.path.startswith('/contact') }}">免費諮詢</a>
             <a href="{{ url_for('accounts.login') }}">學員登入</a>
