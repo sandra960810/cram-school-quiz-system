@@ -4,7 +4,8 @@
   "title": "多益迷你模考",
   "minutes": 12,
   "accent": "US",
-  "free_explains": 3,
+  "free_explains": 1,
+  "score_scale": {"聽力": [5, 495], "閱讀": [5, 495]},
   "_說明": "題目全部原創。parts 依順序出題，題號自動從 1 編起。answer 是正確選項的字母；explain 是給學生看的中文解析（可寫出陷阱）。聽力題的 audio 是要唸的英文（一段一句，每句 400 字以內），題目畫面不顯示 audio 的文字。",
   "parts": [
     {

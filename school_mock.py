@@ -91,10 +91,28 @@ def grade(data, answers):
     return rows, list(parts.values())
 
 
+def estimate(data, parts):
+    """預估分數（2026-11 使用者要求）：依聽力、閱讀各自的答對率，換算成正式考試的分數範圍。
+    json 的 score_scale 例如 {"聽力": [5, 495], "閱讀": [5, 495]}；題數少，只是參考。回傳 None 表示這份模考沒設定。"""
+    scale = data.get('score_scale')
+    if not scale:
+        return None
+    skills = []
+    for skill, (lo, hi) in scale.items():
+        ps = [p for p in parts if p['skill'] == skill]
+        total = sum(p['total'] for p in ps)
+        rate = sum(p['correct'] for p in ps) / total if total else 0
+        skills.append(dict(name=skill, score=int(round((lo + rate * (hi - lo)) / 5) * 5), lo=lo, hi=hi))
+    return dict(skills=skills, total=sum(s['score'] for s in skills),
+                max=sum(s['hi'] for s in skills))
+
+
 def summary(data, att, parts):
     weak = [p['name'] for p in parts if p['rate'] < WEAK_BELOW]
     pct = round(att['correct'] * 100 / att['total']) if att['total'] else 0
+    est = estimate(data, parts)
     return (f"{data['title']} 正確率 {att['correct']}/{att['total']}（{pct}%）；"
+            + (f"預估 {est['total']} 分；" if est else '')
             + ('弱項：' + '、'.join(weak) if weak else '各題型都在 70% 以上'))
 
 
@@ -189,7 +207,7 @@ def mock_result(token):
     pct = round(att['correct'] * 100 / att['total']) if att['total'] else 0
     resp = site.Response(site.page(
         'site/mock_result.html', title=f"{data['title']}成績", description=f"{data['title']}成績與解析。",
-        data=data, att=att, rows=rows, parts=parts, pct=pct, unlocked=unlocked, free=data.get('free_explains', 3),
+        data=data, att=att, rows=rows, parts=parts, pct=pct, unlocked=unlocked, free=data.get('free_explains', 1), est=estimate(data, parts),
         weak=[p for p in parts if p['rate'] < WEAK_BELOW], v=v, errors=errors, csrf=session['site_csrf'],
         letters=letters))
     resp.headers['X-Robots-Tag'] = 'noindex, nofollow'

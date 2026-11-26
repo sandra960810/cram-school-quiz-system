@@ -396,3 +396,13 @@ body.site { background: var(--brand-bg); }
 .s-hero-mock-go { flex: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 800; white-space: nowrap; }
 .s-hero-mock-go .ui-ic { width: 20px; height: 20px; }
 @media (max-width: 420px) { .s-hero-mock { flex-wrap: wrap; } .s-hero-mock-go { margin-left: auto; } }
+
+/* 迷你模考成績頁的預估分數（2026-11 使用者要求） */
+.mk-score { flex-wrap: wrap; }
+.mk-est { margin-left: 8px; padding: 12px 22px; border-radius: 12px; background: var(--brand-gold-50); box-shadow: 0 0 0 2px var(--brand-gold); color: var(--brand-navy); }
+.mk-est-label { font-size: 14px; font-weight: 700; color: var(--brand-gold-ink); }
+.mk-est-total { font-size: 44px; font-weight: 900; line-height: 1.1; }
+.mk-est-total small { font-size: 18px; font-weight: 700; opacity: .7; }
+.mk-est-parts { display: flex; gap: 14px; font-size: 14.5px; font-weight: 700; }
+.mk-est-note { margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
+@media (max-width: 560px) { .mk-est { margin-left: 0; width: 100%; box-sizing: border-box; } }

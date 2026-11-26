@@ -22,7 +22,15 @@
     <div class="mk-score">
         <div class="mk-big">{{ pct }}<small>%</small></div>
         <div>正確率<br><b>答對 {{ att.correct }} / {{ att.total }} 題</b><br><span class="mk-muted">{{ att.created_at }} 作答</span></div>
+        {% if est %}
+        <div class="mk-est">
+            <div class="mk-est-label">預估{{ data.name }}分數</div>
+            <div class="mk-est-total">{{ est.total }}<small> / {{ est.max }}</small></div>
+            <div class="mk-est-parts">{% for k in est.skills %}<span>{{ k.name }} {{ k.score }}</span>{% endfor %}</div>
+        </div>
+        {% endif %}
     </div>
+    {% if est %}<p class="mk-est-note">預估分數依各部分答對率換算，迷你模考題數少，只是程度參考，不代表正式考試成績。</p>{% endif %}
 </div></section>
 
 {% if unlocked %}
@@ -55,7 +63,7 @@
 </div></section>
 {% else %}
 <section class="s-sec"><div class="wrap">
-    <h2>{{ icon('book-open') }} 解析預覽（前 {{ free }} 題）</h2>
+    <h2>{{ icon('book-open') }} 解析預覽（{% if free == 1 %}第 1 題{% else %}前 {{ free }} 題{% endif %}）</h2>
     {% for r in rows[:free] %}{{ qcard(r, true) }}{% endfor %}
     <div class="mk-locked">
         {% for r in rows[free:free + 3] %}{{ qcard(r, false) }}{% endfor %}

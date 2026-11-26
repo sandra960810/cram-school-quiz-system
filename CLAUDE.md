@@ -180,7 +180,7 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
 - 2026-11 使用者要求先做「多益綜合模擬考」：`/mock-test/toeic`，聽力（應答 5 題＋簡短獨白 3 題）＋閱讀（句子填空 6、段落填空 4、閱讀理解 4），共 22 題、限時 12 分鐘，題目原創，在 `public_site/mock/toeic.json`
 - 聽力音檔：`/mock-test/<考試>/audio/<組>/<句>` 由伺服器用 edge-tts 產生（共用 `word_audio` 快取），**錄音文字不送到前端**；每段最多播 2 次
 - 交卷由伺服器批改，作答存在 `leads.db` 的 `mock_attempts`（代碼 token 當網址）。結果頁 `/mock-test/result/<代碼>`（noindex）
-  **一開始只顯示正確率和前 `free_explains`（3）題解析**，其餘模糊；填姓名、電話、Email（＋同意個資）才解鎖全部解析、各題型正確率、弱點分析（正確率低於 70% 的題型顯示 json 的 `advice`）
+  **一開始只顯示正確率、預估分數和第 `free_explains`（1）題解析**（2026-11 使用者要求只給一題、要有預估分數），其餘模糊。預估分數是 `school_mock.estimate()`：依 json 的 `score_scale`（多益聽力、閱讀各 5～495）把各部分答對率換算、取 5 的倍數，頁面註明只是參考；填姓名、電話、Email（＋同意個資）才解鎖全部解析、各題型正確率、弱點分析（正確率低於 70% 的題型顯示 json 的 `advice`）
 - 解鎖時寫一筆諮詢名單（`source`＝多益迷你模考，`mock` 欄位是成績摘要），工作人員在 `/admin/leads` 看得到、CSV 也有「模考成績」欄
 - 新增其他考試：加 `public_site/mock/<考試>.json`（格式照多益），把 key 加進 `MOCKS_READY`
 
