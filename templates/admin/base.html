@@ -48,6 +48,7 @@
     <div class="topbar">
         <a class="brand" href="{{ url_for('admin.home') }}">{{ icon('key') }} 工作人員後台</a>
         <a href="{{ url_for('admin.students') }}">學生審核開通</a>
+        <a href="{{ url_for('admin.leads') }}">官網諮詢名單</a>
         <span class="sp"></span>
         <a href="{{ url_for('admin.change_password') }}">改密碼</a>
         <form method="post" action="{{ url_for('admin.logout') }}" style="margin:0"><button class="linkbtn">登出</button></form>

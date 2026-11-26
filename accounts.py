@@ -253,13 +253,7 @@ def course_notes(student):
 # 學生：登入、註冊、等待開通
 # ---------------------------------------------------------------------------
 
-@bp.route('/')
-def index():
-    me = current_student()
-    if me and me.status == 'active':
-        return redirect(home_url(me))
-    return redirect(url_for('accounts.login'))
-
+# 網站首頁 / 改成公開官網（school_site.py），已登入的學生在那裡直接轉到選擇考試頁
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():

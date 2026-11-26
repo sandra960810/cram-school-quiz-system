@@ -1,0 +1,103 @@
+/* 趨勢補習班官網（school_site.py）的樣式。顏色一律用 theme.css 的變數 */
+body.site { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.7; }
+.site a { color: var(--primary); }
+.site .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.site .ui-ic { width: 1.1em; height: 1.1em; vertical-align: -0.18em; }
+
+/* 上方導覽列 */
+.s-head { background: #fff; box-shadow: var(--edge); position: sticky; top: 0; z-index: 20; }
+.s-head .wrap { display: flex; align-items: center; gap: 18px; min-height: 64px; flex-wrap: wrap; }
+.s-brand { font-weight: bold; font-size: 21px; color: var(--deep) !important; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.s-brand img { height: 38px; }
+.s-nav { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
+.s-nav a { text-decoration: none; color: var(--ink-2); padding: 8px 12px; border-radius: 8px; font-size: 15px; }
+.s-nav a:hover, .s-nav a.on { background: var(--primary-50); color: var(--primary); }
+.s-head .s-actions { display: flex; gap: 8px; }
+
+/* 按鈕 */
+.s-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 18px; border-radius: 10px; border: none; cursor: pointer;
+    font: inherit; font-weight: bold; font-size: 15px; text-decoration: none; background: var(--primary); color: #fff !important; box-shadow: var(--edge-raised); }
+.s-btn:hover { filter: brightness(1.06); }
+.s-btn.ghost { background: #fff; color: var(--primary) !important; box-shadow: 0 0 0 2px var(--primary-300); }
+.s-btn.line { background: var(--line-green); box-shadow: none; }
+.s-btn.big { padding: 14px 26px; font-size: 17px; }
+.s-btn[aria-disabled=true] { opacity: .55; cursor: not-allowed; }
+
+/* 區塊 */
+.s-hero { background: var(--hero); color: var(--hero-ink); padding: 56px 0 48px; box-shadow: var(--edge); }
+.s-hero h1 { font-size: 34px; line-height: 1.35; margin: 0 0 12px; }
+.s-hero p.lead { font-size: 18px; margin: 0 0 24px; color: var(--ink-2); max-width: 720px; }
+.s-hero .s-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.s-crumb { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.s-crumb a { color: var(--muted); }
+.s-sec { padding: 44px 0; }
+.s-sec h2 { font-size: 26px; margin: 0 0 8px; color: var(--deep); }
+.s-sec .sub { color: var(--muted); margin: 0 0 24px; }
+.s-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.s-card { background: #fff; border-radius: 14px; box-shadow: var(--edge); padding: 20px 22px; text-decoration: none; color: var(--ink); display: block; }
+a.s-card:hover { box-shadow: var(--edge-raised); }
+.s-card h3 { margin: 0 0 6px; font-size: 19px; }
+.s-card p { margin: 0; color: var(--ink-2); font-size: 15px; }
+.s-card .en { font-size: 13px; color: var(--muted); letter-spacing: .05em; }
+.s-card.tone { border-top: 5px solid var(--tone); }
+.s-card.tone h3 { color: var(--tone-deep); }
+.s-card .more { display: inline-block; margin-top: 10px; font-weight: bold; color: var(--tone, var(--primary)); font-size: 14px; }
+.s-badge { display: inline-block; font-size: 12px; font-weight: bold; padding: 2px 8px; border-radius: 99px; background: var(--primary-50); color: var(--primary); }
+.s-badge.soon { background: var(--warn-50); color: var(--warn-ink); }
+.s-list { margin: 0; padding-left: 20px; }
+.s-list li { margin: 6px 0; }
+.s-band { background: #fff; box-shadow: var(--edge); }
+.s-steps { counter-reset: st; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; padding: 0; margin: 0; list-style: none; }
+.s-steps li { background: var(--primary-50); border-radius: 12px; padding: 18px; }
+.s-steps li::before { counter-increment: st; content: counter(st); display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff;
+    align-items: center; justify-content: center; font-weight: bold; margin-bottom: 8px; }
+.s-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: var(--edge); }
+.s-table th, .s-table td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.s-table th { width: 140px; background: var(--surface-2); color: var(--ink-2); font-weight: bold; }
+
+/* 「待填」標籤：補習班資料還沒填的地方 */
+.todo { display: inline-block; background: var(--star-50); color: var(--star-ink); border: 1px dashed var(--star); border-radius: 6px; padding: 0 8px; font-size: 13px; font-weight: bold; }
+
+/* 表單 */
+.s-form { background: #fff; border-radius: 14px; box-shadow: var(--edge); padding: 26px; }
+.s-form label.f { display: block; font-weight: bold; margin: 16px 0 6px; }
+.s-form label.f:first-of-type { margin-top: 0; }
+.s-form .req { color: var(--bad); }
+.s-form input[type=text], .s-form input[type=tel], .s-form input[type=email], .s-form select, .s-form textarea {
+    width: 100%; box-sizing: border-box; padding: 11px 12px; border: 2px solid var(--line); border-radius: 10px; font: inherit; font-size: 16px; background: #fff; color: var(--ink); }
+.s-form textarea { min-height: 90px; resize: vertical; }
+.s-form input:focus, .s-form select:focus, .s-form textarea:focus { outline: none; border-color: var(--primary); }
+.s-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.s-form .checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.s-form .checks label { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border: 2px solid var(--line); border-radius: 10px; cursor: pointer; font-size: 15px; }
+.s-form .checks label:has(input:checked) { border-color: var(--primary); background: var(--primary-50); color: var(--primary); font-weight: bold; }
+.s-form .consent { display: flex; gap: 8px; align-items: flex-start; margin-top: 18px; font-size: 14px; color: var(--ink-2); }
+.s-form .consent input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--primary); }
+.s-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.s-err { background: var(--bad-50); color: var(--bad-ink); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; }
+.s-err ul { margin: 0; padding-left: 20px; }
+.s-two { display: grid; grid-template-columns: 3fr 2fr; gap: 24px; align-items: start; }
+.s-line-box { background: #fff; border-radius: 14px; box-shadow: var(--edge); padding: 22px; text-align: center; }
+.s-line-box h3 { margin: 0 0 8px; }
+
+/* 頁尾 */
+.s-foot { background: #fff; box-shadow: var(--edge); padding: 32px 0 90px; margin-top: 40px; font-size: 14px; color: var(--muted); }
+.s-foot .cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.s-foot h4 { color: var(--ink); margin: 0 0 8px; font-size: 15px; }
+.s-foot a { color: var(--ink-2); text-decoration: none; display: block; margin: 3px 0; }
+.s-foot .copy { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+/* 手機右下角固定的 LINE、諮詢按鈕 */
+.s-float { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 30; }
+.s-float .s-btn { box-shadow: var(--edge-pop); }
+
+@media (max-width: 760px) {
+    .s-hero { padding: 36px 0 30px; }
+    .s-hero h1 { font-size: 26px; }
+    .s-two, .s-form .row2 { grid-template-columns: 1fr; }
+    .s-head .s-actions { display: none; }
+    .s-nav { order: 3; flex: 0 0 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px; }
+    .s-nav a { white-space: nowrap; }
+    .s-table th { width: 96px; }
+}
+@media (min-width: 761px) { .s-float { display: none; } }

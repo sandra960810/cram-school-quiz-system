@@ -1,0 +1,9 @@
+{% extends 'site/base.html' %}
+{% from 'site/_m.html' import line_btn %}
+{% block body %}
+<section class="s-hero"><div class="wrap">
+    <h1>{{ icon('check-circle') }} 已收到您的資料</h1>
+    <p class="lead">謝謝！我們會在上班時間盡快和你聯絡。等不及的話，也可以直接加 LINE。</p>
+    <div class="s-cta">{{ line_btn(s, 's-btn big line') }}<a class="s-btn big ghost" href="{{ url_for('site.home') }}">回首頁</a></div>
+</div></section>
+{% endblock %}

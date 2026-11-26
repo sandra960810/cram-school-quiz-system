@@ -1,0 +1,85 @@
+{% extends 'site/base.html' %}
+{% from 'site/_m.html' import fill, line_btn %}
+{% block body %}
+<section class="s-hero">
+    <div class="wrap">
+        <h1>{{ s.name }}<br>{% for c in s.campuses %}{{ c.name }}{{ '・' if not loop.last }}{% endfor %} 語言檢定補習班</h1>
+        <p class="lead">{{ fill(s.slogan, '一句話介紹補習班（標語）') }}<br>多益、雅思、托福、日檢、韓檢課程，上課之外還有線上單字庫與模擬考，回家也能練。</p>
+        <div class="s-cta">
+            <a class="s-btn big" href="{{ url_for('site.contact') }}">{{ icon('clipboard') }} 免費諮詢・預約試聽</a>
+            {{ line_btn(s, 's-btn big line') }}
+            <a class="s-btn big ghost" href="{{ url_for('site.mock_test') }}">{{ icon('target') }} 10 分鐘測程度</a>
+        </div>
+    </div>
+</section>
+
+<section class="s-sec">
+    <div class="wrap">
+        <h2>課程介紹</h2>
+        <p class="sub">選你要準備的考試，看課程內容與上課方式。</p>
+        <div class="s-grid">
+            {% for c in courses %}
+            <a class="s-card tone exam-tone-{{ c.key }}" href="{{ url_for('site.course', key=c.key) }}">
+                <div class="en">{{ c.en }}</div>
+                <h3>{{ c.name }}課程</h3>
+                <p>{{ c.lead }}</p>
+                <span class="more">看課程內容 →</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="s-sec s-band">
+    <div class="wrap">
+        <h2>{{ icon('target') }} 免費迷你模考</h2>
+        <p class="sub">大約 10 分鐘，測出你現在的程度，拿到分數、錯題和弱點分析報告。</p>
+        <div class="s-grid">
+            {% for key, name in mocks %}
+            <div class="s-card tone exam-tone-{{ key }}"><h3>{{ name }}迷你模考</h3><p><span class="s-badge soon">即將開放</span></p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="s-sec">
+    <div class="wrap">
+        <h2>為什麼選{{ s.name }}</h2>
+        <p class="sub">{{ fill(s.intro, '補習班介紹（教學特色、成立年份、師資等）') }}</p>
+        <div class="s-grid">
+            <div class="s-card"><h3>{{ icon('library') }} 線上單字庫</h3><p>雅思、多益、日檢、韓檢分級單字，滑卡背、自動整理不熟的字。</p></div>
+            <div class="s-card"><h3>{{ icon('exam') }} 模擬考題庫</h3><p>雅思聽說讀寫、日檢 N5～N1、韓檢 TOPIK I／II 各 10 回模擬考，交卷看解析。</p></div>
+            <div class="s-card"><h3>{{ icon('bot') }} AI 學習教練</h3><p>錯題解釋、弱點練習、學習報告，老師上課更能對症下藥。</p></div>
+            <div class="s-card"><h3>{{ icon('teacher') }} 師資</h3><p>{{ fill('', '師資介紹') }}</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="s-sec s-band" id="campus">
+    <div class="wrap">
+        <h2>{{ icon('building') }} 校區</h2>
+        <p class="sub">就近選擇校區上課。</p>
+        <div class="s-grid">
+            {% for c in s.campuses %}
+            <a class="s-card" href="{{ url_for('site.campus', slug=c.slug) }}">
+                <h3>{{ c.name }}校</h3>
+                <p>{{ fill(c.address, '地址') }}</p>
+                <p>{{ fill(c.phone, '電話') }}</p>
+                <span class="more">校區資訊 →</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="s-sec">
+    <div class="wrap" style="text-align:center">
+        <h2>不知道該從哪裡開始？</h2>
+        <p class="sub">留下聯絡方式，我們幫你安排程度測驗與課程建議。</p>
+        <div class="s-cta" style="justify-content:center;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="s-btn big" href="{{ url_for('site.contact') }}">免費諮詢</a>
+            {{ line_btn(s, 's-btn big line') }}
+        </div>
+    </div>
+</section>
+{% endblock %}

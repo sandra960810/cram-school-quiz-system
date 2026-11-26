@@ -1,0 +1,17 @@
+{% extends 'site/base.html' %}
+{% block body %}
+<section class="s-hero"><div class="wrap">
+    <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › 課程介紹</div>
+    <h1>課程介紹</h1>
+    <p class="lead">多益、雅思、托福、日檢、韓檢，選你要準備的考試。</p>
+</div></section>
+<section class="s-sec"><div class="wrap">
+    <div class="s-grid">
+        {% for c in courses %}
+        <a class="s-card tone exam-tone-{{ c.key }}" href="{{ url_for('site.course', key=c.key) }}">
+            <div class="en">{{ c.en }}</div><h3>{{ c.name }}課程</h3><p>{{ c.lead }}</p><span class="more">看課程內容 →</span>
+        </a>
+        {% endfor %}
+    </div>
+</div></section>
+{% endblock %}

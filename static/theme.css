@@ -133,6 +133,9 @@
 .exam-tone-general { --tone: #0f766e; --tone-50: #e7f6f4; --tone-300: #8fd0c7; --tone-100: #cdeee9; --tone-deep: #163f3b; }
 .exam-tone-topik { --tone: #9d174d; --tone-50: #fdedf3; --tone-300: #f0a5c4; --tone-100: #fad5e3; --tone-deep: #4a1529; }
 .exam-tone-jlpt { --tone: #4d7c0f; --tone-50: #f2f7e9; --tone-300: #b9d48e; --tone-100: #e1edcc; --tone-deep: #2f4214; }
+.exam-tone-toefl { --tone: #b45309; --tone-50: #fef5e7; --tone-300: #f3c47e; --tone-100: #fde6c4; --tone-deep: #4d2a07; }
+/* 官網的 LINE 按鈕：LINE 官方綠 */
+:root { --line-green: #06c755; }
 
 body { font-family: var(--font); color: var(--ink); background: var(--bg); }
 a { color: var(--primary); }

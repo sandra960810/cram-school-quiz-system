@@ -1,0 +1,8 @@
+{# 官網共用小工具 #}
+{% macro fill(value, label) -%}
+{%- if value %}{{ value }}{% else %}<span class="todo">待填：{{ label }}</span>{% endif -%}
+{%- endmacro %}
+{% macro line_btn(s, cls='s-btn line', text='加 LINE 諮詢') -%}
+{%- if s.line_url %}<a class="{{ cls }}" href="{{ s.line_url }}" target="_blank" rel="noopener">{{ icon('speech') }} {{ text }}</a>
+{%- else %}<a class="{{ cls }}" aria-disabled="true" title="LINE 連結還沒設定（site_info.json 的 line_url）">{{ icon('speech') }} {{ text }}（待設定）</a>{% endif -%}
+{%- endmacro %}

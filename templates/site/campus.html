@@ -1,0 +1,29 @@
+{% extends 'site/base.html' %}
+{% from 'site/_m.html' import fill, line_btn %}
+{% block body %}
+<section class="s-hero"><div class="wrap">
+    <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › {{ c.name }}校</div>
+    <h1>{{ s.name }} {{ c.name }}校</h1>
+    <p class="lead">{{ c.name }}多益、雅思、托福、日文、韓文補習班。</p>
+    <div class="s-cta">
+        <a class="s-btn big" href="{{ url_for('site.contact', campus=c.name) }}">預約{{ c.name }}校諮詢</a>
+        {{ line_btn(s, 's-btn big line') }}
+    </div>
+</div></section>
+<section class="s-sec"><div class="wrap">
+    <table class="s-table">
+        <tr><th>地址</th><td>{{ fill(c.address, c.name ~ '校地址') }}</td></tr>
+        <tr><th>電話</th><td>{{ fill(c.phone, c.name ~ '校電話') }}</td></tr>
+        <tr><th>營業時間</th><td>{{ fill(c.hours, '營業時間') }}</td></tr>
+        <tr><th>地圖</th><td>{% if c.map_url %}<a href="{{ c.map_url }}" target="_blank" rel="noopener">在 Google 地圖開啟</a>{% else %}{{ fill('', 'Google 地圖連結') }}{% endif %}</td></tr>
+    </table>
+</div></section>
+<section class="s-sec s-band"><div class="wrap">
+    <h2>{{ c.name }}校開設課程</h2>
+    <div class="s-grid">
+        {% for x in courses %}
+        <a class="s-card tone exam-tone-{{ x.key }}" href="{{ url_for('site.course', key=x.key) }}"><h3>{{ c.name }}{{ x.name }}課程</h3><p>{{ x.lead }}</p></a>
+        {% endfor %}
+    </div>
+</div></section>
+{% endblock %}

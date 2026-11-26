@@ -1,0 +1,30 @@
+{
+  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。",
+  "name": "趨勢補習班",
+  "name_en": "",
+  "site_url": "https://www.tlc.tw",
+  "slogan": "",
+  "intro": "",
+  "phone": "",
+  "email": "",
+  "line_url": "",
+  "line_id": "",
+  "facebook_url": "",
+  "instagram_url": "",
+  "logo": "",
+  "founded": "",
+  "campuses": [
+    {"slug": "taipei",  "name": "台北", "city": "台北市", "address": "", "phone": "", "hours": "", "map_url": ""},
+    {"slug": "taoyuan", "name": "桃園", "city": "桃園市", "address": "", "phone": "", "hours": "", "map_url": ""},
+    {"slug": "zhongli", "name": "中壢", "city": "桃園市", "address": "", "phone": "", "hours": "", "map_url": ""},
+    {"slug": "nankan",  "name": "南崁", "city": "桃園市", "address": "", "phone": "", "hours": "", "map_url": ""},
+    {"slug": "hsinchu", "name": "新竹", "city": "新竹市", "address": "", "phone": "", "hours": "", "map_url": ""}
+  ],
+  "courses": {
+    "toeic": {"schedule": "", "teachers": "", "price": "", "extra": ""},
+    "ielts": {"schedule": "", "teachers": "", "price": "", "extra": ""},
+    "toefl": {"schedule": "", "teachers": "", "price": "", "extra": ""},
+    "jlpt":  {"schedule": "", "teachers": "", "price": "", "extra": ""},
+    "topik": {"schedule": "", "teachers": "", "price": "", "extra": ""}
+  }
+}

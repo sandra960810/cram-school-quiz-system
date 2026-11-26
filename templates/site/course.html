@@ -1,0 +1,35 @@
+{% extends 'site/base.html' %}
+{% from 'site/_m.html' import fill, line_btn %}
+{% block body %}
+<section class="s-hero exam-tone-{{ c.key }}"><div class="wrap">
+    <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › <a href="{{ url_for('site.courses') }}">課程介紹</a> › {{ c.name }}</div>
+    <h1>{{ c.name }}（{{ c.en }}）課程</h1>
+    <p class="lead">{{ c.lead }}{% for x in s.campuses %}{{ x.name }}{{ '、' if not loop.last }}{% endfor %}校區開課。</p>
+    <div class="s-cta">
+        <a class="s-btn big" href="{{ url_for('site.contact', course=c.key) }}">諮詢{{ c.name }}課程</a>
+        {{ line_btn(s, 's-btn big line') }}
+    </div>
+</div></section>
+<section class="s-sec"><div class="wrap">
+    <h2>課程資訊</h2>
+    <table class="s-table">
+        <tr><th>上課時間</th><td>{{ fill(extra.schedule, '上課時間／班別') }}</td></tr>
+        <tr><th>師資</th><td>{{ fill(extra.teachers, '授課老師') }}</td></tr>
+        <tr><th>費用</th><td>{{ fill(extra.price, '費用（或寫「請來電洽詢」）') }}</td></tr>
+        <tr><th>課程特色</th><td>{{ fill(extra.extra, '課程特色、適合對象') }}</td></tr>
+    </table>
+</div></section>
+{% if c.points %}
+<section class="s-sec s-band"><div class="wrap">
+    <h2>{{ icon('monitor') }} 學員專屬線上練習系統</h2>
+    <p class="sub">上課之外，學員可以用補習班的線上系統練習：</p>
+    <ul class="s-list">{% for p in c.points %}<li>{{ p }}</li>{% endfor %}</ul>
+</div></section>
+{% endif %}
+{% if c.key in mocks|map('first')|list %}
+<section class="s-sec"><div class="wrap">
+    <h2>{{ icon('target') }} {{ c.name }}免費迷你模考</h2>
+    <p class="sub">10 分鐘測程度，拿分數、錯題與弱點分析。<span class="s-badge soon">即將開放</span></p>
+</div></section>
+{% endif %}
+{% endblock %}
