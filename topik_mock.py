@@ -575,7 +575,7 @@ def grade_ai(student_id, attempt_id):
         abort(400)
     if a.ai:
         return jsonify(ok=True, cached=True)
-    import ai_tutor     # 每月次數限制（每項每月 6 次，見 ai_tutor.MONTHLY_LIMIT）
+    import ai_tutor     # 每月次數限制（每項每月次數，見 ai_tutor.MONTHLY_LIMIT）
     try:
         ai_tutor.check_monthly(student.id, 'topik_writing')
     except ai_tutor.QuotaError as e:

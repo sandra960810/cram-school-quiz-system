@@ -86,6 +86,11 @@
                 <span class="t"><b>題要訂正</b>再答對一次就訂正好了</span>
                 <span style="font-size:20px;color:var(--warn)">→</span>
             </a>
+            <a class="ai-cta" href="{{ url_for('ai_tutor.practice_home', student_id=student.id, exam='ielts') }}">
+            <span class="ai-cta-ic">{{ icon('target') }}</span>
+            <span class="ai-cta-t"><b>弱點練習<span class="ai-cta-tag">AI</span></b>依錯題本和各題型的錯誤率出題，練你最常錯的</span>
+            <span class="arrow" style="color:var(--primary)">→</span>
+        </a>
         </div>
 
         <div class="panel">
