@@ -349,3 +349,10 @@ body.site { background: var(--brand-bg); }
 .s-actions .s-btn:not(.line), .s-float .s-btn:not(.line) { background: var(--brand-gold); color: var(--brand-navy) !important; }
 .s-foot { border-top: 4px solid var(--brand-gold); }
 .s-ctable .s-btn, .s-map-card .s-btn, .s-actions .s-btn, .s-float .s-btn:not(.line) { box-shadow: none; }
+/* 2026-11 精簡：主視覺標語、課程名稱當連結、關於只留文字 */
+.s-photo-slogan { font-size: 18px; color: var(--brand-gold); font-weight: bold; margin: 0 0 28px; line-height: 1.6; }
+.s-ctable a.ct-name { text-decoration: none; }
+.s-ctable a.ct-name::after { content: " →"; font-size: 14px; color: var(--brand-gold-ink); }
+.s-ctable tr:hover td { background: var(--brand-gold-50); }
+.s-about-grid { grid-template-columns: 1fr; max-width: 860px; }
+.s-quiz-cta { margin-bottom: -40px; }
