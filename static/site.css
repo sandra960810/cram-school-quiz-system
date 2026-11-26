@@ -442,3 +442,7 @@ body.site { background: var(--brand-bg); }
 @keyframes s-ai-blink { 50% { opacity: .25; } }
 @media (max-width: 760px) { .s-ai-chip { width: 170px; height: 93px; } }
 @media (max-width: 560px) { .s-enroll-sub { font-size: 16px; letter-spacing: 1px; } }
+
+/* 頁首品牌字改棕色（使用者要求「不要紫色、要棕色」），配合 Logo 的深棕 */
+.s-brand { color: var(--brand-brown) !important; }
+.s-brand small { color: color-mix(in srgb, var(--brand-brown) 70%, white); }
