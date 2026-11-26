@@ -154,7 +154,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱紀錄一定要保留**），新官網直接做在這個網站裡：
 
 - 公開頁：`/` 首頁（已登入的學生照舊轉到選擇考試頁）、`/courses`、`/courses/<toeic|ielts|toefl|jlpt|topik>`、`/campus/<校區>`、
-  `/mock-test`（迷你模考入口；**目前只有多益**，雅思、日檢、韓檢顯示「即將開放」，`school_site.MOCKS_READY`）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
+  `/mock-test`（迷你模考總覽；**入口放在各課程頁**（使用者要求，hero 按鈕＋課程資訊上方的卡片），頂端選單不放；**目前只有多益**，雅思、日檢、韓檢顯示「即將開放」，`school_site.MOCKS_READY`）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
 - 樣板在 `templates/site/`、樣式 `static/site.css`；顏色照樣用 `theme.css` 變數（托福 `.exam-tone-toefl`、LINE 綠 `--line-green`）
 - **補習班資料在 `public_site/site_info.json`**（電話、地址、LINE 連結、各課程上課時間／師資／費用…）。空白欄位網頁顯示黃色「待填」，
   結構化資料會略過。**不要自己編課程內容、價格、學員見證**，只寫網站真的有的東西（字數、模考回數）
