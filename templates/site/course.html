@@ -12,12 +12,18 @@
 </div></section>
 <section class="s-sec"><div class="wrap">
     <h2>課程資訊</h2>
+    {% if extra.schedule or extra.teachers or extra.price or extra.extra %}
     <table class="s-table">
-        <tr><th>上課時間</th><td>{{ fill(extra.schedule, '上課時間／班別') }}</td></tr>
-        <tr><th>師資</th><td>{{ fill(extra.teachers, '授課老師') }}</td></tr>
-        <tr><th>費用</th><td>{{ fill(extra.price, '費用（或寫「請來電洽詢」）') }}</td></tr>
-        <tr><th>課程特色</th><td>{{ fill(extra.extra, '課程特色、適合對象') }}</td></tr>
+        {% if extra.schedule %}<tr><th>上課時間</th><td>{{ extra.schedule }}</td></tr>{% endif %}
+        {% if extra.teachers %}<tr><th>師資</th><td>{{ extra.teachers }}</td></tr>{% endif %}
+        {% if extra.price %}<tr><th>費用</th><td>{{ extra.price }}</td></tr>{% endif %}
+        {% if extra.extra %}<tr><th>課程特色</th><td>{{ extra.extra }}</td></tr>{% endif %}
     </table>
+    {% endif %}
+    <div class="s-consult">
+        <div><b>上課時間、班別、師資與費用，歡迎諮詢</b><br>每個人的程度和目標不同，我們會依你的需求安排最適合的班別與學習規劃。</div>
+        <div class="s-consult-btns"><a class="s-btn" href="{{ url_for('site.contact', course=c.key) }}">填表諮詢</a>{{ line_btn(s) }}</div>
+    </div>
 </div></section>
 {% if c.points %}
 <section class="s-sec s-band"><div class="wrap">

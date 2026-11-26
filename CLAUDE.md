@@ -146,7 +146,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 ## 驅勢英日韓公開官網（school_site.py）
 
 - 補習班品牌是「**驅勢英日韓**」（驅勢語言教育中心），使用者有時打成「趨勢」，網頁上一律用「驅勢」
-- 五個校區（台北站前、桃園站前、桃園南崁、中壢站前、新竹站前）的地址電話在 `site_info.json`，地址 2026-11 從網路上的部落格文章查到；`map_url` 空白會自動用地址產生 Google 地圖連結
+- Logo 在 `static/images/site/`（logo.png 原圖、emblem.png 頁首小圖騰、favicon.png）；英文名 Trinity Language。標語與簡介是使用者提供的文字整理改寫
+- 課程的上課時間、師資、費用使用者說「請學生諮詢」：空白時課程頁顯示諮詢區塊（不再顯示待填）；營業時間、Email 先不放，空白就不顯示
+- 五個校區（台北站前、桃園站前、桃園南崁、中壢站前、新竹站前；大直內湖校已沒開）的地址電話在 `site_info.json`，台北是館前路 36 號 3 樓（使用者確認）；`map_url` 空白會自動用地址產生 Google 地圖連結
 
 2026-11 使用者要求：原本官網 www.tlc.tw 掛掉（DNS 指向補習班自己一台 Windows Server 2012 R2，網站已不在、https 憑證無效；
 tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱紀錄一定要保留**），新官網直接做在這個網站裡：

@@ -17,6 +17,7 @@
     {% if s.logo %}<meta property="og:image" content="{{ canonical.split('/')[:3]|join('/') }}{{ url_for('static', filename=s.logo) }}">{% endif %}
     <meta name="twitter:card" content="summary">
     <meta name="geo.region" content="TW">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/site/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
     {% for j in jsonld %}<script type="application/ld+json">{{ j|safe }}</script>
@@ -25,7 +26,7 @@
 <body class="site">
 <header class="s-head">
     <div class="wrap">
-        <a class="s-brand" href="{{ url_for('site.home') }}">{% if s.logo %}<img src="{{ url_for('static', filename=s.logo) }}" alt="{{ s.name }}">{% else %}{{ icon('cap') }}{% endif %} {{ s.name }}</a>
+        <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="46" height="34"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
         <nav class="s-nav" aria-label="主選單">
             <a href="{{ url_for('site.courses') }}" class="{{ 'on' if request.path.startswith('/courses') }}">課程介紹</a>
             <a href="{{ url_for('site.mock_test') }}" class="{{ 'on' if request.path.startswith('/mock-test') }}">免費迷你模考</a>
@@ -48,8 +49,8 @@
             <div>
                 <h4>{{ s.name }}</h4>
                 {% if s.phone %}<div>電話：{{ s.phone }}</div>{% endif %}
-                {% for c in s.campuses %}<div>{{ c.label }}：{{ fill(c.phone, '電話') }}</div>{% endfor %}
-                <div>Email：{{ fill(s.email, '聯絡信箱') }}</div>
+                {% for c in s.campuses %}{% if c.phone %}<div>{{ c.label }}：{{ c.phone }}</div>{% endif %}{% endfor %}
+                {% if s.email %}<div>Email：{{ s.email }}</div>{% endif %}
                 {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">LINE 官方帳號諮詢</a>{% endif %}
             </div>
             <div>

@@ -12,10 +12,10 @@
 </div></section>
 <section class="s-sec"><div class="wrap">
     <table class="s-table">
-        <tr><th>地址</th><td>{{ fill(c.address, c.name ~ '校地址') }}</td></tr>
-        <tr><th>電話</th><td>{% if c.phone %}<a href="tel:{{ c.phone|replace('(','')|replace(')','')|replace('-','') }}">{{ c.phone }}</a>{% else %}{{ fill('', '電話') }}{% endif %}</td></tr>
-        <tr><th>營業時間</th><td>{{ fill(c.hours, '營業時間') }}</td></tr>
-        <tr><th>地圖</th><td>{% if c.map_url %}<a href="{{ c.map_url }}" target="_blank" rel="noopener">在 Google 地圖開啟</a>{% else %}{{ fill('', 'Google 地圖連結') }}{% endif %}</td></tr>
+        {% if c.address %}<tr><th>地址</th><td>{{ c.address }}</td></tr>{% endif %}
+        <tr><th>電話</th><td>{% if c.phone %}<a href="tel:{{ c.phone|replace('(','')|replace(')','')|replace('-','') }}">{{ c.phone }}</a>{% else %}請加 LINE 諮詢{% endif %}</td></tr>
+        {% if c.hours %}<tr><th>營業時間</th><td>{{ c.hours }}</td></tr>{% endif %}
+        <tr><th>地圖</th><td>{% if c.map_url %}<a href="{{ c.map_url }}" target="_blank" rel="noopener">在 Google 地圖開啟</a>{% else %}—{% endif %}</td></tr>
     </table>
 </div></section>
 <section class="s-sec s-band"><div class="wrap">

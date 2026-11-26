@@ -2,14 +2,17 @@
 {% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
 <section class="s-hero">
-    <div class="wrap">
+    <div class="wrap s-hero-grid">
+      <div>
         <h1>{{ s.name }}<br>{% for c in s.campuses %}{{ c.name }}{{ '・' if not loop.last }}{% endfor %} 語言檢定補習班</h1>
-        <p class="lead">{{ fill(s.slogan, '一句話介紹補習班（標語）') }}<br>多益、雅思、托福、日檢、韓檢課程，上課之外還有線上單字庫與模擬考，回家也能練。</p>
+        <p class="lead">{% if s.slogan %}<b>{{ s.slogan }}</b><br>{% endif %}多益、雅思、托福、日檢、韓檢課程，上課之外還有線上單字庫與模擬考，回家也能練。</p>
         <div class="s-cta">
             <a class="s-btn big" href="{{ url_for('site.contact') }}">{{ icon('clipboard') }} 免費諮詢・預約試聽</a>
             {{ line_btn(s, 's-btn big line') }}
             <a class="s-btn big ghost" href="{{ url_for('site.mock_test') }}">{{ icon('target') }} 10 分鐘測程度</a>
         </div>
+      </div>
+      {% if s.logo %}<img class="s-hero-logo" src="{{ url_for('static', filename=s.logo) }}" alt="{{ s.name }} {{ s.name_en }} 標誌" width="260" height="260">{% endif %}
     </div>
 </section>
 
@@ -45,12 +48,12 @@
 <section class="s-sec">
     <div class="wrap">
         <h2>為什麼選{{ s.name }}</h2>
-        <p class="sub">{{ fill(s.intro, '補習班介紹（教學特色、成立年份、師資等）') }}</p>
+        {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
         <div class="s-grid">
             <div class="s-card"><h3>{{ icon('library') }} 線上單字庫</h3><p>雅思、多益、日檢、韓檢分級單字，滑卡背、自動整理不熟的字。</p></div>
             <div class="s-card"><h3>{{ icon('exam') }} 模擬考題庫</h3><p>雅思聽說讀寫、日檢 N5～N1、韓檢 TOPIK I／II 各 10 回模擬考，交卷看解析。</p></div>
             <div class="s-card"><h3>{{ icon('bot') }} AI 學習教練</h3><p>錯題解釋、弱點練習、學習報告，老師上課更能對症下藥。</p></div>
-            <div class="s-card"><h3>{{ icon('teacher') }} 師資</h3><p>{{ fill('', '師資介紹') }}</p></div>
+            <div class="s-card"><h3>{{ icon('teacher') }} 專屬學習規劃</h3><p>依程度與目標量身安排課程，搭配專業師資，學習事半功倍。</p></div>
         </div>
     </div>
 </section>
@@ -63,8 +66,8 @@
             {% for c in s.campuses %}
             <a class="s-card" href="{{ url_for('site.campus', slug=c.slug) }}">
                 <h3>{{ c.label }}</h3>
-                <p>{{ fill(c.address, '地址') }}</p>
-                <p>{{ fill(c.phone, '電話') }}</p>
+                {% if c.address %}<p>{{ c.address }}</p>{% endif %}
+                {% if c.phone %}<p>{{ c.phone }}</p>{% endif %}
                 <span class="more">校區資訊 →</span>
             </a>
             {% endfor %}
