@@ -190,3 +190,34 @@ a.s-card:hover { box-shadow: var(--edge-raised); }
     .s-hero-main h1 { font-size: 30px; }
     .s-quiz-cta h2 { font-size: 26px; }
 }
+
+/* 首頁主視覺：比照補習班 IG 海報（薄荷綠底、深藍大字、金黃重點），人物換成插畫 hero-student.svg */
+.s-poster { position: relative; overflow: hidden; padding: 48px 0 44px; background: var(--brand-mint-50); box-shadow: var(--edge); }
+.s-poster::before { content: ""; position: absolute; right: -12%; top: -30%; width: 70%; height: 160%;
+    background: var(--brand-mint); border-radius: 50%; }
+.s-poster-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; }
+.s-poster-brand { display: flex; align-items: center; gap: 12px; color: var(--brand-navy); font-size: 26px; font-weight: bold; letter-spacing: .12em; margin-bottom: 18px; }
+.s-poster-brand img { height: 56px; width: auto; mix-blend-mode: multiply; }
+.s-poster-brand span { display: flex; flex-direction: column; line-height: 1.2; }
+.s-poster-brand small { font-size: 14px; font-weight: normal; letter-spacing: .08em; color: var(--brand-teal); }
+.s-poster h1 { font-size: 52px; line-height: 1.2; color: var(--brand-navy); margin: 0 0 12px; letter-spacing: .04em; }
+.s-poster-sub { display: inline-block; background: var(--brand-gold); color: var(--brand-navy); font-weight: bold; font-size: 20px;
+    padding: 6px 16px; border-radius: 8px; margin: 0 0 20px; }
+.s-poster-list { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 10px; }
+.s-poster-list li { font-size: 20px; font-weight: bold; color: var(--brand-navy); display: flex; align-items: center; gap: 10px; }
+.s-poster-list li::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--brand-teal); flex: none; }
+.s-poster .s-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.s-poster .s-btn.big:not(.line) { background: var(--brand-navy); }
+.s-poster-art { width: 100%; max-width: 480px; height: auto; justify-self: center; }
+.s-about { padding-bottom: 8px; }
+.s-about-slogan { font-weight: bold; color: var(--brand-teal); font-size: 18px; margin: 0 0 8px; }
+@media (max-width: 760px) {
+    .s-poster { padding: 28px 0 24px; }
+    .s-poster-grid { grid-template-columns: 1fr; }
+    .s-poster::before { right: -40%; top: 30%; width: 140%; height: 90%; }
+    .s-poster h1 { font-size: 36px; }
+    .s-poster-brand { font-size: 20px; }
+    .s-poster-list li { font-size: 17px; }
+    .s-poster-sub { font-size: 16px; }
+    .s-poster-art { max-width: 300px; order: 2; }
+}

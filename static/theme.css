@@ -1,6 +1,12 @@
 /* 全站色系：所有頁面的顏色都從這裡的變數來，要換色只改這一份。
    各頁 <style> 裡只寫 var(--primary) 這類變數，不要再寫死色碼。 */
 :root {
+    /* 官網主視覺：沿用補習班海報的薄荷綠、深藍、金黃（2026-11 使用者提供 IG 海報） */
+    --brand-mint: #bfeee6;
+    --brand-mint-50: #eaf8f5;
+    --brand-teal: #0f6f6f;
+    --brand-navy: #14205a;
+    --brand-gold: #f2c230;
     /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
     --primary: #4a2d7f;
     --primary-600: #38205f;
