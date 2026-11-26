@@ -1,0 +1,54 @@
+{% extends 'admin/base.html' %}
+{% block title %}諮詢名單{% endblock %}
+{% block head %}<style>
+    .tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+    .tabs a { padding: 8px 14px; border-radius: 99px; text-decoration: none; font-weight: bold; color: var(--ink-2); box-shadow: var(--edge); background: #fff; }
+    .tabs a.on { background: var(--primary); color: #fff; }
+    .lead { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; }
+    .lead .who { font-size: 17px; font-weight: bold; }
+    .lead .meta { color: var(--muted); font-size: 13px; }
+    .lead dl { display: grid; grid-template-columns: 110px 1fr; gap: 2px 10px; margin: 8px 0 0; font-size: 14px; grid-column: 1 / -1; }
+    .lead dt { color: var(--muted); }
+    .lead dd { margin: 0; white-space: pre-wrap; }
+    .lead form { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .lead form input[type=text] { flex: 1; min-width: 200px; }
+</style>{% endblock %}
+{% block body %}
+<div class="hero"><h1>{{ icon('clipboard') }} 官網諮詢名單</h1>
+    <p>官網「免費諮詢」表單送來的資料。這是個人資料，只在後台看，不要截圖外傳；聯絡完按「已聯絡」。</p></div>
+<div class="tabs">
+    <a class="{{ 'on' if status == 'new' }}" href="{{ url_for('admin.leads', status='new') }}">未聯絡（{{ counts.get('new', 0) }}）</a>
+    <a class="{{ 'on' if status == 'done' }}" href="{{ url_for('admin.leads', status='done') }}">已聯絡（{{ counts.get('done', 0) }}）</a>
+    <a class="{{ 'on' if status == 'all' }}" href="{{ url_for('admin.leads', status='all') }}">全部</a>
+    <span style="flex:1"></span>
+    <a href="{{ url_for('admin.leads_csv') }}">{{ icon('file') }} 下載 Excel（CSV）</a>
+</div>
+{% for r in rows %}
+<div class="panel lead">
+    <div><span class="who">{{ r.name }}</span>　<a href="tel:{{ r.phone }}">{{ r.phone }}</a></div>
+    <div class="meta">#{{ r.id }}・{{ r.created_at }}</div>
+    <dl>
+        {% if r.email %}<dt>Email</dt><dd>{{ r.email }}</dd>{% endif %}
+        {% if r.line_id %}<dt>LINE ID</dt><dd>{{ r.line_id }}</dd>{% endif %}
+        <dt>想了解</dt><dd>{{ r.courses or '—' }}</dd>
+        <dt>校區</dt><dd>{{ r.campus or '還不確定' }}</dd>
+        {% if r.identity %}<dt>身分</dt><dd>{{ r.identity }}</dd>{% endif %}
+        <dt>方便聯絡</dt><dd>{{ r.contact_time or '—' }}</dd>
+        {% if r.message %}<dt>留言</dt><dd>{{ r.message }}</dd>{% endif %}
+    </dl>
+    <form method="post" action="{{ url_for('admin.lead_update', lead_id=r.id, back=status) }}">
+        <input type="hidden" name="csrf" value="{{ admin_csrf }}">
+        <input type="text" name="staff_note" value="{{ r.staff_note }}" placeholder="工作人員備註（例如：已約週六試聽）">
+        {% if r.status == 'done' %}
+        <button class="btn small ghost" name="status" value="new">改回未聯絡</button>
+        <button class="btn small" name="status" value="done">存備註</button>
+        {% else %}
+        <button class="btn small" name="status" value="done">{{ icon('check-circle') }} 已聯絡</button>
+        <button class="btn small ghost" name="status" value="new">只存備註</button>
+        {% endif %}
+    </form>
+</div>
+{% else %}
+<div class="panel muted">目前沒有資料。</div>
+{% endfor %}
+{% endblock %}

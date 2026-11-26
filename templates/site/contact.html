@@ -1,0 +1,55 @@
+{% extends 'site/base.html' %}
+{% from 'site/_m.html' import fill, line_btn %}
+{% block body %}
+<section class="s-hero"><div class="wrap">
+    <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › 免費諮詢</div>
+    <h1>免費諮詢・預約試聽</h1>
+    <p class="lead">留下聯絡方式，專人會在上班時間和你聯絡。也可以直接加 LINE 問。</p>
+</div></section>
+<section class="s-sec"><div class="wrap s-two">
+    <form class="s-form" method="post" action="{{ url_for('site.contact') }}" novalidate>
+        {% if errors %}<div class="s-err"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+        <input type="hidden" name="csrf" value="{{ csrf }}">
+        <input type="hidden" name="source" value="{{ v.source or request.referrer or '' }}">
+        <div class="hp" aria-hidden="true"><label>網站<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="row2">
+            <div><label class="f" for="name">姓名 <span class="req">*</span></label><input id="name" type="text" name="name" value="{{ v.name }}" autocomplete="name" required></div>
+            <div><label class="f" for="phone">手機／電話 <span class="req">*</span></label><input id="phone" type="tel" name="phone" value="{{ v.phone }}" autocomplete="tel" placeholder="0912345678" required></div>
+        </div>
+        <div class="row2">
+            <div><label class="f" for="email">Email</label><input id="email" type="email" name="email" value="{{ v.email }}" autocomplete="email"></div>
+            <div><label class="f" for="line_id">LINE ID</label><input id="line_id" type="text" name="line_id" value="{{ v.line_id }}"></div>
+        </div>
+        <label class="f">想了解的課程（可複選）</label>
+        <div class="checks">
+            {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if c.key in v.courses }}> {{ c.name }}</label>{% endfor %}
+        </div>
+        <div class="row2">
+            <div><label class="f" for="campus">想上課的校區</label>
+                <select id="campus" name="campus"><option value="">還不確定</option>
+                {% for c in s.campuses %}<option {{ 'selected' if v.campus == c.name }}>{{ c.name }}</option>{% endfor %}</select></div>
+            <div><label class="f" for="identity">身分</label>
+                <select id="identity" name="identity"><option value="">請選擇</option>
+                {% for x in identities %}<option {{ 'selected' if v.identity == x }}>{{ x }}</option>{% endfor %}</select></div>
+        </div>
+        <label class="f" for="contact_time">方便聯絡的時段</label>
+        <select id="contact_time" name="contact_time">{% for x in contact_times %}<option {{ 'selected' if v.contact_time == x }}>{{ x }}</option>{% endfor %}</select>
+        <label class="f" for="message">想問的問題</label>
+        <textarea id="message" name="message" placeholder="例如：目標多益 800 分、想考 N2、目前程度…">{{ v.message }}</textarea>
+        <label class="consent"><input type="checkbox" name="consent" value="yes" {{ 'checked' if v.consent }}>
+            <span>我同意{{ s.name }}依<a href="{{ url_for('site.privacy') }}" target="_blank">個人資料蒐集說明</a>，蒐集我的資料用於課程諮詢聯繫。<span class="req">*</span></span></label>
+        <button class="s-btn big" style="width:100%;margin-top:18px">送出，預約免費諮詢</button>
+    </form>
+    <aside>
+        <div class="s-line-box">
+            <h3>{{ icon('speech') }} 加 LINE 直接問</h3>
+            <p>LINE ID：{{ fill(s.line_id, 'LINE 官方帳號 ID') }}</p>
+            {{ line_btn(s, 's-btn big line') }}
+        </div>
+        <div class="s-line-box" style="margin-top:16px">
+            <h3>{{ icon('home') }} 電話</h3>
+            <p>{{ fill(s.phone, '總機電話') }}</p>
+        </div>
+    </aside>
+</div></section>
+{% endblock %}

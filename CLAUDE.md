@@ -40,6 +40,7 @@ Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），需要給主管或
 
 ```
 app.py              Flask 主程式：資料模型、單字學習、測驗區路由
+school_site.py      趨勢補習班公開官網（首頁、課程、校區、諮詢表單、SEO、後台諮詢名單 /admin/leads）；資料在 public_site/site_info.json
 listening_bank.py   聽力題庫的載入、渲染與批改
 reading_bank.py     閱讀題庫的載入、渲染與批改（判分沿用 listening_bank）
 listening/          聽力題庫資料（每回一個資料夾）
@@ -141,6 +142,22 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   `/phonics/<id>/words?suffix=tion` 回 `{suffix, words}`；畫面把單字結尾的字尾和 KK 結尾的念法標顏色，所以**例字的 KK 一定要以該念法結尾**
   （kk.json 沒有的變化形如 jumped、boxes，KK 直接寫在 SUFFIXES 裡）
   加新單字後要重跑 `python tools/make_pronunciation.py cmudict.dict`
+
+## 趨勢補習班公開官網（school_site.py）
+
+2026-11 使用者要求：原本官網 www.tlc.tw 掛掉（DNS 指向補習班自己一台 Windows Server 2012 R2，網站已不在、https 憑證無效；
+tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱紀錄一定要保留**），新官網直接做在這個網站裡：
+
+- 公開頁：`/` 首頁（已登入的學生照舊轉到選擇考試頁）、`/courses`、`/courses/<toeic|ielts|toefl|jlpt|topik>`、`/campus/<校區>`、
+  `/mock-test`（迷你模考入口，**目前只放「即將開放」，使用者說模考先不要做**）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
+- 樣板在 `templates/site/`、樣式 `static/site.css`；顏色照樣用 `theme.css` 變數（托福 `.exam-tone-toefl`、LINE 綠 `--line-green`）
+- **補習班資料在 `public_site/site_info.json`**（電話、地址、LINE 連結、各課程上課時間／師資／費用…）。空白欄位網頁顯示黃色「待填」，
+  結構化資料會略過。**不要自己編課程內容、價格、學員見證**，只寫網站真的有的東西（字數、模考回數）
+- SEO：每頁 title／description／keywords／canonical（用 `site_url`）／Open Graph、JSON-LD（EducationalOrganization、各校區、Course、
+  BreadcrumbList）、`/sitemap.xml`、`/robots.txt`。**非公開頁（學生系統、後台、登入）一律回 `X-Robots-Tag: noindex`**（`noindex_private`），
+  新增公開頁要把網址開頭加進 `PUBLIC_PREFIXES` 和 sitemap
+- 諮詢名單是個資：存在 **`instance/leads.db`（獨立檔、不進 git；quiz.db 有進 git 所以不能放那裡）**。表單有 csrf、隱藏欄位擋機器人、
+  同 IP 一小時 5 次、必須勾同意個資說明。工作人員後台 `/admin/leads` 看名單、標已聯絡、寫備註、下載 CSV（擋 Excel 公式注入）
 
 ## 日檢模擬考（jlpt_mock.py）
 

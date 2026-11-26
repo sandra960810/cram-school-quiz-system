@@ -1640,6 +1640,10 @@ word_roots.register(app, db, dict(
     locked_theme_ids=locked_theme_ids, official_id_of=official_id_of, theme_key_of=theme_key_of,
     STUDY_BATCH_SIZE=STUDY_BATCH_SIZE))
 
+# 趨勢補習班公開官網（程式在 school_site.py）：首頁、課程、校區、免費諮詢表單、SEO。諮詢名單頁掛在後台底下，要在 admin.register 之前
+import school_site  # noqa: E402
+school_site.register(app, dict(current_student=accounts.current_student))
+
 import admin  # noqa: E402
 admin.register(app, db, dict(
     Vocabulary=Vocabulary, LearningProgress=LearningProgress, Favorite=Favorite, exams=exams,
