@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-exam="{{ exam.key }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字根字首｜單字庫</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <style>
+        body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .summary { background: var(--hero); color: var(--hero-ink); padding: 22px 26px; border-radius: 15px; box-shadow: var(--edge-hero); margin-bottom: 22px; }
+        .summary h1 { margin: 0 0 6px; font-size: 24px; }
+        .summary p { margin: 0; line-height: 1.6; }
+        .summary .eg { margin-top: 10px; font-size: 15px; }
+        .summary .eg b { color: var(--primary); }
+        h2 { font-size: 18px; color: var(--ink); margin: 26px 0 10px; }
+        h2 small { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 8px; }
+        .filter { width: 100%; padding: 12px 14px; font-size: 16px; border: 2px solid var(--line-strong); border-radius: 10px; box-sizing: border-box; font-family: inherit; background: #fff; color: var(--ink); }
+        .filter:focus { outline: none; border-color: var(--primary); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+        .fam { display: block; background: #fff; padding: 12px 14px; border-radius: 10px; box-shadow: var(--edge); text-decoration: none; color: inherit; border-left: 5px solid var(--primary); transition: 0.15s; }
+        .fam:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
+        .fam.done { border-left-color: var(--ok); }
+        .fam .form { font-size: 19px; font-weight: bold; color: var(--ink); }
+        .fam .kind { font-size: 11px; font-weight: bold; padding: 1px 7px; border-radius: 8px; background: var(--primary-50); color: var(--primary); margin-left: 6px; vertical-align: middle; }
+        .fam .mean { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+        .fam .meta { font-size: 12px; color: var(--muted); margin-top: 6px; }
+        .mini-bar { background: var(--line); border-radius: 6px; height: 6px; overflow: hidden; display: flex; margin-top: 6px; }
+        .mini-bar .k { background: var(--ok); } .mini-bar .u { background: var(--warn); }
+        .rec .fam { border-left-color: var(--warn); }
+        .empty-msg { color: var(--muted); padding: 20px 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-row">
+        <a href="{{ url_for('learn_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>單字庫</a>
+    </div>
+    <div class="summary">
+        <h1>{{ icon('puzzle') }} 字根字首</h1>
+        <p>很多英文字是用「字首＋字根＋字尾」組起來的。認得一個字根，就能一次記住一整組字。背單字時，單字卡下面也會跳出同字根、同字首的字。</p>
+        <p class="eg">例：<b>in</b>（進）＋<b>spect</b>（看）＝ inspect 檢查；<b>re</b>（回）＋<b>spect</b>（看）＝ respect 尊敬</p>
+    </div>
+
+    {% if recommend %}
+    <h2>推薦你接著背<small>你已經學過這幾組裡的字，把同一組的其他字也背起來</small></h2>
+    <div class="grid rec">
+        {% for f in recommend %}{% include '_root_card.html' %}{% endfor %}
+    </div>
+    {% endif %}
+
+    <h2>全部 {{ total }} 組</h2>
+    <input type="search" class="filter" id="filter" placeholder="找字根：打字根（spect）或意思（看）" autocomplete="off">
+    {% for sec in sections %}
+    <div class="section" data-kind="{{ sec.kind }}">
+        <h2>{{ sec.name }}<small>{{ sec.fams|length }} 組</small></h2>
+        <div class="grid">
+            {% for f in sec.fams %}{% include '_root_card.html' %}{% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <p class="empty-msg" id="emptyMsg" hidden>找不到符合的字根。</p>
+</div>
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script>
+    // 依字根或意思篩選（推薦區不篩）
+    document.getElementById('filter').addEventListener('input', e => {
+        const q = e.target.value.trim().toLowerCase();
+        let shown = 0;
+        document.querySelectorAll('.section').forEach(sec => {
+            let n = 0;
+            sec.querySelectorAll('.fam').forEach(card => {
+                const ok = !q || card.dataset.search.includes(q);
+                card.style.display = ok ? '' : 'none';
+                if (ok) n++;
+            });
+            sec.style.display = n ? '' : 'none';
+            shown += n;
+        });
+        document.getElementById('emptyMsg').hidden = !!shown;
+    });
+</script>
+</body>
+</html>

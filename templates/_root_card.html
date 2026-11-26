@@ -1,0 +1,6 @@
+<a class="fam {% if f.familiar == f.total %}done{% endif %}" href="{{ f.url }}" data-search="{{ (f.form ~ ' ' ~ f.meaning)|lower }}">
+    <div class="form">{{ f.form }}<span class="kind">{{ f.kind_name }}</span></div>
+    <div class="mean">{{ f.meaning }}</div>
+    <div class="meta">共 {{ f.total }} 字・已熟 {{ f.familiar }}{% if f.unfamiliar %}・不熟 {{ f.unfamiliar }}{% endif %}</div>
+    <div class="mini-bar"><div class="k" style="width: {{ f.familiar * 100 / f.total }}%"></div><div class="u" style="width: {{ f.unfamiliar * 100 / f.total }}%"></div></div>
+</a>

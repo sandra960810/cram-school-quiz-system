@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-exam="{{ exam.key }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ fam.kind_name }} {{ fam.form }}｜字根字首</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <style>
+        body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { background: white; padding: 20px; border-radius: 10px; box-shadow: var(--edge); margin-bottom: 20px; }
+        .header h1 { margin: 0; color: var(--ink); font-size: 26px; }
+        .header h1 .kind { font-size: 13px; padding: 2px 9px; border-radius: 9px; background: var(--primary-50); color: var(--primary); vertical-align: middle; margin-left: 8px; }
+        .header .mean { font-size: 18px; color: var(--ink-2); margin-top: 4px; }
+        .stats { color: var(--muted); font-size: 15px; margin-top: 8px; }
+        .bar { background: var(--line); border-radius: 6px; height: 10px; overflow: hidden; margin-top: 10px; display: flex; }
+        .bar .k { background: var(--ok); } .bar .u { background: var(--warn); }
+        .actions { margin-top: 16px; }
+        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 14px 30px; font-size: 18px; border-radius: 8px; font-weight: bold; text-decoration: none; background: var(--primary); color: white; }
+        .btn.disabled { background: var(--line); color: var(--muted); pointer-events: none; }
+        .how { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+        .dex-title { font-size: 18px; margin: 22px 0 10px; color: var(--ink); }
+        .dex-title small { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 10px; }
+        .dex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .dex-card { display: block; padding: 15px; border-radius: 10px; box-shadow: var(--edge); text-align: center; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.2s; }
+        .dex-card:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
+        .dex-card .word { font-size: 20px; font-weight: bold; margin-bottom: 5px; word-break: break-word; }
+        .dex-card .meaning { font-size: 14px; color: var(--ink-2); }
+        .dex-card .tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; display: inline-block; margin-bottom: 6px; }
+        .dex-card.familiar { background: var(--ok-50); border-top: 4px solid var(--ok); }
+        .dex-card.familiar .word, .dex-card.familiar .tag { color: var(--ok); }
+        .dex-card.unfamiliar { background: var(--warn-50); border-top: 4px solid var(--warn); }
+        .dex-card.unfamiliar .word, .dex-card.unfamiliar .tag { color: var(--warn); }
+        .dex-card.new { background: var(--line); border-top: 4px solid var(--muted-2); color: var(--muted); }
+        .dex-card.new .word, .dex-card.new .meaning { color: var(--muted); }
+        .word .hl { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 3px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-row">
+        <a href="{{ url_for('word_roots.roots_home', student_id=student.id) }}" class="nav-back"><span class="arrow">←</span>所有字根字首</a>
+    </div>
+    <div class="header">
+        <h1>{{ fam.form }}<span class="kind">{{ fam.kind_name }}</span></h1>
+        <div class="mean">意思：{{ fam.meaning }}</div>
+        <div class="stats">共 {{ fam.total }} 字・已熟 {{ fam.familiar }}・不熟 {{ fam.unfamiliar }}・還沒學 {{ fam.new }}</div>
+        <div class="bar"><div class="k" style="width: {{ fam.familiar * 100 / fam.total }}%"></div><div class="u" style="width: {{ fam.unfamiliar * 100 / fam.total }}%"></div></div>
+        {% set todo = fam.new + fam.unfamiliar %}
+        <div class="actions">
+            <a class="btn {% if not todo %}disabled{% endif %}" href="{{ fam.study_url }}">{{ icon('swipe') }} 一起背這組字<span class="go-arrow">→</span></a>
+        </div>
+        <p class="how">{% if todo %}一次背 {{ [todo, batch]|min }} 個：不熟的先出，再來是還沒學的。{% else %}這一組的字都熟了！{% endif %}</p>
+    </div>
+
+    <h2 class="dex-title">這一組的單字<small>綠色＝熟、橘色＝不熟、灰色＝還沒背；點卡片看詳細</small></h2>
+    <div class="dex-grid ui-stagger">
+        {% for c in cards %}
+        <a class="dex-card {{ c.status }}" href="{{ c.url }}">
+            <span class="tag">{{ {'familiar': '熟', 'unfamiliar': '不熟'}.get(c.status, '還沒學') }}</span>
+            <div class="word" data-word="{{ c.word }}">{{ c.word }}</div>
+            <div class="meaning">{% if c.pos %}<i>{{ c.pos }}</i> {% endif %}{{ c.meaning }}</div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+</body>
+</html>

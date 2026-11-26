@@ -87,7 +87,8 @@
 
         {% set swipe_count = zone_counts.unfamiliar + zone_counts.new %}
         {% set weak_count = zone_counts.unfamiliar %}
-        {% set scope = ((' ' ~ letter ~ '行') if exam.lang == 'ja' else (' ' ~ letter ~ ' 開頭')) if letter else '' %}
+        {# 分頁範圍：日文「か行」、韓文「ㄱ 開頭」、英文「第 2 頁」（英文 2026-11 拿掉 A–Z，改成依序分頁） #}
+        {% set scope = ((' ' ~ letter ~ ' 開頭') if exam.lang == 'ko' else (' ' ~ letter_label)) if letter else '' %}
         <div class="actions">
             <a class="btn btn-learn {% if not swipe_count %}disabled{% endif %}"
                href="{{ url_for('learn_study', student_id=student.id, theme_key=theme.key, mode='swipe', letter=letter) }}">
@@ -110,7 +111,7 @@
             <a href="{{ url_for('learn_theme', student_id=student.id, theme_key=theme.key, letter=l.letter) }}"
                class="letter {% if l.letter == letter %}active{% endif %} {% if l.unlocked == l.total %}full{% endif %}"
                title="熟 {{ l.unlocked }} / {{ l.total }}" data-sound="tap">
-                {{ l.letter }}{% if exam.lang == 'ja' and l.letter != '#' %}行{% endif %}<small>{{ l.unlocked }}/{{ l.total }}</small>
+                {{ l.label }}<small>{{ l.unlocked }}/{{ l.total }}</small>
             </a>
         {% endfor %}
     </div>

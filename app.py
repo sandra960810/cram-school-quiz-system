@@ -218,7 +218,7 @@ OFFICIAL_THEMES = [
     {"course": "IELTS", "id": "12", "name": "學術寫作與進階字彙", "desc": "圖表趨勢、因果與轉折連接詞、抽象概念", "icon": "pen"},
     {"course": "IELTS", "id": "13", "name": "人物性格與情緒", "desc": "個性、態度、情緒與待人處事", "icon": "smile"},
     {"course": "IELTS", "id": "14", "name": "日常生活與物品", "desc": "居家用品、衣物工具、日常動作", "icon": "home"},
-    {"course": "IELTS", "id": "15", "name": "通用核心字彙", "desc": "不限主題、各種文章都會出現的常用字，依字首 A–Z 分頁", "icon": "book-open"},
+    {"course": "IELTS", "id": "15", "name": "通用核心字彙", "desc": "不限主題、各種文章都會出現的常用字", "icon": "book-open"},
     # 多益（TOEIC）：依職場情境自訂的 12 個主題。編號前面加 T，避免和雅思的 01–12 混在一起
     {"course": "TOEIC", "id": "T01", "name": "辦公室與行政", "desc": "文書、設備、行程安排、日常庶務", "icon": "clipboard"},
     {"course": "TOEIC", "id": "T02", "name": "人事與職涯", "desc": "招募、面試、薪資福利、升遷與訓練", "icon": "users"},
@@ -279,7 +279,8 @@ OFFICIAL_THEMES = [
 OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
 STUDY_BATCH_SIZE = 20     # 每次學習／複習的字數
-LETTER_PAGING_MIN = 300   # 主題字數超過這個數量就依字首分頁
+LETTER_PAGING_MIN = 300   # 主題字數超過這個數量就分頁
+PAGE_SIZE = 200           # 英文大主題依序每頁幾個字（2026-11 拿掉 A–Z 分頁，改成第 1、2…頁）
 NO_SENTENCE_PREFIX = '無例句'
 
 
@@ -439,6 +440,35 @@ def letter_of(w):
     return first_letter(w.word, w.reading)
 
 
+def pages_by_letter():
+    """大主題怎麼分頁：日檢、韓檢依字首（あ行、ㄱ…）；英文不再用 A–Z（2026-11 使用者要求拿掉），改成依序每 PAGE_SIZE 字一頁。"""
+    return exams.current_exam().get("lang") in ('ja', 'ko')
+
+
+def page_of_index(i):
+    """英文分頁：清單裡第 i 個（從 0 算）字在第幾頁（字串，放在網址的 letter 參數）。"""
+    return str(i // PAGE_SIZE + 1)
+
+
+def in_page(words, letter):
+    """只留某一頁的字：日韓的 letter 是字首，英文是頁碼。"""
+    if not letter:
+        return words
+    if pages_by_letter():
+        return [w for w in words if letter_of(w) == letter]
+    n = int(letter) if letter.isdigit() else 1
+    return words[(n - 1) * PAGE_SIZE:n * PAGE_SIZE]
+
+
+def page_label(letter):
+    """徽章、按鈕上的分頁名稱：日文「か行」、韓文「ㄱ」、英文「第 2 頁」。"""
+    if not letter:
+        return ''
+    if not pages_by_letter():
+        return f'第 {letter} 頁'
+    return f'{letter}行' if exams.current_exam().get("lang") == 'ja' and letter != '#' else letter
+
+
 CLOZE_MARK = re.compile(r'\[([^\[\]|]*)(?:\|[^\[\]]*)?\]')
 
 
@@ -503,7 +533,10 @@ def learn_home(student_id):
     return render_template('learn_home.html', student=student, themes=themes,
                            unlocked_count=unlocked_count, total_count=total_count,
                            weak_count=sum(t["weak"] for t in themes if not t["locked"]),
-                           favorite_count=len(favorite_rows(student)))
+                           favorite_count=len(favorite_rows(student)),
+                           # 建構式字彙：學過其中幾個字的字根字首，推薦接著背（只有英文）
+                           root_picks=word_roots.recommend_families(student, limit=4)
+                           if word_roots.is_english(exams.course_of(student)) else [])
 
 
 @app.route('/learn/<int:student_id>/theme/<path:theme_key>')
@@ -523,25 +556,28 @@ def learn_theme(student_id, theme_key):
               "is_favorite": w.word.lower() in fav}
              for i, w in enumerate(words, start=1)]
 
-    # 字太多的主題依字首分頁，避免一次塞幾千張卡片
+    # 字太多的主題分頁，避免一次塞幾千張卡片：日韓依字首，英文依序每 PAGE_SIZE 字一頁（不用 A–Z）
     paged = len(cards) > LETTER_PAGING_MIN
     letters = []
     letter = None
     if paged:
+        by_letter = pages_by_letter()
         counts = {}
-        for c in cards:
-            stat = counts.setdefault(c["letter"], {"letter": c["letter"], "total": 0, "unlocked": 0})
+        for i, c in enumerate(cards):
+            k = c["letter"] if by_letter else page_of_index(i)
+            stat = counts.setdefault(k, {"letter": k, "total": 0, "unlocked": 0,
+                                         "label": page_label(k) if by_letter else f'{i + 1}–{min(i + PAGE_SIZE, len(cards))}'})
             stat["total"] += 1
             stat["unlocked"] += c["status"] == 'familiar'
-        letters = [counts[k] for k in sorted(counts)]
+        letters = [counts[k] for k in (sorted(counts) if by_letter else sorted(counts, key=int))]
         letter = (request.args.get('letter') or '').upper()
         if letter not in counts:
             letter = letters[0]["letter"] if letters else None
-        cards = [c for c in cards if c["letter"] == letter]
+        cards = [c for i, c in enumerate(cards) if (c["letter"] if by_letter else page_of_index(i)) == letter]
 
     zone_counts = {z: sum(1 for c in cards if c["status"] == z) for z in ('familiar', 'unfamiliar', 'new')}
     return render_template('learn_theme.html', student=student, theme=theme, cards=cards,
-                           paged=paged, letters=letters, letter=letter,
+                           paged=paged, letters=letters, letter=letter, letter_label=page_label(letter),
                            zone_counts=zone_counts,
                            batch=STUDY_BATCH_SIZE)
 
@@ -555,9 +591,7 @@ def learn_study(student_id, theme_key):
     mode = 'weak' if request.args.get('mode') == 'weak' else 'swipe'
     letter = (request.args.get('letter') or '').upper() or None
 
-    words = theme_words(student, theme_key)
-    if letter:
-        words = [w for w in words if letter_of(w) == letter]
+    words = in_page(theme_words(student, theme_key), letter)
     picked = pick_swipe_words(words, status_of(student_id), weak_only=(mode == 'weak'))
 
     fav = favorite_words(student)
@@ -570,7 +604,7 @@ def learn_study(student_id, theme_key):
                         mode=mode, letter=letter) if letter else url_for(
         'learn_study', student_id=student_id, theme_key=theme_key, mode=mode)
     return render_template('ielts.html', words=words_data, student_id=student_id,
-                           theme=theme, mode=mode, letter=letter,
+                           theme=theme, mode=mode, letter=page_label(letter),
                            back_url=back_url, again_url=again_url,
                            home_url=url_for('learn_home', student_id=student_id))
 
@@ -699,6 +733,11 @@ def learn_word(student_id, theme_key, vocab_id):
     if source == 'favorites':
         rows = favorite_rows(student)
         back_url, back_label = url_for('learn_favorites', student_id=student_id), '返回我的收藏'
+    elif source == 'root' and word_roots.FAMILY_BY_KEY.get(request.args.get('root') or ''):
+        # 從字根字首頁點進來：清單是同一組的字
+        key = request.args.get('root')
+        rows = word_roots.family_rows(student, word_roots.FAMILY_BY_KEY[key])
+        back_url, back_label = url_for('word_roots.family_page', student_id=student_id, key=key), '返回這組字'
     elif source == 'search':
         q = (request.args.get('q') or '').strip()
         rows = [w for _, w, _ in search_words(student, q)]
@@ -706,15 +745,20 @@ def learn_word(student_id, theme_key, vocab_id):
     else:
         rows = theme_words(student, theme_key)
         word = next((w for w in theme_words(student, theme_key, dedupe=False) if w.id == vocab_id), None)
-        letter = letter_of(word) if word else None
-        paged = theme["total"] > LETTER_PAGING_MIN
-        if paged and letter:
-            # 大主題依字首分頁：清單就是那一頁（跟圖鑑看到的一樣）
-            rows = [w for w in rows if letter_of(w) == letter]
         if word and word.id not in {w.id for w in rows}:
             # 同拼字重複的那筆被藏起來了：換成清單裡同拼字的那張
             word = next((w for w in rows if w.word.lower() == word.word.lower()), word)
             vocab_id = word.id
+        letter = None
+        paged = theme["total"] > LETTER_PAGING_MIN
+        if paged and word:
+            # 大主題分頁：清單就是那一頁（跟圖鑑看到的一樣）
+            if pages_by_letter():
+                letter = letter_of(word)
+            else:
+                idx = next((i for i, w in enumerate(rows) if w.id == word.id), None)
+                letter = page_of_index(idx) if idx is not None else None
+            rows = in_page(rows, letter)
         back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                            letter=letter if paged and letter else None)
         back_label = '返回主題'
@@ -1567,6 +1611,14 @@ ai_tutor.register(app, db, dict(
     vocab_quiz=vocab_quiz, jlpt_mock=jlpt_mock, topik_mock=topik_mock))
 
 # 管理員後台（程式在 admin.py）：新增、編輯、刪除單字，要先輸入管理員密碼
+# 建構式字彙（程式在 word_roots.py）：英文單字卡顯示同字根、字首、字尾的字並推薦一起背
+import word_roots  # noqa: E402
+word_roots.register(app, db, dict(
+    Vocabulary=Vocabulary, get_student=get_student, exams=exams, status_of=status_of,
+    word_payload=word_payload, favorite_words=favorite_words, pick_swipe_words=pick_swipe_words,
+    locked_theme_ids=locked_theme_ids, official_id_of=official_id_of, theme_key_of=theme_key_of,
+    STUDY_BATCH_SIZE=STUDY_BATCH_SIZE))
+
 import admin  # noqa: E402
 admin.register(app, db, dict(
     Vocabulary=Vocabulary, LearningProgress=LearningProgress, Favorite=Favorite, exams=exams,

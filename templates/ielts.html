@@ -76,6 +76,27 @@
         .conj-table td.form { color: var(--ink); font-weight: bold; cursor: pointer; }
         .conj-table td.form small { display: block; font-weight: normal; color: var(--primary); font-size: 12px; }
         .conj-table tr:hover td.form { color: var(--primary); }
+        /* 建構式字彙：同字根、字首、字尾的字（英文才有） */
+        .roots { margin-top: 14px; text-align: left; }
+        .roots[hidden] { display: none; }
+        .root-fam { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-top: 8px; background: #fff; }
+        .root-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; font-size: 14px; color: var(--ink-2); }
+        .root-kind { font-size: 11px; font-weight: bold; padding: 1px 7px; border-radius: 8px; background: var(--primary-50); color: var(--primary); }
+        .root-head b { font-size: 16px; color: var(--ink); }
+        .root-more { margin-left: auto; font-size: 13px; color: var(--primary); text-decoration: none; font-weight: bold; white-space: nowrap; }
+        .root-words { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .root-chip { display: inline-flex; align-items: baseline; gap: 4px; border: none; border-radius: 999px; padding: 4px 10px; font-size: 14px; font-weight: bold; text-decoration: none; cursor: pointer; font-family: inherit; background: var(--surface-2); color: var(--ink); }
+        .root-chip small { font-weight: normal; color: var(--muted); font-size: 12px; max-width: 9em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .root-chip.familiar { background: var(--ok-50); color: var(--ok); }
+        .root-chip.unfamiliar { background: var(--warn-50); color: var(--warn); }
+        .root-chip u { text-decoration-thickness: 2px; text-underline-offset: 2px; }
+        .root-chip:hover { box-shadow: var(--edge-raised); }
+        .roots-title { font-size: 13px; color: var(--muted); font-weight: bold; }
+        .root-recs { text-align: left; margin: 6px 0 16px; }
+        .root-recs h3 { font-size: 15px; color: var(--ink); margin: 0 0 6px; }
+        .root-rec { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--primary-50); color: var(--ink); text-decoration: none; margin-top: 6px; font-size: 15px; }
+        .root-rec b { color: var(--primary); }
+        .root-rec .go { margin-left: auto; color: var(--primary); font-weight: bold; white-space: nowrap; font-size: 14px; }
         .sentence-zh { display: block; font-style: normal; color: var(--muted); font-size: 14px; margin-top: 6px; }
 
         .fav-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; font-size: 26px; line-height: 40px; color: var(--line-strong); cursor: pointer; padding: 0; z-index: 2; }
@@ -155,6 +176,7 @@
                     <div class="sentence-body"><span id="sentence-text"{% if exam.lang %} lang="{{ exam.lang }}"{% endif %}></span><span id="sentence-zh" class="sentence-zh"></span></div>
                     <button class="play-btn small" data-sound="none" onclick="playSentence()" title="播放例句" aria-label="播放例句">{{ PLAY_ICON }}</button>
                 </div>
+                {% if roots_enabled() %}<div class="roots" id="roots-box" hidden></div>{% endif %}
                 {% if exam.lang == 'ja' %}
                 <div class="conj" id="conj-box" style="display:none">
                     <button class="conj-toggle" data-sound="none" onclick="toggleConj()"><span id="conj-title">動詞變化</span><span class="caret">▾</span></button>
@@ -216,6 +238,7 @@
     let currentWord = null;
     let doneCount = 0, knowCount = 0, dontCount = 0;
     let busy = false;
+    const seenIds = [];   // 這一輪滑過的字，結算時依它們推薦同字根的字
 
     const card = document.getElementById('card');
     const stampKnow = card.querySelector('.stamp.know');
@@ -259,6 +282,7 @@
         // 換字時收起上一個字的 AI 記憶法
         document.getElementById('ai-word-out').innerHTML = '';
         document.getElementById('ai-word-btn').style.display = '';
+        renderRoots(w);
         const box = document.getElementById('sentence-display');
         if (w.sentence) {
             document.getElementById('sentence-text').innerText = w.sentence;
@@ -302,11 +326,13 @@
             <div class="summary">
                 <h2>${title}</h2>
                 ${totalWords ? `<div class="stats"><div class="stat k"><span class="n">${knowCount}</span>熟</div><div class="stat u"><span class="n">${dontCount}</span>不熟</div></div>` : ''}
+                <div id="root-recs" class="root-recs" hidden></div>
                 ${again}
                 ${QUIZ_OK && !isView && (knowCount + dontCount) ? `<a href="${quizUrl}" class="big-btn quiz">{{ icon('quiz') }} 馬上闖關考剛學的字 <span class="go-arrow">→</span></a>` : ''}
                 <a href="${backUrl}" class="big-btn secondary"><span>←</span> ${backLabel.replace('返回', '回到')}</a>
                 <a href="${homeUrl}" class="big-btn secondary"><span>←</span> 選擇其他主題</a>
             </div>`;
+        showRootRecs();
         const wrap = document.getElementById('progress-wrap');
         if (wrap) { document.getElementById('progress-count').innerText = `${totalWords} / ${totalWords}`; }
     }
@@ -347,6 +373,7 @@
             return;
         }
         if (know) knowCount++; else dontCount++;
+        if (!seenIds.includes(currentWord.id)) seenIds.push(currentWord.id);
         doneCount++;
         busy = false;
         if (isView) {
@@ -393,7 +420,7 @@
         const THRESHOLD = 100;
 
         card.addEventListener('pointerdown', (e) => {
-            if (busy || e.target.closest('button, .conj, .ai-word')) return;
+            if (busy || e.target.closest('button, a, .conj, .ai-word, .roots')) return;
             dragging = true; pid = e.pointerId; startX = e.clientX; startY = e.clientY; dx = 0;
             card.setPointerCapture(pid);
             card.classList.remove('back', 'enter');
@@ -499,6 +526,62 @@
         document.getElementById('ai-word-btn').style.display = 'none';
         AITutor.wordHelp(document.getElementById('ai-word-out'), studentId, currentWord.id, {{ (exam.lang or '') | tojson }});
     }
+    // ---------- 建構式字彙：同字根、字首、字尾 ----------
+    const ROOTS_ON = {{ 'true' if roots_enabled() else 'false' }};
+    const ROOTS_API = {{ url_for('word_roots.word_families', student_id=student_id, vocab_id=0) | tojson }}.replace(/0$/, '');
+    const RECS_API = {{ url_for('word_roots.recommend_api', student_id=student_id) | tojson }};
+    const rootsCache = {};
+    const escH = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+    // 把字裡的字根／字首／字尾畫底線（字首只看開頭、字尾只看結尾）
+    function markPart(word, fam) {
+        const alts = fam.form.split('（')[0].split('／').map(a => a.replace('(s)', '').replace(/[^a-z]/gi, '').toLowerCase()).filter(Boolean);
+        const lw = word.toLowerCase();
+        for (const a of alts.sort((x, y) => y.length - x.length)) {
+            const at = fam.kind === 'prefix' ? (lw.startsWith(a) ? 0 : -1)
+                : fam.kind === 'suffix' ? (lw.endsWith(a) ? lw.length - a.length : -1) : lw.indexOf(a);
+            if (at >= 0) return escH(word.slice(0, at)) + '<u>' + escH(word.slice(at, at + a.length)) + '</u>' + escH(word.slice(at + a.length));
+        }
+        return escH(word);
+    }
+    async function renderRoots(w) {
+        const box = document.getElementById('roots-box');
+        if (!box || !ROOTS_ON) return;
+        box.hidden = true; box.innerHTML = '';
+        let fams = rootsCache[w.id];
+        if (!fams) {
+            try {
+                const res = await fetch(ROOTS_API + w.id);
+                fams = rootsCache[w.id] = res.ok ? (await res.json()).families : [];
+            } catch (e) { return; }
+        }
+        if (currentWord !== w || !fams.length) return;   // 已經換到下一張了
+        box.innerHTML = `<div class="roots-title">${UI.icon ? UI.icon('puzzle') : ''} 同一家族的字，一起記更快</div>` + fams.map(f => `
+            <div class="root-fam">
+                <div class="root-head"><span class="root-kind">${escH(f.kind_name)}</span><b>${escH(f.form)}</b>＝${escH(f.meaning)}
+                    <a class="root-more" href="${escH(f.url)}" data-sound="tap">整組 ${f.total} 字 →</a></div>
+                <div class="root-words">${f.words.map(x => isView
+                    ? `<a class="root-chip ${x.status}" href="${escH(x.url)}" data-sound="tap"><span>${markPart(x.word, f)}</span><small>${escH(x.meaning)}</small></a>`
+                    : `<button class="root-chip ${x.status}" data-sound="none" data-say="${escH(x.word)}" title="點一下聽發音"><span>${markPart(x.word, f)}</span><small>${escH(x.meaning)}</small></button>`).join('')}
+                    ${f.more ? `<a class="root-chip" href="${escH(f.url)}">還有 ${f.more} 個…</a>` : ''}</div>
+            </div>`).join('');
+        box.querySelectorAll('button[data-say]').forEach(b => b.addEventListener('click', () => speak(b.dataset.say)));
+        box.hidden = false;
+    }
+    async function showRootRecs() {
+        const el = document.getElementById('root-recs');
+        if (!el || !ROOTS_ON || isView || !seenIds.length) return;
+        try {
+            const res = await fetch(RECS_API, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                                 body: JSON.stringify({ student_id: studentId, vocab_ids: seenIds }) });
+            const fams = res.ok ? (await res.json()).families : [];
+            if (!fams.length) return;
+            el.innerHTML = `<h3>${UI.icon ? UI.icon('puzzle') : ''} 推薦接著背：剛剛的字有這些字根字首</h3>` + fams.map(f => `
+                <a class="root-rec" href="${escH(f.study_url)}" data-sound="tap"><span class="root-kind">${escH(f.kind_name)}</span>
+                    <span><b>${escH(f.form)}</b>＝${escH(f.meaning)}</span><span class="go">還有 ${f.new + f.unfamiliar} 字要背 →</span></a>`).join('');
+            el.hidden = false;
+        } catch (e) {}
+    }
+
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
     window.addEventListener('load', () => {

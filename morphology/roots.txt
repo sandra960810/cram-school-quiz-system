@@ -1,0 +1,200 @@
+# 建構式字彙：英文的字根、字首、字尾（word_roots.py 讀這個檔）
+# 格式：種類|字形|意思|單字（空白分開）
+#   種類：prefix 字首、root 字根、suffix 字尾
+#   字形：多種拼法用「／」分開；同字形不同意思在後面加（說明），例如 terr（土地）、terr（害怕）
+# 每一組的字都是依字源逐字挑的，不用字串比對：important、import 同源（port 拿），
+# opportunity、passport 的 port 卻是「港口」，不算進去。加字前請先查字源（例如 etymonline.com）。
+# 字不在目前考試的字庫裡沒關係，畫面只顯示字庫裡有的字。
+prefix|un-|不、相反的動作|unable unacceptable unavailable uncertain uncertainty uncomfortable unconscious uncover undress unfair unfamiliar unfavorable unfold unfortunate unfortunately ungrateful unhappy unlike unlikely unload unlock unlucky unnecessary unpack unpleasant unplug unpopular unpredictable unreal unreliable unsatisfactory unstable unsure untie unusual unusually unveil unattended unauthorized unbearable unbelievable unchanged unemployed unemployment unexpected unexpectedly unfinished unknown unlimited unpaid unprecedented unrelated unsecured unspecified unused unwarranted unwilling undoubtedly unkind unhealthy unclear unequal unfit unwrap unzip unsafe untidy unaware
+prefix|dis-|不、相反|disability disable disadvantage disagree disagreement disappear disappearance disappoint disappointment disapproval disapprove disconnect discontinue discourage discomfort disgrace dislike disobey disorder disregard disrespect dissimilar disinclined dissatisfied displace displacement discover disclose disclosure disinfectant dishonest disloyal distrust disqualify disease
+prefix|mis-|錯誤地|misfortune misidentify misinformation mislead misplace misunderstand misunderstanding mistake misbehave misuse misinterpret mishap misgiving miscalculate misjudge mispronounce
+prefix|re-|再一次、回來|rearrange rebuild recall reconsider reconstruction recycle redecorate redesign refinance refresh regain reinvest reinvestment relocate relocation remodel renew renewable renewal reopen reorganization repay repayment reprint reproduce reproduction repurchase resale reschedule restate restatement restructure rewrite reunion reunite review return replace replacement react reaction rebound reclaim remind reassure refill reuse replay recharge rebirth remarry reconnect reapply revisit reread retrain redo retell
+prefix|pre-|之前、預先|precaution predetermine predict prediction predictable preview premature prepayment prehistoric preschool precede precedent preceding predecessor prefix prejudice prepare preparation prevent prevention previous previously prepaid preheat prewar
+prefix|post-|之後|postpone posterity postwar postgraduate postscript
+prefix|over-|過度；在上面、越過|overcharge overdose overdue overestimate overflow overload overpay overreact overstate overcrowded overweight overwork oversleep overeat overcome overtake overlook oversee overhead overseas overview overthrow overlap overhear overboard overtime
+prefix|under-|不足；在下面|underestimate undervalue underpaid underweight underground underwater underwear underline undercover undergraduate underlie underlying underpin undermine underworld underneath
+prefix|inter-|在…之間、互相|interact interaction interactive interface international internationally internet intersection interview interchange intercept interfere interference intermediate intermediary interrupt interruption interval intervene intervention interpersonal intercontinental interdependence
+prefix|sub-|在下面、次一級|submarine subway subtitle subconscious subcontinent subdivide subsection submerge subordinate submit submission subtract subtraction suburb suburban subscribe subscriber subscription substitute substitution subsequent subsequently subject subprime substandard
+prefix|super-|超級、在上面|supermarket supernatural superstar superpower superior supervise supervision supervisor supervisory superficial supersonic superhero
+prefix|trans-|跨越、轉移|transaction transform transformation translate translation translator transmission transmit transmitter transparent transparency transplant transport transportation transfer transition transcript transatlantic transnational
+prefix|anti-|反對、對抗|antibiotic antidote antisocial antivirus antiwar antitrust antibody
+prefix|co-|一起、共同|cooperate cooperation cooperative coworker co-worker coexist coexistence coauthor coordinate coordination coordinator coincide coincidence coincident
+prefix|non-|非、不|nonsense nonprofit nonstop nonfiction nonverbal nonexistent
+prefix|multi-|多|multicultural multinational multiply multiple multitude multimedia multilingual multipurpose multitask
+prefix|auto-|自己|autobiography autograph automatic automatically automation automate automobile automotive autonomous autonomy
+prefix|tele-|遠|telecommunication telegram telegraph telephone telescope television telecom telepathy
+prefix|micro-|微小|microphone microscope microwave microorganism microchip microbe microeconomics
+prefix|in-／im-／il-／ir-|不|inability inaccessible inadequate inappropriate incapable incompatible incomplete inconsistency inconsistent inconvenience inconvenient incorrect incredible incredibly incredulous indefinite indefinitely independence independent independently indifference indifferent indirect indirectly ineffective inefficiency inefficient inequality inexpensive inexperienced infinite injustice insane insignificant insufficient instability intangible invalid invisible inevitable inevitably innocent innumerable inaccurate inactive informal invincible insecure impatient impossible impractical immoral immortal impartial imbalance immature impolite imperfect impure illegal illiterate illogical illegible irregular irrelevant irresponsible irresistible irreversible irrevocable irrational irreplaceable irrespective
+prefix|bi-|二、雙|bicycle bilateral bilingual biweekly binoculars billion biannual
+prefix|semi-|一半|semifinal semicircle semiconductor
+prefix|fore-|前面、預先|forecast forecaster forehead foremost foresee foretell forefather foreman forerunner foreword foresight
+prefix|en-／em-|使…成為、進入|enable enlarge enrich endanger endangered enforce enforcement enlighten ensure entitle entrust encircle enclose encourage enjoy enact engulf enlist enroll empower embody
+prefix|de-|去除、向下|decentralize decompose deforestation deform deformation defrost devalue devaluation deregulation degrade degradation dehydrate deactivate decode decrease descend detach deflate deflation
+prefix|mono-|單一|monopoly monopolize monotonous monotony monologue monorail monolingual
+prefix|uni-|一|uniform unicorn unify union unique unite unity universal universe university unilateral unicycle
+prefix|tri-|三|triangle triple tripod trio trilogy tricycle triathlon
+prefix|circum-|環繞|circumstance circumference
+prefix|contra-／counter-|相反、對抗|contradict contradiction contrary contrast counterpart counteract counterattack countermand
+prefix|extra-|超出、在外|extraordinary extraterrestrial extracurricular extravagant
+prefix|mal-|壞、不良|malfunction malnutrition malice malicious malpractice malady malaria
+prefix|bene-|好|benefit beneficial beneficiary benevolent benefactor
+root|spect／spic|看|aspect conspicuous disrespect inspect inspection inspector irrespective perspective prospect prospective prospectus respect respectable respective respectively spectacle spectacular spectator spectrum suspect suspicion suspicious retrospect introspection expect expectation expectancy
+root|vis／vid|看|advise adviser advisor advisory advisable evidence evident improvise invisible provide provider provision provisional revise revision supervise supervision supervisor supervisory television video videoconference videotape visa visible vision visit visitor visual visualize view viewer review preview interview overview
+root|aud|聽|audience audio audit audition auditor auditorium audible
+root|dict|說|contradict contradiction dictate dictator dictatorship diction dictionary jurisdiction predict predictable prediction predictor unpredictable verdict
+root|scrib／script|寫|ascribe describe description descriptive manuscript prescribe prescribed prescription script subscribe subscriber subscription transcript scribble inscription postscript
+root|graph／gram|寫、畫|autobiography autograph biographer biography demographic diagram geographic geographical geography grammar graph graphic graphics paragraph photograph photographer photography program programme programmer telegram telegraph histogram
+root|port|拿、運送|export exporter import importer portable porter portfolio report reporter reportedly support supporter supportive transport transportation important importance deport
+root|ject|丟、投擲|eject inject injection object objection objective project projection projector reject rejection subject subjective
+root|struct|建造|construct construction constructive destroy destruction destructive infrastructure instruct instruction instructive instructor obstruction reconstruction restructure structural structure
+root|rupt|破裂|abrupt bankrupt bankruptcy corrupt corruption disrupt disruption erupt eruption interrupt interruption
+root|tract|拉|abstract attract attraction attractive contract contraction contractor contractual distract distraction distractor extract subtract subtraction tractor retract
+root|duc／duct|引導|abduct abduction conduct conductor deduce deduct deductible deduction educate education educational induce inducement induction introduce introduction introductory produce producer product production productive productivity reduce reduction reproduce reproduction by-product duct
+root|mit／miss|送出|admission admit commission commit commitment committee dismiss dismissal emission emit missile mission omission omit permission permit remit remittance submission submit transmission transmit transmitter promise compromise message
+root|ven／vent|來|adventure adventurous avenue convenience convenient conveniently convention conventional event eventual eventually intervene intervention invent invention inventory inconvenience inconvenient prevent prevention revenue souvenir venue venture
+root|ced／ceed／cess|走、前進|access accessible inaccessible accessory exceed excess excessive precede precedent preceding predecessor procedure proceed proceeding process procession recede recess recession succeed success successful successfully successor succession successive concede concession unprecedented ancestor
+root|press|壓|compress compression depress depressed depression express expression expressive impress impression impressive press pressure suppress oppress
+root|form|形狀|conform conformity deform deformation form formal formality format formation formula formulate inform informal information informative misinformation platform reform transform transformation uniform
+root|fer|帶、搬運|confer conference defer differ difference different differentiate indifferent infer inference offer prefer preference preferable refer reference referee referral transfer suffer fertile circumference
+root|cap／cept／ceive|拿、抓|accept acceptable acceptance unacceptable capable capability capacity incapable capture captive conceive concept conception deceive deception deceit except exception exceptional intercept perceive perception receive receiver reception recipient receipt participate participant participation anticipate anticipation recipe
+root|vert／vers|轉|adverse adversity advertise advertisement anniversary controversial controversy conversation converse conversely conversion convert convertible diverse diversify diversity divert diversion inverse irreversible reverse reversal revert universal universe university versatile verse version versus vertical divorce
+root|pos／pon|放置|component compose composite composition decompose deposit dispose disposal disposable expose exposure exposition impose oppose opponent opposite opposition position positive postpone propose proposal proposition purpose suppose
+root|ten／tain|握住、保持|attain contain container content detain detention entertain entertainment maintain maintenance obtain retain retention sustain sustainable sustainability tenant tenure continent continue continuous pertain abstain
+root|tend／tens|伸展|attend attendance attention attentive extend extension extensive extent intend intention intense intensity intensify intent pretend pretense tend tendency tension tense contend superintendent
+root|mov／mot／mob|移動|automobile automotive emotion emotional mobile mobility mobilize motion motivate motivation motive motor motorcycle move movement movie promote promotion remote remove removal locomotive commotion
+root|fac／fect／fic|做|affect effect effective effectively efficiency efficient defect defective deficient deficiency deficit infect infection perfect perfection artificial artifact beneficial facilitate facility fact factor factory faculty manufacture manufacturer magnificent proficient proficiency sacrifice satisfaction satisfactory sufficient suffice insufficient difficult difficulty benefit certificate qualification classification specification modification identification clarification
+root|cred|相信|credential credibility credible credit creditor incredible incredibly incredulous
+root|sens／sent|感覺|consensus consent dissent nonsense resent resentment sensation sensational sense sensible sensitive sensitivity sensor sentence sentiment sentimental
+root|voc／vok|聲音、呼喚|advocate irrevocable provocation provoke revoke vocal vocation vocational vocabulary
+root|manu|手|manual manufacture manufacturer manuscript manipulate manipulation manicure
+root|ped|腳|pedal pedestrian expedition expedite centipede pedicure
+root|bio|生命|antibiotic autobiography biodiversity biographer biography biological biologist biology biome biofuel biochemistry
+root|geo|地球、土地|geographic geographical geography geology geologist geometry geothermal
+root|therm|熱|thermometer thermal thermostat geothermal
+root|phon|聲音|microphone phone telephone smartphone headphone headphones earphones cellphone symphony phonetics saxophone megaphone
+root|photo|光|photo photocopier photocopy photograph photographer photography photosynthesis
+root|chron|時間|chronic chronological synchronize chronicle
+root|log|說話、話語|dialogue dialog apology apologize apologise analogy monologue catalog prologue logic logical illogical
+root|path|感受|sympathy sympathetic sympathize empathy apathy pathetic telepathy
+root|psych|心理、心靈|psychiatric psychiatrist psychic psychological psychologist psychology psychopath psycho
+root|meter／metr|測量|barometer centimeter diameter geometry kilometer kilometre meter metre metric parameter perimeter symmetry thermometer
+root|scope|觀看的儀器|microscope telescope scope periscope horoscope stethoscope
+root|hydr|水|hydrogen hydrate dehydrate hydroelectric hydraulic
+root|aqua|水|aquarium aquatic aquaculture
+root|terr（土地）|土地|extraterrestrial territory terrain terrestrial terrace
+root|terr（害怕）|害怕|terrible terribly terrific terrify terror terrorism terrorist
+root|astro／aster|星星|asteroid astronaut astronomer astronomical astronomy astrology disaster disastrous
+root|dem|人民|democracy democrat democratic demographic epidemic pandemic
+root|cycl|圓圈、循環|bicycle cycle cyclical cycling encyclopedia motorcycle recycle tricycle cyclone
+root|mar|海|marine mariner submarine maritime
+root|nov|新|innovate innovation innovative novel novelty renovate renovation novice
+root|ann／enn|年|anniversary annual annually annuity annum millennium centennial biannual
+root|cent|百|cent century percent percentage centimeter centigrade centennial centipede
+root|mort|死|immortal mortal mortality
+root|viv／vit|生命、活|revival revive survival survive survivor vital vitality vitamin vivid
+root|loc|地方|allocate allocation local locality locally locate location relocate relocation locomotive
+root|lect／leg（選、讀）|選擇、收集、讀|collect collection collective collectively collector elect election electoral select selection selective neglect intellect intellectual lecture lecturer legible illegible
+root|leg（法律）|法律|legal illegal legally legislation legislative legislature legitimate legitimacy privilege paralegal
+root|sign|記號|assign assignment design designer designate redesign resign resignation sign signal signature significance significant significantly signify insignificant consign consignment
+root|test|見證|contest contestant protest protester testify testimony testament attest
+root|grad／gress|走、步伐|aggressive aggression aggressor congress degrade degradation degree grade gradual gradually graduate graduation progress progressive regression undergraduate postgraduate upgrade downgrade centigrade
+root|flu|流動|fluctuate fluctuation fluency fluent fluid flux influence influential influenza influencer flu affluent
+root|clud／clus／clos|關閉|conclude conclusion conclusive exclude exclusion exclusive exclusively include inclusion inclusive close closure disclose disclosure enclose enclosure closet seclude
+root|cid／cis|切、殺|decide decision precise precisely precision concise pesticide homicide suicide insecticide scissors
+root|vac|空的|evacuate vacancy vacant vacate vacation vacuum
+root|pend／pens|懸掛；秤重付錢|appendix depend dependable dependence dependent independent independence suspend suspense suspension pending pendant perpendicular dispense expend expenditure expense expensive inexpensive pension compensate compensation spend recompense
+root|sist／sta|站立|assist assistance assistant consist consistent consistency insist persist persistence persistent resist resistance resistant irresistible stable stability unstable instability stabilize static station stationary statistic statistics statue status statute establish establishment estate constant constantly instant instance circumstance distance distant substance substantial stance obstacle
+root|jud／jur／jus|法律、公正|injure injury injustice judge judgment judgement judicial jurisdiction juror jury just justice justify justification justifiable prejudice
+root|medi|中間|immediate immediately intermediary intermediate media median medium mediate medieval
+root|equ|相等|adequate adequately inadequate equal equality equally equate equation equator equilibrium equivalent equity inequality
+root|prim／prin|第一|primarily primary prime primitive prince princess principal principle primate
+root|fin|結束、界限|confine confinement define definite definitely definition definitive final finale finalize finally finish finite infinite infinity indefinite refine refined finance financial unfinished
+root|nat|出生、天生|native nature natural naturally nation national nationality international multinational innate prenatal supernatural
+root|sci|知道|science scientific scientist conscience conscientious conscious consciousness unconscious subconscious
+root|serv（保存）|保存、守護|conservation conservative conserve observance observation observe observer preservation preservative preserve reservation reserve reservoir
+root|serv（服務）|服務|servant serve server service deserve
+root|popul／pub|人民、公眾|popular popularity population unpopular public publication publicity publicize publicly publish publisher republic republican pub
+root|civ／cit|城市、市民|citizen citizenship city civil civilian civilization civilisation civilize
+root|corp|身體|corporal corporate corporation corps corpse incorporate incorporation
+root|liber|自由|liberal liberalize liberate liberation liberty liberalization
+root|lumin／luc|光|illuminate luminous lucid
+root|mand|命令、託付|command commander commandment demand mandate mandatory recommend recommendation commend countermand
+root|migr|遷移|emigrant emigrate immigrant immigrate immigration migrant migrate migration
+root|min|小|diminish mini miniature minimal minimize minimum minor minority minus
+root|nounc／nunc|宣告、說出|announce announcement announcer denounce pronounce pronunciation renounce
+root|opt|選擇|adopt adoption opt option optional
+root|pel／puls|推|compel compulsory compulsive dispel expel propel propeller impulse pulse repel expulsion
+root|plic／ply／plex|摺、重疊|apply applicable applicant application complex complexity complicate complicated complication duplicate explicit explicitly implicit imply implication multiply multiple replicate reply perplex
+root|rect／reg|直、統治|correct correction correctly direct direction directly director directory erect rectangle rectify incorrect indirect region regional regime regulate regulation regular regularly irregular regulatory regulator deregulation reign
+root|sequ／secu|跟隨|consecutive consequence consequently persecute prosecute prosecution prosecutor sequence sequel subsequent subsequently execute execution executive
+root|sol（單獨）|單獨|sole solely solitary solitude solo isolate isolation desolate
+root|solv／solu|鬆開、解開|absolute absolutely dissolution dissolve insolvent resolute resolution resolve solution solve solvent soluble
+root|son|聲音|sonic supersonic ultrasonic resonate unison consonant sonar
+root|spir|呼吸|aspire inspiration inspire spirit spiritual conspiracy expire respiration perspire
+root|tact／tang／teg|觸碰|contact intact tact tactile tangible intangible integral integrate integration integrity contagious
+root|temp|時間|temporary temporarily contemporary tempo
+root|volv／volu|捲、轉|evolution evolve involve involvement revolution revolutionary revolve revolutionize volume
+root|vol|意願|voluntary volunteer benevolent
+root|vor|吞吃|carnivore herbivore omnivore devour voracious
+root|gen|出生、產生、種類|gender gene genetic generate generation generator generic genre genius ingenious general generally generalize generous generosity oxygen hydrogen nitrogen indigenous pathogen
+root|dent|牙齒|dentist dental denture
+root|cardi|心臟|cardiac cardiology
+root|neur|神經|neural neuron neurology neuroscience
+root|junct／join|連接|adjoin conjunction join joint jointly junction juncture
+root|cur（照料）|照料、關心|accurate accuracy accurately cure curious curiosity secure security insecure unsecured manicure procure
+root|cur／curs（跑）|跑、流動|current currently currency curriculum occur occurrence recur recurrence concurrent excursion incur
+root|fid|信任|confide confidence confident confidential fidelity fiduciary
+root|her／hes|黏著|adhere adhesive coherent coherence cohesion cohesive inherent hesitate hesitant hesitation
+root|labor|工作|collaborate collaboration elaborate laboratory labor laborer laborious
+root|lingu|語言、舌頭|bilingual linguistics linguist multilingual monolingual language
+root|mem|記憶|commemorate memo memorandum memorial memorize memory remember memorable
+root|ment|心智|mental mentally mentality mention
+root|numer|數|enumerate innumerable numerical numerous number
+root|oper|工作|cooperate cooperation cooperative operate operation operational operative operator opera
+root|punct|點、刺|punctual puncture punctuation
+root|quir／quest／quis|尋求、詢問|acquire acquisition conquest conquer enquire enquiry inquire inquiry exquisite question questionnaire quest request require requirement requisite query
+root|rog|要求、詢問|interrogate interrogation arrogant arrogance abrogate prerogative
+root|sacr／sanct|神聖|sacred sacrifice sanction sanctuary
+root|sid／sed／sess|坐|preside president presidency presidential reside residence resident residential residual subsidy subsidize subsidiary session sedentary assess assessment obsess obsession possess possession supersede
+root|simil／simul／sembl|相似、一起|assemble assembly assimilate dissimilar resemblance resemble similar similarity similarly simulate simulation simultaneous simultaneously
+root|soci|同伴|associate association sociable social socialist socially society sociology antisocial
+root|strict／string／strain|拉緊|constrain constraint restrain restraint restrict restriction restrictive strain strict strictly district stringent
+root|sum|拿取|assume assumption consume consumer consumption presume presumably resume
+root|tort|扭曲|distort distortion retort torture
+root|tribut|給予|attribute attributable contribute contribution contributor distribute distribution distributor tribute
+root|via／voy|道路|deviate deviation via voyage convoy trivial obvious obviously previous previously
+root|vinc／vict|征服|convict conviction convince convinced invincible victory victorious evict
+root|patr|父親|patriot patriotic patriotism patron patronage paternal paternity
+root|matr／matern|母親|maternal maternity
+root|fract／frag|破碎|fraction fracture fragile fragment
+root|grat／grac|感謝、喜悅|congratulate congratulation grace graceful gracious grateful ungrateful gratify gratitude disgrace
+root|nom／onym|名字|anonymous antonym synonym nominal nominate nomination denominate denomination
+root|nomy|法則、管理|economy economic economical economically economics economist economize astronomy astronomer astronomical autonomy autonomous
+root|phil|愛|philosopher philosophy philanthropy
+root|soph|智慧|philosopher philosophy sophisticated sophistication sophomore
+root|techn|技術|technical technically technician technique technological technology
+root|urb|城市|urban suburb suburban urbanisation urbanization
+root|fort|強壯|comfort comfortable comfortably discomfort uncomfortable effort fort fortress fortitude
+root|dyna|力量|dynamic dynamite
+root|magn|大|magnify magnificent magnitude magnate
+root|max|最大|maximum maximize maximal maximization
+root|pan|全部|panorama panoramic pandemic panacea
+root|hum（人）|人|human humane humanity humanitarian
+root|anim|生命、心|animal animate animation unanimous
+root|alter／ali|其他|alter alternate alternative alternatively alien alienate altruism
+root|am／amic|愛、朋友|amateur amiable amicable
+root|clam／claim|喊叫|acclaim claim exclaim exclamation proclaim reclaim clamor
+root|fess|承認、說|confess confession profession professional professionally professor
+root|fus|倒、流|confuse confusion fuse refuse refusal diffuse infuse transfusion
+root|sert|加入、連接|assert assertion insert
+suffix|-less|沒有…的|careless cordless countless endless fearless harmless heartless helpless homeless hopeless meaningless motionless pointless priceless restless shameless useless wireless worthless doubtless powerless jobless speechless sleepless breathless childless spotless regardless
+suffix|-ful|充滿…的|beautiful careful cheerful colorful delightful doubtful dreadful eventful faithful fruitful graceful harmful helpful meaningful merciful mournful painful peaceful pitiful powerful shameful stressful successful thankful thoughtful useful wonderful hopeful playful skillful respectful forgetful truthful joyful fearful
+suffix|-able／-ible|可以…的|acceptable affordable agreeable available comfortable comparable considerable dependable desirable disposable enjoyable fashionable favorable honorable justifiable knowledgeable marketable notable obtainable payable portable predictable preferable profitable reasonable reliable remarkable renewable respectable suitable sustainable taxable understandable valuable washable breakable readable drinkable adjustable accessible convertible deductible visible
+suffix|-ist|…的人（專家、主張者）|activist artist dentist economist journalist pianist scientist specialist terrorist therapist tourist biologist psychologist florist novelist racist receptionist cyclist capitalist socialist communist
+suffix|-ize／-ise|使…化|apologize authorize capitalize centralize characterize civilize computerize criticize customize decentralize dramatize economize emphasize familiarize finalize generalize liberalize maximize memorize minimize mobilize modernize optimize organize personalize privatize publicize realize revolutionize specialize stabilize standardize summarize symbolize sympathize utilize organise recognise apologise commercialise marginalise
+suffix|-ify|使…|amplify classify clarify diversify intensify justify magnify modify notify purify qualify quantify simplify specify verify identify signify terrify testify certify glorify
+suffix|-ship|身分、關係|censorship championship citizenship dealership dictatorship fellowship friendship hardship internship leadership membership ownership partnership relationship scholarship sponsorship
+suffix|-hood|時期、狀態|brotherhood childhood likelihood livelihood neighborhood neighbourhood adulthood motherhood fatherhood
+suffix|-ism|主義、行為|capitalism communism criticism journalism materialism nationalism optimism patriotism terrorism tourism socialism racism heroism realism
+suffix|-ology|學科、學問|archaeology biology ecology epistemology geology ideology methodology mythology psychology sociology technology terminology zoology criminology
+suffix|-ward(s)|往…方向|afterward afterwards backward backwards downward forward upward inward outward toward towards
