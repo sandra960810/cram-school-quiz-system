@@ -155,8 +155,8 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱紀錄一定要保留**），新官網直接做在這個網站裡：
 
 - **官網先不提學生系統**（2026-11 使用者要求）：不放學員登入、不提線上單字庫／模擬考題庫／AI，已登入的學生開 `/` 也是看官網（學生從 `/login` 進系統）；
-  首頁：主視覺（比照補習班 IG 海報：薄荷綠底、深藍大字、金黃標籤、重點條列，人物換成自繪插畫 `static/images/site/hero-student.svg`，
-  海報色是 `theme.css` 的 `--brand-*`）→ 關於驅勢 → 課程 → 「你的多益實力有幾分？」＋開始測驗 → **校區放最後**（使用者要求）
+  首頁：主視覺是**專業語言中心風格**（使用者要求，不用卡通人物）：深藍底（`--brand-navy`）＋金色（`--brand-gold`，取自 Logo），右邊是 `static/images/site/hero-globe.svg`（五種檢定徽章）；
+  接一排事實數字（校區數、課程數）→ 關於驅勢 → 課程 → 「你的多益實力有幾分？」＋開始測驗 → **校區放最後**（使用者要求）。重點文字取自補習班自己的 IG 海報
 - 公開頁：`/` 首頁、`/courses`、`/courses/<toeic|ielts|toefl|jlpt|topik>`、`/campus/<校區>`、
   `/mock-test`（迷你模考總覽；**入口放在各課程頁**（使用者要求，hero 按鈕＋課程資訊上方的卡片），頂端選單不放；**目前只有多益**，雅思、日檢、韓檢顯示「即將開放」，`school_site.MOCKS_READY`）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
 - 樣板在 `templates/site/`、樣式 `static/site.css`；顏色照樣用 `theme.css` 變數（托福 `.exam-tone-toefl`、LINE 綠 `--line-green`）
