@@ -1,7 +1,7 @@
 {% extends 'site/base.html' %}
 {% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
-{# 2026-11 使用者要求：主視覺照片＋標語 → 課程 → 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
+{# 2026-11 使用者要求：主視覺照片＋標語 → 課程 → 招生中（招生圖，photo4）→ 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
 <section class="s-photo-hero">
     <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high">
     <div class="wrap">
@@ -39,6 +39,29 @@
     </div>
 </section>
 
+<section class="s-enroll" id="enroll">
+    <img class="s-enroll-bg" src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy">
+    <div class="wrap">
+        <div class="s-enroll-head">
+            <p class="s-eyebrow">NOW ENROLLING</p>
+            <h2>課程<em>招生中！</em></h2>
+            <p class="s-enroll-sub">全面備考・高效上榜</p>
+        </div>
+        <div class="s-enroll-cards">
+            <div class="s-enroll-card"><h3>{{ icon('clipboard') }} AI 模考系統</h3>
+                <ul class="s-checks"><li>擬真試題・即時評分</li><li>弱點分析・個人化出題</li><li>追蹤進步・高效備考</li></ul></div>
+            <div class="s-enroll-card"><h3>{{ icon('users') }} 實體課</h3>
+                <ul class="s-checks"><li>面對面授課</li><li>即時提問與互動</li><li>系統化教學・輕鬆吸收</li></ul></div>
+            <div class="s-enroll-card"><h3>{{ icon('headphones') }} 線上課</h3>
+                <ul class="s-checks"><li>不受地點限制</li><li>隨時隨地學習</li><li>課程回放・複習更彈性</li></ul></div>
+        </div>
+        <div class="s-enroll-foot">
+            <p>多元學習方式，搭配 AI 模考，讓你準備更有效！</p>
+            <a class="s-btn big gold" href="{{ url_for('site.contact') }}">立即報名</a>
+        </div>
+    </div>
+</section>
+
 <section class="s-sec" id="map">
     <div class="wrap">
         <p class="s-eyebrow">LEARNING MAP</p>
@@ -61,7 +84,6 @@
                 <div><span>01</span><h3>嚴選師資</h3><p>精準考題解析，掌握題型與解題方法</p></div>
                 <div><span>02</span><h3>量身打造</h3><p>依程度與目標規劃，針對弱項提升</p></div>
                 <div><span>03</span><h3>小班教學</h3><p>老師照顧得到每個人，個別學習計劃</p></div>
-                <div><span>04</span><h3>實體＋線上</h3><p>{{ s.campuses|length }} 個校區上課，不方便到校也能線上上課</p></div>
             </div>
         </div>
     </div>
