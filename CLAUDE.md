@@ -40,7 +40,7 @@ Windows 電腦上（`C:\Users\TLC-5\Desktop\quiz-system`），需要給主管或
 
 ```
 app.py              Flask 主程式：資料模型、單字學習、測驗區路由
-school_site.py      趨勢補習班公開官網（首頁、課程、校區、諮詢表單、SEO、後台諮詢名單 /admin/leads）；資料在 public_site/site_info.json
+school_site.py      驅勢英日韓公開官網（首頁、課程、校區、諮詢表單、SEO、後台諮詢名單 /admin/leads）；資料在 public_site/site_info.json
 listening_bank.py   聽力題庫的載入、渲染與批改
 reading_bank.py     閱讀題庫的載入、渲染與批改（判分沿用 listening_bank）
 listening/          聽力題庫資料（每回一個資料夾）
@@ -143,7 +143,10 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   （kk.json 沒有的變化形如 jumped、boxes，KK 直接寫在 SUFFIXES 裡）
   加新單字後要重跑 `python tools/make_pronunciation.py cmudict.dict`
 
-## 趨勢補習班公開官網（school_site.py）
+## 驅勢英日韓公開官網（school_site.py）
+
+- 補習班品牌是「**驅勢英日韓**」（驅勢語言教育中心），使用者有時打成「趨勢」，網頁上一律用「驅勢」
+- 五個校區（台北站前、桃園站前、桃園南崁、中壢站前、新竹站前）的地址電話在 `site_info.json`，地址 2026-11 從網路上的部落格文章查到；`map_url` 空白會自動用地址產生 Google 地圖連結
 
 2026-11 使用者要求：原本官網 www.tlc.tw 掛掉（DNS 指向補習班自己一台 Windows Server 2012 R2，網站已不在、https 憑證無效；
 tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱紀錄一定要保留**），新官網直接做在這個網站裡：

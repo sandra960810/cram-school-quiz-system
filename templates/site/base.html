@@ -47,9 +47,10 @@
         <div class="cols">
             <div>
                 <h4>{{ s.name }}</h4>
-                <div>電話：{{ fill(s.phone, '總機電話') }}</div>
+                {% if s.phone %}<div>電話：{{ s.phone }}</div>{% endif %}
+                {% for c in s.campuses %}<div>{{ c.label }}：{{ fill(c.phone, '電話') }}</div>{% endfor %}
                 <div>Email：{{ fill(s.email, '聯絡信箱') }}</div>
-                <div>LINE：{{ fill(s.line_id, 'LINE 官方帳號 ID') }}</div>
+                {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">LINE 官方帳號諮詢</a>{% endif %}
             </div>
             <div>
                 <h4>課程</h4>
@@ -57,7 +58,7 @@
             </div>
             <div>
                 <h4>校區</h4>
-                {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.name }}校</a>{% endfor %}
+                {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.label }}</a>{% endfor %}
             </div>
             <div>
                 <h4>更多</h4>

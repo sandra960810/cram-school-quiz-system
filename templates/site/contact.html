@@ -43,12 +43,12 @@
     <aside>
         <div class="s-line-box">
             <h3>{{ icon('speech') }} 加 LINE 直接問</h3>
-            <p>LINE ID：{{ fill(s.line_id, 'LINE 官方帳號 ID') }}</p>
+            <p>點下面的按鈕加入官方 LINE，直接傳訊息問。</p>
             {{ line_btn(s, 's-btn big line') }}
         </div>
         <div class="s-line-box" style="margin-top:16px">
-            <h3>{{ icon('home') }} 電話</h3>
-            <p>{{ fill(s.phone, '總機電話') }}</p>
+            <h3>{{ icon('home') }} 各校區電話</h3>
+            {% for c in s.campuses %}<p style="margin:4px 0">{{ c.label }}　{% if c.phone %}<a href="tel:{{ c.phone|replace('(','')|replace(')','')|replace('-','') }}">{{ c.phone }}</a>{% else %}{{ fill('', '電話') }}{% endif %}</p>{% endfor %}
         </div>
     </aside>
 </div></section>

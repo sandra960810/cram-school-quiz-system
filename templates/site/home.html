@@ -62,7 +62,7 @@
         <div class="s-grid">
             {% for c in s.campuses %}
             <a class="s-card" href="{{ url_for('site.campus', slug=c.slug) }}">
-                <h3>{{ c.name }}校</h3>
+                <h3>{{ c.label }}</h3>
                 <p>{{ fill(c.address, '地址') }}</p>
                 <p>{{ fill(c.phone, '電話') }}</p>
                 <span class="more">校區資訊 →</span>
