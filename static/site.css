@@ -383,3 +383,16 @@ body.site { background: var(--brand-bg); }
     .s-enroll h2 { font-size: 34px; }
     .s-enroll-cards { grid-template-columns: 1fr; }
 }
+
+/* 主視覺裡的多益迷你模考入口（2026-11 使用者要求放明顯一點） */
+.s-hero-mock { display: flex; align-items: center; gap: 14px; margin-top: 22px; padding: 14px 16px; border-radius: 10px;
+    background: var(--brand-gold); color: var(--brand-navy) !important; text-decoration: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-gold) 35%, transparent);
+    transition: transform .15s; }
+.s-hero-mock:hover { transform: translateY(-2px); }
+.s-hero-mock-tag { flex: none; background: var(--brand-navy); color: var(--brand-gold); font-weight: 800; font-size: 14px; padding: 4px 10px; border-radius: 999px; }
+.s-hero-mock-txt { flex: 1; display: flex; flex-direction: column; line-height: 1.35; }
+.s-hero-mock-txt b { font-size: 19px; }
+.s-hero-mock-txt small { font-size: 13.5px; opacity: .85; }
+.s-hero-mock-go { flex: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 800; white-space: nowrap; }
+.s-hero-mock-go .ui-ic { width: 20px; height: 20px; }
+@media (max-width: 420px) { .s-hero-mock { flex-wrap: wrap; } .s-hero-mock-go { margin-left: auto; } }

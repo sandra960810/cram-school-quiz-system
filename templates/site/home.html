@@ -1,7 +1,7 @@
 {% extends 'site/base.html' %}
 {% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
-{# 2026-11 使用者要求：主視覺照片＋標語 → 課程 → 招生中（招生圖，photo4）→ 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
+{# 2026-11 使用者要求：主視覺照片＋標語＋多益迷你模考入口 → 課程 → 招生中（招生圖，photo4）→ 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
 <section class="s-photo-hero">
     <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high">
     <div class="wrap">
@@ -13,6 +13,13 @@
             <a class="s-btn big gold" href="{{ url_for('site.contact') }}">預約免費諮詢・試聽</a>
             {{ line_btn(s, 's-btn big line') }}
         </div>
+        {% if 'toeic' in mocks_ready %}
+        <a class="s-hero-mock" href="{{ url_for('site.mock_take', key='toeic') }}">
+            <span class="s-hero-mock-tag">免費</span>
+            <span class="s-hero-mock-txt"><b>多益迷你模考</b><small>22 題・12 分鐘，交卷馬上看正確率</small></span>
+            <span class="s-hero-mock-go">開始測驗 {{ icon('target') }}</span>
+        </a>
+        {% endif %}
       </div>
     </div>
 </section>
@@ -40,7 +47,7 @@
 </section>
 
 <section class="s-enroll" id="enroll">
-    <img class="s-enroll-bg" src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy">
+    <img class="s-enroll-bg" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
     <div class="wrap">
         <div class="s-enroll-head">
             <p class="s-eyebrow">NOW ENROLLING</p>
@@ -68,7 +75,7 @@
         <h2>學習地圖</h2>
         <p class="sub">零基礎到高階，都有適合你的下一步。</p>
         <div class="s-map">
-            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p></div>
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p></div>
             <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p></div>
         </div>
     </div>
