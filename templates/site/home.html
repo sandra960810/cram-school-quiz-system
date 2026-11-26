@@ -1,91 +1,136 @@
 {% extends 'site/base.html' %}
 {% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
-{# 2026-11 使用者要求：主視覺（深藍金色專業風格）與介紹放最上面，接課程、多益測驗入口，校區放最後；官網先不提學生系統 #}
-<section class="s-pro">
-    <div class="wrap s-pro-grid">
-      <div class="s-pro-text">
+{# 2026-11 使用者要求：最上面是有真人照片的吸睛主視覺，地球圖放到下面「關於」旁邊，首頁不另放校區區塊（校區在頁尾）；官網先不提學生系統 #}
+<section class="s-photo-hero">
+    <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1280" fetchpriority="high">
+    <div class="wrap">
+      <div class="s-photo-panel">
         <p class="s-eyebrow">TRINITY LANGUAGE CENTER</p>
-        <h1>{{ s.name }}<span>語言教育中心</span></h1>
-        <p class="s-pro-lead">英語・日語・韓語・托福・雅思・多益<br>從零基礎到高階，專業師資陪你達成目標。</p>
-        <ul class="s-pro-points">
-            <li>{{ icon('teacher') }}<div><b>嚴選師資</b><span>精準考題解析</span></div></li>
-            <li>{{ icon('target') }}<div><b>量身規劃</b><span>針對弱項提升</span></div></li>
-            <li>{{ icon('users') }}<div><b>小班教學</b><span>個別學習計劃</span></div></li>
-            <li>{{ icon('monitor') }}<div><b>實體＋線上</b><span>彈性安排上課</span></div></li>
+        <h1>來驅勢，<br>讓自己語言變好</h1>
+        <p class="s-photo-tag">英語・日語・韓語・托福・雅思・多益</p>
+        <ul class="s-stats">
+            <li>{{ icon('building') }}<b>{{ s.campuses|length }}</b><span>大校區</span></li>
+            <li>{{ icon('cap') }}<b>{{ courses|length }}</b><span>大檢定課程</span></li>
+            <li>{{ icon('globe') }}<b>3</b><span>種語言</span></li>
         </ul>
         <div class="s-cta">
             <a class="s-btn big gold" href="{{ url_for('site.contact') }}">預約免費諮詢・試聽</a>
             {{ line_btn(s, 's-btn big line') }}
         </div>
       </div>
-      <img class="s-pro-art" src="{{ url_for('static', filename='images/site/hero-globe.svg') }}" alt="驅勢英日韓：多益、雅思、托福、日檢、韓檢" width="520" height="520">
     </div>
 </section>
+<nav class="s-jump" aria-label="本頁目錄"><div class="wrap">
+    <a href="#mode">上課方式</a><a href="#courses">課程總覽</a><a href="#map">學習地圖</a><a href="#why">為什麼選驅勢</a>{% if 'toeic' in mocks_ready %}<a href="#quiz">免費多益測驗</a>{% endif %}<a href="#about">關於我們</a><a href="#contact-us">聯絡我們</a>
+</div></nav>
 
-<section class="s-facts">
+<section class="s-sec" id="mode">
     <div class="wrap">
-        <div><b>{{ s.campuses|length }}</b><span>校區</span></div>
-        <div><b>{{ courses|length }}</b><span>大檢定課程</span></div>
-        <div><b>3</b><span>語言：英・日・韓</span></div>
-        <div><b>零基礎～高階</b><span>皆可安排</span></div>
-    </div>
-</section>
-
-{% if s.intro %}
-<section class="s-sec s-about">
-    <div class="wrap">
-        <p class="s-eyebrow">ABOUT US</p>
-        <h2>關於{{ s.name }}</h2>
-        {% if s.slogan %}<p class="s-about-slogan">{{ s.slogan }}</p>{% endif %}
-        <p class="s-intro">{{ s.intro }}</p>
-    </div>
-</section>
-{% endif %}
-
-<section class="s-sec">
-    <div class="wrap">
-        <p class="s-eyebrow">COURSES</p>
-        <h2>課程介紹</h2>
-        <p class="sub">選你要準備的考試，看課程內容與上課方式。</p>
-        <div class="s-grid">
-            {% for c in courses %}
-            <a class="s-card tone exam-tone-{{ c.key }}" href="{{ url_for('site.course', key=c.key) }}">
-                <div class="en">{{ c.en }}</div>
-                <h3>{{ c.name }}課程</h3>
-                <p>{{ c.lead }}</p>
-                <span class="more">看課程內容 →</span>
-            </a>
-            {% endfor %}
+        <p class="s-eyebrow">CLASS MODE</p>
+        <h2>上課方式</h2>
+        <p class="sub">實體＋線上，依你的時間彈性安排。</p>
+        <img class="s-mode-photo" src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="小班討論上課情境" width="1920" height="1177" loading="lazy">
+        <div class="s-mode">
+            <div>{{ icon('building') }}<h3>實體小班</h3><p>{% for c in s.campuses %}{{ c.name }}{{ '、' if not loop.last }}{% endfor %}校區上課，老師面對面帶練。</p></div>
+            <div>{{ icon('monitor') }}<h3>線上課程</h3><p>不方便到校也能上課，學習進度不中斷。</p></div>
+            <div>{{ icon('users') }}<h3>個別學習計劃</h3><p>依程度與目標量身規劃，針對弱項提升。</p></div>
         </div>
     </div>
 </section>
 
+<section class="s-sec s-band" id="courses">
+    <div class="wrap">
+        <p class="s-eyebrow">COURSES</p>
+        <h2>課程總覽</h2>
+        <p class="sub">英日韓與各大檢定，從零基礎到高階都能安排。</p>
+        <div class="s-table-wrap">
+        <table class="s-ctable">
+            <thead><tr><th>課程</th><th>課程重點</th><th>程度</th><th>上課方式</th><th>上課時間・費用</th><th></th></tr></thead>
+            <tbody>
+            {% for c in courses %}
+            <tr class="exam-tone-{{ c.key }}">
+                <td><b class="ct-name">{{ c.name }}</b><small>{{ c.en }}</small></td>
+                <td>{{ c.lead }}</td>
+                <td>零基礎～高階</td>
+                <td>實體＋線上</td>
+                <td>歡迎諮詢</td>
+                <td><a class="s-btn" href="{{ url_for('site.course', key=c.key) }}">看課程</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <div class="s-center"><a class="s-btn big gold" href="{{ url_for('site.contact') }}">預約免費諮詢・試聽</a> {{ line_btn(s, 's-btn big line') }}</div>
+    </div>
+</section>
+
+<section class="s-sec" id="map">
+    <div class="wrap">
+        <p class="s-eyebrow">LEARNING MAP</p>
+        <h2>學習地圖</h2>
+        <p class="sub">不管從哪裡開始，都有適合你的下一步。</p>
+        <div class="s-map">
+            <div class="s-map-card"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p><a class="s-btn" href="{{ url_for('site.contact') }}">安排程度諮詢</a></div>
+            <div class="s-map-card"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>針對多益、雅思、托福、日檢、韓檢的題型與弱項加強，精準考題解析，朝目標分數與級數前進。</p><a class="s-btn" href="{{ url_for('site.courses') }}">看各檢定課程</a></div>
+        </div>
+    </div>
+</section>
+
+<section class="s-sec s-band" id="why">
+    <div class="wrap">
+        <p class="s-eyebrow">WHY TRINITY</p>
+        <h2>為什麼選{{ s.name }}</h2>
+        <div class="s-why">
+            <div><span>01</span><h3>嚴選師資</h3><p>專業師資授課</p></div>
+            <div><span>02</span><h3>精準考題解析</h3><p>掌握題型與解題方法</p></div>
+            <div><span>03</span><h3>量身打造</h3><p>針對弱項提升</p></div>
+            <div><span>04</span><h3>小班教學</h3><p>個別學習計劃</p></div>
+            <div><span>05</span><h3>實體＋線上</h3><p>彈性多元規劃</p></div>
+            <div><span>06</span><h3>零基礎～高階</h3><p>各程度皆可排</p></div>
+        </div>
+        {% if s.slogan %}<p class="s-why-slogan">{{ s.slogan }}</p>{% endif %}
+    </div>
+</section>
 
 {% if 'toeic' in mocks_ready %}
-<section class="s-sec s-quiz-cta exam-tone-toeic">
-    <div class="wrap">
-        <h2>你的多益實力有幾分？</h2>
-        <p class="sub">聽力＋閱讀 22 題、約 12 分鐘，交卷馬上看正確率與解析。</p>
-        <a class="s-btn big" href="{{ url_for('site.mock_take', key='toeic') }}">{{ icon('target') }} 開始測驗</a>
+<section class="s-sec s-quiz-cta exam-tone-toeic" id="quiz">
+    <div class="wrap s-quiz-grid">
+        <div>
+            <p class="s-eyebrow">FREE TOEIC TEST</p>
+            <h2>你的多益實力有幾分？</h2>
+            <ul class="s-checks">
+                <li>聽力＋閱讀共 22 題，約 12 分鐘</li>
+                <li>比照多益題型：應答、簡短獨白、句子填空、段落填空、閱讀理解</li>
+                <li>交卷馬上看正確率與題目解析</li>
+                <li>各題型正確率與弱點分析</li>
+                <li>免費、不用註冊</li>
+            </ul>
+        </div>
+        <div class="s-quiz-btn"><a class="s-btn big" href="{{ url_for('site.mock_take', key='toeic') }}">{{ icon('target') }} 開始測驗</a></div>
     </div>
 </section>
 {% endif %}
 
-<section class="s-sec s-band" id="campus">
+<section class="s-sec s-about" id="about">
+    <div class="wrap s-about-grid">
+      <div>
+        <p class="s-eyebrow">ABOUT US</p>
+        <h2>關於{{ s.name }}語言教育中心</h2>
+        {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
+      </div>
+      <div class="s-about-art"><img src="{{ url_for('static', filename='images/site/hero-globe.svg') }}" alt="多益、雅思、托福、日檢、韓檢五大檢定" width="420" height="420" loading="lazy"></div>
+    </div>
+</section>
+
+<section class="s-sec s-contact-band" id="contact-us">
     <div class="wrap">
-        <p class="s-eyebrow">CAMPUSES</p>
-        <h2>校區</h2>
-        <p class="sub">{% for c in s.campuses %}{{ c.name }}{{ '、' if not loop.last }}{% endfor %}，就近選擇校區上課。</p>
-        <div class="s-grid">
-            {% for c in s.campuses %}
-            <a class="s-card" href="{{ url_for('site.campus', slug=c.slug) }}">
-                <h3>{{ c.label }}</h3>
-                {% if c.address %}<p>{{ c.address }}</p>{% endif %}
-                {% if c.phone %}<p>{{ c.phone }}</p>{% endif %}
-                <span class="more">校區資訊 →</span>
-            </a>
-            {% endfor %}
+        <h2>想讓語言變好，現在就開始</h2>
+        <p class="sub">留下聯絡方式，我們幫你安排程度諮詢與課程建議。</p>
+        <div class="s-contact3">
+            <a href="{{ url_for('site.contact') }}">{{ icon('clipboard') }}<b>線上預約諮詢</b><span>填表後由專人與你聯絡</span></a>
+            {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">{{ icon('speech') }}<b>LINE 諮詢</b><span>加入官方帳號直接詢問</span></a>{% endif %}
+            <a href="#campus">{{ icon('building') }}<b>打電話到校區</b><span>{% for c in s.campuses %}{{ c.name }}{{ '・' if not loop.last }}{% endfor %}</span></a>
         </div>
     </div>
 </section>
