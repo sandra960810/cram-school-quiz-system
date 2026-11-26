@@ -319,3 +319,33 @@ a.s-card:hover { box-shadow: var(--edge-raised); }
 .s-why-grid .s-mode-photo { height: 100%; min-height: 280px; margin: 0; }
 .s-why-grid .s-why { grid-template-columns: 1fr 1fr; }
 @media (max-width: 760px) { .s-why-grid { grid-template-columns: 1fr; } .s-why-grid .s-mode-photo { min-height: 0; height: 200px; } }
+/* 學習地圖卡片上方照片（2026-11 使用者挑的 Pexels 照片） */
+.s-map-card { overflow: hidden; }
+.s-map-photo { display: block; width: calc(100% + 56px); margin: -28px -28px 20px; height: 220px; object-fit: cover; }
+.s-photo-bg { object-position: 60% center; }
+
+/* 配合照片的灰藍＋黃色重點（2026-11 使用者要求） */
+body.site { background: var(--brand-bg); }
+.s-photo-panel { background: rgba(34, 56, 79, .9); border-top-color: var(--brand-gold); }
+.s-photo-tag { border-color: var(--brand-gold); color: var(--brand-gold); }
+.s-sec h2 { position: relative; padding-bottom: 12px; }
+.s-sec h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 48px; height: 4px; border-radius: 2px; background: var(--brand-gold); }
+.s-quiz-cta h2::after, .s-contact-band h2::after { left: 50%; transform: translateX(-50%); }
+.s-quiz-cta .wrap h2::after { left: 0; transform: none; }
+.s-eyebrow { color: var(--brand-gold-ink); }
+.s-jump { border-bottom: 3px solid var(--brand-gold); }
+.s-ctable th { border-bottom: 3px solid var(--brand-gold); }
+.s-ctable .s-btn, .s-map-card .s-btn { background: var(--brand-navy); }
+.s-ctable .s-btn:hover, .s-map-card .s-btn:hover { background: var(--brand-gold); color: var(--brand-navy) !important; filter: none; }
+.s-map-card { border-left-color: var(--brand-gold); }
+.s-why span { color: var(--brand-gold); }
+.s-why > div { border-top: 3px solid var(--brand-gold); }
+/* 免費多益測驗改成黃色區塊 */
+.s-quiz-cta { background: var(--brand-gold-50); }
+.s-quiz-cta h2 { color: var(--brand-navy); }
+.s-quiz-cta .s-checks li::before { color: var(--brand-gold-ink); }
+.s-quiz-cta .s-btn.big { background: var(--brand-gold); color: var(--brand-navy) !important; box-shadow: 0 0 0 2px var(--brand-navy); }
+.s-contact3 .ui-ic { color: var(--brand-navy); background: var(--brand-gold); border-radius: 50%; padding: 7px; box-sizing: border-box; width: 44px; height: 44px; }
+.s-actions .s-btn:not(.line), .s-float .s-btn:not(.line) { background: var(--brand-gold); color: var(--brand-navy) !important; }
+.s-foot { border-top: 4px solid var(--brand-gold); }
+.s-ctable .s-btn, .s-map-card .s-btn, .s-actions .s-btn, .s-float .s-btn:not(.line) { box-shadow: none; }

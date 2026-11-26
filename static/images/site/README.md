@@ -9,4 +9,4 @@
 | photo3.jpg | Pexels，攝影 Yan Krukau：https://www.pexels.com/photo/7693244/ | Pexels License（免費商用、不需標示） |
 | class.jpg | Unsplash，攝影 Akson：https://unsplash.com/photos/two-men-and-four-women-meeting-in-office-1K8pIbIrhkQ | Unsplash License（免費商用、不需標示） |
 
-只能放可免費商用的圖片（Unsplash 的 Free Photo，不是 Unsplash+），換圖時更新這張表。
+只能放可免費商用的圖片（Unsplash 的 Free Photo，不是 Unsplash+；Pexels 免費照片）。hero.jpg 是首頁主視覺，photo2、photo3 在「學習地圖」兩張卡片上，換圖時更新這張表。
