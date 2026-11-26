@@ -1,4 +1,4 @@
-"""檢查字根字首資料 morphology/roots.txt：格式、拼法、同一組有沒有重複的字。改完資料必跑。
+"""檢查字根字首資料 morphology/roots.txt：格式、拼法、同一組有沒有重複的字、「單字=原本的字」的寫法。改完資料必跑。
 
     python tools/check_word_roots.py
 """
@@ -24,7 +24,11 @@ with open(word_roots.DATA_FILE, encoding='utf-8') as f:
             errors.append(f'第 {n} 行：種類「{kind}」不對，只能是 prefix、root、suffix')
         if not meaning.strip():
             errors.append(f'第 {n} 行：{form} 沒有寫意思')
-        ws = words.split()
+        toks = words.split()
+        ws = [t.split('=')[0] for t in toks]   # 「happiness=happy」：等號後面是去掉字尾後的字
+        bad_stem = [t for t in toks if t.count('=') > 1 or (t.count('=') == 1 and not re.fullmatch(r"[a-z][a-z\-]*", t.split('=')[1]))]
+        if bad_stem:
+            errors.append(f'第 {n} 行：{form} 的「單字=原本的字」寫法不對：{" ".join(bad_stem)}')
         if len(ws) < 2:
             errors.append(f'第 {n} 行：{form} 至少要有 2 個字')
         bad = [w for w in ws if not re.fullmatch(r"[a-z][a-z\-]*", w)]
