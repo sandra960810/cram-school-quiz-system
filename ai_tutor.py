@@ -42,8 +42,8 @@ _ = {}   # register() 放進來的主程式物件
 
 DAILY_LIMIT = 60          # 每個學生每天最多真的呼叫幾次 AI（錯題解釋、記憶法、弱點練習、報告）
 # 比較貴的 AI 批改：每個學生每項每個月最多幾次（台灣時間每月 1 號重新計算；工作人員登入不限）。
-# 2026-11 使用者要求：雅思寫作、雅思口說、韓檢寫作批改與學習報告，每項每月 6 次。
-MONTHLY_LIMIT = 6
+# 2026-11 使用者要求：雅思寫作、雅思口說、韓檢寫作批改與學習報告，每項每月 6 次；同一天又改成每月 1 次。
+MONTHLY_LIMIT = 1
 MONTHLY_FEATURES = {'writing': '雅思寫作 AI 批改', 'speaking': '雅思口說 AI 評分',
                     'topik_writing': '韓檢寫作 AI 批改', 'report': 'AI 學習報告'}
 PRACTICE_SIZE = 8         # 一份弱點練習幾題
@@ -1031,4 +1031,5 @@ def register(app, db, deps):
         db.create_all()
     app.jinja_env.globals['ai_slot'] = ai_slot
     app.jinja_env.globals['ai_quota_note'] = ai_quota_note
+    app.jinja_env.globals['monthly_limit'] = MONTHLY_LIMIT
     app.register_blueprint(bp)

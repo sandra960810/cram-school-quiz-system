@@ -49,6 +49,11 @@
     <div class="banner">
         <h1>{{ icon('exam') }} 日檢模擬考</h1>
         <p>比照正式日檢的題型與時間，每一級有多回可以練習。一節一節作答，交卷馬上看正解與中文解析。</p>
+        <a class="ai-cta" href="{{ url_for('ai_tutor.practice_home', student_id=student.id, exam='jlpt') }}">
+            <span class="ai-cta-ic">{{ icon('target') }}</span>
+            <span class="ai-cta-t"><b>弱點練習<span class="ai-cta-tag">AI</span></b>依你各科的答對率和不熟的字出題</span>
+            <span class="arrow" style="color:var(--primary)">→</span>
+        </a>
     </div>
 
     {% for c in cards %}

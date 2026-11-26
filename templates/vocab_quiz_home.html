@@ -76,6 +76,11 @@
     <div class="summary">
         <h1>{{ icon('quiz') }} 背單字神器</h1>
         <p>考你背過的字。答錯的字會放回「不熟」，下次到單字庫時會先出現。</p>
+        <a class="ai-cta" href="{{ url_for('ai_tutor.practice_home', student_id=student.id, exam=exam.key) }}">
+            <span class="ai-cta-ic">{{ icon('target') }}</span>
+            <span class="ai-cta-t"><b>弱點練習<span class="ai-cta-tag">AI</span></b>依你不熟的字和常錯的題型，出一份專屬練習題</span>
+            <span class="arrow" style="color:var(--primary)">→</span>
+        </a>
     </div>
 
     {% set learned = scopes[0].count %}

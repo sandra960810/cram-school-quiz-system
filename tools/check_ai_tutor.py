@@ -250,7 +250,10 @@ check('AI 記憶法' in html and 'ai_tutor.js' in html, '單字卡有 AI 記憶�
 
 print('9. 主選單、沒有金鑰、次數上限')
 html = client.get(f'/dashboard/{SID}/ielts').get_data(as_text=True)
-check('AI 弱點練習' in html and 'AI 學習報告' in html, '雅思主選單有 AI 學習教練')
+check('學習報告' in html and 'AI 學習教練' not in html, '主選單上方有學習報告，不另開 AI 區')
+for url in (f'/vocab-quiz/{SID}', f'/exam/{SID}', f'/jlpt-mock/{SID}', f'/topik-mock/{SID}'):
+    page = client.get(url).get_data(as_text=True)
+    check('/ai/%d/practice' % SID in page, f'{url} 裡有 AI 弱點練習入口')
 for ek in ('toeic', 'jlpt', 'topik', 'basic', 'general'):
     r1 = client.get(f'/ai/{SID}/practice?exam={ek}')
     r2 = client.get(f'/ai/{SID}/report?exam={ek}')
@@ -281,32 +284,33 @@ check(len(cq) == 2 and cq[0]['options'][cq[0]['answer']] == 'w' and cq[1]['answe
       '打散選項後答案仍指向同一個選項；不合格的丟掉')
 
 if not REAL:
-    print('11. 每月次數限制（雅思寫作、口說、韓檢寫作、學習報告每項每月 6 次）')
+    print(f'11. 每月次數限制（雅思寫作、口說、韓檢寫作、學習報告每項每月 {ai_tutor.MONTHLY_LIMIT} 次）')
+    L = ai_tutor.MONTHLY_LIMIT
     real_grade_all = writing_bank.grade_all
     writing_bank.grade_all = lambda test, essays: {'tasks': {}, 'overall': 6.0, 'model': 'fake-model'}
     with app.app_context():
-        subs = [site.WritingSubmission(student_id=SID, test_key='W01', task1='a', task2='b') for _ in range(7)]
+        subs = [site.WritingSubmission(student_id=SID, test_key='W01', task1='a', task2='b') for _ in range(L + 1)]
         db.session.add_all(subs)
         db.session.commit()
         sub_ids = [x.id for x in subs]
     codes = [client.post(f'/exam/{SID}/writing/result/{i}/grade').status_code for i in sub_ids]
-    check(codes[:6] == [200] * 6 and codes[6] == 429, '雅思寫作批改第 7 次擋下（429）')
+    check(codes[:L] == [200] * L and codes[L] == 429, f'雅思寫作批改第 {L + 1} 次擋下（429）')
     with app.app_context():
         check(ai_tutor.monthly_left(SID, 'writing') == 0, '本月剩 0 次')
-        last = db.session.get(site.WritingSubmission, sub_ids[6])
-        check(last.ai_status == 'error' and '6 次' in (last.ai_error or ''), '第 7 份記下原因，頁面看得到')
-        check(ai_tutor.monthly_left(SID, 'speaking') == 6, '口說次數分開算')
-    html = client.get(f'/exam/{SID}/writing/result/{sub_ids[6]}').get_data(as_text=True)
+        last = db.session.get(site.WritingSubmission, sub_ids[L])
+        check(last.ai_status == 'error' and f'{L} 次' in (last.ai_error or ''), '超過的那份記下原因，頁面看得到')
+        check(ai_tutor.monthly_left(SID, 'speaking') == L, '口說次數分開算')
+    html = client.get(f'/exam/{SID}/writing/result/{sub_ids[L]}').get_data(as_text=True)
     check('quota-note' in html, '寫作成績頁顯示本月剩幾次')
-    # 學習報告：第 7 章 已經用了 1 次，再 5 次用完
-    codes = [post(f'/api/ai/{SID}/report?exam=ielts&again=1').status_code for _ in range(6)]
-    check(codes[-1] == 429 and codes.count(200) == 5, '學習報告每月 6 次，第 7 次擋下')
+    # 學習報告：第 7 項已經用掉 1 次
+    codes = [post(f'/api/ai/{SID}/report?exam=ielts&again=1').status_code for _ in range(L)]
+    check(codes[-1] == 429 and codes.count(200) == L - 1, f'學習報告每月 {L} 次，超過擋下')
     with app.app_context():
         old = ai_tutor._['AiUsage'].query.filter_by(student_id=SID, feature='report').all()
         for u in old:
             u.created_at = ai_tutor.month_start_utc() - site.timedelta(minutes=1)
         db.session.commit()
-        check(ai_tutor.monthly_left(SID, 'report') == 6, '上個月的次數不算（每月 1 號恢復）')
+        check(ai_tutor.monthly_left(SID, 'report') == L, '上個月的次數不算（每月 1 號恢復）')
     import admin
     real_logged_in = admin.logged_in
     admin.logged_in = lambda: True

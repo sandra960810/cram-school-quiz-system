@@ -27,11 +27,11 @@
         .menu-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
         /* 建議順序：卡片左上角的 1、2、3 */
         .step { position: absolute; top: 14px; left: 14px; width: 28px; height: 28px; border-radius: 50%; background: var(--primary-50); color: var(--primary); font-weight: bold; font-size: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px var(--primary-300); }
-        /* AI 學習教練 */
-        .ai-title { display: flex; align-items: center; gap: 8px; font-size: 18px; color: var(--deep); margin: 34px 0 14px; }
-        .menu-card.ai { box-shadow: 0 0 0 1px var(--primary-300), 4px 4px 0 var(--primary-100); }
-        .ai-tag { position: absolute; top: 14px; right: 14px; background: var(--primary); color: #fff; font-size: 12px; font-weight: bold; border-radius: 6px; padding: 2px 8px; letter-spacing: 1px; }
-        .ai-more { color: var(--muted); font-size: 14px; display: flex; align-items: center; gap: 6px; margin: 16px 0 0; line-height: 1.6; }
+        /* 看板右上角的「學習報告」（AI 學習報告，給家長與老師看） */
+        .welcome-banner { position: relative; }
+        .report-btn { position: absolute; top: 24px; right: 24px; display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--primary); border-radius: 10px; padding: 8px 14px; font-size: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 0 0 1px var(--primary-300); transition: box-shadow .15s; }
+        .report-btn:hover { box-shadow: var(--edge-raised); }
+        @media (max-width: 560px) { .report-btn { position: static; margin-top: 16px; } }
     </style>
 </head>
 <body>
@@ -45,6 +45,7 @@
         <div class="exam-chip">{{ icon(exam.icon) }} {{ exam.name }} {{ exam.en }}</div>
         <h1>歡迎回來，{{ student.name }}</h1>
         <p>照 1、2、3 的順序練習就對了。</p>
+        <a class="report-btn" href="{{ url_for('ai_tutor.report_page', student_id=student.id, exam=exam.key) }}">{{ icon('chart') }} 學習報告</a>
     </div>
 
     <!-- 功能選單：依考試開放的功能顯示（exams.py 的 features）。
@@ -106,23 +107,6 @@
         {% endif %}
     </div>
 
-    <!-- AI 學習教練（ai_tutor.py）：依學生自己的作答紀錄出題、寫報告；錯題解釋與單字記憶法在各頁面裡 -->
-    <h2 class="ai-title">{{ icon('bot') }} AI 學習教練</h2>
-    <div class="menu-grid ui-stagger">
-        <a href="{{ url_for('ai_tutor.practice_home', student_id=student.id, exam=exam.key) }}" class="menu-card ai">
-            <span class="ai-tag">AI</span>
-            <div class="menu-icon">{{ icon('target') }}</div>
-            <div class="menu-title">AI 弱點練習<span class="go-arrow">→</span></div>
-            <div class="menu-desc">分析你常錯的題型和不熟的字<br>馬上出一份專屬練習題</div>
-        </a>
-        <a href="{{ url_for('ai_tutor.report_page', student_id=student.id, exam=exam.key) }}" class="menu-card ai">
-            <span class="ai-tag">AI</span>
-            <div class="menu-icon">{{ icon('chart') }}</div>
-            <div class="menu-title">AI 學習報告<span class="go-arrow">→</span></div>
-            <div class="menu-desc">給家長與老師看的學習分析<br>強項、弱項與兩週計畫</div>
-        </a>
-    </div>
-    <p class="ai-more">{{ icon('bulb') }} 交卷後每題答錯的地方都可以「問 AI 老師」；單字卡上有「AI 記憶法」。</p>
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
