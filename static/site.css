@@ -175,3 +175,18 @@ a.s-card:hover { box-shadow: var(--edge-raised); }
 .mk-entry h2 { margin: 0 0 6px; color: var(--tone-deep, var(--deep)); }
 .mk-entry p { margin: 0; color: var(--ink-2); }
 .mk-entry .s-btn { background: var(--tone, var(--primary)); }
+
+/* 首頁（2026-11 改版：主視覺＋介紹在上，最下面是多益測驗入口） */
+.s-hero-main { padding: 72px 0 64px; }
+.s-hero-main h1 { font-size: 40px; display: flex; flex-direction: column; gap: 4px; }
+.s-hero-en { font-size: 16px; font-weight: normal; letter-spacing: .12em; color: var(--muted); }
+.s-hero-main .s-intro { max-width: 640px; }
+.s-quiz-cta { text-align: center; padding: 72px 0 80px; background: var(--tone-50); box-shadow: var(--edge); }
+.s-quiz-cta h2 { font-size: 32px; color: var(--tone-deep); margin: 0 0 10px; }
+.s-quiz-cta .sub { margin: 0 auto 26px; }
+.s-quiz-cta .s-btn.big { font-size: 20px; padding: 16px 40px; background: var(--tone); }
+@media (max-width: 760px) {
+    .s-hero-main { padding: 40px 0 36px; }
+    .s-hero-main h1 { font-size: 30px; }
+    .s-quiz-cta h2 { font-size: 26px; }
+}
