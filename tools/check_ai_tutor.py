@@ -42,8 +42,8 @@ def check(cond, what):
 calls = []
 
 
-def fake_ask_json(system, message, schema, effort='high'):
-    calls.append({'system': system, 'message': message, 'schema': schema, 'effort': effort})
+def fake_ask_json(system, message, schema, effort='high', light=False):
+    calls.append({'system': system, 'message': message, 'schema': schema, 'effort': effort, 'light': light})
     props = schema['properties']
     if 'why_wrong' in props:
         return {'why_wrong': '你把被否定的選項當成答案。', 'why_right': '原文明確說是另一個。',
@@ -116,6 +116,7 @@ if not REAL:
     check('學生的答案：TRUE' in msg and '正解（可接受的寫法）：FALSE' in msg, '附上學生答案與正解')
     check('given away to guests' in msg, '附上原文段落')
     check(calls[0]['effort'] == 'low', 'Claude 用 low effort（回得快）')
+    check(calls[0]['light'] is True, '錯題解釋用便宜的 Haiku')
     check(d['result']['practice']['answer'] == 2 and d['cached'] is False, '小練習格式正確、第一次不是快取')
 calls.clear()
 r = post(f'/api/ai/{SID}/explain', {'kind': 'ielts', 'section': 'reading', 'test_key': 'R01', 'qno': 1,
@@ -232,7 +233,10 @@ check(r.get_json()['correct'] == len(stored) - 1, '交過的卷不能重交改�
 check(client.get(f'/ai/{OID}/practice/{pid}').status_code == 404, '別人的練習看不到')
 
 print('7. AI 學習報告')
+calls.clear()
 r = post(f'/api/ai/{SID}/report?exam=ielts')
+if not REAL:
+    check(calls and calls[-1]['light'] is False, '學習報告用 Sonnet（不用 Haiku）')
 check(r.status_code == 200, '產生報告成功')
 html = client.get(f'/ai/{SID}/report?exam=ielts').get_data(as_text=True)
 if not REAL:
@@ -329,9 +333,9 @@ if not REAL:
         used.append(('gemini', key))
         raise writing_bank.FreeQuotaError('Gemini 免費額度暫時用完了')
 
-    def paid_claude(key, *a, **k):
+    def paid_claude(key, *a, model=None, **k):
         used.append(('claude', key))
-        return '{"ok": 1}', writing_bank.CLAUDE_MODEL
+        return '{"ok": 1}', model
     writing_bank.ai_config = lambda: ('gemini', 'AIza-free')
     writing_bank._gemini_json, writing_bank._claude_json = free_gemini, paid_claude
     writing_bank.PAID_LOG = os.path.join(tmp, 'paid_log.txt')
@@ -340,6 +344,9 @@ if not REAL:
     check(data == {'ok': 1} and used == [('gemini', 'AIza-free'), ('claude', 'sk-ant-paid')],
           '免費的回 429 時改用付費金鑰再問一次')
     check(model == 'claude-sonnet-5-5', '付費的是中階模型 Claude Sonnet 5.5')
+    used.clear()
+    _, model = real_ask_json('sys', 'msg', {'type': 'object', 'properties': {}}, light=True)
+    check(model == 'claude-haiku-5-5', '錯題解釋這類 light 呼叫付費時用 Haiku 5.5')
     check(os.path.exists(writing_bank.PAID_LOG), '改用付費的次數記在 ai_paid_log.txt')
     writing_bank.paid_config = lambda: (None, '')
     try:

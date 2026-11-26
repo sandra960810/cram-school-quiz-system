@@ -148,12 +148,13 @@ def check_quota(student_id):
         raise RuntimeError(f'今天已經問 AI 老師 {DAILY_LIMIT} 次了，明天再來，或請老師幫你看。')
 
 
-def ask(student_id, system, message, schema):
-    """呼叫 AI（數次限制、金鑰檢查都在這裡）。回傳 (dict, 模型名稱)，失敗丟 RuntimeError。"""
+def ask(student_id, system, message, schema, light=True):
+    """呼叫 AI（數次限制、金鑰檢查都在這裡）。回傳 (dict, 模型名稱)，失敗丟 RuntimeError。
+    light：付費的 Claude 用最便宜的 Haiku（錯題解釋、練習題、記憶法）；學習報告傳 False 用 Sonnet。"""
     if not writing_bank.ai_ready():
         raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
     check_quota(student_id)
-    return writing_bank.ask_json(system, message, schema, effort=EFFORT)
+    return writing_bank.ask_json(system, message, schema, effort=EFFORT, light=light)
 
 
 def cached(key, student_id, kind, build):
@@ -744,7 +745,8 @@ Task: write a study progress report about one student for parents and cram-schoo
 
 def make_report(student, exam):
     prof = weak_profile(student, exam)
-    data, model = ask(student.id, REPORT_SYSTEM, f'學生：{student.name}\n' + profile_text(prof), REPORT_SCHEMA)
+    data, model = ask(student.id, REPORT_SYSTEM, f'學生：{student.name}\n' + profile_text(prof), REPORT_SCHEMA,
+                      light=False)
     data['model'] = model
     data['stats'] = prof['stats']
     data['weak'] = [{'area': w['area'], 'detail': w['detail']} for w in prof['weak']]

@@ -332,7 +332,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   備用是 Claude 時口說作答頁也會開瀏覽器語音辨識（Claude 聽不到錄音）
 - AI 老師支援兩家，依金鑰開頭自動判斷：Google Gemini（`AIza` 或新格式 `AQ.`，免費額度，模型依序試
   `GEMINI_MODELS`，可用環境變數 `GEMINI_MODEL` 指定）與 Anthropic Claude（`sk-ant-`，
-  模型 `claude-sonnet-5-5`，中階、比 Opus 便宜一半）。金鑰讀 `ai_key.txt`，其次是環境變數 `GEMINI_API_KEY`／
+  模型 `claude-sonnet-5-5`，中階、比 Opus 便宜一半；AI 學習教練的錯題解釋、練習題、記憶法用 `ask_json(light=True)` 走最便宜的 `claude-haiku-5-5`，學習報告維持 Sonnet）。金鑰讀 `ai_key.txt`，其次是環境變數 `GEMINI_API_KEY`／
   `ANTHROPIC_API_KEY`。兩家共用同一份評分規則 `writing_bank.SYSTEM_PROMPT`（刻意從嚴）與
   JSON 輸出格式；
   Task 分數與總分（Task 2 兩倍權重）在 Python 端計算，不讓 AI 自己算
