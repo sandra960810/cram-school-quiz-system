@@ -6,6 +6,7 @@
     <title>{{ {'view': '單字卡', 'fav': '收藏滑卡', 'weak': '不熟區練習'}.get(mode, '滑卡學習') }}｜{{ theme.label }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ai_tutor.css') }}">
     <style>
         body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 20px; box-sizing: border-box; min-height: 100vh; overflow-x: hidden; }
         .page { max-width: 460px; margin: 0 auto; }
@@ -64,6 +65,7 @@
         .reading:empty { display: none; }
         /* 日文動詞變化（可展開） */
         .conj { margin-top: 14px; text-align: left; }
+        .ai-word { margin-top: 14px; user-select: text; }
         .conj-toggle { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-strong); background: #fff; color: var(--primary); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; }
         .conj-toggle .caret { transition: transform 0.15s; }
         .conj.open .conj-toggle .caret { transform: rotate(180deg); }
@@ -159,6 +161,11 @@
                     <table class="conj-table" lang="ja"><tbody id="conj-body"></tbody></table>
                 </div>
                 {% endif %}
+                <!-- AI 記憶法（ai_tutor.py）：按了才問 AI，同一個字大家共用同一份 -->
+                <div class="ai-word" id="ai-word">
+                    <button class="ai-btn" id="ai-word-btn" data-sound="tap" onclick="showAiWord()">{{ icon('bot') }} AI 記憶法・更多例句</button>
+                    <div id="ai-word-out"></div>
+                </div>
                 <div id="fav-toast" class="toast"></div>
             </div>
         </div>
@@ -188,6 +195,7 @@
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='ai_tutor.js') }}"></script>
 <script>
     const wordsQueue = {{ words | tojson }};
     const studentId = {{ student_id | tojson }};
@@ -248,6 +256,9 @@
         document.getElementById('meaning-display').innerText = w.meaning;
         document.getElementById('meaning-en-display').innerText = w.meaning_en || '';
         renderConj(w);
+        // 換字時收起上一個字的 AI 記憶法
+        document.getElementById('ai-word-out').innerHTML = '';
+        document.getElementById('ai-word-btn').style.display = '';
         const box = document.getElementById('sentence-display');
         if (w.sentence) {
             document.getElementById('sentence-text').innerText = w.sentence;
@@ -382,7 +393,7 @@
         const THRESHOLD = 100;
 
         card.addEventListener('pointerdown', (e) => {
-            if (busy || e.target.closest('button, .conj')) return;
+            if (busy || e.target.closest('button, .conj, .ai-word')) return;
             dragging = true; pid = e.pointerId; startX = e.clientX; startY = e.clientY; dx = 0;
             card.setPointerCapture(pid);
             card.classList.remove('back', 'enter');
@@ -483,6 +494,11 @@
         UI.play('tap');
     }
 
+    function showAiWord() {
+        if (!currentWord) return;
+        document.getElementById('ai-word-btn').style.display = 'none';
+        AITutor.wordHelp(document.getElementById('ai-word-out'), studentId, currentWord.id, {{ (exam.lang or '') | tojson }});
+    }
     function playSentence() { if (currentWord) speak(currentWord.sentence); }
 
     window.addEventListener('load', () => {

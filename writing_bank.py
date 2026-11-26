@@ -332,9 +332,9 @@ def _ask_claude(key, task, essay):
     return _claude_json(key, SYSTEM_PROMPT, _user_message(task, essay), _schema(task['no']))
 
 
-def _claude_json(key, system, message, schema):
+def _claude_json(key, system, message, schema, effort='high'):
     """用 Claude 依評分規則 system 批改 message，照 schema 回 JSON，回傳 (JSON 文字, 模型名稱)。
-    雅思寫作與韓檢寫作（topik_mock.py）共用。"""
+    雅思寫作與韓檢寫作（topik_mock.py）共用；AI 學習教練（ai_tutor.py）用較低的 effort，回得比較快。"""
     import anthropic
     client = anthropic.Anthropic(api_key=key, timeout=300)
     try:
@@ -344,7 +344,7 @@ def _claude_json(key, system, message, schema):
             betas=['server-side-fallback-2026-07-01'],
             fallbacks='default',
             system=system,
-            output_config={'effort': 'high',
+            output_config={'effort': effort,
                            'format': {'type': 'json_schema', 'schema': schema}},
             messages=[{'role': 'user', 'content': message}],
         )
@@ -414,7 +414,7 @@ def _ask_gemini(key, task, essay):
     return _gemini_json(key, SYSTEM_PROMPT, _user_message(task, essay), _schema(task['no']))
 
 
-def _gemini_json(key, system, message, schema):
+def _gemini_json(key, system, message, schema, effort=None):
     """用 Gemini 依評分規則 system 批改 message，照 schema 回 JSON，回傳 (JSON 文字, 模型名稱)。"""
     from google import genai
     from google.genai import errors, types
@@ -448,13 +448,14 @@ def _gemini_json(key, system, message, schema):
     raise RuntimeError(_no_model_error(last))
 
 
-def ask_json(system, message, schema):
-    """依目前設定的 AI 老師（Gemini 或 Claude）批改，回傳 (解析好的 dict, 模型名稱)。失敗丟 RuntimeError。"""
+def ask_json(system, message, schema, effort='high'):
+    """依目前設定的 AI 老師（Gemini 或 Claude）批改，回傳 (解析好的 dict, 模型名稱)。失敗丟 RuntimeError。
+    effort 只對 Claude 有用（Gemini 沒有這個設定）：批改作文用 high，解釋錯題這類短回答用 low。"""
     provider, key = ai_config()
     if not key:
         raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
     ask = _gemini_json if provider == 'gemini' else _claude_json
-    text, model = ask(key, system, message, schema)
+    text, model = ask(key, system, message, schema, effort=effort)
     try:
         return json.loads(text), model
     except ValueError:

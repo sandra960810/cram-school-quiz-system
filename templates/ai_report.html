@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-exam="{{ exam.key }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 學習報告｜{{ student.name }}｜{{ exam.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ai_tutor.css') }}">
+    <style>
+        body { font-family: var(--font); background: var(--bg); margin: 0; padding: 32px 18px 60px; color: var(--ink); }
+        .wrap { max-width: 820px; margin: 0 auto; }
+        .banner { background: var(--hero); color: var(--hero-ink); border-radius: 15px; padding: 24px 26px; box-shadow: var(--edge-hero); margin-bottom: 20px; }
+        .banner h1 { margin: 0 0 6px; font-size: 26px; display: flex; align-items: center; gap: 8px; }
+        .banner p { margin: 0; line-height: 1.7; }
+        .panel { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: var(--edge); margin-bottom: 16px; }
+        .panel h2 { font-size: 17px; margin: 0 0 10px; display: flex; align-items: center; gap: 6px; color: var(--deep); }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .stat { background: var(--surface-2); border-radius: 10px; padding: 10px 14px; }
+        .stat .v { font-size: 22px; font-weight: bold; color: var(--primary); }
+        .stat .v small { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 2px; }
+        .stat .l { font-size: 13px; color: var(--muted); }
+        .headline { font-size: 21px; font-weight: bold; color: var(--deep); margin-bottom: 8px; }
+        .overview { line-height: 1.9; }
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .two ul { margin: 0; padding-left: 20px; line-height: 1.9; }
+        .good h2 { color: var(--ok-ink); } .bad h2 { color: var(--warn-ink); }
+        .plan { width: 100%; border-collapse: collapse; font-size: 15px; }
+        .plan td { padding: 9px 6px; border-top: 1px solid var(--line); vertical-align: top; line-height: 1.7; }
+        .plan td.w { white-space: nowrap; font-weight: bold; color: var(--primary); width: 7em; }
+        .parent { background: var(--primary-50); border-radius: 12px; padding: 14px 18px; line-height: 1.9; }
+        .weak { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+        .weak li { padding: 6px 0; border-top: 1px solid var(--line); }
+        .weak li:first-child { border-top: none; }
+        .weak b { color: var(--warn-ink); margin-right: 8px; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+        .go { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; border: none; border-radius: 12px;
+              padding: 12px 22px; font: inherit; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .go.light { background: #fff; color: var(--primary); box-shadow: 0 0 0 1px var(--primary-300); }
+        .go:disabled { opacity: .6; cursor: wait; }
+        .meta { color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .warn { background: var(--warn-50); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+        .empty { color: var(--muted); line-height: 1.8; }
+        @media (max-width: 600px) { .two { grid-template-columns: 1fr; } }
+        @media print {
+            body { background: #fff; padding: 0; }
+            .nav-row, .actions, .no-print, #ui-voice-btn { display: none !important; }
+            .panel, .banner { box-shadow: 0 0 0 1px var(--line); break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="nav-row">
+        <a href="{{ url_for('exam_dashboard', student_id=student.id, exam_key=exam.key) }}" class="nav-back"><span class="arrow">←</span>{{ exam.name }}主選單</a>
+    </div>
+
+    <div class="banner">
+        <h1>{{ icon('chart') }} AI 學習報告</h1>
+        <p>{{ student.name }}・{{ exam.name }} {{ exam.en }}{% if report %}・{{ report.made_at }} 產生{% endif %}</p>
+    </div>
+
+    <div class="actions">
+        {% if ai_ready %}
+        <button class="go" id="make" data-sound="tap">{{ icon('sparkle') }} {{ '重新產生今天的報告' if report else '產生學習報告' }}</button>
+        {% else %}
+        <div class="warn">{{ icon('alert') }} AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。</div>
+        {% endif %}
+        {% if report %}<button class="go light" onclick="window.print()" data-sound="tap">{{ icon('file') }} 列印／存成 PDF</button>{% endif %}
+        <div id="msg" style="flex-basis:100%"></div>
+    </div>
+
+    <div class="panel">
+        <h2>{{ icon('clipboard') }} 學習數據</h2>
+        {% if prof.stats %}
+        <div class="stats">
+            {% for s in prof.stats %}<div class="stat"><div class="v">{{ s.value }}<small>{{ s.unit }}</small></div><div class="l">{{ s.label }}</div></div>{% endfor %}
+        </div>
+        {% else %}<p class="empty">還沒有學習紀錄。</p>{% endif %}
+        <p class="meta">數據由系統依作答紀錄即時計算（不是 AI 產生的）。</p>
+    </div>
+
+    {% if report %}
+    <div class="panel">
+        <div class="headline">{{ report.headline }}</div>
+        <div class="overview">{{ report.overview }}</div>
+    </div>
+    <div class="two">
+        <div class="panel good"><h2>{{ icon('thumb') }} 做得好的地方</h2><ul>{% for s in report.strengths %}<li>{{ s }}</li>{% endfor %}</ul></div>
+        <div class="panel bad"><h2>{{ icon('target') }} 需要加強</h2><ul>{% for s in report.weaknesses %}<li>{{ s }}</li>{% endfor %}</ul></div>
+    </div>
+    {% if report.plan %}
+    <div class="panel">
+        <h2>{{ icon('clock') }} 接下來兩週的計畫</h2>
+        <table class="plan">{% for p in report.plan %}<tr><td class="w">{{ p.when }}</td><td>{{ p.todo }}</td></tr>{% endfor %}</table>
+    </div>
+    {% endif %}
+    {% if report.parent_note %}
+    <div class="panel"><h2>{{ icon('users') }} 給家長的話</h2><div class="parent">{{ report.parent_note }}</div></div>
+    {% endif %}
+    <p class="meta">評語由 AI 老師（{{ report.model }}）依上面的數據撰寫，僅供參考，實際學習狀況請以老師的觀察為準。</p>
+    {% else %}
+    {% if prof.weak %}
+    <div class="panel">
+        <h2>{{ icon('target') }} 系統找到的弱點</h2>
+        <ul class="weak">{% for w in prof.weak %}<li><b>{{ w.area }}</b>{{ w.detail }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+    <p class="meta no-print">按「產生學習報告」，AI 老師會依這些數據寫出總評、強弱項與兩週計畫，可以列印給家長。</p>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='ai_tutor.js') }}"></script>
+<script>
+    const make = document.getElementById('make');
+    if (make) make.addEventListener('click', async () => {
+        make.disabled = true;
+        const msg = document.getElementById('msg');
+        msg.innerHTML = AITutor.waiting('AI 老師正在看數據、寫報告，大約 20–60 秒…');
+        try {
+            await AITutor.post(`/api/ai/{{ student.id }}/report?exam={{ exam.key }}`);
+            location.reload();
+        } catch (e) {
+            make.disabled = false;
+            msg.innerHTML = `<div class="ai-err">${AITutor.esc(e.message)}</div>`;
+        }
+    });
+</script>
+</body>
+</html>
