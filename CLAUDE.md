@@ -284,7 +284,7 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
 ## 建構式字彙：字根字首（word_roots.py）
 
 - 2026-11 使用者要求：單字庫拿掉 A–Z 分頁，英文加入「建構式字彙」，學到一個字時同字根、同字首的字會跳出來推薦
-- **英文大主題（超過 300 字）不再用 A–Z 分頁**，改成依序每 200 字一頁（`PAGE_SIZE`，網址的 `letter` 參數放頁碼，`in_page`／`page_label`）；
+- **英文主題不分頁**：A–Z 分頁拿掉後，使用者也不要「1–200、201–311」這種頁碼，整個主題一頁看完（`pages_by_letter()` 只對日韓回 True）；
   日檢、韓檢照舊依字首（あ行、ㄱ）分頁（`pages_by_letter()`）
 - 資料在 `morphology/roots.txt`：`種類|字形|意思|單字…`，約 190 組（字首、字根、字尾）。**每組的字都依字源人工挑**，
   不用字串比對自動猜（opportunity、passport 的 port 是「港口」，不算進 port＝拿；important 卻算）。加字前先查字源，改完跑 `python tools/check_word_roots.py`

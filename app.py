@@ -280,7 +280,6 @@ OFFICIAL_BY_ID = {t["id"]: t for t in OFFICIAL_THEMES}
 
 STUDY_BATCH_SIZE = 20     # 每次學習／複習的字數
 LETTER_PAGING_MIN = 300   # 主題字數超過這個數量就分頁
-PAGE_SIZE = 200           # 英文大主題依序每頁幾個字（2026-11 拿掉 A–Z 分頁，改成第 1、2…頁）
 NO_SENTENCE_PREFIX = '無例句'
 
 
@@ -441,23 +440,16 @@ def letter_of(w):
 
 
 def pages_by_letter():
-    """大主題怎麼分頁：日檢、韓檢依字首（あ行、ㄱ…）；英文不再用 A–Z（2026-11 使用者要求拿掉），改成依序每 PAGE_SIZE 字一頁。"""
+    """大主題要不要分頁：只有日檢、韓檢依字首（あ行、ㄱ…）分頁；
+    英文不分頁（2026-11 使用者要求拿掉 A–Z，後來連 1–200 這種頁碼也不要），整個主題一頁看完。"""
     return exams.current_exam().get("lang") in ('ja', 'ko')
 
 
-def page_of_index(i):
-    """英文分頁：清單裡第 i 個（從 0 算）字在第幾頁（字串，放在網址的 letter 參數）。"""
-    return str(i // PAGE_SIZE + 1)
-
-
 def in_page(words, letter):
-    """只留某一頁的字：日韓的 letter 是字首，英文是頁碼。"""
-    if not letter:
+    """只留某一頁（字首）的字；英文不分頁，整份回傳。"""
+    if not letter or not pages_by_letter():
         return words
-    if pages_by_letter():
-        return [w for w in words if letter_of(w) == letter]
-    n = int(letter) if letter.isdigit() else 1
-    return words[(n - 1) * PAGE_SIZE:n * PAGE_SIZE]
+    return [w for w in words if letter_of(w) == letter]
 
 
 def page_label(letter):
@@ -465,7 +457,7 @@ def page_label(letter):
     if not letter:
         return ''
     if not pages_by_letter():
-        return f'第 {letter} 頁'
+        return ''
     return f'{letter}行' if exams.current_exam().get("lang") == 'ja' and letter != '#' else letter
 
 
@@ -553,24 +545,22 @@ def learn_theme(student_id, theme_key):
               "is_favorite": w.word.lower() in fav}
              for i, w in enumerate(words, start=1)]
 
-    # 字太多的主題分頁，避免一次塞幾千張卡片：日韓依字首，英文依序每 PAGE_SIZE 字一頁（不用 A–Z）
-    paged = len(cards) > LETTER_PAGING_MIN
+    # 字太多的主題分頁，避免一次塞幾千張卡片：只有日韓依字首分頁，英文整個主題一頁
+    paged = len(cards) > LETTER_PAGING_MIN and pages_by_letter()
     letters = []
     letter = None
     if paged:
-        by_letter = pages_by_letter()
         counts = {}
-        for i, c in enumerate(cards):
-            k = c["letter"] if by_letter else page_of_index(i)
-            stat = counts.setdefault(k, {"letter": k, "total": 0, "unlocked": 0,
-                                         "label": page_label(k) if by_letter else f'{i + 1}–{min(i + PAGE_SIZE, len(cards))}'})
+        for c in cards:
+            stat = counts.setdefault(c["letter"], {"letter": c["letter"], "total": 0, "unlocked": 0,
+                                                   "label": page_label(c["letter"])})
             stat["total"] += 1
             stat["unlocked"] += c["status"] == 'familiar'
-        letters = [counts[k] for k in (sorted(counts) if by_letter else sorted(counts, key=int))]
+        letters = [counts[k] for k in sorted(counts)]
         letter = (request.args.get('letter') or '').upper()
         if letter not in counts:
             letter = letters[0]["letter"] if letters else None
-        cards = [c for i, c in enumerate(cards) if (c["letter"] if by_letter else page_of_index(i)) == letter]
+        cards = [c for c in cards if c["letter"] == letter]
 
     zone_counts = {z: sum(1 for c in cards if c["status"] == z) for z in ('familiar', 'unfamiliar', 'new')}
     return render_template('learn_theme.html', student=student, theme=theme, cards=cards,
@@ -586,7 +576,7 @@ def learn_study(student_id, theme_key):
     student = get_student(student_id)
     theme = theme_info(student, theme_key)
     mode = 'weak' if request.args.get('mode') == 'weak' else 'swipe'
-    letter = (request.args.get('letter') or '').upper() or None
+    letter = ((request.args.get('letter') or '').upper() or None) if pages_by_letter() else None
 
     words = in_page(theme_words(student, theme_key), letter)
     picked = pick_swipe_words(words, status_of(student_id), weak_only=(mode == 'weak'))
@@ -747,14 +737,10 @@ def learn_word(student_id, theme_key, vocab_id):
             word = next((w for w in rows if w.word.lower() == word.word.lower()), word)
             vocab_id = word.id
         letter = None
-        paged = theme["total"] > LETTER_PAGING_MIN
+        paged = theme["total"] > LETTER_PAGING_MIN and pages_by_letter()
         if paged and word:
-            # 大主題分頁：清單就是那一頁（跟圖鑑看到的一樣）
-            if pages_by_letter():
-                letter = letter_of(word)
-            else:
-                idx = next((i for i, w in enumerate(rows) if w.id == word.id), None)
-                letter = page_of_index(idx) if idx is not None else None
+            # 日韓大主題分頁：清單就是那一頁（跟圖鑑看到的一樣）
+            letter = letter_of(word)
             rows = in_page(rows, letter)
         back_url = url_for('learn_theme', student_id=student_id, theme_key=theme_key,
                            letter=letter if paged and letter else None)
