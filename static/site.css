@@ -191,33 +191,42 @@ a.s-card:hover { box-shadow: var(--edge-raised); }
     .s-quiz-cta h2 { font-size: 26px; }
 }
 
-/* 首頁主視覺：比照補習班 IG 海報（薄荷綠底、深藍大字、金黃重點），人物換成插畫 hero-student.svg */
-.s-poster { position: relative; overflow: hidden; padding: 48px 0 44px; background: var(--brand-mint-50); box-shadow: var(--edge); }
-.s-poster::before { content: ""; position: absolute; right: -12%; top: -30%; width: 70%; height: 160%;
-    background: var(--brand-mint); border-radius: 50%; }
-.s-poster-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; }
-.s-poster-brand { display: flex; align-items: center; gap: 12px; color: var(--brand-navy); font-size: 26px; font-weight: bold; letter-spacing: .12em; margin-bottom: 18px; }
-.s-poster-brand img { height: 56px; width: auto; mix-blend-mode: multiply; }
-.s-poster-brand span { display: flex; flex-direction: column; line-height: 1.2; }
-.s-poster-brand small { font-size: 14px; font-weight: normal; letter-spacing: .08em; color: var(--brand-teal); }
-.s-poster h1 { font-size: 52px; line-height: 1.2; color: var(--brand-navy); margin: 0 0 12px; letter-spacing: .04em; }
-.s-poster-sub { display: inline-block; background: var(--brand-gold); color: var(--brand-navy); font-weight: bold; font-size: 20px;
-    padding: 6px 16px; border-radius: 8px; margin: 0 0 20px; }
-.s-poster-list { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 10px; }
-.s-poster-list li { font-size: 20px; font-weight: bold; color: var(--brand-navy); display: flex; align-items: center; gap: 10px; }
-.s-poster-list li::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--brand-teal); flex: none; }
-.s-poster .s-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-.s-poster .s-btn.big:not(.line) { background: var(--brand-navy); }
-.s-poster-art { width: 100%; max-width: 480px; height: auto; justify-self: center; }
+/* 首頁主視覺：專業語言中心風格（2026-11 使用者要求），深藍底＋金色線條，配 hero-globe.svg */
+.s-eyebrow { font-size: 13px; letter-spacing: .24em; color: var(--brand-gold-ink); font-weight: bold; margin: 0 0 6px; }
+.s-pro { background: var(--brand-navy); color: #fff; padding: 64px 0 56px; }
+.s-pro-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+.s-pro .s-eyebrow { color: var(--brand-gold); }
+.s-pro h1 { font-size: 46px; line-height: 1.25; margin: 0 0 18px; letter-spacing: .08em; display: flex; flex-direction: column; }
+.s-pro h1 span { font-size: 28px; font-weight: normal; letter-spacing: .3em; color: var(--brand-gold); }
+.s-pro-lead { font-size: 18px; line-height: 1.8; color: var(--brand-navy-100); margin: 0 0 28px; padding-left: 16px; border-left: 3px solid var(--brand-gold); }
+.s-pro-points { list-style: none; padding: 0; margin: 0 0 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; max-width: 520px; }
+.s-pro-points li { display: flex; gap: 12px; align-items: center; }
+.s-pro-points .ui-ic { width: 40px; height: 40px; padding: 9px; box-sizing: border-box; border: 1.5px solid var(--brand-gold); border-radius: 50%; color: var(--brand-gold); flex: none; }
+.s-pro-points b { display: block; font-size: 17px; }
+.s-pro-points span { font-size: 14px; color: var(--brand-navy-100); }
+.s-pro .s-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.s-btn.gold { background: var(--brand-gold); color: var(--brand-navy) !important; box-shadow: none; }
+.s-pro-art { width: 100%; max-width: 460px; height: auto; justify-self: center; }
+.s-facts { background: #fff; box-shadow: var(--edge); }
+.s-facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
+.s-facts .wrap > div { padding: 22px 8px; border-left: 1px solid var(--line); }
+.s-facts .wrap > div:first-child { border-left: none; }
+.s-facts b { display: block; font-size: 26px; color: var(--brand-navy); }
+.s-facts span { font-size: 14px; color: var(--muted); }
+.s-about-slogan { font-weight: bold; color: var(--brand-navy); font-size: 18px; margin: 0 0 8px; }
 .s-about { padding-bottom: 8px; }
-.s-about-slogan { font-weight: bold; color: var(--brand-teal); font-size: 18px; margin: 0 0 8px; }
 @media (max-width: 760px) {
-    .s-poster { padding: 28px 0 24px; }
-    .s-poster-grid { grid-template-columns: 1fr; }
-    .s-poster::before { right: -40%; top: 30%; width: 140%; height: 90%; }
-    .s-poster h1 { font-size: 36px; }
-    .s-poster-brand { font-size: 20px; }
-    .s-poster-list li { font-size: 17px; }
-    .s-poster-sub { font-size: 16px; }
-    .s-poster-art { max-width: 300px; order: 2; }
+    .s-pro { padding: 36px 0 32px; }
+    .s-pro-grid { grid-template-columns: 1fr; }
+    .s-pro h1 { font-size: 34px; }
+    .s-pro h1 span { font-size: 20px; }
+    .s-pro-points { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .s-pro-art { max-width: 280px; }
+    .s-facts .wrap { grid-template-columns: 1fr 1fr; }
+    .s-facts .wrap > div:nth-child(3) { border-left: none; }
+    .s-facts b { font-size: 20px; }
 }
+/* 全站跟著用深藍當主色調（專業語言中心風格） */
+.s-sec h2 { color: var(--brand-navy); }
+.s-actions .s-btn:not(.line) { background: var(--brand-navy); }
+.s-float .s-btn:not(.line) { background: var(--brand-navy); }
