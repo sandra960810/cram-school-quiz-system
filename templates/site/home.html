@@ -3,7 +3,7 @@
 {% block body %}
 {# 2026-11 使用者要求：最上面是有真人照片的吸睛主視覺，地球圖放到下面「關於」旁邊，首頁不另放校區區塊（校區在頁尾）；官網先不提學生系統 #}
 <section class="s-photo-hero">
-    <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1280" fetchpriority="high">
+    <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high">
     <div class="wrap">
       <div class="s-photo-panel">
         <p class="s-eyebrow">TRINITY LANGUAGE CENTER</p>
@@ -54,8 +54,8 @@
         <h2>學習地圖</h2>
         <p class="sub">零基礎到高階，都有適合你的下一步。</p>
         <div class="s-map">
-            <div class="s-map-card"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p><a class="s-btn" href="{{ url_for('site.contact') }}">安排程度諮詢</a></div>
-            <div class="s-map-card"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p><a class="s-btn" href="{{ url_for('site.courses') }}">看各檢定課程</a></div>
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p><a class="s-btn" href="{{ url_for('site.contact') }}">安排程度諮詢</a></div>
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p><a class="s-btn" href="{{ url_for('site.courses') }}">看各檢定課程</a></div>
         </div>
     </div>
 </section>

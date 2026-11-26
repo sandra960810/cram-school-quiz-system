@@ -1,11 +1,13 @@
 /* 全站色系：所有頁面的顏色都從這裡的變數來，要換色只改這一份。
    各頁 <style> 裡只寫 var(--primary) 這類變數，不要再寫死色碼。 */
 :root {
-    /* 官網主視覺：專業語言中心風格的深藍與金色（取自 Logo） */
-    --brand-navy: #14205a;
-    --brand-navy-100: #c8cfe6;
-    --brand-gold: #d9b45a;
-    --brand-gold-ink: #9a7a2a;
+    /* 官網配色（2026-11 使用者要求配合首頁照片＋加入黃色）：照片裡西裝的灰藍、明亮辦公室的冷灰白，重點色用黃色 */
+    --brand-navy: #22384f;
+    --brand-navy-100: #d3dde8;
+    --brand-bg: #f3f5f8;
+    --brand-gold: #f5c330;
+    --brand-gold-50: #fff6d6;
+    --brand-gold-ink: #8a6500;
     /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
     --primary: #4a2d7f;
     --primary-600: #38205f;
