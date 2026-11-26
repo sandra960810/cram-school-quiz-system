@@ -9,10 +9,6 @@
         <p class="s-eyebrow">TRINITY LANGUAGE CENTER</p>
         <h1>來驅勢，<br>讓自己語言變好</h1>
         <p class="s-photo-slogan">多年專業經驗，成就語言學習新高度</p>
-        <div class="s-cta">
-            <a class="s-btn big gold" href="{{ url_for('site.contact') }}">預約免費諮詢・試聽</a>
-            {{ line_btn(s, 's-btn big line') }}
-        </div>
         {% if 'toeic' in mocks_ready %}
         <a class="s-hero-mock" href="{{ url_for('site.mock_take', key='toeic') }}">
             <span class="s-hero-mock-tag">免費</span>
