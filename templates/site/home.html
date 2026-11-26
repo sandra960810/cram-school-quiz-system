@@ -1,19 +1,14 @@
 {% extends 'site/base.html' %}
 {% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
-{# 2026-11 使用者要求：最上面是有真人照片的吸睛主視覺，地球圖放到下面「關於」旁邊，首頁不另放校區區塊（校區在頁尾）；官網先不提學生系統 #}
+{# 2026-11 使用者要求：主視覺照片＋標語 → 課程 → 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
 <section class="s-photo-hero">
     <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high">
     <div class="wrap">
       <div class="s-photo-panel">
         <p class="s-eyebrow">TRINITY LANGUAGE CENTER</p>
         <h1>來驅勢，<br>讓自己語言變好</h1>
-        <p class="s-photo-tag">英語・日語・韓語・托福・雅思・多益</p>
-        <ul class="s-stats">
-            <li>{{ icon('building') }}<b>{{ s.campuses|length }}</b><span>大校區</span></li>
-            <li>{{ icon('cap') }}<b>{{ courses|length }}</b><span>大檢定課程</span></li>
-            <li>{{ icon('globe') }}<b>3</b><span>種語言</span></li>
-        </ul>
+        <p class="s-photo-slogan">多年專業經驗，成就語言學習新高度</p>
         <div class="s-cta">
             <a class="s-btn big gold" href="{{ url_for('site.contact') }}">預約免費諮詢・試聽</a>
             {{ line_btn(s, 's-btn big line') }}
@@ -21,9 +16,6 @@
       </div>
     </div>
 </section>
-<nav class="s-jump" aria-label="本頁目錄"><div class="wrap">
-    <a href="#courses">課程總覽</a><a href="#map">學習地圖</a><a href="#why">為什麼選驅勢</a>{% if 'toeic' in mocks_ready %}<a href="#quiz">免費多益測驗</a>{% endif %}<a href="#about">關於我們</a><a href="#contact-us">聯絡我們</a>
-</div></nav>
 
 
 <section class="s-sec s-band" id="courses">
@@ -33,13 +25,12 @@
         <p class="sub">上課時間、班別與費用依程度安排，歡迎諮詢。</p>
         <div class="s-table-wrap">
         <table class="s-ctable">
-            <thead><tr><th>課程</th><th>課程重點</th><th></th></tr></thead>
+            <thead><tr><th>課程</th><th>課程重點</th></tr></thead>
             <tbody>
             {% for c in courses %}
             <tr class="exam-tone-{{ c.key }}">
-                <td><b class="ct-name">{{ c.name }}</b><small>{{ c.en }}</small></td>
+                <td><a class="ct-name" href="{{ url_for('site.course', key=c.key) }}">{{ c.name }}</a><small>{{ c.en }}</small></td>
                 <td>{{ c.lead }}</td>
-                <td><a class="s-btn" href="{{ url_for('site.course', key=c.key) }}">看課程</a></td>
             </tr>
             {% endfor %}
             </tbody>
@@ -54,8 +45,8 @@
         <h2>學習地圖</h2>
         <p class="sub">零基礎到高階，都有適合你的下一步。</p>
         <div class="s-map">
-            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p><a class="s-btn" href="{{ url_for('site.contact') }}">安排程度諮詢</a></div>
-            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p><a class="s-btn" href="{{ url_for('site.courses') }}">看各檢定課程</a></div>
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p></div>
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p></div>
         </div>
     </div>
 </section>
@@ -76,6 +67,17 @@
     </div>
 </section>
 
+
+<section class="s-sec s-about" id="about">
+    <div class="wrap s-about-grid">
+      <div>
+        <p class="s-eyebrow">ABOUT US</p>
+        <h2>關於{{ s.name }}語言教育中心</h2>
+        {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
+      </div>
+          </div>
+</section>
+
 {% if 'toeic' in mocks_ready %}
 <section class="s-sec s-quiz-cta exam-tone-toeic" id="quiz">
     <div class="wrap s-quiz-grid">
@@ -92,27 +94,4 @@
     </div>
 </section>
 {% endif %}
-
-<section class="s-sec s-about" id="about">
-    <div class="wrap s-about-grid">
-      <div>
-        <p class="s-eyebrow">ABOUT US</p>
-        <h2>關於{{ s.name }}語言教育中心</h2>
-        {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
-      </div>
-      <div class="s-about-art"><img src="{{ url_for('static', filename='images/site/hero-globe.svg') }}" alt="多益、雅思、托福、日檢、韓檢五大檢定" width="420" height="420" loading="lazy"></div>
-    </div>
-</section>
-
-<section class="s-sec s-contact-band" id="contact-us">
-    <div class="wrap">
-        <h2>想讓語言變好，現在就開始</h2>
-        <p class="sub">留下聯絡方式，我們幫你安排程度諮詢與課程建議。</p>
-        <div class="s-contact3">
-            <a href="{{ url_for('site.contact') }}">{{ icon('clipboard') }}<b>線上預約諮詢</b><span>填表後由專人與你聯絡</span></a>
-            {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">{{ icon('speech') }}<b>LINE 諮詢</b><span>加入官方帳號直接詢問</span></a>{% endif %}
-            <a href="#campus">{{ icon('building') }}<b>打電話到校區</b><span>{% for c in s.campuses %}{{ c.name }}{{ '・' if not loop.last }}{% endfor %}</span></a>
-        </div>
-    </div>
-</section>
 {% endblock %}
