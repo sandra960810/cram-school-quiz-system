@@ -47,3 +47,7 @@ topik_audio_log.txt
 
 # 官網諮詢名單（個資，只存在櫃台電腦本機，絕對不能上傳）
 instance/leads.db
+
+# 官網通知信的寄件帳號與應用程式密碼（只存在本機）
+instance/mail.json
+instance/mail_log.txt

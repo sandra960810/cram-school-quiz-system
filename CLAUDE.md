@@ -59,6 +59,7 @@ topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各十
 topik_mock/         韓檢模擬考題庫 TOPIK1.txt、TOPIK2.txt，第 2 回起 TOPIK1-2.txt…（純文字格式，見 README.md）
 topik_audio.bat     在櫃台電腦產生韓檢模擬考聽力音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
+set_mail.bat        設定官網諮詢通知信的寄件帳號（instance/mail.json，不進 git）
 set_ai_paid_key.bat 設定備用付費金鑰（ai_key_paid.txt，不進 git）：免費 Gemini 額度用完時自動改用
 ai_tutor.py         AI 學習教練（Blueprint）：錯題解釋、弱點練習 /ai/<id>/practice、學習報告 /ai/<id>/report、單字記憶法；前端 static/ai_tutor.js／ai_tutor.css
 templates/          Jinja 樣板
@@ -163,6 +164,9 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
   新增公開頁要把網址開頭加進 `PUBLIC_PREFIXES` 和 sitemap
 - 諮詢名單是個資：存在 **`instance/leads.db`（獨立檔、不進 git；quiz.db 有進 git 所以不能放那裡）**。表單有 csrf、隱藏欄位擋機器人、
   同 IP 一小時 5 次、必須勾同意個資說明。工作人員後台 `/admin/leads` 看名單、標已聯絡、寫備註、下載 CSV（擋 Excel 公式注入）
+- **新名單自動寄信通知**（2026-11 使用者要求寄到 service@wkedu.com.tw）：`lead_mail.py`，收件人是 `site_info.json` 的 `notify_email`（逗號分隔可多個）；
+  寄件帳號存在 `instance/mail.json`（不進 git），由櫃台電腦雙擊 `set_mail.bat` 設定（Gmail／Workspace 的應用程式密碼，會先寄測試信成功才存檔）。
+  免費諮詢、模考解鎖都會寄；在背景寄，失敗不影響存檔，結果記在 `instance/mail_log.txt`
 
 ### 官網迷你模考（school_mock.py）
 
