@@ -66,6 +66,7 @@
         {% else %}
         <div class="warn">{{ icon('alert') }} AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。</div>
         {% endif %}
+        {% if left is not none %}<span class="meta">本月還可以產生 <b>{{ left }}</b> 次報告（每月 6 次，1 號恢復）</span>{% endif %}
         {% if report %}<button class="go light" onclick="window.print()" data-sound="tap">{{ icon('file') }} 列印／存成 PDF</button>{% endif %}
         <div id="msg" style="flex-basis:100%"></div>
     </div>

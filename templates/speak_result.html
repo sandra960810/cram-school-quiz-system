@@ -105,6 +105,7 @@
                 </div>
                 <div class="errbox" id="gradingErr" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ sub.ai_error or '' }}</div>
                 <button type="button" class="btn-submit" id="gradeBtn" {% if sub.ai_status != 'error' %}hidden{% endif %}>{{ icon('refresh') }} 再請 AI 老師評分一次</button>
+                {{ ai_quota_note(student.id, 'speaking') }}
             {% else %}
                 <div class="errbox">{{ icon('key') }} AI 老師未設定，錄音已存。請在櫃台電腦雙擊 <b>set_ai_key.bat</b> 後重新整理此頁。</div>
             {% endif %}

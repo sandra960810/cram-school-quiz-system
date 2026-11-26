@@ -1413,6 +1413,9 @@ def writing_grade(student_id, sub_id):
         return jsonify({'ok': True})
     if not writing_bank.ai_ready():
         return jsonify({'ok': False, 'error': 'AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。'}), 400
+    quota = _quota_block(sub, student_id, 'writing')
+    if quota:
+        return quota
     test = writing_bank.load_test(sub.test_key)
     try:
         result = writing_bank.grade_all(test, {1: sub.task1 or '', 2: sub.task2 or ''})
@@ -1429,8 +1432,21 @@ def writing_grade(student_id, sub_id):
     sub.overall = result['overall']
     sub.ai_status, sub.ai_error = 'done', None
     sub.graded_at = datetime.utcnow()
+    if result.get('model'):          # 兩篇都空白時沒有呼叫 AI，不算次數
+        ai_tutor.record_monthly(student_id, 'writing')
     db.session.commit()
     return jsonify({'ok': True, 'overall': sub.overall})
+
+
+def _quota_block(sub, student_id, feature):
+    """這個月的 AI 批改次數用完了：記成錯誤（頁面顯示原因、不會每次打開都自動重試），回傳要給前端的回應。"""
+    try:
+        ai_tutor.check_monthly(student_id, feature)
+    except ai_tutor.QuotaError as e:
+        sub.ai_status, sub.ai_error = 'error', str(e)[:300]
+        db.session.commit()
+        return jsonify({'ok': False, 'error': str(e)}), 429
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -1462,7 +1478,8 @@ def speaking_test(student_id, test_key):
     if not test:
         abort(404, description="找不到這份口說試卷")
     return render_template('speak_test.html', student=student, test=test,
-                           provider=speaking_bank.ai_config()[0], ai_ready=speaking_bank.ai_ready())
+                           provider=speaking_bank.ai_config()[0], paid=speaking_bank.paid_config()[0],
+                           ai_ready=speaking_bank.ai_ready())
 
 
 @app.route('/exam/<int:student_id>/speaking/<test_key>/submit', methods=['POST'])
@@ -1543,6 +1560,9 @@ def speaking_grade(student_id, sub_id):
         return jsonify({'ok': True})
     if not speaking_bank.ai_ready():
         return jsonify({'ok': False, 'error': 'AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。'}), 400
+    quota = _quota_block(sub, student_id, 'speaking')
+    if quota:
+        return quota
     test = speaking_bank.load_test(sub.test_key)
     answers = []
     for a in json.loads(sub.answers or '[]'):
@@ -1565,6 +1585,7 @@ def speaking_grade(student_id, sub_id):
     sub.overall = result['overall']
     sub.ai_status, sub.ai_error = 'done', None
     sub.graded_at = datetime.utcnow()
+    ai_tutor.record_monthly(student_id, 'speaking')
     db.session.commit()
     return jsonify({'ok': True, 'overall': sub.overall})
 

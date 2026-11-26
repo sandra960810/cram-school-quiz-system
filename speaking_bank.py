@@ -18,7 +18,7 @@ import re
 
 import bank_store
 import writing_bank
-from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_client, gemini_models, _gemini_error, _try_next_model, _no_model_error
+from writing_bank import ai_config, ai_ready, ai_label, round_band, gemini_client, gemini_models, _gemini_error, gemini_exc, run_ai, paid_config, _try_next_model, _no_model_error
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BANK_DIR = os.path.join(BASE, 'speaking')
@@ -227,7 +227,7 @@ def _ask_gemini(key, test, answers):
                 with open(a['path'], 'rb') as fh:
                     contents.append(types.Part.from_bytes(data=fh.read(), mime_type=mime))
         except errors.APIError as e:
-            raise RuntimeError(_gemini_error(e))
+            raise gemini_exc(e)
         except Exception as e:
             raise RuntimeError(f'上傳錄音到 Gemini 失敗，請確認這台電腦有網路。（{type(e).__name__}）')
     contents.append(types.Part.from_text(text='Now give the transcripts and your assessment in the required JSON format.'))
@@ -243,7 +243,7 @@ def _ask_gemini(key, test, answers):
                 continue
             if e.code == 400 and 'mime' in str(e).lower():
                 raise RuntimeError('Gemini 不接受這個瀏覽器的錄音格式，請改用 Edge 或 Chrome 重新錄一次。')
-            raise RuntimeError(_gemini_error(e))
+            raise gemini_exc(e)
         except Exception as e:
             raise RuntimeError(f'連不上 Gemini，請確認這台電腦有網路。（{type(e).__name__}）')
         text = resp.text or ''
@@ -297,16 +297,21 @@ def _ask_claude(key, test, answers):
 def grade(test, answers):
     """批改一次口說測驗。answers：[{qid, seconds, path?, transcript?}]。
     回傳 dict（criteria、summary…，再加上 transcripts、overall、model、provider）。失敗丟 RuntimeError。"""
-    provider, key = ai_config()
-    if not key:
+    if not ai_config()[1]:
         raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
     if _blank_answers(answers):
         raise RuntimeError('這次沒有任何錄音或辨識到的內容，無法批改。請確認麥克風有收到聲音後再考一次。')
-    if provider == 'claude' and not any((a.get('transcript') or '').strip() for a in answers):
-        raise RuntimeError('目前的 AI 老師是 Claude，它聽不到錄音，需要瀏覽器的語音辨識逐字稿；'
-                           '這次沒有辨識到文字。請改用 Edge 重新考一次，或改設定 Gemini 金鑰（可以直接聽錄音）。')
-    ask = _ask_gemini if provider == 'gemini' else _ask_claude
-    text, model = ask(key, test, answers)
+    used = {}
+
+    def run(provider, key):
+        if provider == 'claude' and not any((a.get('transcript') or '').strip() for a in answers):
+            raise RuntimeError('目前的 AI 老師是 Claude，它聽不到錄音，需要瀏覽器的語音辨識逐字稿；'
+                               '這次沒有辨識到文字。請改用 Edge 重新考一次，或改設定 Gemini 金鑰（可以直接聽錄音）。')
+        used['provider'] = provider     # 免費額度用完改用付費金鑰時，可能換成另一家
+        ask = _ask_gemini if provider == 'gemini' else _ask_claude
+        return ask(key, test, answers)
+    text, model = run_ai(run, '雅思口說')
+    provider = used['provider']
     try:
         data = json.loads(text)
         for k, _, _ in CRITERIA:

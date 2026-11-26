@@ -149,3 +149,7 @@ body:has(.submit-bar) .ui-voice-panel { bottom: 144px; }
 
 /* 題庫首頁：還沒做好的回數只用一行字帶過，不再排一整片灰色卡片 */
 .soon-note { color: var(--muted); font-size: 14px; text-align: center; margin: 4px 0 22px; }
+
+/* AI 批改每月次數提示（ai_tutor.ai_quota_note） */
+.quota-note { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.quota-note b { color: var(--ink); }

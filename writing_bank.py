@@ -23,9 +23,13 @@ import bank_store
 BASE = os.path.dirname(os.path.abspath(__file__))
 BANK_DIR = os.path.join(BASE, 'writing')
 KEY_FILE = os.path.join(BASE, 'ai_key.txt')
+# 備用的付費金鑰（set_ai_paid_key.bat 設定，不進 git）：免費的 Gemini 額度用完（429）時自動改用這把
+PAID_KEY_FILE = os.path.join(BASE, 'ai_key_paid.txt')
+PAID_LOG = os.path.join(BASE, 'instance', 'ai_paid_log.txt')
 
 SECTION = 'writing'
-CLAUDE_MODEL = 'claude-opus-5-5'
+# 2026-11 使用者要求用中階、便宜一點的模型（Sonnet 5.5：每百萬 token 輸入 2、輸出 10 美元，Opus 5.5 的一半）
+CLAUDE_MODEL = 'claude-sonnet-5-5'
 # Gemini 免費額度可用的模型，依序嘗試（Google 會汰換舊模型，前一個找不到就換下一個）。
 # 想指定模型可以設環境變數 GEMINI_MODEL。
 GEMINI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash']
@@ -188,11 +192,16 @@ def overall_band(t1, t2):
 
 # ---------------------------------------------------------------- AI 老師
 
-def _key_file():
-    if os.path.exists(KEY_FILE):
-        with open(KEY_FILE, encoding='utf-8-sig') as f:
+def _key_file(path=None):
+    path = path or KEY_FILE
+    if os.path.exists(path):
+        with open(path, encoding='utf-8-sig') as f:
             return f.read().strip()
     return ''
+
+
+class FreeQuotaError(RuntimeError):
+    """Gemini 回 429：免費額度（每分鐘或每天的次數）用完了。有備用付費金鑰時會自動改用付費的。"""
 
 
 def key_provider(key):
@@ -217,6 +226,44 @@ def ai_config():
     return None, ''
 
 
+def paid_config():
+    """備用付費金鑰：回傳 (哪一家, 金鑰)，沒有設定時回傳 (None, '')。
+    讀 ai_key_paid.txt，其次是環境變數 AI_PAID_KEY；和主要金鑰一樣依開頭判斷是 Gemini（付費專案）還是 Claude。"""
+    key = _key_file(PAID_KEY_FILE) or os.environ.get('AI_PAID_KEY', '').strip()
+    provider = key_provider(key) if key else None
+    if not provider or key == ai_config()[1]:
+        return None, ''
+    return provider, key
+
+
+def _log_paid(model, what):
+    """記下每一次改用付費金鑰（instance/ai_paid_log.txt），之後對帳單用。"""
+    from datetime import datetime
+    try:
+        os.makedirs(os.path.dirname(PAID_LOG), exist_ok=True)
+        with open(PAID_LOG, 'a', encoding='utf-8') as f:
+            f.write(f"{datetime.now():%Y-%m-%d %H:%M}\t{model}\t{what}\n")
+    except OSError:
+        pass
+
+
+def run_ai(run, what=''):
+    """用主要金鑰呼叫 run(哪一家, 金鑰)；免費額度用完（FreeQuotaError）而且有備用付費金鑰時，改用付費金鑰再呼叫一次。
+    run 的回傳值要是 (結果, 模型名稱)。"""
+    provider, key = ai_config()
+    if not key:
+        raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
+    try:
+        return run(provider, key)
+    except FreeQuotaError:
+        paid, paid_key = paid_config()
+        if not paid_key:
+            raise
+    result = run(paid, paid_key)
+    _log_paid(result[1] if isinstance(result, tuple) and len(result) > 1 else '', what)
+    return result
+
+
 def api_key():
     return ai_config()[1]
 
@@ -238,7 +285,11 @@ def ai_ready():
 def ai_label():
     """顯示用：目前是哪一位 AI 老師。"""
     provider = ai_config()[0]
-    return {'gemini': 'Google Gemini（免費額度）', 'claude': 'Anthropic Claude'}.get(provider, '尚未設定')
+    label = {'gemini': 'Google Gemini（免費額度）', 'claude': 'Anthropic Claude'}.get(provider, '尚未設定')
+    paid = paid_config()[0]
+    if provider and paid:
+        label += '，額度用完改用' + {'gemini': ' Gemini 付費版', 'claude': ' Claude'}[paid]
+    return label
 
 
 SYSTEM_PROMPT = """You are a senior, certified IELTS Writing examiner acting as a strict teacher at a Taiwanese cram school. You mark one Academic Writing task at a time against the four official public band descriptors.
@@ -395,6 +446,12 @@ def _gemini_error(e):
     return f'Gemini 回報錯誤（{code}）：{msg[:120]}'
 
 
+def gemini_exc(e):
+    """Gemini 的錯誤換成要丟出的例外：429（免費額度用完）是 FreeQuotaError，可以改用付費金鑰；其他是 RuntimeError。"""
+    cls = FreeQuotaError if getattr(e, 'code', None) == 429 else RuntimeError
+    return cls(_gemini_error(e))
+
+
 def _try_next_model(e):
     """這個錯誤換一個模型可能就好：404 是模型下架或不存在；500 以上是那個模型暫時故障或太忙
     （gemini-flash-latest 尖峰時段常回 503「high demand」，同一時間 gemini-2.5-flash 是正常的）。"""
@@ -433,7 +490,7 @@ def _gemini_json(key, system, message, schema, effort=None):
             if _try_next_model(e):     # 這個模型下架了或暫時太忙，換下一個
                 last = e
                 continue
-            raise RuntimeError(_gemini_error(e))
+            raise gemini_exc(e)
         except Exception as e:      # 網路斷線等
             raise RuntimeError(f'連不上 Gemini，請確認這台電腦有網路。（{type(e).__name__}）')
         text = resp.text or ''
@@ -451,11 +508,10 @@ def _gemini_json(key, system, message, schema, effort=None):
 def ask_json(system, message, schema, effort='high'):
     """依目前設定的 AI 老師（Gemini 或 Claude）批改，回傳 (解析好的 dict, 模型名稱)。失敗丟 RuntimeError。
     effort 只對 Claude 有用（Gemini 沒有這個設定）：批改作文用 high，解釋錯題這類短回答用 low。"""
-    provider, key = ai_config()
-    if not key:
-        raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
-    ask = _gemini_json if provider == 'gemini' else _claude_json
-    text, model = ask(key, system, message, schema, effort=effort)
+    def run(provider, key):
+        ask = _gemini_json if provider == 'gemini' else _claude_json
+        return ask(key, system, message, schema, effort=effort)
+    text, model = run_ai(run, 'AI 學習教練／韓檢寫作')
     try:
         return json.loads(text), model
     except ValueError:
@@ -466,11 +522,10 @@ def grade_task(task, essay):
     """批改一個 Task，回傳 dict（criteria、summary、errors…，再加上 band 與 model）。失敗時丟出 RuntimeError。"""
     if count_words(essay) == 0:
         return _blank_result(task)
-    provider, key = ai_config()
-    if not key:
-        raise RuntimeError('AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。')
-    ask = _ask_gemini if provider == 'gemini' else _ask_claude
-    text, model = ask(key, task, essay)
+    def run(provider, key):
+        ask = _ask_gemini if provider == 'gemini' else _ask_claude
+        return ask(key, task, essay)
+    text, model = run_ai(run, f"雅思寫作 Task {task['no']}")
     try:
         data = json.loads(text)
         crit = data['criteria']
