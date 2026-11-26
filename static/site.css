@@ -423,3 +423,22 @@ body.site { background: var(--brand-bg); }
 /* 主視覺大字改成「你的多益實力有幾分？」後，黃色入口只是說明＋按鈕，標題不用再那麼大 */
 .s-hero-mock-txt b { font-size: 22px; }
 @media (max-width: 560px) { .s-hero-mock-txt b { font-size: 20px; } }
+
+/* 招生區的 AI 圖樣（2026-11 使用者要求參考招生圖、不用太多）：深藍底＋發光晶片＋AI 卡片藍框 */
+.s-enroll::before { background: linear-gradient(180deg, color-mix(in srgb, var(--brand-navy) 86%, black), color-mix(in srgb, var(--brand-navy) 94%, black)); }
+.s-enroll::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 18%, color-mix(in srgb, var(--brand-ai) 22%, transparent), transparent 60%); }
+.s-ai-chip { display: block; width: 220px; height: 120px; margin: 0 auto 6px; filter: drop-shadow(0 0 10px color-mix(in srgb, var(--brand-ai) 70%, transparent)); }
+.s-ai-lines path, .s-ai-pins path { stroke: var(--brand-ai); opacity: .8; }
+.s-ai-dots circle { fill: var(--brand-ai); }
+.s-ai-body { fill: color-mix(in srgb, var(--brand-navy) 80%, black); stroke: var(--brand-ai); stroke-width: 3; }
+.s-ai-text { fill: #fff; font: 900 34px/1 'Noto Sans TC', sans-serif; }
+.s-enroll-card.is-ai { box-shadow: 0 0 0 2px var(--brand-ai), 0 0 22px color-mix(in srgb, var(--brand-ai) 45%, transparent); }
+.s-enroll-card.is-ai h3 .ui-ic { background: var(--brand-ai); color: var(--brand-navy); }
+@media (prefers-reduced-motion: no-preference) {
+    .s-ai-dots circle { animation: s-ai-blink 2.4s ease-in-out infinite; }
+    .s-ai-dots circle:nth-child(even) { animation-delay: 1.2s; }
+}
+@keyframes s-ai-blink { 50% { opacity: .25; } }
+@media (max-width: 760px) { .s-ai-chip { width: 170px; height: 93px; } }
+@media (max-width: 560px) { .s-enroll-sub { font-size: 16px; letter-spacing: 1px; } }

@@ -46,17 +46,30 @@
     <img class="s-enroll-bg" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
     <div class="wrap">
         <div class="s-enroll-head">
+            {# AI 晶片圖樣（2026-11 使用者要求參考招生圖加一點 AI 元素，不用太多） #}
+            <svg class="s-ai-chip" viewBox="0 0 220 120" aria-hidden="true">
+                <g class="s-ai-lines" fill="none" stroke-width="2" stroke-linecap="round">
+                    <path d="M76 48H40l-12-12H6"/><path d="M76 72H40l-12 12H6"/><path d="M76 60H18"/>
+                    <path d="M144 48h36l12-12h22"/><path d="M144 72h36l12 12h22"/><path d="M144 60h58"/>
+                </g>
+                <g class="s-ai-dots"><circle cx="6" cy="36" r="3"/><circle cx="6" cy="84" r="3"/><circle cx="18" cy="60" r="3"/>
+                    <circle cx="214" cy="36" r="3"/><circle cx="214" cy="84" r="3"/><circle cx="202" cy="60" r="3"/></g>
+                <g class="s-ai-pins" stroke-width="3" stroke-linecap="round">
+                    <path d="M92 22v-10M110 22v-10M128 22v-10M92 98v10M110 98v10M128 98v10"/></g>
+                <rect class="s-ai-body" x="76" y="22" width="68" height="76" rx="12"/>
+                <text class="s-ai-text" x="110" y="70" text-anchor="middle">AI</text>
+            </svg>
             <p class="s-eyebrow">NOW ENROLLING</p>
             <h2>課程<em>招生中！</em></h2>
-            <p class="s-enroll-sub">全面備考・高效上榜</p>
+            <p class="s-enroll-sub">彈性學習 × 高效備考 × 精準提升</p>
         </div>
         <div class="s-enroll-cards">
-            <div class="s-enroll-card"><h3>{{ icon('clipboard') }} AI 模考系統</h3>
-                <ul class="s-checks"><li>擬真試題・即時評分</li><li>弱點分析・個人化出題</li><li>追蹤進步・高效備考</li></ul></div>
+            <div class="s-enroll-card is-ai"><h3>{{ icon('clipboard') }} AI 線上多益模考</h3>
+                <ul class="s-checks"><li>仿真試題・完整模考</li><li>AI 即時評分與解析</li><li>弱點診斷・個人化進步建議</li></ul></div>
             <div class="s-enroll-card"><h3>{{ icon('users') }} 實體課</h3>
                 <ul class="s-checks"><li>面對面授課</li><li>即時提問與互動</li><li>系統化教學・輕鬆吸收</li></ul></div>
-            <div class="s-enroll-card"><h3>{{ icon('headphones') }} 線上課</h3>
-                <ul class="s-checks"><li>不受地點限制</li><li>隨時隨地學習</li><li>課程回放・複習更彈性</li></ul></div>
+            <div class="s-enroll-card"><h3>{{ icon('headphones') }} 線上直播課</h3>
+                <ul class="s-checks"><li>即時互動直播</li><li>彈性上課不受地點限制</li><li>課程回放・複習更有效</li></ul></div>
         </div>
         <div class="s-enroll-foot">
             <p>多元學習方式，搭配 AI 模考，讓你準備更有效！</p>
