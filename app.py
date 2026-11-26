@@ -533,10 +533,7 @@ def learn_home(student_id):
     return render_template('learn_home.html', student=student, themes=themes,
                            unlocked_count=unlocked_count, total_count=total_count,
                            weak_count=sum(t["weak"] for t in themes if not t["locked"]),
-                           favorite_count=len(favorite_rows(student)),
-                           # 建構式字彙：學過其中幾個字的字根字首，推薦接著背（只有英文）
-                           root_picks=word_roots.recommend_families(student, limit=4)
-                           if word_roots.is_english(exams.course_of(student)) else [])
+                           favorite_count=len(favorite_rows(student)))
 
 
 @app.route('/learn/<int:student_id>/theme/<path:theme_key>')

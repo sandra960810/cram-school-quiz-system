@@ -55,13 +55,6 @@
         .side-link b { background: var(--star-50); border-radius: 999px; padding: 0 8px; font-size: 13px; }
         .pick { font-size: 18px; color: var(--ink); margin: 0 0 12px; }
         .pick small { font-size: 13px; color: var(--muted); font-weight: normal; margin-left: 8px; }
-        .root-picks { margin-bottom: 26px; }
-        .root-pick-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
-        .root-pick { display: block; background: #fff; padding: 12px 14px; border-radius: 10px; box-shadow: var(--edge); text-decoration: none; color: var(--ink-2); border-left: 5px solid var(--primary); font-size: 14px; }
-        .root-pick:hover { box-shadow: var(--edge-raised); transform: translateY(-2px); }
-        .root-pick b { font-size: 18px; color: var(--ink); margin: 0 2px 0 6px; }
-        .rp-kind { font-size: 11px; font-weight: bold; padding: 1px 7px; border-radius: 8px; background: var(--primary-50); color: var(--primary); }
-        .rp-meta { display: block; font-size: 12px; color: var(--muted); margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -89,20 +82,6 @@
         {% if roots_enabled() %}<a href="{{ url_for('word_roots.roots_home', student_id=student.id) }}" class="side-link">{{ icon('puzzle') }} 字根字首<span class="go-arrow">→</span></a>{% endif %}
     </div>
 
-    {% if root_picks %}
-    {# 建構式字彙：學過的字有這些字根字首，推薦把同一組的字一起背 #}
-    <div class="root-picks">
-        <h2 class="pick">{{ icon('puzzle') }} 同字根推薦<small>你學過這幾組裡的字，同一組的其他字一起背更好記</small></h2>
-        <div class="root-pick-row">
-            {% for f in root_picks %}
-            <a class="root-pick" href="{{ f.study_url }}">
-                <span class="rp-kind">{{ f.kind_name }}</span><b>{{ f.form }}</b>＝{{ f.meaning }}
-                <span class="rp-meta">已學 {{ f.familiar + f.unfamiliar }} / {{ f.total }} 字・一起背 →</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
 
     <h2 class="pick">選一個主題</h2>
     <div class="theme-grid ui-stagger">
