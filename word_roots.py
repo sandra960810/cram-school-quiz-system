@@ -4,6 +4,8 @@
 滑完一輪後推薦接著背整組字（例如 spect＝看：inspect、respect、spectator…）。
 
 資料在 morphology/roots.txt，一行一組：種類|字形|意思|單字（空白分開）。
+單字可以寫成「happiness=happy」，表示去掉字尾後是哪個字（單字卡上顯示 happiness ＝ happy ＋ -ness）；
+沒寫的話，字首會試著去掉字首、字尾會試著去掉字尾，剩下的部分是字庫裡的字才顯示。
 **每一組的字都是人工依字源逐字挑的**，不用字串比對自動猜（important 和 import 同源、
 opportunity 卻和 port 無關，這種只能人工判斷）。新增字時請查字源確認，再加進那一行；
 單字不在目前考試的字庫裡沒關係，畫面只顯示字庫裡有的字。
@@ -14,15 +16,17 @@ opportunity 卻和 port 無關，這種只能人工判斷）。新增字時請�
 """
 import os
 import re
+import time
 
 from flask import Blueprint, abort, jsonify, render_template, url_for
 
 ENGLISH_COURSES = {'IELTS', 'TOEIC', 'BASIC', 'GENERAL'}
 KIND_NAMES = {'prefix': '字首', 'root': '字根', 'suffix': '字尾'}
 KIND_ORDER = {'root': 0, 'prefix': 1, 'suffix': 2}   # 單字卡上先顯示字根，再字首、字尾
-CARD_FAMILIES = 3        # 一張單字卡最多顯示幾組
+CARD_FAMILIES = 4        # 一張單字卡最多顯示幾組
 CARD_WORDS = 8           # 每組在單字卡上最多列幾個字
 RECOMMEND = 3            # 滑完一輪最多推薦幾組
+BIG_SUFFIX = 40          # 字尾的同組字超過這麼多就不在單字卡上列出
 
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'morphology', 'roots.txt')
 
@@ -52,15 +56,17 @@ def load_families(path=DATA_FILE):
             if not line or line.startswith('#'):
                 continue
             kind, form, meaning, words = line.split('|')
-            seen, members = set(), []
-            for w in words.split():
-                w = w.lower()
+            seen, members, stems = set(), [], {}
+            for tok in words.split():
+                w, _eq, stem = tok.lower().partition('=')
+                if stem:
+                    stems[w] = stem
                 if w not in seen:
                     seen.add(w)
                     members.append(w)
             families.append({"key": _slug(kind, form, used), "kind": kind, "kind_name": KIND_NAMES[kind],
                              # 畫面上不顯示括號裡的區別字（terr（土地）、terr（害怕）靠意思就分得出來）
-                             "form": form.split('（')[0], "meaning": meaning, "words": members})
+                             "form": form.split('（')[0], "meaning": meaning, "words": members, "stems": stems})
     return families
 
 
@@ -74,6 +80,37 @@ for _f in FAMILIES:
 
 def is_english(course):
     return course in ENGLISH_COURSES
+
+
+def _alts(fam):
+    """字形的各種拼法（去掉連字號）：「-tion／-sion」→ ['tion', 'sion']。"""
+    return [re.sub(r'[^a-z]', '', a.replace('(s)', '')) for a in fam["form"].split('／')]
+
+
+def stem_of(fam, word, words):
+    """去掉字首／字尾後剩下的字（要是字庫裡的字才算），例如 unhappy → happy、happiness → happy；找不到回 None。"""
+    stem = fam["stems"].get(word)
+    if stem:
+        return stem if stem in words else None
+    if fam["kind"] == 'prefix':
+        for a in _alts(fam):
+            rest = word[len(a):].lstrip('-')
+            if a and word.startswith(a) and len(rest) >= 3 and rest in words:
+                return rest
+    elif fam["kind"] == 'suffix':
+        for a in _alts(fam):
+            if not a or not word.endswith(a):
+                continue
+            base = word[:-len(a)]
+            cands = [base, base + 'e']
+            if base.endswith('i'):
+                cands.append(base[:-1] + 'y')
+            if len(base) > 1 and base[-1] == base[-2]:
+                cands.append(base[:-1])
+            for c in cands:
+                if len(c) >= 3 and c != word and c in words:
+                    return c
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -92,6 +129,21 @@ def course_words(student):
             continue
         result.setdefault(v.word.lower(), v)
     return result
+
+
+_all_cache = {"at": 0, "words": {}}
+
+
+def all_english_words():
+    """所有英文考試的字：{小寫拼字: Vocabulary}。拆字時「去掉字尾後的字」可能不在這個考試的字庫（零基礎才有 happy），
+    就從這裡找意思。10 分鐘更新一次。"""
+    if time.time() - _all_cache["at"] > 600:
+        V = _['Vocabulary']
+        words = {}
+        for v in V.query.filter(V.category.in_(ENGLISH_COURSES)).order_by(V.id).all():
+            words.setdefault(v.word.lower(), v)
+        _all_cache.update(at=time.time(), words=words)
+    return _all_cache["words"]
 
 
 def family_rows(student, family, words=None):
@@ -120,7 +172,8 @@ def family_summary(student, family, words, status):
 
 
 def families_for_word(student, vocab, words=None, status=None):
-    """單字卡要顯示的組：這個字所屬、而且字庫裡還有其他字的組（字根優先，最多 CARD_FAMILIES 組）。"""
+    """單字卡要顯示的組：這個字所屬的組（字根優先，最多 CARD_FAMILIES 組）。
+    字庫裡沒有同組其他字的也列出來，單字卡才看得到這個字是怎麼組成的（words 是空的）。"""
     if not is_english(vocab.category):
         return []
     words = course_words(student) if words is None else words
@@ -129,8 +182,8 @@ def families_for_word(student, vocab, words=None, status=None):
     result = []
     for fam in sorted(FAMILIES_OF_WORD.get(me, []), key=lambda f: KIND_ORDER[f["kind"]]):
         others = [v for v in family_rows(student, fam, words) if v.word.lower() != me]
-        if not others:
-            continue
+        if fam["kind"] == 'suffix' and len(others) > BIG_SUFFIX:
+            others = []   # -tion、-ly 這種幾百個字的大字尾，列出來沒有幫助：單字卡只顯示「字的組成」
         # 推薦順序：還沒學的、不熟的優先，熟的放後面
         rank = {'new': 0, 'unfamiliar': 1, 'familiar': 2}
         others.sort(key=lambda v: rank[status.get(v.id, 'new')])
@@ -138,10 +191,18 @@ def families_for_word(student, vocab, words=None, status=None):
         info["words"] = [word_item(student.id, v, status, fam["key"]) for v in others[:CARD_WORDS]]
         info["more"] = max(0, len(others) - CARD_WORDS)
         info["to_study"] = info["new"] + info["unfamiliar"]
+        pool = all_english_words()
+        stem = stem_of(fam, me, pool)
+        info["stem"] = {"word": pool[stem].word, "meaning": pool[stem].meaning} if stem else None
         result.append(info)
         if len(result) >= CARD_FAMILIES:
             break
     return result
+
+
+def is_big(info):
+    """幾百個字的大字尾（-tion、-ly）：推薦整組背沒有意義，不推薦。"""
+    return info["kind"] == 'suffix' and info["total"] > BIG_SUFFIX
 
 
 def recommend_families(student, words=None, status=None, limit=None):
@@ -153,7 +214,7 @@ def recommend_families(student, words=None, status=None, limit=None):
         info = family_summary(student, fam, words, status)
         learned = info["familiar"] + info["unfamiliar"]
         todo = info["new"] + info["unfamiliar"]
-        if info["total"] >= 2 and learned and todo:
+        if info["total"] >= 2 and learned and todo and not is_big(info):
             picks.append((-learned, -info["total"], info))
     picks.sort(key=lambda t: (t[0], t[1]))
     picks = [p[2] for p in picks]
@@ -249,7 +310,7 @@ def recommend_api(student_id):
                 continue
             seen_keys.add(fam["key"])
             info = family_summary(student, fam, words, status)
-            if info["total"] >= 2 and info["new"] + info["unfamiliar"]:
+            if info["total"] >= 2 and info["new"] + info["unfamiliar"] and not is_big(info):
                 picks.append(info)
     picks.sort(key=lambda i: (KIND_ORDER[i["kind"]], -(i["new"] + i["unfamiliar"])))
     return jsonify({"families": picks[:RECOMMEND]})

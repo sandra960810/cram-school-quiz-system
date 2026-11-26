@@ -264,6 +264,10 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
 - 資料在 `morphology/roots.txt`：`種類|字形|意思|單字…`，約 190 組（字首、字根、字尾）。**每組的字都依字源人工挑**，
   不用字串比對自動猜（opportunity、passport 的 port 是「港口」，不算進 port＝拿；important 卻算）。加字前先查字源，改完跑 `python tools/check_word_roots.py`
 - 只顯示目前考試字庫裡有的字（`course_words`）；只有英文的考試（雅思、多益、零基礎、一般英文）有，日檢、韓檢不顯示
+- **每個英文字點開都有「字的組成」**（2026-11 使用者要求「英文的都要」）：列出字首／字根／字尾和意思，去掉字首或字尾後是字庫裡的字就寫成
+  `happiness ＝ happy（快樂的）＋ -ness`（`stem_of`，找字時看所有英文考試的字 `all_english_words`）；沒得拆的字顯示「沒有常見的字首、字根、字尾」。
+  -tion、-ment、-ness、-ly 等 20 個常見字尾是先用「去掉字尾後還是一個字」的規則找、再逐字人工刪改，資料寫成 `happiness=happy`；
+  超過 `BIG_SUFFIX`（40）字的大字尾只顯示組成，不列同組字、也不推薦整組背
 - 單字卡（`ielts.html`）下方「同一家族的字」：`/learn/<id>/roots/api/word/<vocab_id>`，還沒學、不熟的字優先，最多 3 組、每組 8 字；
   單字卡模式可點開，滑卡模式點一下聽發音。滑完一輪的結算頁依剛滑過的字推薦整組接著背（`recommend_api`）
 - 單字庫首頁有「字根字首」按鈕（總覽 `/learn/<id>/roots`）和「同字根推薦」（學過其中幾個字、還有字沒背的組）；

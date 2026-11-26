@@ -91,7 +91,15 @@
         .root-chip.unfamiliar { background: var(--warn-50); color: var(--warn); }
         .root-chip u { text-decoration-thickness: 2px; text-underline-offset: 2px; }
         .root-chip:hover { box-shadow: var(--edge-raised); }
-        .roots-title { font-size: 13px; color: var(--muted); font-weight: bold; }
+        .roots-title { font-size: 13px; color: var(--muted); font-weight: bold; margin-top: 8px; }
+        .root-parts { border: 1px solid var(--line); border-radius: 10px; padding: 4px 12px 10px; background: var(--surface-2); }
+        .root-sum { font-size: 16px; color: var(--ink); margin-top: 6px; }
+        .root-sum b { color: var(--primary); }
+        .root-sum small { color: var(--muted); font-size: 12px; }
+        .root-part-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .root-part { display: inline-flex; align-items: baseline; gap: 5px; background: #fff; border-radius: 8px; padding: 4px 9px; font-size: 13px; color: var(--ink-2); }
+        .root-part b { font-size: 15px; color: var(--ink); }
+        .root-none { font-size: 14px; color: var(--muted); }
         .root-recs { text-align: left; margin: 6px 0 16px; }
         .root-recs h3 { font-size: 15px; color: var(--ink); margin: 0 0 6px; }
         .root-rec { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--primary-50); color: var(--ink); text-decoration: none; margin-top: 6px; font-size: 15px; }
@@ -533,6 +541,15 @@
     const rootsCache = {};
     const escH = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
     // 把字裡的字根／字首／字尾畫底線（字首只看開頭、字尾只看結尾）
+    // 這個字實際用到的是哪一種拼法（-tion／-sion／-ation 之中的哪一個）
+    function matchedAlt(word, fam) {
+        const lw = word.toLowerCase();
+        const alts = fam.form.split('（')[0].split('／').map(a => a.replace('(s)', '').replace(/[^a-z]/gi, '').toLowerCase()).filter(Boolean);
+        for (const a of alts.sort((x, y) => y.length - x.length)) {
+            if (fam.kind === 'prefix' ? lw.startsWith(a) : fam.kind === 'suffix' ? lw.endsWith(a) : lw.includes(a)) return a;
+        }
+        return '';
+    }
     function markPart(word, fam) {
         const alts = fam.form.split('（')[0].split('／').map(a => a.replace('(s)', '').replace(/[^a-z]/gi, '').toLowerCase()).filter(Boolean);
         const lw = word.toLowerCase();
@@ -554,8 +571,19 @@
                 fams = rootsCache[w.id] = res.ok ? (await res.json()).families : [];
             } catch (e) { return; }
         }
-        if (currentWord !== w || !fams.length) return;   // 已經換到下一張了
-        box.innerHTML = `<div class="roots-title">${UI.icon ? UI.icon('puzzle') : ''} 同一家族的字，一起記更快</div>` + fams.map(f => `
+        if (currentWord !== w) return;   // 已經換到下一張了
+        // 字的組成：每個英文字都顯示（沒得拆的字也說明），去掉字首／字尾後是字庫裡的字就寫出來（happiness ＝ happy ＋ -ness）
+        const shown = f => { const a = matchedAlt(w.word, f); return a ? (f.kind === 'prefix' ? a + '-' : f.kind === 'suffix' ? '-' + a : a) : f.form; };
+        const parts = fams.length
+            ? fams.map(f => `<span class="root-part"><span class="root-kind">${escH(f.kind_name)}</span><b>${escH(shown(f))}</b>${escH(f.meaning)}</span>`).join('')
+            : '<span class="root-none">這個字沒有常見的字首、字根、字尾可以拆，整個字直接記就好。</span>';
+        const sums = fams.filter(f => f.stem).map(f => {
+            const st = `${escH(f.stem.word)}<small>（${escH(f.stem.meaning)}）</small>`;
+            return `<div class="root-sum">${escH(w.word)} ＝ ${f.kind === 'prefix' ? `<b>${escH(shown(f))}</b> ＋ ${st}` : `${st} ＋ <b>${escH(shown(f))}</b>`}</div>`;
+        }).join('');
+        const withWords = fams.filter(f => f.words.length);
+        box.innerHTML = `<div class="root-parts"><div class="roots-title">${UI.icon ? UI.icon('puzzle') : ''} 字的組成</div>${sums}<div class="root-part-row">${parts}</div></div>`
+            + (withWords.length ? `<div class="roots-title">同一家族的字，一起記更快</div>` : '') + withWords.map(f => `
             <div class="root-fam">
                 <div class="root-head"><span class="root-kind">${escH(f.kind_name)}</span><b>${escH(f.form)}</b>＝${escH(f.meaning)}
                     <a class="root-more" href="${escH(f.url)}" data-sound="tap">整組 ${f.total} 字 →</a></div>
