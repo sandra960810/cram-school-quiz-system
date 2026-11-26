@@ -575,12 +575,19 @@ def grade_ai(student_id, attempt_id):
         abort(400)
     if a.ai:
         return jsonify(ok=True, cached=True)
+    import ai_tutor     # 每月次數限制（每項每月 6 次，見 ai_tutor.MONTHLY_LIMIT）
+    try:
+        ai_tutor.check_monthly(student.id, 'topik_writing')
+    except ai_tutor.QuotaError as e:
+        return jsonify(ok=False, error=str(e)), 429
     try:
         data = grade_writing(section, json.loads(a.answers))
     except RuntimeError as e:
         return jsonify(ok=False, error=str(e)), 502
     a.ai = json.dumps(data, ensure_ascii=False)
     a.score = data['total']
+    if data.get('model'):           # 四題都空白時沒有呼叫 AI，不算次數
+        ai_tutor.record_monthly(student.id, 'topik_writing')
     _['db'].session.commit()
     return jsonify(ok=True, score=a.score)
 

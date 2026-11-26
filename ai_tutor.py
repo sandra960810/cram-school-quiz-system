@@ -40,7 +40,12 @@ import writing_bank
 bp = Blueprint('ai_tutor', __name__)
 _ = {}   # register() 放進來的主程式物件
 
-DAILY_LIMIT = 60          # 每個學生每天最多真的呼叫幾次 AI
+DAILY_LIMIT = 60          # 每個學生每天最多真的呼叫幾次 AI（錯題解釋、記憶法、弱點練習、報告）
+# 比較貴的 AI 批改：每個學生每項每個月最多幾次（台灣時間每月 1 號重新計算；工作人員登入不限）。
+# 2026-11 使用者要求：雅思寫作、雅思口說、韓檢寫作批改與學習報告，每項每月 6 次。
+MONTHLY_LIMIT = 6
+MONTHLY_FEATURES = {'writing': '雅思寫作 AI 批改', 'speaking': '雅思口說 AI 評分',
+                    'topik_writing': '韓檢寫作 AI 批改', 'report': 'AI 學習報告'}
 PRACTICE_SIZE = 8         # 一份弱點練習幾題
 EFFORT = 'low'            # Claude 的思考程度：短回答用 low，回得快也比較省
 
@@ -91,6 +96,50 @@ def used_today(student_id):
 def _staff():
     import admin
     return admin.logged_in()
+
+
+# ---------------------------------------------------------------------------
+# 每月次數（寫作、口說、韓檢寫作批改、學習報告）
+# ---------------------------------------------------------------------------
+
+def month_start_utc():
+    """台灣這個月 1 號 0 點（換成 UTC）。"""
+    tw = datetime.utcnow() + timedelta(hours=8)
+    return datetime(tw.year, tw.month, 1) - timedelta(hours=8)
+
+
+def monthly_used(student_id, feature):
+    U = _['AiUsage']
+    return U.query.filter(U.student_id == student_id, U.feature == feature,
+                          U.created_at >= month_start_utc()).count()
+
+
+def monthly_left(student_id, feature):
+    """這個月還可以用幾次；工作人員登入時回傳 None（不限）。"""
+    if _staff():
+        return None
+    return max(0, MONTHLY_LIMIT - monthly_used(student_id, feature))
+
+
+def monthly_message(feature):
+    return (f'這個月的{MONTHLY_FEATURES[feature]}（每月 {MONTHLY_LIMIT} 次）已經用完了，'
+            '下個月 1 號會恢復；需要的話請老師幫你看。')
+
+
+def check_monthly(student_id, feature):
+    """超過這個月的次數就丟 RuntimeError（訊息可以直接給學生看）。"""
+    left = monthly_left(student_id, feature)
+    if left is not None and left <= 0:
+        raise QuotaError(monthly_message(feature))
+
+
+def record_monthly(student_id, feature):
+    """AI 真的批改成功後記一次（失敗、全空白沒呼叫 AI 的不算）。"""
+    _['db'].session.add(_['AiUsage'](student_id=student_id, feature=feature))
+
+
+class QuotaError(RuntimeError):
+    """次數用完。"""
 
 
 def check_quota(student_id):
@@ -896,7 +945,8 @@ def report_page(student_id):
     report = json.loads(row.result) if row else None
     prof = weak_profile(student, exam)
     return render_template('ai_report.html', student=student, report=report, prof=prof,
-                           ai_ready=writing_bank.ai_ready(), ai_label=writing_bank.ai_label())
+                           ai_ready=writing_bank.ai_ready(), ai_label=writing_bank.ai_label(),
+                           left=monthly_left(student.id, 'report'))
 
 
 @bp.route('/api/ai/<int:student_id>/report', methods=['POST'])
@@ -906,9 +956,13 @@ def api_report(student_id):
     Cache, db = _['AiCache'], _['db']
     key = _report_key(student, exam)
     try:
+        check_monthly(student.id, 'report')
         data = make_report(student, exam)
+    except QuotaError as e:
+        return _fail(str(e), 429)
     except RuntimeError as e:
         return _fail(str(e), 503)
+    record_monthly(student.id, 'report')
     Cache.query.filter_by(key=key).delete()      # 同一天重新產生：覆蓋
     db.session.add(Cache(key=key, kind='report', student_id=student.id, model=data.get('model', ''),
                          result=json.dumps(data, ensure_ascii=False)))
@@ -926,6 +980,15 @@ def ai_slot(kind, **ref):
     payload = json.dumps(dict(ref, kind=kind), ensure_ascii=False)
     sid = (request.view_args or {}).get('student_id', '')
     return Markup('<div class="ai-slot" data-sid="%s" data-ai="%s"></div>') % (sid, payload)
+
+
+def ai_quota_note(student_id, feature):
+    """樣板用：顯示「本月還可以請 AI 批改 N 次」。工作人員登入時顯示不限。"""
+    left = monthly_left(student_id, feature)
+    if left is None:
+        return Markup('<div class="quota-note">工作人員登入中：AI 批改次數不限</div>')
+    return Markup('<div class="quota-note">本月還可以用 <b>%d</b> 次%s（每月 %d 次，1 號恢復）</div>') % (
+        left, MONTHLY_FEATURES[feature], MONTHLY_LIMIT)
 
 
 def register(app, db, deps):
@@ -956,8 +1019,16 @@ def register(app, db, deps):
         created_at = db.Column(db.DateTime, default=datetime.utcnow)
         finished_at = db.Column(db.DateTime)
 
-    _.update(AiCache=AiCache, AiPractice=AiPractice)
+    class AiUsage(db.Model):
+        """有每月次數限制的 AI 批改，每成功一次記一筆（MONTHLY_FEATURES）。"""
+        id = db.Column(db.Integer, primary_key=True)
+        student_id = db.Column(db.Integer, nullable=False, index=True)
+        feature = db.Column(db.String(30), nullable=False)
+        created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    _.update(AiCache=AiCache, AiPractice=AiPractice, AiUsage=AiUsage)
     with app.app_context():
         db.create_all()
     app.jinja_env.globals['ai_slot'] = ai_slot
+    app.jinja_env.globals['ai_quota_note'] = ai_quota_note
     app.register_blueprint(bp)

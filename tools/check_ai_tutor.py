@@ -69,6 +69,7 @@ def fake_ask_json(system, message, schema, effort='high'):
     raise AssertionError('沒見過的 schema')
 
 
+real_ask_json = writing_bank.ask_json
 if not REAL:
     writing_bank.ask_json = fake_ask_json
     writing_bank.ai_ready = lambda: True
@@ -278,6 +279,76 @@ cq = ai_tutor.clean_questions([
 ])
 check(len(cq) == 2 and cq[0]['options'][cq[0]['answer']] == 'w' and cq[1]['answer'] == 2,
       '打散選項後答案仍指向同一個選項；不合格的丟掉')
+
+if not REAL:
+    print('11. 每月次數限制（雅思寫作、口說、韓檢寫作、學習報告每項每月 6 次）')
+    real_grade_all = writing_bank.grade_all
+    writing_bank.grade_all = lambda test, essays: {'tasks': {}, 'overall': 6.0, 'model': 'fake-model'}
+    with app.app_context():
+        subs = [site.WritingSubmission(student_id=SID, test_key='W01', task1='a', task2='b') for _ in range(7)]
+        db.session.add_all(subs)
+        db.session.commit()
+        sub_ids = [x.id for x in subs]
+    codes = [client.post(f'/exam/{SID}/writing/result/{i}/grade').status_code for i in sub_ids]
+    check(codes[:6] == [200] * 6 and codes[6] == 429, '雅思寫作批改第 7 次擋下（429）')
+    with app.app_context():
+        check(ai_tutor.monthly_left(SID, 'writing') == 0, '本月剩 0 次')
+        last = db.session.get(site.WritingSubmission, sub_ids[6])
+        check(last.ai_status == 'error' and '6 次' in (last.ai_error or ''), '第 7 份記下原因，頁面看得到')
+        check(ai_tutor.monthly_left(SID, 'speaking') == 6, '口說次數分開算')
+    html = client.get(f'/exam/{SID}/writing/result/{sub_ids[6]}').get_data(as_text=True)
+    check('quota-note' in html, '寫作成績頁顯示本月剩幾次')
+    # 學習報告：第 7 章 已經用了 1 次，再 5 次用完
+    codes = [post(f'/api/ai/{SID}/report?exam=ielts&again=1').status_code for _ in range(6)]
+    check(codes[-1] == 429 and codes.count(200) == 5, '學習報告每月 6 次，第 7 次擋下')
+    with app.app_context():
+        old = ai_tutor._['AiUsage'].query.filter_by(student_id=SID, feature='report').all()
+        for u in old:
+            u.created_at = ai_tutor.month_start_utc() - site.timedelta(minutes=1)
+        db.session.commit()
+        check(ai_tutor.monthly_left(SID, 'report') == 6, '上個月的次數不算（每月 1 號恢復）')
+    import admin
+    real_logged_in = admin.logged_in
+    admin.logged_in = lambda: True
+    with app.test_request_context():
+        staff_left = ai_tutor.monthly_left(SID, 'writing')
+    admin.logged_in = real_logged_in
+    check(staff_left is None, '工作人員不限次數')
+    writing_bank.grade_all = real_grade_all
+
+    print('12. 免費額度用完自動改用付費金鑰')
+    saved = (writing_bank.ai_config, writing_bank.paid_config, writing_bank._gemini_json,
+             writing_bank._claude_json, writing_bank.PAID_LOG)
+    used = []
+
+    def free_gemini(key, *a, **k):
+        used.append(('gemini', key))
+        raise writing_bank.FreeQuotaError('Gemini 免費額度暫時用完了')
+
+    def paid_claude(key, *a, **k):
+        used.append(('claude', key))
+        return '{"ok": 1}', writing_bank.CLAUDE_MODEL
+    writing_bank.ai_config = lambda: ('gemini', 'AIza-free')
+    writing_bank._gemini_json, writing_bank._claude_json = free_gemini, paid_claude
+    writing_bank.PAID_LOG = os.path.join(tmp, 'paid_log.txt')
+    writing_bank.paid_config = lambda: ('claude', 'sk-ant-paid')
+    data, model = real_ask_json('sys', 'msg', {'type': 'object', 'properties': {}})
+    check(data == {'ok': 1} and used == [('gemini', 'AIza-free'), ('claude', 'sk-ant-paid')],
+          '免費的回 429 時改用付費金鑰再問一次')
+    check(model == 'claude-sonnet-5-5', '付費的是中階模型 Claude Sonnet 5.5')
+    check(os.path.exists(writing_bank.PAID_LOG), '改用付費的次數記在 ai_paid_log.txt')
+    writing_bank.paid_config = lambda: (None, '')
+    try:
+        real_ask_json('sys', 'msg', {'type': 'object', 'properties': {}})
+        check(False, '沒有付費金鑰時照舊顯示額度用完')
+    except RuntimeError as e:
+        check('額度' in str(e), '沒有付費金鑰時照舊顯示額度用完')
+
+    class E429(Exception):
+        code = 429
+    check(isinstance(writing_bank.gemini_exc(E429('x')), writing_bank.FreeQuotaError), 'Gemini 429 會轉成額度用完')
+    (writing_bank.ai_config, writing_bank.paid_config, writing_bank._gemini_json,
+     writing_bank._claude_json, writing_bank.PAID_LOG) = saved
 
 shutil.rmtree(tmp, ignore_errors=True)
 print()

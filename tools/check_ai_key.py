@@ -6,11 +6,16 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import writing_bank  # noqa: E402
 
-provider, key = writing_bank.ai_config()
+PAID = '--paid' in sys.argv     # set_ai_paid_key.bat：檢查備用付費金鑰
+provider, key = writing_bank.paid_config() if PAID else writing_bank.ai_config()
 if not key:
-    print('找不到金鑰：ai_key.txt 是空的，或金鑰開頭不是 AIza／AQ.（Gemini）或 sk-ant-（Claude）。')
+    name = 'ai_key_paid.txt' if PAID else 'ai_key.txt'
+    print(f'找不到金鑰：{name} 是空的、和免費金鑰同一把，或金鑰開頭不是 AIza／AQ.（Gemini）或 sk-ant-（Claude）。')
     sys.exit(1)
-print('偵測到的 AI 老師：' + writing_bank.ai_label())
+if PAID:
+    print('偵測到的備用付費金鑰：' + {'gemini': 'Google Gemini', 'claude': 'Anthropic Claude'}[provider])
+else:
+    print('偵測到的 AI 老師：' + writing_bank.ai_label())
 
 if provider == 'gemini':
     try:

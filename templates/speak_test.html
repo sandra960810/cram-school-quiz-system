@@ -145,7 +145,8 @@
         {% if provider == 'gemini' %}
         <div class="box privacy red">
             <b>{{ icon('lock') }} 錄音隱私提醒</b><br>
-            錄音會傳給 <b>Google Gemini</b>，<b>免費方案的內容可能被 Google 使用</b>。請勿說出個資，姓名用英文名或化名。
+            錄音會傳給 <b>Google Gemini</b>，<b>免費方案的內容可能被 Google 使用</b>。請勿說出個資，姓名用英文名或化名。{% if paid == 'claude' %}<br>
+            免費額度用完時改由 Claude 評分：語音會先由瀏覽器辨識成文字（Edge 送微軟、Chrome 送 Google），發音分數為推估。{% endif %}
         </div>
         {% elif provider == 'claude' %}
         <div class="box privacy">
@@ -218,7 +219,8 @@
     const PROVIDER = {{ provider|tojson }};
     const SUBMIT_URL = {{ url_for('speaking_submit', student_id=student.id, test_key=test.key)|tojson }};
     const $ = (id) => document.getElementById(id);
-    const useRecognition = PROVIDER === 'claude';
+    // 備用付費金鑰是 Claude 時也要辨識：免費額度用完改由 Claude 評分，它聽不到錄音、要靠逐字稿
+    const useRecognition = PROVIDER === 'claude' || {{ (paid == 'claude')|tojson }};
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     let stream = null, ctx = null, analyser = null, meterEl = null;

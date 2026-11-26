@@ -58,6 +58,7 @@ topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各十
 topik_mock/         韓檢模擬考題庫 TOPIK1.txt、TOPIK2.txt，第 2 回起 TOPIK1-2.txt…（純文字格式，見 README.md）
 topik_audio.bat     在櫃台電腦產生韓檢模擬考聽力音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
+set_ai_paid_key.bat 設定備用付費金鑰（ai_key_paid.txt，不進 git）：免費 Gemini 額度用完時自動改用
 ai_tutor.py         AI 學習教練（Blueprint）：錯題解釋、弱點練習 /ai/<id>/practice、學習報告 /ai/<id>/report、單字記憶法；前端 static/ai_tutor.js／ai_tutor.css
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
@@ -186,6 +187,9 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 - **AI 記憶法**：單字卡（`ielts.html`）上的按鈕，口訣、字根、更多例句、搭配詞、易混字
 - 快取 `AiCache`：錯題解釋依「題目＋學生的錯誤答案」、記憶法依「課程＋拼字」大家共用，第二個人按不用再呼叫 AI
 - 每個學生每天最多 `DAILY_LIMIT`（60）次真的呼叫 AI（快取不算，工作人員登入不限），示範帳號的分享連結也受限，避免被刷爆費用
+- **每月次數**（2026-11 使用者要求）：雅思寫作批改、雅思口說評分、韓檢寫作批改、AI 學習報告**每項每月 6 次**
+  （`ai_tutor.MONTHLY_LIMIT`、`MONTHLY_FEATURES`，記在 `AiUsage`，台灣時間每月 1 號恢復；空白卷沒呼叫 AI 不算；工作人員不限；
+  示範帳號也算）。成績頁用 `{{ ai_quota_note(student.id, 'writing') }}` 顯示本月剩幾次；用完回 429
 - 入口在各考試主選單（`dashboard.html`）的「AI 學習教練」區。頁面都要保留「AI 產生的內容可能有錯，以老師講解為準」
 - 改完跑 `python tools/check_ai_tutor.py`（在資料庫複本上、用假的 AI 檢查；加 `--real` 用真金鑰實測）
 
@@ -322,9 +326,13 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   同一份資料也以文字表格交給 AI 老師，所以 AI 看到的數據與學生看到的圖必定一致
 - 交卷存成 `WritingSubmission`，結果頁再呼叫 `/grade` 請 AI 批改（兩個 Task 同時送），
   結果存進資料庫，重開不會重複扣費
+- **免費額度用完自動改用付費**：主要金鑰是免費 Gemini，回 429 時（`writing_bank.FreeQuotaError`）
+  `writing_bank.run_ai` 改用 `paid_config()` 的備用付費金鑰（`ai_key_paid.txt`，雙擊 `set_ai_paid_key.bat` 設定；
+  可以是 Claude 或有開帳單的 Gemini 專案）再問一次，每次記在 `instance/ai_paid_log.txt`。所有 AI 呼叫都要走 `run_ai`／`ask_json`；
+  備用是 Claude 時口說作答頁也會開瀏覽器語音辨識（Claude 聽不到錄音）
 - AI 老師支援兩家，依金鑰開頭自動判斷：Google Gemini（`AIza` 或新格式 `AQ.`，免費額度，模型依序試
   `GEMINI_MODELS`，可用環境變數 `GEMINI_MODEL` 指定）與 Anthropic Claude（`sk-ant-`，
-  模型 `claude-opus-5-5`）。金鑰讀 `ai_key.txt`，其次是環境變數 `GEMINI_API_KEY`／
+  模型 `claude-sonnet-5-5`，中階、比 Opus 便宜一半）。金鑰讀 `ai_key.txt`，其次是環境變數 `GEMINI_API_KEY`／
   `ANTHROPIC_API_KEY`。兩家共用同一份評分規則 `writing_bank.SYSTEM_PROMPT`（刻意從嚴）與
   JSON 輸出格式；
   Task 分數與總分（Task 2 兩倍權重）在 Python 端計算，不讓 AI 自己算

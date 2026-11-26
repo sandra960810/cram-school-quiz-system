@@ -85,6 +85,7 @@
         <br><button type="button" id="gradeBtn"{% if not ai_ready %} disabled{% endif %}>請 AI 老師批改</button>
         {% if not ai_ready %}<div class="errbox">AI 老師還沒設定：請在櫃台電腦雙擊 set_ai_key.bat 輸入 API 金鑰。</div>{% endif %}
         <div class="errbox" id="gradeErr" hidden></div>
+        {% if ai_ready %}{{ ai_quota_note(student.id, 'topik_writing') }}{% endif %}
         <div class="ai-note">批改約需 30 秒到 1 分鐘。AI 老師的評分不等於真實考試，只是模擬。</div>
         {% endif %}
     </div>
