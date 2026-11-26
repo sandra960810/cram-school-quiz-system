@@ -69,6 +69,8 @@ import_sheet.py     從 vocab_master.xlsx 匯入單字（run.bat 會跑）
 tools/dedupe_vocab.py  合併同課程的重複單字並轉移學生紀錄（run.bat 匯入後會跑）
 word_audio.py       單字／例句發音音檔 /tts（edge-tts 產生、快取在 instance/tts_cache/）
 vocab_quiz.py       單字測驗區：出題、批改、交卷（Blueprint，由 app.py 最後面 register 掛上）
+word_roots.py       建構式字彙：英文單字的字根／字首／字尾家族、單字卡上的同家族字、推薦整組背（Blueprint）
+morphology/roots.txt  字根字首資料（一行一組，字依字源人工挑選）；改完跑 tools/check_word_roots.py
 phonics.py          英文零基礎的「學發音」頁 /phonics/<學生id>：只有單字＋KK 音標＋聽／慢慢聽（2026-11 簡化）
 pronunciation/      單字 KK 音標 kk.json（tools/make_pronunciation.py 由 CMU 發音字典產生，見 README）
 basic/、general/    英文零基礎、一般英文的單字 CSV 與來源授權說明（README.md）
@@ -233,6 +235,19 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 - 同一課程不能有重複拼字（新增、改拼字、救回時都會檢查）
 - 新增的零基礎／一般英文單字沒有 KK 音標，要重跑 `tools/make_pronunciation.py`
 
+## 建構式字彙：字根字首（word_roots.py）
+
+- 2026-11 使用者要求：單字庫拿掉 A–Z 分頁，英文加入「建構式字彙」，學到一個字時同字根、同字首的字會跳出來推薦
+- **英文大主題（超過 300 字）不再用 A–Z 分頁**，改成依序每 200 字一頁（`PAGE_SIZE`，網址的 `letter` 參數放頁碼，`in_page`／`page_label`）；
+  日檢、韓檢照舊依字首（あ行、ㄱ）分頁（`pages_by_letter()`）
+- 資料在 `morphology/roots.txt`：`種類|字形|意思|單字…`，約 190 組（字首、字根、字尾）。**每組的字都依字源人工挑**，
+  不用字串比對自動猜（opportunity、passport 的 port 是「港口」，不算進 port＝拿；important 卻算）。加字前先查字源，改完跑 `python tools/check_word_roots.py`
+- 只顯示目前考試字庫裡有的字（`course_words`）；只有英文的考試（雅思、多益、零基礎、一般英文）有，日檢、韓檢不顯示
+- 單字卡（`ielts.html`）下方「同一家族的字」：`/learn/<id>/roots/api/word/<vocab_id>`，還沒學、不熟的字優先，最多 3 組、每組 8 字；
+  單字卡模式可點開，滑卡模式點一下聽發音。滑完一輪的結算頁依剛滑過的字推薦整組接著背（`recommend_api`）
+- 單字庫首頁有「字根字首」按鈕（總覽 `/learn/<id>/roots`）和「同字根推薦」（學過其中幾個字、還有字沒背的組）；
+  每組一頁 `/learn/<id>/roots/<代號>`，可以「一起背這組字」滑卡；從組裡點開的單字卡（`from=root&root=代號`）可以在同一組前後翻
+
 ## 單字測驗區怎麼運作
 
 - 介面名稱：單字學習區叫「**單字庫**」、單字測驗區叫「**背單字神器**」（2026-11 改名，按鈕「開始闖關」），新文字請用同一組名稱
@@ -386,6 +401,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   重複字合併成一筆。`run.bat` 匯入後會跑 `tools/dedupe_vocab.py`：同課程同拼字只留一筆（內容最完整、編號最小），
   學習紀錄、收藏、測驗作答與題目 JSON 都轉到留下的那筆。**雅思字庫不能有重複字**，換主題改「主題」欄就好
 - ✅ 單字測驗區（拼寫、聽寫、例句填空、選擇題；答錯回不熟區）
+- ✅ 建構式字彙：英文字根字首約 190 組（依字源人工挑字），單字卡顯示同家族的字並推薦整組背；英文單字庫拿掉 A–Z 分頁
 - ✅ 考試類型選擇頁；多益區（藍色）：5,005 字單字學習＋單字測驗（TSL＋BSL＋NGSL）
 - ✅ 英文零基礎（橘色）：學發音（單字＋KK 音標＋正常／慢速發音），加上 2,006 字單字學習＋單字測驗
 - ✅ 一般英文（青綠色）：4,032 個日常生活字單字學習＋單字測驗（和零基礎不重複）
@@ -415,6 +431,7 @@ python tools/make_listening_audio.py --voices   # 列出可用語音
 python tools/check_jlpt_mock.py          # 檢查日檢模擬考題庫（改完題目必跑）
 python tools/make_jlpt_audio.py          # 產生日檢模擬考聽解音檔
 python tools/check_topik_mock.py         # 檢查韓檢模擬考題庫（改完題目必跑）
+python tools/check_word_roots.py         # 檢查字根字首資料（改完 morphology/roots.txt 必跑）
 python tools/make_topik_audio.py         # 產生韓檢模擬考聽力音檔
 python tools/check_ai_tutor.py           # 檢查 AI 學習教練（假 AI，不花錢；--real 用真金鑰）
 python app.py                            # 直接起 server（平常用 run.bat）
