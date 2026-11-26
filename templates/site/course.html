@@ -35,7 +35,8 @@
 {% if c.key in mocks|map('first')|list %}
 <section class="s-sec"><div class="wrap">
     <h2>{{ icon('target') }} {{ c.name }}免費迷你模考</h2>
-    <p class="sub">10 分鐘測程度，拿分數、錯題與弱點分析。<span class="s-badge soon">即將開放</span></p>
+    <p class="sub">10 分鐘測程度，拿正確率、解析與弱點分析。
+    {% if c.key in mocks_ready %}</p><a class="s-btn" href="{{ url_for('site.mock_take', key=c.key) }}">開始免費測驗</a>{% else %}<span class="s-badge soon">即將開放</span></p>{% endif %}
 </div></section>
 {% endif %}
 {% endblock %}

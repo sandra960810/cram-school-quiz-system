@@ -35,6 +35,8 @@
         {% if r.identity %}<dt>身分</dt><dd>{{ r.identity }}</dd>{% endif %}
         <dt>方便聯絡</dt><dd>{{ r.contact_time or '—' }}</dd>
         {% if r.message %}<dt>留言</dt><dd>{{ r.message }}</dd>{% endif %}
+        {% if r.source and not r.source.startswith('http') %}<dt>來源</dt><dd>{{ r.source }}</dd>{% endif %}
+        {% if r.mock %}<dt>模考成績</dt><dd>{{ r.mock }}</dd>{% endif %}
     </dl>
     <form method="post" action="{{ url_for('admin.lead_update', lead_id=r.id, back=status) }}">
         <input type="hidden" name="csrf" value="{{ admin_csrf }}">

@@ -9,11 +9,19 @@
 <section class="s-sec"><div class="wrap">
     <div class="s-grid">
         {% for key, name in mocks %}
+        {% if key in mocks_ready %}
+        <a class="s-card tone exam-tone-{{ key }}" href="{{ url_for('site.mock_take', key=key) }}">
+            <h3>{{ name }}迷你模考</h3>
+            <p>聽力＋閱讀，約 10 分鐘</p>
+            <span class="more">開始測驗 →</span>
+        </a>
+        {% else %}
         <div class="s-card tone exam-tone-{{ key }}">
             <h3>{{ name }}迷你模考</h3>
             <p>約 10 分鐘</p>
             <p style="margin-top:10px"><span class="s-badge soon">即將開放</span></p>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div></section>
@@ -22,12 +30,12 @@
     <ol class="s-steps">
         <li><b>選考試</b><br>多益、雅思、日檢或韓檢。</li>
         <li><b>作答約 10 分鐘</b><br>題型比照正式考試。</li>
-        <li><b>看分數與錯題</b><br>交卷馬上知道答對幾題。</li>
-        <li><b>拿弱點分析報告</b><br>填姓名、電話、Email，報告就會顯示。</li>
+        <li><b>看正確率</b><br>交卷馬上知道答對幾題，還有前幾題的解析。</li>
+        <li><b>拿完整解析與弱點分析</b><br>填姓名、電話、Email，就能看全部解析和各題型的弱點分析。</li>
     </ol>
 </div></section>
 <section class="s-sec"><div class="wrap" style="text-align:center">
-    <p class="sub">模考還在準備中，想先了解程度可以直接諮詢。</p>
+    <p class="sub">想了解適合的課程，也可以直接諮詢。</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a class="s-btn big" href="{{ url_for('site.contact') }}">免費諮詢</a>{{ line_btn(s, 's-btn big line') }}
     </div>

@@ -1,0 +1,106 @@
+{
+  "key": "toeic",
+  "name": "多益",
+  "title": "多益迷你模考",
+  "minutes": 12,
+  "accent": "US",
+  "free_explains": 3,
+  "_說明": "題目全部原創。parts 依順序出題，題號自動從 1 編起。answer 是正確選項的字母；explain 是給學生看的中文解析（可寫出陷阱）。聽力題的 audio 是要唸的英文（一段一句，每句 400 字以內），題目畫面不顯示 audio 的文字。",
+  "parts": [
+    {
+      "key": "L2", "name": "聽力：應答問題", "skill": "聽力",
+      "intro": "每題會聽到一個問題或一句話，接著聽到 (A)(B)(C) 三個回應，選出最適當的回應。題目和選項都不會印出來，每題最多可以播放 2 次。",
+      "groups": [
+        {"audio": ["When is the quarterly report due?", "A. In the conference room.", "B. By Friday afternoon.", "C. Yes, I reported it."],
+         "questions": [{"options": ["A", "B", "C"], "answer": "B",
+           "explain": "問句是 When（什麼時候），要回答時間，所以 B「星期五下午之前」正確。A 回答地點（where）；C 重複 report 這個字，是常見的「同音、同字陷阱」，而且 When 開頭的問句不能用 Yes 回答。"}]},
+        {"audio": ["Who's going to pick up the clients from the airport?", "A. Ms. Lee volunteered to do it.", "B. At terminal two.", "C. I'll pick the blue one."],
+         "questions": [{"options": ["A", "B", "C"], "answer": "A",
+           "explain": "問 Who（誰）去接客戶，A「Lee 小姐自願去」回答了人。B 回答地點；C 用 pick 這個字設陷阱（pick up 是接人，pick 是挑選）。"}]},
+        {"audio": ["Why don't we order lunch for the training session?", "A. Because it was canceled.", "B. That's a good idea.", "C. About twenty minutes."],
+         "questions": [{"options": ["A", "B", "C"], "answer": "B",
+           "explain": "Why don't we…? 是「我們何不…？」的提議，不是問原因，回應要表示同意或拒絕，所以選 B。看到 Why 就選 Because 開頭的 A，是多益最常見的陷阱。"}]},
+        {"audio": ["Have you sent the invoice to the supplier yet?", "A. I'll do it right after this meeting.", "B. The supplies are in the cabinet.", "C. It costs about two hundred dollars."],
+         "questions": [{"options": ["A", "B", "C"], "answer": "A",
+           "explain": "問「發票寄給供應商了嗎」，A「開完會馬上寄」是間接回答（還沒，等一下寄），多益很常用這種不說 Yes／No 的答法。B 用 supplier／supplies 字形相近設陷阱；C 答價錢，答非所問。"}]},
+        {"audio": ["Would you prefer a window seat or an aisle seat?", "A. Yes, I would.", "B. Either is fine with me.", "C. The window is open."],
+         "questions": [{"options": ["A", "B", "C"], "answer": "B",
+           "explain": "A or B 的選擇疑問句不能用 Yes／No 回答，B「都可以」是自然的回應。C 重複 window 這個字，是陷阱。"}]}
+      ]
+    },
+    {
+      "key": "L4", "name": "聽力：簡短獨白", "skill": "聽力",
+      "intro": "聽一段公司內部的廣播，回答 3 個問題。題目和選項會印出來，錄音內容不會。可以先看題目再播放，最多播放 2 次。",
+      "groups": [
+        {"audio": ["Good morning, everyone.", "This is a reminder that the third floor of our office will be closed next Monday while new carpets are installed.", "Staff who normally work on that floor should use the meeting rooms on the fifth floor instead.", "Please take your laptops home with you on Friday, because the movers will need the desks cleared.", "If you have any questions, contact Daniel in facilities at extension two four one."],
+         "questions": [
+           {"q": "What is the main purpose of the announcement?", "options": ["To introduce a new employee", "To announce a temporary closure", "To explain a new computer system", "To schedule a company party"], "answer": "B",
+            "explain": "開頭就說 the third floor … will be closed next Monday（三樓下週一關閉），之後都在說明關閉期間怎麼辦，所以主旨是 B「宣布暫時關閉」。主旨題通常聽前兩句就有答案。"},
+           {"q": "Where should staff work on Monday?", "options": ["At home", "In the lobby", "On the fifth floor", "On the third floor"], "answer": "C",
+            "explain": "原文 should use the meeting rooms on the fifth floor instead（改用五樓的會議室），答案是 C。D 的 third floor 是關閉的樓層，錄音裡聽到過，是陷阱；A 的 home 是從「把筆電帶回家」聯想出來的干擾項。"},
+           {"q": "What are listeners asked to do on Friday?", "options": ["Take their laptops home", "Call the facilities office", "Move the carpets", "Attend a meeting"], "answer": "A",
+            "explain": "原文 Please take your laptops home with you on Friday，答案 A。B 只是「有問題時」才要聯絡；C 搬家具、鋪地毯的是工人，不是聽眾。"}
+         ]}
+      ]
+    },
+    {
+      "key": "R5", "name": "閱讀：句子填空", "skill": "閱讀",
+      "intro": "選出最適合填入空格的答案。",
+      "groups": [
+        {"questions": [{"q": "The new software will allow employees to complete their reports more ------.", "options": ["quick", "quickly", "quicker", "quickness"], "answer": "B",
+          "explain": "空格修飾動詞 complete，前面又有 more，要用副詞比較級 more quickly，選 B。quicker 本身已是比較級，不能再加 more。"}]},
+        {"questions": [{"q": "All visitors must sign in at the front desk ------ entering the laboratory.", "options": ["before", "during", "between", "among"], "answer": "A",
+          "explain": "「進實驗室之前先登記」，before ＋ V-ing 合理，選 A。during 後面接名詞（during the meeting），between／among 表示「在…之間」，語意不通。"}]},
+        {"questions": [{"q": "Ms. Tanaka has worked for the company ------ fifteen years.", "options": ["since", "for", "at", "by"], "answer": "B",
+          "explain": "現在完成式 has worked ＋「一段時間」（fifteen years）用 for，選 B。since 後面要接「時間點」（since 2010），這是常考的 for／since 區分。"}]},
+        {"questions": [{"q": "The marketing team ------ the results of the customer survey at tomorrow's meeting.", "options": ["presented", "will present", "has presented", "presenting"], "answer": "B",
+          "explain": "句尾 at tomorrow's meeting（明天的會議）是未來時間，用未來式 will present，選 B。看到時間詞先決定時態，是句子填空最快的解法。"}]},
+        {"questions": [{"q": "Due to ------ demand, the store has extended its weekend hours.", "options": ["increase", "increasing", "increasingly", "increases"], "answer": "B",
+          "explain": "空格在名詞 demand 前面，要用形容詞，increasing（不斷增加的）選 B。increasingly 是副詞，不能修飾名詞；increase／increases 是名詞或動詞。"}]},
+        {"questions": [{"q": "Please submit your travel expenses ------ the end of the month so they can be processed on time.", "options": ["until", "by", "on", "in"], "answer": "B",
+          "explain": "「在月底之前繳交」是期限，用 by，選 B。until 表示「一直持續到」，要搭配持續的動作（I'll wait until 5），submit 是一次性的動作，不能用 until。"}]}
+      ]
+    },
+    {
+      "key": "R6", "name": "閱讀：段落填空", "skill": "閱讀",
+      "intro": "閱讀下面的電子郵件，選出最適合填入每個空格的答案。",
+      "groups": [
+        {"passage": "To: All Staff\nSubject: Parking Lot Repairs\n\nStarting on June 3, the east parking lot will be closed for repairs. The work is expected to __(1)__ about two weeks. During this period, employees may park in the west lot or at the public garage on Hill Street. __(2)__, the company will cover the cost of parking at the garage. Simply keep your receipts and submit them to the accounting department for __(3)__. __(4)__\n\nThank you for your patience.\nFacilities Department",
+         "questions": [
+           {"q": "空格 (1)", "options": ["take", "taking", "taken", "takes"], "answer": "A",
+            "explain": "be expected to 後面接原形動詞，take about two weeks（花大約兩週），選 A。"},
+           {"q": "空格 (2)", "options": ["However", "In addition", "Instead", "Otherwise"], "answer": "B",
+            "explain": "前一句說可以停西邊停車場或公共停車場，這句再補充「公司會負擔停車費」，是追加資訊，用 In addition（此外），選 B。However 表示轉折，前後沒有相反的意思。"},
+           {"q": "空格 (3)", "options": ["reimbursement", "employment", "advertisement", "assignment"], "answer": "A",
+            "explain": "保留收據交給會計部門，是為了「報銷、退款」，reimbursement 選 A。這是多益職場高頻字，常和 receipt、expense 一起出現。"},
+           {"q": "空格 (4)", "options": ["We apologize for any inconvenience this may cause.", "The new cafeteria menu will be announced soon.", "The repairs were completed last year.", "Please park in the east lot during this time."], "answer": "A",
+            "explain": "句子插入題要看前後文。整封信在通知停車場施工，結尾放「造成不便，敬請見諒」最自然，選 A。B 和停車無關；C 時間矛盾（施工 6 月才開始）；D 東邊停車場正在關閉，內容矛盾。"}
+         ]}
+      ]
+    },
+    {
+      "key": "R7", "name": "閱讀：閱讀理解", "skill": "閱讀",
+      "intro": "閱讀下面的公告，回答問題。",
+      "groups": [
+        {"passage": "Greenfield Public Library\nFree Workshop: Writing an Effective Résumé\n\nDate: Saturday, May 18\nTime: 10:00 A.M. – 12:00 P.M.\nLocation: Room B, second floor\n\nCareer coach Lisa Morgan will share practical tips on how to organize your work experience, highlight your skills, and avoid common mistakes. Participants are encouraged to bring a printed copy of their current résumé for individual feedback. Space is limited to 20 people. To reserve a seat, register at the information desk or call 555-0142 by May 15. Light refreshments will be provided.",
+         "questions": [
+           {"q": "What is the purpose of the notice?", "options": ["To advertise a job opening", "To announce a free workshop", "To introduce a new librarian", "To explain library rules"], "answer": "B",
+            "explain": "標題就寫 Free Workshop（免費講座），整篇在介紹講座內容與報名方式，選 B。主旨題先看標題和第一段。"},
+           {"q": "Who is Lisa Morgan?", "options": ["A librarian", "A career coach", "A job applicant", "A publisher"], "answer": "B",
+            "explain": "原文 Career coach Lisa Morgan，人名前面的稱謂就是身分，選 B。地點在圖書館，所以 A 是聯想陷阱。"},
+           {"q": "What are participants encouraged to bring?", "options": ["A copy of their résumé", "A laptop", "A library card", "Refreshments"], "answer": "A",
+            "explain": "原文 encouraged to bring a printed copy of their current résumé，選 A。D 的點心是主辦單位 will be provided（會提供），不是學員要帶的，是陷阱。"},
+           {"q": "What is NOT mentioned about the workshop?", "options": ["It is limited to 20 people.", "Registration is required by May 15.", "It will be held on the second floor.", "There is a fee to attend."], "answer": "D",
+            "explain": "NOT 題要逐一對照：A、B、C 原文都有寫，標題寫的是 Free（免費），沒有收費，所以 D 是文章沒提到（而且相反）的，選 D。"}
+         ]}
+      ]
+    }
+  ],
+  "advice": {
+    "L2": "應答問題要抓「疑問詞」：Who 答人、When 答時間、Where 答地點；Why don't we 是提議不是問原因。也要小心選項重複題目裡的字或發音相近的字，這通常是陷阱。建議每天練 10 題，聽完先在心裡說出疑問詞。",
+    "L4": "簡短獨白先看題目再聽，主旨題答案通常在前兩句，細節題會用「換句話說」出現。錄音提到但被否定或改掉的資訊常是陷阱。建議練習邊聽邊抓關鍵字（時間、地點、要聽眾做什麼）。",
+    "R5": "句子填空先看空格前後決定詞性（名詞前用形容詞、修飾動詞用副詞），再看時間詞決定時態。介系詞 for／since、by／until 是常考組合。建議整理常錯的文法點，搭配單字庫背詞性變化。",
+    "R6": "段落填空要看整段文意：轉折詞（However、In addition）看前後句的關係，句子插入題看上下文是否連貫、有沒有時間或內容矛盾。建議練習先讀完整段再作答。",
+    "R7": "閱讀理解先看題目再回文章找答案，主旨題看標題和第一段，NOT 題要逐一對照刪去。小心「文章有出現但意思不同」的選項。建議練習限時閱讀，培養快速找關鍵句的能力。"
+  }
+}

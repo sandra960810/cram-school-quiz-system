@@ -116,3 +116,55 @@ a.s-card:hover { box-shadow: var(--edge-raised); }
     .s-hero-grid { grid-template-columns: 1fr; }
     .s-hero-logo { width: 140px; height: 140px; order: -1; }
 }
+
+/* 迷你模考（school_mock.py） */
+.mk-intro h2 { margin-top: 0; }
+.mk-bar { position: sticky; top: 64px; z-index: 15; background: #fff; box-shadow: var(--edge); }
+.mk-bar .wrap { display: flex; gap: 20px; align-items: center; min-height: 48px; flex-wrap: wrap; }
+.mk-timer { margin-left: auto; font-size: 18px; color: var(--deep); }
+.mk-timer.low { color: var(--bad); }
+.mk-part { padding: 28px 0 8px; }
+.mk-part h2 { color: var(--deep); margin: 0 0 4px; }
+.mk-group { margin-bottom: 16px; }
+.mk-audio { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.mk-left { color: var(--muted); font-size: 14px; }
+.mk-play[disabled] { opacity: .5; cursor: default; }
+.mk-passage { white-space: pre-wrap; background: var(--surface-2); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; line-height: 1.8; }
+.mk-q { border: none; margin: 0 0 14px; padding: 0; }
+.mk-q legend { font-weight: bold; margin-bottom: 8px; padding: 0; }
+.mk-no { display: inline-flex; min-width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; align-items: center; justify-content: center; font-size: 13px; margin-right: 6px; padding: 0 4px; box-sizing: border-box; }
+.mk-opts { display: grid; gap: 6px; }
+.mk-opts label { display: flex; gap: 8px; align-items: center; padding: 9px 12px; border: 2px solid var(--line); border-radius: 10px; cursor: pointer; }
+.mk-opts label:has(input:checked) { border-color: var(--primary); background: var(--primary-50); }
+.mk-opts input { accent-color: var(--primary); width: 18px; height: 18px; }
+.mk-submit { text-align: center; padding: 24px 0; }
+.mk-warn { color: var(--warn-ink); background: var(--warn-50); display: inline-block; padding: 8px 14px; border-radius: 10px; }
+.mk-score { display: flex; gap: 22px; align-items: center; margin-top: 8px; font-size: 17px; }
+.mk-big { font-size: 64px; font-weight: bold; color: var(--deep); line-height: 1; }
+.mk-big small { font-size: 28px; }
+.mk-muted { color: var(--muted); font-size: 14px; }
+.mk-r { background: #fff; border-radius: 12px; box-shadow: var(--edge); padding: 16px 18px; margin-bottom: 12px; border-left: 5px solid var(--ok); }
+.mk-r.bad { border-left-color: var(--bad); }
+.mk-r-head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.mk-r-part { color: var(--muted); font-size: 13px; }
+.mk-r-mark { margin-left: auto; font-weight: bold; font-size: 14px; }
+.mk-r.ok .mk-r-mark { color: var(--ok-ink); }
+.mk-r.bad .mk-r-mark { color: var(--bad-ink); }
+.mk-r-q { margin: 10px 0 4px; font-weight: bold; }
+.mk-r-opts { margin: 0; padding-left: 22px; color: var(--ink-2); }
+.mk-r-opts li.ans { color: var(--ok-ink); font-weight: bold; }
+.mk-r-script { background: var(--surface-2); border-radius: 8px; padding: 8px 12px; font-size: 14px; color: var(--ink-2); }
+.mk-r-exp { background: var(--star-50); border-radius: 8px; padding: 10px 12px; margin: 10px 0 0; }
+.mk-locked { position: relative; max-height: 260px; overflow: hidden; }
+.mk-locked .mk-r { filter: blur(3px); user-select: none; }
+.mk-lock-cover { position: absolute; inset: auto 0 0 0; height: 64px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: var(--edge);
+    background: var(--primary-50); font-weight: bold; color: var(--deep); border-radius: 0 0 12px 12px; }
+.mk-parts { display: grid; gap: 10px; }
+.mk-part-row { display: grid; grid-template-columns: 150px 1fr 110px; gap: 12px; align-items: center; }
+.mk-barbox { height: 14px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.mk-barfill { display: block; height: 100%; background: var(--ok); border-radius: 99px; }
+.mk-part-row.weak .mk-barfill { background: var(--warn); }
+.mk-part-row.weak .mk-pn { color: var(--warn-ink); font-weight: bold; }
+.mk-advice { margin-bottom: 12px; }
+.mk-advice h3 { color: var(--warn-ink); }
+@media (max-width: 760px) { .mk-part-row { grid-template-columns: 1fr 90px; } .mk-barbox { grid-column: 1 / -1; grid-row: 2; } .mk-bar { top: 0; } }
