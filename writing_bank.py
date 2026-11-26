@@ -30,6 +30,8 @@ PAID_LOG = os.path.join(BASE, 'instance', 'ai_paid_log.txt')
 SECTION = 'writing'
 # 2026-11 使用者要求用中階、便宜一點的模型（Sonnet 5.5：每百萬 token 輸入 2、輸出 10 美元，Opus 5.5 的一半）
 CLAUDE_MODEL = 'claude-sonnet-5-5'
+# 錯題解釋、AI 練習題、單字記憶法這類簡單的短回答用最便宜的 Haiku（價格約 Sonnet 的 1/20）；批改與學習報告維持 Sonnet
+CLAUDE_LIGHT_MODEL = 'claude-haiku-5-5'
 # Gemini 免費額度可用的模型，依序嘗試（Google 會汰換舊模型，前一個找不到就換下一個）。
 # 想指定模型可以設環境變數 GEMINI_MODEL。
 GEMINI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash']
@@ -383,22 +385,21 @@ def _ask_claude(key, task, essay):
     return _claude_json(key, SYSTEM_PROMPT, _user_message(task, essay), _schema(task['no']))
 
 
-def _claude_json(key, system, message, schema, effort='high'):
+def _claude_json(key, system, message, schema, effort='high', model=None):
     """用 Claude 依評分規則 system 批改 message，照 schema 回 JSON，回傳 (JSON 文字, 模型名稱)。
     雅思寫作與韓檢寫作（topik_mock.py）共用；AI 學習教練（ai_tutor.py）用較低的 effort，回得比較快。"""
     import anthropic
+    model = model or CLAUDE_MODEL
     client = anthropic.Anthropic(api_key=key, timeout=300)
+    kwargs = dict(model=model, max_tokens=16000, system=system,
+                  output_config={'effort': effort, 'format': {'type': 'json_schema', 'schema': schema}},
+                  messages=[{'role': 'user', 'content': message}])
     try:
-        resp = client.beta.messages.create(
-            model=CLAUDE_MODEL,
-            max_tokens=16000,
-            betas=['server-side-fallback-2026-07-01'],
-            fallbacks='default',
-            system=system,
-            output_config={'effort': effort,
-                           'format': {'type': 'json_schema', 'schema': schema}},
-            messages=[{'role': 'user', 'content': message}],
-        )
+        if model == CLAUDE_LIGHT_MODEL:     # Haiku 沒有伺服器端的拒答備援（fallbacks），用一般的呼叫
+            resp = client.messages.create(**kwargs)
+        else:
+            resp = client.beta.messages.create(betas=['server-side-fallback-2026-07-01'], fallbacks='default',
+                                               **kwargs)
     except anthropic.AuthenticationError:
         raise RuntimeError('API 金鑰無效，請重新雙擊 set_ai_key.bat 設定正確的金鑰。')
     except anthropic.PermissionDeniedError:
@@ -413,7 +414,7 @@ def _claude_json(key, system, message, schema, effort='high'):
         raise RuntimeError('AI 老師無法批改這篇內容。')
     if resp.stop_reason == 'max_tokens':
         raise RuntimeError('AI 回覆太長被截斷，請再按一次批改。')
-    return next((b.text for b in resp.content if b.type == 'text'), ''), CLAUDE_MODEL
+    return next((b.text for b in resp.content if b.type == 'text'), ''), model
 
 
 def gemini_client(key):
@@ -505,12 +506,14 @@ def _gemini_json(key, system, message, schema, effort=None):
     raise RuntimeError(_no_model_error(last))
 
 
-def ask_json(system, message, schema, effort='high'):
+def ask_json(system, message, schema, effort='high', light=False):
     """依目前設定的 AI 老師（Gemini 或 Claude）批改，回傳 (解析好的 dict, 模型名稱)。失敗丟 RuntimeError。
     effort 只對 Claude 有用（Gemini 沒有這個設定）：批改作文用 high，解釋錯題這類短回答用 low。"""
     def run(provider, key):
-        ask = _gemini_json if provider == 'gemini' else _claude_json
-        return ask(key, system, message, schema, effort=effort)
+        if provider == 'gemini':
+            return _gemini_json(key, system, message, schema, effort=effort)
+        return _claude_json(key, system, message, schema, effort=effort,
+                            model=CLAUDE_LIGHT_MODEL if light else CLAUDE_MODEL)
     text, model = run_ai(run, 'AI 學習教練／韓檢寫作')
     try:
         return json.loads(text), model
