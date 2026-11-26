@@ -356,3 +356,30 @@ body.site { background: var(--brand-bg); }
 .s-ctable tr:hover td { background: var(--brand-gold-50); }
 .s-about-grid { grid-template-columns: 1fr; max-width: 860px; }
 .s-quiz-cta { margin-bottom: -40px; }
+
+/* 課程招生中（2026-11 使用者要求把招生圖做進首頁）：真人照片＋深藍遮罩，三張學習方式卡片 */
+.s-enroll { position: relative; padding: 72px 0; color: #fff; overflow: hidden; }
+.s-enroll-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+.s-enroll::before { content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--brand-navy) 62%, transparent), color-mix(in srgb, var(--brand-navy) 88%, transparent)); }
+.s-enroll .wrap { position: relative; z-index: 2; }
+.s-enroll-head { text-align: center; }
+.s-enroll-head .s-eyebrow { color: var(--brand-gold); }
+.s-enroll h2 { font-size: 46px; font-weight: 900; color: #fff; margin: 4px 0 6px; letter-spacing: 2px; text-shadow: 0 3px 14px rgb(0 0 0 / .4); }
+.s-enroll h2::after { left: 50%; transform: translateX(-50%); }
+.s-enroll h2 em { font-style: normal; color: var(--brand-gold); }
+.s-enroll-sub { font-size: 20px; font-weight: 700; letter-spacing: 4px; margin: 18px 0 0; }
+.s-enroll-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+.s-enroll-card { background: #fff; color: var(--ink); border-radius: 14px; padding: 22px 24px; box-shadow: var(--edge-pop); }
+.s-enroll-card h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 21px; color: var(--brand-navy); }
+.s-enroll-card h3 .ui-ic { width: 38px; height: 38px; padding: 8px; border-radius: 50%; background: var(--brand-navy); color: #fff; box-sizing: border-box; }
+.s-enroll-card .s-checks li::before { color: var(--brand-gold-ink); }
+.s-enroll-foot { display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 30px; }
+.s-enroll-foot p { margin: 0; text-align: center; font-size: 19px; font-weight: 700; }
+.s-enroll-foot .s-btn.big { font-size: 20px; padding: 14px 44px; }
+.s-why-grid .s-why { grid-template-columns: 1fr; }
+@media (max-width: 760px) {
+    .s-enroll { padding: 52px 0; }
+    .s-enroll h2 { font-size: 34px; }
+    .s-enroll-cards { grid-template-columns: 1fr; }
+}
