@@ -156,8 +156,9 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
 
 - **官網先不提學生系統**（2026-11 使用者要求）：不放學員登入、不提線上單字庫／模擬考題庫／AI，已登入的學生開 `/` 也是看官網（學生從 `/login` 進系統）；
   首頁：主視覺是**商務真人照片**（使用者要求吸睛、有人物；`static/images/site/hero.jpg`，來源與授權見 `static/images/site/README.md`，
-  只能用可免費商用的圖庫如 Unsplash）＋深藍文字面板（`--brand-navy`、金色 `--brand-gold` 取自 Logo）→ 一排事實數字 →
-  關於驅勢（旁邊放 `hero-globe.svg` 五大檢定圖）→ 課程 → 「你的多益實力有幾分？」＋開始測驗。**首頁不另放校區區塊**（使用者要求），
+  只能用可免費商用的圖庫如 Unsplash）＋深藍文字面板（`--brand-navy`、金色 `--brand-gold` 取自 Logo）＋重點數字 → 本頁目錄 → 課程總覽表 → 學習地圖 →
+  為什麼選驅勢（小班照片 class.jpg＋四個特色）→ 「你的多益實力有幾分？」＋開始測驗 → 關於驅勢（旁邊 `hero-globe.svg`）→ 三種聯絡方式。
+  版面參考其他語言中心課程頁的編排，**同樣的內容不要重複**（使用者要求；例如「實體＋線上」「零基礎～高階」只出現在一個地方）。**首頁不另放校區區塊**（使用者要求），
   頂端「校區」連到頁尾的校區欄。重點文字取自補習班自己的 IG 海報
 - 公開頁：`/` 首頁、`/courses`、`/courses/<toeic|ielts|toefl|jlpt|topik>`、`/campus/<校區>`、
   `/mock-test`（迷你模考總覽；**入口放在各課程頁**（使用者要求，hero 按鈕＋課程資訊上方的卡片），頂端選單不放；**目前只有多益**，雅思、日檢、韓檢顯示「即將開放」，`school_site.MOCKS_READY`）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
