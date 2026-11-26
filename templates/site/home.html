@@ -22,46 +22,29 @@
     </div>
 </section>
 <nav class="s-jump" aria-label="本頁目錄"><div class="wrap">
-    <a href="#mode">上課方式</a><a href="#courses">課程總覽</a><a href="#map">學習地圖</a><a href="#why">為什麼選驅勢</a>{% if 'toeic' in mocks_ready %}<a href="#quiz">免費多益測驗</a>{% endif %}<a href="#about">關於我們</a><a href="#contact-us">聯絡我們</a>
+    <a href="#courses">課程總覽</a><a href="#map">學習地圖</a><a href="#why">為什麼選驅勢</a>{% if 'toeic' in mocks_ready %}<a href="#quiz">免費多益測驗</a>{% endif %}<a href="#about">關於我們</a><a href="#contact-us">聯絡我們</a>
 </div></nav>
 
-<section class="s-sec" id="mode">
-    <div class="wrap">
-        <p class="s-eyebrow">CLASS MODE</p>
-        <h2>上課方式</h2>
-        <p class="sub">實體＋線上，依你的時間彈性安排。</p>
-        <img class="s-mode-photo" src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="小班討論上課情境" width="1920" height="1177" loading="lazy">
-        <div class="s-mode">
-            <div>{{ icon('building') }}<h3>實體小班</h3><p>{% for c in s.campuses %}{{ c.name }}{{ '、' if not loop.last }}{% endfor %}校區上課，老師面對面帶練。</p></div>
-            <div>{{ icon('monitor') }}<h3>線上課程</h3><p>不方便到校也能上課，學習進度不中斷。</p></div>
-            <div>{{ icon('users') }}<h3>個別學習計劃</h3><p>依程度與目標量身規劃，針對弱項提升。</p></div>
-        </div>
-    </div>
-</section>
 
 <section class="s-sec s-band" id="courses">
     <div class="wrap">
         <p class="s-eyebrow">COURSES</p>
         <h2>課程總覽</h2>
-        <p class="sub">英日韓與各大檢定，從零基礎到高階都能安排。</p>
+        <p class="sub">上課時間、班別與費用依程度安排，歡迎諮詢。</p>
         <div class="s-table-wrap">
         <table class="s-ctable">
-            <thead><tr><th>課程</th><th>課程重點</th><th>程度</th><th>上課方式</th><th>上課時間・費用</th><th></th></tr></thead>
+            <thead><tr><th>課程</th><th>課程重點</th><th></th></tr></thead>
             <tbody>
             {% for c in courses %}
             <tr class="exam-tone-{{ c.key }}">
                 <td><b class="ct-name">{{ c.name }}</b><small>{{ c.en }}</small></td>
                 <td>{{ c.lead }}</td>
-                <td>零基礎～高階</td>
-                <td>實體＋線上</td>
-                <td>歡迎諮詢</td>
                 <td><a class="s-btn" href="{{ url_for('site.course', key=c.key) }}">看課程</a></td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
         </div>
-        <div class="s-center"><a class="s-btn big gold" href="{{ url_for('site.contact') }}">預約免費諮詢・試聽</a> {{ line_btn(s, 's-btn big line') }}</div>
     </div>
 </section>
 
@@ -69,10 +52,10 @@
     <div class="wrap">
         <p class="s-eyebrow">LEARNING MAP</p>
         <h2>學習地圖</h2>
-        <p class="sub">不管從哪裡開始，都有適合你的下一步。</p>
+        <p class="sub">零基礎到高階，都有適合你的下一步。</p>
         <div class="s-map">
             <div class="s-map-card"><span class="s-map-step">STEP 1</span><h3>零基礎・打底</h3><p>從發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。英語從字母發音、日語從五十音、韓語從韓文字母開始。</p><a class="s-btn" href="{{ url_for('site.contact') }}">安排程度諮詢</a></div>
-            <div class="s-map-card"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>針對多益、雅思、托福、日檢、韓檢的題型與弱項加強，精準考題解析，朝目標分數與級數前進。</p><a class="s-btn" href="{{ url_for('site.courses') }}">看各檢定課程</a></div>
+            <div class="s-map-card"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p><a class="s-btn" href="{{ url_for('site.courses') }}">看各檢定課程</a></div>
         </div>
     </div>
 </section>
@@ -81,15 +64,15 @@
     <div class="wrap">
         <p class="s-eyebrow">WHY TRINITY</p>
         <h2>為什麼選{{ s.name }}</h2>
-        <div class="s-why">
-            <div><span>01</span><h3>嚴選師資</h3><p>專業師資授課</p></div>
-            <div><span>02</span><h3>精準考題解析</h3><p>掌握題型與解題方法</p></div>
-            <div><span>03</span><h3>量身打造</h3><p>針對弱項提升</p></div>
-            <div><span>04</span><h3>小班教學</h3><p>個別學習計劃</p></div>
-            <div><span>05</span><h3>實體＋線上</h3><p>彈性多元規劃</p></div>
-            <div><span>06</span><h3>零基礎～高階</h3><p>各程度皆可排</p></div>
+        <div class="s-why-grid">
+            <img class="s-mode-photo" src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="小班討論上課情境" width="1920" height="1177" loading="lazy">
+            <div class="s-why">
+                <div><span>01</span><h3>嚴選師資</h3><p>精準考題解析，掌握題型與解題方法</p></div>
+                <div><span>02</span><h3>量身打造</h3><p>依程度與目標規劃，針對弱項提升</p></div>
+                <div><span>03</span><h3>小班教學</h3><p>老師照顧得到每個人，個別學習計劃</p></div>
+                <div><span>04</span><h3>實體＋線上</h3><p>{{ s.campuses|length }} 個校區上課，不方便到校也能線上上課</p></div>
+            </div>
         </div>
-        {% if s.slogan %}<p class="s-why-slogan">{{ s.slogan }}</p>{% endif %}
     </div>
 </section>
 
@@ -100,10 +83,8 @@
             <p class="s-eyebrow">FREE TOEIC TEST</p>
             <h2>你的多益實力有幾分？</h2>
             <ul class="s-checks">
-                <li>聽力＋閱讀共 22 題，約 12 分鐘</li>
-                <li>比照多益題型：應答、簡短獨白、句子填空、段落填空、閱讀理解</li>
-                <li>交卷馬上看正確率與題目解析</li>
-                <li>各題型正確率與弱點分析</li>
+                <li>聽力＋閱讀 22 題，約 12 分鐘，比照多益題型</li>
+                <li>交卷馬上看正確率、解析與弱點分析</li>
                 <li>免費、不用註冊</li>
             </ul>
         </div>
