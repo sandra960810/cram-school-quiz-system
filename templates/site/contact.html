@@ -48,7 +48,7 @@
         </div>
         <div class="s-line-box" style="margin-top:16px">
             <h3>{{ icon('home') }} 各校區電話</h3>
-            {% for c in s.campuses %}<p style="margin:4px 0">{{ c.label }}　{% if c.phone %}<a href="tel:{{ c.phone|replace('(','')|replace(')','')|replace('-','') }}">{{ c.phone }}</a>{% else %}{{ fill('', '電話') }}{% endif %}</p>{% endfor %}
+            {% for c in s.campuses %}<p style="margin:4px 0">{{ c.label }}　{% if c.phone %}<a href="tel:{{ c.phone|replace('(','')|replace(')','')|replace('-','') }}">{{ c.phone }}</a>{% endif %}</p>{% endfor %}
         </div>
     </aside>
 </div></section>
