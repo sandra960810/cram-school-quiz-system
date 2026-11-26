@@ -383,7 +383,11 @@ def save_lead(v, mock=''):
                         (datetime.now(TW).strftime('%Y-%m-%d %H:%M'), v['name'], v['phone'], v['email'], v['line_id'],
                          v['identity'], '、'.join(COURSE_MAP[k]['name'] for k in v['courses']), v['campus'],
                          v['contact_time'], v['message'], v['source'][:200], mock))
-        return cur.lastrowid
+        lead_id = cur.lastrowid
+        row = dict(c.execute('SELECT * FROM leads WHERE id=?', (lead_id,)).fetchone())
+    import lead_mail
+    lead_mail.notify_lead(row, info())
+    return lead_id
 
 
 def lead_rows(status=None):
