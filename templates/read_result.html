@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ai_tutor.css') }}">
     <style>
         .score-card { background: #fff; border-radius: 14px; padding: 22px 26px; box-shadow: var(--edge);
                       display: flex; align-items: center; gap: 26px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -82,11 +83,13 @@
         </div>
         {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
         {% if r.quote %}<div class="quote">{{ icon('book-open') }} 原文（Passage {{ r.passage }}）：{{ r.quote }}</div>{% endif %}
+        {% if not r.is_correct %}{{ ai_slot('ielts', section='reading', test_key=test.key, qno=r.qno, attempt_id=attempt.id) }}{% endif %}
     </div>
     {% endfor %}
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='ai_tutor.js') }}"></script>
 <script>
     // 篩選：全部 / 只看答錯
     document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener('click', () => {

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ai_tutor.css') }}">
     <style>
         .banner { background: var(--hero); color: var(--hero-ink); padding: 22px 26px;
                   border-radius: 14px; margin-bottom: 18px; box-shadow: var(--edge-hero); }
@@ -73,6 +74,7 @@
             </div>
             {% if r.explain %}<div class="explain">{{ r.explain|safe }}</div>{% endif %}
             {% if r.quote %}<div class="quote">{{ icon('book-open') if r.section == 'reading' else icon('headphones') }} 原文：{{ r.quote }}</div>{% endif %}
+            {% if not r.corrected and r.section in ('listening', 'reading') %}{{ ai_slot('ielts', section=r.section, test_key=r.test_key, qno=r.qno) }}{% endif %}
         </div>
         {% endfor %}
     {% else %}
@@ -86,5 +88,6 @@
     {% endif %}
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='ai_tutor.js') }}"></script>
 </body>
 </html>

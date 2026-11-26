@@ -58,6 +58,7 @@ topik_mock.py       韓檢模擬考 /topik-mock/<學生id>：TOPIK I／II 各十
 topik_mock/         韓檢模擬考題庫 TOPIK1.txt、TOPIK2.txt，第 2 回起 TOPIK1-2.txt…（純文字格式，見 README.md）
 topik_audio.bat     在櫃台電腦產生韓檢模擬考聽力音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
+ai_tutor.py         AI 學習教練（Blueprint）：錯題解釋、弱點練習 /ai/<id>/practice、學習報告 /ai/<id>/report、單字記憶法；前端 static/ai_tutor.js／ai_tutor.css
 templates/          Jinja 樣板
 static/ui.js        共用：音效、動畫、英文發音挑選
 static/theme.css    全站色系（色彩變數），每一頁都要先載入；換色只改這一份
@@ -167,6 +168,24 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
   四題一次批改，分數在 Python 端加總；頁面保留「AI 老師的評分不等於真實考試」。寫作可用螢幕韓文鍵盤（`HangulKeyboard.attachAll`）
 - 聽力音檔由題庫台詞用 edge-tts 產生（`tools/make_topik_audio.py`，一回一個 mp3，不進 git）；沒有音檔時頁面提示雙擊 `topik_audio.bat`
 - 改題目後一定要跑 `python tools/check_topik_mock.py`
+
+## AI 學習教練（ai_tutor.py）
+
+2026-11 加入，四個功能都沿用寫作 AI 老師的金鑰與 `writing_bank.ask_json`（Claude 用 `effort='low'`，回得快也省）：
+
+- **AI 解釋錯題**：雅思聽力／閱讀成績頁、錯題本、日檢／韓檢模擬考檢討頁、背單字神器成績頁，答錯的題目下面有「問 AI 老師：我為什麼錯？」。
+  樣板寫 `{{ ai_slot('ielts', section=..., test_key=..., qno=..., attempt_id=...) }}`（`jlpt`／`topik` 帶 `attempt_id, n`；
+  背單字神器在 JS 用 `AITutor.slot()`）。**題目內容由伺服器從題庫與作答紀錄自己找**（`explain_payload`），不收前端送的題目，
+  答對的題目、別人的紀錄一律 404。AI 回：為什麼錯、正解根據、陷阱、判斷方法，加一題「再練一題」小選擇題
+- **AI 弱點練習** `/ai/<id>/practice`：`weak_profile()` 在 Python 端統計弱點（雅思各題型錯誤率、錯題本、寫作／口說上次 AI 建議、
+  不熟的字、背單字神器各題型答對率、日檢／韓檢模擬考各科答對率），AI 只負責依弱點出 8 題；`clean_questions()` 擋掉格式不對的題、
+  打散選項（是非題 TRUE／FALSE／NOT GIVEN 不打散），作答頁不帶答案，交卷由伺服器批改（`AiPractice`）
+- **AI 學習報告** `/ai/<id>/report`：給家長與工作人員，數字由程式算，AI 只寫總評、強弱項、兩週計畫、給家長的話；可列印成 PDF。每人每考試每天一份
+- **AI 記憶法**：單字卡（`ielts.html`）上的按鈕，口訣、字根、更多例句、搭配詞、易混字
+- 快取 `AiCache`：錯題解釋依「題目＋學生的錯誤答案」、記憶法依「課程＋拼字」大家共用，第二個人按不用再呼叫 AI
+- 每個學生每天最多 `DAILY_LIMIT`（60）次真的呼叫 AI（快取不算，工作人員登入不限），示範帳號的分享連結也受限，避免被刷爆費用
+- 入口在各考試主選單（`dashboard.html`）的「AI 學習教練」區。頁面都要保留「AI 產生的內容可能有錯，以老師講解為準」
+- 改完跑 `python tools/check_ai_tutor.py`（在資料庫複本上、用假的 AI 檢查；加 `--real` 用真金鑰實測）
 
 ## 學生帳號與開通權限（accounts.py、exams.py）
 
@@ -397,5 +416,6 @@ python tools/check_jlpt_mock.py          # 檢查日檢模擬考題庫（改完�
 python tools/make_jlpt_audio.py          # 產生日檢模擬考聽解音檔
 python tools/check_topik_mock.py         # 檢查韓檢模擬考題庫（改完題目必跑）
 python tools/make_topik_audio.py         # 產生韓檢模擬考聽力音檔
+python tools/check_ai_tutor.py           # 檢查 AI 學習教練（假 AI，不花錢；--real 用真金鑰）
 python app.py                            # 直接起 server（平常用 run.bat）
 ```

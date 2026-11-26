@@ -17,7 +17,8 @@ import jp_verbs
 from sqlalchemy import or_, func, text
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
+# 測試腳本（tools/check_ai_tutor.py）用環境變數 QUIZ_DB_URI 指到資料庫的複本，不動到真的資料
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('QUIZ_DB_URI', 'sqlite:///quiz.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # 口說測驗交卷時一次上傳整場錄音（約 3–8MB），上限放寬到 60MB
 app.config['MAX_CONTENT_LENGTH'] = 60 * 1024 * 1024
@@ -1555,6 +1556,15 @@ topik_mock.register(app, db, dict(get_student=get_student, exams=exams))
 # 學生註冊、登入，與每個頁面的權限檢查（程式在 accounts.py；工作人員審核頁也在裡面，掛在後台底下）
 import accounts  # noqa: E402
 accounts.register(app, db, dict(Student=Student, get_student=get_student, exams=exams))
+
+# AI 學習教練（程式在 ai_tutor.py）：錯題解釋、弱點練習、學習報告、單字記憶法，沿用寫作 AI 老師的金鑰
+import ai_tutor  # noqa: E402
+ai_tutor.register(app, db, dict(
+    get_student=get_student, Vocabulary=Vocabulary, LearningProgress=LearningProgress,
+    TestAttempt=TestAttempt, TestAnswer=TestAnswer, TestMistake=TestMistake,
+    WritingSubmission=WritingSubmission, SpeakingSubmission=SpeakingSubmission,
+    RETIRED_TEST_KEYS=RETIRED_TEST_KEYS, clean_sentence=clean_sentence,
+    vocab_quiz=vocab_quiz, jlpt_mock=jlpt_mock, topik_mock=topik_mock))
 
 # 管理員後台（程式在 admin.py）：新增、編輯、刪除單字，要先輸入管理員密碼
 import admin  # noqa: E402

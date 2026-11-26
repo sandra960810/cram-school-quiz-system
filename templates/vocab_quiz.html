@@ -6,6 +6,7 @@
     <title>背單字神器｜{{ scope_label }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ai_tutor.css') }}">
     <style>
         body { font-family: var(--font); background-color: var(--bg); margin: 0; padding: 20px 16px 90px; box-sizing: border-box; min-height: 100vh; color: var(--ink); }
         .page { max-width: 560px; margin: 0 auto; }
@@ -158,6 +159,7 @@
 </div>
 
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
+<script src="{{ url_for('static', filename='ai_tutor.js') }}"></script>
 {% if exam.lang == 'ko' %}<script src="{{ url_for('static', filename='hangul_keyboard.js') }}"></script>{% endif %}
 {% if exam.lang == 'ja' %}<script src="{{ url_for('static', filename='kana_keyboard.js') }}"></script>{% endif %}
 {% if not empty %}
@@ -455,7 +457,8 @@
                         <button class="play-sm" data-say="${esc(q.type === 'cloze' && q.ja ? (q.reading || q.word).split('／')[0] : sayOf(q))}" data-sound="none" aria-label="播放發音">{{ icon('volume') }}</button>
                         <div class="body"><div class="w"${q.ja ? ' lang="ja"' : ''}>${esc(q.word)}${q.reading ? ' <span class="m">' + esc(q.reading) + '</span>' : ''} <span class="m">${esc(q.pos)}</span></div>
                             <div class="m">${esc(q.meaning)}</div>
-                            <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（看答案）'}</div></div>
+                            <div class="g">${TYPE_ICON[q.type]} ${TYPE_NAMES[q.type]}・你答：${esc(answers[i]) || '（看答案）'}</div>
+                            ${AITutor.slot(STUDENT_ID, { kind: 'vocab', attempt_id: ATTEMPT_ID, index: i, given: answers[i], lang: q.ja ? 'ja' : {{ (exam.lang or '') | tojson }} })}</div>
                     </div>`).join('')}</div>` : ''}
                 <div class="error" id="err"></div>
                 <a href="${RETRY_URL}" class="big-btn primary">再考一次</a>
@@ -464,6 +467,7 @@
                 <a href="${BACK_URL}" class="big-btn secondary">← 回闖關首頁</a>
             </div>`;
         stage.querySelectorAll('[data-say]').forEach(b => b.addEventListener('click', () => say(b.dataset.say)));
+        AITutor.mount(stage);   // 每個答錯的字下面：問 AI 老師為什麼錯
         try {
             const res = await fetch('/api/vocab-quiz/submit', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },

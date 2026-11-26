@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='exam.css') }}">
+    {% if review %}<link rel="stylesheet" href="{{ url_for('static', filename='ai_tutor.css') }}">
+    <style>.q .ai-slot { margin-left: 40px; } @media (max-width: 600px) { .q .ai-slot { margin-left: 8px; } }</style>{% endif %}
     <style>
         .ko { font-size: 17px; line-height: 1.9; word-break: keep-all; }
         .ginstr { background: var(--surface-2); border-left: 4px solid var(--primary); padding: 10px 14px;
@@ -130,6 +132,7 @@
                     {% elif given %}<div class="mark bad">✗ 你選 {{ '①②③④'[given - 1] }}，正解是 {{ '①②③④'[it.answer - 1] }}</div>
                     {% else %}<div class="mark bad">✗ 沒有作答，正解是 {{ '①②③④'[it.answer - 1] }}</div>{% endif %}
                     {% if it.explain %}<div class="explain">{{ mk(it.explain|join('<br>')) }}</div>{% endif %}
+                    {% if given != it.answer %}{{ ai_slot('topik', attempt_id=review.attempt.id, n=it.n) }}{% endif %}
                 {% endif %}
             </div>
             {% endif %}
@@ -181,5 +184,6 @@
 })();
 </script>
 {% endif %}
+{% if review %}<script src="{{ url_for('static', filename='ai_tutor.js') }}"></script>{% endif %}
 </body>
 </html>
