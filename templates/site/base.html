@@ -29,7 +29,7 @@
         <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="46" height="34"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
         <nav class="s-nav" aria-label="主選單">
             <a href="{{ url_for('site.courses') }}" class="{{ 'on' if request.path.startswith('/courses') }}">課程介紹</a>
-            <a href="{{ url_for('site.home') }}#campus">校區</a>
+            <a href="#campus">校區</a>
             <a href="{{ url_for('site.contact') }}" class="{{ 'on' if request.path.startswith('/contact') }}">免費諮詢</a>
         </nav>
         <div class="s-actions">
@@ -55,7 +55,7 @@
                 <h4>課程</h4>
                 {% for c in courses %}<a href="{{ url_for('site.course', key=c.key) }}">{{ c.name }}（{{ c.en }}）</a>{% endfor %}
             </div>
-            <div>
+            <div id="campus">
                 <h4>校區</h4>
                 {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.label }}</a>{% endfor %}
             </div>
