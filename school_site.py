@@ -16,6 +16,7 @@ import secrets
 import sqlite3
 import time
 from datetime import datetime, timedelta, timezone
+from urllib.parse import quote
 
 from flask import (Blueprint, Response, abort, redirect, render_template, request, session, url_for)
 
@@ -80,6 +81,10 @@ def info():
     data.setdefault('name', '趨勢補習班')
     data.setdefault('campuses', [])
     data.setdefault('courses', {})
+    for c in data['campuses']:
+        c.setdefault('label', c.get('name', '') + '校')
+        if not c.get('map_url') and c.get('address'):
+            c['map_url'] = 'https://www.google.com/maps/search/?api=1&query=' + quote(f"{data['name']} {c['address']}")
     return data
 
 
@@ -101,7 +106,10 @@ def org_jsonld():
     d = info()
     org = {"@context": "https://schema.org", "@type": "EducationalOrganization",
            "name": d['name'], "url": base_url() + '/'}
-    for k_src, k_out in (('name_en', 'alternateName'), ('phone', 'telephone'), ('email', 'email'),
+    alt = [x for x in [d.get('name_en')] + d.get('alt_names', []) if x]
+    if alt:
+        org['alternateName'] = alt
+    for k_src, k_out in ( ('phone', 'telephone'), ('email', 'email'),
                          ('intro', 'description'), ('founded', 'foundingDate')):
         if d.get(k_src):
             org[k_out] = d[k_src]
@@ -118,7 +126,7 @@ def org_jsonld():
 
 def campus_jsonld(c, nested=False):
     d = info()
-    out = {"@type": "EducationalOrganization", "name": f"{d['name']}{c['name']}校",
+    out = {"@type": "EducationalOrganization", "name": f"{d['name']} {c['label']}",
            "url": abs_url('site.campus', slug=c['slug'])}
     if not nested:
         out["@context"] = "https://schema.org"
@@ -128,6 +136,8 @@ def campus_jsonld(c, nested=False):
     out['address'] = addr
     if c.get('phone') or d.get('phone'):
         out['telephone'] = c.get('phone') or d.get('phone')
+    if c.get('map_url'):
+        out['hasMap'] = c['map_url']
     return out
 
 
@@ -202,12 +212,12 @@ def campus(slug):
     if not c:
         abort(404)
     d = info()
-    return page('site/campus.html', title=f"{c['name']}補習班｜{d['name']}{c['name']}校",
-                description=f"{d['name']}{c['name']}校：{c['name']}多益、雅思、托福、日文、韓文補習班。"
+    return page('site/campus.html', title=f"{c['name']}補習班｜{d['name']} {c['label']}",
+                description=f"{d['name']} {c['label']}：{c['name']}多益、雅思、托福、日文、韓文補習班。"
                             f"地址、電話、上課時間與免費諮詢。",
                 keywords=[f"{c['name']}{k}" for k in ('補習班', '多益補習班', '雅思補習班', '日文補習班',
                                                      '韓文補習班', '英文補習班')],
-                jsonld=[campus_jsonld(c), breadcrumb((f"{c['name']}校", abs_url('site.campus', slug=slug)))],
+                jsonld=[campus_jsonld(c), breadcrumb((c['label'], abs_url('site.campus', slug=slug)))],
                 c=c)
 
 

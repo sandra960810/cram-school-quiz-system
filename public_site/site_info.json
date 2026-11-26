@@ -1,30 +1,104 @@
 {
-  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。",
-  "name": "趨勢補習班",
+  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。 校區的 label 是對外顯示的校名；map_url 空白時會自動用地址產生 Google 地圖連結。",
+  "name": "驅勢英日韓",
   "name_en": "",
   "site_url": "https://www.tlc.tw",
   "slogan": "",
   "intro": "",
   "phone": "",
   "email": "",
-  "line_url": "",
+  "line_url": "https://lin.ee/oXsO8yV",
   "line_id": "",
   "facebook_url": "",
   "instagram_url": "",
   "logo": "",
   "founded": "",
   "campuses": [
-    {"slug": "taipei",  "name": "台北", "city": "台北市", "address": "", "phone": "", "hours": "", "map_url": ""},
-    {"slug": "taoyuan", "name": "桃園", "city": "桃園市", "address": "", "phone": "", "hours": "", "map_url": ""},
-    {"slug": "zhongli", "name": "中壢", "city": "桃園市", "address": "", "phone": "", "hours": "", "map_url": ""},
-    {"slug": "nankan",  "name": "南崁", "city": "桃園市", "address": "", "phone": "", "hours": "", "map_url": ""},
-    {"slug": "hsinchu", "name": "新竹", "city": "新竹市", "address": "", "phone": "", "hours": "", "map_url": ""}
+    {
+      "slug": "taipei",
+      "name": "台北",
+      "city": "台北市",
+      "address": "台北市中正區館前路36號3樓",
+      "phone": "(02)2375-2131",
+      "hours": "",
+      "map_url": "",
+      "label": "台北站前校"
+    },
+    {
+      "slug": "taoyuan",
+      "name": "桃園",
+      "city": "桃園市",
+      "address": "桃園市桃園區大同路11號5樓",
+      "phone": "(03)335-1431",
+      "hours": "",
+      "map_url": "",
+      "label": "桃園站前校"
+    },
+    {
+      "slug": "nankan",
+      "name": "南崁",
+      "city": "桃園市",
+      "address": "桃園市蘆竹區南崁路一段77號1樓",
+      "phone": "(03)312-2323",
+      "hours": "",
+      "map_url": "",
+      "label": "桃園南崁校"
+    },
+    {
+      "slug": "zhongli",
+      "name": "中壢",
+      "city": "桃園市",
+      "address": "桃園市中壢區中山路88號7樓",
+      "phone": "(03)427-2255",
+      "hours": "",
+      "map_url": "",
+      "label": "中壢站前校"
+    },
+    {
+      "slug": "hsinchu",
+      "name": "新竹",
+      "city": "新竹市",
+      "address": "新竹市東區中華路二段417號",
+      "phone": "(03)525-1413",
+      "hours": "",
+      "map_url": "",
+      "label": "新竹站前校"
+    }
   ],
   "courses": {
-    "toeic": {"schedule": "", "teachers": "", "price": "", "extra": ""},
-    "ielts": {"schedule": "", "teachers": "", "price": "", "extra": ""},
-    "toefl": {"schedule": "", "teachers": "", "price": "", "extra": ""},
-    "jlpt":  {"schedule": "", "teachers": "", "price": "", "extra": ""},
-    "topik": {"schedule": "", "teachers": "", "price": "", "extra": ""}
-  }
+    "toeic": {
+      "schedule": "",
+      "teachers": "",
+      "price": "",
+      "extra": ""
+    },
+    "ielts": {
+      "schedule": "",
+      "teachers": "",
+      "price": "",
+      "extra": ""
+    },
+    "toefl": {
+      "schedule": "",
+      "teachers": "",
+      "price": "",
+      "extra": ""
+    },
+    "jlpt": {
+      "schedule": "",
+      "teachers": "",
+      "price": "",
+      "extra": ""
+    },
+    "topik": {
+      "schedule": "",
+      "teachers": "",
+      "price": "",
+      "extra": ""
+    }
+  },
+  "alt_names": [
+    "驅勢語言教育中心",
+    "驅勢補習班"
+  ]
 }
