@@ -1229,3 +1229,5 @@ html { scroll-behavior: smooth; }
 .h-pg-cparts b { display: block; margin-bottom: 4px; font-size: 15px; font-weight: 900; color: var(--brand-ink); }
 .h-pg-intro + .h-pg-intro { margin-top: 10px; }
 @media (min-width: 761px) { .h-pg-grid li.is-full .h-pg-parts.is-list { grid-template-columns: 1fr 1fr; } }
+.h-pg-parts.is-list li.is-plain { position: relative; padding-left: 26px; }
+.h-pg-parts.is-list li.is-plain::before { content: ""; position: absolute; left: 12px; top: calc(7px + .85em); width: 6px; height: 6px; border-radius: 50%; background: var(--brand-gold-ink); }
