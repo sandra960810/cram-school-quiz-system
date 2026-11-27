@@ -9,9 +9,13 @@
     --brand-ink-2: #48453f;
     --brand-muted: #858074;
     --brand-line: #d8d2c5;        /* 細分隔線 */
-    --brand-ai: #2f7dff;          /* AI 元素的藍（晶片、AI 標籤、AI 弱點診斷） */
-    --brand-ai-glow: #4cb4ff;
-    --brand-ai-50: #e8f0ff;
+    /* 2026-11 使用者要求結合黃色跟藍色，但兩個顏色都不能太搶眼：用帶灰的芥末黃、霧藍，只當小重點 */
+    --brand-gold: #c4a052;        /* 芥末黃：眉標短線、編號、連結底線、招生區淺底 */
+    --brand-gold-50: #f3ecdb;
+    --brand-gold-ink: #8a6d2c;
+    --brand-ai: #5b7ea6;          /* 霧藍：AI 元素（晶片、AI 標籤、AI 弱點診斷） */
+    --brand-ai-glow: #8fb0d4;
+    --brand-ai-50: #e7edf3;
     /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
     --primary: #4a2d7f;
     --primary-600: #38205f;
