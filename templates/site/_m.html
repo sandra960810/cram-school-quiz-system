@@ -87,7 +87,7 @@
 {%- endmacro %}
 
 
-{% macro system_block(items, features, sid='system') -%}
+{% macro system_block(items, features, sid='system', shots=None) -%}
 {# 學員線上學習系統（2026-11 使用者要求「每個功能寫清楚」，排版「改編原版」並「強調 AI、有 AI 視覺化的感覺」）：
    上面是淺色 AI 區（每個 AI 功能一張卡：小圖、名稱、說明、適用科目），中間是學習功能，下面是原版的各科一列短標籤。
    主頁面列全部；各科專屬頁面與課程頁只列該科有的功能，說明換成該科的版本 #}
@@ -108,6 +108,20 @@
             <h2 class="h-big">{% if one %}{{ items[0].name }}<br>{% endif %}學員專屬 AI 線上學習系統</h2>
             <p>報名後由補習班開通帳號，電腦、手機都能用。課堂之外，背單字、做模考、問 AI 老師，都在同一個地方。</p>
         </div>
+        {% set sh_ns = namespace(on=[]) %}
+        {% for sh in (shots or []) %}{% if not one or keys[0] in sh.exams %}{% set sh_ns.on = sh_ns.on + [sh] %}{% endif %}{% endfor %}
+        {% set shots_on = sh_ns.on %}
+        {% if shots_on %}
+        {# 系統實際畫面（示範帳號截圖）：手機畫面放手機框、電腦畫面放瀏覽器框，橫向排列，窄螢幕左右滑 #}
+        <div class="h-sys-shots" aria-label="學習系統實際畫面">
+            {% for sh in shots_on %}
+            <figure class="h-shot is-{{ sh.kind }}">
+                <div class="h-shot-frame">{% if sh.kind == 'desk' %}<span class="h-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>{% endif %}<img src="{{ url_for('static', filename='images/site/system/' ~ sh.file) }}" alt="{{ sh.title }}的系統畫面" loading="lazy"></div>
+                <figcaption>{{ sh.title }}</figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="h-sys-ai">
             <div class="h-sys-ai-bar"><span class="h-sys-ai-dot"></span>AI TUTOR · {{ ns.ai|length }} MODULES ONLINE<span class="h-sys-ai-bar-r">{{ ai_chip('h-chip-xs') }} AI 老師</span></div>
             <div class="h-sys-ai-grid n{{ ns.ai|length }}">

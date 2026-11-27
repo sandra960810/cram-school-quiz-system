@@ -224,7 +224,7 @@
         else if (dir < 0 && track.scrollLeft < 4) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
         else track.scrollBy({ left: dir * step(), behavior: 'smooth' });
     }
-    function restart() { clearInterval(timer); if (!still) timer = setInterval(function () { if (!paused && !document.hidden) go(1); }, DELAY); }
+    function restart() { clearInterval(timer); if (!still && track.scrollWidth > track.clientWidth + 4) timer = setInterval(function () { if (!paused && !document.hidden) go(1); }, DELAY); }
     prev.addEventListener('click', function () { go(-1); restart(); });
     next.addEventListener('click', function () { go(1); restart(); });
     ['mouseenter', 'focusin', 'touchstart'].forEach(function (e) { track.addEventListener(e, function () { paused = true; }, { passive: true }); });

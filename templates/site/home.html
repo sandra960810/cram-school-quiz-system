@@ -144,6 +144,9 @@
     {% endif %}
 </section>
 
+{# 各科頁面：學習系統放在學員心得上面（2026-11 使用者要求） #}
+{{ system_block([hc], system_features, shots=system_shots) }}
+
 {# 學員心得：只放 site_info.json 的 testimonials（補習班提供、學員同意公開的真實心得），同課程的排前面；沒資料顯示待填 #}
 <section class="h-rev" id="reviews">
     <div class="wrap">
@@ -220,7 +223,7 @@
 {% endif %}
 
 {# 學員線上學習系統：主頁面列全部科目＋英文基礎，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
-{{ system_block([hc] if hero.ad else courses, system_features) }}
+{% if not hero.ad %}{{ system_block(courses, system_features, shots=system_shots) }}{% endif %}
 {% if hero.ad %}{{ cefr_block(hc, cefr_by_exam.get(hc.key)) }}{% endif %}
 
 {# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}

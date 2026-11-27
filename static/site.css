@@ -1106,3 +1106,29 @@ html { scroll-behavior: smooth; }
 @media (min-width: 761px) and (max-width: 1180px) { .s-btn.ai .s-btn-chip { display: none; } .s-nav { gap: 12px; } }
 @media (min-width: 761px) { .s-head .wrap { max-width: 1400px; } }
 @media (min-width: 761px) and (max-width: 1279px) { .s-head .s-actions .s-btn.line { display: none; } }   /* 窄螢幕頁首放不下三顆鈕，LINE 在頁尾與諮詢區仍有 */
+
+/* 學習系統實際畫面（2026-11 使用者要求放系統預覽圖）：手機框＋瀏覽器框橫排，窄螢幕左右滑 */
+.h-sys-shots { display: flex; gap: 18px; align-items: flex-end; margin: 0 0 34px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 2px 10px; scrollbar-width: thin; }
+.h-shot { margin: 0; flex: none; scroll-snap-align: start; }
+.h-shot.is-phone { width: 176px; }
+.h-shot.is-desk { width: 400px; }
+.h-shot-frame { position: relative; overflow: hidden; background: #fff; border: 1px solid var(--brand-line); }
+.h-shot.is-phone .h-shot-frame { border-radius: 26px; border: 6px solid var(--brand-ink); }
+.h-shot.is-desk .h-shot-frame { border-radius: 12px; }
+.h-shot-bar { display: flex; gap: 5px; padding: 7px 10px; background: var(--brand-soft); border-bottom: 1px solid var(--brand-line); }
+.h-shot-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-line); }
+.h-shot img { display: block; width: 100%; height: auto; }
+.h-shot figcaption { margin-top: 10px; font-size: 13.5px; font-weight: 800; color: var(--brand-ink); text-align: center; }
+@media (min-width: 1240px) { .h-sys-shots { justify-content: center; overflow: visible; } }
+@media (max-width: 760px) { .h-shot.is-phone { width: 150px; } .h-shot.is-desk { width: 300px; } .h-sys-shots { margin-bottom: 26px; } }
+/* 手機上學員心得不輪播，直接一則一則往下排（2026-11 使用者要求「直接放、可以往下滑」） */
+@media (max-width: 760px) {
+    .h-rev-grid.is-track { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: 1fr; overflow: visible; scroll-snap-type: none; gap: 14px; }
+    .h-rev-nav { display: none; }
+}
+/* 系統畫面：寬螢幕依比例縮放排滿一排，不超出版面 */
+@media (min-width: 1000px) {
+    .h-sys-shots { overflow: visible; justify-content: center; }
+    .h-shot.is-phone { width: auto; flex: 0.42 1 0; min-width: 0; }
+    .h-shot.is-desk { width: auto; flex: 1 1 0; min-width: 0; }
+}

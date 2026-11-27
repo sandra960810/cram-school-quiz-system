@@ -107,6 +107,16 @@ PROGRAMS = {
     },
 }
 
+# 學習系統的實際畫面（2026-11 使用者要求「介紹學習系統的地方要放系統預覽圖」）：用示範帳號從系統本身截圖，
+# 圖在 static/images/site/system/。kind：phone 手機畫面、desk 電腦畫面；exams：哪些科目的頁面顯示（主頁面全部顯示）
+SYSTEM_SHOTS = [
+    {"file": "learn.webp", "kind": "phone", "title": "單字庫・滑卡背單字", "exams": {"toeic", "ielts", "basic"}},
+    {"file": "quiz.webp", "kind": "phone", "title": "背單字神器・闖關測驗", "exams": {"toeic", "ielts", "basic"}},
+    {"file": "theme.webp", "kind": "phone", "title": "主題圖鑑・熟／不熟分區", "exams": {"toeic", "ielts", "basic"}},
+    {"file": "reading.webp", "kind": "desk", "title": "雅思閱讀模考・比照電腦考", "exams": {"ielts"}},
+    {"file": "writing.webp", "kind": "desk", "title": "雅思寫作模考・AI 老師批改", "exams": {"ielts"}},
+]
+
 # （標題, 說明, 短說明, 圖示）圖示是 static/icons.svg 的名稱；各科頁面的學校介紹橫排、每點前面配小圖（2026-11 使用者要求）
 WHY = [
     ("學員權益履約保證", "與遠東、永豐銀行簽訂 1,600 萬學員權益履約保證，讓學員更安心。", "與遠東、永豐銀行簽訂 1,600 萬履約保證", "shield"),
@@ -282,7 +292,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_features=SYSTEM_FEATURES, cefr_by_exam=CEFR_BY_EXAM, why=WHY, programs=PROGRAMS, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_features=SYSTEM_FEATURES, system_shots=SYSTEM_SHOTS, cefr_by_exam=CEFR_BY_EXAM, why=WHY, programs=PROGRAMS, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
