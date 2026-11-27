@@ -136,7 +136,7 @@ a.s-card:hover { background: #fff; }
 
 /* 手機右下角固定的 LINE、諮詢按鈕 */
 .s-float { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 30; }
-.s-float .s-btn { box-shadow: 0 6px 18px rgb(0 0 0 / .18); }
+.s-float .s-btn { box-shadow: 0 6px 18px rgb(0 0 0 / .18); border-radius: 999px; padding-left: 26px; padding-right: 26px; }   /* 手機右下浮動鈕：圓角膠囊（2026-11 使用者要求） */
 @media (min-width: 761px) { .s-float { display: none; } }
 
 /* ======================================================================
