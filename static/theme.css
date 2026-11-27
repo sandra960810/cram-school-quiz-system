@@ -24,27 +24,35 @@
     --toeic-orange: #cf8a55; --toeic-brown: #8c6a50; --toeic-green: #6a9a74; --toeic-blue: #5f80a8; --toeic-gold: #c3a052;   /* 色相照證書，彩度調低（使用者要「低飽和彩色」） */
     /* 程度分級 LEVEL 1～6：照補習班手冊的原色（藍灰、橄欖綠、橘、深紅、咖啡、深藍黑）。2026-11 試過網站色調、低飽和、灰藍橘，使用者要求「改回這個」 */
     --lv1: #6f97ad; --lv2: #94a24a; --lv3: #d28a3c; --lv4: #8a2f2c; --lv5: #5e4a3a; --lv6: #2b3038;
-    /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
-    --primary: #4a2d7f;
-    --primary-600: #38205f;
-    --primary-300: #b7a3db;
-    --primary-50: #f1ecf8;
-    --primary-100: #e3d9f2;
-    /* 深色：同色系的深色，只用在標題字、返回鈕這類小地方，做出深淺層次（不要拿來塗大面積） */
-    --deep: #2e1a52;
-    /* 標題橫幅：淺紫平塗、不用漸層，深紫字 */
-    --hero: var(--primary-50);
-    --hero-ink: var(--deep);
+    /* 學習系統的色系（2026-11 使用者要求「測驗系統的設計直接跟官網風格一樣」）：和官網同一套
+       米白底、近黑字、細灰線；主色是近黑（按鈕、選取狀態），主要按鈕是橘底黑字膠囊（--cta），
+       圖示、進度條、AI 元素用霧藍，小重點用芥末黃。原本各考試各一色（雅思紫、多益藍…）已拿掉，全站同一套 */
+    --primary: var(--brand-ink);
+    --primary-600: #2e2c28;
+    --primary-300: #d3c6a6;       /* 重點外框：帶芥末黃的淺線 */
+    --primary-50: #f3ecdb;        /* 選取、滑過的淺底（同 --brand-gold-50） */
+    --primary-100: #ebe1c8;
+    --deep: var(--brand-ink);
+    --cta: var(--brand-orange);   /* 主要按鈕：橘底黑字 */
+    --cta-2: var(--brand-orange-2);
+    --cta-ink: var(--brand-ink);
+    --accent: var(--brand-ai);    /* 圖示、進度條、連結重點 */
+    --bar: var(--brand-gold);     /* 卡片邊上的細色條（主題卡、題庫卡） */
+    /* 標題橫幅：紙色底加淡淡的細格線（官網 AI 區的科技感），近黑字 */
+    --hero: linear-gradient(rgba(91,126,166,.09) 1px, transparent 1px) 0 0 / 26px 26px,
+            linear-gradient(90deg, rgba(91,126,166,.09) 1px, transparent 1px) 0 0 / 26px 26px,
+            var(--brand-paper);
+    --hero-ink: var(--brand-ink);
 
     /* 文字與底色 */
-    --ink: #231f2e;
-    --ink-2: #4c4757;
-    --muted: #6e6879;
-    --muted-2: #9c96a6;
-    --line: #e5e1ec;
-    --line-strong: #c9c2d4;
-    --bg: #f5f3f8;
-    --surface-2: #f3f0f6;
+    --ink: var(--brand-ink);
+    --ink-2: var(--brand-ink-2);
+    --muted: #6f6a5f;
+    --muted-2: #a09a8d;
+    --line: #e0dacd;
+    --line-strong: #c9c2b3;
+    --bg: var(--brand-bg);
+    --surface-2: #efebe2;
 
     /* 狀態色：對／錯／提醒／收藏 */
     --ok: #1f8a4c;     --ok-ink: #176b3a;   --ok-300: #9fd5b4;  --ok-50: #e3f4ea;
@@ -52,101 +60,17 @@
     --warn: #c46a12;   --warn-ink: #8a4a0c; --warn-300: #f2c48f; --warn-50: #fdf1e2;
     --star: #f2b705;   --star-ink: #a87d00; --star-50: #fff8e0;
 
-    /* 層次：不用模糊陰影，改用實線外框疊出層次（box-shadow 的 0 0 0 1px 等於不佔版面的邊框） */
+    /* 層次：不用厚重陰影，用細線外框（box-shadow 的 0 0 0 1px 等於不佔版面的邊框） */
     --edge: 0 0 0 1px var(--line);                                             /* 一般卡片 */
-    --edge-raised: 0 0 0 1px var(--primary-300), 4px 4px 0 var(--primary-100); /* 滑過、被選取 */
-    --edge-hero: 0 0 0 1px var(--primary-300), 6px 6px 0 var(--primary-100);   /* 標題橫幅 */
-    --edge-pop: 0 0 0 1px var(--line-strong), 5px 5px 0 var(--primary-100);    /* 浮動面板、提示 */
+    --edge-raised: 0 0 0 1.5px var(--brand-ink);                               /* 滑過、被選取：近黑細框 */
+    --edge-hero: 0 0 0 1px var(--line-strong);                                 /* 標題橫幅 */
+    --edge-pop: 0 0 0 1px var(--line-strong), 0 12px 32px rgba(20,20,20,.10);  /* 浮動面板、提示 */
 
     /* 中文字型沒有韓文字，韓文會自動改用後面的韓文字型（Windows 的 Malgun Gothic、Mac/iPhone 的 Apple SD Gothic Neo） */
     --font: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
-/* 多益（TOEIC）：藍色。只覆寫主色與帶紫調的中性色，狀態色（對／錯／提醒／收藏）沿用。
-   樣板的 <html data-exam="…"> 由 exams.py 決定；新增考試照這個格式加一組 */
-:root[data-exam="toeic"] {
-    --primary: #1d4ed8;
-    --primary-600: #1e3a8a;
-    --primary-300: #9db8ec;
-    --primary-50: #eaf1fd;
-    --primary-100: #d4e2fa;
-    --deep: #172a52;
-    --ink: #1c2433;
-    --ink-2: #434c5e;
-    --muted: #667085;
-    --muted-2: #98a2b3;
-    --line: #e0e6ef;
-    --line-strong: #c2cddc;
-    --bg: #f3f6fb;
-    --surface-2: #eef2f8;
-}
-/* 英文零基礎（BASIC）：暖橘色，給剛起步的學生活潑一點 */
-:root[data-exam="basic"] {
-    --primary: #c2410c;
-    --primary-600: #9a3412;
-    --primary-300: #f4b48a;
-    --primary-50: #fff1e8;
-    --primary-100: #fde0cc;
-    --deep: #5a3a28;
-    --ink: #2a211c;
-    --ink-2: #54473f;
-    --muted: #7a6b62;
-    --muted-2: #a8998f;
-    --line: #eee3da;
-    --line-strong: #d8c6b8;
-    --bg: #fbf6f2;
-    --surface-2: #f7efe8;
-}
-/* 一般英文（GENERAL）：青綠色 */
-:root[data-exam="general"] {
-    --primary: #0f766e;
-    --primary-600: #115e59;
-    --primary-300: #8fd0c7;
-    --primary-50: #e7f6f4;
-    --primary-100: #cdeee9;
-    --deep: #163f3b;
-    --ink: #18272a;
-    --ink-2: #3f5254;
-    --muted: #627476;
-    --muted-2: #95a5a6;
-    --line: #dde9e8;
-    --line-strong: #bfd3d1;
-    --bg: #f2f8f7;
-    --surface-2: #eaf3f2;
-}
-/* 韓檢（TOPIK）：莓果紅 */
-:root[data-exam="topik"] {
-    --primary: #9d174d;
-    --primary-600: #831843;
-    --primary-300: #f0a5c4;
-    --primary-50: #fdedf3;
-    --primary-100: #fad5e3;
-    --deep: #4a1529;
-    --ink: #2a1c22;
-    --ink-2: #554049;
-    --muted: #7a6670;
-    --muted-2: #a8959e;
-    --line: #eee0e6;
-    --line-strong: #d9c3cd;
-    --bg: #fbf5f7;
-    --surface-2: #f7edf1;
-}
-/* 日檢（JLPT）：抹茶綠（偏黃的綠，和一般英文的青綠分得開） */
-:root[data-exam="jlpt"] {
-    --primary: #4d7c0f;
-    --primary-600: #3f6212;
-    --primary-300: #b9d48e;
-    --primary-50: #f2f7e9;
-    --primary-100: #e1edcc;
-    --deep: #2f4214;
-    --ink: #1f241a;
-    --ink-2: #464d3e;
-    --muted: #6b7262;
-    --muted-2: #9ca394;
-    --line: #e3e8da;
-    --line-strong: #c7d0b9;
-    --bg: #f6f8f2;
-    --surface-2: #eff3e8;
-}
+/* 各考試原本各有一組主色（:root[data-exam="toeic"] 等），2026-11 改成全站同一套官網色系後拿掉。
+   樣板的 <html data-exam="…"> 還在（韓文、日文頁面的發音與字型要用），要再分色時照 :root[data-exam="…"] 加回來 */
 /* 日文字（lang="ja"）用日文字型：同一個漢字，中文字型和日文字型的寫法不一樣（例如「骨」「直」） */
 :lang(ja) { font-family: "Yu Gothic UI", "Yu Gothic", "Meiryo", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", var(--font); }
 /* 考試選擇頁的卡片：各自顯示自己考試的主色（不受整頁色系影響） */
@@ -169,11 +93,74 @@ a { color: var(--primary); }
 .ui-ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; fill: none; stroke: currentColor;
          stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 button .ui-ic, a .ui-ic { pointer-events: none; }
-/* 卡片上的大圖示用主色 */
-.menu-icon, .theme-icon, .skill .icon { color: var(--primary); }
+/* 卡片上的大圖示用霧藍（官網的 AI 藍） */
+.menu-icon, .theme-icon, .skill .icon { color: var(--accent); }
 
-/* 深淺層次：只把「標題字」換成同色系深色，底色與按鈕維持原本的主色。
-   加 :root 提高優先順序，蓋過各頁 <style> 裡的 color: var(--ink) */
+/* 標題字用近黑。加 :root 提高優先順序，蓋過各頁 <style> 裡的顏色 */
 :root .menu-title, :root .theme-title, :root .skill .name, :root .pick, :root .dex-title,
 :root .panel h2, :root .header h1 { color: var(--deep); }
-:root .exam-card .exam-name .nm { color: var(--tone-deep, var(--deep)); }
+
+/* ================= 學習系統的官網風格外觀 =================
+   2026-11 使用者要求「測驗系統的設計直接跟官網風格一樣」。只改外觀，不動功能。
+   各頁的樣式寫在自己的 <style> 裡，這裡用 body:not(.site) 開頭（優先順序比較高）統一蓋過去；
+   官網頁面是 <body class="site">，不受影響。 */
+body:not(.site) { -webkit-font-smoothing: antialiased; }
+body:not(.site) h1, body:not(.site) h2 { letter-spacing: -.01em; }
+
+/* 品牌列（templates/_brand.html）：透明底 Logo＋校名，右邊等寬字「AI LEARNING SYSTEM」 */
+.sys-brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 2px 16px; margin: 0 0 22px;
+    border-bottom: 1px solid var(--brand-line); }
+.sys-brand-id { display: flex; align-items: center; gap: 11px; font-weight: 900; font-size: 21px; color: var(--brand-ink); text-decoration: none; }
+.sys-brand-id img { height: 44px; width: auto; display: block; }
+.sys-brand-id span { display: flex; flex-direction: column; line-height: 1.15; }
+.sys-brand-id small { font-size: 10.5px; font-weight: 700; color: var(--brand-ink-2); letter-spacing: .16em; margin-top: 2px; }
+.sys-brand-tag { display: inline-flex; align-items: center; gap: 8px; font: 700 11px/1 Consolas, "Courier New", monospace; letter-spacing: .18em;
+    color: var(--brand-ai); white-space: nowrap; }
+.sys-brand-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-ai); box-shadow: 0 0 0 3px var(--brand-ai-50); }
+@media (max-width: 480px) { .sys-brand-id { font-size: 18px; } .sys-brand-id img { height: 38px; } .sys-brand-tag { font-size: 9.5px; letter-spacing: .12em; } }
+@media (max-width: 360px) { .sys-brand-tag { display: none; } }
+
+/* 標題橫幅：圓角大一點，左上角芥末黃＋霧藍的短線（官網眉標那條線） */
+body:not(.site) .welcome-banner { border-radius: 18px; padding-top: 34px; }
+body:not(.site) .welcome-banner::before { content: ""; position: absolute; left: 30px; top: 20px; width: 36px; height: 2px;
+    background: linear-gradient(90deg, var(--brand-gold) 60%, var(--brand-ai) 60%); }
+body:not(.site) .welcome-banner { position: relative; }
+body:not(.site) .welcome-banner h1 { font-weight: 900; }
+
+/* 主要按鈕：橘底黑字膠囊（和官網「進入測驗」「AI 學習系統」同色）；其他按鈕一律圓角膠囊 */
+body:not(.site) :is(.btn, .go, .start, .big-btn, .btn2, .report-btn, .btn-export, .browse-btn) { border-radius: 999px; }
+body:not(.site) :is(.btn:not(.ghost):not(.danger):not(.small):not(.disabled):not(.skip):not(.btn-weak), .go, .start, .big-btn.primary, .big-btn.quiz) {
+    background: var(--cta); color: var(--cta-ink); box-shadow: none; }
+body:not(.site) :is(.btn:not(.ghost):not(.danger):not(.small):not(.disabled):not(.skip):not(.btn-weak), .go, .start, .big-btn.primary, .big-btn.quiz):hover:not(:disabled) {
+    background: var(--cta-2); filter: none; }
+body:not(.site) .btn.ghost { box-shadow: 0 0 0 1.5px var(--brand-ink); color: var(--brand-ink); }
+body:not(.site) .btn.ghost:hover { background: var(--brand-ink); color: #fff; filter: none; }
+body:not(.site) .report-btn, body:not(.site) .exam-chip { box-shadow: 0 0 0 1px var(--line-strong); color: var(--brand-ink); }
+body:not(.site) .report-btn .ui-ic, body:not(.site) .exam-chip .ui-ic { color: var(--accent); }
+body:not(.site) .nav-back, body:not(.site) .nav-next { background: var(--brand-paper); }
+
+/* 卡片、面板：圓角 16、細線框 */
+body:not(.site) :is(.menu-card, .exam-card, .theme-card, .panel, .empty-box) { border-radius: 16px; }
+body:not(.site) :is(.menu-card, .theme-card):hover { transform: translateY(-3px); }
+/* 建議順序 1、2、3：官網的等寬字編號 */
+body:not(.site) .step { background: transparent; box-shadow: none; color: var(--brand-gold-ink); width: auto; height: auto; border-radius: 0;
+    font: 700 13px/1 Consolas, "Courier New", monospace; letter-spacing: .1em; top: 18px; left: 20px; }
+body:not(.site) .step::before { content: "0"; }
+
+/* 選擇考試頁的卡片：不再各考試各一色，統一近黑字＋霧藍圖示＋芥末黃英文名 */
+body:not(.site) .exam-card[class*="exam-tone-"] { --tone: var(--brand-ink); --tone-50: var(--brand-ai-50); --tone-300: var(--brand-ink); --tone-100: transparent;
+    --tone-deep: var(--brand-ink); border-top: none; }
+body:not(.site) a.exam-card:hover { transform: translateY(-3px); box-shadow: var(--edge-raised); }
+body:not(.site) .exam-card .exam-icon { color: var(--accent); }
+body:not(.site) .exam-card .exam-en { color: var(--brand-gold-ink); font-family: Consolas, "Courier New", monospace; letter-spacing: .12em; }
+body:not(.site) .exam-card .exam-meta { color: var(--brand-ink-2); }
+:root .exam-card .exam-name .nm { color: var(--brand-ink); }
+
+/* 進度條用霧藍 */
+body:not(.site) :is(.bar > div, .progress-bar div) { background: var(--accent); }
+/* 輸入框圓角、聚焦時近黑框 */
+body:not(.site) :is(input[type=text], input[type=password], input[type=email], input[type=tel], input[type=search], select, textarea) { border-radius: 12px; }
+/* 還沒學、還沒開放的卡片：淺一點的米灰，不要比底色重太多 */
+body:not(.site) .dex-card.new { background: var(--surface-2); border-top: 3px solid var(--line-strong); }
+body:not(.site) .theme-card.empty { background: var(--surface-2); }
+body:not(.site) :is(.dex-card, .fav-card) { border-radius: 14px; }
