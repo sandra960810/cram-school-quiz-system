@@ -79,6 +79,9 @@
     </div>
 </section>
 
+{# 學員專屬 AI 線上學習系統：直接接在諮詢表單下面（2026-11 使用者要求）。主頁面列全部科目，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
+{% if hero.ad %}{{ system_block([hc], system_features, shots=system_shots) }}{% else %}{{ system_block(courses, system_features, shots=system_shots) }}{% endif %}
+
 {% if hero.ad %}
 {# 2026-11 使用者：從各考試的廣告連結進來，表單下面先介紹學校和該課程，再放學員心得，然後才接其他模考等內容。
    學校介紹與「為什麼選驅勢」在這裡出現時，頁面下方原本的同樣區塊就不顯示（內容不重複）。
@@ -143,9 +146,6 @@
     </div>
     {% endif %}
 </section>
-
-{# 各科頁面：學習系統放在學員心得上面（2026-11 使用者要求） #}
-{{ system_block([hc], system_features, shots=system_shots) }}
 
 {# 學員心得：只放 site_info.json 的 testimonials（補習班提供、學員同意公開的真實心得），同課程的排前面；沒資料顯示待填 #}
 <section class="h-rev" id="reviews">
@@ -221,8 +221,6 @@
 </section>
 {% endif %}
 
-{# 學員線上學習系統：主頁面列全部科目＋英文基礎，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
-{% if not hero.ad %}{{ system_block(courses, system_features, shots=system_shots) }}{% endif %}
 {% if hero.ad %}{{ cefr_block(hc, cefr_by_exam.get(hc.key)) }}{% endif %}
 
 {# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}
