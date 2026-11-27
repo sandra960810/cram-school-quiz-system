@@ -99,6 +99,25 @@ def _half(x):
     return int(x * 2 + 0.5) / 2
 
 
+# 預估成績對應的 CEFR（2026-11 使用者要求迷你模考也給 CEFR，和預估分數一樣留資料後才顯示）。
+# 多益、雅思照補習班手冊「TRINITY 專業程度分級制度」的門檻；日檢照官方 2025 年 12 月起成績單的 CEFR 參考等級
+# （依總分，同一級可能跨兩個等級，所以寫範圍）。韓檢官方沒有公布 CEFR 對照，不給
+CEFR_TOEIC = [(850, 'C2'), (750, 'C1'), (650, 'B2'), (550, 'B1')]
+CEFR_IELTS = [(7, 'C2'), (5.5, 'C1'), (4.5, 'B2'), (4, 'B1')]
+CEFR_JLPT = {'N5': 'A1', 'N4': 'A2', 'N3': 'A2～B1', 'N2': 'B1～B2', 'N1': 'B2～C1'}
+
+
+def cefr_of(key, value):
+    """依預估成績回傳 CEFR 等級文字；沒有對照或分數太低回 ''（多益、雅思低於 B1 門檻寫「B1 以下」）"""
+    if key == 'toeic':
+        return next((c for lo, c in CEFR_TOEIC if value >= lo), 'B1 以下')
+    if key == 'ielts':
+        return next((c for lo, c in CEFR_IELTS if value >= lo), 'B1 以下')
+    if key == 'jlpt':
+        return CEFR_JLPT.get(value or '', '')
+    return ''
+
+
 def estimate(data, parts, rows=()):
     """預估成績（2026-11 使用者要求：交卷要有預估分數；日檢、韓檢不分級，測完給大概的級數和分數）。
     題數少，只是參考。依題庫 json 的設定有三種算法，回傳 None 表示這份模考沒設定：
@@ -118,14 +137,14 @@ def estimate(data, parts, rows=()):
         sk = [dict(name=k, score=int(round((lo + rate.get(k, 0) * (hi - lo)) / 5) * 5), hi=hi)
               for k, (lo, hi) in data['score_scale'].items()]
         total = sum(x['score'] for x in sk)
-        return dict(label=f'預估{name}分數', big=str(total), small=f" / {sum(x['hi'] for x in sk)}",
+        return dict(cefr=cefr_of(data.get('key'), total), label=f'預估{name}分數', big=str(total), small=f" / {sum(x['hi'] for x in sk)}",
                     chips=[f"{x['name']} {x['score']}" for x in sk], brief=f'預估 {total} 分', levels=[],
                     note='預估分數依各部分答對率換算，迷你模考題數少，只是程度參考，不代表正式考試成績。')
     if data.get('band_scale'):
         table = data['band_scale']
         bands = {k: next((b for lo, b in table if r >= lo), table[-1][1]) for k, r in rate.items()}
         overall = _half(sum(bands.values()) / len(bands)) if bands else 0
-        return dict(label=f'預估{name} Band', big=f'{overall:.1f}', small=' / 9',
+        return dict(cefr=cefr_of(data.get('key'), overall), label=f'預估{name} Band', big=f'{overall:.1f}', small=' / 9',
                     chips=[f'{k} {b:.1f}' for k, b in bands.items()], brief=f'預估 Band {overall:.1f}', levels=[],
                     note='預估 Band 依聽力、閱讀的答對率換算，不含寫作與口說；迷你模考題數少，只是程度參考，不代表正式考試成績。')
     cfg = data.get('level_scale')
@@ -151,7 +170,7 @@ def estimate(data, parts, rows=()):
         total = sum(t for _c, t in per.values())
         score = round(sum(c for c, _t in per.values()) * 100 / total) if total else 0
         big = got['name'] if got else cfg.get('below', '入門')
-        return dict(label=cfg.get('label', f'預估{name}程度'), big=big, small=(got or {}).get('note', ''),
+        return dict(cefr=cefr_of(data.get('key'), (got or {}).get('key')), label=cfg.get('label', f'預估{name}程度'), big=big, small=(got or {}).get('note', ''),
                     chips=[f'得分 {score} / 100'], brief=f'預估程度 {big}、得分 {score}/100', levels=levels,
                     note=cfg.get('note', '預估級數是由簡單到難，看每一級的題目有沒有答對六成；迷你模考題數少，只是程度參考，不代表正式考試成績。'))
     return None

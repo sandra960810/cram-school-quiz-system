@@ -30,11 +30,24 @@
             <div class="mk-est-total">{{ est.big }}<small>{{ est.small }}</small></div>
             <div class="mk-est-parts">{% for k in est.chips %}<span>{{ k }}</span>{% endfor %}</div>
         </div>
+        {% if est.cefr %}
+        <div class="mk-est mk-cefr">
+            <div class="mk-est-label">CEFR 參考等級</div>
+            <div class="mk-est-total">{{ est.cefr }}</div>
+            <div class="mk-est-parts"><span>{{ '日檢官方成績單對照' if data.key == 'jlpt' else '依驅勢程度分級制度' }}</span></div>
+        </div>
+        {% endif %}
         {% elif est %}
         <a class="mk-est is-locked" href="#unlock">
             <div class="mk-est-label">{{ est.label }}</div>
             <div class="mk-est-total">{{ icon('lock') }}<small>留下資料就能看</small></div>
         </a>
+        {% if est.cefr is defined and data.key in ('toeic', 'ielts', 'jlpt') %}
+        <a class="mk-est is-locked" href="#unlock">
+            <div class="mk-est-label">CEFR 參考等級</div>
+            <div class="mk-est-total">{{ icon('lock') }}<small>留下資料就能看</small></div>
+        </a>
+        {% endif %}
         {% endif %}
     </div>
     {% if est and unlocked %}<p class="mk-est-note">{{ est.note }}</p>{% endif %}
@@ -94,13 +107,13 @@
     {% for r in rows[:free] %}{{ qcard(r, true) }}{% endfor %}
     <div class="mk-locked">
         {% for r in rows[free:free + 3] %}{{ qcard(r, false) }}{% endfor %}
-        <div class="mk-lock-cover">{{ icon('lock') }} 還有預估成績、{{ rows|length - free }} 題解析、各題型正確率與 AI 弱點診斷</div>
+        <div class="mk-lock-cover">{{ icon('lock') }} 還有預估成績{{ '、CEFR 等級' if data.key in ('toeic', 'ielts', 'jlpt') }}、{{ rows|length - free }} 題解析、各題型正確率與 AI 弱點診斷</div>
     </div>
 
     <div class="s-two" style="margin-top:24px" id="unlock">
     <form class="s-form" method="post" action="{{ url_for('site.mock_result', token=att.token) }}#unlock" novalidate>
         <h2 style="margin-top:0">{{ icon('key') }} 免費看預估成績、完整解析與 AI 弱點診斷</h2>
-        <p class="sub">填寫以下資料，馬上看{{ est.label if est else '預估成績' }}，解鎖全部 {{ att.total }} 題解析、各題型正確率，AI 會依你的錯題寫弱點診斷與個人化進步建議。</p>
+        <p class="sub">填寫以下資料，馬上看{{ est.label if est else '預估成績' }}{{ '與 CEFR 等級' if data.key in ('toeic', 'ielts', 'jlpt') }}，解鎖全部 {{ att.total }} 題解析、各題型正確率，AI 會依你的錯題寫弱點診斷與個人化進步建議。</p>
         {% if errors %}<div class="s-err"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
         <input type="hidden" name="csrf" value="{{ csrf }}">
         <div class="hp" aria-hidden="true"><label>網站<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>

@@ -115,8 +115,12 @@
 <section class="h-rev" id="reviews">
     <div class="wrap">
         <div class="h-sec-head"><p class="s-eyebrow lined">STUDENT REVIEWS</p></div>
-        <h2 class="h-big">學員心得</h2>
-        <div class="h-rev-grid">
+        <div class="h-rev-top">
+            <h2 class="h-big">學員心得</h2>
+            {% if reviews|length > 3 %}<div class="h-rev-nav" data-rev-nav><button type="button" class="h-rev-btn" data-rev-prev aria-label="上一則">←</button><span class="h-rev-count" data-rev-count>1–3 / {{ reviews|length }}</span><button type="button" class="h-rev-btn" data-rev-next aria-label="下一則">→</button></div>{% endif %}
+        </div>
+        {# 每科最多 9 則，一次看 3 則，左右滑或按箭頭（2026-11 使用者要求「心得多塞一點，每科 9 個」） #}
+        <div class="h-rev-grid{{ ' is-track' if reviews|length > 3 }}" data-rev-track>
             {% for r in reviews %}
             <figure class="h-rev-card{% if r.photo %} has-photo{% endif %}">
                 {% if r.photo %}<div class="h-rev-photo"><img src="{{ url_for('static', filename=r.photo) }}" alt="{{ r.name }}的照片" loading="lazy"></div>{% endif %}

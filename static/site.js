@@ -201,3 +201,25 @@
         fx.observe(el);
     });
 })();
+
+/* 學員心得左右滑：箭頭一次移一張，顯示目前看到第幾則（2026-11 使用者要求每科 9 則） */
+(function () {
+    var track = document.querySelector('[data-rev-track].is-track');
+    if (!track) return;
+    var nav = document.querySelector('[data-rev-nav]');
+    var prev = nav.querySelector('[data-rev-prev]'), next = nav.querySelector('[data-rev-next]'), cnt = nav.querySelector('[data-rev-count]');
+    var cards = track.children;
+    function step() { return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth; }
+    function update() {
+        var s = step(), first = Math.round(track.scrollLeft / s), shown = Math.max(1, Math.round(track.clientWidth / s));
+        var last = Math.min(cards.length, first + shown);
+        cnt.textContent = (first + 1) + (shown > 1 ? '–' + last : '') + ' / ' + cards.length;
+        prev.disabled = track.scrollLeft < 4;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();

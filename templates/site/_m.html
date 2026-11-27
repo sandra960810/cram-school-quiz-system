@@ -58,14 +58,48 @@
 
 {# 學員線上學習系統介紹（2026-11 使用者：單字學習與模考系統上線，官網要清楚介紹系統存在，不用很詳細）。
    items 是要列的科目（COURSES 的 points）；一科時是單張橫向卡片，多科時是並排卡片。只列有 points 的科目 #}
+{# AI 功能卡片上的小圖（AI 視覺化，2026-11 使用者要求「強調 AI 元素、有 AI 視覺化的感覺」） #}
+{% macro ai_viz(kind) -%}
+<svg class="h-viz" viewBox="0 0 120 48" aria-hidden="true">
+{% if kind == 'explain' %}
+  <rect x="4" y="6" width="62" height="18" rx="4" class="v-box"/><path d="M14 24l-4 7 10-7" class="v-box"/>
+  <path d="M12 13h40M12 18h26" class="v-line"/>
+  <rect x="54" y="26" width="62" height="18" rx="4" class="v-box v-hot"/><path d="M62 33h44M62 38h30" class="v-line v-hot"/>
+{% elif kind == 'practice' %}
+  {% for h in [18, 30, 12, 36, 22, 8, 26] %}<rect x="{{ 6 + loop.index0 * 16 }}" y="{{ 44 - h }}" width="9" height="{{ h }}" rx="2" class="v-bar{{ ' v-hot' if h == 8 or h == 12 }}"/>{% endfor %}
+  <path d="M2 44h116" class="v-line"/>
+{% elif kind == 'writing' %}
+  <path d="M6 10h70M6 20h82M6 30h54M6 40h66" class="v-line"/>
+  <path d="M60 30h30" class="v-hot v-strike"/><circle cx="104" cy="20" r="11" class="v-ring"/><text x="104" y="24" class="v-txt" text-anchor="middle">7.0</text>
+{% elif kind == 'speaking' %}
+  {% for h in [6, 14, 24, 34, 20, 30, 12, 26, 36, 18, 8, 22, 30, 14, 6] %}<rect x="{{ 4 + loop.index0 * 7.6 }}" y="{{ 24 - h / 2 }}" width="3.6" height="{{ h }}" rx="1.8" class="v-bar{{ ' v-hot' if loop.index0 in (3, 8, 12) }}" style="animation-delay: {{ (loop.index0 * 0.08)|round(2) }}s"/>{% endfor %}
+{% elif kind == 'report' %}
+  <path d="M4 40h112M4 4v36" class="v-line"/>
+  <path d="M8 34l20-8 18 4 20-14 18 6 22-16" class="v-path"/>
+  {% for x, y in [(8, 34), (28, 26), (46, 30), (66, 16), (84, 22), (106, 6)] %}<circle cx="{{ x }}" cy="{{ y }}" r="2.6" class="v-dot{{ ' v-hot' if loop.last }}"/>{% endfor %}
+{% else %}
+  <path d="M60 24L22 10M60 24L22 38M60 24L98 8M60 24L100 26M60 24L92 42" class="v-line"/>
+  <circle cx="60" cy="24" r="9" class="v-ring v-hot"/>
+  {% for x, y in [(22, 10), (22, 38), (98, 8), (100, 26), (92, 42)] %}<circle cx="{{ x }}" cy="{{ y }}" r="4" class="v-dot"/>{% endfor %}
+{% endif %}
+</svg>
+{%- endmacro %}
+
+
 {% macro system_block(items, features, sid='system') -%}
-{# 學員線上學習系統：每個功能一格，寫清楚做什麼（2026-11 使用者要求「每個功能都要寫清楚、排版要融合」）。
-   主頁面列全部功能並標出適用科目；各科專屬頁面與課程頁只列該科有的功能，說明換成該科的版本 #}
+{# 學員線上學習系統（2026-11 使用者要求「每個功能寫清楚」，排版「改編原版」並「強調 AI、有 AI 視覺化的感覺」）：
+   上面是深色 AI 區（每個 AI 功能一張卡：小圖、名稱、說明、適用科目），中間是學習功能，下面是原版的各科一列短標籤。
+   主頁面列全部；各科專屬頁面與課程頁只列該科有的功能，說明換成該科的版本 #}
 {% set items = items | selectattr('sys') | list %}
 {% if items %}
 {% set keys = items | map(attribute='key') | list %}
 {% set one = items|length == 1 %}
-{% set names = {'toeic': '多益', 'ielts': '雅思', 'jlpt': '日檢', 'topik': '韓檢', 'basic': '零基礎英文'} %}
+{% set names = {'toeic': '多益', 'ielts': '雅思', 'jlpt': '日檢', 'topik': '韓檢', 'basic': '零基礎'} %}
+{% set ns = namespace(ai=[], learn=[]) %}
+{% for f in features %}{% set hit = keys | select('in', f.exams) | list %}{% if hit %}
+{% set row = {'f': f, 'hit': hit, 'text': ((f.detail or {}).get(keys[0]) if one and (f.detail or {}).get(keys[0]) else f.text)} %}
+{% if f.ai %}{% set ns.ai = ns.ai + [row] %}{% else %}{% set ns.learn = ns.learn + [row] %}{% endif %}
+{% endif %}{% endfor %}
 <section class="h-sys{{ ' is-one' if one }}" id="{{ sid }}">
     <div class="wrap">
         <div class="h-sec-head"><p class="s-eyebrow lined">AI LEARNING SYSTEM</p></div>
@@ -73,24 +107,38 @@
             <h2 class="h-big">{% if one %}{{ items[0].name }}<br>{% endif %}學員專屬 AI 線上學習系統</h2>
             <p>報名後由補習班開通帳號，電腦、手機都能用。課堂之外，背單字、做模考、問 AI 老師，都在同一個地方。</p>
         </div>
-        {% for grp, is_ai in [('學習功能', False), ('AI 老師', True)] %}
-        {% set ns = namespace(n=0) %}
-        <div class="h-sys-grp{{ ' is-ai' if is_ai }}">
-            <h3 class="h-sys-grp-t">{% if is_ai %}{{ ai_chip('h-chip-xs') }}{% endif %}{{ grp }}</h3>
-            <ol class="h-sys-list">
-                {% for f in features if f.ai == is_ai %}
-                {% set hit = keys | select('in', f.exams) | list %}
-                {% if hit %}
-                <li class="h-sys-f">
-                    <b class="h-sys-f-t">{{ f.title }}</b>
-                    <p>{{ (f.detail or {}).get(keys[0]) if one and (f.detail or {}).get(keys[0]) else f.text }}</p>
-                    {% if not one %}<small class="h-sys-f-for">{% if hit|length == keys|length %}各科都有{% else %}{% for k in hit %}{{ names[k] }}{% if not loop.last %}・{% endif %}{% endfor %}{% endif %}</small>{% endif %}
-                </li>
-                {% endif %}
+        <div class="h-sys-ai">
+            <div class="h-sys-ai-bar"><span class="h-sys-ai-dot"></span>AI TUTOR · {{ ns.ai|length }} MODULES ONLINE<span class="h-sys-ai-bar-r">{{ ai_chip('h-chip-xs') }} AI 老師</span></div>
+            <div class="h-sys-ai-grid n{{ ns.ai|length }}">
+                {% for r in ns.ai %}
+                <div class="h-sys-ai-item">
+                    <div class="h-sys-ai-viz">{{ ai_viz(r.f.viz) }}<small>AI-{{ '%02d' % loop.index }}</small></div>
+                    <b>{{ r.f.title }}</b>
+                    <p>{{ r.text }}</p>
+                    {% if not one %}<span class="h-sys-for">{% if r.hit|length == keys|length %}各科都有{% else %}{% for k in r.hit %}{{ names[k] }}{% if not loop.last %} · {% endif %}{% endfor %}{% endif %}</span>{% endif %}
+                </div>
                 {% endfor %}
-            </ol>
+            </div>
         </div>
-        {% endfor %}
+        <div class="h-sys-learn n{{ ns.learn|length }}">
+            {% for r in ns.learn %}
+            <div class="h-sys-learn-item">
+                <b><i>{{ '%02d' % loop.index }}</i>{{ r.f.title }}</b>
+                <p>{{ r.text }}</p>
+                {% if not one %}<span class="h-sys-for">{% if r.hit|length == keys|length %}各科都有{% else %}{% for k in r.hit %}{{ names[k] }}{% if not loop.last %} · {% endif %}{% endfor %}{% endif %}</span>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% if not one %}
+        <div class="h-sys-rows">
+            {% for c in items %}
+            <div class="h-sys-row exam-tone-{{ c.key }}">
+                <h3><small>{{ c.en }}</small>{{ c.name }}</h3>
+                <ul>{% for p in c.sys %}<li{% if p.startswith('AI') %} class="is-ai"{% endif %}>{{ p }}</li>{% endfor %}</ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <p class="h-sys-foot"><a class="h-more" href="{{ url_for('accounts.login') }}">學員登入 <span class="h-more-dot" aria-hidden="true">→</span></a><span>還沒有帳號？報名後由補習班開通。</span><span class="h-sys-note">AI 產生的內容可能有錯，以老師講解為準；AI 評分只是模擬，不等於真實考試。</span></p>
     </div>
 </section>

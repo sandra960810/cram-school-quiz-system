@@ -381,6 +381,7 @@ a.s-card:hover { background: #fff; }
 .s-steps li::before { color: var(--brand-gold-ink); }
 .s-consult { border-top-color: var(--brand-gold); }
 .mk-est { border-color: var(--brand-gold); background: var(--brand-gold-50); }
+.mk-cefr .mk-est-total { font-size: 36px; }
 .mk-est.is-locked { display: block; text-decoration: none; color: var(--brand-ink); border-style: dashed; }
 .mk-est.is-locked .mk-est-total { display: flex; align-items: center; gap: 10px; font-size: 30px; }
 .mk-est.is-locked .mk-est-total svg { width: 28px; height: 28px; }
@@ -939,23 +940,74 @@ html { scroll-behavior: smooth; }
 .h-rev-card.has-photo .h-rev-q { top: 10px; right: 22px; }
 
 /* 學員線上學習系統（2026-11 使用者要求簡潔、清楚介紹功能並強調 AI）：上面是藍黑科技感的 AI 功能列，下面每科一列短標籤 */
-/* 學習系統：功能清單（2026-11 使用者要求每個功能寫清楚、排版和頁面其他區塊一致：細線分隔、編號、不用深色大塊） */
-.h-sys-grp { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 0 32px; border-top: 1px solid var(--brand-ink); padding-top: 4px; margin-top: 28px; counter-reset: sysf; }
-.h-sys-grp + .h-sys-grp { margin-top: 36px; }
-.h-sys-grp-t { display: flex; align-self: start; align-items: center; gap: 8px; margin: 18px 0 0; font-size: 20px; font-weight: 900; }
-.h-sys-grp.is-ai { border-top-color: var(--brand-ai); }
-.h-sys-grp.is-ai .h-sys-grp-t { color: var(--brand-ai); }
-.h-sys-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; margin: 0; padding: 0; list-style: none; }
-.h-sys-f { position: relative; padding: 18px 0 22px 0; border-bottom: 1px solid var(--brand-line); counter-increment: sysf; }
-.h-sys-f::before { content: counter(sysf, decimal-leading-zero); display: block; margin-bottom: 8px; font: 700 12px/1 Consolas, "Courier New", monospace; letter-spacing: .14em; color: var(--brand-gold); }
-.h-sys-grp.is-ai .h-sys-f::before { color: var(--brand-ai); }
-.h-sys-f-t { display: block; margin-bottom: 6px; font-size: 18px; font-weight: 900; color: var(--brand-ink); }
-.h-sys-f p { margin: 0; font-size: 14.5px; line-height: 1.8; color: var(--brand-ink-2); }
-.h-sys-f-for { display: inline-block; margin-top: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .04em; color: var(--brand-muted); }
-.h-sys-f-for::before { content: "適用 · "; color: var(--brand-muted); font-weight: 400; }
+/* 學習系統（2026-11 使用者要求改編原版排版、強調 AI 並有 AI 視覺化）：深色 AI 區＋學習功能＋各科一列短標籤 */
+.h-sys-ai { position: relative; overflow: hidden; border-radius: 18px; background: var(--brand-tech); color: #fff;
+    background-image: linear-gradient(rgba(143,176,212,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(143,176,212,.07) 1px, transparent 1px),
+        radial-gradient(circle at 85% 0%, rgba(143,176,212,.22), transparent 55%);
+    background-size: 22px 22px, 22px 22px, 100% 100%; }
+.h-sys-ai::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 40%; pointer-events: none;
+    background: linear-gradient(180deg, transparent, rgba(143,176,212,.08) 50%, transparent); animation: h-sys-scan 6s linear infinite; }
+@keyframes h-sys-scan { from { transform: translateY(-100%); } to { transform: translateY(260%); } }
+.h-sys-ai-bar { position: relative; display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-bottom: 1px solid rgba(143,176,212,.22);
+    font: 700 11.5px/1 Consolas, "Courier New", monospace; letter-spacing: .18em; color: var(--brand-ai-glow); }
+.h-sys-ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-ai-glow); box-shadow: 0 0 0 4px rgba(143,176,212,.18); animation: h-sys-blink 1.6s ease-in-out infinite; }
+@keyframes h-sys-blink { 50% { opacity: .3; } }
+.h-sys-ai-bar-r { margin-left: auto; display: flex; align-items: center; gap: 8px; font: 900 14px/1 inherit; font-family: "Noto Sans TC", sans-serif; letter-spacing: .04em; color: #fff; }
+.h-sys-ai-grid { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.h-sys-ai-grid.n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.h-sys-ai-item { position: relative; padding: 22px 24px 24px; border-left: 1px solid rgba(143,176,212,.18); border-top: 1px solid rgba(143,176,212,.18); transition: background .3s; }
+.h-sys-ai-item:hover { background: rgba(143,176,212,.07); }
+.h-sys-ai-grid > .h-sys-ai-item:nth-child(3n+1) { border-left: 0; }
+.h-sys-ai-grid.n4 > .h-sys-ai-item { border-left: 1px solid rgba(143,176,212,.18); }
+.h-sys-ai-grid.n4 > .h-sys-ai-item:nth-child(2n+1) { border-left: 0; }
+.h-sys-ai-grid > .h-sys-ai-item:nth-child(-n+3) { border-top: 0; }
+.h-sys-ai-grid.n4 > .h-sys-ai-item:nth-child(3) { border-top: 1px solid rgba(143,176,212,.18); }
+.h-sys-ai-viz { position: relative; height: 64px; margin-bottom: 14px; padding: 8px 10px; border: 1px solid rgba(143,176,212,.25); border-radius: 10px; background: rgba(10,18,30,.35); }
+.h-sys-ai-viz small { position: absolute; top: 6px; right: 8px; font: 700 9.5px/1 Consolas, "Courier New", monospace; letter-spacing: .14em; color: var(--brand-ai-glow); opacity: .8; }
+.h-viz { display: block; width: 100%; height: 100%; overflow: visible; }
+.h-viz .v-line { fill: none; stroke: rgba(143,176,212,.45); stroke-width: 1.6; stroke-linecap: round; }
+.h-viz .v-box { fill: rgba(143,176,212,.08); stroke: rgba(143,176,212,.55); stroke-width: 1.2; }
+.h-viz .v-bar { fill: rgba(143,176,212,.42); }
+.h-viz .v-path { fill: none; stroke: var(--brand-ai-glow); stroke-width: 1.8; stroke-linejoin: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: h-viz-draw 3.2s ease-out infinite; }
+@keyframes h-viz-draw { 60%, 100% { stroke-dashoffset: 0; } }
+.h-viz .v-dot { fill: var(--brand-tech); stroke: var(--brand-ai-glow); stroke-width: 1.4; }
+.h-viz .v-ring { fill: rgba(201,168,90,.12); stroke: var(--brand-gold); stroke-width: 1.6; }
+.h-viz .v-txt { fill: var(--brand-gold); font: 700 9px/1 Consolas, monospace; }
+.h-viz .v-strike { fill: none; stroke-width: 2; stroke-linecap: round; }
+.h-viz .v-hot { stroke: var(--brand-gold); }
+.h-viz .v-bar.v-hot, .h-viz .v-dot.v-hot { fill: var(--brand-gold); }
+.h-viz .v-line.v-hot { stroke: var(--brand-gold); }
+.h-sys-ai-item:hover .h-viz .v-bar { animation: h-viz-pulse .9s ease-in-out infinite alternate; transform-origin: center; transform-box: fill-box; }
+@keyframes h-viz-pulse { to { transform: scaleY(.55); } }
+.h-sys-ai-item b { display: block; margin: 0 0 6px; font-size: 18px; font-weight: 900; color: #fff; }
+.h-sys-ai-item p { margin: 0; font-size: 14px; line-height: 1.75; color: rgba(255,255,255,.8); }
+.h-sys-for { display: inline-block; margin-top: 12px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+.h-sys-ai-item .h-sys-for { border: 1px solid rgba(143,176,212,.35); color: var(--brand-ai-glow); }
+.h-sys-learn { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.h-sys-learn.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.h-sys-learn.n4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.h-sys-learn-item { padding: 18px 18px 18px; border: 1px solid var(--brand-line); border-radius: 14px; background: var(--brand-paper); }
+.h-sys-learn-item b { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; font-size: 16.5px; font-weight: 900; }
+.h-sys-learn-item b i { font: 700 11px/1 Consolas, "Courier New", monospace; font-style: normal; letter-spacing: .12em; color: var(--brand-gold); }
+.h-sys-learn-item p { margin: 0; font-size: 13.5px; line-height: 1.75; color: var(--brand-ink-2); }
+.h-sys-learn-item .h-sys-for { background: var(--brand-soft); color: var(--brand-ink-2); }
+.h-sys-rows { margin-top: 22px; border-top: 1px solid var(--brand-ink); }
+.h-sys-row { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 12px 24px; padding: 14px 0; border-bottom: 1px solid var(--brand-line); }
+.h-sys-row h3 { margin: 0; font-size: 20px; font-weight: 900; }
+.h-sys-row h3 small { display: block; font: 700 11px/1.4 Consolas, "Courier New", monospace; letter-spacing: .16em; color: var(--tone, var(--brand-muted)); }
+.h-sys-row ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.h-sys-row li { padding: 6px 14px; border: 1px solid var(--brand-line); border-radius: 99px; background: var(--brand-paper); font-size: 14px; font-weight: 700; color: var(--brand-ink-2); }
+.h-sys-row li.is-ai { border-color: var(--brand-ai); background: var(--brand-ai-50); color: var(--brand-ai); }
 .h-sys-note { margin-left: auto; font-size: 12.5px; color: var(--brand-muted); }
-@media (max-width: 980px) { .h-sys-grp { grid-template-columns: 1fr; } .h-sys-list { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 760px) { .h-sys-list { grid-template-columns: 1fr; } .h-sys-note { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .h-sys-ai::after, .h-sys-ai-dot, .h-viz .v-path, .h-sys-ai-item:hover .h-viz .v-bar { animation: none; } .h-viz .v-path { stroke-dashoffset: 0; } }
+@media (max-width: 1100px) { .h-sys-learn { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .h-sys-ai-grid, .h-sys-ai-grid.n4 { grid-template-columns: 1fr 1fr; }
+    .h-sys-ai-grid > .h-sys-ai-item { border-left: 1px solid rgba(143,176,212,.18) !important; border-top: 1px solid rgba(143,176,212,.18) !important; }
+    .h-sys-ai-grid > .h-sys-ai-item:nth-child(2n+1) { border-left: 0 !important; } .h-sys-ai-grid > .h-sys-ai-item:nth-child(-n+2) { border-top: 0 !important; }
+    .h-sys-learn, .h-sys-learn.n4 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .h-sys-ai-grid, .h-sys-ai-grid.n4 { grid-template-columns: 1fr; } .h-sys-ai-grid > .h-sys-ai-item { border-left: 0 !important; border-top: 1px solid rgba(143,176,212,.18) !important; padding: 18px 20px; }
+    .h-sys-ai-grid > .h-sys-ai-item:first-child { border-top: 0 !important; } .h-sys-ai-bar { padding: 12px 18px; font-size: 10px; }
+    .h-sys-learn, .h-sys-learn.n3, .h-sys-learn.n4 { grid-template-columns: 1fr; } .h-sys-row { grid-template-columns: 1fr; gap: 8px; } .h-sys-note { margin-left: 0; } }
 /* 各科 CEFR 對照（各科專屬頁面、課程頁）：A1～C2 六格，顏色和主頁面的分級圖表一樣 */
 .h-cefr1 { padding: 56px 0 60px; border-bottom: 1px solid var(--brand-line); }
 .h-cefr1-scale { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
@@ -979,3 +1031,16 @@ html { scroll-behavior: smooth; }
     .h-hero-tech .t-label-ghost { animation: t-ghost 4s steps(1) infinite; }
 }
 @keyframes t-ghost { 0%, 92% { transform: translate(0, 0); } 94% { transform: translate(-1.5px, 0); } 96% { transform: translate(1px, -.5px); } }
+
+/* 學員心得左右滑（每科 9 則，一次 3 則） */
+.h-rev-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.h-rev-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.h-rev-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--brand-ink); background: transparent; color: var(--brand-ink); font-size: 18px; cursor: pointer; transition: background .2s, color .2s; }
+.h-rev-btn:hover:not(:disabled) { background: var(--brand-ink); color: #fff; }
+.h-rev-btn:disabled { opacity: .3; cursor: default; }
+.h-rev-count { min-width: 64px; text-align: center; font: 700 13px/1 Consolas, "Courier New", monospace; letter-spacing: .08em; color: var(--brand-ink-2); }
+.h-rev-grid.is-track { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: calc((100% - 40px) / 3); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding-bottom: 4px; }
+.h-rev-grid.is-track::-webkit-scrollbar { display: none; }
+.h-rev-grid.is-track > .h-rev-card { scroll-snap-align: start; }
+@media (max-width: 980px) { .h-rev-grid.is-track { grid-template-columns: none; grid-auto-columns: 82%; } .h-rev-nav { margin-bottom: 16px; } }
+@media (max-width: 760px) { .h-rev-btn { width: 38px; height: 38px; } .h-rev-count { display: none; } }

@@ -142,19 +142,19 @@ SYSTEM_FEATURES = [
                 "topik": "TOPIK I、TOPIK II 各 10 回原創模考，題型、配分比照正式考試；交卷看正解、中文解析、聽力原文，算總分與級數。"}},
     {"title": "學發音", "ai": False, "exams": {"basic"},
      "text": "每個字有 KK 音標，可以正常速度或慢慢聽；也有 -tion、-ed、-ture 等常見字尾的念法。"},
-    {"title": "AI 錯題解釋", "ai": True, "exams": ALL_SYS,
+    {"title": "AI 錯題解釋", "ai": True, "viz": "explain", "exams": ALL_SYS,
      "text": "答錯的題目按「問 AI 老師」，說明為什麼錯、正解的根據、陷阱在哪、下次怎麼判斷，再出一題類似的題目讓你馬上練。"},
-    {"title": "AI 弱點練習", "ai": True, "exams": ALL_SYS,
+    {"title": "AI 弱點練習", "ai": True, "viz": "practice", "exams": ALL_SYS,
      "text": "系統統計你各題型的錯誤率、錯題和不熟的字，AI 針對最弱的地方出 8 題練習，交卷馬上批改。"},
-    {"title": "AI 寫作批改", "ai": True, "exams": {"ielts", "topik"},
+    {"title": "AI 寫作批改", "ai": True, "viz": "writing", "exams": {"ielts", "topik"},
      "text": "雅思寫作依官方四項標準給 Band 分數與修改建議；韓檢寫作四題一次批改、給分數與建議。",
      "detail": {"ielts": "Task 1、Task 2 交卷後，AI 老師依官方四項標準給 Band 分數，指出問題並給修改建議。",
                 "topik": "TOPIK II 寫作四題交卷後一次批改，AI 老師給分數、指出問題並給修改建議。"}},
-    {"title": "AI 口說評分", "ai": True, "exams": {"ielts"},
+    {"title": "AI 口說評分", "ai": True, "viz": "speaking", "exams": {"ielts"},
      "text": "比照考官流程 Part 1～3 錄音作答，AI 老師依流暢度、字彙、文法、發音四項標準評分並給建議。"},
-    {"title": "AI 學習報告", "ai": True, "exams": ALL_SYS,
+    {"title": "AI 學習報告", "ai": True, "viz": "report", "exams": ALL_SYS,
      "text": "把學習紀錄整理成報告：強項、弱項、兩週讀書計畫和給家長的話，可以列印成 PDF。"},
-    {"title": "AI 單字記憶法", "ai": True, "exams": ALL_SYS,
+    {"title": "AI 單字記憶法", "ai": True, "viz": "memory", "exams": ALL_SYS,
      "text": "單字卡上按一下，AI 給你口訣、字根拆解、更多例句、常用搭配和容易混淆的字。"},
 ]
 # 迷你模考：多益、雅思、日檢、韓檢（日檢、韓檢不分級，測完給預估級數）
@@ -280,10 +280,10 @@ def home():
                 jsonld=[org_jsonld()], hero=hero, reviews=reviews_for(d, hero['c']['key']))
 
 
-def reviews_for(d, key, n=3):
+def reviews_for(d, key, n=9):
     """學員心得（2026-11 使用者要求：廣告進來的首頁，學校與課程介紹下面放學員心得）。
     資料在 site_info.json 的 testimonials，只放補習班提供的真實心得，不要自己編；
-    同一個考試的心得排前面，最多 n 則。沒有資料時樣板顯示「待填」。"""
+    同一個考試的心得排前面，最多 n 則（2026-11 使用者要求每科 9 則，一次看 3 則、左右滑）。沒有資料時樣板顯示「待填」。"""
     rows = [t for t in d.get('testimonials') or [] if isinstance(t, dict) and (t.get('text') or '').strip()]
     rows.sort(key=lambda t: t.get('course') != key)
     for t in rows:
