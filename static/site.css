@@ -1133,3 +1133,14 @@ html { scroll-behavior: smooth; }
     .h-shot { scroll-snap-align: start; }
 }
 @media (max-width: 760px) { .h-sys-shots { --sh: 210px; margin-bottom: 26px; } }
+/* AI 功能卡簡潔版（2026-11 使用者要求「簡潔一點、不要這麼大塊」）：小圖不加框、放在標題左邊，間距與字級縮小 */
+.h-sys-ai-item { display: grid; grid-template-columns: 58px minmax(0, 1fr); column-gap: 14px; align-items: start; padding: 16px 20px 18px; }
+.h-sys-ai-viz { grid-row: 1 / span 3; height: 38px; margin: 2px 0 0; padding: 0; border: 0; background: none; }
+.h-sys-ai-viz small { display: none; }
+.h-sys-ai-item b { margin: 0 0 3px; font-size: 16px; }
+.h-sys-ai-item p { font-size: 13.5px; line-height: 1.65; }
+.h-sys-ai-item .h-sys-for { justify-self: start; margin-top: 7px; padding: 1px 8px; font-size: 11.5px; }
+@media (max-width: 760px) { .h-sys-ai-item { grid-template-columns: 48px minmax(0, 1fr); padding: 14px 14px 16px; } .h-sys-ai-viz { height: 32px; } }
+.h-sys-ai-item { grid-template-columns: 92px minmax(0, 1fr); column-gap: 16px; }
+.h-sys-ai-viz { height: 46px; margin-top: 0; }
+@media (max-width: 760px) { .h-sys-ai-item { grid-template-columns: 62px minmax(0, 1fr); } .h-sys-ai-viz { height: 38px; } }
