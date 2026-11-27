@@ -42,17 +42,19 @@
             <a class="h-more" href="{{ url_for('site.mock_test') }}">全部迷你模考 <span class="h-more-dot" aria-hidden="true">→</span></a>
         </div>
         {# 2026-11 使用者給一段影片要這種互動：一張展開的大卡片，其他縮成直條膠囊，點直條就換它展開；再結合科技感元素。
-           深色科技舞台（細格線）、直條上有編號、考試代號與指示燈；每 6 秒自動換下一張，滑鼠移上去或點過就停。
+           淺色細格線舞台、直條上有編號、考試代號與指示燈；預設全部閉合、平均分配寬度，滑鼠移到哪張才展開那張。
            沒有 JS 時照舊是四張並排的卡片（只有 .s-js 才變成展開式）。 #}
         {% set tags = {'toeic': 'TOEIC', 'ielts': 'IELTS', 'jlpt': 'JLPT', 'topik': 'TOPIK'} %}
         {% set subs = {'toeic': 'LISTENING · READING', 'ielts': 'LISTENING · READING', 'jlpt': 'N5 → N1', 'topik': 'LEVEL 1 → 6'} %}
         {% set ready = mocks | selectattr(0, 'in', mocks_ready) | list %}
         <div class="h-acc" data-acc style="--n: {{ ready|length }}">
             {% for k, n in ready %}
-            <article class="h-acc-item exam-tone-{{ k }}{{ ' is-on' if loop.first }}" data-acc-item>
-                <button class="h-acc-tab" type="button" aria-controls="acc-{{ k }}" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-label="{{ n }}迷你模考">
+            <article class="h-acc-item exam-tone-{{ k }}" data-acc-item>
+                <button class="h-acc-tab" type="button" aria-controls="acc-{{ k }}" aria-expanded="false" aria-label="{{ n }}迷你模考">
                     <span class="h-acc-led" aria-hidden="true"></span>
                     <span class="h-acc-v">{{ '%02d' % loop.index }}<b>{{ tags.get(k, k|upper) }}</b><em>{{ n }}</em></span>
+                    <span class="h-acc-blurb" aria-hidden="true">{{ mock_blurb[k] }}</span>
+                    <span class="h-acc-peek" aria-hidden="true"><span>{{ subs.get(k, 'AI MOCK TEST') }}</span><span class="h-more-dot">→</span></span>
                 </button>
                 <div class="h-acc-body" id="acc-{{ k }}">
                     <div class="h-acc-txt">
@@ -65,7 +67,6 @@
                     <a class="h-acc-art" href="{{ url_for('site.mock_take', key=k) }}" tabindex="-1" aria-hidden="true">
                         {{ tech_panel(tags.get(k, k|upper), subs.get(k, 'AI MOCK TEST'), loop.index0) }}
                     </a>
-                    <span class="h-acc-bar" aria-hidden="true"><i></i></span>
                 </div>
             </article>
             {% endfor %}

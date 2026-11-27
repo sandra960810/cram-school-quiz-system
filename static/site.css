@@ -659,3 +659,36 @@ a.s-card:hover { background: #fff; }
 }
 @media (max-width: 760px) { .h-acc .h-acc-item, .h-acc.is-ready .h-acc-item, .h-acc.is-ready .h-acc-item.is-on { border-radius: 8px; } }
 .h-acc-v em { font-style: normal !important; font-weight: 800; }
+
+/* 2026-11 使用者：「展開速度用原本的，直條預設全部閉合、平均分配大小、佔滿畫面，鼠標碰到哪個再展開哪個」
+   沒有任何一張展開時（:not(.has-open)），四張平均分寬、橫排顯示大字考試代號；
+   滑鼠移到某張（.has-open）它才展開，其他縮成直條；滑鼠離開整排又回到平均 */
+.h-acc.is-ready .h-acc-item { flex: 1 1 0; transition: flex-grow .75s cubic-bezier(.7,0,.2,1), flex-basis .75s cubic-bezier(.7,0,.2,1), border-radius .5s, background-color .5s; }
+.h-acc.is-ready.has-open .h-acc-item { flex: 0 0 var(--tab); }
+.h-acc.is-ready.has-open .h-acc-item.is-on { flex: 1 1 0; }
+.h-acc.is-ready .h-acc-item.is-on { border-radius: 8px; }
+.h-acc.is-ready .h-acc-tab { transition: opacity .3s; }
+.h-acc.is-ready .h-acc-body { transition: opacity .35s; }
+.h-acc.is-ready .is-on .h-acc-body { transition: opacity .5s .3s; }
+@media (prefers-reduced-motion: no-preference) { .h-acc.is-ready .is-on .h-acc-body::after { animation-duration: 1.1s; animation-delay: .2s; } }
+.h-acc-peek { display: none; }
+
+/* 平均並排時的直條：橫排大字、底部一行英文說明和箭頭，滑過時微亮 */
+.h-acc.is-ready:not(.has-open) .h-acc-tab { align-items: flex-start; justify-content: flex-start; padding: 34px 32px 30px; gap: 22px; text-align: left; }
+.h-acc.is-ready:not(.has-open) .h-acc-v { writing-mode: horizontal-tb; flex-direction: column; align-items: flex-start; gap: 14px; }
+.h-acc.is-ready:not(.has-open) .h-acc-v b { font-size: clamp(30px, 3.4vw, 46px); letter-spacing: .04em; }
+.h-acc.is-ready:not(.has-open) .h-acc-v em { font-size: 17px; letter-spacing: .2em; text-orientation: mixed; }
+.h-acc.is-ready:not(.has-open) .h-acc-peek { display: flex; margin-top: auto; width: 100%; justify-content: space-between; align-items: center; gap: 12px;
+    padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--brand-ink) 14%, transparent);
+    font: 700 11px/1.3 Consolas, "Courier New", monospace; letter-spacing: .14em; color: var(--brand-ink-2); }
+.h-acc.is-ready:not(.has-open) .h-acc-tab::after { content: ""; position: absolute; right: 22px; top: 26px; width: 92px; height: 92px; border-radius: 50%; pointer-events: none;
+    border: 1px dashed color-mix(in srgb, var(--brand-ai) 45%, transparent); box-shadow: inset 0 0 0 14px color-mix(in srgb, var(--brand-ai) 7%, transparent); }
+.h-acc.is-ready:not(.has-open) .h-acc-tab:hover .h-more-dot { background: var(--brand-gold); border-color: var(--brand-gold); }
+@media (prefers-reduced-motion: no-preference) { .h-acc.is-ready:not(.has-open) .h-acc-tab::after { animation: h-spin 24s linear infinite; } }
+@media (max-width: 980px) { .h-acc.is-ready:not(.has-open) .h-acc-tab { padding: 26px 20px; } .h-acc.is-ready:not(.has-open) .h-acc-tab::after { width: 64px; height: 64px; right: 14px; top: 18px; } }
+.h-acc-blurb { display: none; }
+.h-acc.is-ready:not(.has-open) .h-acc-blurb { display: block; font-size: 14.5px; line-height: 1.75; color: var(--brand-ink-2); max-width: 260px; }
+@media (max-width: 980px) { .h-acc.is-ready:not(.has-open) .h-acc-blurb { font-size: 13px; } }
+@media (max-width: 760px) {
+    .h-acc.is-ready .h-acc-item, .h-acc.is-ready.has-open .h-acc-item, .h-acc.is-ready.has-open .h-acc-item.is-on { flex: 0 0 86%; border-radius: 8px; }
+}
