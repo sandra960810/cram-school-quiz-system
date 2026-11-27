@@ -697,7 +697,9 @@ a.s-card:hover { background: #fff; }
    ====================================================================== */
 @media (max-width: 760px) {
     .h-acc.is-ready { --bar: clamp(78px, calc((100svh - 300px) / var(--n)), 124px); --mini: 60px;
-        flex-direction: column; height: auto; gap: 10px; padding: 12px; margin: 0; }
+        flex-direction: column; height: auto; gap: 10px; padding: 0; margin: 0; }
+    /* 手機版不要外框與格線底（2026-11 使用者要求），只留四張彩色卡片 */
+    .h-acc, .h-acc.is-ready { border: 0; background: none; border-radius: 0; }
     .h-acc.is-ready .h-acc-item, .h-acc.is-ready.has-open .h-acc-item { flex: 0 0 auto; height: var(--bar); border-radius: 22px;
         transition: height .75s cubic-bezier(.7,0,.2,1), border-radius .5s, background-color .5s; will-change: height; }
     .h-acc.is-ready.has-open .h-acc-item { height: var(--mini); border-radius: 30px; }
