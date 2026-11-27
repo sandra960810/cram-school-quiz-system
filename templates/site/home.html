@@ -209,34 +209,6 @@
 
 {% endif %}
 
-<section class="h-story h-enroll" id="enroll">
-    <div class="h-story-photo">
-        <img src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
-        <svg class="h-seal h-seal-corner" viewBox="0 0 160 160" aria-hidden="true">
-            <defs><path id="h-seal-path3" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1 -120 0"/></defs>
-            <g class="h-seal-spin"><text><textPath href="#h-seal-path3">NOW ENROLLING · ONLINE · OFFLINE · AI ·</textPath></text></g>
-            <image href="{{ url_for('static', filename='images/site/emblem.png') }}" x="54" y="60" width="52" height="39"/>
-        </svg>
-    </div>
-    <div class="h-story-txt">
-        <p class="s-eyebrow lined">NOW ENROLLING</p>
-        <h2 class="h-big">課程招生中！</h2>
-        <p class="h-enroll-sub">彈性學習 × 高效備考 × 精準提升</p>
-        <div class="h-enroll-list">
-            {# 各科專屬頁面只寫自己那科的模考；托福沒有模考就不列 #}
-            {% set mk = hc if hero.ad else {'key': 'toeic', 'name': '多益'} %}
-            {% if mk.key in mocks_ready %}<div class="is-ai"><h3>{{ ai_chip('h-chip-xs') }} AI 線上{{ mk.name }}模考</h3><p>仿真試題・完整模考／AI 即時評分與解析／弱點診斷・個人化進步建議</p></div>{% endif %}
-            <div><h3>{{ icon('users') }} 實體課</h3><p>面對面授課／即時提問與互動／系統化教學・輕鬆吸收</p></div>
-            <div><h3>{{ icon('headphones') }} 線上直播課</h3><p>即時互動直播／彈性上課不受地點限制</p></div>
-        </div>
-        <p class="h-enroll-foot">多元學習方式，搭配 AI 模考，讓你準備更有效！</p>
-        <div class="h-hero-cta">
-            <a class="s-btn" href="{{ url_for('site.contact') }}">立即報名</a>
-            <a class="h-more" href="{{ url_for('site.contact') }}">預約免費諮詢 <span class="h-more-dot" aria-hidden="true">→</span></a>
-        </div>
-    </div>
-</section>
-
 {% if not hero.ad %}
 <section class="h-sec" id="why">
     <div class="wrap">
@@ -257,32 +229,34 @@
     <div class="wrap">
         <div class="h-sec-head"><p class="s-eyebrow lined">CEFR LEVELS</p></div>
         <h2 class="h-big">TRINITY 專業程度分級制度</h2>
-        <p class="h-cefr-lead">{{ s.name }}程度分級依據 CEFR（歐洲語言共同參考框架），共分 6 級，入學先測驗加面談，從適合的級數開始上課。</p>
-        {# 內容取自補習班手冊「TRINITY 專業程度分級制度」（2026-11 使用者提供） #}
-        <ol class="h-cefr-steps">
-            {% for n, en, zh, cefr, items in cefr_levels %}
-            <li class="lv{{ n }}">
-                <div class="h-cefr-top"><span class="h-cefr-n">LEVEL {{ n }}</span><b class="h-cefr-c">{{ cefr }}</b></div>
-                <h3>{{ zh }}<small>{{ en }}</small></h3>
-                <ul>{% for it in items %}<li>{{ it }}</li>{% endfor %}</ul>
-            </li>
-            {% endfor %}
-        </ol>
-        <div class="h-cefr-mode" aria-label="教學方式">
-            <span style="--span:3">LEVEL 1～3　雙語教學</span>
-            <span style="--span:3">LEVEL 4～6　全英教學</span>
-            <span class="go">→ 國外語言學校</span>
-        </div>
-        <h3 class="h-cefr-sub">各項檢定對照<small>表格可以左右滑動</small></h3>
-        <div class="h-cefr-tbl" tabindex="0" role="region" aria-label="CEFR 與各項檢定對照表">
-            <table>
-                <thead><tr><th scope="col">CEFR</th>{% for c in cefr_cols %}<th scope="col">{{ c }}</th>{% endfor %}</tr></thead>
-                <tbody>
-                    {% for ex, vals in cefr_exams %}
-                    <tr><th scope="row">{{ ex }}</th>{% for v in vals %}<td>{{ v }}</td>{% endfor %}</tr>
+        <p class="h-cefr-lead">{{ s.name }}程度分級是依據 CEFR（歐洲語言共同參考框架）進行的分級標準。</p>
+        {# 內容與圖表樣式取自補習班手冊「TRINITY 專業程度分級制度」（2026-11 使用者提供，要求放圖表） #}
+        <p class="h-cefr-hint">圖表可以左右滑動</p>
+        <div class="h-cefr-scroll" tabindex="0" role="region" aria-label="TRINITY 程度分級與 CEFR、各項檢定對照圖表">
+            <div class="h-cefr-chart">
+                <div class="h-cefr-cols h-cefr-bars">
+                    {% for n, en, zh, cefr, items in cefr_levels %}
+                    <div class="h-cefr-bar" style="--c: var(--lv{{ n }}); --h: {{ [150, 210, 270, 330, 360, 390][loop.index0] }}px">
+                        <span class="n">{{ n }}</span>
+                        <div class="b">{% for it in items %}<span>{{ it }}</span>{% endfor %}</div>
+                    </div>
                     {% endfor %}
-                </tbody>
-            </table>
+                </div>
+                <div class="h-cefr-cols h-cefr-names">
+                    {% for n, en, zh, cefr, items in cefr_levels %}
+                    <div style="--c: var(--lv{{ n }})"><small>{{ en }}</small><b>{{ zh }}</b><i>{{ cefr }}</i></div>
+                    {% endfor %}
+                </div>
+                <div class="h-cefr-exams">
+                    {% for ex, vals in cefr_exams %}
+                    <div class="row"><b>{{ ex }}</b>{% for v in vals %}<span>{{ v }}</span>{% endfor %}</div>
+                    {% endfor %}
+                </div>
+                <div class="h-cefr-mode">
+                    <span class="bi">雙語教學</span>
+                    <span class="en">全英教學 <em>⋯▸</em> 國外語言學校</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>

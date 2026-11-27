@@ -64,7 +64,7 @@ COURSES = [
 ]
 COURSE_MAP = {c['key']: c for c in COURSES}
 # 為什麼選驅勢（2026-11 使用者提供補習班手冊「Trinity is the best choice」，說「這裡面的內容都可以用」）。
-# (標題, 說明, 短說明)：主頁面「為什麼選驅勢」用說明，各科專屬頁面的學校介紹用短說明。只寫手冊上有的；使用者要求只放前六點
+# (標題, 說明, 短說明)：主頁面「為什麼選驅勢」用說明，各科專屬頁面的學校介紹用短說明。只寫手冊上有的；使用者要求只放前六點，第七點是線上直播課（原本在「課程招生中」，該區塊使用者要求拿掉）
 WHY = [
     ("學員權益履約保證", "與遠東、永豐銀行簽訂 1,600 萬學員權益履約保證，讓學員更安心。", "與遠東、永豐銀行簽訂 1,600 萬履約保證"),
     ("專業面談程度分級", "除了電腦與紙筆測驗，每個課程都有專業面談，評估口說、字彙與句型，確實分級，不浪費時間與金錢。", "測驗加專業面談，確實分級"),
@@ -72,6 +72,7 @@ WHY = [
     ("專業師資精緻教學", "專任教師團隊全時間專注於教學準備與課程研發。", "專任教師專注教學與課程研發"),
     ("循環開課多元課程", "每週超過 100 堂全外語聽說讀寫課程，持續循環開課，隨時都有新班。", "每週超過 100 堂，隨時有新班"),
     ("口說課程絕對小班", "認證與實力養成的口說班堅持小班制，互動最充分、練習最有效。", "口說班堅持小班制"),
+    ("實體課＋線上直播課", "除了面對面授課、即時提問互動，也有線上直播課，即時互動、彈性上課不受地點限制。", "實體課＋線上直播，上課不受地點限制"),
 ]
 # 程度分級制度（2026-11 使用者提供補習班手冊「TRINITY 專業程度分級制度」，要求放在主頁面）。依 CEFR 分 6 級；只寫手冊上有的
 CEFR_LEVELS = [
@@ -82,8 +83,7 @@ CEFR_LEVELS = [
     (5, "Intermediate 2", "中高級", "C1", ["學術英文（托福／雅思先修班）", "主題式討論", "主題式閱讀", "Movie English（影音英文）", "商用英文", "高階文法"]),
     (6, "Advanced", "高級", "C2", ["TED Talks（影音英文）", "CNN／BBC 新聞時事", "主題式討論", "主題式閱讀", "高階會話", "英文雜誌"]),
 ]
-# 各檢定對照：對應 B1、B2、C1、C2（第 3～6 級）
-CEFR_COLS = ["B1", "B2", "C1", "C2"]
+# 各檢定對照：四個分數依序對齊 B1、B2、C1、C2（第 3～6 級）
 CEFR_EXAMS = [
     ("全民英檢 GEPT", ["初級", "中級", "中高級", "高級"]),
     ("多益 TOEIC", ["550 以上", "650 以上", "750 以上", "850 以上"]),
@@ -190,7 +190,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, why=WHY, cefr_levels=CEFR_LEVELS, cefr_cols=CEFR_COLS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, why=WHY, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
