@@ -44,3 +44,30 @@
 </svg>
 </span>
 {%- endmacro %}
+
+{# 學員線上學習系統介紹（2026-11 使用者：單字學習與模考系統上線，官網要清楚介紹系統存在，不用很詳細）。
+   items 是要列的科目（COURSES 的 points）；一科時是單張橫向卡片，多科時是並排卡片。只列有 points 的科目 #}
+{% macro system_block(items, sid='system') -%}
+{% set items = items | selectattr('points') | list %}
+{% if items %}
+<section class="h-sys{{ ' is-one' if items|length == 1 }}" id="{{ sid }}">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">LEARNING SYSTEM</p></div>
+        <div class="h-sys-head">
+            <h2 class="h-big">{% if items|length == 1 %}{{ items[0].name }}<br>{% endif %}學員專屬線上學習系統</h2>
+            <p>報名後由補習班開通帳號，電腦、手機上網就能背單字、做模擬考，課後也能自己練習。</p>
+        </div>
+        <div class="h-sys-grid">
+            {% for c in items %}
+            <article class="h-sys-card exam-tone-{{ c.key }}">
+                <p class="h-sys-tag">{{ c.en }}</p>
+                <h3>{{ c.name }}</h3>
+                <ul>{% for p in c.points %}<li>{{ p }}</li>{% endfor %}</ul>
+            </article>
+            {% endfor %}
+        </div>
+        <p class="h-sys-foot"><a class="h-more" href="{{ url_for('accounts.login') }}">學員登入 <span class="h-more-dot" aria-hidden="true">→</span></a><span>還沒有帳號？報名後由補習班開通。</span></p>
+    </div>
+</section>
+{% endif %}
+{%- endmacro %}

@@ -867,3 +867,34 @@ html { scroll-behavior: smooth; }
 .h-acc.is-one .h-acc-txt h3 { font-size: 40px; line-height: 1.15; margin: 0 0 10px; }
 .h-acc.is-one .h-acc-txt p { margin: 14px 0 22px; }
 @media (max-width: 760px) { .h-acc.is-one .h-acc-body { grid-template-columns: 1fr; gap: 22px; padding: 24px 22px 26px; } .h-acc.is-one .h-acc-txt h3 { font-size: 32px; } }
+
+/* 學員線上學習系統介紹（2026-11 使用者：單字學習與模考系統上線，官網要清楚介紹）。主頁面並排各科卡片，專屬頁面一張橫向卡片 */
+#system { scroll-margin-top: 104px; }
+.h-sys { padding: 64px 0 56px; border-bottom: 1px solid var(--brand-line); background: var(--brand-bg); }
+.h-sys-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 26px; }
+.h-sys-head .h-big { margin: 0; }
+.h-sys-head p { margin: 0; font-size: 15.5px; line-height: 1.9; color: var(--brand-ink-2); }
+.h-sys-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.h-sys-card { padding: 22px 22px 18px; background: var(--brand-paper); border: 1px solid var(--brand-line); border-top: 3px solid var(--tone, var(--brand-ink)); border-radius: 16px; }
+.h-sys-tag { margin: 0 0 4px; font: 700 11.5px/1 Consolas, "Courier New", monospace; letter-spacing: .16em; color: var(--brand-ai); }
+.h-sys-card h3 { margin: 0 0 12px; font-size: 22px; font-weight: 900; }
+.h-sys-card ul { margin: 0; padding: 0; list-style: none; }
+.h-sys-card li { position: relative; padding: 8px 0 8px 18px; border-top: 1px solid var(--brand-line); font-size: 14px; line-height: 1.65; color: var(--brand-ink-2); }
+.h-sys-card li::before { content: ""; position: absolute; left: 2px; top: 16px; width: 7px; height: 7px; border-radius: 2px; background: var(--tone, var(--brand-gold)); }
+.h-sys.is-one .h-sys-grid { grid-template-columns: 1fr; }
+.h-sys.is-one .h-sys-card { padding: 26px 30px; }
+.h-sys.is-one .h-sys-tag, .h-sys.is-one .h-sys-card h3 { display: none; }   /* 標題已寫科目，卡片不再重複 */
+.h-sys.is-one .h-sys-card ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; }
+.h-sys.is-one .h-sys-card li { border-top: 0; border-left: 1px solid var(--brand-line); padding: 2px 0 2px 34px; font-size: 15px; }
+.h-sys.is-one .h-sys-card li:first-child { border-left: 0; padding-left: 18px; }
+.h-sys.is-one .h-sys-card li::before { left: auto; margin-left: -18px; top: 11px; }
+.h-sys-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; font-size: 13.5px; color: var(--brand-ink-2); }
+@media (max-width: 760px) {
+    .h-sys { padding: 44px 0 40px; }
+    .h-sys-head { grid-template-columns: 1fr; }
+    .h-sys.is-one .h-sys-card { padding: 14px 20px; }
+    .h-sys.is-one .h-sys-card ul { grid-template-columns: 1fr; }
+    .h-sys.is-one .h-sys-card li, .h-sys.is-one .h-sys-card li:first-child { border-left: 0; border-top: 1px solid var(--brand-line); padding: 10px 0 10px 18px; }
+    .h-sys.is-one .h-sys-card li:first-child { border-top: 0; }
+    .h-sys.is-one .h-sys-card li::before { margin-left: 0; left: 2px; top: 18px; }
+}

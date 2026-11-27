@@ -1,5 +1,5 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn, ai_chip %}
+{% from 'site/_m.html' import fill, line_btn, ai_chip, system_block %}
 {% block body %}
 <section class="s-hero exam-tone-{{ c.key }}"><div class="wrap">
     <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › <a href="{{ url_for('site.courses') }}">課程介紹</a> › {{ c.name }}</div>
@@ -26,6 +26,8 @@
     </div>
 </div></section>
 {% endif %}
+{# 該科的學員線上學習系統功能（2026-11 使用者：每個課程頁面單獨介紹該科的功能） #}
+{{ system_block([c]) }}
 <section class="s-sec"><div class="wrap">
     <h2>課程資訊</h2>
     {% if extra.schedule or extra.teachers or extra.price or extra.extra %}

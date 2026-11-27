@@ -1,5 +1,5 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn, ai_chip, tech_panel %}
+{% from 'site/_m.html' import fill, line_btn, ai_chip, tech_panel, system_block %}
 {% block body %}
 {# 2026-11 使用者給兩張參考圖，要求排版更像參考圖，並加入不搶眼的黃色、藍色：
    1 主視覺：左側直排細欄＋眉標短線＋大字標題＋黑按鈕與圓圈箭頭連結，右側大照片出血到邊、圓形徽章
@@ -8,7 +8,7 @@
    4 課程招生中：左照片右文、照片角落壓圓形徽章（參考圖二的 Our Story）
    5 為什麼選驅勢：三欄細直線分隔
    6 關於：左文右照片（照片不重複使用）
-   同樣的內容不要重複；首頁不放校區區塊、不提學生系統。 #}
+   同樣的內容不要重複；首頁不放校區區塊。學員線上學習系統（2026-11 上線）：主頁面列全部，各科專屬頁面只列該科。 #}
 <section class="h-hero">
     <div class="h-rail" aria-hidden="true"><span>SCROLL TO DISCOVER</span></div>
     <div class="h-hero-txt">
@@ -80,7 +80,7 @@
 {% if hero.ad %}
 {# 2026-11 使用者：從各考試的廣告連結進來，表單下面先介紹學校和該課程，再放學員心得，然後才接其他模考等內容。
    學校介紹與「為什麼選驅勢」在這裡出現時，頁面下方原本的同樣區塊就不顯示（內容不重複）。
-   課程只寫網站真的有的（課程說明、開課校區），時間、班別、費用請諮詢；不提學生系統 #}
+   課程只寫網站真的有的（課程說明、開課校區），時間、班別、費用請諮詢 #}
 <section class="h-adi" id="intro">
     <div class="wrap h-adi-in">
         <div class="h-adi-school">
@@ -180,6 +180,9 @@
     </div>
 </section>
 {% endif %}
+
+{# 學員線上學習系統：主頁面列全部科目＋英文基礎，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
+{{ system_block([hc] if hero.ad else (courses | list) + [system_basic]) }}
 
 {# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}
 {% if not hero.ad %}

@@ -30,7 +30,8 @@ INFO_PATH = os.path.join(HERE, 'public_site', 'site_info.json')
 TW = timezone(timedelta(hours=8))
 
 # 課程頁：只寫網站上真的有的東西，上課時間、師資、費用由 site_info.json 填
-# points 是學生系統的功能，2026-11 使用者要求官網先不提，課程頁暫不顯示
+# points 是學員線上學習系統（單字學習、模擬考）在該科的功能。2026-11 使用者決定系統上線，官網要介紹：
+# 各科專屬頁面與課程頁只列該科，主頁面列全部（加上 SYSTEM_BASIC 的英文基礎）。只寫系統真的有的東西
 COURSES = [
     {"key": "toeic", "name": "多益", "en": "TOEIC", "title": "多益補習班｜多益全方位課程",
      "lead": "從職場情境單字到聽力閱讀，一步步把多益分數往上拉。",
@@ -62,6 +63,10 @@ COURSES = [
                 "韓檢寫作有 AI 老師批改（模擬，不等於真實考試）"]},
 ]
 COURSE_MAP = {c['key']: c for c in COURSES}
+# 主頁面的學習系統介紹另外列英文基礎（英文零基礎、一般英文，不是對外課程，但系統裡有）
+SYSTEM_BASIC = {"key": "basic", "name": "英文基礎", "en": "BASIC",
+                "points": ["英文零基礎 2,006 字，每個字有 KK 音標，可以正常速度或慢慢聽",
+                           "一般英文 4,032 個日常生活字，和零基礎不重複"]}
 # 迷你模考：多益、雅思、日檢、韓檢（日檢、韓檢不分級，測完給預估級數）
 MOCKS = [("toeic", "多益"), ("ielts", "雅思"), ("jlpt", "日檢"), ("topik", "韓檢")]
 MOCKS_READY = {"toeic", "ielts", "jlpt", "topik"}   # 已經有題目的迷你模考（school_mock.py、public_site/mock/<考試>.json）
@@ -158,7 +163,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
