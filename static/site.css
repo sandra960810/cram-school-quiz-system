@@ -1222,3 +1222,10 @@ html { scroll-behavior: smooth; }
 #courses, #campus, #ai-mock { scroll-margin-top: 112px; }
 @media (max-width: 760px) { .s-brand img { height: 52px; } .s-head .wrap { min-height: 74px; } }
 @media (max-width: 400px) { .s-brand img { height: 46px; } }
+
+/* 課程文案結語區的條列（韓文：實體課程／真人線上直播課程／專屬 AI 學習系統） */
+.h-pg-cparts { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.h-pg-cparts li { padding: 14px 16px; border-radius: 14px; background: #fff; border: 1px solid var(--brand-line); font-size: 14.5px; line-height: 1.75; color: var(--brand-ink-2); }
+.h-pg-cparts b { display: block; margin-bottom: 4px; font-size: 15px; font-weight: 900; color: var(--brand-ink); }
+.h-pg-intro + .h-pg-intro { margin-top: 10px; }
+@media (min-width: 761px) { .h-pg-grid li.is-full .h-pg-parts.is-list { grid-template-columns: 1fr 1fr; } }
