@@ -344,6 +344,8 @@ def conn():
     cols = {r[1] for r in c.execute('PRAGMA table_info(leads)')}
     if 'mock' not in cols:   # 迷你模考的成績摘要（school_mock.py）
         c.execute("ALTER TABLE leads ADD COLUMN mock TEXT DEFAULT ''")
+    if 'mailed' not in cols:   # 通知信寄過沒有（lead_mail.py；沒寄成功的之後會補寄）
+        c.execute("ALTER TABLE leads ADD COLUMN mailed INTEGER DEFAULT 0")
     return c
 
 

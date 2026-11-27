@@ -76,3 +76,10 @@ os.makedirs(os.path.join(HERE, 'instance'), exist_ok=True)
 with open(lead_mail.CONFIG, 'w', encoding='utf-8') as f:
     json.dump(cfg, f, ensure_ascii=False)
 print('測試信已寄出，設定已存檔！請到', ', '.join(to or [user]), '收信確認。')
+
+# 設定成功後，把之前存著但沒寄出通知的名單補寄出去
+waiting = lead_mail.unsent()
+if waiting:
+    print(f'\n之前有 {len(waiting)} 筆名單還沒寄通知，現在補寄...')
+    ok, bad = lead_mail.send_unsent(cfg, info)
+    print(f'補寄完成：寄出 {ok} 筆' + (f'，{bad} 筆失敗（下次有新名單時會再補寄）' if bad else '') + '。')
