@@ -14,15 +14,13 @@
     <div class="h-hero-txt">
         <p class="s-eyebrow lined">AI 線上模考 × 語言檢定</p>
         {# 標題的科技感動態（site.js 的 heroTitle）：進場時每個字像解碼一樣跳字再定格；
-           「多益」每 3 秒換成下一個有迷你模考的考試（雅思、日檢、韓檢），按鈕跟著換；滑鼠停在標題區就暫停。
+           標題固定是多益，不輪播（2026-11 使用者要求）。
            網頁原始碼裡標題固定是「你的多益實力有幾分？」，搜尋引擎看到的不變 #}
-        {% set hero_words = [] %}
-        {% for k, n in mocks if k in mocks_ready %}{% set _ = hero_words.append({'k': k, 'n': n, 'u': url_for('site.mock_take', key=k)}) %}{% endfor %}
-        <h1 class="h-title" data-hero-title data-words='{{ hero_words|tojson|forceescape }}'><span class="h-t-seg">你的</span><span class="h-t-word">多益</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
+        <h1 class="h-title" data-hero-title><span class="h-t-seg">你的</span><span class="h-t-word">多益</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
         <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。<br>先做一份免費 AI 迷你模考，交卷馬上看預估分數。</p>
         {% if 'toeic' in mocks_ready %}
         <div class="h-hero-cta">
-            <a class="s-btn" data-hero-btn href="{{ url_for('site.mock_take', key='toeic') }}"><span><span data-hero-name>多益</span>迷你模考・進入測驗</span></a>
+            <a class="s-btn" href="{{ url_for('site.mock_take', key='toeic') }}"><span>多益迷你模考・進入測驗</span></a>
             <a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
         </div>
         {% endif %}
