@@ -31,7 +31,7 @@ TW = timezone(timedelta(hours=8))
 
 # 課程頁：只寫網站上真的有的東西，上課時間、師資、費用由 site_info.json 填
 # points 是學員線上學習系統（單字學習、模擬考）在該科的功能。2026-11 使用者決定系統上線，官網要介紹：
-# 各科專屬頁面與課程頁只列該科，主頁面列全部（加上 SYSTEM_BASIC 的英文基礎）。只寫系統真的有的東西
+# 各科專屬頁面與課程頁只列該科，主頁面列全部。只寫系統真的有的東西
 COURSES = [
     {"key": "toeic", "name": "多益", "en": "TOEIC", "title": "多益補習班｜多益全方位課程",
      "lead": "從職場情境單字到聽力閱讀，一步步把多益分數往上拉。",
@@ -66,6 +66,15 @@ COURSES = [
      "points": ["1～6 級分級單字共 6,630 字，韓語發音",
                 "TOPIK I、TOPIK II 模擬考各 10 回，算總分與級數",
                 "韓檢寫作有 AI 老師批改（模擬，不等於真實考試）"]},
+    # 零基礎英文（2026-11 使用者要求「加入零基礎英文的區塊，算一個科目」）：系統裡的英文零基礎＋一般英文
+    {"key": "basic", "name": "零基礎英文", "en": "BASIC", "title": "英文補習班｜零基礎英文課程",
+     "hero": ["零基礎英文", "從發音開始學"],
+     "lead": "英文從零開始：發音、KK 音標、生活單字，一步步把基礎打穩。",
+     "kw": ["英文零基礎", "英文補習班", "英文發音", "KK 音標", "成人英文"],
+     "sys": ["零基礎 2,006 字＋KK 音標", "一般英文 4,032 字", "AI 記憶法"],
+     "points": ["英文零基礎 2,006 字，每個字有 KK 音標，可以正常速度或慢慢聽",
+                "一般英文 4,032 個日常生活字，和零基礎不重複",
+                "「背單字神器」拼寫、聽寫、例句填空、選擇題輪流練，答錯的字自動回到不熟區"]},
 ]
 COURSE_MAP = {c['key']: c for c in COURSES}
 # 為什麼選驅勢（2026-11 使用者提供補習班手冊「Trinity is the best choice」，說「這裡面的內容都可以用」）。
@@ -95,11 +104,6 @@ CEFR_EXAMS = [
     ("雅思 IELTS", ["4 以上", "4.5～5 以上", "5.5～6 以上", "7 以上"]),
     ("托福 TOEFL-iBT", ["38 以上", "61 以上", "71 以上", "100 以上"]),
 ]
-# 主頁面的學習系統介紹另外列英文基礎（英文零基礎、一般英文，不是對外課程，但系統裡有）
-SYSTEM_BASIC = {"key": "basic", "name": "英文基礎", "en": "BASIC",
-                "sys": ["零基礎 2,006 字＋KK 音標", "一般英文 4,032 字", "AI 記憶法"],
-                "points": ["英文零基礎 2,006 字，每個字有 KK 音標，可以正常速度或慢慢聽",
-                           "一般英文 4,032 個日常生活字，和零基礎不重複"]}
 # 各科專屬頁面的 CEFR 對照（2026-11 使用者要求「每一科要放每科的 CEFR」）：A1～C2 六格，沒有對照的留空。
 # 多益、雅思、托福照補習班手冊「TRINITY 專業程度分級制度」；日檢照日本語能力試驗官方公告：
 # 2025 年 12 月起合格者的成績單附 CEFR 參考等級（jpf.go.jp 2026-01 公告，依總分）。韓檢官方沒有公布 CEFR 對照，不放
@@ -107,24 +111,59 @@ CEFR_BY_EXAM = {
     "toeic": {"cells": ["", "", "550 以上", "650 以上", "750 以上", "850 以上"], "src": "依驅勢程度分級制度（補習班手冊）"},
     "ielts": {"cells": ["", "", "4 以上", "4.5～5 以上", "5.5～6 以上", "7 以上"], "src": "依驅勢程度分級制度（補習班手冊）"},
     "toefl": {"cells": ["", "", "38 以上", "61 以上", "71 以上", "100 以上"], "src": "依驅勢程度分級制度（補習班手冊）"},
+    "basic": {"cells": ["LEVEL 1 基礎\n自然發音・生活字彙", "LEVEL 2 初級\n生活會話・初級文法", "", "", "", ""],
+              "src": "依驅勢程度分級制度（補習班手冊）：零基礎從 LEVEL 1 開始"},
     "jlpt": {"cells": ["N5 合格", "N4 合格\nN3 95～103 分", "N3 104 分以上\nN2 90～111 分", "N2 112 分以上\nN1 100～141 分", "N1 142 分以上", ""],
              "src": "日本語能力試驗官方：2025 年 12 月起，合格者的成績單依總分附上 CEFR 參考等級"},
 }
 # 學員線上學習系統的 AI 功能（ai_tutor.py 真的有的才寫；2026-11 使用者要求系統介紹簡潔、強調 AI）。
 # 各科的 sys 是短標籤，「AI」開頭的標籤會標成霧藍色
-SYSTEM_AI = [
-    ("AI 錯題解釋", "答錯的題目問 AI 老師，講清楚為什麼錯、陷阱在哪"),
-    ("AI 弱點練習", "依你的錯題統計弱點，出題針對練"),
-    ("AI 學習報告", "整理強弱項與兩週讀書計畫，家長也看得懂"),
-    ("AI 單字記憶法", "口訣、更多例句、常用搭配，一按就有"),
+# 學員線上學習系統的功能（2026-11 使用者要求「每個功能都要寫清楚、排版要融合」）。只寫系統真的有的功能。
+# exams：哪些科目有這個功能（basic＝英文基礎）；detail：各科專屬頁面改用的說明（沒寫就用 text）
+ALL_SYS = {"toeic", "ielts", "jlpt", "topik", "basic"}
+SYSTEM_FEATURES = [
+    {"title": "單字庫", "ai": False, "exams": ALL_SYS,
+     "text": "依主題分類，像滑卡一樣背：右滑熟、左滑不熟，自動分成熟／不熟兩區，可以收藏、跨主題搜尋。多益 5,005、雅思 7,037、日檢 10,097、韓檢 6,630 字。",
+     "detail": {"toeic": "5,005 個多益職場單字依主題分類，像滑卡一樣背：右滑熟、左滑不熟，自動分成熟／不熟兩區，可以收藏、跨主題搜尋。",
+                "ielts": "7,037 個雅思不重複單字分 14 個主題，像滑卡一樣背：右滑熟、左滑不熟，自動分成熟／不熟兩區，可以收藏、跨主題搜尋。",
+                "jlpt": "N5～N1 分級共 10,097 字，附假名讀音與動詞變化，點一下就唸；右滑熟、左滑不熟，平假名、片假名、羅馬拼音都搜得到。",
+                "topik": "1～6 級分級共 6,630 字，韓語發音、附漢字；右滑熟、左滑不熟，自動分成熟／不熟兩區，可以收藏、搜尋。",
+                "basic": "英文零基礎 2,006 字、一般英文 4,032 個日常生活字，右滑熟、左滑不熟，自動分成熟／不熟兩區。"}},
+    {"title": "字根字首", "ai": False, "exams": {"toeic", "ielts", "basic"},
+     "text": "英文單字拆成字首、字根、字尾，看懂一個字就認得同家族的字，系統還會推薦整組一起背。"},
+    {"title": "背單字神器", "ai": False, "exams": ALL_SYS,
+     "text": "只考學過的字，不熟的優先：拼寫、聽寫、例句填空、選意思、選單字五種題型輪流考，答錯的字自動回到不熟區。",
+     "detail": {"jlpt": "只考學過的字，不熟的優先：拼寫、聽寫、例句填空、選擇題輪流考，漢字或假名都算對；沒有日文輸入法也能用羅馬拼音打。",
+                "topik": "只考學過的字，不熟的優先：拼寫、聽寫、例句填空、選擇題輪流考，螢幕上有韓文鍵盤，答錯的字自動回到不熟區。"}},
+    {"title": "線上模擬考", "ai": False, "exams": {"ielts", "jlpt", "topik"},
+     "text": "雅思聽說讀寫各 10 回、日檢 N5～N1 各 10 回、韓檢 TOPIK I／II 各 10 回，題目原創，交卷看正解、中文解析與估計分數。",
+     "detail": {"ielts": "聽力、閱讀、寫作、口說各 10 回原創題，比照雅思電腦考版面；交卷看正解與中文解析，錯題自動收進錯題本。",
+                "jlpt": "N5～N1 各 10 回原創模考，題型比照正式考試；交卷看正解、中文解析、聽解台詞，算出 180 分制估計分數。",
+                "topik": "TOPIK I、TOPIK II 各 10 回原創模考，題型、配分比照正式考試；交卷看正解、中文解析、聽力原文，算總分與級數。"}},
+    {"title": "學發音", "ai": False, "exams": {"basic"},
+     "text": "每個字有 KK 音標，可以正常速度或慢慢聽；也有 -tion、-ed、-ture 等常見字尾的念法。"},
+    {"title": "AI 錯題解釋", "ai": True, "exams": ALL_SYS,
+     "text": "答錯的題目按「問 AI 老師」，說明為什麼錯、正解的根據、陷阱在哪、下次怎麼判斷，再出一題類似的題目讓你馬上練。"},
+    {"title": "AI 弱點練習", "ai": True, "exams": ALL_SYS,
+     "text": "系統統計你各題型的錯誤率、錯題和不熟的字，AI 針對最弱的地方出 8 題練習，交卷馬上批改。"},
+    {"title": "AI 寫作批改", "ai": True, "exams": {"ielts", "topik"},
+     "text": "雅思寫作依官方四項標準給 Band 分數與修改建議；韓檢寫作四題一次批改、給分數與建議。",
+     "detail": {"ielts": "Task 1、Task 2 交卷後，AI 老師依官方四項標準給 Band 分數，指出問題並給修改建議。",
+                "topik": "TOPIK II 寫作四題交卷後一次批改，AI 老師給分數、指出問題並給修改建議。"}},
+    {"title": "AI 口說評分", "ai": True, "exams": {"ielts"},
+     "text": "比照考官流程 Part 1～3 錄音作答，AI 老師依流暢度、字彙、文法、發音四項標準評分並給建議。"},
+    {"title": "AI 學習報告", "ai": True, "exams": ALL_SYS,
+     "text": "把學習紀錄整理成報告：強項、弱項、兩週讀書計畫和給家長的話，可以列印成 PDF。"},
+    {"title": "AI 單字記憶法", "ai": True, "exams": ALL_SYS,
+     "text": "單字卡上按一下，AI 給你口訣、字根拆解、更多例句、常用搭配和容易混淆的字。"},
 ]
 # 迷你模考：多益、雅思、日檢、韓檢（日檢、韓檢不分級，測完給預估級數）
 MOCKS = [("toeic", "多益"), ("ielts", "雅思"), ("jlpt", "日檢"), ("topik", "韓檢")]
 MOCKS_READY = {"toeic", "ielts", "jlpt", "topik"}   # 已經有題目的迷你模考（school_mock.py、public_site/mock/<考試>.json）
-MOCK_BLURB = {"toeic": "聽力＋閱讀 22 題，約 12 分鐘，交卷看預估分數",
-              "ielts": "聽力＋閱讀 20 題，約 15 分鐘，交卷看預估 Band",
-              "jlpt": "不用選級數，N5～N1 共 25 題，交卷看預估級數",
-              "topik": "不用選級數，1～6 級共 24 題，交卷看預估級數"}
+MOCK_BLURB = {"toeic": "聽力＋閱讀 22 題，約 12 分鐘，留資料看預估分數",
+              "ielts": "聽力＋閱讀 20 題，約 15 分鐘，留資料看預估 Band",
+              "jlpt": "不用選級數，N5～N1 共 25 題，留資料看預估級數",
+              "topik": "不用選級數，1～6 級共 24 題，留資料看預估級數"}
 IDENTITIES = ['學生', '上班族', '家長（幫孩子詢問）', '其他']
 CONTACT_TIMES = ['都可以', '平日白天', '平日晚上', '週末']
 PUBLIC_PREFIXES = ('/courses', '/campus', '/contact', '/mock-test', '/privacy', '/thanks')
@@ -214,7 +253,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, system_ai=SYSTEM_AI, cefr_by_exam=CEFR_BY_EXAM, why=WHY, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_features=SYSTEM_FEATURES, cefr_by_exam=CEFR_BY_EXAM, why=WHY, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
@@ -255,7 +294,7 @@ def reviews_for(d, key, n=3):
 
 def hero_course():
     """首頁最上面顯示哪個考試（2026-11 使用者要求：之後下廣告，從多益廣告點進來最上面就是多益，以此類推）。
-    廣告連結加 ?exam=ielts（或 toeic、toefl、jlpt、topik），也認 utm_content／utm_campaign 等於考試代號；
+    廣告連結加 ?exam=ielts（或 toeic、toefl、jlpt、topik、basic），也認 utm_content／utm_campaign 等於考試代號；
     沒帶或看不懂就是多益、沒有下面的學校與課程介紹、學員心得。網址參數不影響 canonical，搜尋引擎只看到一個首頁。"""
     for k in ('exam', 'utm_content', 'utm_campaign'):
         key = (request.args.get(k) or '').strip().lower()
@@ -266,8 +305,8 @@ def hero_course():
 
 @bp.route('/courses')
 def courses():
-    return page('site/courses.html', title='課程介紹｜多益、雅思、托福、日檢、韓檢',
-                description=f"{info()['name']}的語言檢定課程：多益、雅思、托福、日檢 N5～N1、韓檢 TOPIK。",
+    return page('site/courses.html', title='課程介紹｜多益、雅思、托福、日檢、韓檢、零基礎英文',
+                description=f"{info()['name']}的語言課程：多益、雅思、托福、日檢 N5～N1、韓檢 TOPIK，以及零基礎英文。",
                 keywords=[k for c in COURSES for k in c['kw'][:2]],
                 jsonld=[breadcrumb(('課程介紹', abs_url('site.courses')))])
 

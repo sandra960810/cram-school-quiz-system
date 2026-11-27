@@ -4,7 +4,7 @@
     <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › <a href="{{ url_for('site.mock_test') }}">免費迷你模考</a> › {{ data.title }}</div>
     <p class="s-eyebrow"><span class="s-ai-pill">AI</span> 線上模考</p>
     <h1>免費{{ data.title }}</h1>
-    <p class="lead">{{ data.lead or '聽力＋閱讀' }}共 {{ data.total }} 題，限時 {{ data.minutes }} 分鐘。交卷馬上看正確率與{{ data.est_text or '預估分數' }}，再由 AI 依錯題寫弱點診斷。題目全部原創，比照{{ data.name }}題型。</p>
+    <p class="lead">{{ data.lead or '聽力＋閱讀' }}共 {{ data.total }} 題，限時 {{ data.minutes }} 分鐘。交卷馬上看正確率，留下資料就能看{{ data.est_text or '預估分數' }}，還有 AI 依錯題寫的弱點診斷。題目全部原創，比照{{ data.name }}題型。</p>
 </div></section>
 
 <section class="s-sec" id="mk-intro"><div class="wrap">

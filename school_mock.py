@@ -180,7 +180,7 @@ def mock_take(key):
     name, skills = data['name'], data.get('skills_text', '聽力加閱讀')
     return site.page('site/mock_take.html', title=f"免費{data['title']}｜{data['minutes']} 分鐘測{name}程度",
                      description=f"免費{data['title']}：{skills}共 {data['total']} 題、約 {data['minutes']} 分鐘，"
-                                 f"交卷馬上看正確率與{data.get('est_text', '預估分數')}，留下聯絡資料就能拿到完整弱點分析。",
+                                 f"交卷馬上看正確率，留下聯絡資料就能看{data.get('est_text', '預估分數')}與完整弱點分析。",
                      keywords=data.get('keywords') or [f'{name}模擬考', f'{name}線上測驗', f'免費{name}測驗', f'{name}程度測驗'],
                      jsonld=[site.breadcrumb(('免費迷你模考', site.abs_url('site.mock_test')),
                                              (data['title'], site.abs_url('site.mock_take', key=key)))],

@@ -12,13 +12,13 @@
 <section class="h-hero">
     <div class="h-rail" aria-hidden="true"><span>SCROLL TO DISCOVER</span></div>
     <div class="h-hero-txt">
-        <p class="s-eyebrow lined">AI 線上模考 × 語言檢定</p>
+        <p class="s-eyebrow lined">{% if hero.c.key in mocks_ready %}AI 線上模考 × 語言檢定{% else %}AI 學習系統 × {{ hero.c.name }}{% endif %}</p>
         {# 標題的科技感動態（site.js 的 heroTitle）：進場時每個字像解碼一樣跳字再定格；不輪播（2026-11 使用者要求）。
            顯示哪個考試看 hero（school_site.hero_course）：廣告連結帶 ?exam=ielts 等，最上面就是雅思並加上課程簡介；
            沒帶參數就是多益、沒有簡介。原始碼與 canonical 都是首頁，搜尋引擎看到的不變 #}
         {% set hc = hero.c %}
-        <h1 class="h-title" data-hero-title><span class="h-t-seg">你的</span><span class="h-t-word">{{ hc.name }}</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
-        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>做一份免費 AI 迷你模考，交卷馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
+        <h1 class="h-title" data-hero-title>{% if hc.hero %}<span class="h-t-word">{{ hc.hero[0] }}</span><br><span class="h-t-seg">{{ hc.hero[1] }}</span>{% else %}<span class="h-t-seg">你的</span><span class="h-t-word">{{ hc.name }}</span><br><span class="h-t-seg">實力有幾分？</span>{% endif %}<span class="h-t-caret" aria-hidden="true"></span></h1>
+        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>做一份免費 AI 迷你模考，交卷後留下資料，馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
         {# 2026-11 使用者：進入模考的按鈕移到右邊、明顯一點（電腦、手機都是）：次要連結在左、大按鈕靠右 #}
         <div class="h-hero-cta is-main">
             {% if hc.key in mocks_ready %}
@@ -34,7 +34,7 @@
     {# 2026-11 使用者要求：AI 模考卡片的科技感面板（電路線、聲波、分數環）結合到主視覺，取代原本的照片；科目跟著廣告連結換 #}
     <div class="h-hero-art is-tech">
         {# 小字（使用者要求）：實體課・線上課・專屬 AI 學習系統，各科都一樣 #}
-        {{ tech_panel(hc.en, 'AI MOCK TEST · INSTANT SCORE', 7, 270, 'h-hero-tech', 44, ['實體課', '線上課', '專屬 AI 學習系統']) }}
+        {{ tech_panel(hc.en, 'AI MOCK TEST · INSTANT SCORE' if hc.key in mocks_ready else 'AI LEARNING SYSTEM', 7, 270, 'h-hero-tech', 44, ['實體課', '線上課', '專屬 AI 學習系統']) }}
         <span class="t-hud t-hud-corners" aria-hidden="true"></span>
         <svg class="h-seal" viewBox="0 0 160 160" aria-hidden="true">
             <defs><path id="h-seal-path" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1 -120 0"/></defs>
@@ -183,7 +183,7 @@
 {% endif %}
 
 {# 學員線上學習系統：主頁面列全部科目＋英文基礎，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
-{{ system_block([hc] if hero.ad else (courses | list) + [system_basic], system_ai) }}
+{{ system_block([hc] if hero.ad else courses, system_features) }}
 {% if hero.ad %}{{ cefr_block(hc, cefr_by_exam.get(hc.key)) }}{% endif %}
 
 {# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}

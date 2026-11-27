@@ -23,15 +23,21 @@
     <div class="mk-score">
         <div class="mk-big">{{ pct }}<small>%</small></div>
         <div>正確率<br><b>答對 {{ att.correct }} / {{ att.total }} 題</b><br><span class="mk-muted">{{ att.created_at }} 作答</span></div>
-        {% if est %}
+        {# 預估成績要留下資料才顯示（2026-11 使用者要求「要等到送出資料之後再給預測分數」） #}
+        {% if est and unlocked %}
         <div class="mk-est">
             <div class="mk-est-label">{{ est.label }}</div>
             <div class="mk-est-total">{{ est.big }}<small>{{ est.small }}</small></div>
             <div class="mk-est-parts">{% for k in est.chips %}<span>{{ k }}</span>{% endfor %}</div>
         </div>
+        {% elif est %}
+        <a class="mk-est is-locked" href="#unlock">
+            <div class="mk-est-label">{{ est.label }}</div>
+            <div class="mk-est-total">{{ icon('lock') }}<small>留下資料就能看</small></div>
+        </a>
         {% endif %}
     </div>
-    {% if est %}<p class="mk-est-note">{{ est.note }}</p>{% endif %}
+    {% if est and unlocked %}<p class="mk-est-note">{{ est.note }}</p>{% endif %}
 </div></section>
 
 {% if unlocked %}
@@ -88,13 +94,13 @@
     {% for r in rows[:free] %}{{ qcard(r, true) }}{% endfor %}
     <div class="mk-locked">
         {% for r in rows[free:free + 3] %}{{ qcard(r, false) }}{% endfor %}
-        <div class="mk-lock-cover">{{ icon('lock') }} 還有 {{ rows|length - free }} 題解析、各題型正確率與 AI 弱點診斷</div>
+        <div class="mk-lock-cover">{{ icon('lock') }} 還有預估成績、{{ rows|length - free }} 題解析、各題型正確率與 AI 弱點診斷</div>
     </div>
 
     <div class="s-two" style="margin-top:24px" id="unlock">
     <form class="s-form" method="post" action="{{ url_for('site.mock_result', token=att.token) }}#unlock" novalidate>
-        <h2 style="margin-top:0">{{ icon('key') }} 免費看完整解析與 AI 弱點診斷</h2>
-        <p class="sub">填寫以下資料，馬上解鎖全部 {{ att.total }} 題解析、各題型正確率，AI 會依你的錯題寫弱點診斷與個人化進步建議。</p>
+        <h2 style="margin-top:0">{{ icon('key') }} 免費看預估成績、完整解析與 AI 弱點診斷</h2>
+        <p class="sub">填寫以下資料，馬上看{{ est.label if est else '預估成績' }}，解鎖全部 {{ att.total }} 題解析、各題型正確率，AI 會依你的錯題寫弱點診斷與個人化進步建議。</p>
         {% if errors %}<div class="s-err"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
         <input type="hidden" name="csrf" value="{{ csrf }}">
         <div class="hp" aria-hidden="true"><label>網站<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -108,7 +114,7 @@
             {% for c in s.campuses %}<option value="{{ c.name }}" {{ 'selected' if v.campus == c.name }}>{{ c.label }}</option>{% endfor %}</select>
         <label class="consent"><input type="checkbox" name="consent" value="yes" {{ 'checked' if v.consent }}>
             <span>我同意{{ s.name }}依<a href="{{ url_for('site.privacy') }}" target="_blank">個人資料蒐集說明</a>，蒐集我的資料用於提供測驗報告與課程諮詢聯繫。<span class="req">*</span></span></label>
-        <button class="s-btn big" style="width:100%;margin-top:18px">看完整解析與 AI 弱點診斷</button>
+        <button class="s-btn big" style="width:100%;margin-top:18px">看預估成績與 AI 弱點診斷</button>
     </form>
     <aside>
         <div class="s-line-box"><h3>{{ icon('speech') }} 想直接問老師？</h3><p>加官方 LINE，傳你的成績給我們。</p>{{ line_btn(s, 's-btn big line') }}</div>
