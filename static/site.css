@@ -963,3 +963,9 @@ html { scroll-behavior: smooth; }
 .h-cefr1-scale li.is-empty { opacity: .45; }
 .h-cefr1-src { margin: 14px 0 0; font-size: 13px; color: var(--brand-muted); }
 @media (max-width: 760px) { .h-cefr1-scale { grid-template-columns: repeat(3, minmax(0, 1fr)); } .h-cefr1-scale b { font-size: 22px; } .h-cefr1-scale span { font-size: 13px; } }
+/* 主視覺右側改成科技感面板（2026-11 使用者要求把 AI 模考卡片的樣式結合到最上方） */
+.h-hero-art.is-tech { background: var(--brand-tech); }
+.h-hero-art .h-hero-tech { position: absolute; inset: 0; margin: 0; aspect-ratio: auto; clip-path: inset(0); }
+.h-hero-tech .t-label { font-size: 44px; letter-spacing: 2px; }
+.h-hero-tech .t-sub { font-size: 8.5px; }
+.h-hero-art.is-tech::before, .h-hero-art.is-tech::after { display: none; }   /* 面板自己有格線與流光，不再疊照片用的掃描線 */

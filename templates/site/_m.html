@@ -12,15 +12,17 @@
 {%- endmacro %}
 {# 科技感面板（2026-11 使用者：強調 AI「不是放上 AI 字樣，要加點科技感元素」）：
    藍黑底＋細格線、電路走線（有一道光沿線跑）、聲波條、分數環。純裝飾，不放假數字。 #}
-{% macro tech_panel(label, sub='AI MOCK TEST', seed=0) -%}
-<span class="s-tech" aria-hidden="true">
-<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice">
+{% macro tech_panel(label, sub='AI MOCK TEST', seed=0, h=150, cls='', tx=20) -%}
+{# h：畫布高度（首頁主視覺用較高的 270，內容垂直置中，格線鋪滿） #}
+<span class="s-tech {{ cls }}" aria-hidden="true">
+<svg viewBox="0 0 320 {{ h }}" preserveAspectRatio="xMidYMid slice">
   <defs>
     <pattern id="tg{{ seed }}" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" class="t-grid"/></pattern>
     <radialGradient id="tr{{ seed }}" cx="78%" cy="45%" r="55%"><stop offset="0" class="t-glow-a"/><stop offset="1" class="t-glow-b"/></radialGradient>
   </defs>
-  <rect width="320" height="150" fill="url(#tg{{ seed }})"/>
-  <rect width="320" height="150" fill="url(#tr{{ seed }})"/>
+  <rect width="320" height="{{ h }}" fill="url(#tg{{ seed }})"/>
+  <rect width="320" height="{{ h }}" fill="url(#tr{{ seed }})"/>
+  <g transform="translate(0 {{ ((h - 150) / 2)|round|int }})">
   {% set ys = [[84, 104], [80, 108], [88, 102], [82, 110]][seed % 4] %}
   <g class="t-trace">
     <path d="M0 {{ ys[0] }}H{{ 60 + seed * 8 }}l12 -12H190"/>
@@ -30,7 +32,7 @@
   </g>
   <path class="t-pulse" d="M0 {{ ys[0] }}H{{ 60 + seed * 8 }}l12 -12H190"/>
   <g class="t-node"><circle cx="190" cy="{{ ys[0] - 12 }}" r="2.6"/><circle cx="110" cy="{{ ys[1] }}" r="2.6"/><circle cx="198" cy="{{ ys[1] + 10 }}" r="2.6"/><circle cx="236" cy="30" r="2.6"/><circle cx="250" cy="122" r="2.6"/></g>
-  <g class="t-wave" transform="translate(20 136)">
+  <g class="t-wave" transform="translate({{ tx }} 136)">
     {% for h in [5, 10, 15, 8, 18, 12, 7, 14, 9, 4, 11, 16, 6] %}<rect x="{{ loop.index0 * 6 }}" y="{{ -h }}" width="3" height="{{ h }}" rx="1.5" style="animation-delay: {{ (loop.index0 * 0.11)|round(2) }}s"/>{% endfor %}
   </g>
   <g transform="translate(250 75)">
@@ -39,8 +41,9 @@
     <circle r="31" class="t-ring-in"/>
     <g class="t-chip"><path d="M-6 -16v4M0 -16v4M6 -16v4M-6 12v4M0 12v4M6 12v4M-16 -6h4M-16 0h4M-16 6h4M12 -6h4M12 0h4M12 6h4"/><rect x="-12" y="-12" width="24" height="24" rx="4"/><text y="4.5" text-anchor="middle">AI</text></g>
   </g>
-  <text x="20" y="26" class="t-sub">{{ sub }}<tspan class="t-caret">_</tspan></text>
-  <text x="20" y="64" class="t-label">{{ label }}</text>
+  <text x="{{ tx }}" y="26" class="t-sub">{{ sub }}<tspan class="t-caret">_</tspan></text>
+  <text x="{{ tx }}" y="64" class="t-label">{{ label }}</text>
+  </g>
 </svg>
 </span>
 {%- endmacro %}
