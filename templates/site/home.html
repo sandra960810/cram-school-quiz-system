@@ -90,8 +90,8 @@
             <h2 class="h-big">關於{{ s.name }}<br>語言教育中心</h2>
             {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
             <ul class="h-adi-why">
-                {% for t, d, short in why %}
-                <li><span>{{ '%02d' % loop.index }}</span><b>{{ t }}</b><small>{{ short }}</small></li>
+                {% for t, d, short, ic in why %}
+                <li><i class="h-adi-ic" aria-hidden="true">{{ icon(ic) }}</i><b>{{ t }}</b><small>{{ short }}</small></li>
                 {% endfor %}
             </ul>
         </div>
@@ -226,7 +226,7 @@
         <h2 class="h-big">為什麼選{{ s.name }}</h2>
         <div class="h-why-cols">
             {# 內容取自補習班手冊「Trinity is the best choice」（2026-11 使用者提供） #}
-            {% for t, d, short in why %}
+            {% for t, d, short, ic in why %}
             <div><span>{{ '%02d' % loop.index }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>
             {% endfor %}
         </div>
