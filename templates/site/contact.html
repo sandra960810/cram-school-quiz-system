@@ -22,7 +22,7 @@
         </div>
         <label class="f">想了解的課程（可複選）</label>
         <div class="checks">
-            {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if c.key in v.courses }}> {{ c.name }}</label>{% endfor %}
+            {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if c.key in v.courses }}> {{ c.form or c.name }}</label>{% endfor %}
         </div>
         <div class="row2">
             <div><label class="f" for="campus">想上課的校區</label>

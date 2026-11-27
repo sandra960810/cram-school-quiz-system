@@ -52,14 +52,14 @@ COURSES = [
      "kw": ["托福補習班", "托福課程", "TOEFL 補習"],
      "sys": [],
      "points": []},
-    {"key": "jlpt", "name": "日檢", "en": "JLPT", "title": "日文補習班｜日檢 N5～N1 課程",
+    {"key": "jlpt", "name": "日檢", "form": "日文", "en": "JLPT", "title": "日文補習班｜日檢 N5～N1 課程",
      "lead": "從五十音到 N1，依等級學單字、做模擬考。",
      "kw": ["日文補習班", "日檢補習班", "JLPT", "日檢 N1", "日檢 N2", "日語課程"],
      "sys": ["單字 10,097 字", "N5～N1 模考各 10 回", "AI 錯題解釋", "AI 記憶法"],
      "points": ["N5～N1 分級單字共 10,097 字，附假名讀音與動詞變化",
                 "日檢模擬考 N5～N1 各 10 回，交卷看正解、解析與估計分數",
                 "羅馬拼音自動轉假名，沒有日文輸入法也能練打字"]},
-    {"key": "topik", "name": "韓檢", "en": "TOPIK", "title": "韓文補習班｜韓檢 TOPIK 課程",
+    {"key": "topik", "name": "韓檢", "form": "韓文", "en": "TOPIK", "title": "韓文補習班｜韓檢 TOPIK 課程",
      "lead": "TOPIK I、II 一次準備，1～6 級分級學習。",
      "kw": ["韓文補習班", "韓檢補習班", "TOPIK", "韓語課程", "韓檢中級"],
      "sys": ["單字 6,630 字", "TOPIK I／II 模考各 10 回", "AI 批改寫作", "AI 錯題解釋"],
@@ -506,7 +506,7 @@ def save_lead(v, mock=''):
         cur = c.execute("""INSERT INTO leads (created_at, name, phone, email, line_id, identity, courses, campus,
                      contact_time, message, source, consent, mock) VALUES (?,?,?,?,?,?,?,?,?,?,?,1,?)""",
                         (datetime.now(TW).strftime('%Y-%m-%d %H:%M'), v['name'], v['phone'], v['email'], v['line_id'],
-                         v['identity'], '、'.join(COURSE_MAP[k]['name'] for k in v['courses']), v['campus'],
+                         v['identity'], '、'.join(COURSE_MAP[k].get('form') or COURSE_MAP[k]['name'] for k in v['courses']), v['campus'],
                          v['contact_time'], v['message'], v['source'][:200], mock))
         lead_id = cur.lastrowid
         row = dict(c.execute('SELECT * FROM leads WHERE id=?', (lead_id,)).fetchone())

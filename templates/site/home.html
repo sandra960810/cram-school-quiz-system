@@ -68,7 +68,7 @@
             </div>
             <label class="f">想了解的課程（可複選）</label>
             <div class="checks">
-                {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if hero.ad and c.key == hc.key }}> {{ c.name }}</label>{% endfor %}
+                {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if hero.ad and c.key == hc.key }}> {{ c.form or c.name }}</label>{% endfor %}
             </div>
             <div class="h-lead-end">
                 <label class="consent"><input type="checkbox" name="consent" value="yes" required>
