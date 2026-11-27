@@ -753,3 +753,20 @@ html { scroll-behavior: smooth; }
     .s-brand img { height: 44px; }
     .s-brand small { font-size: 10.5px; }
 }
+
+/* 2026-11 使用者：「進入模擬考的按鈕移到右邊，明顯一點，電腦版也調整」。
+   主視覺的按鈕列：次要連結在左、主按鈕靠右；主按鈕放大、右邊黃色箭頭方塊、底下一道黃色邊（平塗，不用模糊陰影） */
+.h-hero-cta.is-main { justify-content: space-between; gap: 18px 24px; max-width: 520px; }
+.h-hero-cta.is-main .h-go { margin-left: auto; padding: 0 0 0 28px; gap: 22px; font-size: 18px; font-weight: 900; letter-spacing: .04em; min-height: 62px;
+    box-shadow: 6px 6px 0 var(--brand-gold); transition: transform .18s, box-shadow .18s, background .15s, color .15s; }
+.h-hero-cta.is-main .h-go i { font-style: normal; align-self: stretch; display: flex; align-items: center; justify-content: center; width: 62px; font-size: 22px;
+    background: var(--brand-gold); color: var(--brand-ink); transition: background .15s; }
+.h-hero-cta.is-main .h-go:hover { background: var(--brand-ink); color: #fff !important; transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--brand-gold); }
+.h-hero-cta.is-main .h-go:hover i { background: var(--brand-ai-glow); }
+@media (prefers-reduced-motion: no-preference) { .h-hero-cta.is-main .h-go i { animation: h-go-nudge 1.8s ease-in-out infinite; } }
+@keyframes h-go-nudge { 0%, 100% { text-indent: 0; } 50% { text-indent: 8px; } }
+@media (max-width: 760px) {
+    .h-hero-cta.is-main { max-width: none; }
+    .h-hero-cta.is-main .h-go { font-size: 16.5px; padding-left: 20px; gap: 16px; min-height: 58px; }
+    .h-hero-cta.is-main .h-go i { width: 54px; }
+}

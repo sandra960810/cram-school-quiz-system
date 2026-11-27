@@ -28,13 +28,14 @@
             <p class="h-hc-links"><a href="{{ url_for('site.course', key=hc.key) }}">看{{ hc.name }}課程內容 <span aria-hidden="true">→</span></a><a href="{{ url_for('site.contact', course=hc.key) }}">免費諮詢 <span aria-hidden="true">→</span></a></p>
         </div>
         {% endif %}
-        <div class="h-hero-cta">
+        {# 2026-11 使用者：進入模考的按鈕移到右邊、明顯一點（電腦、手機都是）：次要連結在左、大按鈕靠右 #}
+        <div class="h-hero-cta is-main">
             {% if hc.key in mocks_ready %}
-            <a class="s-btn" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.name }}迷你模考・進入測驗</span></a>
             <a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            <a class="s-btn h-go" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.name }}迷你模考・進入測驗</span><i aria-hidden="true">→</i></a>
             {% else %}
-            <a class="s-btn" href="{{ url_for('site.contact', course=hc.key) }}"><span>諮詢{{ hc.name }}課程</span></a>
             <a class="h-more" href="#ai-mock">AI 線上模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            <a class="s-btn h-go" href="{{ url_for('site.contact', course=hc.key) }}"><span>諮詢{{ hc.name }}課程</span><i aria-hidden="true">→</i></a>
             {% endif %}
         </div>
     </div>
