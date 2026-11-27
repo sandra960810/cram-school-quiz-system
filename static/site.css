@@ -807,3 +807,10 @@ html { scroll-behavior: smooth; }
     .h-lead-form .h-lead-row > div + div label.f:first-of-type { margin-top: 16px; }
     .h-lead-end .s-btn { width: 100%; }
 }
+
+/* 表單框框都圓角（2026-11 使用者要求）：外框、輸入框、下拉選單、送出按鈕；首頁表單與諮詢頁共用 */
+.s-form { border-radius: 20px; }
+.s-form input[type=text], .s-form input[type=tel], .s-form input[type=email], .s-form select, .s-form textarea { border-radius: 12px; }
+.s-form input:focus, .s-form select:focus, .s-form textarea:focus { border-radius: 12px; }
+.s-form .s-btn { border-radius: 99px; }
+.s-form .consent input { border-radius: 5px; }
