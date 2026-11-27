@@ -116,8 +116,8 @@
         <div class="h-sys-shots" aria-label="學習系統實際畫面">
             {% for sh in shots_on %}
             <figure class="h-shot is-{{ sh.kind }}">
-                <div class="h-shot-frame">{% if sh.kind == 'desk' %}<span class="h-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>{% endif %}<img src="{{ url_for('static', filename='images/site/system/' ~ sh.file) }}" alt="{{ sh.title }}的系統畫面" loading="lazy"></div>
-                <figcaption>{{ sh.title }}</figcaption>
+                <div class="h-shot-frame">{% if sh.kind == 'desk' %}<span class="h-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>{% endif %}<img src="{{ url_for('static', filename='images/site/system/' ~ sh.file) }}" alt="{{ sh.title }}（{{ sh.sub }}）的系統畫面" loading="lazy"></div>
+                <figcaption><b>{{ sh.title }}</b><span>{{ sh.sub }}</span></figcaption>
             </figure>
             {% endfor %}
         </div>

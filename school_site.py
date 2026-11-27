@@ -110,11 +110,11 @@ PROGRAMS = {
 # 學習系統的實際畫面（2026-11 使用者要求「介紹學習系統的地方要放系統預覽圖」）：用示範帳號從系統本身截圖，
 # 圖在 static/images/site/system/。kind：phone 手機畫面、desk 電腦畫面；exams：哪些科目的頁面顯示（主頁面全部顯示）
 SYSTEM_SHOTS = [
-    {"file": "learn.webp", "kind": "phone", "title": "單字庫・滑卡背單字", "exams": {"toeic", "ielts", "basic"}},
-    {"file": "quiz.webp", "kind": "phone", "title": "背單字神器・闖關測驗", "exams": {"toeic", "ielts", "basic"}},
-    {"file": "theme.webp", "kind": "phone", "title": "主題圖鑑・熟／不熟分區", "exams": {"toeic", "ielts", "basic"}},
-    {"file": "reading.webp", "kind": "desk", "title": "雅思閱讀模考・比照電腦考", "exams": {"ielts"}},
-    {"file": "writing.webp", "kind": "desk", "title": "雅思寫作模考・AI 老師批改", "exams": {"ielts"}},
+    {"file": "learn.webp", "kind": "phone", "title": "單字庫", "sub": "滑卡背單字", "exams": {"toeic", "ielts", "basic"}},
+    {"file": "quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "闖關測驗", "exams": {"toeic", "ielts", "basic"}},
+    {"file": "theme.webp", "kind": "phone", "title": "主題圖鑑", "sub": "熟／不熟分區", "exams": {"toeic", "ielts", "basic"}},
+    {"file": "reading.webp", "kind": "desk", "title": "雅思閱讀模考", "sub": "比照電腦考介面", "exams": {"ielts"}},
+    {"file": "writing.webp", "kind": "desk", "title": "雅思寫作模考", "sub": "交卷後 AI 老師批改", "exams": {"ielts"}},
 ]
 
 # （標題, 說明, 短說明, 圖示）圖示是 static/icons.svg 的名稱；各科頁面的學校介紹橫排、每點前面配小圖（2026-11 使用者要求）
