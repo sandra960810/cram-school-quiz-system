@@ -64,11 +64,11 @@
         items.forEach(function (it, i) {
             var tab = it.querySelector('.h-acc-tab');
             tab.addEventListener('click', function () { stopped = true; open(i); schedule(); });
-            /* 滑鼠停一下（0.12 秒）才展開，避免滑過去時一路亂開 */
+            /* 滑鼠停一下（0.06 秒）才展開，避免滑過去時一路亂開 */
             tab.addEventListener('pointerenter', function (e) {
                 if (e.pointerType !== 'mouse' || phone.matches) return;
                 clearTimeout(intent);
-                intent = setTimeout(function () { open(i); }, 120);
+                intent = setTimeout(function () { open(i); }, 60);
             });
             tab.addEventListener('pointerleave', function () { clearTimeout(intent); });
         });
