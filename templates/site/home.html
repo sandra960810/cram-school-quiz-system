@@ -19,15 +19,6 @@
         {% set hc = hero.c %}
         <h1 class="h-title" data-hero-title><span class="h-t-seg">你的</span><span class="h-t-word">{{ hc.name }}</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
         <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>先做一份免費 AI 迷你模考，交卷馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
-        {% if hero.ad %}
-        {# 廣告進來的人先看到這個考試的課程簡介（只寫網站真的有的：課程說明、開課校區；時間費用請諮詢） #}
-        <div class="h-hero-course exam-tone-{{ hc.key }}">
-            <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
-            <p class="h-hc-lead">{{ hc.lead }}</p>
-            <p class="h-hc-meta">{% for x in s.campuses %}{{ x.name }}{{ '、' if not loop.last }}{% endfor %}校區開課，上課時間、班別與費用歡迎諮詢。</p>
-            <p class="h-hc-links"><a href="{{ url_for('site.course', key=hc.key) }}">看{{ hc.name }}課程內容 <span aria-hidden="true">→</span></a><a href="{{ url_for('site.contact', course=hc.key) }}">免費諮詢 <span aria-hidden="true">→</span></a></p>
-        </div>
-        {% endif %}
         {# 2026-11 使用者：進入模考的按鈕移到右邊、明顯一點（電腦、手機都是）：次要連結在左、大按鈕靠右 #}
         <div class="h-hero-cta is-main">
             {% if hc.key in mocks_ready %}
@@ -84,6 +75,66 @@
         </form>
     </div>
 </section>
+
+{% if hero.ad %}
+{# 2026-11 使用者：從各考試的廣告連結進來，表單下面先介紹學校和該課程，再放學員心得，然後才接其他模考等內容。
+   學校介紹與「為什麼選驅勢」在這裡出現時，頁面下方原本的同樣區塊就不顯示（內容不重複）。
+   課程只寫網站真的有的（課程說明、開課校區），時間、班別、費用請諮詢；不提學生系統 #}
+<section class="h-adi" id="intro">
+    <div class="wrap h-adi-in">
+        <div class="h-adi-school">
+            <p class="s-eyebrow lined">ABOUT TRINITY</p>
+            <h2 class="h-big">關於{{ s.name }}<br>語言教育中心</h2>
+            {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
+            <ul class="h-adi-why">
+                {% for no, t, d in [('01', '嚴選師資', '精準考題解析，掌握題型與解題方法'),
+                                    ('02', '量身打造', '依程度與目標規劃，針對弱項提升'),
+                                    ('03', '小班教學', '老師照顧得到每個人，個別學習計劃')] %}
+                <li><span>{{ no }}</span><b>{{ t }}</b><small>{{ d }}</small></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <article class="h-adi-course exam-tone-{{ hc.key }}">
+            <div class="h-adi-photo"><img src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="在會議室一起討論的學員" width="1920" height="1280" loading="lazy"></div>
+            <div class="h-adi-body">
+                <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
+                <h3>{{ hc.name }}課程</h3>
+                <p class="h-adi-lead">{{ hc.lead }}</p>
+                <dl class="h-adi-meta">
+                    <div><dt>開課校區</dt><dd>{% for x in s.campuses %}{{ x.name }}{{ '、' if not loop.last }}{% endfor %}</dd></div>
+                    <div><dt>時間與費用</dt><dd>依程度與目標安排班別，歡迎諮詢</dd></div>
+                </dl>
+                <p class="h-hc-links"><a href="{{ url_for('site.course', key=hc.key) }}">看{{ hc.name }}課程內容 <span aria-hidden="true">→</span></a><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
+            </div>
+        </article>
+    </div>
+</section>
+
+{# 學員心得：只放 site_info.json 的 testimonials（補習班提供、學員同意公開的真實心得），同課程的排前面；沒資料顯示待填 #}
+<section class="h-rev" id="reviews">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">STUDENT REVIEWS</p></div>
+        <h2 class="h-big">學員心得</h2>
+        <div class="h-rev-grid">
+            {% for r in reviews %}
+            <figure class="h-rev-card">
+                <span class="h-rev-q" aria-hidden="true">“</span>
+                <blockquote>{{ r.text }}</blockquote>
+                <figcaption><b>{{ r.name }}</b>{% if r.course_name %}<span>{{ r.course_name }}</span>{% endif %}{% if r.result %}<em>{{ r.result }}</em>{% endif %}</figcaption>
+            </figure>
+            {% else %}
+            {% for i in range(3) %}
+            <figure class="h-rev-card is-todo">
+                <span class="h-rev-q" aria-hidden="true">“</span>
+                <blockquote><span class="todo">待填：學員心得（真實心得，site_info.json 的 testimonials）</span></blockquote>
+                <figcaption><b>學員姓名</b><span>{{ hc.name }}</span><em>成績</em></figcaption>
+            </figure>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
 
 {% if mocks_ready %}
 <section class="h-cats" id="ai-mock">
@@ -176,6 +227,7 @@
     </div>
 </section>
 
+{% if not hero.ad %}
 <section class="h-sec" id="why">
     <div class="wrap">
         <div class="h-sec-head">
@@ -214,4 +266,5 @@
         <span class="t-hud t-hud-tag" aria-hidden="true"><i></i>AI LEARNING SYSTEM</span>
     </div>
 </section>
+{% endif %}
 {% endblock %}

@@ -729,16 +729,13 @@ html { scroll-behavior: smooth; }
    但卡片說明已經寫了題數、分鐘數（使用者要求內容不重複），所以直接拿掉 */
 .h-acc.is-ready .h-acc-tab::after, .h-acc.is-ready:not(.has-open) .h-acc-tab::after { content: none; display: none; }
 
-/* 首頁主視覺的課程簡介：從廣告（?exam=ielts 等）進來才出現（2026-11 使用者要求） */
-.h-hero-course { margin: -14px 0 30px; padding: 16px 20px 14px; max-width: 440px; border-left: 3px solid var(--brand-gold);
-    background: color-mix(in srgb, var(--brand-paper) 70%, transparent); }
+/* 廣告進來的課程介紹共用的眉標與連結（.h-adi-course） */
 .h-hc-tag { margin: 0 0 8px; font-size: 12px; font-weight: 800; letter-spacing: .14em; color: var(--brand-gold-ink); }
 .h-hc-lead { margin: 0 0 6px; font-size: 17px; font-weight: 800; line-height: 1.5; color: var(--brand-ink); }
 .h-hc-meta { margin: 0 0 12px; font-size: 13.5px; line-height: 1.7; color: var(--brand-ink-2); }
 .h-hc-links { margin: 0; display: flex; gap: 22px; flex-wrap: wrap; }
 .h-hc-links a { font-size: 13.5px; font-weight: 800; color: var(--brand-ink); text-decoration: none; border-bottom: 1.5px solid var(--brand-ink); padding-bottom: 2px; }
 .h-hc-links a:hover { color: var(--brand-ai); border-color: var(--brand-ai); }
-@media (max-width: 760px) { .h-hero-course { margin: -10px 0 24px; padding: 14px 16px 12px; } .h-hc-lead { font-size: 16px; } }
 
 /* 2026-11 使用者：「補習班 LOGO 大一點」。頁首的圖騰與名稱放大，頁首跟著加高 */
 .s-head .wrap { min-height: 88px; }
@@ -814,3 +811,46 @@ html { scroll-behavior: smooth; }
 .s-form input:focus, .s-form select:focus, .s-form textarea:focus { border-radius: 12px; }
 .s-form .s-btn { border-radius: 99px; }
 .s-form .consent input { border-radius: 5px; }
+
+/* 2026-11 使用者：從各考試的廣告進來，表單下面先介紹學校與該課程（.h-adi），再放學員心得（.h-rev），然後才是其他模考 */
+#intro, #reviews { scroll-margin-top: 104px; }
+.h-adi { padding: 72px 0; border-bottom: 1px solid var(--brand-line); }
+.h-adi-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.h-adi-school .s-intro { margin: 0 0 26px; font-size: 15.5px; line-height: 1.95; color: var(--brand-ink-2); }
+.h-adi-why { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--brand-ink); }
+.h-adi-why li { display: grid; grid-template-columns: 44px 110px 1fr; align-items: baseline; gap: 0 8px; padding: 14px 0; border-bottom: 1px solid var(--brand-line); color: var(--brand-ink-2); font-size: 14.5px; }
+.h-adi-why span { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; color: var(--brand-gold-ink); }
+.h-adi-why small { font-size: inherit; }
+.h-adi-why b { font-size: 17px; font-weight: 900; color: var(--brand-ink); }
+.h-adi-course { background: var(--brand-paper); border: 1px solid var(--brand-line); border-radius: 20px; overflow: hidden; }
+.h-adi-photo { aspect-ratio: 16 / 8; background: var(--brand-soft); }
+.h-adi-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.h-adi-body { padding: 26px 30px 28px; border-top: 3px solid var(--tone, var(--brand-ink)); }
+.h-adi-body h3 { margin: 0 0 8px; font-size: 30px; font-weight: 900; letter-spacing: -.01em; }
+.h-adi-lead { margin: 0 0 18px; font-size: 16.5px; font-weight: 700; line-height: 1.6; color: var(--brand-ink); }
+.h-adi-meta { margin: 0 0 20px; border-top: 1px solid var(--brand-line); }
+.h-adi-meta > div { display: grid; grid-template-columns: 96px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--brand-line); font-size: 14.5px; }
+.h-adi-meta dt { font-weight: 800; color: var(--brand-ink); }
+.h-adi-meta dd { margin: 0; color: var(--brand-ink-2); }
+
+.h-rev { padding: 64px 0 72px; background: var(--brand-gold-50); border-bottom: 1px solid var(--brand-line); }
+.h-rev-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 8px; }
+.h-rev-card { position: relative; margin: 0; padding: 30px 26px 22px; background: var(--brand-paper); border: 1px solid var(--brand-line); border-radius: 20px; display: flex; flex-direction: column; }
+.h-rev-q { position: absolute; top: 4px; right: 20px; font: 900 72px/1 Georgia, serif; color: var(--brand-gold); opacity: .55; }
+.h-rev-card blockquote { margin: 0 0 20px; flex: 1; font-size: 15.5px; line-height: 1.9; color: var(--brand-ink); }
+.h-rev-card figcaption { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; padding-top: 14px; border-top: 1px solid var(--brand-line); font-size: 14px; }
+.h-rev-card figcaption b { font-weight: 900; }
+.h-rev-card figcaption span { padding: 2px 10px; border-radius: 99px; background: var(--brand-soft); font-size: 12.5px; font-weight: 800; }
+.h-rev-card figcaption em { font-style: normal; font-weight: 800; color: var(--brand-gold-ink); margin-left: auto; }
+.h-rev-card.is-todo figcaption { color: var(--brand-muted, var(--brand-ink-2)); opacity: .6; }
+@media (max-width: 980px) { .h-adi-in { grid-template-columns: 1fr; gap: 36px; } .h-rev-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+    .h-adi { padding: 48px 0; }
+    .h-adi-why li { grid-template-columns: 34px 1fr; }
+    .h-adi-why li { row-gap: 2px; }
+    .h-adi-why li b, .h-adi-why li small { grid-column: 2; }
+    .h-adi-why li { font-size: 14px; }
+    .h-adi-body { padding: 22px 20px 24px; }
+    .h-adi-body h3 { font-size: 26px; }
+    .h-rev { padding: 44px 0 52px; }
+}

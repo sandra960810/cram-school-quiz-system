@@ -11,4 +11,4 @@
 | about-ai.jpg | Pexels，攝影 Antoni Shkraba：https://www.pexels.com/photo/5475750/ | Pexels License（免費商用、不需標示） |
 | class.jpg | Unsplash，攝影 Akson：https://unsplash.com/photos/two-men-and-four-women-meeting-in-office-1K8pIbIrhkQ | Unsplash License（免費商用、不需標示） |
 
-只能放可免費商用的圖片（Unsplash 的 Free Photo，不是 Unsplash+；Pexels 免費照片）。hero.jpg 是首頁主視覺，photo4、photo3 在「學習地圖」兩張卡片上，photo2 是「課程招生中」區塊的背景，about-ai.jpg 是首頁最下面「關於」的照片（2026-11 使用者要科技感，class.jpg 目前沒用到），換圖時更新這張表。
+只能放可免費商用的圖片（Unsplash 的 Free Photo，不是 Unsplash+；Pexels 免費照片）。hero.jpg 是首頁主視覺，photo4、photo3 在「學習地圖」兩張卡片上，photo2 是「課程招生中」區塊的背景，about-ai.jpg 是首頁最下面「關於」的照片（2026-11 使用者要科技感）；class.jpg 是廣告連結進來時首頁「課程介紹」卡片的照片，換圖時更新這張表。

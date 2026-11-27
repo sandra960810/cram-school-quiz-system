@@ -175,19 +175,32 @@ def home():
     towns = '、'.join(c['name'] for c in d['campuses'])
     if not session.get('site_csrf'):          # 首頁主視覺下面直接有諮詢表單（送到 /contact），和諮詢頁共用同一個 csrf
         session['site_csrf'] = secrets.token_hex(16)
+    hero = hero_course()
     return page('site/home.html', csrf=session['site_csrf'],
                 title=f"{d['name']}｜{towns}多益、雅思、托福、日文、韓文補習班",
                 description=f"{d['name']}在{towns}設有校區，提供多益、雅思、托福、日檢、韓檢課程，"
                             f"專屬學習規劃、免費多益程度測驗。免費諮詢、加 LINE 了解課程。",
                 keywords=[f"{c['name']}{k}" for c in d['campuses'][:5] for k in ('補習班', '多益補習班', '英文補習班')]
                          + ['多益補習班', '雅思補習班', '日文補習班', '韓文補習班', '托福補習班'],
-                jsonld=[org_jsonld()], hero=hero_course())
+                jsonld=[org_jsonld()], hero=hero, reviews=reviews_for(d, hero['c']['key']))
+
+
+def reviews_for(d, key, n=3):
+    """學員心得（2026-11 使用者要求：廣告進來的首頁，學校與課程介紹下面放學員心得）。
+    資料在 site_info.json 的 testimonials，只放補習班提供的真實心得，不要自己編；
+    同一個考試的心得排前面，最多 n 則。沒有資料時樣板顯示「待填」。"""
+    rows = [t for t in d.get('testimonials') or [] if isinstance(t, dict) and (t.get('text') or '').strip()]
+    rows.sort(key=lambda t: t.get('course') != key)
+    for t in rows:
+        c = COURSE_MAP.get(t.get('course') or '')
+        t['course_name'] = c['name'] if c else ''
+    return rows[:n]
 
 
 def hero_course():
     """首頁最上面顯示哪個考試（2026-11 使用者要求：之後下廣告，從多益廣告點進來最上面就是多益，以此類推）。
     廣告連結加 ?exam=ielts（或 toeic、toefl、jlpt、topik），也認 utm_content／utm_campaign 等於考試代號；
-    沒帶或看不懂就是多益、不顯示課程簡介。網址參數不影響 canonical，搜尋引擎只看到一個首頁。"""
+    沒帶或看不懂就是多益、沒有下面的學校與課程介紹、學員心得。網址參數不影響 canonical，搜尋引擎只看到一個首頁。"""
     for k in ('exam', 'utm_content', 'utm_campaign'):
         key = (request.args.get(k) or '').strip().lower()
         if key in COURSE_MAP:
