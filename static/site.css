@@ -739,3 +739,17 @@ html { scroll-behavior: smooth; }
 .h-hc-links a { font-size: 13.5px; font-weight: 800; color: var(--brand-ink); text-decoration: none; border-bottom: 1.5px solid var(--brand-ink); padding-bottom: 2px; }
 .h-hc-links a:hover { color: var(--brand-ai); border-color: var(--brand-ai); }
 @media (max-width: 760px) { .h-hero-course { margin: -10px 0 24px; padding: 14px 16px 12px; } .h-hc-lead { font-size: 16px; } }
+
+/* 2026-11 使用者：「補習班 LOGO 大一點」。頁首的圖騰與名稱放大，頁首跟著加高 */
+.s-head .wrap { min-height: 88px; }
+.s-brand { font-size: 26px; gap: 14px; }
+.s-brand img { height: 54px; }
+.s-brand small { font-size: 12px; letter-spacing: .16em; margin-top: 2px; }
+.mk-bar { top: 89px; }
+#courses, #campus, #ai-mock { scroll-margin-top: 104px; }
+@media (max-width: 760px) {
+    .s-head .wrap { min-height: 70px; padding-top: 10px; }
+    .s-brand { font-size: 22px; gap: 11px; }
+    .s-brand img { height: 44px; }
+    .s-brand small { font-size: 10.5px; }
+}
