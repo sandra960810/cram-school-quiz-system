@@ -13,8 +13,8 @@
     --brand-gold: #c4a052;        /* 芥末黃：眉標短線、編號、連結底線、招生區淺底 */
     --brand-gold-50: #f3ecdb;
     --brand-gold-ink: #8a6d2c;
-    --brand-orange: #d97757;      /* 橘：首頁「進入測驗」主按鈕的底色（2026-11 使用者指定要 Claude 的那種橘，橘底黑字） */
-    --brand-orange-2: #e58f72;    /* 滑過時稍亮 */
+    --brand-orange: #c78269;      /* 橘：首頁「進入測驗」主按鈕的底色（2026-11 使用者指定 Claude 的那種橘、橘底黑字，再要求飽和度低一點） */
+    --brand-orange-2: #d49a84;    /* 滑過時稍亮 */
     --brand-ai: #5b7ea6;          /* 霧藍：AI 元素（晶片、AI 標籤、AI 弱點診斷） */
     --brand-ai-glow: #8fb0d4;
     --brand-ai-50: #e7edf3;
