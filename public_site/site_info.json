@@ -194,6 +194,48 @@
       "photo": "images/site/reviews/ielts-3.webp"
     },
     {
+      "course": "ielts",
+      "name": "劉O寰",
+      "result": "雅思 7.5",
+      "text": "如果沒有驅勢英日韓，我絕對考不到如今的分數！",
+      "photo": "images/site/reviews/ielts-7.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "曾O豪",
+      "result": "雅思 7.5",
+      "text": "感謝驅勢貼心開設許多上課時段！",
+      "photo": "images/site/reviews/ielts-8.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "王O城",
+      "result": "雅思 7.5",
+      "text": "從完全沒有希望，到現在已經申請加拿大學校！",
+      "photo": "images/site/reviews/ielts-9.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "吳O瑄",
+      "result": "雅思 7",
+      "text": "驅勢讓我能在最短時間內，快速提升自己的分數！",
+      "photo": "images/site/reviews/ielts-6.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "張O筑",
+      "result": "雅思 6.5",
+      "text": "只花半年雅思就進步一分，成功申請到國外學校！",
+      "photo": "images/site/reviews/ielts-4.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "黃O鈞",
+      "result": "雅思 6.5",
+      "text": "只花五個月，考取雅思理想成績！",
+      "photo": "images/site/reviews/ielts-5.webp"
+    },
+    {
       "course": "toefl",
       "name": "高O生",
       "result": "托福 98 分",
