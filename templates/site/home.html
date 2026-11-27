@@ -106,7 +106,7 @@
             <h3>{{ pg.title }}</h3>
             <p class="h-pg-tags">{% for t in pg.tags %}{% if not loop.first %}<i aria-hidden="true">{{ pg.tag_sep or '＋' }}</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
             {% if pg.sub %}<p class="h-pg-sub">{{ pg.sub }}</p>{% endif %}
-            <p class="h-pg-intro">{{ pg.intro }}</p>
+            {% for para in ([pg.intro] if pg.intro is string else pg.intro) %}<p class="h-pg-intro">{{ para }}</p>{% endfor %}
             <p class="h-hc-links"><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
         </div>
         {% else %}
@@ -144,6 +144,7 @@
             <h3>{{ pg.close_title }}</h3>
             <p class="h-pg-xtags">{% for t in pg.close_tags %}{% if not loop.first %}<i aria-hidden="true">×</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
             {% for para in pg.close %}<p>{{ para }}</p>{% endfor %}
+            {% if pg.close_parts %}<ul class="h-pg-cparts">{% for a, b in pg.close_parts %}<li><b>{{ a }}</b>{{ b }}</li>{% endfor %}</ul>{% endif %}
         </div>
     </div>
     {% endif %}
