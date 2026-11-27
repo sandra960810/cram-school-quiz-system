@@ -898,3 +898,15 @@ html { scroll-behavior: smooth; }
     .h-sys.is-one .h-sys-card li:first-child { border-top: 0; }
     .h-sys.is-one .h-sys-card li::before { margin-left: 0; left: 2px; top: 18px; }
 }
+
+/* 為什麼選驅勢改成手冊的九點（2026-11 使用者提供）：三欄三列，每格上方細線 */
+.h-why-cols > div { border-bottom: 1px solid var(--brand-line); padding: 22px 28px 22px; }
+.h-why-cols > div:nth-child(3n+1) { border-left: none; padding-left: 0; }
+.h-why-cols h3 { font-size: 21px; }
+.h-why-cols p { font-size: 14.5px; line-height: 1.75; }
+.h-adi-why li { grid-template-columns: 44px 150px 1fr; padding: 11px 0; }
+.h-adi-why b { font-size: 16px; }
+@media (max-width: 760px) {
+    .h-why-cols > div, .h-why-cols > div:nth-child(3n+1) { padding: 16px 0; }
+    .h-adi-why li { grid-template-columns: 34px 1fr; }
+}

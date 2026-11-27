@@ -88,10 +88,8 @@
             <h2 class="h-big">關於{{ s.name }}<br>語言教育中心</h2>
             {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
             <ul class="h-adi-why">
-                {% for no, t, d in [('01', '嚴選師資', '精準考題解析，掌握題型與解題方法'),
-                                    ('02', '量身打造', '依程度與目標規劃，針對弱項提升'),
-                                    ('03', '小班教學', '老師照顧得到每個人，個別學習計劃')] %}
-                <li><span>{{ no }}</span><b>{{ t }}</b><small>{{ d }}</small></li>
+                {% for t, d, short in why %}
+                <li><span>{{ '%02d' % loop.index }}</span><b>{{ t }}</b><small>{{ short }}</small></li>
                 {% endfor %}
             </ul>
         </div>
@@ -247,10 +245,9 @@
         </div>
         <h2 class="h-big">為什麼選{{ s.name }}</h2>
         <div class="h-why-cols">
-            {% for no, t, d in [('01', '嚴選師資', '精準考題解析，掌握題型與解題方法'),
-                                ('02', '量身打造', '依程度與目標規劃，針對弱項提升'),
-                                ('03', '小班教學', '老師照顧得到每個人，個別學習計劃')] %}
-            <div><span>{{ no }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>
+            {# 內容取自補習班手冊「Trinity is the best choice」（2026-11 使用者提供） #}
+            {% for t, d, short in why %}
+            <div><span>{{ '%02d' % loop.index }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>
             {% endfor %}
         </div>
     </div>

@@ -63,6 +63,19 @@ COURSES = [
                 "韓檢寫作有 AI 老師批改（模擬，不等於真實考試）"]},
 ]
 COURSE_MAP = {c['key']: c for c in COURSES}
+# 為什麼選驅勢（2026-11 使用者提供補習班手冊「Trinity is the best choice」，說「這裡面的內容都可以用」）。
+# (標題, 說明, 短說明)：主頁面「為什麼選驅勢」用說明，各科專屬頁面的學校介紹用短說明。只寫手冊上有的
+WHY = [
+    ("學員權益履約保證", "與遠東、永豐銀行簽訂 1,600 萬學員權益履約保證，讓學員更安心。", "與遠東、永豐銀行簽訂 1,600 萬履約保證"),
+    ("專業面談程度分級", "除了電腦與紙筆測驗，每個課程都有專業面談，評估口說、字彙與句型，確實分級，不浪費時間與金錢。", "測驗加專業面談，確實分級"),
+    ("學員導向排課系統", "線上排課系統，在家就能選課排課；教師評比與意見反應功能，和學員一起把關教學品質。", "在家就能線上選課、排課"),
+    ("專業師資精緻教學", "專任教師團隊全時間專注於教學準備與課程研發。", "專任教師專注教學與課程研發"),
+    ("循環開課多元課程", "每週超過 100 堂全外語聽說讀寫課程，持續循環開課，隨時都有新班。", "每週超過 100 堂，隨時有新班"),
+    ("口說課程絕對小班", "認證與實力養成的口說班堅持小班制，互動最充分、練習最有效。", "口說班堅持小班制"),
+    ("獨立學員服務部", "為學員提供更即時、更親切的服務。", "更即時、更親切的服務"),
+    ("留遊學、打工代辦", "提供美、加、英、紐、澳、日、韓打工與留遊學的相關資訊與課程。", "美加英紐澳日韓打工與留遊學"),
+    ("官方考場與特約中心", "TOEIC 官方特約中心，TOEFL-iBT 及 IDP IELTS 官方考場。", "TOEIC 特約中心、托福與雅思官方考場"),
+]
 # 主頁面的學習系統介紹另外列英文基礎（英文零基礎、一般英文，不是對外課程，但系統裡有）
 SYSTEM_BASIC = {"key": "basic", "name": "英文基礎", "en": "BASIC",
                 "points": ["英文零基礎 2,006 字，每個字有 KK 音標，可以正常速度或慢慢聽",
@@ -163,7 +176,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, why=WHY, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
