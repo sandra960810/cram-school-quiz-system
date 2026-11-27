@@ -36,12 +36,14 @@
         tick();
     }
 
-    /* 首頁 AI 線上模考的展開卡片：點直條換它展開；每 6 秒自動換下一張，
-       滑鼠移上去、點過、捲出畫面時停住（減少動態時不自動換） */
+    /* 首頁 AI 線上模考的展開卡片（電腦）：滑鼠移到哪個直條就展開哪張（也可以點）；
+       每 6 秒自動換下一張，滑鼠在上面、點過或捲出畫面時停住（減少動態時不自動換）。
+       手機（760px 以下）改成左右滑動的卡片，下面圓點指示第幾張，不自動輪播 */
+    var phone = window.matchMedia('(max-width: 760px)');
     document.querySelectorAll('[data-acc]').forEach(function (acc) {
         var items = Array.prototype.slice.call(acc.querySelectorAll('[data-acc-item]'));
         if (items.length < 2) return;
-        var cur = 0, stopped = false, hover = false, seen = false, AUTO = 6000, timer = null;
+        var cur = 0, stopped = false, hover = false, seen = false, AUTO = 6000, timer = null, intent = null;
         acc.classList.add('is-ready');
         acc.style.setProperty('--auto', AUTO + 'ms');
         function open(i) {
@@ -49,26 +51,54 @@
                 var on = j === i;
                 it.classList.toggle('is-on', on);
                 it.querySelector('.h-acc-tab').setAttribute('aria-expanded', on ? 'true' : 'false');
-                it.querySelector('.h-acc-body').inert = !on;
+                it.querySelector('.h-acc-body').inert = !on && !phone.matches;
             });
             cur = i;
         }
         function schedule() {
             clearTimeout(timer);
-            var go = !reduce && !stopped && !hover && seen;
+            var go = !reduce && !stopped && !hover && seen && !phone.matches;
             acc.classList.toggle('is-auto', go);
             if (go) timer = setTimeout(function () { open((cur + 1) % items.length); schedule(); }, AUTO);
         }
         items.forEach(function (it, i) {
-            it.querySelector('.h-acc-tab').addEventListener('click', function () { stopped = true; open(i); schedule(); });
+            var tab = it.querySelector('.h-acc-tab');
+            tab.addEventListener('click', function () { stopped = true; open(i); schedule(); });
+            /* 滑鼠停一下（0.12 秒）才展開，避免滑過去時一路亂開 */
+            tab.addEventListener('pointerenter', function (e) {
+                if (e.pointerType !== 'mouse' || phone.matches) return;
+                clearTimeout(intent);
+                intent = setTimeout(function () { open(i); }, 120);
+            });
+            tab.addEventListener('pointerleave', function () { clearTimeout(intent); });
         });
         acc.addEventListener('pointerenter', function () { hover = true; schedule(); });
         acc.addEventListener('pointerleave', function () { hover = false; schedule(); });
-        acc.addEventListener('focusin', function () { stopped = true; schedule(); });
+        acc.addEventListener('keyup', function (e) { if (e.key === 'Tab') { stopped = true; schedule(); } });
         if ('IntersectionObserver' in window) {
             new IntersectionObserver(function (es) { seen = es[0].isIntersecting; schedule(); }, { threshold: 0.4 }).observe(acc);
         }
+
+        /* 手機的圓點 */
+        var dots = document.createElement('div');
+        dots.className = 'h-acc-dots';
+        items.forEach(function (it, i) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('aria-label', '第 ' + (i + 1) + ' 張');
+            b.addEventListener('click', function () { acc.scrollTo({ left: it.offsetLeft - acc.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth' }); });
+            dots.appendChild(b);
+        });
+        acc.after(dots);
+        function markDot() {
+            var x = acc.scrollLeft, best = 0, bd = Infinity;
+            items.forEach(function (it, i) { var d = Math.abs(it.offsetLeft - acc.offsetLeft - 16 - x); if (d < bd) { bd = d; best = i; } });
+            Array.prototype.forEach.call(dots.children, function (b, i) { b.classList.toggle('on', i === best); });
+        }
+        acc.addEventListener('scroll', markDot, { passive: true });
+        phone.addEventListener('change', function () { open(cur); schedule(); });
         open(0);
+        markDot();
     });
 
     if (reduce || !('IntersectionObserver' in window)) return;

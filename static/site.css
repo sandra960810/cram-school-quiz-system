@@ -540,9 +540,9 @@ a.s-card:hover { background: #fff; }
    一張展開、其他縮成直條膠囊；site.js 加上 .is-ready 才變成展開式，沒有 JS 時是並排卡片
    ====================================================================== */
 .h-acc { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; padding: 18px; border-radius: 6px;
-    background-color: var(--brand-tech);
-    background-image: linear-gradient(color-mix(in srgb, var(--brand-ai) 14%, transparent) 1px, transparent 1px),
-                      linear-gradient(90deg, color-mix(in srgb, var(--brand-ai) 14%, transparent) 1px, transparent 1px);
+    border: 1px solid var(--brand-line); background-color: var(--brand-bg);
+    background-image: linear-gradient(color-mix(in srgb, var(--brand-ai) 9%, transparent) 1px, transparent 1px),
+                      linear-gradient(90deg, color-mix(in srgb, var(--brand-ai) 9%, transparent) 1px, transparent 1px);
     background-size: 32px 32px; background-position: -1px -1px; }
 .h-acc-item { position: relative; background: var(--brand-paper); border-radius: 6px; overflow: hidden; }
 .h-acc-tab { display: none; }
@@ -563,7 +563,7 @@ a.s-card:hover { background: #fff; }
 .h-acc.is-ready .h-acc-item:nth-child(4n+2) { background: var(--brand-ai-50); }
 .h-acc.is-ready .h-acc-item:nth-child(4n+3) { background: var(--brand-soft); }
 .h-acc.is-ready .h-acc-item:nth-child(4n+4) { background: color-mix(in srgb, var(--brand-ai) 30%, var(--brand-paper)); }
-.h-acc.is-ready .h-acc-item.is-on { flex-grow: 1; border-radius: 6px; background: var(--brand-paper); }
+.h-acc.is-ready .h-acc-item.is-on { flex-grow: 1; border-radius: 6px; background: var(--brand-paper); box-shadow: inset 0 0 0 1px var(--brand-line); }
 .h-acc.is-ready .h-acc-tab { display: flex; position: absolute; inset: 0; z-index: 2; border: 0; margin: 0; background: transparent; cursor: pointer; color: var(--brand-ink);
     flex-direction: column; align-items: center; justify-content: flex-start; gap: 22px; padding: 22px 0 24px; transition: opacity .3s; border-radius: inherit; }
 .h-acc.is-ready .h-acc-tab:hover { box-shadow: inset 0 0 0 1.5px var(--brand-ai), 0 0 22px color-mix(in srgb, var(--brand-ai-glow) 45%, transparent); }
@@ -603,18 +603,35 @@ a.s-card:hover { background: #fff; }
     .h-acc.is-ready .h-acc-txt p { margin-bottom: 14px; }
     .h-acc.is-ready .h-acc-art { max-width: 420px; }
 }
-@media (max-width: 760px) {
-    .h-acc { padding: 10px; }
-    .h-acc.is-ready { flex-direction: column; height: auto; --tab: 54px; }
-    .h-acc.is-ready .h-acc-item { flex: none; height: var(--tab); border-radius: 27px; transition: height .65s cubic-bezier(.7,0,.2,1), border-radius .5s, background-color .5s; }
-    .h-acc.is-ready .h-acc-item.is-on { height: 520px; border-radius: 6px; }
-    .h-acc.is-ready .h-acc-tab { flex-direction: row; padding: 0 22px; }
-    .h-acc-v { writing-mode: horizontal-tb; transform: none; }
-    .h-acc.is-ready .h-acc-body { width: 100%; bottom: auto; height: 520px; padding: 24px 20px 30px; align-content: start; }
-    .h-acc.is-ready .h-acc-txt h3 { font-size: 30px; }
-    .h-acc-bar { left: 20px; right: 20px; bottom: 14px; }
 }
 .h-acc-v em { font: 800 13px/1 inherit; font-family: inherit; font-style: normal; text-orientation: upright; letter-spacing: .3em; color: var(--brand-ink-2); }
 .h-acc-v em { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
 @media (max-width: 980px) { .h-acc.is-ready .h-acc-art { max-width: 340px; } .h-acc.is-ready .h-acc-body { padding-top: 22px; padding-bottom: 30px; gap: 12px; } }
-@media (max-width: 760px) { .h-acc.is-ready .h-acc-item.is-on, .h-acc.is-ready .h-acc-body { height: 430px; } .h-acc.is-ready .h-acc-art { max-width: none; } }
+
+/* 手機：另外設計成左右滑動的卡片（2026-11 使用者要求「手機另外設計」）。
+   每張卡片寬 84%，露出下一張的邊；下面有圓點指示目前第幾張、點圓點可跳過去。不自動輪播 */
+.h-acc-dots { display: none; }
+@media (max-width: 760px) {
+    .h-acc, .h-acc.is-ready { display: flex; flex-direction: row; height: auto; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 16px;
+        padding: 16px; margin: 0 -18px; border-radius: 0; border-left: 0; border-right: 0; scrollbar-width: none; }
+    .h-acc::-webkit-scrollbar { display: none; }
+    .h-acc .h-acc-item, .h-acc.is-ready .h-acc-item, .h-acc.is-ready .h-acc-item.is-on { flex: 0 0 84%; height: auto; border-radius: 6px; scroll-snap-align: start;
+        background: var(--brand-paper); box-shadow: inset 0 0 0 1px var(--brand-line); transition: none; }
+    .h-acc.is-ready .h-acc-tab { display: none; }
+    .h-acc .h-acc-body, .h-acc.is-ready .h-acc-body { position: relative; width: auto; height: auto; opacity: 1; display: flex; flex-direction: column; align-items: stretch; gap: 16px; padding: 22px 20px 24px; }
+    .h-acc.is-ready .h-acc-item:nth-child(n) { background: var(--brand-paper); }
+    .h-acc.is-ready .h-acc-body::after { display: none; }
+    .h-acc-item::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 4px; z-index: 1; }
+    .h-acc-item:nth-child(4n+1)::before { background: var(--brand-gold); }
+    .h-acc-item:nth-child(4n+2)::before { background: var(--brand-ai); }
+    .h-acc-item:nth-child(4n+3)::before { background: color-mix(in srgb, var(--brand-gold) 55%, var(--brand-ai)); }
+    .h-acc-item:nth-child(4n+4)::before { background: var(--brand-ai-glow); }
+    .h-acc.is-ready .h-acc-txt h3, .h-acc-txt h3 { font-size: 28px; }
+    .h-acc-txt h3 br { display: none; }
+    .h-acc-txt p { margin-bottom: 16px; }
+    .h-acc.is-ready .h-acc-art { max-width: none; order: -1; }
+    .h-acc-bar { display: none !important; }
+    .h-acc-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+    .h-acc-dots button { width: 26px; height: 4px; padding: 0; border: 0; border-radius: 2px; background: var(--brand-line); cursor: pointer; transition: width .3s, background .3s; }
+    .h-acc-dots button.on { width: 40px; background: linear-gradient(90deg, var(--brand-ai), var(--brand-gold)); }
+}
