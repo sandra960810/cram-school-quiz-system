@@ -1,11 +1,10 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import line_btn, ai_chip %}
+{% from 'site/_m.html' import line_btn %}
 {% block body %}
 <section class="s-hero"><div class="wrap">
     <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › 免費迷你模考</div>
-    <p class="s-eyebrow">{{ ai_chip() }} AI 線上模考</p>
-    <h1>免費迷你模考：10～15 分鐘測程度</h1>
-    <p class="lead">多益、雅思、日檢、韓檢，交卷馬上看到正確率與預估分數或級數；留下聯絡資料，就能看完整解析，還有 AI 依你的錯題寫的弱點診斷。</p>
+    <h1>免費迷你模考：10 分鐘測程度</h1>
+    <p class="lead">多益、雅思、日檢、韓檢，做完馬上看到分數與錯題，留下聯絡資料就能拿到完整的弱點分析報告。</p>
 </div></section>
 <section class="s-sec"><div class="wrap">
     <div class="s-grid">
@@ -13,13 +12,13 @@
         {% if key in mocks_ready %}
         <a class="s-card tone exam-tone-{{ key }}" href="{{ url_for('site.mock_take', key=key) }}">
             <h3>{{ name }}迷你模考</h3>
-            <p>{{ mock_blurb[key] }}</p>
+            <p>聽力＋閱讀，約 10 分鐘</p>
             <span class="more">開始測驗 →</span>
         </a>
         {% else %}
         <div class="s-card tone exam-tone-{{ key }}">
             <h3>{{ name }}迷你模考</h3>
-            <p>即將推出</p>
+            <p>約 10 分鐘</p>
             <p style="margin-top:10px"><span class="s-badge soon">即將開放</span></p>
         </div>
         {% endif %}
@@ -30,9 +29,9 @@
     <h2>怎麼進行</h2>
     <ol class="s-steps">
         <li><b>選考試</b><br>多益、雅思、日檢或韓檢。</li>
-        <li><b>作答 10～15 分鐘</b><br>題型比照正式考試；日檢、韓檢不用先選級數。</li>
-        <li><b>看成績</b><br>交卷馬上知道正確率和預估分數（日檢、韓檢是預估級數），還有第 1 題的解析。</li>
-        <li><b>AI 弱點診斷</b><br>填姓名、電話、Email，解鎖全部解析、各題型正確率，AI 依錯題寫弱點診斷與兩週讀書建議。</li>
+        <li><b>作答約 10 分鐘</b><br>題型比照正式考試。</li>
+        <li><b>看正確率</b><br>交卷馬上知道答對幾題，還有前幾題的解析。</li>
+        <li><b>拿完整解析與弱點分析</b><br>填姓名、電話、Email，就能看全部解析和各題型的弱點分析。</li>
     </ol>
 </div></section>
 <section class="s-sec"><div class="wrap" style="text-align:center">

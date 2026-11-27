@@ -1,130 +1,135 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn, ai_chip %}
+{% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
-{# 2026-11 使用者給參考圖改版（米白底、黑字、細線、大標題＋大照片、編號列表、卡片列、黑色頁尾），並要求強調 AI 線上模考。
-   順序：主視覺（多益迷你模考入口）→ 課程（編號列表＋學習地圖）→ AI 線上模考四張卡片 → 課程招生中 → 為什麼選驅勢 → 關於。
-   同樣的內容不要重複；首頁不放校區區塊、不提學生系統。 #}
-<section class="h-hero">
-    <div class="wrap h-hero-grid">
-        <div class="h-hero-txt">
-            <p class="s-eyebrow lined">AI 線上模考 × 語言檢定</p>
-            <h1>你的多益<br>實力有幾分？</h1>
-            <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。<br>先做一份免費 AI 迷你模考，交卷馬上看預估分數。</p>
-            {% if 'toeic' in mocks_ready %}
-            <div class="h-hero-cta">
-                <a class="s-btn big" href="{{ url_for('site.mock_take', key='toeic') }}">多益迷你模考・進入測驗</a>
-                <a class="h-more" href="#courses">看課程 <span class="h-more-dot" aria-hidden="true">↓</span></a>
-            </div>
-            <p class="h-hero-more">也可以測：{% for k, n in mocks if k != 'toeic' and k in mocks_ready %}<a href="{{ url_for('site.mock_take', key=k) }}">{{ n }}</a>{{ '・' if not loop.last }}{% endfor %}</p>
-            {% endif %}
-        </div>
-        <div class="h-hero-art">
-            <img src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="在明亮辦公室討論的上班族" width="1920" height="1080" fetchpriority="high">
-            {# 旋轉的圓形字樣（AI 元素） #}
-            <svg class="h-seal" viewBox="0 0 160 160" aria-hidden="true">
-                <defs><path id="h-seal-path" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1 -120 0"/></defs>
-                <g class="h-seal-spin"><text><textPath href="#h-seal-path">AI MOCK TEST · INSTANT SCORE · WEAKNESS REPORT ·</textPath></text></g>
-                <circle cx="80" cy="80" r="34" class="h-seal-core"/>
-                <text x="80" y="91" text-anchor="middle" class="h-seal-ai">AI</text>
-            </svg>
-        </div>
-    </div>
-</section>
-
-<section class="h-split" id="courses">
-    <div class="wrap h-split-grid">
-        <aside class="h-split-side">
-            <img src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy">
-            <h2 class="h-side-title">從零基礎到檢定高分</h2>
-            <ol class="h-path">
-                <li><b>英文零基礎</b>從字母發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。</li>
-                <li><b>檢定衝刺・高分</b>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</li>
-            </ol>
-            <p class="h-side-note">上課時間、班別與費用依程度安排，歡迎諮詢。</p>
-        </aside>
-        <div class="h-rows">
-            {% for c in courses %}
-            <a class="h-row exam-tone-{{ c.key }}" href="{{ url_for('site.course', key=c.key) }}">
-                <span class="h-row-no">{{ '%02d' % loop.index }}</span>
-                <span class="h-row-name">{{ c.name }}<small>{{ c.en }}</small></span>
-                <span class="h-row-lead">{{ c.lead }}</span>
-                {% if c.key in mocks_ready %}<span class="s-ai-pill">AI 模考</span>{% else %}<span></span>{% endif %}
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-{% if mocks_ready %}
-<section class="h-sec" id="ai-mock">
+{# 2026-11 使用者要求：主視覺照片＋標語＋多益迷你模考入口 → 課程 → 招生中（招生圖，photo4）→ 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
+<section class="s-photo-hero">
+    <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high">
     <div class="wrap">
-        <div class="h-sec-head">
-            <h2>{{ ai_chip('h-chip-sm') }} AI 線上模考</h2>
-            <a class="h-link" href="{{ url_for('site.mock_test') }}">看全部迷你模考 <span aria-hidden="true">→</span></a>
-        </div>
-        <p class="h-sec-sub">免費、不用註冊，10～15 分鐘。交卷馬上看正確率與預估成績；留下聯絡資料，AI 會依你的錯題寫弱點診斷與進步建議。</p>
-        <div class="h-cards">
-            {% for k, n in mocks if k in mocks_ready %}
-            <a class="h-card exam-tone-{{ k }}" href="{{ url_for('site.mock_take', key=k) }}">
-                <span class="h-card-top"><b>{{ {'toeic': 'TOEIC', 'ielts': 'IELTS', 'jlpt': 'JLPT', 'topik': 'TOPIK'}.get(k, k|upper) }}</b><span class="s-ai-pill">AI</span></span>
-                <span class="h-card-body"><b>{{ n }}迷你模考</b><small>{{ mock_blurb[k] }}</small></span>
-                <span class="h-card-go" aria-hidden="true">→</span>
-            </a>
+      <div class="s-photo-panel">
+        <p class="s-eyebrow">TRINITY LANGUAGE CENTER</p>
+        <h1>你的多益<br>實力有幾分？</h1>
+        <p class="s-photo-slogan">多年專業經驗，成就語言學習新高度</p>
+        {% if 'toeic' in mocks_ready %}
+        <a class="s-hero-mock" href="{{ url_for('site.mock_take', key='toeic') }}">
+            <span class="s-hero-mock-tag">免費</span>
+            <span class="s-hero-mock-txt"><b>多益迷你模考</b><small>22 題・12 分鐘，交卷馬上看預估分數</small></span>
+            <span class="s-hero-mock-go">進入測驗 {{ icon('target') }}</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+</section>
+
+
+<section class="s-sec s-band" id="courses">
+    <div class="wrap">
+        <p class="s-eyebrow">COURSES</p>
+        <h2>課程總覽</h2>
+        <p class="sub">上課時間、班別與費用依程度安排，歡迎諮詢。</p>
+        <div class="s-table-wrap">
+        <table class="s-ctable">
+            <thead><tr><th>課程</th><th>課程重點</th></tr></thead>
+            <tbody>
+            {% for c in courses %}
+            <tr class="exam-tone-{{ c.key }}">
+                <td><a class="ct-name" href="{{ url_for('site.course', key=c.key) }}">{{ c.name }}</a><small>{{ c.en }}</small></td>
+                <td>{{ c.lead }}</td>
+            </tr>
             {% endfor %}
+            </tbody>
+        </table>
         </div>
     </div>
 </section>
-{% endif %}
 
-<section class="h-sec h-enroll" id="enroll">
-    <div class="wrap h-enroll-grid">
-        <img class="h-enroll-photo" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
-        <div>
+<section class="s-enroll" id="enroll">
+    <img class="s-enroll-bg" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
+    <div class="wrap">
+        <div class="s-enroll-head">
+            {# AI 晶片圖樣（2026-11 使用者要求參考招生圖加一點 AI 元素，不用太多） #}
+            <svg class="s-ai-chip" viewBox="0 0 220 120" aria-hidden="true">
+                <g class="s-ai-lines" fill="none" stroke-width="2" stroke-linecap="round">
+                    <path d="M76 48H40l-12-12H6"/><path d="M76 72H40l-12 12H6"/><path d="M76 60H18"/>
+                    <path d="M144 48h36l12-12h22"/><path d="M144 72h36l12 12h22"/><path d="M144 60h58"/>
+                </g>
+                <g class="s-ai-dots"><circle cx="6" cy="36" r="3"/><circle cx="6" cy="84" r="3"/><circle cx="18" cy="60" r="3"/>
+                    <circle cx="214" cy="36" r="3"/><circle cx="214" cy="84" r="3"/><circle cx="202" cy="60" r="3"/></g>
+                <g class="s-ai-pins" stroke-width="3" stroke-linecap="round">
+                    <path d="M92 22v-10M110 22v-10M128 22v-10M92 98v10M110 98v10M128 98v10"/></g>
+                <rect class="s-ai-body" x="76" y="22" width="68" height="76" rx="12"/>
+                <text class="s-ai-text" x="110" y="70" text-anchor="middle">AI</text>
+            </svg>
             <p class="s-eyebrow">NOW ENROLLING</p>
-            <h2 class="h-big">課程招生中！</h2>
-            <p class="h-enroll-sub">彈性學習 × 高效備考 × 精準提升</p>
-            <div class="h-enroll-list">
-                <div class="is-ai"><h3>{{ ai_chip('h-chip-xs') }} AI 線上多益模考</h3><p>仿真試題・完整模考／AI 即時評分與解析／弱點診斷・個人化進步建議</p></div>
-                <div><h3>{{ icon('users') }} 實體課</h3><p>面對面授課／即時提問與互動／系統化教學・輕鬆吸收</p></div>
-                <div><h3>{{ icon('headphones') }} 線上直播課</h3><p>即時互動直播／彈性上課不受地點限制</p></div>
-            </div>
-            <p class="h-enroll-foot">多元學習方式，搭配 AI 模考，讓你準備更有效！</p>
-            <a class="s-btn big" href="{{ url_for('site.contact') }}">立即報名</a>
+            <h2>課程<em>招生中！</em></h2>
+            <p class="s-enroll-sub">彈性學習 × 高效備考 × 精準提升</p>
+        </div>
+        <div class="s-enroll-cards">
+            <div class="s-enroll-card is-ai"><h3>{{ icon('clipboard') }} AI 線上多益模考</h3>
+                <ul class="s-checks"><li>仿真試題・完整模考</li><li>AI 即時評分與解析</li><li>弱點診斷・個人化進步建議</li></ul></div>
+            <div class="s-enroll-card"><h3>{{ icon('users') }} 實體課</h3>
+                <ul class="s-checks"><li>面對面授課</li><li>即時提問與互動</li><li>系統化教學・輕鬆吸收</li></ul></div>
+            <div class="s-enroll-card"><h3>{{ icon('headphones') }} 線上直播課</h3>
+                <ul class="s-checks"><li>即時互動直播</li><li>彈性上課不受地點限制</li></ul></div>
+        </div>
+        <div class="s-enroll-foot">
+            <p>多元學習方式，搭配 AI 模考，讓你準備更有效！</p>
+            <a class="s-btn big gold" href="{{ url_for('site.contact') }}">立即報名</a>
         </div>
     </div>
 </section>
 
-<section class="h-sec" id="why">
-    <div class="wrap h-why-grid">
-        <div>
-            <p class="s-eyebrow">WHY TRINITY</p>
-            <h2 class="h-big">為什麼選{{ s.name }}</h2>
-            <div class="h-why">
+<section class="s-sec" id="map">
+    <div class="wrap">
+        <p class="s-eyebrow">LEARNING MAP</p>
+        <h2>學習地圖</h2>
+        <p class="sub">零基礎到高階，都有適合你的下一步。</p>
+        <div class="s-map">
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy"><span class="s-map-step">STEP 1</span><h3>英文零基礎</h3><p>從字母發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。</p></div>
+            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="s-sec s-band" id="why">
+    <div class="wrap">
+        <p class="s-eyebrow">WHY TRINITY</p>
+        <h2>為什麼選{{ s.name }}</h2>
+        <div class="s-why-grid">
+            <img class="s-mode-photo" src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="小班討論上課情境" width="1920" height="1177" loading="lazy">
+            <div class="s-why">
                 <div><span>01</span><h3>嚴選師資</h3><p>精準考題解析，掌握題型與解題方法</p></div>
                 <div><span>02</span><h3>量身打造</h3><p>依程度與目標規劃，針對弱項提升</p></div>
                 <div><span>03</span><h3>小班教學</h3><p>老師照顧得到每個人，個別學習計劃</p></div>
             </div>
         </div>
-        <img class="h-why-photo" src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="小班討論上課情境" width="1920" height="1177" loading="lazy">
     </div>
 </section>
 
-<section class="h-about" id="about">
-    <div class="h-about-grid">
-        <div class="h-about-photo">
-            <img src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy">
-            <svg class="h-seal h-seal-about" viewBox="0 0 160 160" aria-hidden="true">
-                <defs><path id="h-seal-path2" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1 -120 0"/></defs>
-                <g class="h-seal-spin"><text><textPath href="#h-seal-path2">TRINITY LANGUAGE · 驅勢英日韓 · TRINITY LANGUAGE ·</textPath></text></g>
-                <image href="{{ url_for('static', filename='images/site/emblem.png') }}" x="52" y="58" width="56" height="42"/>
-            </svg>
+
+<section class="s-sec s-about" id="about">
+    <div class="wrap s-about-grid">
+      <div>
+        <p class="s-eyebrow">ABOUT US</p>
+        <h2>關於{{ s.name }}語言教育中心</h2>
+        {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
+      </div>
+          </div>
+</section>
+
+{% if 'toeic' in mocks_ready %}
+<section class="s-sec s-quiz-cta exam-tone-toeic" id="quiz">
+    <div class="wrap s-quiz-grid">
+        <div>
+            <p class="s-eyebrow">FREE TOEIC TEST</p>
+            <h2>你的多益實力有幾分？</h2>
+            <ul class="s-checks">
+                <li>聽力＋閱讀 22 題，約 12 分鐘，比照多益題型</li>
+                <li>交卷馬上看正確率、解析與弱點分析</li>
+                <li>免費、不用註冊</li>
+            </ul>
         </div>
-        <div class="h-about-txt">
-            <p class="s-eyebrow lined">ABOUT US</p>
-            <h2 class="h-big">關於{{ s.name }}<br>語言教育中心</h2>
-            {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
-            <a class="h-more" href="{{ url_for('site.contact') }}">預約免費諮詢 <span class="h-more-dot" aria-hidden="true">→</span></a>
-        </div>
+        <div class="s-quiz-btn"><a class="s-btn big" href="{{ url_for('site.mock_take', key='toeic') }}">{{ icon('target') }} 開始測驗</a></div>
     </div>
 </section>
+{% endif %}
 {% endblock %}

@@ -6,7 +6,3 @@
 {%- if s.line_url %}<a class="{{ cls }}" href="{{ s.line_url }}" target="_blank" rel="noopener">{{ icon('speech') }} {{ text }}</a>
 {%- else %}<a class="{{ cls }}" aria-disabled="true" title="LINE 連結還沒設定（site_info.json 的 line_url）">{{ icon('speech') }} {{ text }}（待設定）</a>{% endif -%}
 {%- endmacro %}
-{# AI 晶片小圖示（2026-11 使用者要求整個官網要有 AI 元素；只放在真的有 AI 的地方：迷你模考、AI 弱點診斷） #}
-{% macro ai_chip(cls='') -%}
-<svg class="s-chip {{ cls }}" viewBox="0 0 40 40" aria-hidden="true"><g class="s-chip-pins"><path d="M14 4v5M20 4v5M26 4v5M14 31v5M20 31v5M26 31v5M4 14h5M4 20h5M4 26h5M31 14h5M31 20h5M31 26h5"/></g><rect class="s-chip-body" x="9" y="9" width="22" height="22" rx="4"/><text x="20" y="24.5" text-anchor="middle" class="s-chip-txt">AI</text></svg>
-{%- endmacro %}
