@@ -64,7 +64,7 @@ COURSES = [
 ]
 COURSE_MAP = {c['key']: c for c in COURSES}
 # 為什麼選驅勢（2026-11 使用者提供補習班手冊「Trinity is the best choice」，說「這裡面的內容都可以用」）。
-# (標題, 說明, 短說明)：主頁面「為什麼選驅勢」用說明，各科專屬頁面的學校介紹用短說明。只寫手冊上有的
+# (標題, 說明, 短說明)：主頁面「為什麼選驅勢」用說明，各科專屬頁面的學校介紹用短說明。只寫手冊上有的；使用者要求只放前六點
 WHY = [
     ("學員權益履約保證", "與遠東、永豐銀行簽訂 1,600 萬學員權益履約保證，讓學員更安心。", "與遠東、永豐銀行簽訂 1,600 萬履約保證"),
     ("專業面談程度分級", "除了電腦與紙筆測驗，每個課程都有專業面談，評估口說、字彙與句型，確實分級，不浪費時間與金錢。", "測驗加專業面談，確實分級"),
@@ -72,9 +72,23 @@ WHY = [
     ("專業師資精緻教學", "專任教師團隊全時間專注於教學準備與課程研發。", "專任教師專注教學與課程研發"),
     ("循環開課多元課程", "每週超過 100 堂全外語聽說讀寫課程，持續循環開課，隨時都有新班。", "每週超過 100 堂，隨時有新班"),
     ("口說課程絕對小班", "認證與實力養成的口說班堅持小班制，互動最充分、練習最有效。", "口說班堅持小班制"),
-    ("獨立學員服務部", "為學員提供更即時、更親切的服務。", "更即時、更親切的服務"),
-    ("留遊學、打工代辦", "提供美、加、英、紐、澳、日、韓打工與留遊學的相關資訊與課程。", "美加英紐澳日韓打工與留遊學"),
-    ("官方考場與特約中心", "TOEIC 官方特約中心，TOEFL-iBT 及 IDP IELTS 官方考場。", "TOEIC 特約中心、托福與雅思官方考場"),
+]
+# 程度分級制度（2026-11 使用者提供補習班手冊「TRINITY 專業程度分級制度」，要求放在主頁面）。依 CEFR 分 6 級；只寫手冊上有的
+CEFR_LEVELS = [
+    (1, "Fundamental", "基礎", "A1", ["自然發音", "實用生活字彙"]),
+    (2, "Basic 1", "初級", "A2", ["實用生活字彙", "生活會話", "旅遊會話", "初級文法"]),
+    (3, "Basic 2", "初中級", "B1", ["字彙倍增法", "生活會話", "旅遊會話", "片語會話", "主題式閱讀", "初中級文法"]),
+    (4, "Intermediate 1", "中級", "B2", ["字彙倍增法", "Movie", "新聞會話", "國際新聞閱讀", "主題式討論", "寫作", "學術英文（托福／雅思先修班）", "中級文法"]),
+    (5, "Intermediate 2", "中高級", "C1", ["學術英文（托福／雅思先修班）", "主題式討論", "主題式閱讀", "Movie English（影音英文）", "商用英文", "高階文法"]),
+    (6, "Advanced", "高級", "C2", ["TED Talks（影音英文）", "CNN／BBC 新聞時事", "主題式討論", "主題式閱讀", "高階會話", "英文雜誌"]),
+]
+# 各檢定對照：對應 B1、B2、C1、C2（第 3～6 級）
+CEFR_COLS = ["B1", "B2", "C1", "C2"]
+CEFR_EXAMS = [
+    ("全民英檢 GEPT", ["初級", "中級", "中高級", "高級"]),
+    ("多益 TOEIC", ["550 以上", "650 以上", "750 以上", "850 以上"]),
+    ("雅思 IELTS", ["4 以上", "4.5～5 以上", "5.5～6 以上", "7 以上"]),
+    ("托福 TOEFL-iBT", ["38 以上", "61 以上", "71 以上", "100 以上"]),
 ]
 # 主頁面的學習系統介紹另外列英文基礎（英文零基礎、一般英文，不是對外課程，但系統裡有）
 SYSTEM_BASIC = {"key": "basic", "name": "英文基礎", "en": "BASIC",
@@ -176,7 +190,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, why=WHY, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, why=WHY, cefr_levels=CEFR_LEVELS, cefr_cols=CEFR_COLS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)

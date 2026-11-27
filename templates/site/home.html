@@ -253,6 +253,40 @@
     </div>
 </section>
 
+<section class="h-sec h-cefr" id="levels">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">CEFR LEVELS</p></div>
+        <h2 class="h-big">TRINITY 專業程度分級制度</h2>
+        <p class="h-cefr-lead">{{ s.name }}程度分級依據 CEFR（歐洲語言共同參考框架），共分 6 級，入學先測驗加面談，從適合的級數開始上課。</p>
+        {# 內容取自補習班手冊「TRINITY 專業程度分級制度」（2026-11 使用者提供） #}
+        <ol class="h-cefr-steps">
+            {% for n, en, zh, cefr, items in cefr_levels %}
+            <li class="lv{{ n }}">
+                <div class="h-cefr-top"><span class="h-cefr-n">LEVEL {{ n }}</span><b class="h-cefr-c">{{ cefr }}</b></div>
+                <h3>{{ zh }}<small>{{ en }}</small></h3>
+                <ul>{% for it in items %}<li>{{ it }}</li>{% endfor %}</ul>
+            </li>
+            {% endfor %}
+        </ol>
+        <div class="h-cefr-mode" aria-label="教學方式">
+            <span style="--span:3">LEVEL 1～3　雙語教學</span>
+            <span style="--span:3">LEVEL 4～6　全英教學</span>
+            <span class="go">→ 國外語言學校</span>
+        </div>
+        <h3 class="h-cefr-sub">各項檢定對照<small>表格可以左右滑動</small></h3>
+        <div class="h-cefr-tbl" tabindex="0" role="region" aria-label="CEFR 與各項檢定對照表">
+            <table>
+                <thead><tr><th scope="col">CEFR</th>{% for c in cefr_cols %}<th scope="col">{{ c }}</th>{% endfor %}</tr></thead>
+                <tbody>
+                    {% for ex, vals in cefr_exams %}
+                    <tr><th scope="row">{{ ex }}</th>{% for v in vals %}<td>{{ v }}</td>{% endfor %}</tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
 <section class="h-story h-about is-flip" id="about">
     <div class="h-story-txt">
         <p class="s-eyebrow lined">ABOUT US</p>

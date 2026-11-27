@@ -910,3 +910,55 @@ html { scroll-behavior: smooth; }
     .h-why-cols > div, .h-why-cols > div:nth-child(3n+1) { padding: 16px 0; }
     .h-adi-why li { grid-template-columns: 34px 1fr; }
 }
+
+/* ---- 程度分級制度（CEFR，主頁面）：六級做成往上的階梯，下面是教學方式與檢定對照 ---- */
+.h-cefr-lead { max-width: 760px; color: var(--brand-ink-2); margin: 4px 0 28px; }
+.h-cefr-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); align-items: end; gap: 0; }
+.h-cefr-steps > li { border-top: 2px solid var(--brand-ink); border-left: 1px solid var(--brand-line); padding: 14px 16px 18px; background: #fff; }
+.h-cefr-steps > li:first-child { border-left: none; }
+.h-cefr-steps > li.lv1 { min-height: 250px; } .h-cefr-steps > li.lv2 { min-height: 280px; }
+.h-cefr-steps > li.lv3 { min-height: 320px; } .h-cefr-steps > li.lv4 { min-height: 390px; }
+.h-cefr-steps > li.lv5 { min-height: 420px; } .h-cefr-steps > li.lv6 { min-height: 450px; }
+.h-cefr-steps > li.lv4, .h-cefr-steps > li.lv5, .h-cefr-steps > li.lv6 { background: var(--brand-gold-50); }
+.h-cefr-top { display: flex; justify-content: space-between; align-items: baseline; }
+.h-cefr-n { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; color: var(--brand-gold-ink); }
+.h-cefr-c { font-size: 28px; font-weight: 900; line-height: 1; color: var(--brand-ink); }
+.h-cefr-steps h3 { margin: 10px 0 10px; font-size: 21px; font-weight: 900; }
+.h-cefr-steps h3 small { display: block; font-size: 12px; font-weight: 600; color: var(--brand-ink-2); letter-spacing: .02em; margin-top: 2px; }
+.h-cefr-steps ul { margin: 0; padding: 0; list-style: none; font-size: 13.5px; line-height: 1.55; color: var(--brand-ink-2); }
+.h-cefr-steps ul li { padding: 3px 0; border-top: 1px dashed var(--brand-line); }
+.h-cefr-mode { display: grid; grid-template-columns: repeat(6, 1fr) auto; margin-top: 10px; font-size: 13.5px; font-weight: 700; }
+.h-cefr-mode span { grid-column: span var(--span, 1); padding: 10px 16px; border: 1px solid var(--brand-ink); text-align: center; }
+.h-cefr-mode span + span { border-left: none; }
+.h-cefr-mode span:nth-child(2) { background: var(--brand-ink); color: #fff; }
+.h-cefr-mode .go { border: none; color: var(--brand-gold-ink); padding-right: 0; white-space: nowrap; }
+.h-cefr-sub { margin: 44px 0 12px; font-size: 22px; font-weight: 900; }
+.h-cefr-tbl { overflow-x: auto; }
+.h-cefr-tbl table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px; }
+.h-cefr-tbl th, .h-cefr-tbl td { padding: 13px 16px; border-bottom: 1px solid var(--brand-line); text-align: center; }
+.h-cefr-tbl thead th { border-top: 2px solid var(--brand-ink); border-bottom: 1px solid var(--brand-ink); font-size: 20px; font-weight: 900; }
+.h-cefr-tbl thead th:first-child, .h-cefr-tbl tbody th { text-align: left; font-size: 14px; font-weight: 800; color: var(--brand-ink-2); }
+.h-cefr-tbl td { font-weight: 700; }
+.h-cefr-tbl tbody tr:hover td, .h-cefr-tbl tbody tr:hover th { background: var(--brand-gold-50); }
+@media (max-width: 1100px) {
+    .h-cefr-steps { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+    .h-cefr-steps > li { min-height: 0 !important; }
+    .h-cefr-steps > li.lv4 { border-left: none; }
+    .h-cefr-mode { grid-template-columns: 1fr 1fr auto; }
+    .h-cefr-mode span { grid-column: span 1; }
+}
+@media (max-width: 760px) {
+    .h-cefr-steps { grid-template-columns: 1fr 1fr; }
+    .h-cefr-steps > li:nth-child(odd) { border-left: none; }
+    .h-cefr-steps > li.lv4 { border-left: 1px solid var(--brand-line); }
+    .h-cefr-steps h3 { font-size: 18px; }
+    .h-cefr-c { font-size: 22px; }
+    .h-cefr-mode { grid-template-columns: 1fr 1fr; }
+    .h-cefr-mode .go { grid-column: 1 / -1; text-align: center; padding-top: 8px; }
+    .h-cefr-tbl table { font-size: 14px; }
+}
+.h-cefr-sub small { display: none; margin-left: 10px; font-size: 12.5px; font-weight: 600; color: var(--brand-ink-2); }
+@media (max-width: 760px) {
+    .h-cefr-sub small { display: inline; }
+    .h-cefr-tbl thead th:first-child, .h-cefr-tbl tbody th { position: sticky; left: 0; background: var(--brand-bg); z-index: 1; box-shadow: 1px 0 0 var(--brand-line); }
+}
