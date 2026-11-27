@@ -724,3 +724,7 @@ a.s-card:hover { background: #fff; }
 html { scroll-behavior: smooth; }
 #courses, #campus, #ai-mock { scroll-margin-top: 90px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* 2026-11 使用者：卡片右上角的虛線圓圈「拿掉或改得有意義一點」。本來想改成題數與時間，
+   但卡片說明已經寫了題數、分鐘數（使用者要求內容不重複），所以直接拿掉 */
+.h-acc.is-ready .h-acc-tab::after, .h-acc.is-ready:not(.has-open) .h-acc-tab::after { content: none; display: none; }
