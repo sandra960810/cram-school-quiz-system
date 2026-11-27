@@ -18,7 +18,7 @@
            沒帶參數就是多益、沒有簡介。原始碼與 canonical 都是首頁，搜尋引擎看到的不變 #}
         {% set hc = hero.c %}
         <h1 class="h-title" data-hero-title><span class="h-t-seg">你的</span><span class="h-t-word">{{ hc.name }}</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
-        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>先做一份免費 AI 迷你模考，交卷馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
+        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>做一份免費 AI 迷你模考，交卷馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
         {# 2026-11 使用者：進入模考的按鈕移到右邊、明顯一點（電腦、手機都是）：次要連結在左、大按鈕靠右 #}
         <div class="h-hero-cta is-main">
             {% if hc.key in mocks_ready %}
