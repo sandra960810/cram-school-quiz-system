@@ -153,7 +153,7 @@ for _pg in PROGRAMS.values():
                        for f in _pg["features"]]
 
 # 學習系統的實際畫面（2026-11 使用者要求「介紹學習系統的地方要放系統預覽圖」）：用示範帳號從系統本身截圖，
-# 圖在 static/images/site/system/。kind：phone 手機畫面、desk 電腦畫面；exams：哪些科目的頁面顯示（主頁面全部顯示）
+# 圖在 static/images/site/system/（2026-11 系統改成官網風格後全部重截；手機圖 420×798、電腦圖 1100×688）。kind：phone 手機畫面、desk 電腦畫面；exams：哪些科目的頁面顯示（主頁面全部顯示）
 SYSTEM_SHOTS = [
     # 每一科放自己那一科的系統畫面（2026-11 使用者要求「每一科的預覽圖都要不一樣、要符合系統」）；
     # exams 是要出現在哪些頁面，main＝主頁面（沒帶 ?exam=），主頁面每科挑一張
