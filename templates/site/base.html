@@ -31,6 +31,10 @@
             {# 2026-11 使用者：最上面放各科的主頁入口。各科主頁＝首頁的該考試版本（/?exam=…：主視覺換成該考試、表單先勾好、
                下面接學校與課程介紹、學員心得），和廣告連結進來看到的一樣 #}
             {% set cur_exam = (request.args.get('exam') or '').lower() if request.endpoint == 'site.home' else '' %}
+            {# 2026-11 使用者要求加「首頁」入口（主頁面＝沒帶考試參數的首頁） #}
+            {% set at_home = request.endpoint == 'site.home' and not cur_exam %}
+            <a class="s-nav-exam{{ ' on' if at_home }}" href="{{ url_for('site.home') }}"{{ ' aria-current="page"'|safe if at_home }}>首頁</a>
+            <span class="s-nav-sep" aria-hidden="true"></span>
             {% for c in courses %}<a class="s-nav-exam{{ ' on' if cur_exam == c.key }}" href="{{ url_for('site.home', exam=c.key) }}"{{ ' aria-current="page"'|safe if cur_exam == c.key }}>{{ c.name }}</a>{% endfor %}
             <span class="s-nav-sep" aria-hidden="true"></span>
             <a href="{{ '#courses' if request.endpoint == 'site.home' and not cur_exam else url_for('site.home') ~ '#courses' }}">課程介紹</a>
