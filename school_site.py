@@ -79,6 +79,34 @@ COURSES = [
 COURSE_MAP = {c['key']: c for c in COURSES}
 # 為什麼選驅勢（2026-11 使用者提供補習班手冊「Trinity is the best choice」，說「這裡面的內容都可以用」）。
 # (標題, 說明, 短說明)：主頁面「為什麼選驅勢」用說明，各科專屬頁面的學校介紹用短說明。只寫手冊上有的；使用者要求只放前六點，第七點是線上直播課（原本在「課程招生中」，該區塊使用者要求拿掉）
+# 各科課程介紹（使用者提供的文案，照原文放；2026-11 使用者先給多益）。有的科目在各科頁面（?exam=）的「關於驅勢」右邊與下方顯示，
+# 取代原本的照片課程卡。其他科目之後照同樣格式加
+PROGRAMS = {
+    "toeic": {
+        "title": "多益 TOEIC 700-900 高分攻略",
+        "tags": ["實體課", "線上直播", "專屬AI 學習系統"],
+        "sub": "從英文基礎建立到多益高分，打造完整的多益學習計畫！",
+        "intro": "驅勢英日韓結合專業師資、系統化教學、線上單字庫及 AI 多益模考系統，讓學員不只學會解題技巧，更能有效提升英文實力，朝多益 650、750、900 分的目標邁進！",
+        "feat_title": "八大多益課程特色",
+        "features": [
+            ("完整分級教學，循序漸進提升實力", "依照學員的英文程度及目標分數，規劃適合的學習課程，從基礎文法、核心字彙到進階解題技巧，有系統地建立多益應考能力。", [], "layers"),
+            ("專業多益師資，掌握高分解題技巧", "透過老師的專業教學，掌握常考題型、出題方向、關鍵字辨識及時間分配技巧，提升答題速度與正確率。", [], "teacher"),
+            ("多益 Part 1～7 完整題型訓練", "全面強化聽力與閱讀能力，熟悉各類題型及解題策略。",
+             [("Part 1", "照片描述"), ("Part 2", "應答問題"), ("Part 3", "簡短對話"), ("Part 4", "簡短獨白"),
+              ("Part 5", "句子填空"), ("Part 6", "段落填空"), ("Part 7", "閱讀理解")], "clipboard"),
+            ("多益核心 5,000 字彙，建立高分基礎", "結合商務、職場、旅遊、金融、行銷及日常生活等多益常考主題，補充高頻單字、同義詞、近義詞及常用搭配詞，提升字彙理解與應用能力。", [], "library"),
+            ("多益必考文法與閱讀技巧", "系統化整理多益常考文法，包含詞性、時態、分詞、關係子句及各類句型，搭配長篇閱讀訓練，提升文章理解與快速解題能力。", [], "book-open"),
+            ("AI 智慧多益模考系統", "結合線上模擬測驗與刷題練習，熟悉多益考試節奏，透過反覆練習掌握自身學習狀況，針對弱項加強訓練，讓每一次練習更有方向。", [], "bot"),
+            ("線上英文單字庫，隨時隨地學習", "課堂學習搭配線上單字庫，善用通勤及零碎時間累積字彙量，讓課前預習、課後複習更有效率。", [], "swipe"),
+            ("實體課程＋真人線上直播，彈性學習", "提供實體教室及真人線上直播課程，配合上班族與學生的生活時間，讓學習不受地點限制，兼顧工作、生活與英文進修。", [], "monitor"),
+        ],
+        "close_title": "不只是多益補習，更是完整的多益高分學習方案",
+        "close_tags": ["英文實力提升", "多益核心題型解析", "專屬 AI 智慧學習系統"],
+        "close": ["從課堂上的英文實力養成、多益核心題型解析與高分解題技巧，到課後自主複習、AI 智慧刷題及考前實戰模擬，打造完整且系統化的學習計畫。",
+                  "不只掌握多益應試技巧，更能全面提升英文實力，讓每一次學習都有效累積，穩步邁向多益高分目標！"],
+    },
+}
+
 # （標題, 說明, 短說明, 圖示）圖示是 static/icons.svg 的名稱；各科頁面的學校介紹橫排、每點前面配小圖（2026-11 使用者要求）
 WHY = [
     ("學員權益履約保證", "與遠東、永豐銀行簽訂 1,600 萬學員權益履約保證，讓學員更安心。", "與遠東、永豐銀行簽訂 1,600 萬履約保證", "shield"),
@@ -254,7 +282,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_features=SYSTEM_FEATURES, cefr_by_exam=CEFR_BY_EXAM, why=WHY, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_features=SYSTEM_FEATURES, cefr_by_exam=CEFR_BY_EXAM, why=WHY, programs=PROGRAMS, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)

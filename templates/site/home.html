@@ -95,6 +95,18 @@
                 {% endfor %}
             </ul>
         </div>
+        {% set pg = programs.get(hc.key) %}
+        {% if pg %}
+        {# 使用者提供的課程介紹文案（school_site.PROGRAMS），取代照片課程卡 #}
+        <div class="h-pg-head exam-tone-{{ hc.key }}">
+            <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
+            <h3>{{ pg.title }}</h3>
+            <p class="h-pg-tags">{% for t in pg.tags %}{% if not loop.first %}<i aria-hidden="true">＋</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
+            <p class="h-pg-sub">{{ pg.sub }}</p>
+            <p class="h-pg-intro">{{ pg.intro }}</p>
+            <p class="h-hc-links"><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
+        </div>
+        {% else %}
         <article class="h-adi-course exam-tone-{{ hc.key }}">
             <div class="h-adi-photo"><img src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="在會議室一起討論的學員" width="1920" height="1280" loading="lazy"></div>
             <div class="h-adi-body">
@@ -108,7 +120,28 @@
                 <p class="h-hc-links"><a href="{{ url_for('site.course', key=hc.key) }}">看{{ hc.name }}課程內容 <span aria-hidden="true">→</span></a><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
             </div>
         </article>
+        {% endif %}
     </div>
+    {% if pg %}
+    <div class="wrap h-pg exam-tone-{{ hc.key }}">
+        <h3 class="h-pg-ft">{{ pg.feat_title }}</h3>
+        <ol class="h-pg-grid">
+            {% for t, d, parts, ic in pg.features %}
+            <li class="{{ 'is-wide' if parts }}">
+                <div class="h-pg-top"><span class="h-pg-n">{{ '%02d' % loop.index }}</span><i class="h-adi-ic" aria-hidden="true">{{ icon(ic) }}</i></div>
+                <h4>{{ t }}</h4>
+                {% if parts %}<ul class="h-pg-parts">{% for a, b in parts %}<li><b>{{ a }}</b>{{ b }}</li>{% endfor %}</ul>{% endif %}
+                <p>{{ d }}</p>
+            </li>
+            {% endfor %}
+        </ol>
+        <div class="h-pg-close">
+            <h3>{{ pg.close_title }}</h3>
+            <p class="h-pg-xtags">{% for t in pg.close_tags %}{% if not loop.first %}<i aria-hidden="true">×</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
+            {% for para in pg.close %}<p>{{ para }}</p>{% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </section>
 
 {# 學員心得：只放 site_info.json 的 testimonials（補習班提供、學員同意公開的真實心得），同課程的排前面；沒資料顯示待填 #}
