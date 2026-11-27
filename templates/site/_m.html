@@ -42,19 +42,8 @@
     <g class="t-chip"><path d="M-6 -16v4M0 -16v4M6 -16v4M-6 12v4M0 12v4M6 12v4M-16 -6h4M-16 0h4M-16 6h4M12 -6h4M12 0h4M12 6h4"/><rect x="-12" y="-12" width="24" height="24" rx="4"/><text y="4.5" text-anchor="middle">AI</text></g>
   </g>
   {% if chips %}
-  {# 主視覺用：上面一排標籤（像系統模組），中間用 × 隔開；大字用等寬字＋外框殘影，下面一行系統狀態 #}
-  {% set ns = namespace(x=tx) %}
-  <g class="t-chips">
-    {% for c in chips %}
-    {% set ns2 = namespace(w=14) %}{% for ch in c %}{% set ns2.w = ns2.w + (3 if ch == ' ' else (4.8 if ch.isascii() else 8.6)) %}{% endfor %}{% set w = ns2.w %}
-    {% if not loop.first %}<text x="{{ (ns.x + 6)|round(1) }}" y="19.6" class="t-chip-x" text-anchor="middle">×</text>{% set ns.x = ns.x + 12 %}{% endif %}
-    <g transform="translate({{ ns.x|round(1) }} 8)">
-      <path class="t-chip-box" d="M0 0H{{ (w - 4)|round(1) }}l4 4V16H0Z"/>
-      <text x="7" y="11.6" class="t-chip-txt">{{ c }}</text>
-    </g>
-    {% set ns.x = ns.x + w %}
-    {% endfor %}
-  </g>
+  {# 主視覺用：上面一行白字，項目中間用 × 隔開（使用者要求不要框框、整行白色）；大字用等寬字＋外框殘影，下面一行系統狀態 #}
+  <text x="{{ tx }}" y="22" class="t-chip-txt">{% for c in chips %}{% if not loop.first %}<tspan class="t-chip-x" dx="6">×</tspan><tspan dx="6">{{ c }}</tspan>{% else %}<tspan>{{ c }}</tspan>{% endif %}{% endfor %}</text>
   <text x="{{ tx + 1.5 }}" y="{{ 71.5 }}" class="t-label-ghost">{{ label }}</text>
   <text x="{{ tx }}" y="70" class="t-label t-label-mono">{{ label }}</text>
   <text x="{{ tx }}" y="96" class="t-status">{{ sub }}<tspan class="t-caret">_</tspan></text>
