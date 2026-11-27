@@ -720,3 +720,8 @@ a.s-card:hover { background: #fff; }
     .h-acc.is-ready .h-acc-txt p { font-size: 15px; margin-bottom: 16px; }
     .h-acc-bar { display: none !important; }
 }
+
+/* 頁首「課程介紹」直接捲到首頁的課程區（2026-11 使用者要求，不跳到 /courses）；留出固定頁首的高度 */
+html { scroll-behavior: smooth; }
+#courses, #campus, #ai-mock { scroll-margin-top: 90px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
