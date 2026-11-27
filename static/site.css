@@ -395,3 +395,38 @@ a.s-card:hover { background: #fff; }
     .s-two, .s-form .row2 { grid-template-columns: 1fr; }
     .s-table th { width: 96px; }
 }
+
+/* 科技感面板（_m.html 的 tech_panel）：藍黑底、霧藍電路與聲波、芥末黃分數環，顏色都低彩度 */
+.s-tech { display: block; position: relative; aspect-ratio: 320 / 150; margin: 6px 0; background: var(--brand-tech); overflow: hidden; }
+.s-tech svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.s-tech .t-grid { fill: none; stroke: var(--brand-ai); stroke-opacity: .16; stroke-width: .6; }
+.s-tech .t-glow-a { stop-color: var(--brand-ai); stop-opacity: .32; }
+.s-tech .t-glow-b { stop-color: var(--brand-ai); stop-opacity: 0; }
+.s-tech .t-trace path { fill: none; stroke: var(--brand-ai-glow); stroke-opacity: .45; stroke-width: 1.2; }
+.s-tech .t-pulse { fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 18 400; stroke-dashoffset: 0; opacity: .85; }
+.s-tech .t-node circle { fill: var(--brand-tech); stroke: var(--brand-ai-glow); stroke-width: 1.2; }
+.s-tech .t-wave rect { fill: var(--brand-ai-glow); opacity: .55; transform-box: fill-box; transform-origin: bottom; }
+.s-tech .t-ring-bg { fill: none; stroke: var(--brand-ai); stroke-opacity: .25; stroke-width: 3; }
+.s-tech .t-ring { fill: none; stroke: var(--brand-gold); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 68 100; transform: rotate(-90deg); opacity: .9; }
+.s-tech .t-ring-in { fill: none; stroke: var(--brand-ai-glow); stroke-opacity: .35; stroke-width: 1; stroke-dasharray: 2 4; }
+.s-tech .t-chip path { stroke: var(--brand-ai-glow); stroke-width: 1.6; stroke-linecap: round; }
+.s-tech .t-chip rect { fill: var(--brand-tech); stroke: var(--brand-ai-glow); stroke-width: 1.4; }
+.s-tech .t-chip text { fill: #fff; font: 900 10px/1 Arial, sans-serif; }
+.s-tech .t-sub { fill: var(--brand-ai-glow); font: 700 9.5px/1 Consolas, "Courier New", monospace; letter-spacing: 1.6px; }
+.s-tech .t-label { fill: #fff; font: 900 30px/1 Arial, sans-serif; letter-spacing: 1px; }
+@media (prefers-reduced-motion: no-preference) {
+    .s-tech .t-pulse { animation: t-run 3.2s linear infinite; }
+    .s-tech .t-wave rect { animation: t-eq 1.6s ease-in-out infinite alternate; }
+    .s-tech .t-ring { animation: t-spin 9s linear infinite; transform-origin: 0 0; }
+    .s-tech .t-ring-in { animation: t-spin 14s linear infinite reverse; transform-origin: 0 0; }
+    .s-tech .t-caret { animation: s-ai-blink 1s steps(1) infinite; }
+}
+@keyframes t-run { from { stroke-dashoffset: 18; } to { stroke-dashoffset: -260; } }
+@keyframes t-eq { from { transform: scaleY(.35); } to { transform: scaleY(1); } }
+@keyframes t-spin { from { transform: rotate(-90deg); } to { transform: rotate(270deg); } }
+.h-cat:hover .s-tech .t-trace path { stroke-opacity: .8; }
+.h-cat:hover .s-tech { outline: 1px solid var(--brand-gold); outline-offset: 3px; }
+.h-cat-row { margin: 0 -24px; }
+.h-cat, .h-cat:first-child { padding: 6px 24px 10px; }
+.h-cat:first-child { border-left: none; }
+@media (max-width: 980px) { .h-cat-row { margin: 0 -14px; } .h-cat, .h-cat:first-child, .h-cat:nth-child(3) { padding: 4px 14px 8px; } .h-cat:nth-child(3) { border-left: none; } }

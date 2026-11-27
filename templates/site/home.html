@@ -1,5 +1,5 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn, ai_chip %}
+{% from 'site/_m.html' import fill, line_btn, ai_chip, tech_panel %}
 {% block body %}
 {# 2026-11 使用者給兩張參考圖，要求排版更像參考圖，並加入不搶眼的黃色、藍色：
    1 主視覺：左側直排細欄＋眉標短線＋大字標題＋黑按鈕與圓圈箭頭連結，右側大照片出血到邊、圓形徽章
@@ -45,7 +45,8 @@
             <a class="h-cat exam-tone-{{ k }}" href="{{ url_for('site.mock_take', key=k) }}">
                 <span class="h-cat-no">{{ '%02d' % loop.index }}</span>
                 <span class="h-cat-name">{{ n }}迷你模考</span>
-                <span class="h-cat-mark">{{ ai_chip('h-cat-chip') }}<b>{{ {'toeic': 'TOEIC', 'ielts': 'IELTS', 'jlpt': 'JLPT', 'topik': 'TOPIK'}.get(k, k|upper) }}</b></span>
+                {{ tech_panel({'toeic': 'TOEIC', 'ielts': 'IELTS', 'jlpt': 'JLPT', 'topik': 'TOPIK'}.get(k, k|upper),
+                               {'toeic': 'LISTENING · READING', 'ielts': 'LISTENING · READING', 'jlpt': 'N5 → N1', 'topik': 'LEVEL 1 → 6'}.get(k, 'AI MOCK TEST'), loop.index0) }}
                 <span class="h-cat-txt">{{ mock_blurb[k] }}</span>
                 <span class="h-more">開始測驗 <span class="h-more-dot" aria-hidden="true">→</span></span>
             </a>
