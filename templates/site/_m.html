@@ -167,18 +167,34 @@
 {% if data %}
 <section class="h-cefr1" id="cefr">
     <div class="wrap">
-        <div class="h-sec-head"><p class="s-eyebrow lined">CEFR</p></div>
+        <div class="h-sec-head"><p class="s-eyebrow lined">{{ 'SCORE · CEFR' if data.parts else 'CEFR' }}</p></div>
+        {% if data.parts %}
+        <h2 class="h-big">{{ data.title }}</h2>
+        <ul class="h-score">
+            {% for name, rng, d in data.parts %}<li><span>{{ name }}</span><b>{{ rng }}</b><small>{{ d }}</small></li>{% endfor %}
+        </ul>
+        {% endif %}
+        {% if data.cert %}
+        <div class="h-cert">
+            <h3 class="h-cert-t">證書顏色</h3>
+            <ol class="h-cert-bar">{% for name, lo, hi, col in data.cert %}<li style="--c: var(--toeic-{{ col }}); flex: {{ hi - lo + 5 }}"><b>{{ name }}</b><em>{{ lo }}–{{ hi }}</em></li>{% endfor %}</ol>
+            <p class="h-cefr1-src">多益聽力與閱讀測驗依總分發給五種顏色的證書。</p>
+        </div>
+        <h3 class="h-cert-t">成績與 CEFR 對照</h3>
+        {% else %}
         <h2 class="h-big">{% if c.key == 'basic' %}零基礎英文在程度分級的位置{% else %}{{ c.name }}成績與 CEFR 對照{% endif %}</h2>
+        {% endif %}
         <ol class="h-cefr1-scale">
             {% for lv in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] %}
             {% set v = data.cells[loop.index0] %}
-            <li class="{{ 'is-empty' if not v }}" style="--c: var(--lv{{ loop.index }})">
+            {% set col = data.colors[loop.index0] if data.colors else '' %}
+            <li class="{{ 'is-empty' if not v }}" style="--c: {% if col %}var(--toeic-{{ col }}){% else %}var(--lv{{ loop.index }}){% endif %}">
                 <b>{{ lv }}</b>
                 <span>{% if v %}{% for line in v.split('\n') %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}—{% endif %}</span>
             </li>
             {% endfor %}
         </ol>
-        <p class="h-cefr1-src">{{ data.src }}。</p>
+        <p class="h-cefr1-src">{{ data.src }}{% if data.colors %}；卡片顏色是該分數的證書顏色{% endif %}。</p>
     </div>
 </section>
 {% endif %}
