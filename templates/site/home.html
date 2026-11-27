@@ -1,5 +1,5 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn, ai_chip, tech_panel, system_block %}
+{% from 'site/_m.html' import fill, line_btn, ai_chip, tech_panel, system_block, cefr_block %}
 {% block body %}
 {# 2026-11 使用者給兩張參考圖，要求排版更像參考圖，並加入不搶眼的黃色、藍色：
    1 主視覺：左側直排細欄＋眉標短線＋大字標題＋黑按鈕與圓圈箭頭連結，右側大照片出血到邊、圓形徽章
@@ -116,7 +116,8 @@
         <h2 class="h-big">學員心得</h2>
         <div class="h-rev-grid">
             {% for r in reviews %}
-            <figure class="h-rev-card">
+            <figure class="h-rev-card{% if r.photo %} has-photo{% endif %}">
+                {% if r.photo %}<div class="h-rev-photo"><img src="{{ url_for('static', filename=r.photo) }}" alt="{{ r.name }}的照片" loading="lazy"></div>{% endif %}
                 <span class="h-rev-q" aria-hidden="true">“</span>
                 <blockquote>{{ r.text }}</blockquote>
                 <figcaption><b>{{ r.name }}</b>{% if r.course_name %}<span>{{ r.course_name }}</span>{% endif %}{% if r.result %}<em>{{ r.result }}</em>{% endif %}</figcaption>
@@ -180,7 +181,8 @@
 {% endif %}
 
 {# 學員線上學習系統：主頁面列全部科目＋英文基礎，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
-{{ system_block([hc] if hero.ad else (courses | list) + [system_basic]) }}
+{{ system_block([hc] if hero.ad else (courses | list) + [system_basic], system_ai) }}
+{% if hero.ad %}{{ cefr_block(hc, cefr_by_exam.get(hc.key)) }}{% endif %}
 
 {# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}
 {% if not hero.ad %}
@@ -197,7 +199,7 @@
         </aside>
         <div class="h-rows">
             {% for c in courses %}
-            <a class="h-row exam-tone-{{ c.key }}" href="{{ url_for('site.course', key=c.key) }}">
+            <a class="h-row exam-tone-{{ c.key }}" href="{{ url_for('site.home', exam=c.key) }}">
                 <span class="h-row-no">{{ '%02d' % loop.index }}</span>
                 <span class="h-row-name">{{ c.name }}<small>{{ c.en }}</small></span>
                 <span class="h-row-lead">{{ c.lead }}</span>

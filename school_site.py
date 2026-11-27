@@ -36,28 +36,33 @@ COURSES = [
     {"key": "toeic", "name": "多益", "en": "TOEIC", "title": "多益補習班｜多益全方位課程",
      "lead": "從職場情境單字到聽力閱讀，一步步把多益分數往上拉。",
      "kw": ["多益補習班", "多益課程", "TOEIC 補習", "多益單字"],
+     "sys": ["單字 5,005 字", "背單字神器 5 種題型", "AI 記憶法", "AI 錯題解釋"],
      "points": ["5,005 個多益職場單字，依主題分類，滑卡就能背",
                 "「背單字神器」拼寫、聽寫、例句填空、選擇題輪流練",
                 "答錯的字自動回到不熟區，下次優先複習"]},
     {"key": "ielts", "name": "雅思", "en": "IELTS", "title": "雅思補習班｜雅思全方位課程",
      "lead": "聽說讀寫四科完整備考，比照電腦考介面練習。",
      "kw": ["雅思補習班", "雅思課程", "IELTS 補習", "雅思口說", "雅思寫作"],
+     "sys": ["單字 7,037 字", "聽說讀寫模考各 10 回", "AI 批改寫作", "AI 評分口說"],
      "points": ["7,037 個雅思不重複單字，分 14 個主題",
                 "聽力、閱讀、寫作、口說各 10 回自製模擬題，比照電腦考版面",
                 "寫作、口說有 AI 老師依官方標準評分（模擬，不等於真實考試）"]},
     {"key": "toefl", "name": "托福", "en": "TOEFL", "title": "托福補習班｜托福全方位課程",
      "lead": "托福全方位課程。",
      "kw": ["托福補習班", "托福課程", "TOEFL 補習"],
+     "sys": [],
      "points": []},
     {"key": "jlpt", "name": "日檢", "en": "JLPT", "title": "日文補習班｜日檢 N5～N1 課程",
      "lead": "從五十音到 N1，依等級學單字、做模擬考。",
      "kw": ["日文補習班", "日檢補習班", "JLPT", "日檢 N1", "日檢 N2", "日語課程"],
+     "sys": ["單字 10,097 字", "N5～N1 模考各 10 回", "AI 錯題解釋", "AI 記憶法"],
      "points": ["N5～N1 分級單字共 10,097 字，附假名讀音與動詞變化",
                 "日檢模擬考 N5～N1 各 10 回，交卷看正解、解析與估計分數",
                 "羅馬拼音自動轉假名，沒有日文輸入法也能練打字"]},
     {"key": "topik", "name": "韓檢", "en": "TOPIK", "title": "韓文補習班｜韓檢 TOPIK 課程",
      "lead": "TOPIK I、II 一次準備，1～6 級分級學習。",
      "kw": ["韓文補習班", "韓檢補習班", "TOPIK", "韓語課程", "韓檢中級"],
+     "sys": ["單字 6,630 字", "TOPIK I／II 模考各 10 回", "AI 批改寫作", "AI 錯題解釋"],
      "points": ["1～6 級分級單字共 6,630 字，韓語發音",
                 "TOPIK I、TOPIK II 模擬考各 10 回，算總分與級數",
                 "韓檢寫作有 AI 老師批改（模擬，不等於真實考試）"]},
@@ -92,8 +97,27 @@ CEFR_EXAMS = [
 ]
 # 主頁面的學習系統介紹另外列英文基礎（英文零基礎、一般英文，不是對外課程，但系統裡有）
 SYSTEM_BASIC = {"key": "basic", "name": "英文基礎", "en": "BASIC",
+                "sys": ["零基礎 2,006 字＋KK 音標", "一般英文 4,032 字", "AI 記憶法"],
                 "points": ["英文零基礎 2,006 字，每個字有 KK 音標，可以正常速度或慢慢聽",
                            "一般英文 4,032 個日常生活字，和零基礎不重複"]}
+# 各科專屬頁面的 CEFR 對照（2026-11 使用者要求「每一科要放每科的 CEFR」）：A1～C2 六格，沒有對照的留空。
+# 多益、雅思、托福照補習班手冊「TRINITY 專業程度分級制度」；日檢照日本語能力試驗官方公告：
+# 2025 年 12 月起合格者的成績單附 CEFR 參考等級（jpf.go.jp 2026-01 公告，依總分）。韓檢官方沒有公布 CEFR 對照，不放
+CEFR_BY_EXAM = {
+    "toeic": {"cells": ["", "", "550 以上", "650 以上", "750 以上", "850 以上"], "src": "依驅勢程度分級制度（補習班手冊）"},
+    "ielts": {"cells": ["", "", "4 以上", "4.5～5 以上", "5.5～6 以上", "7 以上"], "src": "依驅勢程度分級制度（補習班手冊）"},
+    "toefl": {"cells": ["", "", "38 以上", "61 以上", "71 以上", "100 以上"], "src": "依驅勢程度分級制度（補習班手冊）"},
+    "jlpt": {"cells": ["N5 合格", "N4 合格\nN3 95～103 分", "N3 104 分以上\nN2 90～111 分", "N2 112 分以上\nN1 100～141 分", "N1 142 分以上", ""],
+             "src": "日本語能力試驗官方：2025 年 12 月起，合格者的成績單依總分附上 CEFR 參考等級"},
+}
+# 學員線上學習系統的 AI 功能（ai_tutor.py 真的有的才寫；2026-11 使用者要求系統介紹簡潔、強調 AI）。
+# 各科的 sys 是短標籤，「AI」開頭的標籤會標成霧藍色
+SYSTEM_AI = [
+    ("AI 錯題解釋", "答錯的題目問 AI 老師，講清楚為什麼錯、陷阱在哪"),
+    ("AI 弱點練習", "依你的錯題統計弱點，出題針對練"),
+    ("AI 學習報告", "整理強弱項與兩週讀書計畫，家長也看得懂"),
+    ("AI 單字記憶法", "口訣、更多例句、常用搭配，一按就有"),
+]
 # 迷你模考：多益、雅思、日檢、韓檢（日檢、韓檢不分級，測完給預估級數）
 MOCKS = [("toeic", "多益"), ("ielts", "雅思"), ("jlpt", "日檢"), ("topik", "韓檢")]
 MOCKS_READY = {"toeic", "ielts", "jlpt", "topik"}   # 已經有題目的迷你模考（school_mock.py、public_site/mock/<考試>.json）
@@ -190,7 +214,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, why=WHY, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, system_basic=SYSTEM_BASIC, system_ai=SYSTEM_AI, cefr_by_exam=CEFR_BY_EXAM, why=WHY, cefr_levels=CEFR_LEVELS, cefr_exams=CEFR_EXAMS, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)

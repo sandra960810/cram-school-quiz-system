@@ -874,29 +874,10 @@ html { scroll-behavior: smooth; }
 .h-sys-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 26px; }
 .h-sys-head .h-big { margin: 0; }
 .h-sys-head p { margin: 0; font-size: 15.5px; line-height: 1.9; color: var(--brand-ink-2); }
-.h-sys-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-.h-sys-card { padding: 22px 22px 18px; background: var(--brand-paper); border: 1px solid var(--brand-line); border-top: 3px solid var(--tone, var(--brand-ink)); border-radius: 16px; }
-.h-sys-tag { margin: 0 0 4px; font: 700 11.5px/1 Consolas, "Courier New", monospace; letter-spacing: .16em; color: var(--brand-ai); }
-.h-sys-card h3 { margin: 0 0 12px; font-size: 22px; font-weight: 900; }
-.h-sys-card ul { margin: 0; padding: 0; list-style: none; }
-.h-sys-card li { position: relative; padding: 8px 0 8px 18px; border-top: 1px solid var(--brand-line); font-size: 14px; line-height: 1.65; color: var(--brand-ink-2); }
-.h-sys-card li::before { content: ""; position: absolute; left: 2px; top: 16px; width: 7px; height: 7px; border-radius: 2px; background: var(--tone, var(--brand-gold)); }
-.h-sys.is-one .h-sys-grid { grid-template-columns: 1fr; }
-.h-sys.is-one .h-sys-card { padding: 26px 30px; }
-.h-sys.is-one .h-sys-tag, .h-sys.is-one .h-sys-card h3 { display: none; }   /* 標題已寫科目，卡片不再重複 */
-.h-sys.is-one .h-sys-card ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; }
-.h-sys.is-one .h-sys-card li { border-top: 0; border-left: 1px solid var(--brand-line); padding: 2px 0 2px 34px; font-size: 15px; }
-.h-sys.is-one .h-sys-card li:first-child { border-left: 0; padding-left: 18px; }
-.h-sys.is-one .h-sys-card li::before { left: auto; margin-left: -18px; top: 11px; }
 .h-sys-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; font-size: 13.5px; color: var(--brand-ink-2); }
 @media (max-width: 760px) {
     .h-sys { padding: 44px 0 40px; }
     .h-sys-head { grid-template-columns: 1fr; }
-    .h-sys.is-one .h-sys-card { padding: 14px 20px; }
-    .h-sys.is-one .h-sys-card ul { grid-template-columns: 1fr; }
-    .h-sys.is-one .h-sys-card li, .h-sys.is-one .h-sys-card li:first-child { border-left: 0; border-top: 1px solid var(--brand-line); padding: 10px 0 10px 18px; }
-    .h-sys.is-one .h-sys-card li:first-child { border-top: 0; }
-    .h-sys.is-one .h-sys-card li::before { margin-left: 0; left: 2px; top: 18px; }
 }
 
 /* 為什麼選驅勢改成手冊的九點（2026-11 使用者提供）：三欄三列，每格上方細線 */
@@ -945,3 +926,40 @@ html { scroll-behavior: smooth; }
 }
 /* 為什麼選驅勢第七點（實體課＋線上直播課）：單獨一點時佔滿整列 */
 .h-why-cols > div:nth-child(3n+1):last-child { grid-column: 1 / -1; }
+/* 學員心得照片（2026-11 使用者要求放照片、去背）：去背人像站在淺金色半圓上，放在卡片上方 */
+.h-rev-photo { position: relative; height: 206px; padding-top: 16px; box-sizing: border-box; margin: 0 -26px 16px; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; border-bottom: 1px solid var(--brand-line); }
+.h-rev-photo::before { content: ""; position: absolute; left: 50%; bottom: -70px; width: 220px; height: 220px; transform: translateX(-50%); border-radius: 50%; background: var(--brand-gold-50); border: 1px solid var(--brand-line); }
+.h-rev-photo img { position: relative; max-height: 100%; max-width: 78%; width: auto; height: auto; object-fit: contain; filter: drop-shadow(0 2px 0 rgba(0,0,0,.04)); }
+.h-rev-card.has-photo { padding-top: 0; }
+.h-rev-card.has-photo .h-rev-photo { border-radius: 20px 20px 0 0; }
+.h-rev-card.has-photo .h-rev-q { top: 10px; right: 22px; }
+
+/* 學員線上學習系統（2026-11 使用者要求簡潔、清楚介紹功能並強調 AI）：上面是藍黑科技感的 AI 功能列，下面每科一列短標籤 */
+.h-sys-ai { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--brand-tech); color: #fff; border-radius: 18px; overflow: hidden;
+    background-image: linear-gradient(rgba(143,176,212,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(143,176,212,.08) 1px, transparent 1px); background-size: 22px 22px; }
+.h-sys-ai-item { padding: 24px 24px 22px; border-left: 1px solid rgba(143,176,212,.22); }
+.h-sys-ai-item:first-child { border-left: 0; }
+.h-sys-ai-item b { display: block; margin: 12px 0 6px; font-size: 18px; font-weight: 900; color: var(--brand-ai-glow); }
+.h-sys-ai-item p { margin: 0; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,.82); }
+.h-sys-rows { margin-top: 18px; border-top: 1px solid var(--brand-ink); }
+.h-sys-row { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 12px 24px; padding: 14px 0; border-bottom: 1px solid var(--brand-line); }
+.h-sys-row h3 { margin: 0; font-size: 20px; font-weight: 900; }
+.h-sys-row h3 small { display: block; font: 700 11px/1.4 Consolas, "Courier New", monospace; letter-spacing: .16em; color: var(--tone, var(--brand-muted)); }
+.h-sys-row ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.h-sys-row li { padding: 6px 14px; border: 1px solid var(--brand-line); border-radius: 99px; background: var(--brand-paper); font-size: 14px; font-weight: 700; color: var(--brand-ink-2); }
+.h-sys-row li.is-ai { border-color: var(--brand-ai); background: var(--brand-ai-50); color: var(--brand-ai); }
+.h-sys.is-one .h-sys-row { grid-template-columns: 1fr; }
+.h-sys.is-one .h-sys-row h3 { display: none; }   /* 標題已寫科目 */
+.h-sys-note { margin-left: auto; font-size: 12.5px; color: var(--brand-muted); }
+@media (max-width: 980px) { .h-sys-ai { grid-template-columns: 1fr 1fr; } .h-sys-ai-item:nth-child(3) { border-left: 0; } .h-sys-ai-item:nth-child(n+3) { border-top: 1px solid rgba(143,176,212,.22); } }
+@media (max-width: 760px) { .h-sys-ai { grid-template-columns: 1fr; } .h-sys-ai-item { border-left: 0 !important; border-top: 1px solid rgba(143,176,212,.22); padding: 18px 20px; } .h-sys-ai-item:first-child { border-top: 0; }
+    .h-sys-row { grid-template-columns: 1fr; gap: 8px; } .h-sys-note { margin-left: 0; } }
+/* 各科 CEFR 對照（各科專屬頁面、課程頁）：A1～C2 六格，顏色和主頁面的分級圖表一樣 */
+.h-cefr1 { padding: 56px 0 60px; border-bottom: 1px solid var(--brand-line); }
+.h-cefr1-scale { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.h-cefr1-scale li { border-top: 6px solid var(--c); background: var(--brand-paper); border-radius: 0 0 14px 14px; padding: 14px 12px 16px; text-align: center; border-left: 1px solid var(--brand-line); border-right: 1px solid var(--brand-line); border-bottom: 1px solid var(--brand-line); }
+.h-cefr1-scale b { display: block; font-size: 26px; font-weight: 900; color: var(--c); }
+.h-cefr1-scale span { display: block; margin-top: 6px; font-size: 14.5px; font-weight: 700; line-height: 1.6; }
+.h-cefr1-scale li.is-empty { opacity: .45; }
+.h-cefr1-src { margin: 14px 0 0; font-size: 13px; color: var(--brand-muted); }
+@media (max-width: 760px) { .h-cefr1-scale { grid-template-columns: repeat(3, minmax(0, 1fr)); } .h-cefr1-scale b { font-size: 22px; } .h-cefr1-scale span { font-size: 13px; } }

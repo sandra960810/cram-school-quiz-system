@@ -107,85 +107,99 @@
       "course": "toeic",
       "name": "張O逸",
       "result": "多益 950 分",
-      "text": "在驅勢是改變我對英文態度的關鍵！學到很多課本沒有的獨門學習方式。"
+      "text": "在驅勢是改變我對英文態度的關鍵！學到很多課本沒有的獨門學習方式。",
+      "photo": "images/site/reviews/toeic-1.webp"
     },
     {
       "course": "toeic",
       "name": "林O怡",
       "result": "多益 930 分",
-      "text": "驅勢的課程每堂都讓我收穫滿滿！大力推薦驅勢穩扎穩打的課程！"
+      "text": "驅勢的課程每堂都讓我收穫滿滿！大力推薦驅勢穩扎穩打的課程！",
+      "photo": "images/site/reviews/toeic-2.webp"
     },
     {
       "course": "toeic",
       "name": "陳O聰",
       "result": "多益 915 分",
-      "text": "一步一腳印、按部就班就可以達成，要相信驅勢優秀的師資！"
+      "text": "一步一腳印、按部就班就可以達成，要相信驅勢優秀的師資！",
+      "photo": "images/site/reviews/toeic-3.webp"
     },
     {
       "course": "ielts",
       "name": "林O毅",
       "result": "雅思 7.5",
-      "text": "感謝驅勢提供的課程和模考服務，讓我在忙碌的工作後，用下班時間就能充分準備，獲得移民加拿大的機會！"
+      "text": "感謝驅勢提供的課程和模考服務，讓我在忙碌的工作後，用下班時間就能充分準備，獲得移民加拿大的機會！",
+      "photo": "images/site/reviews/ielts-1.webp"
     },
     {
       "course": "ielts",
       "name": "江O軒",
       "result": "雅思 7.5",
-      "text": "已經有一定英文程度，面對雅思卻不清楚考試方向與技巧；在驅勢有趣、多元的教學和老師的技巧討論下，半年就拿到滿意的成績。"
+      "text": "已經有一定英文程度，面對雅思卻不清楚考試方向與技巧；在驅勢有趣、多元的教學和老師的技巧討論下，半年就拿到滿意的成績。",
+      "photo": "images/site/reviews/ielts-2.webp"
     },
     {
       "course": "ielts",
       "name": "王O翰",
       "result": "雅思 7.5",
-      "text": "想申請德國研究所，在驅勢老師的指導下，雅思一次就考到理想成績。"
+      "text": "想申請德國研究所，在驅勢老師的指導下，雅思一次就考到理想成績。",
+      "photo": "images/site/reviews/ielts-3.webp"
     },
     {
       "course": "toefl",
       "name": "高O生",
       "result": "托福 98 分",
-      "text": "感謝驅勢讓我從多益 500 分的程度，考到托福接近 100 分！"
+      "text": "感謝驅勢讓我從多益 500 分的程度，考到托福接近 100 分！",
+      "photo": "images/site/reviews/toefl-1.webp"
     },
     {
       "course": "toefl",
       "name": "鄧O晴",
       "result": "托福 98 分",
-      "text": "驅勢讓我的托福成績從 60 分進步到接近 100 分！"
+      "text": "驅勢讓我的托福成績從 60 分進步到接近 100 分！",
+      "photo": "images/site/reviews/toefl-2.webp"
     },
     {
       "course": "toefl",
       "name": "蔡O桓",
       "result": "托福 101 分",
-      "text": "驅勢讓我考托福最大的收穫，就是整體的英文能力都提升了！"
+      "text": "驅勢讓我考托福最大的收穫，就是整體的英文能力都提升了！",
+      "photo": "images/site/reviews/toefl-3.webp"
     },
     {
       "course": "jlpt",
       "name": "蔡O恆",
       "result": "日檢 N1",
-      "text": "驅勢讓我一次通過 N1。"
+      "text": "驅勢讓我一次通過 N1。",
+      "photo": "images/site/reviews/jlpt-1.webp"
     },
     {
       "course": "jlpt",
       "name": "游O翰",
       "result": "日檢 N2",
-      "text": "學好日文，我得到了在日本上班的機會。"
+      "text": "學好日文，我得到了在日本上班的機會。",
+      "photo": "images/site/reviews/jlpt-2.webp"
     },
     {
       "course": "jlpt",
       "name": "謝O諭",
       "result": "日檢 N2",
-      "text": "從五十音開始，一路考到日檢 N2！"
+      "text": "從五十音開始，一路考到日檢 N2！",
+      "photo": "images/site/reviews/jlpt-3.webp"
     },
     {
       "course": "topik",
       "name": "衛O晴",
       "result": "日檢 N2＋韓檢 4 級",
-      "text": "在驅勢兩年內，順利取得日文與韓文的進階級證照！"
+      "text": "在驅勢兩年內，順利取得日文與韓文的進階級證照！",
+      "photo": "images/site/reviews/topik-1.webp"
     },
     {
       "course": "topik",
       "name": "莊O婷",
       "result": "多益 805 分＋韓檢 5 級",
-      "text": "自從在驅勢上課，對外語愈來愈有興趣，花在學外語的時間變多，也開始報名各種檢定，想取得更高級的證書。"
+      "text": "自從在驅勢上課，對外語愈來愈有興趣，花在學外語的時間變多，也開始報名各種檢定，想取得更高級的證書。",
+      "photo": "images/site/reviews/topik-2.webp"
     }
   ]
 }

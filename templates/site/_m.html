@@ -47,26 +47,54 @@
 
 {# 學員線上學習系統介紹（2026-11 使用者：單字學習與模考系統上線，官網要清楚介紹系統存在，不用很詳細）。
    items 是要列的科目（COURSES 的 points）；一科時是單張橫向卡片，多科時是並排卡片。只列有 points 的科目 #}
-{% macro system_block(items, sid='system') -%}
-{% set items = items | selectattr('points') | list %}
+{% macro system_block(items, ai, sid='system') -%}
+{% set items = items | selectattr('sys') | list %}
 {% if items %}
 <section class="h-sys{{ ' is-one' if items|length == 1 }}" id="{{ sid }}">
     <div class="wrap">
-        <div class="h-sec-head"><p class="s-eyebrow lined">LEARNING SYSTEM</p></div>
+        <div class="h-sec-head"><p class="s-eyebrow lined">AI LEARNING SYSTEM</p></div>
         <div class="h-sys-head">
-            <h2 class="h-big">{% if items|length == 1 %}{{ items[0].name }}<br>{% endif %}學員專屬線上學習系統</h2>
-            <p>報名後由補習班開通帳號，電腦、手機上網就能背單字、做模擬考，課後也能自己練習。</p>
+            <h2 class="h-big">{% if items|length == 1 %}{{ items[0].name }}<br>{% endif %}學員專屬 AI 線上學習系統</h2>
+            <p>報名後開通帳號，電腦、手機都能背單字、做模考，AI 老師陪你課後練習。</p>
         </div>
-        <div class="h-sys-grid">
-            {% for c in items %}
-            <article class="h-sys-card exam-tone-{{ c.key }}">
-                <p class="h-sys-tag">{{ c.en }}</p>
-                <h3>{{ c.name }}</h3>
-                <ul>{% for p in c.points %}<li>{{ p }}</li>{% endfor %}</ul>
-            </article>
+        <div class="h-sys-ai">
+            {% for t, d in ai %}
+            <div class="h-sys-ai-item">{{ ai_chip('h-chip-xs') }}<b>{{ t }}</b><p>{{ d }}</p></div>
             {% endfor %}
         </div>
-        <p class="h-sys-foot"><a class="h-more" href="{{ url_for('accounts.login') }}">學員登入 <span class="h-more-dot" aria-hidden="true">→</span></a><span>還沒有帳號？報名後由補習班開通。</span></p>
+        <div class="h-sys-rows">
+            {% for c in items %}
+            <div class="h-sys-row exam-tone-{{ c.key }}">
+                <h3><small>{{ c.en }}</small>{{ c.name }}</h3>
+                <ul>{% for p in c.sys %}<li{% if p.startswith('AI') %} class="is-ai"{% endif %}>{{ p }}</li>{% endfor %}</ul>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="h-sys-foot"><a class="h-more" href="{{ url_for('accounts.login') }}">學員登入 <span class="h-more-dot" aria-hidden="true">→</span></a><span>還沒有帳號？報名後由補習班開通。</span><span class="h-sys-note">AI 產生的內容可能有錯，以老師講解為準。</span></p>
+    </div>
+</section>
+{% endif %}
+{%- endmacro %}
+
+
+{# 各科的 CEFR 對照（主頁面的程度分級制度圖表之外，各科專屬頁面與課程頁只放該科的；2026-11 使用者要求）
+   cells 是 A1～C2 六格的分數，空白顯示「—」 #}
+{% macro cefr_block(c, data) -%}
+{% if data %}
+<section class="h-cefr1" id="cefr">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">CEFR</p></div>
+        <h2 class="h-big">{{ c.name }}成績與 CEFR 對照</h2>
+        <ol class="h-cefr1-scale">
+            {% for lv in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] %}
+            {% set v = data.cells[loop.index0] %}
+            <li class="{{ 'is-empty' if not v }}" style="--c: var(--lv{{ loop.index }})">
+                <b>{{ lv }}</b>
+                <span>{% if v %}{% for line in v.split('\n') %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}—{% endif %}</span>
+            </li>
+            {% endfor %}
+        </ol>
+        <p class="h-cefr1-src">{{ data.src }}。</p>
     </div>
 </section>
 {% endif %}
