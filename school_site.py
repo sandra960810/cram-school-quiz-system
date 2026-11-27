@@ -110,11 +110,31 @@ PROGRAMS = {
 # 學習系統的實際畫面（2026-11 使用者要求「介紹學習系統的地方要放系統預覽圖」）：用示範帳號從系統本身截圖，
 # 圖在 static/images/site/system/。kind：phone 手機畫面、desk 電腦畫面；exams：哪些科目的頁面顯示（主頁面全部顯示）
 SYSTEM_SHOTS = [
-    {"file": "learn.webp", "kind": "phone", "title": "單字庫", "sub": "滑卡背單字", "exams": {"toeic", "ielts", "basic"}},
-    {"file": "quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "闖關測驗", "exams": {"toeic", "ielts", "basic"}},
-    {"file": "theme.webp", "kind": "phone", "title": "主題圖鑑", "sub": "熟／不熟分區", "exams": {"toeic", "ielts", "basic"}},
-    {"file": "reading.webp", "kind": "desk", "title": "雅思閱讀模考", "sub": "比照電腦考介面", "exams": {"ielts"}},
-    {"file": "writing.webp", "kind": "desk", "title": "雅思寫作模考", "sub": "交卷後 AI 老師批改", "exams": {"ielts"}},
+    # 每一科放自己那一科的系統畫面（2026-11 使用者要求「每一科的預覽圖都要不一樣、要符合系統」）；
+    # exams 是要出現在哪些頁面，main＝主頁面（沒帶 ?exam=），主頁面每科挑一張
+    {"file": "toeic-learn.webp", "kind": "phone", "title": "單字庫", "sub": "多益 5,005 字滑卡", "exams": {"toeic", "main"}},
+    {"file": "toeic-quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "闖關測驗", "exams": {"toeic"}},
+    {"file": "toeic-theme.webp", "kind": "phone", "title": "主題圖鑑", "sub": "熟／不熟分區", "exams": {"toeic"}},
+    {"file": "toeic-roots.webp", "kind": "desk", "title": "字根字首", "sub": "一次記住一整組字", "exams": {"toeic"}},
+    {"file": "ielts-learn.webp", "kind": "phone", "title": "單字庫", "sub": "雅思 7,037 字滑卡", "exams": {"ielts"}},
+    {"file": "ielts-quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "闖關測驗", "exams": {"ielts"}},
+    {"file": "ielts-theme.webp", "kind": "phone", "title": "主題圖鑑", "sub": "熟／不熟分區", "exams": {"ielts"}},
+    {"file": "ielts-reading.webp", "kind": "desk", "title": "雅思閱讀模考", "sub": "比照電腦考介面", "exams": {"ielts", "main"}},
+    {"file": "ielts-writing.webp", "kind": "desk", "title": "雅思寫作模考", "sub": "交卷後 AI 老師批改", "exams": {"ielts"}},
+    {"file": "jlpt-learn.webp", "kind": "phone", "title": "單字庫", "sub": "N5～N1 讀音＋發音", "exams": {"jlpt", "main"}},
+    {"file": "jlpt-quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "羅馬拼音打假名", "exams": {"jlpt"}},
+    {"file": "jlpt-theme.webp", "kind": "phone", "title": "等級圖鑑", "sub": "依五十音分頁", "exams": {"jlpt"}},
+    {"file": "jlpt-mock.webp", "kind": "desk", "title": "日檢模擬考", "sub": "N5～N1 各 10 回", "exams": {"jlpt"}},
+    {"file": "jlpt-mock2.webp", "kind": "desk", "title": "文法・讀解", "sub": "交卷看正解與解析", "exams": {"jlpt"}},
+    {"file": "topik-learn.webp", "kind": "phone", "title": "單字庫", "sub": "1～6 級韓語發音", "exams": {"topik"}},
+    {"file": "topik-quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "闖關測驗", "exams": {"topik"}},
+    {"file": "topik-theme.webp", "kind": "phone", "title": "等級圖鑑", "sub": "依子音分頁", "exams": {"topik"}},
+    {"file": "topik-reading.webp", "kind": "desk", "title": "韓檢模擬考", "sub": "TOPIK I／II 各 10 回", "exams": {"topik"}},
+    {"file": "topik-writing.webp", "kind": "desk", "title": "TOPIK II 寫作", "sub": "韓文鍵盤＋AI 批改", "exams": {"topik", "main"}},
+    {"file": "basic-phonics.webp", "kind": "phone", "title": "學發音", "sub": "KK 音標＋慢慢聽", "exams": {"basic", "main"}},
+    {"file": "basic-learn.webp", "kind": "phone", "title": "單字庫", "sub": "國中小程度單字", "exams": {"basic"}},
+    {"file": "basic-quiz.webp", "kind": "phone", "title": "背單字神器", "sub": "闖關測驗", "exams": {"basic"}},
+    {"file": "basic-theme.webp", "kind": "phone", "title": "主題圖鑑", "sub": "熟／不熟分區", "exams": {"basic"}},
 ]
 
 # （標題, 說明, 短說明, 圖示）圖示是 static/icons.svg 的名稱；各科頁面的學校介紹橫排、每點前面配小圖（2026-11 使用者要求）

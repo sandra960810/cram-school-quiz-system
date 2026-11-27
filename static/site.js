@@ -202,35 +202,3 @@
     });
 })();
 
-/* 學員心得左右滑：箭頭一次移一張，顯示目前看到第幾則（2026-11 使用者要求每科 9 則） */
-(function () {
-    var track = document.querySelector('[data-rev-track].is-track');
-    if (!track) return;
-    var nav = document.querySelector('[data-rev-nav]');
-    var prev = nav.querySelector('[data-rev-prev]'), next = nav.querySelector('[data-rev-next]'), cnt = nav.querySelector('[data-rev-count]');
-    var cards = track.children;
-    // 輪播（2026-11 使用者要求）：每 4.5 秒自動往下一則，到底回到第一則；滑鼠移上去、手指觸碰或鍵盤聚焦時暫停；箭頭也會循環
-    var DELAY = 4500, timer = null, paused = false;
-    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function step() { return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth; }
-    function atEnd() { return track.scrollLeft + track.clientWidth >= track.scrollWidth - 4; }
-    function update() {
-        var s = step(), first = Math.round(track.scrollLeft / s), shown = Math.max(1, Math.round(track.clientWidth / s));
-        var last = Math.min(cards.length, first + shown);
-        cnt.textContent = (first + 1) + (shown > 1 ? '–' + last : '') + ' / ' + cards.length;
-    }
-    function go(dir) {
-        if (dir > 0 && atEnd()) track.scrollTo({ left: 0, behavior: 'smooth' });
-        else if (dir < 0 && track.scrollLeft < 4) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
-        else track.scrollBy({ left: dir * step(), behavior: 'smooth' });
-    }
-    function restart() { clearInterval(timer); if (!still && track.scrollWidth > track.clientWidth + 4) timer = setInterval(function () { if (!paused && !document.hidden) go(1); }, DELAY); }
-    prev.addEventListener('click', function () { go(-1); restart(); });
-    next.addEventListener('click', function () { go(1); restart(); });
-    ['mouseenter', 'focusin', 'touchstart'].forEach(function (e) { track.addEventListener(e, function () { paused = true; }, { passive: true }); });
-    ['mouseleave', 'focusout', 'touchend'].forEach(function (e) { track.addEventListener(e, function () { paused = false; restart(); }, { passive: true }); });
-    track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-    restart();
-})();

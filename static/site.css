@@ -1144,3 +1144,7 @@ html { scroll-behavior: smooth; }
 .h-sys-ai-item { grid-template-columns: 92px minmax(0, 1fr); column-gap: 16px; }
 .h-sys-ai-viz { height: 46px; margin-top: 0; }
 @media (max-width: 760px) { .h-sys-ai-item { grid-template-columns: 62px minmax(0, 1fr); } .h-sys-ai-viz { height: 38px; } }
+
+/* 學員心得全部直接排出來（2026-11 使用者要求不要輪播）：電腦三欄、平板兩欄、手機一欄 */
+.h-rev-grid { row-gap: 24px; }
+@media (min-width: 640px) and (max-width: 980px) { .h-rev-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -109,7 +109,7 @@
             <p>報名後由補習班開通帳號，電腦、手機都能用。課堂之外，背單字、做模考、問 AI 老師，都在同一個地方。</p>
         </div>
         {% set sh_ns = namespace(on=[]) %}
-        {% for sh in (shots or []) %}{% if not one or keys[0] in sh.exams %}{% set sh_ns.on = sh_ns.on + [sh] %}{% endif %}{% endfor %}
+        {% for sh in (shots or []) %}{% if (one and keys[0] in sh.exams) or (not one and 'main' in sh.exams) %}{% set sh_ns.on = sh_ns.on + [sh] %}{% endif %}{% endfor %}
         {% set shots_on = sh_ns.on %}
         {% if shots_on %}
         {# 系統實際畫面（示範帳號截圖）：手機畫面放手機框、電腦畫面放瀏覽器框，橫向排列，窄螢幕左右滑 #}
