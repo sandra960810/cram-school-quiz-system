@@ -969,7 +969,7 @@ html { scroll-behavior: smooth; }
 .h-hero-art.is-tech::before, .h-hero-art.is-tech::after { display: none; }   /* 面板自己有格線與流光，不再疊照片用的掃描線 */
 /* 主視覺面板文字（2026-11 使用者要求字體、大小、編排更有科技感）：編號模組標籤、等寬大字＋外框殘影、系統狀態列 */
 .h-hero-tech .t-chip-box { fill: rgba(143,176,212,.08); stroke: var(--brand-ai-glow); stroke-opacity: .55; stroke-width: .6; }
-.h-hero-tech .t-chip-no { fill: var(--brand-gold); font: 700 6px/1 Consolas, "Courier New", monospace; letter-spacing: .4px; }
+.h-hero-tech .t-chip-x { fill: var(--brand-gold); font: 400 9px/1 Consolas, "Courier New", monospace; }
 .h-hero-tech .t-chip-txt { fill: #e9f0f8; font: 500 7.6px/1 "Noto Sans TC", "Microsoft JhengHei", sans-serif; letter-spacing: 1px; }
 .h-hero-tech .t-label-mono { font: 700 40px/1 Consolas, "SFMono-Regular", "Courier New", monospace; letter-spacing: 3px; fill: #fff; }
 .h-hero-tech .t-label-ghost { font: 700 40px/1 Consolas, "SFMono-Regular", "Courier New", monospace; letter-spacing: 3px; fill: none; stroke: var(--brand-ai-glow); stroke-width: .5; stroke-opacity: .7; }
