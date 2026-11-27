@@ -173,6 +173,41 @@
       "photo": "images/site/reviews/toefl-3.webp"
     },
     {
+      "course": "toefl",
+      "name": "王O城",
+      "result": "托福 100 分",
+      "text": "驅勢開啟了我對英語的興趣，從完全沒希望，到現在已經可以申請國外學校！",
+      "photo": "images/site/reviews/toefl-4.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "魏O烝",
+      "result": "托福 89 分",
+      "text": "驅勢是一間很好的教學機構！上課時間很多樣化，不會和我在校時間衝突。",
+      "photo": "images/site/reviews/toefl-5.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "李O",
+      "result": "托福 96 分",
+      "text": "驅勢對我最大的影響，就是開口說英文的自信！",
+      "photo": "images/site/reviews/toefl-6.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "劉O緯",
+      "result": "托福 98 分",
+      "text": "只要一個人願意達成，整個世界都會一起幫助他完成夢想！",
+      "photo": "images/site/reviews/toefl-7.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "蕭O沂",
+      "result": "托福 99 分",
+      "text": "在驅勢不但可以抓到考試方向，也可以循序漸進地準備考試！",
+      "photo": "images/site/reviews/toefl-8.webp"
+    },
+    {
       "course": "jlpt",
       "name": "蔡O恆",
       "result": "日檢 N1",
