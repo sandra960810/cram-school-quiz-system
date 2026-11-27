@@ -39,7 +39,7 @@
     /* 首頁 AI 線上模考的展開卡片（電腦）：一開始全部閉合、平均分配寬度佔滿整排；
        滑鼠移到哪張就展開哪張（停 0.12 秒才開，避免滑過去時一路亂開），滑鼠離開整排就全部閉合回平均。
        觸控平板用點的；鍵盤 Tab 到哪張就展開哪張。不自動輪播（2026-11 使用者要求預設全部閉合）。
-       手機（760px 以下）改成左右滑動的卡片，下面圓點指示第幾張 */
+       手機（760px 以下）四條上下排列，點哪條就展開哪條；展開高度依內容量（--open-h），展開後捲到看得到 */
     var phone = window.matchMedia('(max-width: 760px)');
     document.querySelectorAll('[data-acc]').forEach(function (acc) {
         var items = Array.prototype.slice.call(acc.querySelectorAll('[data-acc-item]'));
@@ -51,13 +51,30 @@
                 var on = j === i;
                 it.classList.toggle('is-on', on);
                 it.querySelector('.h-acc-tab').setAttribute('aria-expanded', on ? 'true' : 'false');
-                it.querySelector('.h-acc-body').inert = !on && !phone.matches;
+                it.querySelector('.h-acc-body').inert = !on;
             });
             acc.classList.toggle('has-open', i >= 0);
+            fit();
+        }
+        /* 手機：量每張內容的高度，展開就是剛好那麼高 */
+        function fit() {
+            items.forEach(function (it) {
+                if (phone.matches) it.style.setProperty('--open-h', it.querySelector('.h-acc-body').scrollHeight + 'px');
+                else it.style.removeProperty('--open-h');
+            });
         }
         items.forEach(function (it, i) {
             var tab = it.querySelector('.h-acc-tab');
-            tab.addEventListener('click', function () { if (!phone.matches) open(i); });
+            tab.addEventListener('click', function () {
+                open(i);
+                if (!phone.matches) return;
+                /* 上面那條收起來後畫面會位移：動畫結束後，展開的那張沒完整露出就捲過去 */
+                setTimeout(function () {
+                    var r = it.getBoundingClientRect(), head = document.querySelector('.s-head'),
+                        top = (head ? head.getBoundingClientRect().bottom : 0) + 12;
+                    if (r.top < top || r.bottom > window.innerHeight) window.scrollTo({ top: window.scrollY + r.top - top, behavior: reduce ? 'auto' : 'smooth' });
+                }, reduce ? 0 : 780);
+            });
             tab.addEventListener('focus', function () { if (!phone.matches) open(i); });
             it.addEventListener('pointerenter', function (e) {
                 if (e.pointerType !== 'mouse' || phone.matches) return;
@@ -74,26 +91,10 @@
         });
         acc.addEventListener('focusout', function (e) { if (!acc.contains(e.relatedTarget) && !acc.matches(':hover')) open(-1); });
 
-        /* 手機的圓點 */
-        var dots = document.createElement('div');
-        dots.className = 'h-acc-dots';
-        items.forEach(function (it, i) {
-            var b = document.createElement('button');
-            b.type = 'button';
-            b.setAttribute('aria-label', '第 ' + (i + 1) + ' 張');
-            b.addEventListener('click', function () { acc.scrollTo({ left: it.offsetLeft - acc.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth' }); });
-            dots.appendChild(b);
-        });
-        acc.after(dots);
-        function markDot() {
-            var x = acc.scrollLeft, best = 0, bd = Infinity;
-            items.forEach(function (it, i) { var d = Math.abs(it.offsetLeft - acc.offsetLeft - 16 - x); if (d < bd) { bd = d; best = i; } });
-            Array.prototype.forEach.call(dots.children, function (b, i) { b.classList.toggle('on', i === best); });
-        }
-        acc.addEventListener('scroll', markDot, { passive: true });
         phone.addEventListener('change', function () { open(-1); });
+        window.addEventListener('resize', fit, { passive: true });
+        window.addEventListener('load', fit);
         open(-1);
-        markDot();
     });
 
     /* 首頁標題的科技感動態（2026-11 使用者要求「標題也要有交互、科技感的動態」）：
