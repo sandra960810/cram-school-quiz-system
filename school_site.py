@@ -179,7 +179,18 @@ def home():
                             f"專屬學習規劃、免費多益程度測驗。免費諮詢、加 LINE 了解課程。",
                 keywords=[f"{c['name']}{k}" for c in d['campuses'][:5] for k in ('補習班', '多益補習班', '英文補習班')]
                          + ['多益補習班', '雅思補習班', '日文補習班', '韓文補習班', '托福補習班'],
-                jsonld=[org_jsonld()])
+                jsonld=[org_jsonld()], hero=hero_course())
+
+
+def hero_course():
+    """首頁最上面顯示哪個考試（2026-11 使用者要求：之後下廣告，從多益廣告點進來最上面就是多益，以此類推）。
+    廣告連結加 ?exam=ielts（或 toeic、toefl、jlpt、topik），也認 utm_content／utm_campaign 等於考試代號；
+    沒帶或看不懂就是多益、不顯示課程簡介。網址參數不影響 canonical，搜尋引擎只看到一個首頁。"""
+    for k in ('exam', 'utm_content', 'utm_campaign'):
+        key = (request.args.get(k) or '').strip().lower()
+        if key in COURSE_MAP:
+            return {'c': COURSE_MAP[key], 'ad': True}
+    return {'c': COURSE_MAP['toeic'], 'ad': False}
 
 
 @bp.route('/courses')

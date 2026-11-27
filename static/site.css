@@ -728,3 +728,14 @@ html { scroll-behavior: smooth; }
 /* 2026-11 使用者：卡片右上角的虛線圓圈「拿掉或改得有意義一點」。本來想改成題數與時間，
    但卡片說明已經寫了題數、分鐘數（使用者要求內容不重複），所以直接拿掉 */
 .h-acc.is-ready .h-acc-tab::after, .h-acc.is-ready:not(.has-open) .h-acc-tab::after { content: none; display: none; }
+
+/* 首頁主視覺的課程簡介：從廣告（?exam=ielts 等）進來才出現（2026-11 使用者要求） */
+.h-hero-course { margin: -14px 0 30px; padding: 16px 20px 14px; max-width: 440px; border-left: 3px solid var(--brand-gold);
+    background: color-mix(in srgb, var(--brand-paper) 70%, transparent); }
+.h-hc-tag { margin: 0 0 8px; font-size: 12px; font-weight: 800; letter-spacing: .14em; color: var(--brand-gold-ink); }
+.h-hc-lead { margin: 0 0 6px; font-size: 17px; font-weight: 800; line-height: 1.5; color: var(--brand-ink); }
+.h-hc-meta { margin: 0 0 12px; font-size: 13.5px; line-height: 1.7; color: var(--brand-ink-2); }
+.h-hc-links { margin: 0; display: flex; gap: 22px; flex-wrap: wrap; }
+.h-hc-links a { font-size: 13.5px; font-weight: 800; color: var(--brand-ink); text-decoration: none; border-bottom: 1.5px solid var(--brand-ink); padding-bottom: 2px; }
+.h-hc-links a:hover { color: var(--brand-ai); border-color: var(--brand-ai); }
+@media (max-width: 760px) { .h-hero-course { margin: -10px 0 24px; padding: 14px 16px 12px; } .h-hc-lead { font-size: 16px; } }

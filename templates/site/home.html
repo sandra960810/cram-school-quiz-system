@@ -13,17 +13,30 @@
     <div class="h-rail" aria-hidden="true"><span>SCROLL TO DISCOVER</span></div>
     <div class="h-hero-txt">
         <p class="s-eyebrow lined">AI 線上模考 × 語言檢定</p>
-        {# 標題的科技感動態（site.js 的 heroTitle）：進場時每個字像解碼一樣跳字再定格；
-           標題固定是多益，不輪播（2026-11 使用者要求）。
-           網頁原始碼裡標題固定是「你的多益實力有幾分？」，搜尋引擎看到的不變 #}
-        <h1 class="h-title" data-hero-title><span class="h-t-seg">你的</span><span class="h-t-word">多益</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
-        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。<br>先做一份免費 AI 迷你模考，交卷馬上看預估分數。</p>
-        {% if 'toeic' in mocks_ready %}
-        <div class="h-hero-cta">
-            <a class="s-btn" href="{{ url_for('site.mock_take', key='toeic') }}"><span>多益迷你模考・進入測驗</span></a>
-            <a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+        {# 標題的科技感動態（site.js 的 heroTitle）：進場時每個字像解碼一樣跳字再定格；不輪播（2026-11 使用者要求）。
+           顯示哪個考試看 hero（school_site.hero_course）：廣告連結帶 ?exam=ielts 等，最上面就是雅思並加上課程簡介；
+           沒帶參數就是多益、沒有簡介。原始碼與 canonical 都是首頁，搜尋引擎看到的不變 #}
+        {% set hc = hero.c %}
+        <h1 class="h-title" data-hero-title><span class="h-t-seg">你的</span><span class="h-t-word">{{ hc.name }}</span><br><span class="h-t-seg">實力有幾分？</span><span class="h-t-caret" aria-hidden="true"></span></h1>
+        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>先做一份免費 AI 迷你模考，交卷馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
+        {% if hero.ad %}
+        {# 廣告進來的人先看到這個考試的課程簡介（只寫網站真的有的：課程說明、開課校區；時間費用請諮詢） #}
+        <div class="h-hero-course exam-tone-{{ hc.key }}">
+            <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
+            <p class="h-hc-lead">{{ hc.lead }}</p>
+            <p class="h-hc-meta">{% for x in s.campuses %}{{ x.name }}{{ '、' if not loop.last }}{% endfor %}校區開課，上課時間、班別與費用歡迎諮詢。</p>
+            <p class="h-hc-links"><a href="{{ url_for('site.course', key=hc.key) }}">看{{ hc.name }}課程內容 <span aria-hidden="true">→</span></a><a href="{{ url_for('site.contact', course=hc.key) }}">免費諮詢 <span aria-hidden="true">→</span></a></p>
         </div>
         {% endif %}
+        <div class="h-hero-cta">
+            {% if hc.key in mocks_ready %}
+            <a class="s-btn" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.name }}迷你模考・進入測驗</span></a>
+            <a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            {% else %}
+            <a class="s-btn" href="{{ url_for('site.contact', course=hc.key) }}"><span>諮詢{{ hc.name }}課程</span></a>
+            <a class="h-more" href="#ai-mock">AI 線上模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            {% endif %}
+        </div>
     </div>
     <div class="h-hero-art">
         <img src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="在明亮辦公室討論的上班族" width="1920" height="1080" fetchpriority="high">
