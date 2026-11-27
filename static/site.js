@@ -11,7 +11,7 @@
     root.classList.add('s-js');
 
     /* 跟著滑鼠的光暈：不算動畫，減少動態時也保留 */
-    var GLOW = '.h-cat, .h-row, .s-card, .mk-entry, .h-why-cols > div, .h-enroll-list > div, .mk-opts label, .s-foot-go';
+    var GLOW = '.h-row, .s-card, .mk-entry, .h-why-cols > div, .h-enroll-list > div, .mk-opts label, .s-foot-go';
     document.addEventListener('pointermove', function (e) {
         var el = e.target.closest && e.target.closest(GLOW);
         if (!el) return;
@@ -36,10 +36,45 @@
         tick();
     }
 
+    /* 首頁 AI 線上模考的展開卡片：點直條換它展開；每 6 秒自動換下一張，
+       滑鼠移上去、點過、捲出畫面時停住（減少動態時不自動換） */
+    document.querySelectorAll('[data-acc]').forEach(function (acc) {
+        var items = Array.prototype.slice.call(acc.querySelectorAll('[data-acc-item]'));
+        if (items.length < 2) return;
+        var cur = 0, stopped = false, hover = false, seen = false, AUTO = 6000, timer = null;
+        acc.classList.add('is-ready');
+        acc.style.setProperty('--auto', AUTO + 'ms');
+        function open(i) {
+            items.forEach(function (it, j) {
+                var on = j === i;
+                it.classList.toggle('is-on', on);
+                it.querySelector('.h-acc-tab').setAttribute('aria-expanded', on ? 'true' : 'false');
+                it.querySelector('.h-acc-body').inert = !on;
+            });
+            cur = i;
+        }
+        function schedule() {
+            clearTimeout(timer);
+            var go = !reduce && !stopped && !hover && seen;
+            acc.classList.toggle('is-auto', go);
+            if (go) timer = setTimeout(function () { open((cur + 1) % items.length); schedule(); }, AUTO);
+        }
+        items.forEach(function (it, i) {
+            it.querySelector('.h-acc-tab').addEventListener('click', function () { stopped = true; open(i); schedule(); });
+        });
+        acc.addEventListener('pointerenter', function () { hover = true; schedule(); });
+        acc.addEventListener('pointerleave', function () { hover = false; schedule(); });
+        acc.addEventListener('focusin', function () { stopped = true; schedule(); });
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (es) { seen = es[0].isIntersecting; schedule(); }, { threshold: 0.4 }).observe(acc);
+        }
+        open(0);
+    });
+
     if (reduce || !('IntersectionObserver' in window)) return;
 
     /* 捲到時浮現：同一個父元素裡的依序延遲 */
-    var REVEAL = '.h-big, .h-sec-head, .h-cat, .h-row, .h-why-cols > div, .h-enroll-list > div, .h-path li, ' +
+    var REVEAL = '.h-big, .h-sec-head, .h-acc, .h-row, .h-why-cols > div, .h-enroll-list > div, .h-path li, ' +
                  '.h-story-photo, .h-split-side img, .s-card, .s-steps li, .s-sec h2, .mk-entry, .mk-r, .mk-ai, .mk-est, .s-foot .cols > div';
     var items = Array.prototype.slice.call(document.querySelectorAll(REVEAL));
     var vh = window.innerHeight;
