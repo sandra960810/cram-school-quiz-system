@@ -177,7 +177,7 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
 - **補習班資料在 `public_site/site_info.json`**（電話、地址、LINE 連結、各課程上課時間／師資／費用…）。空白欄位網頁顯示黃色「待填」，
   結構化資料會略過。**不要自己編課程內容、價格、學員見證**，只寫網站真的有的東西（字數、模考回數）
 - SEO：每頁 title／description／keywords／canonical（用 `site_url`）／Open Graph、JSON-LD（EducationalOrganization、各校區、Course、
-  BreadcrumbList）、`/sitemap.xml`、`/robots.txt`。**非公開頁（學生系統、後台、登入）一律回 `X-Robots-Tag: noindex`**（`noindex_private`），
+  BreadcrumbList）、`/sitemap.xml`、`/robots.txt`。**Google Search Console 驗證**：`site_info.json` 的 `google_site_verification` 填 Google 給的 HTML 標記 content 值（逗號隔開可多個），每一頁的 `<head>` 都會帶 `google-site-verification`。**非公開頁（學生系統、後台、登入）一律回 `X-Robots-Tag: noindex`**（`noindex_private`），
   新增公開頁要把網址開頭加進 `PUBLIC_PREFIXES` 和 sitemap
 - 諮詢名單是個資：存在 **`instance/leads.db`（獨立檔、不進 git；quiz.db 有進 git 所以不能放那裡）**。表單有 csrf、隱藏欄位擋機器人、
   同 IP 一小時 5 次、必須勾同意個資說明。工作人員後台 `/admin/leads` 看名單、標已聯絡、寫備註、下載 CSV（擋 Excel 公式注入）

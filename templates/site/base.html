@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page_title }}</title>
     <meta name="description" content="{{ description }}">
+    {# Google Search Console 驗證碼（site_info.json 的 google_site_verification，可放多個，用逗號隔開） #}
+    {% for code in (s.google_site_verification or "").split(",") if code.strip() %}<meta name="google-site-verification" content="{{ code.strip() }}">
+    {% endfor %}
     {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
     <link rel="canonical" href="{{ canonical }}">
     <meta property="og:type" content="website">
