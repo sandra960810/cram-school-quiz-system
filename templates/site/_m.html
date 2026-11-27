@@ -44,7 +44,7 @@
   {% if chips %}
   {# 主視覺用：上面一行白字，項目中間用 × 隔開（使用者要求不要框框、整行白色）；大字用等寬字＋外框殘影，下面一行系統狀態 #}
   {# 白字整體往下移一點（2026-11 使用者要求，原本太貼上緣） #}
-  <text x="{{ tx }}" y="31" class="t-chip-txt">{% for c in chips %}{% if not loop.first %}<tspan class="t-chip-x" dx="6">×</tspan><tspan dx="6">{{ c }}</tspan>{% else %}<tspan>{{ c }}</tspan>{% endif %}{% endfor %}</text>
+  <text x="{{ tx }}" y="45" class="t-chip-txt">{% for c in chips %}{% if not loop.first %}<tspan class="t-chip-x" dx="6">×</tspan><tspan dx="6">{{ c }}</tspan>{% else %}<tspan>{{ c }}</tspan>{% endif %}{% endfor %}</text>
   <text x="{{ tx + 1.5 }}" y="80.5" class="t-label-ghost">{{ label }}</text>
   <text x="{{ tx }}" y="79" class="t-label t-label-mono">{{ label }}</text>
   <text x="{{ tx }}" y="99" class="t-status">{{ sub }}<tspan class="t-caret">_</tspan></text>
