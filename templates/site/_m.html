@@ -12,7 +12,7 @@
 {%- endmacro %}
 {# 科技感面板（2026-11 使用者：強調 AI「不是放上 AI 字樣，要加點科技感元素」）：
    藍黑底＋細格線、電路走線（有一道光沿線跑）、聲波條、分數環。純裝飾，不放假數字。 #}
-{% macro tech_panel(label, sub='AI MOCK TEST', seed=0, h=150, cls='', tx=20) -%}
+{% macro tech_panel(label, sub='AI MOCK TEST', seed=0, h=150, cls='', tx=20, chips=None) -%}
 {# h：畫布高度（首頁主視覺用較高的 270，內容垂直置中，格線鋪滿） #}
 <span class="s-tech {{ cls }}" aria-hidden="true">
 <svg viewBox="0 0 320 {{ h }}" preserveAspectRatio="xMidYMid slice">
@@ -41,8 +41,27 @@
     <circle r="31" class="t-ring-in"/>
     <g class="t-chip"><path d="M-6 -16v4M0 -16v4M6 -16v4M-6 12v4M0 12v4M6 12v4M-16 -6h4M-16 0h4M-16 6h4M12 -6h4M12 0h4M12 6h4"/><rect x="-12" y="-12" width="24" height="24" rx="4"/><text y="4.5" text-anchor="middle">AI</text></g>
   </g>
+  {% if chips %}
+  {# 主視覺用：上面一排編號標籤（像系統模組），大字用等寬字＋外框殘影，下面一行系統狀態 #}
+  {% set ns = namespace(x=tx) %}
+  <g class="t-chips">
+    {% for c in chips %}
+    {% set ns2 = namespace(w=24) %}{% for ch in c %}{% set ns2.w = ns2.w + (3 if ch == ' ' else (4.8 if ch.isascii() else 8.6)) %}{% endfor %}{% set w = ns2.w %}
+    <g transform="translate({{ ns.x|round(1) }} 8)">
+      <path class="t-chip-box" d="M0 0H{{ (w - 4)|round(1) }}l4 4V16H0Z"/>
+      <text x="5" y="11.2" class="t-chip-no">{{ '%02d' % loop.index }}</text>
+      <text x="17" y="11.6" class="t-chip-txt">{{ c }}</text>
+    </g>
+    {% set ns.x = ns.x + w + 5 %}
+    {% endfor %}
+  </g>
+  <text x="{{ tx + 1.5 }}" y="{{ 71.5 }}" class="t-label-ghost">{{ label }}</text>
+  <text x="{{ tx }}" y="70" class="t-label t-label-mono">{{ label }}</text>
+  <text x="{{ tx }}" y="96" class="t-status">{{ sub }}<tspan class="t-caret">_</tspan></text>
+  {% else %}
   <text x="{{ tx }}" y="26" class="t-sub">{{ sub }}<tspan class="t-caret">_</tspan></text>
   <text x="{{ tx }}" y="64" class="t-label">{{ label }}</text>
+  {% endif %}
   </g>
 </svg>
 </span>

@@ -966,7 +966,15 @@ html { scroll-behavior: smooth; }
 /* 主視覺右側改成科技感面板（2026-11 使用者要求把 AI 模考卡片的樣式結合到最上方） */
 .h-hero-art.is-tech { background: var(--brand-tech); }
 .h-hero-art .h-hero-tech { position: absolute; inset: 0; margin: 0; aspect-ratio: auto; clip-path: inset(0); }
-.h-hero-tech .t-label { font-size: 44px; letter-spacing: 2px; }
-.h-hero-tech .t-sub { font-size: 8.5px; }
 .h-hero-art.is-tech::before, .h-hero-art.is-tech::after { display: none; }   /* 面板自己有格線與流光，不再疊照片用的掃描線 */
-.h-hero-tech .t-sub { font: 700 9.5px/1 "Noto Sans TC", "Microsoft JhengHei", sans-serif; letter-spacing: 1.2px; }
+/* 主視覺面板文字（2026-11 使用者要求字體、大小、編排更有科技感）：編號模組標籤、等寬大字＋外框殘影、系統狀態列 */
+.h-hero-tech .t-chip-box { fill: rgba(143,176,212,.08); stroke: var(--brand-ai-glow); stroke-opacity: .55; stroke-width: .6; }
+.h-hero-tech .t-chip-no { fill: var(--brand-gold); font: 700 6px/1 Consolas, "Courier New", monospace; letter-spacing: .4px; }
+.h-hero-tech .t-chip-txt { fill: #e9f0f8; font: 500 7.6px/1 "Noto Sans TC", "Microsoft JhengHei", sans-serif; letter-spacing: 1px; }
+.h-hero-tech .t-label-mono { font: 700 40px/1 Consolas, "SFMono-Regular", "Courier New", monospace; letter-spacing: 3px; fill: #fff; }
+.h-hero-tech .t-label-ghost { font: 700 40px/1 Consolas, "SFMono-Regular", "Courier New", monospace; letter-spacing: 3px; fill: none; stroke: var(--brand-ai-glow); stroke-width: .5; stroke-opacity: .7; }
+.h-hero-tech .t-status { fill: var(--brand-ai-glow); font: 400 6.4px/1 Consolas, "Courier New", monospace; letter-spacing: 1.6px; }
+@media (prefers-reduced-motion: no-preference) {
+    .h-hero-tech .t-label-ghost { animation: t-ghost 4s steps(1) infinite; }
+}
+@keyframes t-ghost { 0%, 92% { transform: translate(0, 0); } 94% { transform: translate(-1.5px, 0); } 96% { transform: translate(1px, -.5px); } }
