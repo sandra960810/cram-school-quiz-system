@@ -96,6 +96,73 @@
         markDot();
     });
 
+    /* 首頁標題的科技感動態（2026-11 使用者要求「標題也要有交互、科技感的動態」）：
+       1 進場時每個字先跳亂碼再依序定格（解碼）
+       2 「多益」每 3 秒解碼成下一個考試（雅思、日檢、韓檢…），下面的按鈕文字與連結跟著換
+       3 滑鼠在標題區移動時，背後的細格線跟著滑鼠亮起來；滑鼠停在標題區時暫停輪播 */
+    (function heroTitle() {
+        var h = document.querySelector('[data-hero-title]');
+        if (!h) return;
+        var box = h.closest('.h-hero-txt') || h;
+        box.addEventListener('pointermove', function (e) {
+            var r = box.getBoundingClientRect();
+            box.style.setProperty('--hx', (e.clientX - r.left) + 'px');
+            box.style.setProperty('--hy', (e.clientY - r.top) + 'px');
+        }, { passive: true });
+        if (reduce) return;
+        var POOL = '01<>/#*+=?%&ABCDEFXZ';
+        var segs = Array.prototype.slice.call(h.querySelectorAll('.h-t-seg, .h-t-word'));
+        var word = h.querySelector('.h-t-word');
+        var btn = document.querySelector('[data-hero-btn]');
+        var btnName = btn && btn.querySelector('[data-hero-name]');
+        var words = [];
+        try { words = JSON.parse(h.getAttribute('data-words') || '[]'); } catch (e) { words = []; }
+        h.setAttribute('aria-label', h.textContent);
+        function rnd() { return POOL[Math.floor(Math.random() * POOL.length)]; }
+        /* el 的文字從亂碼一個字一個字定格成 to；start 毫秒後開始，每個字間隔 step 毫秒 */
+        function decode(el, to, start, step, done) {
+            var chars = to.split(''), fixed = 0, t0 = null;
+            el.classList.add('is-scr');
+            function frame(ts) {
+                if (t0 === null) t0 = ts;
+                var pass = ts - t0 - start;
+                fixed = Math.max(0, Math.min(chars.length, Math.floor(pass / step)));
+                var out = '';
+                for (var i = 0; i < chars.length; i++) out += i < fixed ? chars[i] : (pass < -120 && i > 0 ? '\u00a0' : rnd());
+                el.textContent = out;
+                if (fixed < chars.length) requestAnimationFrame(frame);
+                else { el.textContent = to; el.classList.remove('is-scr'); if (done) done(); }
+            }
+            requestAnimationFrame(frame);
+        }
+        /* 1 進場解碼 */
+        var at = 150;
+        segs.forEach(function (el) {
+            var to = el.textContent;
+            el.textContent = to.replace(/./g, '\u00a0');
+            decode(el, to, at, 70);
+            at += to.length * 70 + 40;
+        });
+        if (!word || words.length < 2) return;
+        /* 2 考試名稱輪播 */
+        var cur = 0, hover = false, seen = true, timer = null;
+        function next() {
+            cur = (cur + 1) % words.length;
+            var w = words[cur];
+            word.classList.remove('is-swap'); void word.offsetWidth; word.classList.add('is-swap');
+            decode(word, w.n, 0, 90);
+            if (btn) { btn.href = w.u; if (btnName) decode(btnName, w.n, 0, 90); }
+        }
+        function loop() {
+            clearTimeout(timer);
+            timer = setTimeout(function () { if (!hover && seen && !document.hidden) next(); loop(); }, 3000);
+        }
+        box.addEventListener('pointerenter', function () { hover = true; });
+        box.addEventListener('pointerleave', function () { hover = false; });
+        if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }).observe(h);
+        setTimeout(loop, at + 600);
+    })();
+
     if (reduce || !('IntersectionObserver' in window)) return;
 
     /* 捲到時浮現：同一個父元素裡的依序延遲 */

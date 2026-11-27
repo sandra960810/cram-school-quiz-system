@@ -692,3 +692,29 @@ a.s-card:hover { background: #fff; }
 @media (max-width: 760px) {
     .h-acc.is-ready .h-acc-item, .h-acc.is-ready.has-open .h-acc-item, .h-acc.is-ready.has-open .h-acc-item.is-on { flex: 0 0 86%; border-radius: 8px; }
 }
+
+/* ======================================================================
+   首頁標題的科技感動態（site.js heroTitle；2026-11 使用者要求）
+   ====================================================================== */
+.h-hero-txt { position: relative; isolation: isolate; }
+/* 滑鼠附近亮起的細格線 */
+.h-hero-txt::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .4s;
+    background-image: linear-gradient(color-mix(in srgb, var(--brand-ai) 30%, transparent) 1px, transparent 1px),
+                      linear-gradient(90deg, color-mix(in srgb, var(--brand-ai) 30%, transparent) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(220px circle at var(--hx, 50%) var(--hy, 50%), #000, transparent 75%);
+            mask-image: radial-gradient(220px circle at var(--hx, 50%) var(--hy, 50%), #000, transparent 75%); }
+.h-hero-txt:hover::before { opacity: 1; }
+/* 解碼中的字用霧藍等寬字 */
+.h-title .is-scr { color: var(--brand-ai); }
+.h-title .h-t-word { position: relative; display: inline-block; }
+/* 輪播的考試名稱：底下一條黃藍漸層線，換字時由左畫過去 */
+.h-title .h-t-word::after { content: ""; position: absolute; left: 0; right: 0; bottom: .02em; height: .09em; transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--brand-ai), var(--brand-gold)); }
+@media (prefers-reduced-motion: no-preference) {
+    .h-title .h-t-word.is-swap::after { animation: h-underline .7s cubic-bezier(.6,0,.2,1); }
+    .h-title .h-t-caret { animation: s-ai-blink .9s steps(1) infinite; }
+}
+@keyframes h-underline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* 標題最後的游標 */
+.h-title .h-t-caret { display: inline-block; width: .07em; height: .82em; margin-left: .08em; vertical-align: -.06em; background: var(--brand-ai); }
