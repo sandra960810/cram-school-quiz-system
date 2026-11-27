@@ -42,6 +42,7 @@
 </head>
 <body>
 <div class="wrap">
+    {% include '_brand.html' %}
     <div class="welcome-banner">
         <h1>歡迎回來，{{ student.name }}</h1>
         {% if request.args.get('locked') %}<p class="locked-msg">{{ icon('lock') }} {{ request.args.get('locked') }}的這個功能還沒開通，請洽櫃台。</p>{% endif %}

@@ -494,7 +494,7 @@ def dashboard(student_id):
         cards.append(dict(e, allowed=e["key"] in allowed,
                           unlocked=sum(t["unlocked"] for t in themes if not t["locked"]),
                           total=sum(t["total"] for t in themes if not t["locked"])))
-    # 選擇頁本身用雅思的色系（紫色學院風）；卡片各自帶自己的主色
+    # 選擇頁掛在雅思底下（全站同一套官網色系）
     exams.use_exam(exams.DEFAULT_EXAM)
     import accounts
     return render_template('exam_select.html', student=student, cards=cards,

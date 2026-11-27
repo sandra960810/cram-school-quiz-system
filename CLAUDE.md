@@ -107,8 +107,7 @@ static/kana_keyboard.js    日文輸入：羅馬拼音自動轉假名＋五十�
 - `features` 決定開哪些功能：雅思有 learn／vocab_quiz／exam，多益與一般英文有 learn／vocab_quiz，
   零基礎多一個 phonics（ABC 與發音教學）；`/exam/` 一律算雅思、`/phonics/` 一律算零基礎
 - 主題清單 `OFFICIAL_THEMES` 每筆有 `course`；多益主題編號是 T01–T12、零基礎 B01–B13、一般英文 G01–G15，避免和雅思 01–15 混在一起
-- 色系：每個樣板的 `<html data-exam="{{ exam.key }}">`，`theme.css` 用 `:root[data-exam="toeic"]` 覆寫成藍色，
-  零基礎（basic）暖橘、一般英文（general）青綠；選擇考試頁的卡片色是 `.exam-tone-<考試>`
+- 色系：**全站同一套官網色系**（2026-11 使用者要求「測驗系統的設計直接跟官網風格一樣」，原本各考試各一色已拿掉）。每個樣板的 `<html data-exam="{{ exam.key }}">` 還在（韓文、日文的發音與字型要用），`theme.css` 不再依它換色
 - 之後做登入與後台開通權限：改 `exams.exams_for(student)` 依學生權限回傳可用考試即可
 - 多益單字在 `toeic/toeic_vocab.csv`（TSL＋BSL＋NGSL 三份開放字表 4,002 字＋2026-11 從雅思字庫補 1,003 字，共 5,005 字，CC BY-SA 4.0，來源與改動見 `toeic/README.md`），
   `run.bat` 會匯入
@@ -442,12 +441,14 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
 
 ## 全站視覺與色系
 
-- 顏色全部來自 `static/theme.css` 的變數：主色 `--primary`（雅思紫色學院風，各考試各一色）＋同色系深色 `--deep`。
-  **深色只佔小部分**（標題字、返回鈕、橫幅文字），不要拿來塗大面積的底色；零基礎是橘配咖啡。
-  其他變數：標題橫幅 `--hero`、文字 `--ink`／`--muted`、
-  框線 `--line`、底色 `--bg`，以及狀態色 `--ok`（對）、`--bad`（錯）、`--warn`（提醒）、`--star`（收藏），各有 `-50` 淺底與 `-ink` 深字
-- 標題橫幅是淺色平塗（`--hero`）配深色字（`--hero-ink` = `--deep`），**不用漸層**；層次**不用模糊陰影**，改用邊框疊：
-  一般卡片 `box-shadow: var(--edge)`、滑過或選取 `var(--edge-raised)`、橫幅 `var(--edge-hero)`、浮動面板 `var(--edge-pop)`
+- **學習系統和官網同一套風格**（2026-11 使用者要求「測驗系統的設計直接跟官網風格一樣」，只改外觀、不動功能）：米白底、近黑字、細灰線、
+  圓角卡片與膠囊按鈕；主要按鈕是橘底黑字（`--cta`），圖示、進度條用霧藍（`--accent`），卡片邊上的細色條與編號用芥末黃（`--bar`）；
+  標題橫幅是紙色底加淡淡的細格線（`--hero`，官網 AI 區的科技感）。選擇考試、各考試主選單、登入註冊頁最上面有品牌列 `templates/_brand.html`（透明底 Logo）
+- 顏色全部來自 `static/theme.css` 的變數：主色 `--primary`（近黑）、文字 `--ink`／`--muted`、框線 `--line`、底色 `--bg`，
+  以及狀態色 `--ok`（對）、`--bad`（錯）、`--warn`（提醒）、`--star`（收藏），各有 `-50` 淺底與 `-ink` 深字
+- 各頁的樣式寫在自己的 `<style>` 裡；全系統共用的外觀（按鈕形狀、卡片圓角、品牌列）寫在 `theme.css` 最後的「學習系統的官網風格外觀」，
+  選擇器一律用 `body:not(.site)` 開頭，才蓋得過各頁樣式、又不會影響官網（官網是 `<body class="site">`）
+- **不用漸層、不用模糊陰影**，層次用細線框：一般卡片 `box-shadow: var(--edge)`、滑過或選取 `var(--edge-raised)`、橫幅 `var(--edge-hero)`、浮動面板 `var(--edge-pop)`
 - **不用 emoji**，圖示一律用線條圖示：樣板寫 `{{ icon('book-open') }}`，JS 寫 `UI.icon('book-open')`，
   圖示在 `static/icons.svg`（缺的就照格式加一個 symbol）。✓ ✗ ★ ☆ 這類文字符號可以照用
 - 新頁面或新樣式**不要寫死色碼**，一律用 `var(--…)`；白色 `#fff` 可以直接寫

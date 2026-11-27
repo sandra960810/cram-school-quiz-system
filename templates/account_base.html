@@ -41,6 +41,7 @@
 </head>
 <body>
 <div class="wrap">
+    {% include '_brand.html' %}
 {% block body %}{% endblock %}
 </div>
 <script src="{{ url_for('static', filename='ui.js') }}"></script>
