@@ -969,3 +969,4 @@ html { scroll-behavior: smooth; }
 .h-hero-tech .t-label { font-size: 44px; letter-spacing: 2px; }
 .h-hero-tech .t-sub { font-size: 8.5px; }
 .h-hero-art.is-tech::before, .h-hero-art.is-tech::after { display: none; }   /* 面板自己有格線與流光，不再疊照片用的掃描線 */
+.h-hero-tech .t-sub { font: 700 9.5px/1 "Noto Sans TC", "Microsoft JhengHei", sans-serif; letter-spacing: 1.2px; }
