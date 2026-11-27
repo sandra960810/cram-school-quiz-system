@@ -1214,3 +1214,11 @@ html { scroll-behavior: smooth; }
 .h-cert-desc.is-grades b { font-size: 17px; }
 .h-cert-desc.is-grades em { line-height: 1.5; }
 @media (max-width: 760px) { .h-cert-desc.is-grades li { grid-template-columns: 1fr; } .h-cert-desc.is-grades div { flex-wrap: wrap; } }
+
+/* 2026-11 使用者：「LOGO 去背後再大一點」。圖騰改成透明底（emblem.png），頁首再放大一級 */
+.s-brand img { height: 68px; width: auto; }
+.s-head .wrap { min-height: 96px; }
+.mk-bar { top: 97px; }
+#courses, #campus, #ai-mock { scroll-margin-top: 112px; }
+@media (max-width: 760px) { .s-brand img { height: 52px; } .s-head .wrap { min-height: 74px; } }
+@media (max-width: 400px) { .s-brand img { height: 46px; } }
