@@ -7,11 +7,10 @@
         <span class="mk-r-part">{{ r.part.name }}</span>
         <span class="mk-r-mark">{% if r.ok %}✓ 答對{% elif r.mine %}✗ 你選 ({{ r.mine }}){% else %}✗ 沒作答{% endif %}・正解 ({{ r.q.answer }})</span>
     </div>
-    {% if r.group.passage and show %}<div class="mk-passage"{% if data.lang %} lang="{{ data.lang }}"{% endif %}>{{ r.group.passage }}</div>{% endif %}
-    {% if r.q.q %}<p class="mk-r-q"{% if data.lang %} lang="{{ data.lang }}"{% endif %}>{{ r.q.q }}</p>
-    <ol class="mk-r-opts" type="A"{% if data.lang %} lang="{{ data.lang }}"{% endif %}>{% for o in r.q.options %}<li class="{{ 'ans' if letters(r.q)[loop.index0] == r.q.answer }}">{{ o }}</li>{% endfor %}</ol>{% endif %}
+    {% if r.q.q %}<p class="mk-r-q">{{ r.q.q }}</p>
+    <ol class="mk-r-opts" type="A">{% for o in r.q.options %}<li class="{{ 'ans' if letters(r.q)[loop.index0] == r.q.answer }}">{{ o }}</li>{% endfor %}</ol>{% endif %}
     {% if show %}
-        {% if r.group.audio and (not r.q.q or data.show_script) %}<p class="mk-r-script"{% if data.lang %} lang="{{ data.lang }}"{% endif %}>{{ icon('headphones') }} 錄音內容：{{ r.group.audio|join(' ') }}</p>{% endif %}
+        {% if r.group.audio and not r.q.q %}<p class="mk-r-script">{{ icon('headphones') }} 錄音內容：{{ r.group.audio|join(' ') }}</p>{% endif %}
         <p class="mk-r-exp">{{ icon('bulb') }} {{ r.q.explain }}</p>
     {% endif %}
 </div>
@@ -25,23 +24,17 @@
         <div>正確率<br><b>答對 {{ att.correct }} / {{ att.total }} 題</b><br><span class="mk-muted">{{ att.created_at }} 作答</span></div>
         {% if est %}
         <div class="mk-est">
-            <div class="mk-est-label">{{ est.label }}</div>
-            <div class="mk-est-total">{{ est.big }}<small>{{ est.small }}</small></div>
-            <div class="mk-est-parts">{% for k in est.chips %}<span>{{ k }}</span>{% endfor %}</div>
+            <div class="mk-est-label">預估{{ data.name }}分數</div>
+            <div class="mk-est-total">{{ est.total }}<small> / {{ est.max }}</small></div>
+            <div class="mk-est-parts">{% for k in est.skills %}<span>{{ k.name }} {{ k.score }}</span>{% endfor %}</div>
         </div>
         {% endif %}
     </div>
-    {% if est %}<p class="mk-est-note">{{ est.note }}</p>{% endif %}
+    {% if est %}<p class="mk-est-note">預估分數依各部分答對率換算，迷你模考題數少，只是程度參考，不代表正式考試成績。</p>{% endif %}
 </div></section>
 
 {% if unlocked %}
 <section class="s-sec" id="report"><div class="wrap">
-    <div class="mk-ai" id="mk-ai" data-url="{{ url_for('site.mock_ai', token=att.token) }}">
-        <div class="mk-ai-head"><span class="s-ai-pill">AI</span><h2>AI 弱點診斷</h2></div>
-        <p class="mk-ai-wait" id="mk-ai-wait"><span class="mk-ai-dot"></span> AI 正在分析你的 {{ att.total - att.correct }} 題錯題，大約 10 秒…</p>
-        <div id="mk-ai-body" hidden></div>
-        <p class="mk-muted">AI 產生的內容可能有錯，只是學習參考，以老師講解為準。</p>
-    </div>
     <h2>{{ icon('chart') }} 各題型正確率</h2>
     <div class="mk-parts">
         {% for p in parts %}
@@ -52,19 +45,6 @@
         </div>
         {% endfor %}
     </div>
-    {% if est and est.levels %}
-    <h2 style="margin-top:32px">{{ icon('chart') }} 各級數正確率</h2>
-    <div class="mk-parts">
-        {% for p in est.levels %}
-        <div class="mk-part-row {{ 'weak' if p.rate < 0.6 }}">
-            <span class="mk-pn">{{ p.name }}</span>
-            <span class="mk-barbox"><span class="mk-barfill" style="width: {{ (p.rate * 100)|round|int }}%"></span></span>
-            <span class="mk-pv">{{ p.correct }}/{{ p.total }}（{{ (p.rate * 100)|round|int }}%）</span>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <div id="mk-weak-static">
     <h2 style="margin-top:32px">{{ icon('target') }} 弱點分析</h2>
     {% if weak %}
     {% for p in weak %}
@@ -73,8 +53,7 @@
     {% else %}
     <div class="s-card mk-advice"><p>各題型正確率都在 70% 以上，基礎很穩！可以挑戰完整模擬考，或和老師討論衝高分的讀書計畫。</p></div>
     {% endif %}
-    </div>
-    <p class="mk-muted">迷你模考題數較少，結果只是程度參考，不代表正式{{ data.name }}成績。</p>
+    <p class="mk-muted">迷你模考題數較少，結果只是程度參考，不代表正式多益分數。</p>
     <div class="s-consult">
         <div><b>想知道該從哪裡加強？</b><br>專人會依你的弱點，幫你規劃適合的課程。</div>
         <div class="s-consult-btns"><a class="s-btn" href="{{ url_for('site.contact', course=data.key) }}">預約免費諮詢</a>{{ line_btn(s) }}</div>
@@ -88,13 +67,13 @@
     {% for r in rows[:free] %}{{ qcard(r, true) }}{% endfor %}
     <div class="mk-locked">
         {% for r in rows[free:free + 3] %}{{ qcard(r, false) }}{% endfor %}
-        <div class="mk-lock-cover">{{ icon('lock') }} 還有 {{ rows|length - free }} 題解析、各題型正確率與 AI 弱點診斷</div>
+        <div class="mk-lock-cover">{{ icon('lock') }} 還有 {{ rows|length - free }} 題解析、各題型正確率與弱點分析</div>
     </div>
 
     <div class="s-two" style="margin-top:24px" id="unlock">
     <form class="s-form" method="post" action="{{ url_for('site.mock_result', token=att.token) }}#unlock" novalidate>
-        <h2 style="margin-top:0">{{ icon('key') }} 免費看完整解析與 AI 弱點診斷</h2>
-        <p class="sub">填寫以下資料，馬上解鎖全部 {{ att.total }} 題解析、各題型正確率，AI 會依你的錯題寫弱點診斷與個人化進步建議。</p>
+        <h2 style="margin-top:0">{{ icon('key') }} 免費看完整解析與弱點分析</h2>
+        <p class="sub">填寫以下資料，馬上解鎖全部 {{ att.total }} 題解析、各題型正確率與弱點分析。</p>
         {% if errors %}<div class="s-err"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
         <input type="hidden" name="csrf" value="{{ csrf }}">
         <div class="hp" aria-hidden="true"><label>網站<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -108,32 +87,12 @@
             {% for c in s.campuses %}<option value="{{ c.name }}" {{ 'selected' if v.campus == c.name }}>{{ c.label }}</option>{% endfor %}</select>
         <label class="consent"><input type="checkbox" name="consent" value="yes" {{ 'checked' if v.consent }}>
             <span>我同意{{ s.name }}依<a href="{{ url_for('site.privacy') }}" target="_blank">個人資料蒐集說明</a>，蒐集我的資料用於提供測驗報告與課程諮詢聯繫。<span class="req">*</span></span></label>
-        <button class="s-btn big" style="width:100%;margin-top:18px">看完整解析與 AI 弱點診斷</button>
+        <button class="s-btn big" style="width:100%;margin-top:18px">看完整解析與弱點分析</button>
     </form>
     <aside>
         <div class="s-line-box"><h3>{{ icon('speech') }} 想直接問老師？</h3><p>加官方 LINE，傳你的成績給我們。</p>{{ line_btn(s, 's-btn big line') }}</div>
     </aside>
     </div>
 </div></section>
-{% endif %}
-{% if unlocked %}
-<script>
-(() => {
-    const box = document.getElementById('mk-ai'), wait = document.getElementById('mk-ai-wait'), body = document.getElementById('mk-ai-body');
-    const esc = t => String(t).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
-    const fail = msg => { wait.textContent = msg + '，請參考下面的弱點分析。'; };
-    fetch(box.dataset.url, {method: 'POST'}).then(r => r.json()).then(d => {
-        if (!d.ok) return fail(d.reason || 'AI 診斷暫時無法使用');
-        const r = d.report;
-        let h = `<p class="mk-ai-sum">${esc(r.summary)}</p>`;
-        if (r.strengths.length) h += `<h3>做得好的地方</h3><ul class="mk-ai-ok">${r.strengths.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
-        if (r.weaknesses.length) h += `<h3>需要加強</h3>` + r.weaknesses.map((w, i) =>
-            `<div class="mk-ai-weak"><span class="mk-ai-no">${String(i + 1).padStart(2, '0')}</span><div><b>${esc(w.area)}</b><p>${esc(w.why)}</p><p class="mk-ai-how">練習方法：${esc(w.how)}</p></div></div>`).join('');
-        if (r.plan.length) h += `<h3>接下來兩週的建議</h3><ol class="mk-ai-plan">${r.plan.map(x => `<li>${esc(x)}</li>`).join('')}</ol>`;
-        body.innerHTML = h; body.hidden = false; wait.hidden = true;
-        document.getElementById('mk-weak-static').hidden = true;   // AI 寫好了就不重複顯示題庫的建議
-    }).catch(() => fail('AI 診斷暫時無法使用'));
-})();
-</script>
 {% endif %}
 {% endblock %}

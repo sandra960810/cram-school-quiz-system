@@ -1,5 +1,5 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn, ai_chip %}
+{% from 'site/_m.html' import fill, line_btn %}
 {% block body %}
 <section class="s-hero exam-tone-{{ c.key }}"><div class="wrap">
     <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › <a href="{{ url_for('site.courses') }}">課程介紹</a> › {{ c.name }}</div>
@@ -8,16 +8,16 @@
     <div class="s-cta">
         <a class="s-btn big" href="{{ url_for('site.contact', course=c.key) }}">諮詢{{ c.name }}課程</a>
         {{ line_btn(s, 's-btn big line') }}
-        {% if c.key in mocks_ready %}<a class="s-btn big ghost" href="{{ url_for('site.mock_take', key=c.key) }}">免費 AI {{ c.name }}模考</a>{% endif %}
+        {% if c.key in mocks_ready %}<a class="s-btn big ghost" href="{{ url_for('site.mock_take', key=c.key) }}">{{ icon('target') }} 免費{{ c.name }}模考</a>{% endif %}
     </div>
 </div></section>
 {% if c.key in mocks|map('first')|list %}
 <section class="s-sec"><div class="wrap">
     <div class="mk-entry exam-tone-{{ c.key }}">
         <div>
-            <h2>{{ ai_chip() }} 免費 AI {{ c.name }}迷你模考</h2>
+            <h2>{{ icon('target') }} 免費{{ c.name }}迷你模考</h2>
             {% if c.key in mocks_ready %}
-            <p>{{ mock_blurb[c.key] }}。留下聯絡資料，AI 會依你的錯題寫弱點診斷與進步建議。</p>
+            <p>聽力＋閱讀，約 10 分鐘。交卷馬上看正確率和解析，再拿到你的弱點分析。</p>
             {% else %}
             <p>約 10 分鐘測出你的程度。<span class="s-badge soon">即將開放</span></p>
             {% endif %}

@@ -1,4 +1,4 @@
-{% from 'site/_m.html' import fill, line_btn, ai_chip %}
+{% from 'site/_m.html' import fill, line_btn %}
 <!DOCTYPE html>
 <html lang="zh-Hant-TW" data-exam="ielts">
 <head>
@@ -32,8 +32,8 @@
             <a href="#campus">校區</a>
         </nav>
         <div class="s-actions">
-            {{ line_btn(s, 's-btn line small') }}
-            <a class="s-btn small" href="{{ url_for('site.contact') }}">預約諮詢</a>
+            {{ line_btn(s) }}
+            <a class="s-btn" href="{{ url_for('site.contact') }}">預約諮詢</a>
         </div>
     </div>
 </header>
@@ -43,16 +43,12 @@
 <footer class="s-foot">
     <div class="wrap">
         <div class="cols">
-            <div class="s-foot-brand">
-                <b>{{ s.name }}</b>{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}
-                <p>多益・雅思・托福・日檢・韓檢<br>實體課・線上直播課・AI 線上模考</p>
+            <div>
+                <h4>{{ s.name }}</h4>
                 {% if s.phone %}<div>電話：{{ s.phone }}</div>{% endif %}
+                {% for c in s.campuses %}{% if c.phone %}<div>{{ c.label }}：{{ c.phone }}</div>{% endif %}{% endfor %}
                 {% if s.email %}<div>Email：{{ s.email }}</div>{% endif %}
-                <div class="s-foot-social">
-                    {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">LINE</a>{% endif %}
-                    {% if s.facebook_url %}<a href="{{ s.facebook_url }}" target="_blank" rel="noopener">FACEBOOK</a>{% endif %}
-                    {% if s.instagram_url %}<a href="{{ s.instagram_url }}" target="_blank" rel="noopener">INSTAGRAM</a>{% endif %}
-                </div>
+                {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">LINE 官方帳號諮詢</a>{% endif %}
             </div>
             <div>
                 <h4>課程</h4>
@@ -60,16 +56,18 @@
             </div>
             <div id="campus">
                 <h4>校區</h4>
-                {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.label }}{% if c.phone %}<small>{{ c.phone }}</small>{% endif %}</a>{% endfor %}
+                {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.label }}</a>{% endfor %}
             </div>
             <div>
-                <h4>免費諮詢</h4>
-                <p>想知道適合哪個班別？留下資料，專人和你聯絡。</p>
-                <a class="s-foot-go" href="{{ url_for('site.contact') }}">填寫諮詢表單 <span aria-hidden="true">→</span></a>
-                <a class="s-foot-go" href="{{ url_for('site.mock_test') }}">AI 線上迷你模考 <span aria-hidden="true">→</span></a>
+                <h4>更多</h4>
+                <a href="{{ url_for('site.mock_test') }}">免費迷你模考</a>
+                <a href="{{ url_for('site.contact') }}">免費諮詢</a>
+                <a href="{{ url_for('site.privacy') }}">個人資料蒐集說明</a>
+                    {% if s.facebook_url %}<a href="{{ s.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+                {% if s.instagram_url %}<a href="{{ s.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
             </div>
         </div>
-        <div class="copy"><span>© {{ s.name }}</span><a href="{{ url_for('site.privacy') }}">個人資料蒐集說明</a></div>
+        <div class="copy"><span>© {{ s.name }}</span><span>多益・雅思・托福・日檢・韓檢</span></div>
     </div>
 </footer>
 <div class="s-float">

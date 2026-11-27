@@ -2,9 +2,8 @@
 {% block body %}
 <section class="s-hero exam-tone-{{ data.key }}"><div class="wrap">
     <div class="s-crumb"><a href="{{ url_for('site.home') }}">首頁</a> › <a href="{{ url_for('site.mock_test') }}">免費迷你模考</a> › {{ data.title }}</div>
-    <p class="s-eyebrow"><span class="s-ai-pill">AI</span> 線上模考</p>
     <h1>免費{{ data.title }}</h1>
-    <p class="lead">{{ data.lead or '聽力＋閱讀' }}共 {{ data.total }} 題，限時 {{ data.minutes }} 分鐘。交卷馬上看正確率與{{ data.est_text or '預估分數' }}，再由 AI 依錯題寫弱點診斷。題目全部原創，比照{{ data.name }}題型。</p>
+    <p class="lead">聽力＋閱讀共 {{ data.total }} 題，限時 {{ data.minutes }} 分鐘。交卷馬上看正確率，題目全部原創，比照多益題型。</p>
 </div></section>
 
 <section class="s-sec" id="mk-intro"><div class="wrap">
@@ -13,7 +12,7 @@
         <ul class="s-list">
             {% for p in data.parts %}<li><b>{{ p.name }}</b>：{{ p.groups|map(attribute='questions')|map('length')|sum }} 題</li>{% endfor %}
         </ul>
-        <p>{{ icon('headphones') }} 測驗裡有聽力題，請打開喇叭或戴上耳機。每段錄音最多播放 {{ max_plays }} 次。</p>
+        <p>{{ icon('headphones') }} 前面有聽力題，請打開喇叭或戴上耳機。每段錄音最多播放 {{ max_plays }} 次。</p>
         <p>{{ icon('clock') }} 按「開始測驗」後開始計時，時間到會自動交卷。</p>
         <button type="button" class="s-btn big" id="mk-start">開始測驗</button>
     </div>
@@ -39,11 +38,11 @@
                 <span class="mk-left">還可以播放 {{ max_plays }} 次</span>
             </div>
             {% endif %}
-            {% if g.passage %}<div class="mk-passage"{% if data.lang %} lang="{{ data.lang }}"{% endif %}>{{ g.passage }}</div>{% endif %}
+            {% if g.passage %}<div class="mk-passage">{{ g.passage }}</div>{% endif %}
             {% for q in g.questions %}
             <fieldset class="mk-q" id="q{{ q.n }}">
-                <legend><span class="mk-no">{{ q.n }}</span> <span{% if data.lang and q.q %} lang="{{ data.lang }}"{% endif %}>{{ q.q or '選出最適當的回應' }}</span></legend>
-                <div class="mk-opts"{% if data.lang %} lang="{{ data.lang }}"{% endif %}>
+                <legend><span class="mk-no">{{ q.n }}</span> {{ q.q or '選出最適當的回應' }}</legend>
+                <div class="mk-opts">
                 {% for o in q.options %}{% set L = letters(q)[loop.index0] %}
                     <label><input type="radio" name="q{{ q.n }}" value="{{ L }}"> <b>({{ L }})</b>{% if q.q %} {{ o }}{% endif %}</label>
                 {% endfor %}
@@ -56,7 +55,7 @@
     {% endfor %}
     <div class="mk-submit">
         <p id="mk-warn" class="mk-warn" hidden></p>
-        <button class="s-btn big" id="mk-send">交卷，看成績</button>
+        <button class="s-btn big" id="mk-send">交卷，看正確率</button>
     </div>
     </div>
 </form>
