@@ -1178,3 +1178,11 @@ html { scroll-behavior: smooth; }
     .h-cert-bar li:first-child { border-radius: 12px 12px 0 0 !important; }
     .h-cert-bar li:last-child { border-radius: 0 0 12px 12px !important; }
 }
+
+/* 多益各色證書的能力說明（2026-11 使用者要求「多益分數區說明」）：高分在上 */
+.h-cert-desc { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.h-cert-desc li { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: center; padding: 12px 18px; background: var(--brand-paper); border: 1px solid var(--brand-line); border-left: 6px solid var(--c); border-radius: 12px; }
+.h-cert-desc b { display: block; font-size: 15.5px; font-weight: 900; color: var(--c); }
+.h-cert-desc em { display: block; font-style: normal; font-size: 13px; font-weight: 700; color: var(--brand-muted); font-variant-numeric: tabular-nums; }
+.h-cert-desc p { margin: 0; font-size: 14.5px; line-height: 1.75; color: var(--brand-ink-2); }
+@media (max-width: 760px) { .h-cert-desc li { grid-template-columns: 1fr; gap: 4px; } .h-cert-desc div { display: flex; gap: 10px; align-items: baseline; } }

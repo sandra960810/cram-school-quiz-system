@@ -177,8 +177,9 @@
         {% if data.cert %}
         <div class="h-cert">
             <h3 class="h-cert-t">證書顏色</h3>
-            <ol class="h-cert-bar">{% for name, lo, hi, col in data.cert %}<li style="--c: var(--toeic-{{ col }}); flex: {{ hi - lo + 5 }}"><b>{{ name }}</b><em>{{ lo }}–{{ hi }}</em></li>{% endfor %}</ol>
-            <p class="h-cefr1-src">多益聽力與閱讀測驗依總分發給五種顏色的證書。</p>
+            <ol class="h-cert-bar">{% for name, lo, hi, col, d in data.cert %}<li style="--c: var(--toeic-{{ col }}); flex: {{ hi - lo + 5 }}"><b>{{ name }}</b><em>{{ lo }}–{{ hi }}</em></li>{% endfor %}</ol>
+            <ol class="h-cert-desc">{% for name, lo, hi, col, d in data.cert|reverse %}<li style="--c: var(--toeic-{{ col }})"><div><b>{{ name }}證書</b><em>{{ lo }}–{{ hi }} 分</em></div><p>{{ d }}</p></li>{% endfor %}</ol>
+            <p class="h-cefr1-src">多益聽力與閱讀測驗依總分發給五種顏色的證書；{{ data.cert_src }}。</p>
         </div>
         <h3 class="h-cert-t">成績與 CEFR 對照</h3>
         {% else %}
