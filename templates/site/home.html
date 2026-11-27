@@ -24,6 +24,7 @@
     </div>
     <div class="h-hero-art">
         <img src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="在明亮辦公室討論的上班族" width="1920" height="1080" fetchpriority="high">
+        <span class="t-hud t-hud-corners" aria-hidden="true"></span>
         <svg class="h-seal" viewBox="0 0 160 160" aria-hidden="true">
             <defs><path id="h-seal-path" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1 -120 0"/></defs>
             <g class="h-seal-spin"><text><textPath href="#h-seal-path">AI MOCK TEST · INSTANT SCORE · WEAKNESS REPORT ·</textPath></text></g>
@@ -131,6 +132,18 @@
     </div>
     <div class="h-story-photo">
         <img src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="學員一起討論的上課情境" width="1920" height="1177" loading="lazy">
+        <span class="t-hud t-hud-corners" aria-hidden="true"></span>
+        <span class="t-hud t-hud-ring" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+                <circle class="r1" cx="100" cy="100" r="96"/>
+                <circle class="r2" cx="100" cy="100" r="80"/>
+                <circle class="r4" cx="100" cy="100" r="66"/>
+                <g class="r-tick">{% for a in range(0, 360, 30) %}<line x1="100" y1="8" x2="100" y2="16" transform="rotate({{ a }} 100 100)"/>{% endfor %}</g>
+                <circle class="r3" cx="100" cy="100" r="52"/>
+                <text x="100" y="112" text-anchor="middle">AI</text>
+            </svg>
+        </span>
+        <span class="t-hud t-hud-tag" aria-hidden="true"><i></i>AI LEARNING SYSTEM</span>
     </div>
 </section>
 {% endblock %}

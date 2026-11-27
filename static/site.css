@@ -203,7 +203,7 @@ a.s-card:hover { background: #fff; }
 .h-path li b { display: block; color: var(--brand-ink); font-size: 15px; }
 .h-path li b::before { counter-increment: p; content: "STEP " counter(p) "　"; font-size: 11px; letter-spacing: .12em; color: var(--brand-gold-ink); }
 .h-rows { display: flex; flex-direction: column; }
-.h-row { flex: 1; display: grid; grid-template-columns: 56px minmax(200px, 1fr) 1.2fr auto; align-items: center; gap: 20px; padding: 20px 0 20px 36px;
+.h-row { flex: 1; display: grid; grid-template-columns: 56px minmax(200px, 1fr) 1.2fr 76px; align-items: center; gap: 20px; padding: 20px 0 20px 36px;
     border-bottom: 1px solid var(--brand-line); text-decoration: none; color: var(--brand-ink) !important; transition: background .15s; }
 .h-row:last-child { border-bottom: none; }
 .h-row:hover { background: var(--brand-paper); }
@@ -430,3 +430,107 @@ a.s-card:hover { background: #fff; }
 .h-cat, .h-cat:first-child { padding: 6px 24px 10px; }
 .h-cat:first-child { border-left: none; }
 @media (max-width: 980px) { .h-cat-row { margin: 0 -14px; } .h-cat, .h-cat:first-child, .h-cat:nth-child(3) { padding: 4px 14px 8px; } .h-cat:nth-child(3) { border-left: none; } }
+
+/* ======================================================================
+   科技感互動（static/site.js；2026-11 使用者要求「整個網站的交互設計改得更有科技感」）
+   顏色維持低彩度：霧藍 --brand-ai／--brand-ai-glow、芥末黃 --brand-gold
+   ====================================================================== */
+/* 頁首下緣的閱讀進度線 */
+.s-head { position: sticky; }
+.s-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; transform-origin: 0 50%; transform: scaleX(0);
+    background: linear-gradient(90deg, var(--brand-ai), var(--brand-gold)); pointer-events: none; }
+
+/* 捲到時浮現 */
+.s-js .t-rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease var(--d, 0ms), transform .7s cubic-bezier(.2,.7,.2,1) var(--d, 0ms); }
+.s-js .t-rv.t-in { opacity: 1; transform: none; }
+/* 照片由一側拉開（clip-path 放在照片本身，不放在被觀察的區塊上，否則捲到也偵測不到） */
+.s-js .h-story-photo.t-rv { opacity: 1; transform: none; }
+.s-js .h-story-photo.t-rv > img { clip-path: inset(0 100% 0 0); transition: clip-path 1.1s cubic-bezier(.7,0,.2,1) var(--d, 0ms); }
+.s-js .h-story.is-flip .h-story-photo.t-rv > img { clip-path: inset(0 0 0 100%); }
+.s-js .h-story .h-story-photo.t-rv.t-in > img { clip-path: inset(0); }
+
+/* 眉標打字時的游標 */
+.t-typing::after { content: ""; display: inline-block; width: .55em; height: 1.05em; margin-left: 3px; vertical-align: -.15em; background: var(--brand-ai); animation: s-ai-blink .8s steps(1) infinite; }
+.s-eyebrow.lined::before { background: linear-gradient(90deg, var(--brand-gold) 0 60%, var(--brand-ai) 60%); }
+
+/* 跟著滑鼠的光暈＋四角的 HUD 框線 */
+.t-glow { position: relative; isolation: isolate; }
+.t-glow::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .25s;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--brand-ai) 16%, transparent), transparent 70%); }
+.t-glow:hover::before { opacity: 1; }
+.t-glow::after { content: ""; position: absolute; inset: 6px; pointer-events: none; opacity: 0; transform: scale(1.03); transition: opacity .25s, transform .25s;
+    --c: var(--brand-ai); --s: 12px;
+    background:
+        linear-gradient(var(--c), var(--c)) top left / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) top left / 1.5px var(--s),
+        linear-gradient(var(--c), var(--c)) top right / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) top right / 1.5px var(--s),
+        linear-gradient(var(--c), var(--c)) bottom left / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) bottom left / 1.5px var(--s),
+        linear-gradient(var(--c), var(--c)) bottom right / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) bottom right / 1.5px var(--s);
+    background-repeat: no-repeat; }
+.t-glow:hover::after { opacity: 1; transform: none; }
+.mk-opts label.t-glow::after, .s-foot-go.t-glow::after { display: none; }
+.s-foot-go.t-glow::before { background: radial-gradient(140px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--brand-ai-glow) 22%, transparent), transparent 70%); }
+.h-row:hover .h-row-name { color: var(--brand-ink); text-shadow: 0 0 18px color-mix(in srgb, var(--brand-ai-glow) 55%, transparent); }
+.h-row::after { inset: 8px 8px 8px 24px; }
+
+/* 按鈕：滑過時一道光掃過 */
+.s-btn { position: relative; overflow: hidden; }
+.s-btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; pointer-events: none;
+    background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--brand-ai-glow) 55%, transparent), transparent); transform: skewX(-18deg); }
+@media (prefers-reduced-motion: no-preference) { .s-btn:hover::after { animation: t-sweep .7s ease; } }
+@keyframes t-sweep { to { left: 130%; } }
+
+/* 照片：細格線、掃描線、四角 HUD 框 */
+.h-hero-art::before, .h-story-photo::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background-image: linear-gradient(color-mix(in srgb, #fff 10%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, #fff 10%, transparent) 1px, transparent 1px);
+    background-size: 48px 48px; mix-blend-mode: overlay; }
+.h-hero-art::after, .h-story-photo::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--brand-ai-glow) 22%, transparent) 85%, color-mix(in srgb, var(--brand-ai-glow) 70%, transparent) 100%) 0 -60% / 100% 30% no-repeat; }
+@media (prefers-reduced-motion: no-preference) {
+    .h-hero-art::after { animation: t-scan 6s cubic-bezier(.4,0,.6,1) 1s infinite; }
+    .h-story-photo:hover::after { animation: t-scan 2.4s cubic-bezier(.4,0,.6,1) infinite; }
+}
+@keyframes t-scan { 0% { background-position: 0 -60%; opacity: 0; } 15% { opacity: 1; } 75% { opacity: 1; } 100% { background-position: 0 140%; opacity: 0; } }
+.t-hud { position: absolute; z-index: 2; pointer-events: none; }
+.t-hud-corners { inset: 18px; --c: color-mix(in srgb, #fff 75%, transparent); --s: 22px;
+    background:
+        linear-gradient(var(--c), var(--c)) top left / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) top left / 1.5px var(--s),
+        linear-gradient(var(--c), var(--c)) top right / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) top right / 1.5px var(--s),
+        linear-gradient(var(--c), var(--c)) bottom left / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) bottom left / 1.5px var(--s),
+        linear-gradient(var(--c), var(--c)) bottom right / var(--s) 1.5px, linear-gradient(var(--c), var(--c)) bottom right / 1.5px var(--s);
+    background-repeat: no-repeat; }
+.t-hud-tag { left: 22px; bottom: 20px; font: 700 10.5px/1 Consolas, "Courier New", monospace; letter-spacing: .16em; color: #fff;
+    background: color-mix(in srgb, var(--brand-tech) 70%, transparent); padding: 6px 10px; display: flex; gap: 8px; align-items: center; }
+.t-hud-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-gold); }
+@media (prefers-reduced-motion: no-preference) { .t-hud-tag i { animation: s-ai-blink 1.4s ease-in-out infinite; } }
+
+/* 關於區塊照片上的 AI 環（呼應使用者給的參考圖：筆電上浮著發光的 AI 圓環） */
+.t-hud-ring { width: 46%; max-width: 260px; aspect-ratio: 1; left: 50%; top: 42%; transform: translate(-50%, -50%); }
+.t-hud-ring svg { width: 100%; height: 100%; overflow: visible; }
+.t-hud-ring .r1 { fill: none; stroke: var(--brand-ai-glow); stroke-width: 1.4; stroke-dasharray: 3 6; opacity: .9; }
+.t-hud-ring .r2 { fill: none; stroke: #fff; stroke-width: 2; stroke-dasharray: 90 40 20 40; opacity: .8; }
+.t-hud-ring .r3 { fill: color-mix(in srgb, var(--brand-tech) 55%, transparent); stroke: var(--brand-ai-glow); stroke-width: 1.2; }
+.t-hud-ring .r4 { fill: none; stroke: var(--brand-gold); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 40 400; }
+.t-hud-ring text { fill: #fff; font: 900 34px/1 Arial, sans-serif; letter-spacing: 1px; }
+.t-hud-ring .r-tick { stroke: var(--brand-ai-glow); stroke-width: 1.2; opacity: .7; }
+@media (prefers-reduced-motion: no-preference) {
+    .t-hud-ring .r1 { transform-origin: 100px 100px; animation: h-spin 30s linear infinite; }
+    .t-hud-ring .r2 { transform-origin: 100px 100px; animation: h-spin 12s linear infinite reverse; }
+    .t-hud-ring .r4 { transform-origin: 100px 100px; animation: h-spin 5s linear infinite; }
+}
+
+/* 頁尾：極淡的點陣與一條流動的光線 */
+.s-foot { position: relative; background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--brand-ai-glow) 14%, transparent) 1px, transparent 0); background-size: 22px 22px; }
+.s-foot::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brand-ai-glow), var(--brand-gold), transparent); background-size: 40% 100%; background-repeat: no-repeat; opacity: .7; }
+@media (prefers-reduced-motion: no-preference) { .s-foot::before { animation: t-flow 7s linear infinite; } }
+@keyframes t-flow { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+
+/* 迷你模考：作答列與 AI 診斷框的掃描光 */
+.mk-bar { background-image: linear-gradient(90deg, var(--brand-ink), color-mix(in srgb, var(--brand-tech) 80%, var(--brand-ai)) 50%, var(--brand-ink)); }
+.mk-timer { font-family: Consolas, "Courier New", monospace; letter-spacing: .06em; }
+.mk-ai { background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--brand-ai) 14%, transparent) 1px, transparent 0); background-size: 16px 16px; overflow: hidden; }
+.mk-ai::before { background: linear-gradient(90deg, var(--brand-ai), var(--brand-ai-glow) 40%, var(--brand-gold) 50%, var(--brand-ai-glow) 60%, var(--brand-ai)); background-size: 200% 100%; }
+@media (prefers-reduced-motion: no-preference) { .mk-ai::before { animation: t-flow2 4s linear infinite; } }
+@keyframes t-flow2 { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.mk-barfill { background: linear-gradient(90deg, var(--brand-ink), var(--brand-ai)); }
+@media (max-width: 760px) { .t-hud-ring { width: 40%; } .t-hud-corners { inset: 12px; --s: 16px; } }
