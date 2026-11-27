@@ -1186,3 +1186,31 @@ html { scroll-behavior: smooth; }
 .h-cert-desc em { display: block; font-style: normal; font-size: 13px; font-weight: 700; color: var(--brand-muted); font-variant-numeric: tabular-nums; }
 .h-cert-desc p { margin: 0; font-size: 14.5px; line-height: 1.75; color: var(--brand-ink-2); }
 @media (max-width: 760px) { .h-cert-desc li { grid-template-columns: 1fr; gap: 4px; } .h-cert-desc div { display: flex; gap: 10px; align-items: baseline; } }
+
+/* 手機頁首（2026-11 使用者要求「手機板最上面也要用好」）：原本「AI 學習系統」排在可橫滑選單的最後面，會被切掉。
+   改成第一行 Logo＋右邊橘色「AI 學習系統」按鈕，第二行是各科選單（可左右滑，右邊淡出提示還有），目前那科自動捲到看得到 */
+@media (max-width: 760px) {
+    .s-head .wrap { padding-top: 8px; gap: 6px 10px; }
+    .s-head .s-actions { display: flex; order: 2; margin-left: auto; }
+    .s-head .s-actions .s-btn.line, .s-head .s-actions .s-btn:not(.ai) { display: none; }
+    .s-head .s-actions .s-btn.ai { padding: 8px 14px; font-size: 13px; gap: 5px; white-space: nowrap; }
+    .s-head .s-actions .s-btn.ai .s-btn-chip { width: 16px; height: 16px; }
+    .s-nav .s-nav-ai { display: none !important; }
+    .s-nav { position: relative; gap: 16px; padding: 2px 28px 8px 0; margin-right: -18px;
+             -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent);
+                     mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent); }
+    .s-nav.is-end { -webkit-mask-image: none; mask-image: none; }
+    .s-nav a { font-size: 14.5px; letter-spacing: .04em; }
+}
+@media (max-width: 400px) {
+    .s-brand { font-size: 19px; gap: 8px; }
+    .s-brand img { height: 38px; }
+    .s-brand small { font-size: 9.5px; letter-spacing: .1em; }
+    .s-head .s-actions .s-btn.ai .s-btn-chip { display: none; }
+}
+/* 各科等級說明（2026-11 使用者要求每科都跟多益一樣有等級說明）：分數介紹欄數自動排，左欄放級數與分數 */
+.h-score { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.h-cert-desc.is-grades li { grid-template-columns: 220px minmax(0, 1fr); }
+.h-cert-desc.is-grades b { font-size: 17px; }
+.h-cert-desc.is-grades em { line-height: 1.5; }
+@media (max-width: 760px) { .h-cert-desc.is-grades li { grid-template-columns: 1fr; } .h-cert-desc.is-grades div { flex-wrap: wrap; } }

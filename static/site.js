@@ -202,3 +202,15 @@
     });
 })();
 
+
+// 手機頁首：選單可左右滑，目前那科捲到看得到；滑到最右邊就拿掉淡出
+(function () {
+    var nav = document.querySelector('.s-nav');
+    if (!nav) return;
+    var on = nav.querySelector('a.on');
+    if (on && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = Math.max(0, on.offsetLeft - nav.clientWidth / 2 + on.offsetWidth / 2);
+    function end() { nav.classList.toggle('is-end', nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 4); }
+    nav.addEventListener('scroll', end, { passive: true });
+    window.addEventListener('resize', end);
+    end();
+})();

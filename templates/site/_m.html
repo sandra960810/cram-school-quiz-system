@@ -164,15 +164,19 @@
 {# 各科的 CEFR 對照（主頁面的程度分級制度圖表之外，各科專屬頁面與課程頁只放該科的；2026-11 使用者要求）
    cells 是 A1～C2 六格的分數，空白顯示「—」 #}
 {% macro cefr_block(c, data) -%}
+{# 各科的分數介紹、各級說明與 CEFR 對照（school_site.CEFR_BY_EXAM）：parts＝考試架構、cert＝多益證書顏色、
+   grades＝各級能力說明（2026-11 使用者要求每科都跟多益一樣有等級說明）、cells＝A1～C2 對照 #}
 {% if data %}
 <section class="h-cefr1" id="cefr">
     <div class="wrap">
-        <div class="h-sec-head"><p class="s-eyebrow lined">{{ 'SCORE · CEFR' if data.parts else 'CEFR' }}</p></div>
+        <div class="h-sec-head"><p class="s-eyebrow lined">{{ 'SCORE · LEVELS' if data.parts else 'LEVELS · CEFR' }}</p></div>
         {% if data.parts %}
         <h2 class="h-big">{{ data.title }}</h2>
         <ul class="h-score">
             {% for name, rng, d in data.parts %}<li><span>{{ name }}</span><b>{{ rng }}</b><small>{{ d }}</small></li>{% endfor %}
         </ul>
+        {% else %}
+        <h2 class="h-big">{% if c.key == 'basic' %}零基礎英文在程度分級的位置{% else %}{{ c.name }}成績與 CEFR 對照{% endif %}</h2>
         {% endif %}
         {% if data.cert %}
         <div class="h-cert">
@@ -181,10 +185,16 @@
             <ol class="h-cert-desc">{% for name, lo, hi, col, d in data.cert|reverse %}<li style="--c: var(--toeic-{{ col }})"><div><b>{{ name }}證書</b><em>{{ lo }}–{{ hi }} 分</em></div><p>{{ d }}</p></li>{% endfor %}</ol>
             <p class="h-cefr1-src">多益聽力與閱讀測驗依總分發給五種顏色的證書；{{ data.cert_src }}。</p>
         </div>
-        <h3 class="h-cert-t">成績與 CEFR 對照</h3>
-        {% else %}
-        <h2 class="h-big">{% if c.key == 'basic' %}零基礎英文在程度分級的位置{% else %}{{ c.name }}成績與 CEFR 對照{% endif %}</h2>
         {% endif %}
+        {% if data.grades %}
+        <div class="h-cert">
+            {% if data.parts %}<h3 class="h-cert-t">{{ data.grades_title }}</h3>{% endif %}
+            <ol class="h-cert-desc is-grades">{% for name, sub, lv, d in data.grades %}<li style="--c: var(--lv{{ lv }})"><div><b>{{ name }}</b><em>{{ sub }}</em></div><p>{{ d }}</p></li>{% endfor %}</ol>
+            <p class="h-cefr1-src">{{ data.grades_src }}。</p>
+        </div>
+        {% endif %}
+        {% if data.cells %}
+        {% if data.parts %}<h3 class="h-cert-t">成績與 CEFR 對照</h3>{% endif %}
         <ol class="h-cefr1-scale">
             {% for lv in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] %}
             {% set v = data.cells[loop.index0] %}
@@ -196,6 +206,7 @@
             {% endfor %}
         </ol>
         <p class="h-cefr1-src">{{ data.src }}{% if data.colors %}；卡片顏色是該分數的證書顏色{% endif %}。</p>
+        {% endif %}
     </div>
 </section>
 {% endif %}
