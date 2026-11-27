@@ -21,7 +21,7 @@ body.site { margin: 0; background: var(--brand-bg); color: var(--brand-ink); fon
 .s-head .s-actions { display: flex; gap: 8px; align-items: center; }
 
 /* ---------- 按鈕與連結 ---------- */
-.s-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 22px; border-radius: 2px; border: 1.5px solid var(--brand-ink);
+.s-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 22px; border-radius: 999px;   /* 2026-11 使用者要求按鈕都圓角 */ border: 1.5px solid var(--brand-ink);
     cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; letter-spacing: .04em; text-decoration: none; background: var(--brand-ink); color: #fff !important; transition: background .15s, color .15s; }
 .s-btn:hover { background: transparent; color: var(--brand-ink) !important; }
 .s-btn.ghost { background: transparent; color: var(--brand-ink) !important; }
