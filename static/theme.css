@@ -1,15 +1,17 @@
 /* 全站色系：所有頁面的顏色都從這裡的變數來，要換色只改這一份。
    各頁 <style> 裡只寫 var(--primary) 這類變數，不要再寫死色碼。 */
 :root {
-    /* 官網配色（2026-11 使用者要求配合首頁照片＋加入黃色）：照片裡西裝的灰藍、明亮辦公室的冷灰白，重點色用黃色 */
-    --brand-navy: #22384f;
-    --brand-navy-100: #d3dde8;
-    --brand-bg: #f3f5f8;
-    --brand-gold: #f5c330;
-    --brand-gold-50: #fff6d6;
-    --brand-gold-ink: #8a6500;
-    --brand-ai: #4cb4ff;          /* 官網 AI 圖樣的發光藍（招生區的晶片、線路） */
-    --brand-ink: #1a1a1a;         /* 官網頁首品牌字（驅勢英日韓／英文名）的黑色（使用者要求） */
+    /* 官網配色（2026-11 使用者給參考圖要「清新一點」）：米白底、近黑字、細灰線、黑色頁尾，重點色只用 AI 的藍 */
+    --brand-bg: #f4f1ea;          /* 米白底 */
+    --brand-paper: #fbfaf6;       /* 卡片、表單 */
+    --brand-soft: #ebe6db;        /* 圖片底、淺色區塊 */
+    --brand-ink: #141414;         /* 標題、按鈕、頁尾的近黑 */
+    --brand-ink-2: #48453f;
+    --brand-muted: #858074;
+    --brand-line: #d8d2c5;        /* 細分隔線 */
+    --brand-ai: #2f7dff;          /* AI 元素的藍（晶片、AI 標籤、AI 弱點診斷） */
+    --brand-ai-glow: #4cb4ff;
+    --brand-ai-50: #e8f0ff;
     /* 主色：紫色學院風。按鈕、連結、標題橫幅、選取狀態 */
     --primary: #4a2d7f;
     --primary-600: #38205f;
