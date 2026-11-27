@@ -784,3 +784,26 @@ html { scroll-behavior: smooth; }
     .h-hero-cta.is-main .h-go { padding: 6px 6px 6px 24px; min-height: 58px; gap: 14px; }
     .h-hero-cta.is-main .h-go i { width: 46px; height: 46px; }
 }
+
+/* 首頁主視覺下面直接接諮詢表單（2026-11 使用者要求：展開著可以直接填） */
+.h-lead { background: var(--brand-gold-50); border-bottom: 1px solid var(--brand-line); padding: 44px 0 48px; }
+.h-lead-in { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2.2fr); gap: 40px; align-items: start; }
+.h-lead-head h2 { margin: 14px 0 10px; font-size: 30px; font-weight: 900; line-height: 1.2; letter-spacing: -.01em; }
+.h-lead-head p:last-child { margin: 0; font-size: 14.5px; color: var(--brand-ink-2); }
+.h-lead-form { padding: 26px 28px 28px; }
+.h-lead-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 16px; }
+.h-lead-row label.f { margin-top: 0; }
+.s-form.h-lead-form > label.f:first-of-type { margin-top: 18px; }
+.h-lead-end { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; margin-top: 20px; flex-wrap: wrap; }
+.h-lead-end .consent { margin-top: 0; flex: 1 1 300px; }
+.h-lead-end .s-btn { flex: 0 0 auto; }
+#consult { scroll-margin-top: 104px; }
+@media (max-width: 980px) { .h-lead-in { grid-template-columns: 1fr; gap: 22px; } }
+@media (max-width: 760px) {
+    .h-lead { padding: 32px 0 36px; }
+    .h-lead-head h2 { font-size: 26px; }
+    .h-lead-form { padding: 20px 18px 22px; }
+    .h-lead-row { grid-template-columns: 1fr; }
+    .h-lead-form .h-lead-row > div + div label.f:first-of-type { margin-top: 16px; }
+    .h-lead-end .s-btn { width: 100%; }
+}

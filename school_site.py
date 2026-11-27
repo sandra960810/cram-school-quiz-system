@@ -173,7 +173,9 @@ def home():
     # 2026-11 使用者要求：官網（含校區）不連到學生系統，已登入的學生也照樣看官網
     d = info()
     towns = '、'.join(c['name'] for c in d['campuses'])
-    return page('site/home.html',
+    if not session.get('site_csrf'):          # 首頁主視覺下面直接有諮詢表單（送到 /contact），和諮詢頁共用同一個 csrf
+        session['site_csrf'] = secrets.token_hex(16)
+    return page('site/home.html', csrf=session['site_csrf'],
                 title=f"{d['name']}｜{towns}多益、雅思、托福、日文、韓文補習班",
                 description=f"{d['name']}在{towns}設有校區，提供多益、雅思、托福、日檢、韓檢課程，"
                             f"專屬學習規劃、免費多益程度測驗。免費諮詢、加 LINE 了解課程。",

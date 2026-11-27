@@ -51,6 +51,40 @@
     </div>
 </section>
 
+{# 2026-11 使用者：主視覺結束後下面直接接個資表單，展開著可以直接填（不用再點進諮詢頁）。
+   送到 /contact，檢查、防機器人、次數限制、寄通知信都用同一套；填錯會在諮詢頁顯示錯誤並保留已填的內容。
+   從廣告（?exam=）進來時，該考試的課程先勾好 #}
+<section class="h-lead" id="consult">
+    <div class="wrap h-lead-in">
+        <div class="h-lead-head">
+            <p class="s-eyebrow lined">FREE CONSULTATION</p>
+            <h2>免費諮詢・預約試聽</h2>
+            <p>留下聯絡方式，專人會在上班時間和你聯絡。</p>
+        </div>
+        <form class="s-form h-lead-form" method="post" action="{{ url_for('site.contact') }}">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <input type="hidden" name="source" value="首頁表單{{ '（' ~ hc.name ~ '廣告）' if hero.ad }}">
+            <div class="hp" aria-hidden="true"><label>網站<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="h-lead-row">
+                <div><label class="f" for="hl-name">姓名 <span class="req">*</span></label><input id="hl-name" type="text" name="name" autocomplete="name" required></div>
+                <div><label class="f" for="hl-phone">手機／電話 <span class="req">*</span></label><input id="hl-phone" type="tel" name="phone" autocomplete="tel" placeholder="0912345678" required></div>
+                <div><label class="f" for="hl-campus">想上課的校區</label>
+                    <select id="hl-campus" name="campus"><option value="">還不確定</option>
+                    {% for c in s.campuses %}<option>{{ c.name }}</option>{% endfor %}</select></div>
+            </div>
+            <label class="f">想了解的課程（可複選）</label>
+            <div class="checks">
+                {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if hero.ad and c.key == hc.key }}> {{ c.name }}</label>{% endfor %}
+            </div>
+            <div class="h-lead-end">
+                <label class="consent"><input type="checkbox" name="consent" value="yes" required>
+                    <span>我同意{{ s.name }}依<a href="{{ url_for('site.privacy') }}" target="_blank">個人資料蒐集說明</a>，蒐集我的資料用於課程諮詢聯繫。<span class="req">*</span></span></label>
+                <button class="s-btn big">送出，預約免費諮詢</button>
+            </div>
+        </form>
+    </div>
+</section>
+
 {% if mocks_ready %}
 <section class="h-cats" id="ai-mock">
     <div class="wrap">
