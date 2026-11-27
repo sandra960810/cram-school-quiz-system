@@ -1087,8 +1087,8 @@ html { scroll-behavior: smooth; }
 .h-rev-photo img { max-width: 62%; }
 
 /* 頁首「AI 學習系統」入口（學員登入 /login，2026-11 使用者要求）：霧藍 AI 色，電腦在右上按鈕區、手機在選單最後 */
-.s-btn.ai { display: inline-flex; align-items: center; gap: 6px; background: var(--brand-ai); border-color: var(--brand-ai); }
-.s-btn.ai:hover { background: transparent; color: var(--brand-ai) !important; }
+.s-btn.ai { display: inline-flex; align-items: center; gap: 6px; background: var(--brand-orange); border-color: var(--brand-orange); color: var(--brand-ink) !important; border-radius: 999px; padding-left: 18px; padding-right: 18px; }
+.s-btn.ai:hover { background: var(--brand-orange-2); border-color: var(--brand-orange-2); color: var(--brand-ink) !important; }   /* 2026-11 使用者要求圓角、改成和「進入測驗」一樣的橘黃色 */
 .s-btn-chip, .s-nav-chip { width: 18px; height: 18px; flex: none; }
 .s-btn.ai .s-chip-body { fill: none; stroke: currentColor; }
 .s-btn.ai .s-chip-pins path { stroke: currentColor; }
