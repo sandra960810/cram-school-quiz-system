@@ -177,7 +177,9 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
   同 IP 一小時 5 次、必須勾同意個資說明。工作人員後台 `/admin/leads` 看名單、標已聯絡、寫備註、下載 CSV（擋 Excel 公式注入）
 - **新名單自動寄信通知**（2026-11 使用者要求寄到 service@wkedu.com.tw）：`lead_mail.py`，收件人是 `site_info.json` 的 `notify_email`（逗號分隔可多個）；
   寄件帳號存在 `instance/mail.json`（不進 git），由櫃台電腦雙擊 `set_mail.bat` 設定（Gmail／Workspace 的應用程式密碼，會先寄測試信成功才存檔）。
-  免費諮詢、模考解鎖都會寄；在背景寄，失敗不影響存檔，結果記在 `instance/mail_log.txt`
+  免費諮詢、模考解鎖都會寄；在背景寄，失敗不影響存檔，結果記在 `instance/mail_log.txt`。
+  **沒寄成功的會補寄**（使用者要求「存在裡面的也都寄過去」）：`leads.mailed` 記寄過沒有，`set_mail.bat` 設定成功時、以及每次新名單寄出時，
+  `lead_mail.send_unsent` 會把還沒寄的一起寄。`set_mail` 的密碼輸入看得到（Windows 視窗裡 getpass 貼不進去），465 連不上會改試 587
 
 ### 官網迷你模考（school_mock.py）
 
