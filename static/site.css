@@ -771,13 +771,15 @@ html { scroll-behavior: smooth; }
     .h-hero-cta.is-main .h-go i { width: 54px; }
 }
 
-/* 2026-11 使用者：「按鈕改成橘黑，然後圓角」。主按鈕變成黑底膠囊、右邊橘色圓形箭頭、橘色底邊 */
-.h-hero-cta.is-main .h-go { border-radius: 999px; padding: 7px 7px 7px 32px; min-height: 64px; gap: 20px; border-color: var(--brand-ink);
-    box-shadow: 0 6px 0 var(--brand-orange); }
-.h-hero-cta.is-main .h-go i { align-self: center; width: 50px; height: 50px; border-radius: 50%; background: var(--brand-orange); color: var(--brand-ink); }
-.h-hero-cta.is-main .h-go:hover { background: var(--brand-ink); color: #fff !important; transform: translateY(3px); box-shadow: 0 3px 0 var(--brand-orange); }
-.h-hero-cta.is-main .h-go:hover i { background: var(--brand-orange-2); }
-.h-hero-cta.is-main .h-go:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: 4px; }
+/* 2026-11 使用者：「按鈕改成橘黑，然後圓角」，接著「Claude 的橘色，橘跟黑調換」：
+   主按鈕是橘底膠囊配黑字，右邊黑色圓形箭頭，底下一道黑邊（平塗，不用模糊陰影） */
+.h-hero-cta.is-main .h-go { border-radius: 999px; padding: 7px 7px 7px 32px; min-height: 64px; gap: 20px;
+    background: var(--brand-orange); border-color: var(--brand-orange); color: var(--brand-ink) !important; box-shadow: 0 6px 0 var(--brand-ink); }
+.h-hero-cta.is-main .h-go i { align-self: center; width: 50px; height: 50px; border-radius: 50%; background: var(--brand-ink); color: var(--brand-orange); }
+.h-hero-cta.is-main .h-go:hover { background: var(--brand-orange-2); border-color: var(--brand-orange-2); color: var(--brand-ink) !important;
+    transform: translateY(3px); box-shadow: 0 3px 0 var(--brand-ink); }
+.h-hero-cta.is-main .h-go:hover i { background: var(--brand-ink); color: #fff; }
+.h-hero-cta.is-main .h-go:focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 4px; }
 @media (max-width: 760px) {
     .h-hero-cta.is-main .h-go { padding: 6px 6px 6px 24px; min-height: 58px; gap: 14px; }
     .h-hero-cta.is-main .h-go i { width: 46px; height: 46px; }
