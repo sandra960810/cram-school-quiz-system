@@ -1148,3 +1148,11 @@ html { scroll-behavior: smooth; }
 /* 學員心得全部直接排出來（2026-11 使用者要求不要輪播）：電腦三欄、平板兩欄、手機一欄 */
 .h-rev-grid { row-gap: 24px; }
 @media (min-width: 640px) and (max-width: 980px) { .h-rev-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 雅思課程特色：小項目是一句完整說明時排成條列（2026-11 使用者提供的雅思文案） */
+.h-pg-parts.is-list { grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+.h-pg-parts.is-list li { font-weight: 500; line-height: 1.7; background: var(--brand-gold-50); }
+.h-pg-parts.is-list b { font-size: 13px; letter-spacing: .02em; margin-bottom: 2px; }
+.h-pg-grid > li > p + p { margin-top: 8px; }
+.h-pg-grid { grid-auto-flow: dense; }
+.h-pg-grid > li.is-full { grid-column: 1 / -1; }   /* 雅思第 08 點單獨一列時拉滿整排，不會只剩一張靠左 */

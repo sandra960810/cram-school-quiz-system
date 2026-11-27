@@ -104,8 +104,8 @@
         <div class="h-pg-head exam-tone-{{ hc.key }}">
             <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
             <h3>{{ pg.title }}</h3>
-            <p class="h-pg-tags">{% for t in pg.tags %}{% if not loop.first %}<i aria-hidden="true">＋</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
-            <p class="h-pg-sub">{{ pg.sub }}</p>
+            <p class="h-pg-tags">{% for t in pg.tags %}{% if not loop.first %}<i aria-hidden="true">{{ pg.tag_sep or '＋' }}</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
+            {% if pg.sub %}<p class="h-pg-sub">{{ pg.sub }}</p>{% endif %}
             <p class="h-pg-intro">{{ pg.intro }}</p>
             <p class="h-hc-links"><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
         </div>
@@ -129,12 +129,14 @@
     <div class="wrap h-pg exam-tone-{{ hc.key }}">
         <h3 class="h-pg-ft">{{ pg.feat_title }}</h3>
         <ol class="h-pg-grid">
-            {% for t, d, parts, ic in pg.features %}
-            <li class="{{ 'is-wide' if parts }}">
-                <div class="h-pg-top"><span class="h-pg-n">{{ '%02d' % loop.index }}</span><i class="h-adi-ic" aria-hidden="true">{{ icon(ic) }}</i></div>
-                <h4>{{ t }}</h4>
-                {% if parts %}<ul class="h-pg-parts">{% for a, b in parts %}<li><b>{{ a }}</b>{{ b }}</li>{% endfor %}</ul>{% endif %}
-                <p>{{ d }}</p>
+            {% for f in pg.features %}
+            <li class="{{ 'is-wide' if f.wide }}{{ ' is-full' if f.full }}">
+                <div class="h-pg-top"><span class="h-pg-n">{{ '%02d' % loop.index }}</span><i class="h-adi-ic" aria-hidden="true">{{ icon(f.icon) }}</i></div>
+                <h4>{{ f.t }}</h4>
+                {% if f.list %}{% for para in f.d or [] %}<p>{{ para }}</p>{% endfor %}{% endif %}
+                {% if f.parts %}<ul class="h-pg-parts{{ ' is-list' if f.list }}">{% for a, b in f.parts %}<li><b>{{ a }}</b>{{ b }}</li>{% endfor %}</ul>{% endif %}
+                {% if not f.list %}{% for para in f.d or [] %}<p>{{ para }}</p>{% endfor %}{% endif %}
+                {% for para in f.after or [] %}<p>{{ para }}</p>{% endfor %}
             </li>
             {% endfor %}
         </ol>
