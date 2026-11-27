@@ -1,5 +1,5 @@
 {
-  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。 校區的 label 是對外顯示的校名；map_url 空白時會自動用地址產生 Google 地圖連結。 notify_email 是官網有人填表時收通知信的信箱（逗號分隔可填多個），寄件帳號在櫃台電腦雙擊 set_mail.bat 設定。 testimonials 是學員心得（廣告連結進來的首頁會顯示）：每則寫 course（toeic、ielts、toefl、jlpt、topik）、name（例如「林同學」）、result（例如「多益 850 分」，沒有就空白）、text（心得內容）；只放學員同意公開的真實心得。",
+  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。 校區的 label 是對外顯示的校名；map_url 空白時會自動用地址產生 Google 地圖連結。 notify_email 是官網有人填表時收通知信的信箱（逗號分隔可填多個），寄件帳號在櫃台電腦雙擊 set_mail.bat 設定。 testimonials 是學員心得（廣告連結進來的首頁會顯示）：每則寫 course（toeic、ielts、toefl、jlpt、topik）、name（例如「林同學」）、result（例如「多益 850 分」，沒有就空白）、text（心得內容）；只放學員同意公開的真實心得。目前的心得取自補習班硬碟「Trinity 學員心得」裡已發佈過的 Pixnet／社群貼文（姓名照原貼文中間用 O 遮住；資料夾標「不能 po」「不能使用」「can not use」的都沒放）。",
   "name": "驅勢英日韓",
   "name_en": "Trinity Language",
   "site_url": "https://www.trinity413.com",
@@ -102,5 +102,90 @@
     "驅勢補習班"
   ],
   "notify_email": "service@wkedu.com.tw",
-  "testimonials": []
+  "testimonials": [
+    {
+      "course": "toeic",
+      "name": "張O逸",
+      "result": "多益 950 分",
+      "text": "在驅勢是改變我對英文態度的關鍵！學到很多課本沒有的獨門學習方式。"
+    },
+    {
+      "course": "toeic",
+      "name": "林O怡",
+      "result": "多益 930 分",
+      "text": "驅勢的課程每堂都讓我收穫滿滿！大力推薦驅勢穩扎穩打的課程！"
+    },
+    {
+      "course": "toeic",
+      "name": "陳O聰",
+      "result": "多益 915 分",
+      "text": "一步一腳印、按部就班就可以達成，要相信驅勢優秀的師資！"
+    },
+    {
+      "course": "ielts",
+      "name": "林O毅",
+      "result": "雅思 7.5",
+      "text": "感謝驅勢提供的課程和模考服務，讓我在忙碌的工作後，用下班時間就能充分準備，獲得移民加拿大的機會！"
+    },
+    {
+      "course": "ielts",
+      "name": "江O軒",
+      "result": "雅思 7.5",
+      "text": "已經有一定英文程度，面對雅思卻不清楚考試方向與技巧；在驅勢有趣、多元的教學和老師的技巧討論下，半年就拿到滿意的成績。"
+    },
+    {
+      "course": "ielts",
+      "name": "王O翰",
+      "result": "雅思 7.5",
+      "text": "想申請德國研究所，在驅勢老師的指導下，雅思一次就考到理想成績。"
+    },
+    {
+      "course": "toefl",
+      "name": "高O生",
+      "result": "托福 98 分",
+      "text": "感謝驅勢讓我從多益 500 分的程度，考到托福接近 100 分！"
+    },
+    {
+      "course": "toefl",
+      "name": "鄧O晴",
+      "result": "托福 98 分",
+      "text": "驅勢讓我的托福成績從 60 分進步到接近 100 分！"
+    },
+    {
+      "course": "toefl",
+      "name": "蔡O桓",
+      "result": "托福 101 分",
+      "text": "驅勢讓我考托福最大的收穫，就是整體的英文能力都提升了！"
+    },
+    {
+      "course": "jlpt",
+      "name": "蔡O恆",
+      "result": "日檢 N1",
+      "text": "驅勢讓我一次通過 N1。"
+    },
+    {
+      "course": "jlpt",
+      "name": "游O翰",
+      "result": "日檢 N2",
+      "text": "學好日文，我得到了在日本上班的機會。"
+    },
+    {
+      "course": "jlpt",
+      "name": "謝O諭",
+      "result": "日檢 N2",
+      "text": "從五十音開始，一路考到日檢 N2！"
+    },
+    {
+      "course": "topik",
+      "name": "衛O晴",
+      "result": "日檢 N2＋韓檢 4 級",
+      "text": "在驅勢兩年內，順利取得日文與韓文的進階級證照！"
+    },
+    {
+      "course": "topik",
+      "name": "莊O婷",
+      "result": "多益 805 分＋韓檢 5 級",
+      "text": "自從在驅勢上課，對外語愈來愈有興趣，花在學外語的時間變多，也開始報名各種檢定，想取得更高級的證書。"
+    }
+  ]
 }
