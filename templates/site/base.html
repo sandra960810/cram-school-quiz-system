@@ -28,6 +28,11 @@
     <div class="wrap">
         <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="46" height="34"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
         <nav class="s-nav" aria-label="主選單">
+            {# 2026-11 使用者：最上面放各科的主頁入口。各科主頁＝首頁的該考試版本（/?exam=…：主視覺換成該考試、表單先勾好、
+               下面接學校與課程介紹、學員心得），和廣告連結進來看到的一樣 #}
+            {% set cur_exam = (request.args.get('exam') or '').lower() if request.endpoint == 'site.home' else '' %}
+            {% for c in courses %}<a class="s-nav-exam{{ ' on' if cur_exam == c.key }}" href="{{ url_for('site.home', exam=c.key) }}"{{ ' aria-current="page"'|safe if cur_exam == c.key }}>{{ c.name }}</a>{% endfor %}
+            <span class="s-nav-sep" aria-hidden="true"></span>
             <a href="{{ '#courses' if request.endpoint == 'site.home' else url_for('site.home') ~ '#courses' }}">課程介紹</a>
             <a href="#campus">校區</a>
         </nav>

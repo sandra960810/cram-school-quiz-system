@@ -170,7 +170,7 @@ tlc.tw 的 DNS 在 cyberdns.tw，**MX 是 Google Workspace，動 DNS 時信箱�
   **AI 元素只放在真的有 AI 的地方**（迷你模考、AI 弱點診斷）：`_m.html` 的 `ai_chip()` 晶片圖示、`.s-ai-pill` 藍色 AI 標籤。
   2026-11 使用者兩次要求拿掉重複：本頁目錄、重點數字、地球圖、底部聯絡區塊、每列「看課程」、學習地圖按鈕、選單的「免費諮詢」都拿掉了（頁首已有「預約諮詢」）。
   **同樣的內容不要重複**（使用者要求；例如「實體＋線上」「零基礎～高階」只出現在一個地方）。**首頁不另放校區區塊**（使用者要求），
-  頂端「課程介紹」捲到首頁的課程區 `#courses`（使用者要求不跳到 /courses），「校區」連到頁尾的校區欄。重點文字取自補習班自己的 IG 海報。照片只能用可免費商用的圖庫（來源見 `static/images/site/README.md`）
+  **頁首選單最前面是各科主頁入口**（2026-11 使用者要求：多益、雅思、托福、日檢、韓檢，連到 `/?exam=…`，和廣告進來的版本一樣，目前那科畫底線），細線隔開後是「課程介紹」「校區」；頂端「課程介紹」捲到首頁的課程區 `#courses`（使用者要求不跳到 /courses），「校區」連到頁尾的校區欄。重點文字取自補習班自己的 IG 海報。照片只能用可免費商用的圖庫（來源見 `static/images/site/README.md`）
 - 公開頁：`/` 首頁、`/courses`、`/courses/<toeic|ielts|toefl|jlpt|topik>`、`/campus/<校區>`、
   `/mock-test`（迷你模考總覽；**入口放在各課程頁**（使用者要求，hero 按鈕＋課程資訊上方的卡片）與首頁，頂端選單不放；多益、雅思、日檢、韓檢都有，`school_site.MOCKS_READY`、說明文字 `MOCK_BLURB`）、`/contact` 免費諮詢表單、`/privacy` 個資蒐集說明
 - 樣板在 `templates/site/`、樣式 `static/site.css`；顏色照樣用 `theme.css` 變數（托福 `.exam-tone-toefl`、LINE 綠 `--line-green`）

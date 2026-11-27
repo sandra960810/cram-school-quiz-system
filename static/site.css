@@ -854,3 +854,9 @@ html { scroll-behavior: smooth; }
     .h-adi-body h3 { font-size: 26px; }
     .h-rev { padding: 44px 0 52px; }
 }
+
+/* 2026-11 使用者：頁首最上面放各科主頁入口（多益、雅思、托福、日檢、韓檢），和「課程介紹」「校區」之間用細線隔開 */
+.s-nav { align-items: center; }
+.s-nav-sep { width: 1px; height: 16px; background: var(--brand-line); flex: 0 0 auto; }
+@media (min-width: 761px) { .s-nav { gap: 24px; } }
+@media (max-width: 760px) { .s-nav { gap: 14px; scrollbar-width: none; } .s-nav::-webkit-scrollbar { display: none; } }
