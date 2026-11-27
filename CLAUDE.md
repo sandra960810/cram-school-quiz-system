@@ -64,6 +64,7 @@ topik_audio.bat     在櫃台電腦產生韓檢模擬考聽力音檔（雙擊）
 set_ai_key.bat      在櫃台電腦設定 AI 老師的 API 金鑰（存進 ai_key.txt，不進 git）
 site_tunnel.bat     官網固定網址 www.trinity413.com 的 Cloudflare 具名通道（開機自動執行，log 在 site_tunnel_log.txt）
 set_mail.bat        設定官網諮詢通知信的寄件帳號（instance/mail.json，不進 git）
+site_guard.bat     網站守護程式（雙擊一次即可）：每 2 分鐘檢查網站（5000 埠）與官網通道，掛了自動重啟；會把捷徑加進「啟動」資料夾開機自動跑；run.bat 準備中不出手；log 在 site_guard_log.txt（程式在 tools/site_guard.ps1）
 set_ai_paid_key.bat 設定備用付費金鑰（ai_key_paid.txt，不進 git）：免費 Gemini 額度用完時自動改用
 ai_tutor.py         AI 學習教練（Blueprint）：錯題解釋、弱點練習 /ai/<id>/practice、學習報告 /ai/<id>/report、單字記憶法；前端 static/ai_tutor.js／ai_tutor.css
 templates/          Jinja 樣板
