@@ -1129,6 +1129,6 @@ html { scroll-behavior: smooth; }
 /* 系統畫面：寬螢幕依比例縮放排滿一排，不超出版面 */
 @media (min-width: 1000px) {
     .h-sys-shots { overflow: visible; justify-content: center; }
-    .h-shot.is-phone { width: auto; flex: 0.42 1 0; min-width: 0; }
-    .h-shot.is-desk { width: auto; flex: 1 1 0; min-width: 0; }
+    .h-shot.is-phone { width: auto; flex: 0.42 1 0; min-width: 0; max-width: 200px; }
+    .h-shot.is-desk { width: auto; flex: 1 1 0; min-width: 0; max-width: 470px; }
 }
