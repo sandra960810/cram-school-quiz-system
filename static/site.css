@@ -941,36 +941,36 @@ html { scroll-behavior: smooth; }
 
 /* 學員線上學習系統（2026-11 使用者要求簡潔、清楚介紹功能並強調 AI）：上面是藍黑科技感的 AI 功能列，下面每科一列短標籤 */
 /* 學習系統（2026-11 使用者要求改編原版排版、強調 AI 並有 AI 視覺化）：深色 AI 區＋學習功能＋各科一列短標籤 */
-.h-sys-ai { position: relative; overflow: hidden; border-radius: 18px; background: var(--brand-tech); color: #fff;
-    background-image: linear-gradient(rgba(143,176,212,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(143,176,212,.07) 1px, transparent 1px),
+.h-sys-ai { position: relative; overflow: hidden; border-radius: 18px; background-color: var(--brand-paper); color: var(--brand-ink); border: 1px solid var(--brand-ai-glow);
+    background-image: linear-gradient(rgba(91,124,160,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(91,124,160,.07) 1px, transparent 1px),
         radial-gradient(circle at 85% 0%, rgba(143,176,212,.22), transparent 55%);
     background-size: 22px 22px, 22px 22px, 100% 100%; }
 .h-sys-ai::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 40%; pointer-events: none;
-    background: linear-gradient(180deg, transparent, rgba(143,176,212,.08) 50%, transparent); animation: h-sys-scan 6s linear infinite; }
+    background: linear-gradient(180deg, transparent, rgba(143,176,212,.14) 50%, transparent); animation: h-sys-scan 6s linear infinite; }
 @keyframes h-sys-scan { from { transform: translateY(-100%); } to { transform: translateY(260%); } }
-.h-sys-ai-bar { position: relative; display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-bottom: 1px solid rgba(143,176,212,.22);
-    font: 700 11.5px/1 Consolas, "Courier New", monospace; letter-spacing: .18em; color: var(--brand-ai-glow); }
-.h-sys-ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-ai-glow); box-shadow: 0 0 0 4px rgba(143,176,212,.18); animation: h-sys-blink 1.6s ease-in-out infinite; }
+.h-sys-ai-bar { position: relative; display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-bottom: 1px solid rgba(91,124,160,.2);
+    font: 700 11.5px/1 Consolas, "Courier New", monospace; letter-spacing: .18em; color: var(--brand-ai); }
+.h-sys-ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-ai); box-shadow: 0 0 0 4px rgba(91,124,160,.18); animation: h-sys-blink 1.6s ease-in-out infinite; }
 @keyframes h-sys-blink { 50% { opacity: .3; } }
-.h-sys-ai-bar-r { margin-left: auto; display: flex; align-items: center; gap: 8px; font: 900 14px/1 inherit; font-family: "Noto Sans TC", sans-serif; letter-spacing: .04em; color: #fff; }
+.h-sys-ai-bar-r { margin-left: auto; display: flex; align-items: center; gap: 8px; font: 900 14px/1 inherit; font-family: "Noto Sans TC", sans-serif; letter-spacing: .04em; color: var(--brand-ai); }
 .h-sys-ai-grid { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .h-sys-ai-grid.n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.h-sys-ai-item { position: relative; padding: 22px 24px 24px; border-left: 1px solid rgba(143,176,212,.18); border-top: 1px solid rgba(143,176,212,.18); transition: background .3s; }
-.h-sys-ai-item:hover { background: rgba(143,176,212,.07); }
+.h-sys-ai-item { position: relative; padding: 22px 24px 24px; border-left: 1px solid rgba(91,124,160,.18); border-top: 1px solid rgba(91,124,160,.18); transition: background .3s; }
+.h-sys-ai-item:hover { background: rgba(143,176,212,.12); }
 .h-sys-ai-grid > .h-sys-ai-item:nth-child(3n+1) { border-left: 0; }
-.h-sys-ai-grid.n4 > .h-sys-ai-item { border-left: 1px solid rgba(143,176,212,.18); }
+.h-sys-ai-grid.n4 > .h-sys-ai-item { border-left: 1px solid rgba(91,124,160,.18); }
 .h-sys-ai-grid.n4 > .h-sys-ai-item:nth-child(2n+1) { border-left: 0; }
 .h-sys-ai-grid > .h-sys-ai-item:nth-child(-n+3) { border-top: 0; }
-.h-sys-ai-grid.n4 > .h-sys-ai-item:nth-child(3) { border-top: 1px solid rgba(143,176,212,.18); }
-.h-sys-ai-viz { position: relative; height: 64px; margin-bottom: 14px; padding: 8px 10px; border: 1px solid rgba(143,176,212,.25); border-radius: 10px; background: rgba(10,18,30,.35); }
-.h-sys-ai-viz small { position: absolute; top: 6px; right: 8px; font: 700 9.5px/1 Consolas, "Courier New", monospace; letter-spacing: .14em; color: var(--brand-ai-glow); opacity: .8; }
+.h-sys-ai-grid.n4 > .h-sys-ai-item:nth-child(3) { border-top: 1px solid rgba(91,124,160,.18); }
+.h-sys-ai-viz { position: relative; height: 64px; margin-bottom: 14px; padding: 8px 10px; border: 1px solid rgba(143,176,212,.25); border-radius: 10px; background: var(--brand-ai-50); }
+.h-sys-ai-viz small { position: absolute; top: 6px; right: 8px; font: 700 9.5px/1 Consolas, "Courier New", monospace; letter-spacing: .14em; color: var(--brand-ai); opacity: .8; }
 .h-viz { display: block; width: 100%; height: 100%; overflow: visible; }
-.h-viz .v-line { fill: none; stroke: rgba(143,176,212,.45); stroke-width: 1.6; stroke-linecap: round; }
-.h-viz .v-box { fill: rgba(143,176,212,.08); stroke: rgba(143,176,212,.55); stroke-width: 1.2; }
-.h-viz .v-bar { fill: rgba(143,176,212,.42); }
-.h-viz .v-path { fill: none; stroke: var(--brand-ai-glow); stroke-width: 1.8; stroke-linejoin: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: h-viz-draw 3.2s ease-out infinite; }
+.h-viz .v-line { fill: none; stroke: rgba(91,124,160,.5); stroke-width: 1.6; stroke-linecap: round; }
+.h-viz .v-box { fill: #fff; stroke: rgba(91,124,160,.6); stroke-width: 1.2; }
+.h-viz .v-bar { fill: rgba(91,124,160,.45); }
+.h-viz .v-path { fill: none; stroke: var(--brand-ai); stroke-width: 1.8; stroke-linejoin: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: h-viz-draw 3.2s ease-out infinite; }
 @keyframes h-viz-draw { 60%, 100% { stroke-dashoffset: 0; } }
-.h-viz .v-dot { fill: var(--brand-tech); stroke: var(--brand-ai-glow); stroke-width: 1.4; }
+.h-viz .v-dot { fill: #fff; stroke: var(--brand-ai); stroke-width: 1.4; }
 .h-viz .v-ring { fill: rgba(201,168,90,.12); stroke: var(--brand-gold); stroke-width: 1.6; }
 .h-viz .v-txt { fill: var(--brand-gold); font: 700 9px/1 Consolas, monospace; }
 .h-viz .v-strike { fill: none; stroke-width: 2; stroke-linecap: round; }
@@ -979,10 +979,10 @@ html { scroll-behavior: smooth; }
 .h-viz .v-line.v-hot { stroke: var(--brand-gold); }
 .h-sys-ai-item:hover .h-viz .v-bar { animation: h-viz-pulse .9s ease-in-out infinite alternate; transform-origin: center; transform-box: fill-box; }
 @keyframes h-viz-pulse { to { transform: scaleY(.55); } }
-.h-sys-ai-item b { display: block; margin: 0 0 6px; font-size: 18px; font-weight: 900; color: #fff; }
-.h-sys-ai-item p { margin: 0; font-size: 14px; line-height: 1.75; color: rgba(255,255,255,.8); }
+.h-sys-ai-item b { display: block; margin: 0 0 6px; font-size: 18px; font-weight: 900; color: var(--brand-ink); }
+.h-sys-ai-item p { margin: 0; font-size: 14px; line-height: 1.75; color: var(--brand-ink-2); }
 .h-sys-for { display: inline-block; margin-top: 12px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 700; letter-spacing: .04em; }
-.h-sys-ai-item .h-sys-for { border: 1px solid rgba(143,176,212,.35); color: var(--brand-ai-glow); }
+.h-sys-ai-item .h-sys-for { border: 1px solid var(--brand-ai-glow); background: var(--brand-ai-50); color: var(--brand-ai); }
 .h-sys-learn { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
 .h-sys-learn.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .h-sys-learn.n4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -1002,10 +1002,10 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { .h-sys-ai::after, .h-sys-ai-dot, .h-viz .v-path, .h-sys-ai-item:hover .h-viz .v-bar { animation: none; } .h-viz .v-path { stroke-dashoffset: 0; } }
 @media (max-width: 1100px) { .h-sys-learn { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 980px) { .h-sys-ai-grid, .h-sys-ai-grid.n4 { grid-template-columns: 1fr 1fr; }
-    .h-sys-ai-grid > .h-sys-ai-item { border-left: 1px solid rgba(143,176,212,.18) !important; border-top: 1px solid rgba(143,176,212,.18) !important; }
+    .h-sys-ai-grid > .h-sys-ai-item { border-left: 1px solid rgba(91,124,160,.18) !important; border-top: 1px solid rgba(91,124,160,.18) !important; }
     .h-sys-ai-grid > .h-sys-ai-item:nth-child(2n+1) { border-left: 0 !important; } .h-sys-ai-grid > .h-sys-ai-item:nth-child(-n+2) { border-top: 0 !important; }
     .h-sys-learn, .h-sys-learn.n4 { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 760px) { .h-sys-ai-grid, .h-sys-ai-grid.n4 { grid-template-columns: 1fr; } .h-sys-ai-grid > .h-sys-ai-item { border-left: 0 !important; border-top: 1px solid rgba(143,176,212,.18) !important; padding: 18px 20px; }
+@media (max-width: 760px) { .h-sys-ai-grid, .h-sys-ai-grid.n4 { grid-template-columns: 1fr; } .h-sys-ai-grid > .h-sys-ai-item { border-left: 0 !important; border-top: 1px solid rgba(91,124,160,.18) !important; padding: 18px 20px; }
     .h-sys-ai-grid > .h-sys-ai-item:first-child { border-top: 0 !important; } .h-sys-ai-bar { padding: 12px 18px; font-size: 10px; }
     .h-sys-learn, .h-sys-learn.n3, .h-sys-learn.n4 { grid-template-columns: 1fr; } .h-sys-row { grid-template-columns: 1fr; gap: 8px; } .h-sys-note { margin-left: 0; } }
 /* 各科 CEFR 對照（各科專屬頁面、課程頁）：A1～C2 六格，顏色和主頁面的分級圖表一樣 */
