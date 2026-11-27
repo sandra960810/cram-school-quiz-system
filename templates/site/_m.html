@@ -95,7 +95,7 @@
 {% if items %}
 {% set keys = items | map(attribute='key') | list %}
 {% set one = items|length == 1 %}
-{% set names = {'toeic': '多益', 'ielts': '雅思', 'jlpt': '日檢', 'topik': '韓檢', 'basic': '零基礎'} %}
+{% set names = {'toeic': '多益', 'ielts': '雅思', 'jlpt': '日文', 'topik': '韓文', 'basic': '零基礎'} %}
 {% set ns = namespace(ai=[], learn=[]) %}
 {% for f in features %}{% set hit = keys | select('in', f.exams) | list %}{% if hit %}
 {% set row = {'f': f, 'hit': hit, 'text': ((f.detail or {}).get(keys[0]) if one and (f.detail or {}).get(keys[0]) else f.text)} %}
@@ -176,7 +176,7 @@
             {% for name, rng, d in data.parts %}<li><span>{{ name }}</span><b>{{ rng }}</b><small>{{ d }}</small></li>{% endfor %}
         </ul>
         {% else %}
-        <h2 class="h-big">{% if c.key == 'basic' %}零基礎英文在程度分級的位置{% else %}{{ c.name }}成績與 CEFR 對照{% endif %}</h2>
+        <h2 class="h-big">{% if c.key == 'basic' %}零基礎英文在程度分級的位置{% else %}{{ c.exam or c.name }}成績與 CEFR 對照{% endif %}</h2>
         {% endif %}
         {% if data.cert %}
         <div class="h-cert">

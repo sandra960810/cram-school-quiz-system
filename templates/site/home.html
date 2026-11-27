@@ -24,7 +24,7 @@
             {% if hc.key in mocks_ready %}
             {% if hero.ad %}<a class="h-more" href="#intro">課程介紹 <span class="h-more-dot" aria-hidden="true">↓</span></a>
             {% else %}<a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>{% endif %}
-            <a class="s-btn h-go" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.name }}迷你模考・進入測驗</span><i aria-hidden="true">→</i></a>
+            <a class="s-btn h-go" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.exam or hc.name }}迷你模考・進入測驗</span><i aria-hidden="true">→</i></a>
             {% else %}
             <a class="h-more" href="#intro">課程介紹 <span class="h-more-dot" aria-hidden="true">↓</span></a>
             <a class="s-btn h-go" href="{{ url_for('site.contact', course=hc.key) }}"><span>諮詢{{ hc.name }}課程</span><i aria-hidden="true">→</i></a>

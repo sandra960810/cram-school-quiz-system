@@ -8,14 +8,14 @@
     <div class="s-cta">
         <a class="s-btn big" href="{{ url_for('site.contact', course=c.key) }}">諮詢{{ c.name }}課程</a>
         {{ line_btn(s, 's-btn big line') }}
-        {% if c.key in mocks_ready %}<a class="s-btn big ghost" href="{{ url_for('site.mock_take', key=c.key) }}">免費 AI {{ c.name }}模考</a>{% endif %}
+        {% if c.key in mocks_ready %}<a class="s-btn big ghost" href="{{ url_for('site.mock_take', key=c.key) }}">免費 AI {{ c.exam or c.name }}模考</a>{% endif %}
     </div>
 </div></section>
 {% if c.key in mocks|map('first')|list %}
 <section class="s-sec"><div class="wrap">
     <div class="mk-entry exam-tone-{{ c.key }}">
         <div>
-            <h2>{{ ai_chip() }} 免費 AI {{ c.name }}迷你模考</h2>
+            <h2>{{ ai_chip() }} 免費 AI {{ c.exam or c.name }}迷你模考</h2>
             {% if c.key in mocks_ready %}
             <p>{{ mock_blurb[c.key] }}。留下聯絡資料，AI 會依你的錯題寫弱點診斷與進步建議。</p>
             {% else %}
