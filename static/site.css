@@ -922,8 +922,8 @@ html { scroll-behavior: smooth; }
 /* 為什麼選驅勢第七點（實體課＋線上直播課）：單獨一點時佔滿整列 */
 .h-why-cols > div:nth-child(3n+1):last-child { grid-column: 1 / -1; }
 /* 學員心得照片（2026-11 使用者要求放照片、去背）：去背人像站在淺金色半圓上，放在卡片上方 */
-.h-rev-photo { position: relative; height: 206px; padding-top: 16px; box-sizing: border-box; margin: 0 -26px 16px; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; border-bottom: 1px solid var(--brand-line); }
-.h-rev-photo::before { content: ""; position: absolute; left: 50%; bottom: -70px; width: 220px; height: 220px; transform: translateX(-50%); border-radius: 50%; background: var(--brand-gold-50); border: 1px solid var(--brand-line); }
+.h-rev-photo { position: relative; height: 136px; padding-top: 12px; box-sizing: border-box; margin: 0 -26px 16px; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; border-bottom: 1px solid var(--brand-line); }
+.h-rev-photo::before { content: ""; position: absolute; left: 50%; bottom: -46px; width: 150px; height: 150px; transform: translateX(-50%); border-radius: 50%; background: var(--brand-gold-50); border: 1px solid var(--brand-line); }
 .h-rev-photo img { position: relative; max-height: 100%; max-width: 78%; width: auto; height: auto; object-fit: contain; filter: drop-shadow(0 2px 0 rgba(0,0,0,.04)); }
 .h-rev-card.has-photo { padding-top: 0; }
 .h-rev-card.has-photo .h-rev-photo { border-radius: 20px 20px 0 0; }
@@ -1082,3 +1082,27 @@ html { scroll-behavior: smooth; }
     .h-pg-grid { grid-template-columns: 1fr; }
     .h-pg-close { padding: 24px 20px; }
 }
+
+/* 學員心得照片縮小（2026-11 使用者要求「照片可以小一點」） */
+.h-rev-photo img { max-width: 62%; }
+
+/* 頁首「AI 學習系統」入口（學員登入 /login，2026-11 使用者要求）：霧藍 AI 色，電腦在右上按鈕區、手機在選單最後 */
+.s-btn.ai { display: inline-flex; align-items: center; gap: 6px; background: var(--brand-ai); border-color: var(--brand-ai); }
+.s-btn.ai:hover { background: transparent; color: var(--brand-ai) !important; }
+.s-btn-chip, .s-nav-chip { width: 18px; height: 18px; flex: none; }
+.s-btn.ai .s-chip-body { fill: none; stroke: currentColor; }
+.s-btn.ai .s-chip-pins path { stroke: currentColor; }
+.s-btn.ai .s-chip-txt { fill: currentColor; }
+.s-nav .s-nav-ai { display: none; }
+@media (max-width: 760px) {
+    .s-nav .s-nav-ai { display: inline-flex; align-items: center; gap: 5px; color: var(--brand-ai) !important; font-weight: 900; }
+}
+/* 加了 AI 學習系統按鈕後選單會擠成兩行：電腦版收緊選單間距，讓頁首維持一行 */
+@media (min-width: 761px) {
+    .s-nav { gap: 18px; }
+    .s-nav a { letter-spacing: .04em; }
+    .s-head .wrap { gap: 18px; }
+}
+@media (min-width: 761px) and (max-width: 1180px) { .s-btn.ai .s-btn-chip { display: none; } .s-nav { gap: 12px; } }
+@media (min-width: 761px) { .s-head .wrap { max-width: 1400px; } }
+@media (min-width: 761px) and (max-width: 1279px) { .s-head .s-actions .s-btn.line { display: none; } }   /* 窄螢幕頁首放不下三顆鈕，LINE 在頁尾與諮詢區仍有 */

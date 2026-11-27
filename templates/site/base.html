@@ -39,8 +39,11 @@
             <span class="s-nav-sep" aria-hidden="true"></span>
             <a href="{{ '#courses' if request.endpoint == 'site.home' and not cur_exam else url_for('site.home') ~ '#courses' }}">課程介紹</a>
             <a href="#campus">校區</a>
+            {# 專屬 AI 學習系統入口（2026-11 使用者要求放上去）：手機上 s-actions 藏起來，所以選單最後也放一個 #}
+            <a class="s-nav-ai" href="{{ url_for('accounts.login') }}">{{ ai_chip('s-nav-chip') }}AI 學習系統</a>
         </nav>
         <div class="s-actions">
+            <a class="s-btn small ai" href="{{ url_for('accounts.login') }}" title="學員登入專屬 AI 學習系統">{{ ai_chip('s-btn-chip') }}AI 學習系統</a>
             {{ line_btn(s, 's-btn line small') }}
             <a class="s-btn small" href="{{ url_for('site.contact') }}">預約諮詢</a>
         </div>
