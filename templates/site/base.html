@@ -1,4 +1,4 @@
-{% from 'site/_m.html' import fill, line_btn %}
+{% from 'site/_m.html' import fill, line_btn, ai_chip %}
 <!DOCTYPE html>
 <html lang="zh-Hant-TW" data-exam="ielts">
 <head>
@@ -28,12 +28,24 @@
     <div class="wrap">
         <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="46" height="34"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
         <nav class="s-nav" aria-label="主選單">
-            <a href="{{ url_for('site.courses') }}" class="{{ 'on' if request.path.startswith('/courses') }}">課程介紹</a>
+            {# 2026-11 使用者：最上面放各科的主頁入口。各科主頁＝首頁的該考試版本（/?exam=…：主視覺換成該考試、表單先勾好、
+               下面接學校與課程介紹、學員心得），和廣告連結進來看到的一樣 #}
+            {% set cur_exam = (request.args.get('exam') or '').lower() if request.endpoint == 'site.home' else '' %}
+            {# 2026-11 使用者要求加「首頁」入口（主頁面＝沒帶考試參數的首頁） #}
+            {% set at_home = request.endpoint == 'site.home' and not cur_exam %}
+            <a class="s-nav-exam{{ ' on' if at_home }}" href="{{ url_for('site.home') }}"{{ ' aria-current="page"'|safe if at_home }}>首頁</a>
+            <span class="s-nav-sep" aria-hidden="true"></span>
+            {% for c in courses %}<a class="s-nav-exam{{ ' on' if cur_exam == c.key }}" href="{{ url_for('site.home', exam=c.key) }}"{{ ' aria-current="page"'|safe if cur_exam == c.key }}>{{ c.name }}</a>{% endfor %}
+            <span class="s-nav-sep" aria-hidden="true"></span>
+            <a href="{{ '#courses' if request.endpoint == 'site.home' and not cur_exam else url_for('site.home') ~ '#courses' }}">課程介紹</a>
             <a href="#campus">校區</a>
+            {# 專屬 AI 學習系統入口（2026-11 使用者要求放上去）：手機上 s-actions 藏起來，所以選單最後也放一個 #}
+            <a class="s-nav-ai" href="{{ url_for('accounts.login') }}">{{ ai_chip('s-nav-chip') }}AI 學習系統</a>
         </nav>
         <div class="s-actions">
-            {{ line_btn(s) }}
-            <a class="s-btn" href="{{ url_for('site.contact') }}">預約諮詢</a>
+            <a class="s-btn small ai" href="{{ url_for('accounts.login') }}" title="學員登入專屬 AI 學習系統">{{ ai_chip('s-btn-chip') }}AI 學習系統</a>
+            {{ line_btn(s, 's-btn line small') }}
+            <a class="s-btn small" href="{{ url_for('site.contact') }}">預約諮詢</a>
         </div>
     </div>
 </header>
@@ -43,12 +55,16 @@
 <footer class="s-foot">
     <div class="wrap">
         <div class="cols">
-            <div>
-                <h4>{{ s.name }}</h4>
+            <div class="s-foot-brand">
+                <b>{{ s.name }}</b>{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}
+                <p>多益・雅思・托福・日檢・韓檢<br>實體課・線上直播課・AI 線上模考</p>
                 {% if s.phone %}<div>電話：{{ s.phone }}</div>{% endif %}
-                {% for c in s.campuses %}{% if c.phone %}<div>{{ c.label }}：{{ c.phone }}</div>{% endif %}{% endfor %}
                 {% if s.email %}<div>Email：{{ s.email }}</div>{% endif %}
-                {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">LINE 官方帳號諮詢</a>{% endif %}
+                <div class="s-foot-social">
+                    {% if s.line_url %}<a href="{{ s.line_url }}" target="_blank" rel="noopener">LINE</a>{% endif %}
+                    {% if s.facebook_url %}<a href="{{ s.facebook_url }}" target="_blank" rel="noopener">FACEBOOK</a>{% endif %}
+                    {% if s.instagram_url %}<a href="{{ s.instagram_url }}" target="_blank" rel="noopener">INSTAGRAM</a>{% endif %}
+                </div>
             </div>
             <div>
                 <h4>課程</h4>
@@ -56,23 +72,22 @@
             </div>
             <div id="campus">
                 <h4>校區</h4>
-                {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.label }}</a>{% endfor %}
+                {% for c in s.campuses %}<a href="{{ url_for('site.campus', slug=c.slug) }}">{{ c.label }}{% if c.phone %}<small>{{ c.phone }}</small>{% endif %}</a>{% endfor %}
             </div>
             <div>
-                <h4>更多</h4>
-                <a href="{{ url_for('site.mock_test') }}">免費迷你模考</a>
-                <a href="{{ url_for('site.contact') }}">免費諮詢</a>
-                <a href="{{ url_for('site.privacy') }}">個人資料蒐集說明</a>
-                    {% if s.facebook_url %}<a href="{{ s.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
-                {% if s.instagram_url %}<a href="{{ s.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+                <h4>免費諮詢</h4>
+                <p>想知道適合哪個班別？留下資料，專人和你聯絡。</p>
+                <a class="s-foot-go" href="{{ url_for('site.contact') }}">填寫諮詢表單 <span aria-hidden="true">→</span></a>
+                <a class="s-foot-go" href="{{ url_for('site.mock_test') }}">AI 線上迷你模考 <span aria-hidden="true">→</span></a>
             </div>
         </div>
-        <div class="copy"><span>© {{ s.name }}</span><span>多益・雅思・托福・日檢・韓檢</span></div>
+        <div class="copy"><span>© {{ s.name }}</span><a href="{{ url_for('site.privacy') }}">個人資料蒐集說明</a></div>
     </div>
 </footer>
 <div class="s-float">
     {{ line_btn(s, text='LINE') }}
     <a class="s-btn" href="{{ url_for('site.contact') }}">諮詢</a>
 </div>
+<script src="{{ url_for('static', filename='site.js') }}" defer></script>
 </body>
 </html>

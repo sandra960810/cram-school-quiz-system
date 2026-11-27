@@ -1,5 +1,5 @@
 {
-  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。 校區的 label 是對外顯示的校名；map_url 空白時會自動用地址產生 Google 地圖連結。 notify_email 是官網有人填表時收通知信的信箱（逗號分隔可填多個），寄件帳號在櫃台電腦雙擊 set_mail.bat 設定。",
+  "_說明": "官網上的補習班資料。空白（\"\"）的欄位，網頁上會顯示「待填」的黃色標籤，結構化資料（給 Google 看的）也會略過。填好後重新啟動網站（run.bat）就會更新。 校區的 label 是對外顯示的校名；map_url 空白時會自動用地址產生 Google 地圖連結。 notify_email 是官網有人填表時收通知信的信箱（逗號分隔可填多個），寄件帳號在櫃台電腦雙擊 set_mail.bat 設定。 testimonials 是學員心得（廣告連結進來的首頁會顯示）：每則寫 course（toeic、ielts、toefl、jlpt、topik）、name（例如「林同學」）、result（例如「多益 850 分」，沒有就空白）、text（心得內容）；只放學員同意公開的真實心得。目前的心得取自補習班硬碟「Trinity 學員心得」裡已發佈過的 Pixnet／社群貼文（姓名照原貼文中間用 O 遮住；資料夾標「不能 po」「不能使用」「can not use」的都沒放）。",
   "name": "驅勢英日韓",
   "name_en": "Trinity Language",
   "site_url": "https://www.trinity413.com",
@@ -95,11 +95,327 @@
       "teachers": "",
       "price": "",
       "extra": ""
+    },
+    "basic": {
+      "schedule": "",
+      "teachers": "",
+      "price": "",
+      "extra": ""
     }
   },
   "alt_names": [
     "驅勢語言教育中心",
     "驅勢補習班"
   ],
-  "notify_email": "service@wkedu.com.tw"
+  "notify_email": "service@wkedu.com.tw",
+  "testimonials": [
+    {
+      "course": "toeic",
+      "name": "張O逸",
+      "result": "多益 950 分",
+      "text": "在驅勢是改變我對英文態度的關鍵！學到很多課本沒有的獨門學習方式。",
+      "photo": "images/site/reviews/toeic-1.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "林O怡",
+      "result": "多益 930 分",
+      "text": "驅勢的課程每堂都讓我收穫滿滿！大力推薦驅勢穩扎穩打的課程！",
+      "photo": "images/site/reviews/toeic-2.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "陳O聰",
+      "result": "多益 915 分",
+      "text": "一步一腳印、按部就班就可以達成，要相信驅勢優秀的師資！",
+      "photo": "images/site/reviews/toeic-3.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "廖O娸",
+      "result": "多益 920 分",
+      "text": "驅勢讓我突破瓶頸，一次就取得多益黃金證書！",
+      "photo": "images/site/reviews/toeic-9.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "陳O安",
+      "result": "多益 900 分",
+      "text": "老師所教導的多益解題技巧，讓我在實際考試時能游刃有餘！",
+      "photo": "images/site/reviews/toeic-8.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "邱O雯",
+      "result": "多益 890 分",
+      "text": "兩年前在驅勢考到 835 分，這次報考新多益又回到驅勢，順利取得金色證書！",
+      "photo": "images/site/reviews/toeic-7.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "許O玟",
+      "result": "多益 880 分",
+      "text": "上課輕鬆有趣，內容卻很豐富！",
+      "photo": "images/site/reviews/toeic-6.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "蘇O倫",
+      "result": "多益 865 分",
+      "text": "很喜歡 Bruce 老師的課程，總是深入淺出、化繁為簡，主題包羅萬象。",
+      "photo": "images/site/reviews/toeic-5.webp"
+    },
+    {
+      "course": "toeic",
+      "name": "謝O珊",
+      "result": "多益 860 分",
+      "text": "沒想到我竟然考到金色證書！謝謝驅勢！",
+      "photo": "images/site/reviews/toeic-4.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "林O毅",
+      "result": "雅思 7.5",
+      "text": "感謝驅勢提供的課程和模考服務，讓我在忙碌的工作後，用下班時間就能充分準備，獲得移民加拿大的機會！",
+      "photo": "images/site/reviews/ielts-1.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "江O軒",
+      "result": "雅思 7.5",
+      "text": "已經有一定英文程度，面對雅思卻不清楚考試方向與技巧；在驅勢有趣、多元的教學和老師的技巧討論下，半年就拿到滿意的成績。",
+      "photo": "images/site/reviews/ielts-2.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "王O翰",
+      "result": "雅思 7.5",
+      "text": "想申請德國研究所，在驅勢老師的指導下，雅思一次就考到理想成績。",
+      "photo": "images/site/reviews/ielts-3.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "劉O寰",
+      "result": "雅思 7.5",
+      "text": "如果沒有驅勢英日韓，我絕對考不到如今的分數！",
+      "photo": "images/site/reviews/ielts-7.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "曾O豪",
+      "result": "雅思 7.5",
+      "text": "感謝驅勢貼心開設許多上課時段！",
+      "photo": "images/site/reviews/ielts-8.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "王O城",
+      "result": "雅思 7.5",
+      "text": "從完全沒有希望，到現在已經申請加拿大學校！",
+      "photo": "images/site/reviews/ielts-9.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "吳O瑄",
+      "result": "雅思 7",
+      "text": "驅勢讓我能在最短時間內，快速提升自己的分數！",
+      "photo": "images/site/reviews/ielts-6.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "張O筑",
+      "result": "雅思 6.5",
+      "text": "只花半年雅思就進步一分，成功申請到國外學校！",
+      "photo": "images/site/reviews/ielts-4.webp"
+    },
+    {
+      "course": "ielts",
+      "name": "黃O鈞",
+      "result": "雅思 6.5",
+      "text": "只花五個月，考取雅思理想成績！",
+      "photo": "images/site/reviews/ielts-5.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "高O生",
+      "result": "托福 98 分",
+      "text": "感謝驅勢讓我從多益 500 分的程度，考到托福接近 100 分！",
+      "photo": "images/site/reviews/toefl-1.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "鄧O晴",
+      "result": "托福 98 分",
+      "text": "驅勢讓我的托福成績從 60 分進步到接近 100 分！",
+      "photo": "images/site/reviews/toefl-2.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "蔡O桓",
+      "result": "托福 101 分",
+      "text": "驅勢讓我考托福最大的收穫，就是整體的英文能力都提升了！",
+      "photo": "images/site/reviews/toefl-3.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "王O城",
+      "result": "托福 100 分",
+      "text": "驅勢開啟了我對英語的興趣，從完全沒希望，到現在已經可以申請國外學校！",
+      "photo": "images/site/reviews/toefl-4.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "魏O烝",
+      "result": "托福 89 分",
+      "text": "驅勢是一間很好的教學機構！上課時間很多樣化，不會和我在校時間衝突。",
+      "photo": "images/site/reviews/toefl-5.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "李O",
+      "result": "托福 96 分",
+      "text": "驅勢對我最大的影響，就是開口說英文的自信！",
+      "photo": "images/site/reviews/toefl-6.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "劉O緯",
+      "result": "托福 98 分",
+      "text": "只要一個人願意達成，整個世界都會一起幫助他完成夢想！",
+      "photo": "images/site/reviews/toefl-7.webp"
+    },
+    {
+      "course": "toefl",
+      "name": "蕭O沂",
+      "result": "托福 99 分",
+      "text": "在驅勢不但可以抓到考試方向，也可以循序漸進地準備考試！",
+      "photo": "images/site/reviews/toefl-8.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "蔡O恆",
+      "result": "日檢 N1",
+      "text": "驅勢讓我一次通過 N1。",
+      "photo": "images/site/reviews/jlpt-1.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "游O翰",
+      "result": "日檢 N2",
+      "text": "學好日文，我得到了在日本上班的機會。",
+      "photo": "images/site/reviews/jlpt-2.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "謝O諭",
+      "result": "日檢 N2",
+      "text": "從五十音開始，一路考到日檢 N2！",
+      "photo": "images/site/reviews/jlpt-3.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "許O威",
+      "result": "日檢 N1",
+      "text": "N5 到 N2 的累積，讓我準備 N1 時銜接上不會費太多力氣。謝謝驅勢給了我一個很棒的學習平台！",
+      "photo": "images/site/reviews/jlpt-4.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "陳O文",
+      "result": "日檢 N2",
+      "text": "能夠順利考取 N2 證照，讓我非常開心！謝謝驅勢給予了這樣的環境！",
+      "photo": "images/site/reviews/jlpt-5.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "林O萱",
+      "result": "日檢 N2",
+      "text": "一年半多，從一點點基礎到 N2！",
+      "photo": "images/site/reviews/jlpt-6.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "王O讚",
+      "result": "日檢 N2",
+      "text": "驅勢讓我短時間內連續通過 N3 和 N2！",
+      "photo": "images/site/reviews/jlpt-7.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "張O",
+      "result": "日檢 N2",
+      "text": "進入驅勢從 N5 一路上來，兩年半取得 N2 證照！",
+      "photo": "images/site/reviews/jlpt-8.webp"
+    },
+    {
+      "course": "jlpt",
+      "name": "蘇O媛",
+      "result": "日檢 N2",
+      "text": "驅勢讓我徹底感受到，為自己所愛的語言努力到底有多快樂！",
+      "photo": "images/site/reviews/jlpt-9.webp"
+    },
+    {
+      "course": "topik",
+      "name": "衛O晴",
+      "result": "日檢 N2＋韓檢 4 級",
+      "text": "在驅勢兩年內，順利取得日文與韓文的進階級證照！",
+      "photo": "images/site/reviews/topik-1.webp"
+    },
+    {
+      "course": "topik",
+      "name": "莊O婷",
+      "result": "多益 805 分＋韓檢 5 級",
+      "text": "自從在驅勢上課，對外語愈來愈有興趣，花在學外語的時間變多，也開始報名各種檢定，想取得更高級的證書。",
+      "photo": "images/site/reviews/topik-2.webp"
+    },
+    {
+      "course": "topik",
+      "name": "曹O竹",
+      "result": "韓檢 6 級",
+      "text": "在驅勢我考上韓檢 6 級！老師非常有經驗，很會掌握上課節奏，會讓每個人都有對話練習的機會。",
+      "photo": "images/site/reviews/topik-3.webp"
+    },
+    {
+      "course": "topik",
+      "name": "黃O翊",
+      "result": "韓檢 6 級",
+      "text": "我得到韓國交換學生的機會，使我在找工作時，更有競爭力！",
+      "photo": "images/site/reviews/topik-4.webp"
+    },
+    {
+      "course": "topik",
+      "name": "黃O婷",
+      "result": "韓檢 5 級",
+      "text": "驅勢師資多元豐富、開班時段齊全，讓我在上完 3B 課程就能通過韓檢 5 級！",
+      "photo": "images/site/reviews/topik-5.webp"
+    },
+    {
+      "course": "topik",
+      "name": "翁O雯",
+      "result": "韓檢 5 級",
+      "text": "每位老師都有不同風格，受益良多！",
+      "photo": "images/site/reviews/topik-6.webp"
+    },
+    {
+      "course": "topik",
+      "name": "胡O晴",
+      "result": "韓檢 5 級",
+      "text": "從來沒想過我能拿到韓檢 5 級！",
+      "photo": "images/site/reviews/topik-7.webp"
+    },
+    {
+      "course": "topik",
+      "name": "陳O尼",
+      "result": "韓檢 5 級",
+      "text": "在驅勢一年的時間，從不到三級的程度考到了韓檢五級！",
+      "photo": "images/site/reviews/topik-8.webp"
+    },
+    {
+      "course": "topik",
+      "name": "黃O蘋",
+      "result": "韓檢 5 級",
+      "text": "上完三級課程，第一次試著報名韓檢就得到五級的成績，連我自己都不可置信！謝謝驅勢英日韓打造了這樣一個環境！",
+      "photo": "images/site/reviews/topik-9.webp"
+    }
+  ]
 }

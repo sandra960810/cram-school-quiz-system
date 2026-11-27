@@ -1,134 +1,329 @@
 {% extends 'site/base.html' %}
-{% from 'site/_m.html' import fill, line_btn %}
+{% from 'site/_m.html' import fill, line_btn, ai_chip, tech_panel, system_block, cefr_block %}
 {% block body %}
-{# 2026-11 使用者要求：主視覺照片＋標語＋多益迷你模考入口 → 課程 → 招生中（招生圖，photo4）→ 學習地圖 → 特色 → 關於 → 最下面多益測驗；同樣的內容不要重複，首頁不放校區區塊、不提學生系統 #}
-<section class="s-photo-hero">
-    <img class="s-photo-bg" src="{{ url_for('static', filename='images/site/hero.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high">
-    <div class="wrap">
-      <div class="s-photo-panel">
-        <p class="s-eyebrow">TRINITY LANGUAGE CENTER</p>
-        <h1>你的多益<br>實力有幾分？</h1>
-        <p class="s-photo-slogan">多年專業經驗，成就語言學習新高度</p>
-        {% if 'toeic' in mocks_ready %}
-        <a class="s-hero-mock" href="{{ url_for('site.mock_take', key='toeic') }}">
-            <span class="s-hero-mock-tag">免費</span>
-            <span class="s-hero-mock-txt"><b>多益迷你模考</b><small>22 題・12 分鐘，交卷馬上看預估分數</small></span>
-            <span class="s-hero-mock-go">進入測驗 {{ icon('target') }}</span>
-        </a>
+{# 2026-11 使用者給兩張參考圖，要求排版更像參考圖，並加入不搶眼的黃色、藍色：
+   1 主視覺：左側直排細欄＋眉標短線＋大字標題＋黑按鈕與圓圈箭頭連結，右側大照片出血到邊、圓形徽章
+   2 AI 線上模考：四欄、細直線分隔（參考圖二的分類列）
+   3 課程：左照片＋學習地圖，右邊 01～05 大字編號列表（參考圖一）
+   4 課程招生中：左照片右文、照片角落壓圓形徽章（參考圖二的 Our Story）
+   5 為什麼選驅勢：三欄細直線分隔
+   6 關於：左文右照片（照片不重複使用）
+   同樣的內容不要重複；首頁不放校區區塊。學員線上學習系統（2026-11 上線）：主頁面列全部，各科專屬頁面只列該科。 #}
+<section class="h-hero">
+    <div class="h-rail" aria-hidden="true"><span>SCROLL TO DISCOVER</span></div>
+    <div class="h-hero-txt">
+        <p class="s-eyebrow lined">{% if hero.c.key in mocks_ready %}AI 線上模考 × 語言檢定{% else %}AI 學習系統 × {{ hero.c.name }}{% endif %}</p>
+        {# 標題的科技感動態（site.js 的 heroTitle）：進場時每個字像解碼一樣跳字再定格；不輪播（2026-11 使用者要求）。
+           顯示哪個考試看 hero（school_site.hero_course）：廣告連結帶 ?exam=ielts 等，最上面就是雅思並加上課程簡介；
+           沒帶參數就是多益、沒有簡介。原始碼與 canonical 都是首頁，搜尋引擎看到的不變 #}
+        {% set hc = hero.c %}
+        <h1 class="h-title" data-hero-title>{% if hc.hero %}<span class="h-t-word">{{ hc.hero[0] }}</span><br><span class="h-t-seg">{{ hc.hero[1] }}</span>{% else %}<span class="h-t-seg">你的</span><span class="h-t-word">{{ hc.name }}</span><br><span class="h-t-seg">實力有幾分？</span>{% endif %}<span class="h-t-caret" aria-hidden="true"></span></h1>
+        <p class="h-hero-lead">多年專業經驗，成就語言學習新高度。{% if hc.key in mocks_ready %}<br>做一份免費 AI 迷你模考，交卷後留下資料，馬上看預估{{ '級數' if hc.key in ('jlpt', 'topik') else ('Band' if hc.key == 'ielts' else '分數') }}。{% endif %}</p>
+        {# 2026-11 使用者：進入模考的按鈕移到右邊、明顯一點（電腦、手機都是）：次要連結在左、大按鈕靠右 #}
+        <div class="h-hero-cta is-main">
+            {% if hc.key in mocks_ready %}
+            {% if hero.ad %}<a class="h-more" href="#intro">課程介紹 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            {% else %}<a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>{% endif %}
+            <a class="s-btn h-go" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.name }}迷你模考・進入測驗</span><i aria-hidden="true">→</i></a>
+            {% else %}
+            <a class="h-more" href="#intro">課程介紹 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            <a class="s-btn h-go" href="{{ url_for('site.contact', course=hc.key) }}"><span>諮詢{{ hc.name }}課程</span><i aria-hidden="true">→</i></a>
+            {% endif %}
+        </div>
+    </div>
+    {# 2026-11 使用者要求：AI 模考卡片的科技感面板（電路線、聲波、分數環）結合到主視覺，取代原本的照片；科目跟著廣告連結換 #}
+    <div class="h-hero-art is-tech">
+        {# 小字（使用者要求）：實體課・線上課・專屬 AI 學習系統，各科都一樣 #}
+        {{ tech_panel(hc.en, 'AI MOCK TEST · INSTANT SCORE' if hc.key in mocks_ready else 'AI LEARNING SYSTEM', 7, 270, 'h-hero-tech', 44, ['實體課', '線上課', '專屬 AI 學習系統']) }}
+        <span class="t-hud t-hud-corners" aria-hidden="true"></span>
+        <svg class="h-seal" viewBox="0 0 160 160" aria-hidden="true">
+            <defs><path id="h-seal-path" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1 -120 0"/></defs>
+            <g class="h-seal-spin"><text><textPath href="#h-seal-path">AI MOCK TEST · INSTANT SCORE · WEAKNESS REPORT ·</textPath></text></g>
+            <circle cx="80" cy="80" r="30" class="h-seal-core"/>
+            <text x="80" y="90" text-anchor="middle" class="h-seal-ai">AI</text>
+        </svg>
+    </div>
+</section>
+
+{# 2026-11 使用者：主視覺結束後下面直接接個資表單，展開著可以直接填（不用再點進諮詢頁）。
+   送到 /contact，檢查、防機器人、次數限制、寄通知信都用同一套；填錯會在諮詢頁顯示錯誤並保留已填的內容。
+   從廣告（?exam=）進來時，該考試的課程先勾好 #}
+<section class="h-lead" id="consult">
+    <div class="wrap h-lead-in">
+        <div class="h-lead-head">
+            <p class="s-eyebrow lined">FREE CONSULTATION</p>
+            <h2>免費諮詢・預約試聽</h2>
+            <p>留下聯絡方式，專人會在上班時間和你聯絡。</p>
+        </div>
+        <form class="s-form h-lead-form" method="post" action="{{ url_for('site.contact') }}">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <input type="hidden" name="source" value="首頁表單{{ '（' ~ hc.name ~ '廣告）' if hero.ad }}">
+            <div class="hp" aria-hidden="true"><label>網站<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="h-lead-row">
+                <div><label class="f" for="hl-name">姓名 <span class="req">*</span></label><input id="hl-name" type="text" name="name" autocomplete="name" required></div>
+                <div><label class="f" for="hl-phone">手機／電話 <span class="req">*</span></label><input id="hl-phone" type="tel" name="phone" autocomplete="tel" placeholder="0912345678" required></div>
+                <div><label class="f" for="hl-campus">想上課的校區</label>
+                    <select id="hl-campus" name="campus"><option value="">還不確定</option>
+                    {% for c in s.campuses %}<option>{{ c.name }}</option>{% endfor %}</select></div>
+            </div>
+            <label class="f">想了解的課程（可複選）</label>
+            <div class="checks">
+                {% for c in courses %}<label><input type="checkbox" name="courses" value="{{ c.key }}" {{ 'checked' if hero.ad and c.key == hc.key }}> {{ c.form or c.name }}</label>{% endfor %}
+            </div>
+            <div class="h-lead-end">
+                <label class="consent"><input type="checkbox" name="consent" value="yes" required>
+                    <span>我同意{{ s.name }}依<a href="{{ url_for('site.privacy') }}" target="_blank">個人資料蒐集說明</a>，蒐集我的資料用於課程諮詢聯繫。<span class="req">*</span></span></label>
+                <button class="s-btn big">送出，預約免費諮詢</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{# 學員專屬 AI 線上學習系統：直接接在諮詢表單下面（2026-11 使用者要求）。主頁面列全部科目，各科專屬頁面只列該科（托福系統還沒做，不顯示） #}
+{% if hero.ad %}{{ system_block([hc], system_features, shots=system_shots) }}{% else %}{{ system_block(courses, system_features, shots=system_shots) }}{% endif %}
+
+{% if hero.ad %}
+{# 2026-11 使用者：從各考試的廣告連結進來，表單下面先介紹學校和該課程，再放學員心得，然後才接其他模考等內容。
+   學校介紹與「為什麼選驅勢」在這裡出現時，頁面下方原本的同樣區塊就不顯示（內容不重複）。
+   課程只寫網站真的有的（課程說明、開課校區），時間、班別、費用請諮詢 #}
+<section class="h-adi" id="intro">
+    <div class="wrap h-adi-in">
+        <div class="h-adi-school">
+            <p class="s-eyebrow lined">ABOUT TRINITY</p>
+            <h2 class="h-big">關於{{ s.name }}<br>語言教育中心</h2>
+            {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
+            <ul class="h-adi-why">
+                {% for t, d, short, ic in why %}
+                <li><i class="h-adi-ic" aria-hidden="true">{{ icon(ic) }}</i><b>{{ t }}</b><small>{{ short }}</small></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% set pg = programs.get(hc.key) %}
+        {% if pg %}
+        {# 使用者提供的課程介紹文案（school_site.PROGRAMS），取代照片課程卡 #}
+        <div class="h-pg-head exam-tone-{{ hc.key }}">
+            <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
+            <h3>{{ pg.title }}</h3>
+            <p class="h-pg-tags">{% for t in pg.tags %}{% if not loop.first %}<i aria-hidden="true">{{ pg.tag_sep or '＋' }}</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
+            {% if pg.sub %}<p class="h-pg-sub">{{ pg.sub }}</p>{% endif %}
+            <p class="h-pg-intro">{{ pg.intro }}</p>
+            <p class="h-hc-links"><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
+        </div>
+        {% else %}
+        <article class="h-adi-course exam-tone-{{ hc.key }}">
+            <div class="h-adi-photo"><img src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="在會議室一起討論的學員" width="1920" height="1280" loading="lazy"></div>
+            <div class="h-adi-body">
+                <p class="h-hc-tag">驅勢{{ hc.name }}課程・{{ hc.en }}</p>
+                <h3>{{ hc.name }}課程</h3>
+                <p class="h-adi-lead">{{ hc.lead }}</p>
+                <dl class="h-adi-meta">
+                    <div><dt>開課校區</dt><dd>{% for x in s.campuses %}{{ x.name }}{{ '、' if not loop.last }}{% endfor %}</dd></div>
+                    <div><dt>時間與費用</dt><dd>依程度與目標安排班別，歡迎諮詢</dd></div>
+                </dl>
+                <p class="h-hc-links"><a href="{{ url_for('site.course', key=hc.key) }}">看{{ hc.name }}課程內容 <span aria-hidden="true">→</span></a><a href="#consult">預約免費諮詢 <span aria-hidden="true">↑</span></a></p>
+            </div>
+        </article>
         {% endif %}
-      </div>
     </div>
-</section>
-
-
-<section class="s-sec s-band" id="courses">
-    <div class="wrap">
-        <p class="s-eyebrow">COURSES</p>
-        <h2>課程總覽</h2>
-        <p class="sub">上課時間、班別與費用依程度安排，歡迎諮詢。</p>
-        <div class="s-table-wrap">
-        <table class="s-ctable">
-            <thead><tr><th>課程</th><th>課程重點</th></tr></thead>
-            <tbody>
-            {% for c in courses %}
-            <tr class="exam-tone-{{ c.key }}">
-                <td><a class="ct-name" href="{{ url_for('site.course', key=c.key) }}">{{ c.name }}</a><small>{{ c.en }}</small></td>
-                <td>{{ c.lead }}</td>
-            </tr>
+    {% if pg %}
+    <div class="wrap h-pg exam-tone-{{ hc.key }}">
+        <h3 class="h-pg-ft">{{ pg.feat_title }}</h3>
+        <ol class="h-pg-grid">
+            {% for f in pg.features %}
+            <li class="{{ 'is-wide' if f.wide }}{{ ' is-full' if f.full }}">
+                <div class="h-pg-top"><span class="h-pg-n">{{ '%02d' % loop.index }}</span><i class="h-adi-ic" aria-hidden="true">{{ icon(f.icon) }}</i></div>
+                <h4>{{ f.t }}</h4>
+                {% if f.list %}{% for para in f.d or [] %}<p>{{ para }}</p>{% endfor %}{% endif %}
+                {% if f.parts %}<ul class="h-pg-parts{{ ' is-list' if f.list }}">{% for a, b in f.parts %}<li><b>{{ a }}</b>{{ b }}</li>{% endfor %}</ul>{% endif %}
+                {% if not f.list %}{% for para in f.d or [] %}<p>{{ para }}</p>{% endfor %}{% endif %}
+                {% for para in f.after or [] %}<p>{{ para }}</p>{% endfor %}
+            </li>
             {% endfor %}
-            </tbody>
-        </table>
+        </ol>
+        <div class="h-pg-close">
+            <h3>{{ pg.close_title }}</h3>
+            <p class="h-pg-xtags">{% for t in pg.close_tags %}{% if not loop.first %}<i aria-hidden="true">×</i>{% endif %}<span>{{ t }}</span>{% endfor %}</p>
+            {% for para in pg.close %}<p>{{ para }}</p>{% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+{# 學員心得：只放 site_info.json 的 testimonials（補習班提供、學員同意公開的真實心得），同課程的排前面；沒資料顯示待填 #}
+<section class="h-rev" id="reviews">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">STUDENT REVIEWS</p></div>
+        <div class="h-rev-top">
+            <h2 class="h-big">學員心得</h2>
+        </div>
+        {# 每科最多 9 則，全部直接排出來、不輪播（2026-11 使用者要求「全部擺出來不用這樣了」） #}
+        <div class="h-rev-grid">
+            {% for r in reviews %}
+            <figure class="h-rev-card{% if r.photo %} has-photo{% endif %}">
+                {% if r.photo %}<div class="h-rev-photo"><img src="{{ url_for('static', filename=r.photo) }}" alt="{{ r.name }}的照片" loading="lazy"></div>{% endif %}
+                <span class="h-rev-q" aria-hidden="true">“</span>
+                <blockquote>{{ r.text }}</blockquote>
+                <figcaption><b>{{ r.name }}</b>{% if r.course_name %}<span>{{ r.course_name }}</span>{% endif %}{% if r.result %}<em>{{ r.result }}</em>{% endif %}</figcaption>
+            </figure>
+            {% else %}
+            {% for i in range(3) %}
+            <figure class="h-rev-card is-todo">
+                <span class="h-rev-q" aria-hidden="true">“</span>
+                <blockquote><span class="todo">待填：學員心得（真實心得，site_info.json 的 testimonials）</span></blockquote>
+                <figcaption><b>學員姓名</b><span>{{ hc.name }}</span><em>成績</em></figcaption>
+            </figure>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# 2026-11 使用者：各科專屬介面（?exam=…）只放那一科的模考入口；主頁面（沒帶參數）維持四科都放。托福沒有模考就不顯示這區 #}
+{% if mocks_ready and not (hero.ad and hc.key not in mocks_ready) %}
+<section class="h-cats{{ ' is-one' if hero.ad }}" id="ai-mock">
+    <div class="wrap">
+        <div class="h-sec-head">
+            <p class="s-eyebrow lined">AI 線上模考</p>
+            {# 「全部迷你模考」連結 2026-11 使用者要求拿掉（四張卡片已是全部模考） #}
+        </div>
+        {# 2026-11 使用者給一段影片要這種互動：一張展開的大卡片，其他縮成直條膠囊，點直條就換它展開；再結合科技感元素。
+           淺色細格線舞台、直條上有編號、考試代號與指示燈；預設全部閉合、平均分配寬度，滑鼠移到哪張才展開那張。
+           沒有 JS 時照舊是四張並排的卡片（只有 .s-js 才變成展開式）。 #}
+        {% set tags = {'toeic': 'TOEIC', 'ielts': 'IELTS', 'jlpt': 'JLPT', 'topik': 'TOPIK'} %}
+        {% set subs = {'toeic': 'LISTENING · READING', 'ielts': 'LISTENING · READING', 'jlpt': 'N5 → N1', 'topik': 'LEVEL 1 → 6'} %}
+        {% set ready = mocks | selectattr(0, 'in', mocks_ready) | list %}
+        {% if hero.ad %}{% set ready = ready | selectattr(0, 'equalto', hc.key) | list %}{% endif %}
+        <div class="h-acc{{ ' is-one' if ready|length == 1 }}"{{ ' data-acc'|safe if ready|length > 1 }} style="--n: {{ ready|length }}">
+            {% for k, n in ready %}
+            <article class="h-acc-item exam-tone-{{ k }}" data-acc-item>
+                <button class="h-acc-tab" type="button" aria-controls="acc-{{ k }}" aria-expanded="false" aria-label="{{ n }}迷你模考">
+                    <span class="h-acc-led" aria-hidden="true"></span>
+                    <span class="h-acc-v">{{ '%02d' % loop.index }}<b>{{ tags.get(k, k|upper) }}</b><em>{{ n }}</em></span>
+                    <span class="h-acc-blurb" aria-hidden="true">{{ mock_blurb[k] }}</span>
+                    <span class="h-acc-peek" aria-hidden="true"><span>{{ subs.get(k, 'AI MOCK TEST') }}</span><span class="h-more-dot">→</span></span>
+                </button>
+                <div class="h-acc-body" id="acc-{{ k }}">
+                    <div class="h-acc-txt">
+                        {% if ready|length > 1 %}<span class="h-acc-no">{{ '%02d' % loop.index }} <i>/ {{ '%02d' % ready|length }}</i></span>{% endif %}
+                        <h3>{{ n }}<br>迷你模考</h3>
+                        <span class="h-acc-en">{{ tags.get(k, k|upper) }} · {{ subs.get(k, 'AI MOCK TEST') }}</span>
+                        <p>{{ mock_blurb[k] }}</p>
+                        <a class="s-btn" href="{{ url_for('site.mock_take', key=k) }}">開始測驗 <span aria-hidden="true">→</span></a>
+                    </div>
+                    <a class="h-acc-art" href="{{ url_for('site.mock_take', key=k) }}" tabindex="-1" aria-hidden="true">
+                        {{ tech_panel(tags.get(k, k|upper), subs.get(k, 'AI MOCK TEST'), loop.index0) }}
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <p class="h-cat-note">免費、不用註冊。留下聯絡資料，AI 會依你的錯題寫弱點診斷與進步建議。</p>
+    </div>
+</section>
+{% endif %}
+
+{% if hero.ad %}{{ cefr_block(hc, cefr_by_exam.get(hc.key)) }}{% endif %}
+
+{# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}
+{% if not hero.ad %}
+<section class="h-split" id="courses">
+    <div class="wrap h-split-grid">
+        <aside class="h-split-side">
+            <img src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy">
+            <h2 class="h-side-title">從零基礎到檢定高分</h2>
+            <ol class="h-path">
+                <li><b>英文零基礎</b>從字母發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。</li>
+                <li><b>檢定衝刺・高分</b>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</li>
+            </ol>
+            <a class="h-link" href="{{ url_for('site.courses') }}">課程介紹</a>
+        </aside>
+        <div class="h-rows">
+            {% for c in courses %}
+            <a class="h-row exam-tone-{{ c.key }}" href="{{ url_for('site.home', exam=c.key) }}">
+                <span class="h-row-no">{{ '%02d' % loop.index }}</span>
+                <span class="h-row-name">{{ c.name }}<small>{{ c.en }}</small></span>
+                <span class="h-row-lead">{{ c.lead }}</span>
+            </a>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<section class="s-enroll" id="enroll">
-    <img class="s-enroll-bg" src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
+{% endif %}
+
+{% if not hero.ad %}
+<section class="h-sec" id="why">
     <div class="wrap">
-        <div class="s-enroll-head">
-            {# AI 晶片圖樣（2026-11 使用者要求參考招生圖加一點 AI 元素，不用太多） #}
-            <svg class="s-ai-chip" viewBox="0 0 220 120" aria-hidden="true">
-                <g class="s-ai-lines" fill="none" stroke-width="2" stroke-linecap="round">
-                    <path d="M76 48H40l-12-12H6"/><path d="M76 72H40l-12 12H6"/><path d="M76 60H18"/>
-                    <path d="M144 48h36l12-12h22"/><path d="M144 72h36l12 12h22"/><path d="M144 60h58"/>
-                </g>
-                <g class="s-ai-dots"><circle cx="6" cy="36" r="3"/><circle cx="6" cy="84" r="3"/><circle cx="18" cy="60" r="3"/>
-                    <circle cx="214" cy="36" r="3"/><circle cx="214" cy="84" r="3"/><circle cx="202" cy="60" r="3"/></g>
-                <g class="s-ai-pins" stroke-width="3" stroke-linecap="round">
-                    <path d="M92 22v-10M110 22v-10M128 22v-10M92 98v10M110 98v10M128 98v10"/></g>
-                <rect class="s-ai-body" x="76" y="22" width="68" height="76" rx="12"/>
-                <text class="s-ai-text" x="110" y="70" text-anchor="middle">AI</text>
-            </svg>
-            <p class="s-eyebrow">NOW ENROLLING</p>
-            <h2>課程<em>招生中！</em></h2>
-            <p class="s-enroll-sub">彈性學習 × 高效備考 × 精準提升</p>
+        <div class="h-sec-head">
+            <p class="s-eyebrow lined">WHY TRINITY</p>
         </div>
-        <div class="s-enroll-cards">
-            <div class="s-enroll-card is-ai"><h3>{{ icon('clipboard') }} AI 線上多益模考</h3>
-                <ul class="s-checks"><li>仿真試題・完整模考</li><li>AI 即時評分與解析</li><li>弱點診斷・個人化進步建議</li></ul></div>
-            <div class="s-enroll-card"><h3>{{ icon('users') }} 實體課</h3>
-                <ul class="s-checks"><li>面對面授課</li><li>即時提問與互動</li><li>系統化教學・輕鬆吸收</li></ul></div>
-            <div class="s-enroll-card"><h3>{{ icon('headphones') }} 線上直播課</h3>
-                <ul class="s-checks"><li>即時互動直播</li><li>彈性上課不受地點限制</li></ul></div>
-        </div>
-        <div class="s-enroll-foot">
-            <p>多元學習方式，搭配 AI 模考，讓你準備更有效！</p>
-            <a class="s-btn big gold" href="{{ url_for('site.contact') }}">立即報名</a>
+        <h2 class="h-big">為什麼選{{ s.name }}</h2>
+        <div class="h-why-cols">
+            {# 內容取自補習班手冊「Trinity is the best choice」（2026-11 使用者提供） #}
+            {% for t, d, short, ic in why %}
+            <div><span>{{ '%02d' % loop.index }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<section class="s-sec" id="map">
+<section class="h-sec h-cefr" id="levels">
     <div class="wrap">
-        <p class="s-eyebrow">LEARNING MAP</p>
-        <h2>學習地圖</h2>
-        <p class="sub">零基礎到高階，都有適合你的下一步。</p>
-        <div class="s-map">
-            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo4.jpg') }}" alt="老師在白板講解、學員專心上課" width="1920" height="1282" loading="lazy"><span class="s-map-step">STEP 1</span><h3>英文零基礎</h3><p>從字母發音、基礎單字與文法開始，建立讀懂、聽懂的基本功。</p></div>
-            <div class="s-map-card"><img class="s-map-photo" src="{{ url_for('static', filename='images/site/photo3.jpg') }}" alt="分析圖表、規劃學習目標" width="1920" height="1280" loading="lazy"><span class="s-map-step">STEP 2</span><h3>檢定衝刺・高分</h3><p>熟悉考試題型、練習時間分配，朝目標分數與級數前進。</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="s-sec s-band" id="why">
-    <div class="wrap">
-        <p class="s-eyebrow">WHY TRINITY</p>
-        <h2>為什麼選{{ s.name }}</h2>
-        <div class="s-why-grid">
-            <img class="s-mode-photo" src="{{ url_for('static', filename='images/site/class.jpg') }}" alt="小班討論上課情境" width="1920" height="1177" loading="lazy">
-            <div class="s-why">
-                <div><span>01</span><h3>嚴選師資</h3><p>精準考題解析，掌握題型與解題方法</p></div>
-                <div><span>02</span><h3>量身打造</h3><p>依程度與目標規劃，針對弱項提升</p></div>
-                <div><span>03</span><h3>小班教學</h3><p>老師照顧得到每個人，個別學習計劃</p></div>
+        <div class="h-sec-head"><p class="s-eyebrow lined">CEFR LEVELS</p></div>
+        <h2 class="h-big">TRINITY 專業程度分級制度</h2>
+        <p class="h-cefr-lead">{{ s.name }}程度分級是依據 CEFR（歐洲語言共同參考框架）進行的分級標準。</p>
+        {# 內容與圖表樣式取自補習班手冊「TRINITY 專業程度分級制度」（2026-11 使用者提供，要求放圖表） #}
+        <p class="h-cefr-hint">圖表可以左右滑動</p>
+        <div class="h-cefr-scroll" tabindex="0" role="region" aria-label="TRINITY 程度分級與 CEFR、各項檢定對照圖表">
+            <div class="h-cefr-chart">
+                <div class="h-cefr-cols h-cefr-bars">
+                    {% for n, en, zh, cefr, items in cefr_levels %}
+                    <div class="h-cefr-bar" style="--c: var(--lv{{ n }}); --h: {{ [150, 210, 270, 330, 360, 390][loop.index0] }}px">
+                        <span class="n">{{ n }}</span>
+                        <div class="b">{% for it in items %}<span>{{ it }}</span>{% endfor %}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="h-cefr-cols h-cefr-names">
+                    {% for n, en, zh, cefr, items in cefr_levels %}
+                    <div style="--c: var(--lv{{ n }})"><small>{{ en }}</small><b>{{ zh }}</b><i>{{ cefr }}</i></div>
+                    {% endfor %}
+                </div>
+                <div class="h-cefr-exams">
+                    {% for ex, vals in cefr_exams %}
+                    <div class="row"><b>{{ ex }}</b>{% for v in vals %}<span>{{ v }}</span>{% endfor %}</div>
+                    {% endfor %}
+                </div>
+                <div class="h-cefr-mode">
+                    <span class="bi">雙語教學</span>
+                    <span class="en">全英教學 <em>⋯▸</em> 國外語言學校</span>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-
-<section class="s-sec s-about" id="about">
-    <div class="wrap s-about-grid">
-      <div>
-        <p class="s-eyebrow">ABOUT US</p>
-        <h2>關於{{ s.name }}語言教育中心</h2>
+<section class="h-story h-about is-flip" id="about">
+    <div class="h-story-txt">
+        <p class="s-eyebrow lined">ABOUT US</p>
+        <h2 class="h-big">關於{{ s.name }}<br>語言教育中心</h2>
         {% if s.intro %}<p class="s-intro">{{ s.intro }}</p>{% endif %}
-      </div>
-          </div>
-</section>
-
-{% if 'toeic' in mocks_ready %}
-<section class="s-sec s-quiz-cta exam-tone-toeic" id="quiz">
-    <div class="wrap s-quiz-grid">
-        <div>
-            <p class="s-eyebrow">FREE TOEIC TEST</p>
-            <h2>你的多益實力有幾分？</h2>
-            <ul class="s-checks">
-                <li>聽力＋閱讀 22 題，約 12 分鐘，比照多益題型</li>
-                <li>交卷馬上看正確率、解析與弱點分析</li>
-                <li>免費、不用註冊</li>
-            </ul>
-        </div>
-        <div class="s-quiz-btn"><a class="s-btn big" href="{{ url_for('site.mock_take', key='toeic') }}">{{ icon('target') }} 開始測驗</a></div>
+    </div>
+    <div class="h-story-photo">
+        <img src="{{ url_for('static', filename='images/site/about-ai.jpg') }}" alt="雙手在筆電上打字，四周是藍紫色的科技光" width="1920" height="1280" loading="lazy">
+        <span class="t-hud t-hud-corners" aria-hidden="true"></span>
+        <span class="t-hud t-hud-ring" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+                <circle class="r1" cx="100" cy="100" r="96"/>
+                <circle class="r2" cx="100" cy="100" r="80"/>
+                <circle class="r4" cx="100" cy="100" r="66"/>
+                <g class="r-tick">{% for a in range(0, 360, 30) %}<line x1="100" y1="8" x2="100" y2="16" transform="rotate({{ a }} 100 100)"/>{% endfor %}</g>
+                <circle class="r3" cx="100" cy="100" r="52"/>
+                <text x="100" y="112" text-anchor="middle">AI</text>
+            </svg>
+        </span>
+        <span class="t-hud t-hud-tag" aria-hidden="true"><i></i>AI LEARNING SYSTEM</span>
     </div>
 </section>
 {% endif %}

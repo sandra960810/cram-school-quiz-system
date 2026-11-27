@@ -6,3 +6,208 @@
 {%- if s.line_url %}<a class="{{ cls }}" href="{{ s.line_url }}" target="_blank" rel="noopener">{{ icon('speech') }} {{ text }}</a>
 {%- else %}<a class="{{ cls }}" aria-disabled="true" title="LINE 連結還沒設定（site_info.json 的 line_url）">{{ icon('speech') }} {{ text }}（待設定）</a>{% endif -%}
 {%- endmacro %}
+{# AI 晶片小圖示（2026-11 使用者要求整個官網要有 AI 元素；只放在真的有 AI 的地方：迷你模考、AI 弱點診斷） #}
+{% macro ai_chip(cls='') -%}
+<svg class="s-chip {{ cls }}" viewBox="0 0 40 40" aria-hidden="true"><g class="s-chip-pins"><path d="M14 4v5M20 4v5M26 4v5M14 31v5M20 31v5M26 31v5M4 14h5M4 20h5M4 26h5M31 14h5M31 20h5M31 26h5"/></g><rect class="s-chip-body" x="9" y="9" width="22" height="22" rx="4"/><text x="20" y="24.5" text-anchor="middle" class="s-chip-txt">AI</text></svg>
+{%- endmacro %}
+{# 科技感面板（2026-11 使用者：強調 AI「不是放上 AI 字樣，要加點科技感元素」）：
+   藍黑底＋細格線、電路走線（有一道光沿線跑）、聲波條、分數環。純裝飾，不放假數字。 #}
+{% macro tech_panel(label, sub='AI MOCK TEST', seed=0, h=150, cls='', tx=20, chips=None) -%}
+{# h：畫布高度（首頁主視覺用較高的 270，內容垂直置中，格線鋪滿） #}
+<span class="s-tech {{ cls }}" aria-hidden="true">
+<svg viewBox="0 0 320 {{ h }}" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <pattern id="tg{{ seed }}" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" class="t-grid"/></pattern>
+    <radialGradient id="tr{{ seed }}" cx="78%" cy="45%" r="55%"><stop offset="0" class="t-glow-a"/><stop offset="1" class="t-glow-b"/></radialGradient>
+  </defs>
+  <rect width="320" height="{{ h }}" fill="url(#tg{{ seed }})"/>
+  <rect width="320" height="{{ h }}" fill="url(#tr{{ seed }})"/>
+  <g transform="translate(0 {{ ((h - 150) / 2)|round|int }})">
+  {% set ys = [[84, 104], [80, 108], [88, 102], [82, 110]][seed % 4] %}
+  <g class="t-trace">
+    <path d="M0 {{ ys[0] }}H{{ 60 + seed * 8 }}l12 -12H190"/>
+    <path d="M110 {{ ys[1] }}H160l10 10H198"/>
+    <path d="M320 18H272l-12 12H236"/>
+    <path d="M320 132H284l-10 -10H250"/>
+  </g>
+  <path class="t-pulse" d="M0 {{ ys[0] }}H{{ 60 + seed * 8 }}l12 -12H190"/>
+  <g class="t-node"><circle cx="190" cy="{{ ys[0] - 12 }}" r="2.6"/><circle cx="110" cy="{{ ys[1] }}" r="2.6"/><circle cx="198" cy="{{ ys[1] + 10 }}" r="2.6"/><circle cx="236" cy="30" r="2.6"/><circle cx="250" cy="122" r="2.6"/></g>
+  <g class="t-wave" transform="translate({{ tx }} 136)">
+    {% for h in [5, 10, 15, 8, 18, 12, 7, 14, 9, 4, 11, 16, 6] %}<rect x="{{ loop.index0 * 6 }}" y="{{ -h }}" width="3" height="{{ h }}" rx="1.5" style="animation-delay: {{ (loop.index0 * 0.11)|round(2) }}s"/>{% endfor %}
+  </g>
+  <g transform="translate(250 75)">
+    <circle r="40" class="t-ring-bg"/>
+    <circle r="40" class="t-ring" pathLength="100"/>
+    <circle r="31" class="t-ring-in"/>
+    <g class="t-chip"><path d="M-6 -16v4M0 -16v4M6 -16v4M-6 12v4M0 12v4M6 12v4M-16 -6h4M-16 0h4M-16 6h4M12 -6h4M12 0h4M12 6h4"/><rect x="-12" y="-12" width="24" height="24" rx="4"/><text y="4.5" text-anchor="middle">AI</text></g>
+  </g>
+  {% if chips %}
+  {# 主視覺用：上面一行白字，項目中間用 × 隔開（使用者要求不要框框、整行白色）；大字用等寬字＋外框殘影，下面一行系統狀態 #}
+  {# 白字整體往下移一點（2026-11 使用者要求，原本太貼上緣） #}
+  <text x="{{ tx }}" y="45" class="t-chip-txt">{% for c in chips %}{% if not loop.first %}<tspan class="t-chip-x" dx="6">×</tspan><tspan dx="6">{{ c }}</tspan>{% else %}<tspan>{{ c }}</tspan>{% endif %}{% endfor %}</text>
+  <text x="{{ tx + 1.5 }}" y="80.5" class="t-label-ghost">{{ label }}</text>
+  <text x="{{ tx }}" y="79" class="t-label t-label-mono">{{ label }}</text>
+  <text x="{{ tx }}" y="99" class="t-status">{{ sub }}<tspan class="t-caret">_</tspan></text>
+  {% else %}
+  <text x="{{ tx }}" y="26" class="t-sub">{{ sub }}<tspan class="t-caret">_</tspan></text>
+  <text x="{{ tx }}" y="64" class="t-label">{{ label }}</text>
+  {% endif %}
+  </g>
+</svg>
+</span>
+{%- endmacro %}
+
+{# 學員線上學習系統介紹（2026-11 使用者：單字學習與模考系統上線，官網要清楚介紹系統存在，不用很詳細）。
+   items 是要列的科目（COURSES 的 points）；一科時是單張橫向卡片，多科時是並排卡片。只列有 points 的科目 #}
+{# AI 功能卡片上的小圖（AI 視覺化，2026-11 使用者要求「強調 AI 元素、有 AI 視覺化的感覺」） #}
+{% macro ai_viz(kind) -%}
+<svg class="h-viz" viewBox="0 0 120 48" aria-hidden="true">
+{% if kind == 'explain' %}
+  <rect x="4" y="6" width="62" height="18" rx="4" class="v-box"/><path d="M14 24l-4 7 10-7" class="v-box"/>
+  <path d="M12 13h40M12 18h26" class="v-line"/>
+  <rect x="54" y="26" width="62" height="18" rx="4" class="v-box v-hot"/><path d="M62 33h44M62 38h30" class="v-line v-hot"/>
+{% elif kind == 'practice' %}
+  {% for h in [18, 30, 12, 36, 22, 8, 26] %}<rect x="{{ 6 + loop.index0 * 16 }}" y="{{ 44 - h }}" width="9" height="{{ h }}" rx="2" class="v-bar{{ ' v-hot' if h == 8 or h == 12 }}"/>{% endfor %}
+  <path d="M2 44h116" class="v-line"/>
+{% elif kind == 'writing' %}
+  <path d="M6 10h70M6 20h82M6 30h54M6 40h66" class="v-line"/>
+  <path d="M60 30h30" class="v-hot v-strike"/><circle cx="104" cy="20" r="11" class="v-ring"/><text x="104" y="24" class="v-txt" text-anchor="middle">7.0</text>
+{% elif kind == 'speaking' %}
+  {% for h in [6, 14, 24, 34, 20, 30, 12, 26, 36, 18, 8, 22, 30, 14, 6] %}<rect x="{{ 4 + loop.index0 * 7.6 }}" y="{{ 24 - h / 2 }}" width="3.6" height="{{ h }}" rx="1.8" class="v-bar{{ ' v-hot' if loop.index0 in (3, 8, 12) }}" style="animation-delay: {{ (loop.index0 * 0.08)|round(2) }}s"/>{% endfor %}
+{% elif kind == 'report' %}
+  <path d="M4 40h112M4 4v36" class="v-line"/>
+  <path d="M8 34l20-8 18 4 20-14 18 6 22-16" class="v-path"/>
+  {% for x, y in [(8, 34), (28, 26), (46, 30), (66, 16), (84, 22), (106, 6)] %}<circle cx="{{ x }}" cy="{{ y }}" r="2.6" class="v-dot{{ ' v-hot' if loop.last }}"/>{% endfor %}
+{% else %}
+  <path d="M60 24L22 10M60 24L22 38M60 24L98 8M60 24L100 26M60 24L92 42" class="v-line"/>
+  <circle cx="60" cy="24" r="9" class="v-ring v-hot"/>
+  {% for x, y in [(22, 10), (22, 38), (98, 8), (100, 26), (92, 42)] %}<circle cx="{{ x }}" cy="{{ y }}" r="4" class="v-dot"/>{% endfor %}
+{% endif %}
+</svg>
+{%- endmacro %}
+
+
+{% macro system_block(items, features, sid='system', shots=None) -%}
+{# 學員線上學習系統（2026-11 使用者要求「每個功能寫清楚」，排版「改編原版」並「強調 AI、有 AI 視覺化的感覺」）：
+   上面是淺色 AI 區（每個 AI 功能一張卡：小圖、名稱、說明、適用科目），中間是學習功能，下面是原版的各科一列短標籤。
+   主頁面列全部；各科專屬頁面與課程頁只列該科有的功能，說明換成該科的版本 #}
+{% set items = items | selectattr('sys') | list %}
+{% if items %}
+{% set keys = items | map(attribute='key') | list %}
+{% set one = items|length == 1 %}
+{% set names = {'toeic': '多益', 'ielts': '雅思', 'jlpt': '日檢', 'topik': '韓檢', 'basic': '零基礎'} %}
+{% set ns = namespace(ai=[], learn=[]) %}
+{% for f in features %}{% set hit = keys | select('in', f.exams) | list %}{% if hit %}
+{% set row = {'f': f, 'hit': hit, 'text': ((f.detail or {}).get(keys[0]) if one and (f.detail or {}).get(keys[0]) else f.text)} %}
+{% if f.ai %}{% set ns.ai = ns.ai + [row] %}{% else %}{% set ns.learn = ns.learn + [row] %}{% endif %}
+{% endif %}{% endfor %}
+<section class="h-sys{{ ' is-one' if one }}" id="{{ sid }}">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">AI LEARNING SYSTEM</p></div>
+        <div class="h-sys-head">
+            <h2 class="h-big">{% if one %}{{ items[0].name }}<br>{% endif %}學員專屬 AI 線上學習系統</h2>
+            <p>報名後由補習班開通帳號，電腦、手機都能用。課堂之外，背單字、做模考、問 AI 老師，都在同一個地方。</p>
+        </div>
+        {% set sh_ns = namespace(on=[]) %}
+        {% for sh in (shots or []) %}{% if (one and keys[0] in sh.exams) or (not one and 'main' in sh.exams) %}{% set sh_ns.on = sh_ns.on + [sh] %}{% endif %}{% endfor %}
+        {% set shots_on = sh_ns.on %}
+        {% if shots_on %}
+        {# 系統實際畫面（示範帳號截圖）：手機畫面放手機框、電腦畫面放瀏覽器框，橫向排列，窄螢幕左右滑 #}
+        <div class="h-sys-shots" aria-label="學習系統實際畫面">
+            {% for sh in shots_on %}
+            <figure class="h-shot is-{{ sh.kind }}">
+                <div class="h-shot-frame">{% if sh.kind == 'desk' %}<span class="h-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>{% endif %}<img src="{{ url_for('static', filename='images/site/system/' ~ sh.file) }}" alt="{{ sh.title }}（{{ sh.sub }}）的系統畫面" loading="lazy"></div>
+                <figcaption><b>{{ sh.title }}</b><span>{{ sh.sub }}</span></figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="h-sys-ai">
+            <div class="h-sys-ai-bar"><span class="h-sys-ai-dot"></span>AI TUTOR · {{ ns.ai|length }} MODULES ONLINE<span class="h-sys-ai-bar-r">{{ ai_chip('h-chip-xs') }} AI 老師</span></div>
+            <div class="h-sys-ai-grid n{{ ns.ai|length }}">
+                {% for r in ns.ai %}
+                <div class="h-sys-ai-item">
+                    <div class="h-sys-ai-viz">{{ ai_viz(r.f.viz) }}<small>AI-{{ '%02d' % loop.index }}</small></div>
+                    <b>{{ r.f.title }}</b>
+                    <p>{{ r.text }}</p>
+                    {% if not one %}<span class="h-sys-for">{% if r.hit|length == keys|length %}各科都有{% else %}{% for k in r.hit %}{{ names[k] }}{% if not loop.last %} · {% endif %}{% endfor %}{% endif %}</span>{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="h-sys-learn n{{ ns.learn|length }}">
+            {% for r in ns.learn %}
+            <div class="h-sys-learn-item">
+                <b><i>{{ '%02d' % loop.index }}</i>{{ r.f.title }}</b>
+                <p>{{ r.text }}</p>
+                {% if not one %}<span class="h-sys-for">{% if r.hit|length == keys|length %}各科都有{% else %}{% for k in r.hit %}{{ names[k] }}{% if not loop.last %} · {% endif %}{% endfor %}{% endif %}</span>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% if not one %}
+        <div class="h-sys-rows">
+            {% for c in items %}
+            <div class="h-sys-row exam-tone-{{ c.key }}">
+                <h3><small>{{ c.en }}</small>{{ c.name }}</h3>
+                <ul>{% for p in c.sys %}<li{% if p.startswith('AI') %} class="is-ai"{% endif %}>{{ p }}</li>{% endfor %}</ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <p class="h-sys-foot"><a class="h-more" href="{{ url_for('accounts.login') }}">學員登入 <span class="h-more-dot" aria-hidden="true">→</span></a><span>還沒有帳號？報名後由補習班開通。</span><span class="h-sys-note">AI 產生的內容可能有錯，以老師講解為準；AI 評分只是模擬，不等於真實考試。</span></p>
+    </div>
+</section>
+{% endif %}
+{%- endmacro %}
+
+
+{# 各科的 CEFR 對照（主頁面的程度分級制度圖表之外，各科專屬頁面與課程頁只放該科的；2026-11 使用者要求）
+   cells 是 A1～C2 六格的分數，空白顯示「—」 #}
+{% macro cefr_block(c, data) -%}
+{# 各科的分數介紹、各級說明與 CEFR 對照（school_site.CEFR_BY_EXAM）：parts＝考試架構、cert＝多益證書顏色、
+   grades＝各級能力說明（2026-11 使用者要求每科都跟多益一樣有等級說明）、cells＝A1～C2 對照 #}
+{% if data %}
+<section class="h-cefr1" id="cefr">
+    <div class="wrap">
+        <div class="h-sec-head"><p class="s-eyebrow lined">{{ 'SCORE · LEVELS' if data.parts else 'LEVELS · CEFR' }}</p></div>
+        {% if data.parts %}
+        <h2 class="h-big">{{ data.title }}</h2>
+        <ul class="h-score">
+            {% for name, rng, d in data.parts %}<li><span>{{ name }}</span><b>{{ rng }}</b><small>{{ d }}</small></li>{% endfor %}
+        </ul>
+        {% else %}
+        <h2 class="h-big">{% if c.key == 'basic' %}零基礎英文在程度分級的位置{% else %}{{ c.name }}成績與 CEFR 對照{% endif %}</h2>
+        {% endif %}
+        {% if data.cert %}
+        <div class="h-cert">
+            <h3 class="h-cert-t">證書顏色</h3>
+            <ol class="h-cert-bar">{% for name, lo, hi, col, d in data.cert %}<li style="--c: var(--toeic-{{ col }}); flex: {{ hi - lo + 5 }}"><b>{{ name }}</b><em>{{ lo }}–{{ hi }}</em></li>{% endfor %}</ol>
+            <ol class="h-cert-desc">{% for name, lo, hi, col, d in data.cert|reverse %}<li style="--c: var(--toeic-{{ col }})"><div><b>{{ name }}證書</b><em>{{ lo }}–{{ hi }} 分</em></div><p>{{ d }}</p></li>{% endfor %}</ol>
+            <p class="h-cefr1-src">多益聽力與閱讀測驗依總分發給五種顏色的證書；{{ data.cert_src }}。</p>
+        </div>
+        {% endif %}
+        {% if data.grades %}
+        <div class="h-cert">
+            {% if data.parts %}<h3 class="h-cert-t">{{ data.grades_title }}</h3>{% endif %}
+            <ol class="h-cert-desc is-grades">{% for name, sub, lv, d in data.grades %}<li style="--c: var(--lv{{ lv }})"><div><b>{{ name }}</b><em>{{ sub }}</em></div><p>{{ d }}</p></li>{% endfor %}</ol>
+            <p class="h-cefr1-src">{{ data.grades_src }}。</p>
+        </div>
+        {% endif %}
+        {% if data.cells %}
+        {% if data.parts %}<h3 class="h-cert-t">成績與 CEFR 對照</h3>{% endif %}
+        <ol class="h-cefr1-scale">
+            {% for lv in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] %}
+            {% set v = data.cells[loop.index0] %}
+            {% set col = data.colors[loop.index0] if data.colors else '' %}
+            <li class="{{ 'is-empty' if not v }}" style="--c: {% if col %}var(--toeic-{{ col }}){% else %}var(--lv{{ loop.index }}){% endif %}">
+                <b>{{ lv }}</b>
+                <span>{% if v %}{% for line in v.split('\n') %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}—{% endif %}</span>
+            </li>
+            {% endfor %}
+        </ol>
+        <p class="h-cefr1-src">{{ data.src }}{% if data.colors %}；卡片顏色是該分數的證書顏色{% endif %}。</p>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{%- endmacro %}
