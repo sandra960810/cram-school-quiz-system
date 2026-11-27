@@ -98,7 +98,6 @@
                 <span class="h-row-no">{{ '%02d' % loop.index }}</span>
                 <span class="h-row-name">{{ c.name }}<small>{{ c.en }}</small></span>
                 <span class="h-row-lead">{{ c.lead }}</span>
-                {% if c.key in mocks_ready %}<span class="s-ai-pill">AI 模考</span>{% else %}<span></span>{% endif %}
             </a>
             {% endfor %}
         </div>

@@ -203,7 +203,7 @@ a.s-card:hover { background: #fff; }
 .h-path li b { display: block; color: var(--brand-ink); font-size: 15px; }
 .h-path li b::before { counter-increment: p; content: "STEP " counter(p) "　"; font-size: 11px; letter-spacing: .12em; color: var(--brand-gold-ink); }
 .h-rows { display: flex; flex-direction: column; }
-.h-row { flex: 1; display: grid; grid-template-columns: 56px minmax(200px, 1fr) 1.2fr 76px; align-items: center; gap: 20px; padding: 20px 0 20px 36px;
+.h-row { flex: 1; display: grid; grid-template-columns: 56px minmax(200px, 1fr) 1.2fr; align-items: center; gap: 20px; padding: 20px 28px 20px 36px;
     border-bottom: 1px solid var(--brand-line); text-decoration: none; color: var(--brand-ink) !important; transition: background .15s; }
 .h-row:last-child { border-bottom: none; }
 .h-row:hover { background: var(--brand-paper); }
@@ -263,10 +263,9 @@ a.s-card:hover { background: #fff; }
     .h-cat-chip { width: 26px; height: 26px; }
     .h-split-side { grid-template-columns: 1fr; }
     .h-split-side img { height: 180px; margin-bottom: 18px; }
-    .h-row { grid-template-columns: 30px 1fr auto; gap: 4px 12px; padding: 18px 0; }
+    .h-row { grid-template-columns: 30px 1fr; gap: 4px 12px; padding: 18px 0; }
     .h-row-name { font-size: 30px; }
     .h-row-lead { grid-column: 2 / -1; grid-row: 2; font-size: 13.5px; }
-    .h-row > span:last-child { grid-column: 3; grid-row: 1; }
     .h-story { grid-template-columns: 1fr; min-height: 0; }
     .h-story-photo { height: 240px; }
     .h-story.is-flip .h-story-photo { order: -1; }
