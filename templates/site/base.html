@@ -26,7 +26,7 @@
 <body class="site">
 <header class="s-head">
     <div class="wrap">
-        <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="46" height="34"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
+        <a class="s-brand" href="{{ url_for('site.home') }}"><img src="{{ url_for('static', filename='images/site/emblem.png') }}" alt="" width="195" height="144"><span>{{ s.name }}{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}</span></a>
         <nav class="s-nav" aria-label="主選單">
             {# 2026-11 使用者：最上面放各科的主頁入口。各科主頁＝首頁的該考試版本（/?exam=…：主視覺換成該考試、表單先勾好、
                下面接學校與課程介紹、學員心得），和廣告連結進來看到的一樣 #}
@@ -35,7 +35,7 @@
             {% set at_home = request.endpoint == 'site.home' and not cur_exam %}
             <a class="s-nav-exam{{ ' on' if at_home }}" href="{{ url_for('site.home') }}"{{ ' aria-current="page"'|safe if at_home }}>首頁</a>
             <span class="s-nav-sep" aria-hidden="true"></span>
-            {% for c in courses %}<a class="s-nav-exam{{ ' on' if cur_exam == c.key }}" href="{{ url_for('site.home', exam=c.key) }}"{{ ' aria-current="page"'|safe if cur_exam == c.key }}>{{ c.name }}</a>{% endfor %}
+            {% for c in courses %}<a class="s-nav-exam{{ ' on' if cur_exam == c.key }}" href="{{ url_for('site.home', exam=c.key) }}"{{ ' aria-current="page"'|safe if cur_exam == c.key }}>{{ c.form or c.name }}</a>{% endfor %}
             <span class="s-nav-sep" aria-hidden="true"></span>
             <a href="{{ '#courses' if request.endpoint == 'site.home' and not cur_exam else url_for('site.home') ~ '#courses' }}">課程介紹</a>
             <a href="#campus">校區</a>
@@ -57,7 +57,7 @@
         <div class="cols">
             <div class="s-foot-brand">
                 <b>{{ s.name }}</b>{% if s.name_en %}<small>{{ s.name_en }}</small>{% endif %}
-                <p>多益・雅思・托福・日檢・韓檢<br>實體課・線上直播課・AI 線上模考</p>
+                <p>多益・雅思・托福・日檢・韓檢<br>實體課・線上直播課・AI 線上學習系統</p>
                 {% if s.phone %}<div>電話：{{ s.phone }}</div>{% endif %}
                 {% if s.email %}<div>Email：{{ s.email }}</div>{% endif %}
                 <div class="s-foot-social">
