@@ -62,9 +62,13 @@ COURSES = [
                 "韓檢寫作有 AI 老師批改（模擬，不等於真實考試）"]},
 ]
 COURSE_MAP = {c['key']: c for c in COURSES}
-# 迷你模考：先只放入口（2026-11 使用者說「模考先不要生」），題目之後再做
+# 迷你模考：多益、雅思、日檢、韓檢（日檢、韓檢不分級，測完給預估級數）
 MOCKS = [("toeic", "多益"), ("ielts", "雅思"), ("jlpt", "日檢"), ("topik", "韓檢")]
-MOCKS_READY = {"toeic"}   # 已經有題目的迷你模考（school_mock.py、public_site/mock/<考試>.json）
+MOCKS_READY = {"toeic", "ielts", "jlpt", "topik"}   # 已經有題目的迷你模考（school_mock.py、public_site/mock/<考試>.json）
+MOCK_BLURB = {"toeic": "聽力＋閱讀 22 題，約 12 分鐘，交卷看預估分數",
+              "ielts": "聽力＋閱讀 20 題，約 15 分鐘，交卷看預估 Band",
+              "jlpt": "不用選級數，N5～N1 共 25 題，交卷看預估級數",
+              "topik": "不用選級數，1～6 級共 24 題，交卷看預估級數"}
 IDENTITIES = ['學生', '上班族', '家長（幫孩子詢問）', '其他']
 CONTACT_TIMES = ['都可以', '平日白天', '平日晚上', '週末']
 PUBLIC_PREFIXES = ('/courses', '/campus', '/contact', '/mock-test', '/privacy', '/thanks')
@@ -154,7 +158,7 @@ def breadcrumb(*items):
 def page(template, *, title, description, keywords=(), jsonld=(), **kw):
     d = info()
     full_title = title if d['name'] in title else f"{title}｜{d['name']}"
-    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, page_title=full_title,
+    return render_template(template, s=d, courses=COURSES, mocks=MOCKS, mocks_ready=MOCKS_READY, mock_blurb=MOCK_BLURB, page_title=full_title,
                            description=description, keywords=', '.join(keywords),
                            canonical=base_url() + request.path,
                            jsonld=[json.dumps(j, ensure_ascii=False).replace('<', '\\u003c') for j in jsonld], **kw)
