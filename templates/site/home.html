@@ -22,10 +22,11 @@
         {# 2026-11 使用者：進入模考的按鈕移到右邊、明顯一點（電腦、手機都是）：次要連結在左、大按鈕靠右 #}
         <div class="h-hero-cta is-main">
             {% if hc.key in mocks_ready %}
-            <a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            {% if hero.ad %}<a class="h-more" href="#intro">課程介紹 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            {% else %}<a class="h-more" href="#ai-mock">其他模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>{% endif %}
             <a class="s-btn h-go" href="{{ url_for('site.mock_take', key=hc.key) }}"><span>{{ hc.name }}迷你模考・進入測驗</span><i aria-hidden="true">→</i></a>
             {% else %}
-            <a class="h-more" href="#ai-mock">AI 線上模考 <span class="h-more-dot" aria-hidden="true">↓</span></a>
+            <a class="h-more" href="#intro">課程介紹 <span class="h-more-dot" aria-hidden="true">↓</span></a>
             <a class="s-btn h-go" href="{{ url_for('site.contact', course=hc.key) }}"><span>諮詢{{ hc.name }}課程</span><i aria-hidden="true">→</i></a>
             {% endif %}
         </div>
@@ -136,12 +137,13 @@
 </section>
 {% endif %}
 
-{% if mocks_ready %}
-<section class="h-cats" id="ai-mock">
+{# 2026-11 使用者：各科專屬介面（?exam=…）只放那一科的模考入口；主頁面（沒帶參數）維持四科都放。托福沒有模考就不顯示這區 #}
+{% if mocks_ready and not (hero.ad and hc.key not in mocks_ready) %}
+<section class="h-cats{{ ' is-one' if hero.ad }}" id="ai-mock">
     <div class="wrap">
         <div class="h-sec-head">
             <p class="s-eyebrow lined">AI 線上模考</p>
-            <a class="h-more" href="{{ url_for('site.mock_test') }}">全部迷你模考 <span class="h-more-dot" aria-hidden="true">→</span></a>
+            {% if not hero.ad %}<a class="h-more" href="{{ url_for('site.mock_test') }}">全部迷你模考 <span class="h-more-dot" aria-hidden="true">→</span></a>{% endif %}
         </div>
         {# 2026-11 使用者給一段影片要這種互動：一張展開的大卡片，其他縮成直條膠囊，點直條就換它展開；再結合科技感元素。
            淺色細格線舞台、直條上有編號、考試代號與指示燈；預設全部閉合、平均分配寬度，滑鼠移到哪張才展開那張。
@@ -149,7 +151,8 @@
         {% set tags = {'toeic': 'TOEIC', 'ielts': 'IELTS', 'jlpt': 'JLPT', 'topik': 'TOPIK'} %}
         {% set subs = {'toeic': 'LISTENING · READING', 'ielts': 'LISTENING · READING', 'jlpt': 'N5 → N1', 'topik': 'LEVEL 1 → 6'} %}
         {% set ready = mocks | selectattr(0, 'in', mocks_ready) | list %}
-        <div class="h-acc" data-acc style="--n: {{ ready|length }}">
+        {% if hero.ad %}{% set ready = ready | selectattr(0, 'equalto', hc.key) | list %}{% endif %}
+        <div class="h-acc{{ ' is-one' if ready|length == 1 }}"{{ ' data-acc'|safe if ready|length > 1 }} style="--n: {{ ready|length }}">
             {% for k, n in ready %}
             <article class="h-acc-item exam-tone-{{ k }}" data-acc-item>
                 <button class="h-acc-tab" type="button" aria-controls="acc-{{ k }}" aria-expanded="false" aria-label="{{ n }}迷你模考">
@@ -160,7 +163,7 @@
                 </button>
                 <div class="h-acc-body" id="acc-{{ k }}">
                     <div class="h-acc-txt">
-                        <span class="h-acc-no">{{ '%02d' % loop.index }} <i>/ {{ '%02d' % ready|length }}</i></span>
+                        {% if ready|length > 1 %}<span class="h-acc-no">{{ '%02d' % loop.index }} <i>/ {{ '%02d' % ready|length }}</i></span>{% endif %}
                         <h3>{{ n }}<br>迷你模考</h3>
                         <span class="h-acc-en">{{ tags.get(k, k|upper) }} · {{ subs.get(k, 'AI MOCK TEST') }}</span>
                         <p>{{ mock_blurb[k] }}</p>
@@ -178,6 +181,8 @@
 </section>
 {% endif %}
 
+{# 2026-11 使用者：各科專屬頁面下面不要放其他課程的介紹入口，所以 01～05 課程列表只在主頁面出現 #}
+{% if not hero.ad %}
 <section class="h-split" id="courses">
     <div class="wrap h-split-grid">
         <aside class="h-split-side">
@@ -201,6 +206,8 @@
     </div>
 </section>
 
+{% endif %}
+
 <section class="h-story h-enroll" id="enroll">
     <div class="h-story-photo">
         <img src="{{ url_for('static', filename='images/site/photo2.jpg') }}" alt="和老師線上上課的學生" width="1920" height="1280" loading="lazy">
@@ -215,7 +222,9 @@
         <h2 class="h-big">課程招生中！</h2>
         <p class="h-enroll-sub">彈性學習 × 高效備考 × 精準提升</p>
         <div class="h-enroll-list">
-            <div class="is-ai"><h3>{{ ai_chip('h-chip-xs') }} AI 線上多益模考</h3><p>仿真試題・完整模考／AI 即時評分與解析／弱點診斷・個人化進步建議</p></div>
+            {# 各科專屬頁面只寫自己那科的模考；托福沒有模考就不列 #}
+            {% set mk = hc if hero.ad else {'key': 'toeic', 'name': '多益'} %}
+            {% if mk.key in mocks_ready %}<div class="is-ai"><h3>{{ ai_chip('h-chip-xs') }} AI 線上{{ mk.name }}模考</h3><p>仿真試題・完整模考／AI 即時評分與解析／弱點診斷・個人化進步建議</p></div>{% endif %}
             <div><h3>{{ icon('users') }} 實體課</h3><p>面對面授課／即時提問與互動／系統化教學・輕鬆吸收</p></div>
             <div><h3>{{ icon('headphones') }} 線上直播課</h3><p>即時互動直播／彈性上課不受地點限制</p></div>
         </div>

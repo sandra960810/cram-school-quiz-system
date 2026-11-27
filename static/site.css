@@ -860,3 +860,10 @@ html { scroll-behavior: smooth; }
 .s-nav-sep { width: 1px; height: 16px; background: var(--brand-line); flex: 0 0 auto; }
 @media (min-width: 761px) { .s-nav { gap: 24px; } }
 @media (max-width: 760px) { .s-nav { gap: 14px; scrollbar-width: none; } .s-nav::-webkit-scrollbar { display: none; } }
+
+/* 各科專屬頁面只有一份模考：不用展開式，直接左文右科技面板（2026-11 使用者：專屬頁面只放那一科的模考入口） */
+.h-acc.is-one { display: block; }
+.h-acc.is-one .h-acc-body { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 40px; align-items: center; padding: 40px 44px; }
+.h-acc.is-one .h-acc-txt h3 { font-size: 40px; line-height: 1.15; margin: 0 0 10px; }
+.h-acc.is-one .h-acc-txt p { margin: 14px 0 22px; }
+@media (max-width: 760px) { .h-acc.is-one .h-acc-body { grid-template-columns: 1fr; gap: 22px; padding: 24px 22px 26px; } .h-acc.is-one .h-acc-txt h3 { font-size: 32px; } }

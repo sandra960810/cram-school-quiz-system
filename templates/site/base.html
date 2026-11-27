@@ -33,7 +33,7 @@
             {% set cur_exam = (request.args.get('exam') or '').lower() if request.endpoint == 'site.home' else '' %}
             {% for c in courses %}<a class="s-nav-exam{{ ' on' if cur_exam == c.key }}" href="{{ url_for('site.home', exam=c.key) }}"{{ ' aria-current="page"'|safe if cur_exam == c.key }}>{{ c.name }}</a>{% endfor %}
             <span class="s-nav-sep" aria-hidden="true"></span>
-            <a href="{{ '#courses' if request.endpoint == 'site.home' else url_for('site.home') ~ '#courses' }}">課程介紹</a>
+            <a href="{{ '#courses' if request.endpoint == 'site.home' and not cur_exam else url_for('site.home') ~ '#courses' }}">課程介紹</a>
             <a href="#campus">校區</a>
         </nav>
         <div class="s-actions">
