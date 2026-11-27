@@ -134,7 +134,7 @@
                 <div class="h-pg-top"><span class="h-pg-n">{{ '%02d' % loop.index }}</span><i class="h-adi-ic" aria-hidden="true">{{ icon(f.icon) }}</i></div>
                 <h4>{{ f.t }}</h4>
                 {% if f.list %}{% for para in f.d or [] %}<p>{{ para }}</p>{% endfor %}{% endif %}
-                {% if f.parts %}<ul class="h-pg-parts{{ ' is-list' if f.list }}">{% for a, b in f.parts %}<li><b>{{ a }}</b>{{ b }}</li>{% endfor %}</ul>{% endif %}
+                {% if f.parts %}<ul class="h-pg-parts{{ ' is-list' if f.list }}">{% for p in f.parts %}{% if p is string %}<li class="is-plain">{{ p }}</li>{% else %}<li><b>{{ p[0] }}</b>{{ p[1] }}</li>{% endif %}{% endfor %}</ul>{% endif %}
                 {% if not f.list %}{% for para in f.d or [] %}<p>{{ para }}</p>{% endfor %}{% endif %}
                 {% for para in f.after or [] %}<p>{{ para }}</p>{% endfor %}
             </li>
